@@ -140,9 +140,13 @@ private/sources/psNN.py            master source, SOLUTIONS, gitignored
 ```
 
 ```bash
+pip install otter-grader                  # instructor-only dependency
 python tools/build_problem_sets.py        # all sets
 python tools/build_problem_sets.py ps01   # one
 ```
+
+`otter-grader` is not needed to run any notebook here and is not installed on
+DataHub by default. It is required only to build problem sets from masters.
 
 Keep `private/` somewhere you back up — a private GitHub repo works well. It is
 the source of truth for every problem set and is not recoverable from the public
@@ -218,6 +222,9 @@ These cost several hours to establish empirically, so they are written down.
    monotonicity, internal consistency — and hidden tests check *exact values*.
    A visible test that asserts the answer hands over the answer.
 5. **Question points must equal the sum of that question's test points.**
+6. **Otter randomises student-notebook cell ids on every build.** The builder
+   normalises them so an unchanged rebuild is a no-op; without it, rebuilds
+   churn ids and manufacture nbgitpuller conflicts.
 
 ### Why we pass `--no-run-tests`
 

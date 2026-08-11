@@ -23,6 +23,7 @@ Usage:
 """
 import importlib.util
 import shutil
+import shutil as _shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -102,6 +103,14 @@ def build_one(name):
     nbf.write(nb, str(master))
     print(f"master  {master.relative_to(ROOT)}  ({len(nb.cells)} cells)")
 
+    if _shutil.which("otter") is None:
+        sys.exit(
+            "otter-grader is not installed, or `otter` is not on PATH.\n"
+            "  pip install otter-grader\n"
+            "It is an instructor-only dependency: needed to build problem sets\n"
+            "from private/ masters, not to run any notebook in this repository."
+        )
+
     dist = workdir / "dist"
     if dist.exists():
         shutil.rmtree(dist)
@@ -124,7 +133,23 @@ def build_one(name):
     student_src = dist / "student" / f"{name}.ipynb"
     dest = ROOT / mod.REL_STUDENT
     dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(student_src, dest)
+
+    # Normalise cell IDs before committing.
+    #
+    # Otter builds the student notebook itself and assigns fresh RANDOM cell
+    # ids on every run, so an unchanged rebuild still rewrites ~19 ids. Two
+    # problems with that: git diffs are pure noise, and -- much worse -- every
+    # rebuild looks like a change to every affected cell, which is precisely
+    # the state that makes nbgitpuller conflict with students' executed copies
+    # and silently strand your fixes.
+    #
+    # Ids are not functionally significant here (Gradescope matches on test
+    # name), so making them deterministic is free and makes an unchanged
+    # rebuild a genuine no-op.
+    student_nb = nbf.read(str(student_src), as_version=4)
+    for i, cell in enumerate(student_nb.cells):
+        cell["id"] = f"c{i:03d}"
+    dest.write_text(nbf.writes(student_nb))
     print(f"student {dest.relative_to(ROOT)}   [COMMITTED]")
 
     verify_solutions(dist / "autograder" / f"{name}.ipynb",

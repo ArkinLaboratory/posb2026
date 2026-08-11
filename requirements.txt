@@ -12,3 +12,7 @@ nbclient>=0.9
 nbconvert>=7.0
 pytest>=8.0
 ipykernel>=6.29
+
+# Instructor only: building problem sets from private/ masters.
+# Not needed to run any notebook, and not installed on DataHub by default.
+otter-grader>=7.0

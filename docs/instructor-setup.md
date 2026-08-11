@@ -283,6 +283,12 @@ These cost hours to establish. Two of them fail **silently**.
    and Otter then strips only the first solution block. The builder fails the
    build on aliased cells rather than letting this through.
 4. **Question points must equal the sum of that question's test points.**
+5. **Otter assigns random cell ids to the student notebook on every build.**
+   The builder normalises them to `c000`, `c001`, … before committing, so an
+   unchanged rebuild is a true no-op. Without that, every rebuild rewrites
+   ~19 ids — noisy diffs, and every affected cell looks changed, which is
+   exactly the state that makes nbgitpuller conflict with students' executed
+   copies. If you fork this pipeline, keep that normalisation step.
 
 **Always run the leak check before publishing a set** — parse both notebooks and
 confirm no solution fragment appears in the student version. Do not rely on
