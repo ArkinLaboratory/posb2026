@@ -93,3 +93,41 @@ toggle_longevity_2025deck:
   used_in: ["s09"]
   source: UNKNOWN
   note: "Attribution required before delivery. See the block above."
+
+# --- Extracted from the 2025 decks -----------------------------------------
+# ATTRIBUTION: these are lifted from Adam's own 2025 slides, which is fine for
+# delivering the course and not fine for redistributing under CC BY. They stay
+# in private/paper-figures/ like everything else here; the public build draws a
+# labelled slot. Original sources are noted per figure and several are
+# unresolved -- see the speaker notes on the slides that use them.
+
+l01_2025_sense_compute_actuate:
+  figure: "2025 Lecture 01, p. 19"
+  shows: "a cell as sense -> compute -> actuate, with a closed-loop genetic circuit inside and the parts lists for each stage"
+  used_in: ["s01"]
+  source: "2025 deck; the cell schematic appears to be redrawn from a review — original uncredited on the slide"
+  note: >-
+    This is the consolidation slide for the session-1 launch problem, and it is
+    better than any text version: sense/compute/actuate are labelled in place.
+    It is also, silently, an argument for the course's second half -- note that
+    NOTHING in the figure represents survival, burden, or evolution.
+
+l01_2025_cell_perspectives:
+  figure: "2025 Lecture 01, p. 21"
+  shows: "the same cell as a circuit board (courtesy Tim Lu) and as a burrito (after Michael Elowitz)"
+  used_in: ["s01"]
+  source: "circuit board: courtesy of Tim Lu. Burrito: inspired by Michael Elowitz. Both credited on the 2025 slide."
+  note: >-
+    Not decoration -- it is the contrasting case that makes the whole 'why this
+    is not electrical engineering' argument land in one image. Keep the credits
+    visible.
+
+l01_2025_prototypes_to_applications:
+  figure: "2025 Lecture 01, p. 26"
+  shows: "nine built objects on a time axis: toggle, oscillator, cell-cell communication, multi-input logic, synchronised oscillators, band detect, metabolic pathways, engineered T cells, programmable organoids"
+  used_in: ["s01"]
+  source: "composite of panels from published papers; individual sources not marked on the 2025 slide"
+  note: >-
+    Carries the LARGELY SOLVED column far better than four bullets, and six of
+    the nine panels are objects this course builds or analyses later. Panel
+    sources need resolving before any public release of the deck.

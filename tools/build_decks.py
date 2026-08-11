@@ -30,9 +30,29 @@ DECKS = ["s01_specification", "s09_bistability"]
 OUT = ROOT / "private" / "build" / "decks"
 
 
+def to_pdf(pptx):
+    """Convert a built deck to PDF with LibreOffice, if it is installed.
+
+    Worth having for two reasons. A PDF is the thing to post to bCourses after
+    class, and it is the only way to check what a deck actually looks like
+    without opening PowerPoint -- which matters because these decks are
+    generated, so "looks right" is a thing you verify rather than assume.
+    """
+    import shutil
+    import subprocess
+    soffice = shutil.which("soffice") or shutil.which("libreoffice")
+    if not soffice:
+        sys.exit("--pdf needs LibreOffice. On macOS: brew install --cask libreoffice")
+    subprocess.run([soffice, "--headless", "--convert-to", "pdf",
+                    "--outdir", str(pptx.parent), str(pptx)],
+                   check=True, capture_output=True)
+    return pptx.with_suffix(".pdf")
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     strict = "--check" in sys.argv
+    want_pdf = "--pdf" in sys.argv
 
     names = [d for d in DECKS if not args or any(a in d for a in args)]
     if not names:
@@ -46,6 +66,8 @@ def main():
         path = deck.save(OUT / f"{mod.FILENAME}.pptx")
         n_slides = len(deck.prs.slides)
         print(f"\n{name}  ->  {path.relative_to(ROOT)}  ({n_slides} slides)")
+        if want_pdf:
+            print(f"  also  {to_pdf(path).name}")
         if deck.missing_figures:
             missing_total += len(deck.missing_figures)
             print(f"  {len(deck.missing_figures)} paper figure(s) shown as slots:")

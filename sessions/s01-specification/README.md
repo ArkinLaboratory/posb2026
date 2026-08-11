@@ -14,18 +14,39 @@ Thirty years in, the answer is *partially*. The whole course is about which part
 
 ## What happens
 
+**89 minutes** — 8:00–9:29, not the 80 the template assumes.
+
 | | | |
 |---|---|---|
-| 0–3 | The question | And the honest answer |
+| 0–3 | The question | And the honest answer: *partially* |
 | 3–11 | **Diagnostic** | Ungraded, on paper. [PDF](../../handouts/s01-diagnostic.pdf) · [source](../../handouts/s01-diagnostic.md) |
-| 11–26 | **Three specifications** | Groups of 3–4. [PDF](../../handouts/s01-launch-problem.pdf) · [source](../../handouts/s01-launch-problem.md) |
-| 26–34 | Consolidation | Sense · compute · actuate · **survive** |
-| 34–42 | Why this is not electrical engineering | Four things that are not true of transistors |
-| 42–48 | What 2026 can and cannot do | An honest scorecard |
-| 48–50 | The architecture | Two halves |
-| 50–70 | **Why the course is built this way** | Twenty minutes. The most important twenty of the term. |
-| 70–76 | Mechanics | Assessment, PS0, DataHub |
-| 76–80 | Forward link | To the cell as a physical substrate |
+| 11–31 | **Three specifications** | 5 min alone, then 15 in groups. [PDF](../../handouts/s01-launch-problem.pdf) · [source](../../handouts/s01-launch-problem.md) |
+| 31–39 | Consolidation | Sense · compute · actuate · **survive** |
+| 39–42 | **ConcepTest 1** | Why the field sensors stopped turning red |
+| 42–48 | Why this is not electrical engineering | Circuit board, or burrito |
+| 48–51 | **ConcepTest 2** | The same promoter, a different construct |
+| 51–56 | What 2026 can and cannot do | Nine built objects, four unsolved problems |
+| 56–58 | The whole course as one picture | [`figures/build/s01_pipeline.png`](../../figures/build/s01_pipeline.png) |
+| 58–78 | **Why the course is built this way** | Twenty minutes. The most important twenty of the term. |
+| 78–80 | Forward link | To the cell as a physical substrate |
+| 80–89 | **Laptops open** | DataHub, and the assessment weights said over the top of it spawning |
+
+### Two things an earlier draft of this session got wrong
+
+**It had 22 minutes of unbroken instructor talk**, at 8am, on day one. There are
+now two ConcepTests at the seams — vote, argue with your neighbour, vote again.
+Both are answerable from first principles by a room that has been taught
+nothing, and both seed a later session: ConcepTest 1 is selection acting on your
+circuit (sessions 19, 23), ConcepTest 2 is context-dependence (17, 21).
+
+**It had no figures at all.** That was an over-correction. The seductive-details
+evidence justifies cutting the 2025 deck's pp. 4–9 — Global Risks Report,
+population projections — because those are tangential decoration. It says
+nothing against *explanatory* diagrams, which
+[Lecture Design §5](../../docs/lecture-design.md) grades **[A]**. Three figures
+come back from the 2025 deck (sense/compute/actuate, circuit-vs-burrito,
+prototypes-to-applications) and one is generated from
+[`figures/s01_specification.py`](../../figures/s01_specification.py).
 
 ## The launch problem
 
@@ -55,7 +76,7 @@ one spends real time on it. See
 
 ## Reading
 
-**None.** PS0 instead — ten minutes, ungraded, due Tuesday.
+**None.** PS0 instead — ten minutes, ungraded, due Tuesday, started in the room.
 
 ## What was cut from the 2025 version
 
@@ -69,6 +90,9 @@ comprehension, and none of it survives the only question this session asks:
 ## Before you teach it
 
 **Print two handouts.** Two pages each, so both duplex onto one sheet.
+
+**Tell them at the door** to keep laptops shut until 9:20. The DataHub block is
+the close, not the background.
 
 One slide has a shelf life — **"What 2026 can and cannot do."** Re-check it every
 year.
