@@ -43,6 +43,7 @@ course relies on is worked rather than asserted.
 | Do the problem sets | [`problem-sets/`](problem-sets/) |
 | Look up a function in `posb` | **[Package Reference](docs/posb-reference.md)** |
 | Understand *why* it is built this way | **[Design Notes](docs/design-notes.md)** |
+| Set up / run the course | **[Instructor Setup](docs/instructor-setup.md)** |
 | Reuse this in my own course | **[For Instructors](docs/for-instructors.md)** |
 | Look up a citation | **[References](docs/references.md)** |
 | Report an error | [CONTRIBUTING.md](CONTRIBUTING.md) |

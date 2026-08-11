@@ -2,6 +2,11 @@
 
 [← back to README](../README.md)
 
+Running this course, rather than adapting it? See
+**[Instructor Setup](instructor-setup.md)** — the operational runbook covering
+accounts, DataHub, Gradescope, the weekly authoring loop, and onboarding a
+reader. This page is about *adapting the material* for your own course.
+
 This material is [CC BY 4.0](../LICENSE) (content) and
 [BSD 3-Clause](../LICENSE-CODE) (code). Use it, adapt it, teach from it,
 including commercially, with attribution. If you run a course from it I would like to hear about it —

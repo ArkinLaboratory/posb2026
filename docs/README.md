@@ -9,4 +9,5 @@
 | **[Package Reference](posb-reference.md)** | `posb` API: `Reaction`, `Model`, `Trajectory`. |
 | **[Design Notes](design-notes.md)** | Why the course is built this way, and what it is correcting. |
 | **[References](references.md)** | Recommended texts with BibTeX, and session readings. |
+| **[Instructor Setup](instructor-setup.md)** | Runbook: accounts, DataHub, Gradescope, the weekly loop, onboarding a reader. |
 | **[For Instructors](for-instructors.md)** | Adapting the material; how the build and CI work. |
