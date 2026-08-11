@@ -25,8 +25,21 @@ def main():
     ap.add_argument("--html", metavar="DIR", help="write rendered HTML here")
     args = ap.parse_args()
 
+    def is_student_template(path):
+        """Student problem sets have blanks, so grader.check() is meant to fail.
+
+        They are verified instead by build_problem_sets.py, which executes the
+        *solution* notebook and requires every check to pass.
+        """
+        text = path.read_text()
+        return "otter" in text and "grader.check" in text
+
     paths = sorted(p for d in SEARCH for p in (ROOT / d).rglob("*.ipynb")
                    if ".ipynb_checkpoints" not in str(p))
+    skipped = [p for p in paths if is_student_template(p)]
+    paths = [p for p in paths if p not in skipped]
+    for p in skipped:
+        print(f"SKIP  {p.relative_to(ROOT)}  (student template; verified via its solution notebook)")
     if not paths:
         print("No notebooks found.")
         return

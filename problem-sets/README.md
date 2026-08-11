@@ -9,6 +9,7 @@ weekend-consuming exercise. The two lowest scores are dropped.
 | Set | Due | Covers | |
 |---|---|---|---|
 | PS0 | Sep 1 | [Environment check](ps00-environment/) — *ungraded* | ✅ |
+| PS1 | Sep 10 | [Mass action, timescales, Michaelis–Menten, Hill](ps01-modeling/) | ✅ |
 
 Remaining sets are in preparation — see the
 [Course Map](../docs/course-map.md) for the schedule.

@@ -68,7 +68,7 @@ execute the week's technique, not a weekend-consuming exercise.
 | Set | Out | Due | Covers | |
 |---|---|---|---|---|
 | PS0 | Aug 27 | Sep 1 | Environment check — *ungraded* | [✅](../problem-sets/ps00-environment/) |
-| PS1 | Sep 3 | Sep 10 | Mass action, timescale separation, Michaelis–Menten, Hill | ⬜ |
+| PS1 | Sep 3 | Sep 10 | Mass action, timescale separation, Michaelis–Menten, Hill | [✅](../problem-sets/ps01-modeling/) |
 | PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, promoter occupancy | ⬜ |
 | PS3 | Sep 17 | Sep 24 | Autoregulation, phase plane, stability | ⬜ |
 | PS4 | Sep 24 | Oct 1 | Bistability, the toggle, hysteresis | ⬜ |

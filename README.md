@@ -122,8 +122,9 @@ posb2026/
 ├── posb/                  The package. core.py is the whole thing, for now.
 ├── sessions/              One folder per lecture, each with a README
 │   └── s03-modeling-i/
-├── problem-sets/          One folder per set
-│   └── ps00-environment/
+├── problem-sets/          One folder per set (student versions)
+│   ├── ps00-environment/
+│   └── ps01-modeling/
 ├── tools/                 Build and verification scripts
 │   ├── sources/           ← SOURCE OF TRUTH for notebooks
 │   ├── build_notebooks.py

@@ -8,3 +8,6 @@ build/
 dist/
 *.egg-info/
 .venv/
+
+# Problem-set masters contain solutions. This repository is public.
+private/

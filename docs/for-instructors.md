@@ -121,6 +121,65 @@ Two rules follow:
 Also: nbgitpuller's `branch` parameter defaults to `master`. Set it explicitly
 to `main` or students get an unhelpful failure.
 
+### Problem sets and the public-repo problem
+
+This repository is public, so **problem-set masters cannot live in it** — they
+contain solutions. The split:
+
+```
+private/sources/psNN.py            master source, SOLUTIONS, gitignored
+    -> private/build/psNN/psNN.ipynb           master notebook
+    -> otter assign
+         -> problem-sets/psNN-*/psNN.ipynb     student version, COMMITTED
+         -> private/build/psNN/dist/autograder/*.zip   upload to Gradescope
+```
+
+```bash
+python tools/build_problem_sets.py        # all sets
+python tools/build_problem_sets.py ps01   # one
+```
+
+Keep `private/` somewhere you back up — a private GitHub repo works well. It is
+the source of truth for every problem set and is not recoverable from the public
+repository.
+
+### Otter Assign format, as verified against otter-grader 7.0.0
+
+These cost several hours to establish empirically, so they are written down.
+
+1. **Solution cells must sit between `# BEGIN SOLUTION` / `# END SOLUTION`
+   *block* cells** (fenced ```` ```otter ```` markdown cells), exactly like
+   `# BEGIN TESTS`. Inline `# BEGIN SOLUTION` comments **alone strip nothing** —
+   they only take effect inside a cell already tagged by a block. Get this wrong
+   and Otter silently publishes the answer key to students; `assign` reports no
+   error.
+2. **The two mechanisms compose.** A block-tagged code cell containing inline
+   markers keeps the function signature and docstring and replaces only the
+   marked body with `...`.
+3. **Every cell object must be distinct.** Notebook cells are mutable dicts. If
+   a helper returns a shared `# END QUESTION` cell reused at twenty indices,
+   they are aliases, Otter's tagging applies to all occurrences at once, and
+   only the first solution block gets stripped. `build_problem_sets.py` now
+   fails the build on aliased cells rather than letting this through.
+4. **Visible tests are embedded verbatim in the student notebook.** So visible
+   tests must check *properties* — shapes, conservation laws, scaling,
+   monotonicity, internal consistency — and hidden tests check *exact values*.
+   A visible test that asserts the answer hands over the answer.
+5. **Question points must equal the sum of that question's test points.**
+
+### Why we pass `--no-run-tests`
+
+Otter's assign-time validator evaluates tests in a namespace that does not match
+the notebook's own. Observed with 7.0.0: a test calling a function that closes
+over a variable assigned in a `NO PROMPT` solution cell sees that variable as
+`Ellipsis`, while the identical test passes when the notebook actually runs.
+
+So the builder skips that validator and instead **executes the solution notebook
+and requires every `grader.check` to report all cases passing**. That is a
+stricter gate, because it runs in the namespace students will actually have. It
+immediately caught a wrong reference value in PS1 that the built-in validator
+had masked behind an unrelated failure.
+
 ### Continuous integration
 
 `.github/workflows/ci.yml` runs on every push: unit tests, a staleness check
