@@ -5,6 +5,7 @@ type: software
 authors:
   - family-names: Arkin
     given-names: Adam P.
+    orcid: "https://orcid.org/0000-0002-4999-2931"
     affiliation: "University of California, Berkeley and Lawrence Berkeley National Laboratory"
 repository-code: "https://github.com/ArkinLaboratory/posb2026"
 abstract: >-
