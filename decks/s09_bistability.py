@@ -15,7 +15,7 @@ FILENAME = "PoSB_Session09_Bistability"
 
 
 def build():
-    d = Deck("Session 9 — Bistability and the toggle switch")
+    d = Deck("Session 9 — Bistability and the toggle switch", session=9)
 
     # 1 TITLE -----------------------------------------------------------------
     s = d.dark()
@@ -24,8 +24,7 @@ def build():
            size=42, font=HEAD, bold=True, color=WHITE)
     d.text(s, "One paper, one construct, and everything it demands of you",
            M, 4.15, 9.0, 0.5, size=18, italic=True, color=MINT)
-    d.text(s, "BioE 147 / 247  ·  Thursday 24 September 2026  ·  Dwinelle 219",
-           M, 6.35, 9.0, 0.4, size=13, color=SILVER)
+    d.text(s, d.date_line, M, 6.35, 9.0, 0.4, size=13, color=SILVER)
     d.image(s, "docs/assets/posb-logo-520.png", W - M - 2.9, 2.05, 2.9, 2.9)
     d.notes(s, "Project description is due today — say so now, not at the end.")
 
@@ -105,10 +104,11 @@ def build():
         y = 2.45 + i * 0.92
         d.text(s, k, M, y, 2.3, 0.8, size=14, font=HEAD, bold=True, color=INK)
         d.text(s, v, M + 2.4, y, 4.3, 0.85, size=12.5, color=BODY)
-    d.paper_figure(s, "gardner2000_fig1", 7.6, 2.25, 4.9, 2.0,
+    d.paper_figure(s, "gardner2000_fig1", 7.6, 2.05, 4.9, 1.99,
                    "Gardner 2000, Fig. 1", "the design")
-    d.paper_figure(s, "gardner2000_fig3", 7.6, 4.55, 4.9, 1.5,
+    d.paper_figure(s, "gardner2000_fig3", 8.28, 4.45, 3.54, 1.75,
                    "Gardner 2000, Fig. 3", "the plasmid")
+    d.assigned_on(M, 6.05, 6.6, s)
     d.foot(s, "Two promoters, two repressors, one reporter. That is the entire construct.")
     d.notes(s, "The point of this slide is that the thing is SMALL. Students consistently expect it to be complicated.")
 
@@ -163,12 +163,13 @@ def build():
             ("α₁, α₂", "effective synthesis rates — promoter strength, RBS, copy number"),
             ("β, γ", "cooperativity of each repression"),
             ("−u, −v", "removal: degradation plus dilution by growth")]):
-        y = 1.95 + i * 0.95
+        y = 1.95 + i * 0.88
         d.text(s, sym, 7.15, y, 1.5, 0.4, size=17, font=HEAD, bold=True, color=CYAN)
         d.text(s, txt, 8.5, y + 0.03, 4.1, 0.75, size=13.5, color=BODY)
     d.text(s, "This is Box 1 of the paper, verbatim. Time is in units of protein lifetime, concentration in units of the repression threshold — four parameters left, and every one is something you argued about ten minutes ago.",
-           M, 5.7, W - 2 * M, 0.75, size=15, color=INK)
-    d.paper_figure(s, "gardner2000_box1", M, 5.55, 6.0, 1.3,
+           7.15, 5.5, 5.45, 1.4, size=14, color=INK)
+    # aspect 2.10 -- a wide, short strip. The box is sized to it.
+    d.paper_figure(s, "gardner2000_box1", M, 3.85, 6.0, 2.86,
                    "Gardner 2000, Box 1", "the model as the paper states it")
     d.notes(s, "Derive the scaling on the board — two minutes, and it is where the four parameters come from. Note the notation: the paper uses beta and gamma for the cooperativities; posb.toggle_model calls them m and n. Say so once so nobody is confused reading the paper.")
 
@@ -176,18 +177,20 @@ def build():
     s = d.light()
     d.header(s, "40 – 45 min", "Concept")
     d.title(s, "Cooperativity is what bends the nullcline")
-    d.image(s, "figures/build/s09_nullclines.png", M, 2.05, 6.3, 2.9)
+    d.image(s, "figures/build/s09_nullclines.png", M, 1.9, 6.6, 3.1)
     d.text(s, "generated from posb — the same call you make in the notebook",
-           M, 4.98, 6.3, 0.3, size=11, italic=True, color=MUTED, align="c")
-    d.paper_figure(s, "gardner2000_fig2", 7.3, 2.05, 5.3, 2.9,
+           M, 5.05, 6.6, 0.3, size=11, italic=True, color=MUTED, align="c")
+    # aspect 0.91 -- taller than wide, so it gets a tall slot on the right and
+    # the three read-off lines move under the left figure.
+    d.paper_figure(s, "gardner2000_fig2", 8.35, 1.9, 4.26, 4.7,
                    "Gardner 2000, Fig. 2", "their version of this same picture")
     for i, (k, txt, c) in enumerate([
             ("n = 1", "crosses once. One state, always.", MUTED),
             ("n > 1", "can cross three times: two stable, one saddle.", TEAL),
             ("the saddle", "its stable manifold is the separatrix.", CYAN)]):
-        y = 5.42 + i * 0.4
-        d.text(s, k, 7.3, y, 1.35, 0.35, size=13.5, font=HEAD, bold=True, color=c)
-        d.text(s, txt, 8.65, y + 0.02, 3.95, 0.35, size=12.5, color=BODY)
+        y = 5.28 + i * 0.37
+        d.text(s, k, M, y, 1.45, 0.35, size=13.5, font=HEAD, bold=True, color=c)
+        d.text(s, txt, M + 1.5, y + 0.02, 5.1, 0.35, size=12.5, color=BODY)
     d.foot(s, "Put them side by side and say it: a 2000 Nature result you can now regenerate in four lines.")
     d.notes(s, "The pairing is the point — their figure and yours, same picture, 26 years apart.")
 
@@ -237,17 +240,19 @@ def build():
             ("DYNAMICS", "How fast does it flip?",
              "Set by the removal rate. In Gardner's construct that is hours: stable repressors, 30-minute doubling.", True)]):
         x = M + i * 6.2
-        d.shape(s, S.ROUNDED_RECTANGLE, x, 1.95, 5.7, 2.3, fill=CARD,
+        d.shape(s, S.ROUNDED_RECTANGLE, x, 1.82, 5.7, 1.92, fill=CARD,
                 line=CYAN if hl else RULE, lw=2 if hl else 1)
-        d.text(s, kind, x + 0.3, 2.15, 5, 0.28, size=10, bold=True,
+        d.text(s, kind, x + 0.3, 1.96, 5, 0.28, size=10, bold=True,
                color=CYAN if hl else MUTED)
-        d.text(s, q, x + 0.3, 2.45, 5.1, 0.45, size=20, font=HEAD, bold=True, color=INK)
-        d.text(s, txt, x + 0.3, 3.0, 5.1, 1.1, size=14, color=BODY)
+        d.text(s, q, x + 0.3, 2.24, 5.1, 0.45, size=19, font=HEAD, bold=True, color=INK)
+        d.text(s, txt, x + 0.3, 2.74, 5.1, 1.0, size=13.5, color=BODY)
     d.text(s, "A circuit can be perfectly bistable and still useless, because it takes six hours to commit.",
-           M, 4.42, W - 2 * M, 0.4, size=15, bold=True, color=INK)
-    d.paper_figure(s, "gardner2000_fig5", M, 4.9, 5.7, 1.35,
-                   "Gardner 2000, Fig. 5", "induction threshold")
-    d.paper_figure(s, "gardner2000_fig6", M + 6.2, 4.9, 5.7, 1.35,
+           M, 3.86, W - 2 * M, 0.34, size=15, bold=True, color=INK)
+    # fig5 is tall (0.74) and fig6 wide (1.65); both get the full remaining
+    # height and centre themselves in it rather than being squeezed into a strip.
+    d.paper_figure(s, "gardner2000_fig5a", M + 0.55, 4.28, 4.6, 2.6,
+                   "Gardner 2000, Fig. 5a", "induction threshold, with hysteresis")
+    d.paper_figure(s, "gardner2000_fig6", 7.60, 4.28, 4.29, 2.6,
                    "Gardner 2000, Fig. 6", "switching time")
     d.notes(s, "This is where the fourth requirement from slide 7 — the one nobody raised — gets paid off.")
 
@@ -317,21 +322,22 @@ def build():
     s = d.dark()
     d.header(s, "72 – 77 min", "The part the paper does not celebrate")
     d.title(s, "The toggle set to green fails after 40 hours")
-    d.paper_figure(s, "UNSOURCED_toggle_longevity", M, 1.95, 6.0, 2.1,
-                   "SOURCE NEEDED", "RFP/GFP at 2 h / 30 h / 40 h — NOT Gardner 2000")
+    d.paper_figure(s, "toggle_longevity_2025deck", M, 1.75, 5.3, 2.38,
+                   "unpublished flow data — attribution needed",
+                   "pTog dual-reporter toggle, 2 h / 31 h / 40 h")
     for i, (t, txt) in enumerate([("2 h", "clean separation"),
-                                  ("30 h", "green is broadening"),
+                                  ("31 h", "green is broadening"),
                                   ("40 h", "leaked back to red")]):
-        y = 2.0 + i * 0.7
+        y = 1.9 + i * 0.7
         d.text(s, t, 7.1, y, 1.1, 0.45, size=20, font=HEAD, bold=True,
                color=AMBER if i == 2 else WHITE)
         d.text(s, txt, 8.3, y + 0.08, 4.3, 0.4, size=14, color=MINT)
-    d.text(s, "Why would it fail? What would you change?", M, 4.35, 11, 0.5,
+    d.text(s, "Why would it fail? What would you change?", M, 4.75, 11, 0.5,
            size=26, font=HEAD, bold=True, color=WHITE)
     d.text(s, "Two minutes with your neighbour. There are at least four distinct mechanisms and they need different fixes.",
-           M, 4.95, 11, 0.4, size=16, color=MINT)
+           M, 5.32, 11, 0.4, size=16, color=MINT)
     d.foot(s, "Mutation in a repressor · promoter mutation · plasmid loss · burden selecting against the expressing state", 6.3)
-    d.notes(s, "CITATION PROBLEM: the 2 h / 30 h / 40 h RFP/GFP panels are not from Gardner 2000 — their longest time course is Fig. 4c at ~28 h and it shows STABILITY. Find the real source before delivering this slide, or replace it with Fig. 4c and ask instead how long the toggle SHOULD hold. Do not reveal the four mechanisms until they have argued. Key distinction: a mutation that breaks the CIRCUIT versus selection that breaks the POPULATION. Different engineering responses — sequence redundancy versus lowering burden.")
+    d.notes(s, "PROVENANCE: these panels are NOT from Gardner 2000 (their longest run is Fig. 4c at ~28 h, and it shows stability). The FCS filenames visible in the original slide — 2h_pTog1,2f,+i.fcs / 31h_.. / 40h_.. — show this is unpublished flow cytometry on a pTog dual-reporter construct (mCherry + GFP, LacI/TetR, IPTG/aTc). Almost certainly Weiss-lab or course data. Confirm whose it is and put a name on the slide before delivering. Note also the middle panel is 31 h, not 30 h as the old caption said. Do not reveal the four mechanisms until they have argued. Key distinction: a mutation that breaks the CIRCUIT versus selection that breaks the POPULATION. Different engineering responses — sequence redundancy versus lowering burden.")
 
     # 17 ROBUSTNESS -----------------------------------------------------------
     s = d.light()
@@ -354,13 +360,14 @@ def build():
     d.header(s, "78 – 80 min", "Next")
     d.title(s, "A toggle holds a state. What holds a rhythm?")
     d.text(s, "Tuesday: feedforward loops.  Then: three repressors in a ring.",
-           M, 2.4, 11, 0.5, size=24, font=HEAD, bold=True, color=MINT)
+           M, 2.05, 11, 0.45, size=23, font=HEAD, bold=True, color=MINT)
     d.text(s, "Two mutually repressing genes give you two stable states.\n\nAdd a third repressor and close the loop, and there is no stable state at all — the system never settles.\n\nWhy should an odd number of repressors behave completely differently from an even number?",
-           M, 3.15, 11.3, 2.2, size=17, color=WHITE, spacing=1.45)
-    d.text(s, "You cannot answer that yet. Session 11.", M, 5.75, 10, 0.35,
+           M, 2.72, 11.3, 2.0, size=16, color=WHITE, spacing=1.4)
+    d.text(s, "You cannot answer that yet. Session 11.", M, 4.72, 6.5, 0.32,
            size=14, italic=True, color=CYAN)
-    d.text(s, "Project description due tonight.", M, 6.35, 10, 0.35, size=13,
-           bold=True, color=SILVER)
+    d.text(s, "Project description due tonight.", 7.4, 4.72, 5.2, 0.32,
+           size=13, bold=True, color=SILVER, align="r")
+    d.assignment(s, y=5.12)
     d.notes(s, "Pose it as a constraint on the next problem, not a summary of this one.")
 
     return d

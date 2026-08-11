@@ -1,0 +1,52 @@
+# The course calendar, as data.
+#
+# This is the source of truth for "which session is on which day". Several
+# things need that mapping and none of them should be re-deriving it from prose:
+# the reading tracker (tools/build_readings.py), the coverage matrix, the
+# syllabus, and the decks. docs/course-map.md is the human-readable version and
+# is checked against this file by tools/check_schedule.py.
+#
+# Dates are Fall 2026, UC Berkeley. TuTh 08:00-09:29, Dwinelle 219.
+# Instruction begins Wed Aug 26; formal classes end Fri Dec 4.
+# The only meeting lost to a holiday is Thu Nov 26 (Thanksgiving).
+
+term: "Fall 2026"
+meets: "TuTh 08:00-09:29"
+room: "Dwinelle 219"
+first_instruction_day: 2026-08-26
+last_class_day: 2026-12-04
+
+sessions:
+  - {n: 1,  date: 2026-08-27, part: I,  title: "What synthetic biology is in 2026"}
+  - {n: 2,  date: 2026-09-01, part: I,  title: "The cell as a physical substrate"}
+  - {n: 3,  date: 2026-09-03, part: I,  title: "Modeling I: mass action and stoichiometry"}
+  - {n: 4,  date: 2026-09-08, part: I,  title: "Modeling II: timescale separation and QSSA"}
+  - {n: 5,  date: 2026-09-10, part: I,  title: "Gene expression dynamics and response time"}
+  - {n: 6,  date: 2026-09-15, part: I,  title: "Promoter occupancy from statistical thermodynamics"}
+  - {n: 7,  date: 2026-09-17, part: I,  title: "Autoregulation"}
+  - {n: 8,  date: 2026-09-22, part: I,  title: "The phase plane"}
+  - {n: 9,  date: 2026-09-24, part: I,  title: "Bistability and the toggle switch"}
+  - {n: 10, date: 2026-09-29, part: I,  title: "Feedforward loops"}
+  - {n: 11, date: 2026-10-01, part: I,  title: "Oscillators"}
+  - {n: 12, date: 2026-10-06, part: I,  title: "Noise and the master equation"}
+  - {n: 13, date: 2026-10-08, part: I,  title: "The digital abstraction"}
+  - {n: 14, date: 2026-10-13, part: I,  title: "Review and worked problems"}
+  - {n: 15, date: 2026-10-15, part: I,  title: "Midterm", kind: exam}
+  - {n: 16, date: 2026-10-20, part: II, title: "Combinational logic in cells"}
+  - {n: 17, date: 2026-10-22, part: II, title: "Parts, compositors, context, DNA assembly"}
+  - {n: 18, date: 2026-10-27, part: II, title: "Implementation layers"}
+  - {n: 19, date: 2026-10-29, part: II, title: "Resource sharing and burden"}
+  - {n: 20, date: 2026-11-03, part: II, title: "Metabolic engineering and constraint-based design"}
+  - {n: 21, date: 2026-11-05, part: II, title: "Retroactivity and insulation"}
+  - {n: 22, date: 2026-11-10, part: II, title: "Robustness and control"}
+  - {n: 23, date: 2026-11-12, part: II, title: "Evolutionary failure and containment"}
+  - {n: 24, date: 2026-11-17, part: II, title: "Communities and quorum sensing"}
+  - {n: 25, date: 2026-11-19, part: II, title: "Minimal and synthetic cells"}
+  - {n: 26, date: 2026-11-24, part: II, title: "Therapeutic circuits"}
+  - {n: 27, date: 2026-12-01, part: II, title: "Machine learning as the specification layer"}
+  - {n: 28, date: 2026-12-03, part: II, title: "Biosecurity and governance"}
+
+# Meeting slots with no session, so the reading tracker does not try to assign
+# work "in the previous class" across a gap without noticing the gap.
+no_class:
+  - {date: 2026-11-26, reason: "Thanksgiving"}

@@ -16,3 +16,8 @@ ipykernel>=6.29
 # Instructor only: building problem sets from private/ masters.
 # Not needed to run any notebook, and not installed on DataHub by default.
 otter-grader>=7.0
+
+# Instructor only: building the lecture decks (tools/build_decks.py).
+python-pptx>=1.0
+Pillow>=10.0
+PyYAML>=6.0

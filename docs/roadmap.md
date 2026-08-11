@@ -116,11 +116,21 @@ Nothing below is optional. Dates are when the material is first needed.
 
 ## 5. Next steps, in order
 
-**1. Deck triage — highest value, do first.**
-Nineteen Fall-2025 decks, roughly a quarter of them duplicated content. A
-file-by-file verdict — survives / merges into / dies, with duplicate slides
-identified by page — recovers about five periods before a single new slide is
-written, and turns 27 decks-from-scratch into far fewer.
+**1. Deck triage — DONE.** See [Deck Triage](deck-triage.md). 32% of the 962
+2025 pages repeat an earlier deck; six decks are under 50% new. Cutting gate
+minimisation and the recapitulation decks recovers ~5 periods. But **13 of 28
+sessions have no source material at all**, and the triage's real finding is
+which ones.
+
+**1b. Reading assignments — MECHANISM DONE, CONTENT NOT.**
+[`readings.yaml`](../readings.yaml) plus `tools/build_readings.py` now enforce
+the rule that a paper discussed in class N is handed out at the end of class
+N−1, and CI fails if a deck ends without handing out what its successor needs.
+**One reading is declared** (Gardner 2000 for session 9). The other 26 teaching
+sessions are listed as open decisions at the bottom of
+[Readings](readings.md) — and a session with no declared reading is not
+automatically wrong, but it is currently indistinguishable from one that was
+forgotten. Fill these in as each deck is written, not in a batch at the end.
 
 **2. Sessions 1–3 decks.** Needed August 27, 29, September 3. Sessions 1–2 map
 onto 2025 L01–L02 (which are 65% duplicated of each other — see the diagnosis).

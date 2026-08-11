@@ -50,6 +50,7 @@ course relies on is worked rather than asserted.
 | Generate a figure or build a demo | **[Figures, Demos, and Decks](docs/figures-and-decks.md)** |
 | Set up / run the course | **[Instructor Setup](docs/instructor-setup.md)** |
 | Reuse this in my own course | **[For Instructors](docs/for-instructors.md)** |
+| See what to read, and when | **[Readings](docs/readings.md)** |
 | Look up a citation | **[References](docs/references.md)** |
 | See what's built and what's next | **[Status and Roadmap](docs/roadmap.md)** |
 | Report an error | [CONTRIBUTING.md](CONTRIBUTING.md) |
@@ -137,9 +138,12 @@ posb2026/
 ├── figures/               Figure SOURCE. Slides embed figures/build/*.png
 │   ├── style.py           the course palette, for matplotlib
 │   └── s09_bistability.py
+├── course.yaml            The calendar, as data. One source for all dates.
+├── readings.yaml          Which paper is discussed when — and so assigned when
 ├── tools/                 Build and verification scripts
 │   ├── sources/           ← SOURCE OF TRUTH for notebooks
 │   ├── build_notebooks.py
+│   ├── build_readings.py
 │   └── execute_notebooks.py
 └── tests/                 Unit tests for posb
 ```

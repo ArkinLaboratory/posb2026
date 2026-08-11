@@ -1,0 +1,147 @@
+# Primary-literature readings, tracked as data.
+#
+# THE RULE THIS FILE EXISTS TO ENFORCE
+#
+#   A paper discussed in class N is assigned as reading at the end of class
+#   N-1. Never on the day. Never "have a look at this sometime".
+#
+# The point is not tidiness. A paper the students have already read changes what
+# the class period can be: session 9 spends ten minutes having them argue about
+# why the toggle works, and that argument is worth nothing if they are meeting
+# the construct for the first time on the slide. Every discussion-based segment
+# in this course has that dependency, and the dependency is invisible unless it
+# is written down somewhere a build can check.
+#
+# So: declare the paper under the session that DISCUSSES it. The session that
+# ASSIGNS it defaults to the previous meeting and is computed, not typed --
+# because when the calendar moves, hand-typed "read by Thursday" lines are
+# exactly what goes stale. Override with `assign_in` when a paper is long enough
+# to need more than one meeting's notice.
+#
+# tools/build_readings.py validates this file and regenerates docs/readings.md.
+#
+# FIELDS
+#   key        short citation key, matching docs/references.md where possible
+#   cite       full citation, for docs/readings.md and bCourses
+#   short      what goes on a slide: "Basu et al., PNAS 2004". Required --
+#              deriving it from `cite` by pattern is fragile and gets authors
+#              wrong silently, in front of the room
+#   doi / url  at least one is required -- students must be able to find it
+#   pages      length; the load check uses it
+#   focus      WHAT TO READ. Required. "Read the paper" is not an assignment.
+#   why        one line: why this paper, at this point in the course
+#   required   true = everyone; false = optional depth, usually for 247 students
+#   assign_in  optional override, e.g. s07. Default is the previous session.
+#
+# LOAD BUDGET
+#   The syllabus promises roughly one paper per week with a specific figure to
+#   focus on. The checker holds us to it.
+
+limits:
+  max_required_per_assignment: 1     # papers handed out at the end of any one class
+  max_required_pages_per_assignment: 12
+  max_days_notice: 14                # assigning much earlier than this and they forget
+
+  # Per-session exceptions. Raising the global cap because one session needs two
+  # papers would silently license every session to assign two, which is how a
+  # "one paper a week" syllabus becomes a fourteen-paper term. Exceptions are
+  # named, and each one has to say why.
+  overrides:
+    s09:
+      max_required_per_assignment: 2
+      reason: >-
+        Session 10 argues from a construct (Basu) and from a taxonomy (Mangan &
+        Alon), and neither substitutes for the other: the pulse generator shows
+        you an incoherent feedforward loop that someone built, the motif paper
+        shows you why that shape recurs in networks nobody designed. Twelve
+        pages total, which is still inside the page budget.
+
+readings:
+
+  # ---- Part I ------------------------------------------------------------
+  s09:
+    - key: gardner2000
+      cite: "Gardner, T. S., Cantor, C. R. & Collins, J. J. Construction of a genetic toggle switch in Escherichia coli. Nature 403, 339-342 (2000)."
+      short: "Gardner, Cantor & Collins, Nature 2000"
+      doi: "10.1038/35002131"
+      url: "https://www.nature.com/articles/35002131"
+      pages: 4
+      required: true
+      focus: >-
+        Box 1 and Figures 1 and 2. Come able to state, in one sentence each,
+        what alpha and beta are and what physical thing in the construct sets
+        each of them. Do not read Figure 5 yet -- we do that one together.
+      why: >-
+        The whole session is an argument about this construct, and the argument
+        happens in the first twenty minutes. It does not work if the students
+        meet the plasmid on a slide.
+
+  s10:
+    # NOTE ON PROVENANCE: neither of these comes from the 2025 decks. Lecture 20
+    # (2025-11-06) carries four coherent/incoherent feed-forward motif slides,
+    # pp. 6-9, with no citation of any kind. The single Alon reference anywhere
+    # in the 962-page corpus is a credit line -- "Network motifs: theory and
+    # experimental approaches, Uri Alon" -- on the AUTOREGULATION slide in
+    # Lectures 10 and 12, which is session 7 material, not session 10.
+    # Chosen, not inherited.
+    - key: basu2004
+      cite: "Basu, S., Mehreja, R., Thiberge, S., Chen, M.-T. & Weiss, R. Spatiotemporal control of gene expression with pulse-generating networks. PNAS 101, 6355-6360 (2004)."
+      short: "Basu et al., PNAS 2004 — the pulse generator"
+      doi: "10.1073/pnas.0307571101"
+      url: "https://doi.org/10.1073/pnas.0307571101"
+      pages: 6
+      required: true
+      focus: >-
+        The circuit diagram and the pulse traces. Before class, be able to say
+        which arm of the loop is fast and which is slow, and what happens to the
+        pulse if you swap them.
+      why: >-
+        An incoherent feedforward loop someone actually built, in the same
+        pattern session 9 uses: the artifact first, the abstraction after. It is
+        also the circuit the 2025 deck opens with, so the lecture already has
+        the figures.
+
+    - key: mangan2003
+      cite: "Mangan, S. & Alon, U. Structure and function of the feed-forward loop network motif. PNAS 100, 11980-11985 (2003)."
+      short: "Mangan & Alon, PNAS 2003 — the FFL motif"
+      doi: "10.1073/pnas.2133841100"
+      url: "https://doi.org/10.1073/pnas.2133841100"
+      pages: 6
+      required: true
+      focus: >-
+        The eight FFL types and which ones are actually found. Then the
+        sign-sensitive delay argument for the C1-FFL -- that is the piece the
+        lecture builds on.
+      why: >-
+        The design principle behind the construct: why this shape, out of the
+        eight you could wire, and what function each one computes.
+
+    - key: alon2007
+      cite: "Alon, U. Network motifs: theory and experimental approaches. Nature Reviews Genetics 8, 450-461 (2007)."
+      short: "Alon, Nat Rev Genet 2007 — the motif review"
+      doi: "10.1038/nrg2102"
+      url: "https://doi.org/10.1038/nrg2102"
+      pages: 12
+      required: false
+      focus: >-
+        The motif catalogue in context. Read it if you want the map rather than
+        the two landmarks.
+      why: >-
+        The review the 2025 deck cites once, on the autoregulation slide. Kept
+        as optional depth so the required load stays primary literature.
+
+  # ---- Part II -----------------------------------------------------------
+  # Nothing declared yet. That is a gap, not a design: every session that
+  # discusses a paper needs an entry here, and `python tools/build_readings.py`
+  # will keep saying so until they exist.
+  #
+  # Template:
+  #
+  # s11:
+  #   - key: elowitz2000
+  #     cite: "..."
+  #     doi: "10.1038/35002125"
+  #     pages: 5
+  #     required: true
+  #     focus: "Figure 1c and the model in the Methods."
+  #     why: "..."

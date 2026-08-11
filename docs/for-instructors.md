@@ -281,6 +281,40 @@ students who do not.
 **Look for a conservation law and check it.** The cheapest possible test of a
 model, and it catches sign errors instantly.
 
+**Assign the paper the class before, and let a build enforce it.** Sessions
+built around a discussion of a real artifact — session 9 is the exemplar —
+spend their first twenty minutes on an argument that is worthless if the room
+is meeting the construct for the first time on the slide. That dependency is
+invisible in a deck, so it is written down instead:
+[`readings.yaml`](../readings.yaml) declares the paper under the session that
+**discusses** it, and the session that **assigns** it is computed as the
+previous meeting rather than typed.
+
+```
+python tools/build_readings.py          # validate, regenerate docs/readings.md
+python tools/build_readings.py --check  # CI: fail if stale or invalid
+```
+
+Five things it refuses to let through: a paper discussed before it was
+assigned; a reading with no DOI or URL; a reading with no `focus` field, on the
+grounds that "read the paper" is not an assignment; a reading with no `short`
+field, because deriving a slide citation from the full one by pattern gets
+authors wrong silently in front of the room; and any single class period handing
+out more than the syllabus promised.
+
+That last cap is per-session overridable — `limits.overrides.s09` — but an
+override must carry a `reason` and must actually apply to something, so the
+budget cannot be raised globally to silence one complaint and then inherited by
+every other session. The deck build carries the same rule to the slide — `Deck.assignment()` renders the box from the same resolver,
+so a deck cannot say something different from `docs/readings.md`, and
+`tools/build_decks.py` reports a deck that ends without handing out a reading
+its successor needs.
+
+The calendar the whole thing runs on is [`course.yaml`](../course.yaml), which
+`tools/check_schedule.py` holds against the table in
+[Course Map](course-map.md). Dates then stop being typed anywhere: title slides
+call `Deck.date_line`.
+
 ---
 
 ## Known limitations

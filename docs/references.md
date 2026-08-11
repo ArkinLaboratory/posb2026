@@ -6,6 +6,10 @@ There is **no required textbook** for this course. Readings are primary
 literature, posted on bCourses, and short — typically one paper per week with a
 specific figure to focus on.
 
+**The schedule of those readings is [Readings](readings.md)**, generated from
+`readings.yaml`. The rule there is fixed: a paper discussed in class is assigned
+at the end of the previous class, never on the day.
+
 The books below are recommended companions. All three are either free online or
 widely available.
 

@@ -39,6 +39,7 @@ def main():
         sys.exit(f"no deck matches {args}. available: {DECKS}")
 
     missing_total = 0
+    unassigned = 0
     for name in names:
         mod = importlib.import_module(f"decks.{name}")
         deck = mod.build()
@@ -54,9 +55,35 @@ def main():
                   f"to embed them")
         else:
             print("  all paper figures embedded")
+        # The rule from readings.yaml, enforced where it actually gets broken:
+        # a deck that ends without handing out the next session's paper.
+        if deck.session is not None:
+            due = deck.assigned_here()
+            if due and not deck.assignment_rendered:
+                unassigned += len(due)
+                print(f"  !! session {deck.session} must assign "
+                      f"{len(due)} paper(s) for session {deck.session + 1} "
+                      f"({', '.join(r.get('key', '?') for r in due)}) "
+                      f"but this deck never calls d.assignment()")
+            elif due:
+                print(f"  assigns {len(due)} reading(s) for "
+                      f"session {deck.session + 1}")
+            if deck.assignment_overflow:
+                _, at, over = deck.assignment_overflow
+                unassigned += 1
+                print(f"  !! the assignment box was placed at y={at} but is "
+                      f"{over}in too tall for the slide; it has been moved up "
+                      f"and probably now overlaps. Reflow that slide.")
+        if deck.loose_slots:
+            print(f"  {len(deck.loose_slots)} slot(s) much larger than the "
+                  f"figure -- the image shrinks and floats:")
+            for key, fill, box, got in deck.loose_slots:
+                print(f"    {key:<24} fills {fill:.0%} of {box[0]}x{box[1]}in "
+                      f"-> renders {got[0]}x{got[1]}in")
 
-    if strict and missing_total:
-        sys.exit(f"\n--check: {missing_total} paper figure(s) missing")
+    if strict and (missing_total or unassigned):
+        sys.exit(f"\n--check: {missing_total} paper figure(s) missing, "
+                 f"{unassigned} reading(s) never handed out")
     print(f"\nDone. Decks in {OUT.relative_to(ROOT)}/ (gitignored).")
 
 

@@ -50,13 +50,46 @@ gardner2000_fig5:
   shows: "induction threshold -- the quasi-discontinuous jump, and bimodality near the bifurcation"
   used_in: ["s09"]
 
+# A crop of Fig. 5a. Declared, not hand-cut: theme._resolve_paper_figure
+# derives it from the parent PNG at build time, so it is reproducible on any
+# machine that has the parent. crop is [left, top, right, bottom] in pixels of
+# the parent, whose size is 1483 x 2006.
+gardner2000_fig5a:
+  figure: "Fig. 5a"
+  derived_from: gardner2000_fig5
+  crop: [40, 10, 1460, 820]
+  shows: "normalized GFP vs [IPTG] -- the hysteretic dose-response with both stable branches and the unstable one between them"
+  used_in: ["s09"]
+  note: "Panel a alone. The whole of Fig. 5 is three stacked panels and is illegible at slide size; a is the only one this slide argues from."
+
 gardner2000_fig6:
   figure: "Fig. 6"
   shows: "pTAK117 switching time; bimodal distribution appears at 4 h, complete by 6 h"
   used_in: ["s09"]
 
 # --- UNSOURCED -------------------------------------------------------------
-# The 2025 deck showed RFP/GFP flow panels at 2 h / 30 h / 40 h captioned
-# "toggle set to green fails in 40 hours". That is NOT from Gardner 2000 --
-# their longest time course is Fig. 4c at ~28 h and it shows stability, not
-# failure. The claim needs its real source before it goes on a slide.
+# toggle_longevity_2025deck: RFP/GFP flow panels captioned "toggle set to green
+# fails in 40 hours", extracted from the 2025 deck.
+#
+# It is NOT from Gardner 2000 -- their longest time course is Fig. 4c at ~28 h
+# and it shows stability, not failure.
+#
+# Nor does the 2025 deck cite it. Checked directly: in
+# "2025-11-06-Lecture 20-Sequential Dynamics", the slide is titled "Toggle
+# longevity" with no citation line. The "[Gardner & Collins, 2000]" tag two
+# slides earlier belongs to Induction Thresholds and Switching Time. The same
+# slide reappears verbatim in Lecture 21 and is likewise uncited.
+#
+# What identifies it is the FCS filenames legible in the panels --
+# 2h_pTog1,2f,+i.fcs / 31h_... / 40h_... -- which make it unpublished flow
+# cytometry on a pTog dual-reporter construct (mCherry + GFP, LacI/TetR,
+# IPTG/aTc). Note 31 h, not the 30 h printed on the axis label.
+#
+# ADAM: this needs a name on it before it is delivered. Weiss lab? A rotation
+# student? Course data? Nobody but you and Ron can close this.
+toggle_longevity_2025deck:
+  figure: "unpublished flow cytometry"
+  shows: "pTog dual-reporter toggle at 2 h / 31 h / 40 h; the green state degrades"
+  used_in: ["s09"]
+  source: UNKNOWN
+  note: "Attribution required before delivery. See the block above."

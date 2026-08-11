@@ -10,6 +10,8 @@ mode boundaries, extracted terms rather than prose -- so a new deck is short and
 cannot drift from the house style. See docs/lecture-design.md for why the
 structure is what it is.
 """
+import re
+import sys
 from pathlib import Path
 
 from pptx import Presentation
@@ -39,19 +41,111 @@ WASH = RGBColor(0xE8, 0xF4, 0xF0)
 HEAD, TEXT = "Cambria", "Calibri"
 W, H, M = 13.333, 7.5, 0.7          # slide size and margin, inches
 
+sys.path.insert(0, str(ROOT))
+from tools.schedule import readings_spec, sessions  # noqa: E402
+
+PAPER_FIGURES = ROOT / "private" / "paper-figures"
+MANIFEST = ROOT / "decks" / "paper_figures.yaml"
+
+
+def _resolve_paper_figure(key):
+    """Path to `private/paper-figures/<key>.png`, deriving it if it is a crop.
+
+    A multi-panel journal figure dropped whole onto a slide is unreadable from
+    the back of the room. The fix is to show one panel -- but a hand-cropped PNG
+    is an untracked artifact that nobody can regenerate. So crops are declared
+    in the manifest:
+
+        gardner2000_fig5a:
+          derived_from: gardner2000_fig5
+          crop: [40, 10, 1460, 820]        # left, top, right, bottom in px
+
+    and cut here, from the parent, on demand. The cropped file is written next
+    to the parent (also gitignored) and reused until the parent changes.
+    """
+    img = PAPER_FIGURES / f"{key}.png"
+    if img.exists():
+        return img
+
+    if not MANIFEST.exists():
+        return img
+    import yaml
+    spec = (yaml.safe_load(MANIFEST.read_text()) or {}).get(key) or {}
+    parent_key, box = spec.get("derived_from"), spec.get("crop")
+    if not (parent_key and box):
+        return img
+    parent = PAPER_FIGURES / f"{parent_key}.png"
+    if not parent.exists():
+        return img
+
+    from PIL import Image as _Image
+    with _Image.open(parent) as im:
+        im.crop(tuple(box)).save(img)
+    return img
+
+
+def short_cite(r):
+    """What goes on a slide: 'Basu et al., PNAS 2004'.
+
+    Not the full citation. A projected reference the room reads for two seconds
+    needs to be identifiable, not complete -- the complete one is in
+    docs/readings.md and on bCourses, and putting it on the slide costs two
+    lines of wrap and buys nothing.
+    """
+    if r.get("short"):
+        return r["short"]
+    cite = r.get("cite", "")
+    author = cite.split(",")[0].strip() or r.get("key", "?")
+    year = re.search(r"\((?:19|20)\d{2}\)", cite)
+    journal = re.search(r"(Nature Reviews [A-Z][a-z]+|Nature [A-Z][a-z]+|"
+                        r"Nature|Science|Cell|PNAS|eLife|Mol\. Syst\. Biol\.)", cite)
+    bits = [author + (" et al." if "et al" in cite or cite.count(",") > 3 else "")]
+    if journal:
+        bits.append(journal.group(0))
+    if year:
+        bits.append(year.group(0).strip("()"))
+    return " ".join(bits[:1]) + (", " + " ".join(bits[1:]) if len(bits) > 1 else "")
+
+
+def first_sentence(txt, limit=105):
+    """The first sentence of `focus`, for the slide. The rest is in the docs."""
+    s = " ".join((txt or "").split())
+    if not s:
+        return ""
+    head = re.split(r"(?<=[.!?])\s", s)[0]
+    return head if len(head) <= limit else head[:limit - 1].rstrip() + "\u2026"
+
 
 class Deck:
     """A lecture deck. Every method returns self or a slide, so decks read
     top to bottom like the lecture does."""
 
-    def __init__(self, title, subtitle="", meta=""):
+    def __init__(self, title, session=None, subtitle="", meta=""):
         self.prs = Presentation()
         self.prs.slide_width = Inches(W)
         self.prs.slide_height = Inches(H)
         self.title_text = title
         self.subtitle = subtitle
         self.meta = meta
+        self.session = session
         self.missing_figures = []
+        self.loose_slots = []
+        self.assignment_rendered = False
+        self.assignment_overflow = None
+
+    # -- the calendar, from course.yaml rather than from a typed string ------
+    @property
+    def date_line(self):
+        """'BioE 147 / 247 · Thursday 24 September 2026 · Dwinelle 219'.
+
+        Typed by hand this is a date that will be wrong the first time the
+        calendar moves and right-looking enough that nobody checks it.
+        """
+        from tools.schedule import course, session_date
+        c = course()
+        d = session_date(self.session)
+        day = d.strftime("%A %d %B %Y").replace(" 0", " ")
+        return f"BioE 147 / 247  ·  {day}  ·  {c['room']}"
 
     # -- slide construction --------------------------------------------------
     def _slide(self, dark):
@@ -118,11 +212,34 @@ class Deck:
         return shp
 
     def image(self, s, path, x, y, w=None, h=None):
+        """Place an image, **preserving its aspect ratio**.
+
+        Passing both width and height to python-pptx stretches the image to fill
+        them. So when both are given we treat them as a bounding box: scale to
+        fit inside, then centre. A distorted figure from a published paper is
+        both ugly and a misrepresentation of someone else's data.
+
+        Returns the rectangle the image actually occupies, `(x, y, w, h)`, which
+        is not the box you asked for whenever the aspect ratios differ. Callers
+        that put a caption underneath need the real rectangle, or the caption
+        floats in the empty part of the box.
+        """
         p = Path(path)
         if not p.is_absolute():
             p = ROOT / p
-        s.shapes.add_picture(str(p), Inches(x), Inches(y),
-                             Inches(w) if w else None, Inches(h) if h else None)
+        if w is not None and h is not None:
+            from PIL import Image as _Image
+            iw, ih = _Image.open(p).size
+            scale = min(w / iw, h / ih)
+            dw, dh = iw * scale, ih * scale
+            x += (w - dw) / 2
+            y += (h - dh) / 2
+            w, h = dw, dh
+        pic = s.shapes.add_picture(str(p), Inches(x), Inches(y),
+                                   Inches(w) if w else None,
+                                   Inches(h) if h else None)
+        return (pic.left / 914400, pic.top / 914400,
+                pic.width / 914400, pic.height / 914400)
 
     # -- repeating layout elements ------------------------------------------
     def header(self, s, badge, label):
@@ -162,12 +279,21 @@ class Deck:
 
         Same source, same command, two outputs. Nothing is ever edited by hand.
         """
-        img = ROOT / "private" / "paper-figures" / f"{key}.png"
+        img = _resolve_paper_figure(key)
         if img.exists():
-            self.image(s, img, x, y, w, h)
-            self.text(s, ref, x, y + h + 0.04, w, 0.25, size=9,
+            ix, iy, iw, ih = self.image(s, img, x, y, w, h)
+            self.text(s, ref, ix, iy + ih + 0.04, iw, 0.25, size=9,
                       italic=True, color=MUTED if not s._posb_dark else SILVER,
                       align="c")
+            # A slot whose aspect ratio does not match the figure's wastes the
+            # space it reserved: the image shrinks to fit and lands small in a
+            # big empty box. Cheap to detect, invisible until you look at the
+            # rendered slide, so detect it.
+            fill = (iw * ih) / (w * h)
+            if fill < 0.75:
+                self.loose_slots.append(
+                    (key, round(fill, 2), (round(w, 2), round(h, 2)),
+                     (round(iw, 2), round(ih, 2))))
             return True
 
         self.missing_figures.append((key, ref))
@@ -181,6 +307,91 @@ class Deck:
         self.text(s, caption, x + 0.2, y + h / 2 + 0.14, w - 0.4, 0.6,
                   size=11.5, italic=True, color=MUTED, align="c")
         return False
+
+    # -- the reading handed out at the end of this class ---------------------
+    def assigned_here(self):
+        """Papers this session hands out: the ones the NEXT session discusses.
+
+        Read from readings.yaml through the same resolver the checker uses, so
+        the slide and docs/readings.md cannot say different things.
+        """
+        from tools.build_readings import resolve
+        rows, errors = resolve(readings_spec(), sessions())
+        if errors:
+            raise RuntimeError(
+                "readings.yaml does not validate, so no deck can be built from "
+                "it. Run `python tools/build_readings.py` to see why.")
+        return [r for r in rows if r["assign"] == self.session]
+
+    def discussed_here(self):
+        """Papers this session discusses -- i.e. what they were told to read."""
+        from tools.build_readings import resolve
+        rows, _ = resolve(readings_spec(), sessions())
+        return [r for r in rows if r["discuss"] == self.session]
+
+    def assigned_on(self, x, y, w, s, prefix="You read this for today"):
+        """A one-line reminder of when the reading for this session went out.
+
+        Small, and it earns its place: it is the visible half of the contract.
+        Students who see the date on the slide learn that the assignment is
+        real, which is most of why they do it the following week.
+        """
+        rows = self.discussed_here()
+        if not rows:
+            return 0
+        when = sessions()[rows[0]["assign"]]["date"].strftime("%A %d %B").replace(" 0", " ")
+        self.text(s, f"{prefix} — assigned {when}.", x, y, w, 0.3, size=11,
+                  italic=True, color=SILVER if s._posb_dark else MUTED)
+        return len(rows)
+
+    def assignment(self, s, y=5.55, label="Before next class"):
+        """Render the reading due at the next meeting. Returns the box bottom.
+
+        Returning the bottom rather than a count so callers can put the next
+        thing under it: the box grows with the number of papers, and a hard-coded
+        y below it is a collision waiting for the second reading to be added.
+
+        Nothing is typed here. If readings.yaml says session N+1 discusses a
+        paper, the slide says so; if the paper moves, the slide moves with it.
+        A deck that quietly disagrees with the syllabus is how a class ends up
+        arguing about a paper half the room has not read.
+        """
+        rows = self.assigned_here()
+        self.assignment_rendered = True
+        if not rows:
+            return y
+
+        # Required first, optional last -- the order they should be done in,
+        # not alphabetical order, which is what the file happens to be sorted by.
+        rows = sorted(rows, key=lambda r: (not r["required"], r.get("key", "")))
+
+        h = 0.52 + 0.56 * len(rows)
+        # The box grows with the number of readings, and a deck written when
+        # there was one paper will happily run it off the bottom when a second
+        # is added. Clamp, and tell the build so the deck gets reflowed rather
+        # than shipped with a box hanging over the edge.
+        if y + h > H - 0.18:
+            self.assignment_overflow = (self.session, round(y, 2),
+                                        round(y + h - (H - 0.18), 2))
+            y = H - 0.18 - h
+        dark = s._posb_dark
+        nxt = sessions().get(self.session + 1)
+        when = nxt["date"].strftime("%A").rstrip() if nxt else "next class"
+        self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, y, W - 2 * M, h,
+                   fill=None if dark else WASH, line=CYAN if dark else TEAL, lw=1.5)
+        self.text(s, f"{label.upper()} — {when.upper()}", M + 0.3, y + 0.1,
+                  6.0, 0.26, size=10, bold=True, color=CYAN if dark else TEAL)
+        for i, r in enumerate(rows):
+            yy = y + 0.4 + i * 0.56
+            tag = "READ" if r["required"] else "OPTIONAL"
+            self.text(s, tag, M + 0.3, yy + 0.02, 0.95, 0.24, size=9.5,
+                      bold=True, color=AMBER if r["required"] else MUTED)
+            self.text(s, short_cite(r), M + 1.3, yy, W - 2 * M - 1.7, 0.28,
+                      size=12.5, bold=True, color=WHITE if dark else INK)
+            self.text(s, first_sentence(r.get("focus")), M + 1.3, yy + 0.25,
+                      W - 2 * M - 1.7, 0.28, size=10.5,
+                      italic=True, color=MINT if dark else BODY)
+        return y + h
 
     # -- output --------------------------------------------------------------
     def save(self, path):
