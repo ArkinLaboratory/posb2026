@@ -36,4 +36,4 @@ Sessions [3](../../sessions/s03-modeling-i/) and 4, plus
 2. Fill in `COLLABORATORS` and `AI_USE` at the top
 3. Submit the `.ipynb` to Gradescope
 
-Worked solutions are published after the deadline.
+Worked solutions are posted to bCourses after the deadline. They are not published in this repository.

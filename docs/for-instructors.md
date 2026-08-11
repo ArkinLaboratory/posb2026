@@ -143,6 +143,53 @@ Keep `private/` somewhere you back up — a private GitHub repo works well. It i
 the source of truth for every problem set and is not recoverable from the public
 repository.
 
+### Solutions, and giving a reader access
+
+Three distinct artifacts come out of one build, and they go to three different
+places:
+
+| Artifact | Where it lives | Who sees it |
+|---|---|---|
+| `problem-sets/psNN-*/psNN.ipynb` | this public repo | everyone |
+| `dist/autograder/*.zip` | `private/build/` | Gradescope only |
+| `psNN-SOLUTIONS.html` | `private/build/` | you and your reader |
+
+The solutions file is the executed solution notebook rendered to HTML —
+answers, derivations, plots and printed values included. HTML rather than PDF
+deliberately: Otter's `solutions_pdf` option needs a working LaTeX toolchain,
+HTML needs nothing, and a reader opens it in a browser either way.
+
+**A reader does not need this repository.** Autograded questions are scored by
+Gradescope with no human involvement; free-response questions are graded in
+Gradescope's rubric interface. Send the reader the solutions HTML and a rubric
+and they never touch git.
+
+If you do want to share the masters — with a co-instructor, or a reader who
+writes problems — put `private/sources/` in a **second, private GitHub repo**
+and add them as a collaborator. Private repos are free and unlimited. Do not
+solve this by making the main repo private: the Colab badges throughout the
+material require public access to work.
+
+**Back `private/` up somewhere.** It is gitignored here, so it is protected from
+accidental commit and equally protected from your git history. It is not
+recoverable from anything public.
+
+### Publishing solutions: a decision to make on purpose
+
+This course distributes worked solutions to enrolled students through bCourses
+and does **not** publish them in the repository.
+
+The trade is real in both directions. Published solutions are much more useful
+to people working through the material independently, which is most of the point
+of putting a course online. But once answers are indexed, every problem has to be
+rewritten each year. Berkeley's Data 8 does not publish solutions for exactly
+this reason.
+
+The compromise here: problems stay reusable, and the *worked examples* in the
+session notebooks are public and demonstrate every technique the problem sets
+assess. Someone self-studying has a worked reference for each method even though
+they do not have the answer key.
+
 ### Otter Assign format, as verified against otter-grader 7.0.0
 
 These cost several hours to establish empirically, so they are written down.

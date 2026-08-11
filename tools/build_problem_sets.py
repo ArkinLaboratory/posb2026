@@ -127,7 +127,8 @@ def build_one(name):
     shutil.copy(student_src, dest)
     print(f"student {dest.relative_to(ROOT)}   [COMMITTED]")
 
-    verify_solutions(dist / "autograder" / f"{name}.ipynb")
+    verify_solutions(dist / "autograder" / f"{name}.ipynb",
+                     html_out=workdir / f"{name}-SOLUTIONS.html")
 
     zips = list((dist / "autograder").glob("*.zip"))
     for z in zips:
@@ -135,12 +136,18 @@ def build_one(name):
     return True
 
 
-def verify_solutions(nb_path):
+def verify_solutions(nb_path, html_out=None):
     """Execute the solution notebook and require every grader.check to pass.
 
     This is the real correctness gate: it runs in the same namespace students
     will have, so a passing run means the reference answers actually satisfy
     every autograded test, visible and hidden.
+
+    If `html_out` is given, the executed notebook is also rendered to HTML --
+    solutions with their outputs, plots and printed values included. That file
+    is what the reader grades free-response answers against. HTML rather than
+    PDF deliberately: PDF export needs a working LaTeX toolchain, HTML needs
+    nothing, and the reader opens it in a browser either way.
     """
     import nbformat
     from nbclient import NotebookClient
@@ -178,6 +185,12 @@ def verify_solutions(nb_path):
         sys.exit("solution notebook did not pass its own tests")
 
     print(f"verified  {checks} grader.check blocks pass in the real namespace")
+
+    if html_out is not None:
+        from nbconvert import HTMLExporter
+        body, _ = HTMLExporter(template_name="lab").from_notebook_node(nb)
+        html_out.write_text(body)
+        print(f"solutions {html_out.relative_to(ROOT)}   [for the reader; NOT public]")
 
 
 if __name__ == "__main__":

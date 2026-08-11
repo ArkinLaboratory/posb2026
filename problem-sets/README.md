@@ -23,9 +23,16 @@ Remaining sets are in preparation — see the
 A notebook that works only because of leftover state from cells run in a
 different order is not a working notebook.
 
-## Working these outside the course
+## Solutions
 
-Solutions are not published. That is deliberate — these are short enough that
-the value is entirely in doing them. Every technique they assess is demonstrated
-in the corresponding session notebook, so if you are stuck, the worked example
-for that session is the intended reference.
+Worked solutions are distributed to enrolled students through **bCourses** after
+each deadline. They are **not published in this repository**.
+
+This is a deliberate trade. Publishing them openly would be more useful to
+people working through the material independently, but it would also mean every
+problem has to be rewritten each year once the answers are indexed. Keeping the
+problems reusable is worth more than publishing the answers.
+
+If you are working through this from outside the course: every technique these
+sets assess is *demonstrated* in the corresponding session notebook, worked end
+to end. That is the intended reference when you get stuck, and it is public.
