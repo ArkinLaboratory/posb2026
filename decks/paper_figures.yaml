@@ -5,46 +5,58 @@
 # ordinary educational use, but publishing it under a licence granting everyone
 # redistribution rights is not something we can do.
 #
-# Each entry records exactly which figure a deck slot expects. To build a
-# classroom deck, save the images as:
-#
-#     private/paper-figures/<key>.png
-#
-# private/ is gitignored. With them present the build embeds the real figures;
-# without them it draws a labelled slot. Same command either way.
+# Save each as  private/paper-figures/<key>.png  (gitignored). With them present
+# the deck build embeds the real figures; without them it draws a labelled slot.
+# Same command either way.
 
-gardner2000_fig1a:
-  paper: "Gardner TS, Cantor CR, Collins JJ. Construction of a genetic toggle switch in Escherichia coli. Nature 403:339-342 (2000)"
-  doi: "10.1038/35002131"
-  figure: "Fig. 1a"
-  shows: "the two plasmid constructs, pTAK and pIKE"
+# --- Gardner, Cantor & Collins, Nature 403:339-342 (2000) -------------------
+# "Construction of a genetic toggle switch in Escherichia coli"
+# doi:10.1038/35002131
+#
+# NOTE the paper's own notation, which the lecture follows:
+#   du/dt = alpha_1 / (1 + v^beta)  - u
+#   dv/dt = alpha_2 / (1 + u^gamma) - v
+# beta and gamma are the cooperativities. posb.toggle_model calls them m and n.
+
+gardner2000_box1:
+  figure: "Box 1"
+  shows: "the dimensionless toggle model, equations 1a and 1b"
+  used_in: ["s09"]
+  note: "Show this when introducing the model so students see the equations in the form the paper states them."
+
+gardner2000_fig1:
+  figure: "Fig. 1"
+  shows: "toggle switch design -- the two promoters, two repressors, two inducers"
   used_in: ["s09"]
 
 gardner2000_fig2:
-  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
-  doi: "10.1038/35002131"
   figure: "Fig. 2"
-  shows: "nullcline geometry and the conditions for bistability"
+  shows: "geometric structure. a,b nullclines bistable vs monostable; c,d the bistable region in log(alpha_1) vs log(alpha_2), with bifurcation lines for beta=gamma=1.1, 2, 3"
   used_in: ["s09"]
-  note: "Pair this with figures/build/s09_nullclines.png side by side -- the point is that a 2000 result is now four lines of posb."
+  note: "a,b pair with figures/build/s09_nullclines.png; c,d pair with s09_bifurcation.png. Show each side by side."
 
 gardner2000_fig3:
-  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
-  doi: "10.1038/35002131"
   figure: "Fig. 3"
-  shows: "induction threshold - the switching response"
+  shows: "the toggle switch plasmid, Type IV arrangement"
   used_in: ["s09"]
 
 gardner2000_fig4:
-  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
-  doi: "10.1038/35002131"
   figure: "Fig. 4"
-  shows: "switching time course"
+  shows: "demonstration of bistability. c is long-term stability of pTAK117 to ~28 h"
   used_in: ["s09"]
 
 gardner2000_fig5:
-  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
-  doi: "10.1038/35002131"
   figure: "Fig. 5"
-  shows: "flow cytometry at 2 h / 30 h / 40 h - the toggle failing"
+  shows: "induction threshold -- the quasi-discontinuous jump, and bimodality near the bifurcation"
   used_in: ["s09"]
+
+gardner2000_fig6:
+  figure: "Fig. 6"
+  shows: "pTAK117 switching time; bimodal distribution appears at 4 h, complete by 6 h"
+  used_in: ["s09"]
+
+# --- UNSOURCED -------------------------------------------------------------
+# The 2025 deck showed RFP/GFP flow panels at 2 h / 30 h / 40 h captioned
+# "toggle set to green fails in 40 hours". That is NOT from Gardner 2000 --
+# their longest time course is Fig. 4c at ~28 h and it shows stability, not
+# failure. The claim needs its real source before it goes on a slide.

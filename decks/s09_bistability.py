@@ -105,8 +105,10 @@ def build():
         y = 2.45 + i * 0.92
         d.text(s, k, M, y, 2.3, 0.8, size=14, font=HEAD, bold=True, color=INK)
         d.text(s, v, M + 2.4, y, 4.3, 0.85, size=12.5, color=BODY)
-    d.paper_figure(s, "gardner2000_fig1a", 7.6, 2.2, 4.9, 3.4,
-                   "Gardner 2000, Fig. 1a", "the two plasmid constructs")
+    d.paper_figure(s, "gardner2000_fig1", 7.6, 2.25, 4.9, 2.0,
+                   "Gardner 2000, Fig. 1", "the design")
+    d.paper_figure(s, "gardner2000_fig3", 7.6, 4.55, 4.9, 1.5,
+                   "Gardner 2000, Fig. 3", "the plasmid")
     d.foot(s, "Two promoters, two repressors, one reporter. That is the entire construct.")
     d.notes(s, "The point of this slide is that the thing is SMALL. Students consistently expect it to be complicated.")
 
@@ -153,20 +155,22 @@ def build():
     d.header(s, "32 – 40 min", "Abstraction")
     d.title(s, "Now write it down")
     d.shape(s, S.ROUNDED_RECTANGLE, M, 1.9, 6.0, 1.75, fill=CARD, line=TEAL, lw=2)
-    d.text(s, "du/dt  =  α₁ / (1 + vᵐ)  −  u\ndv/dt  =  α₂ / (1 + uⁿ)  −  v",
+    d.text(s, "du/dt  =  α₁ / (1 + v^β)  −  u\ndv/dt  =  α₂ / (1 + u^γ)  −  v",
            M + 0.35, 2.15, 5.4, 1.25, size=21, font=HEAD, bold=True, color=INK,
            spacing=1.5)
     for i, (sym, txt) in enumerate([
             ("u, v", "the two repressor concentrations"),
             ("α₁, α₂", "effective synthesis rates — promoter strength, RBS, copy number"),
-            ("n, m", "cooperativity of each repression"),
+            ("β, γ", "cooperativity of each repression"),
             ("−u, −v", "removal: degradation plus dilution by growth")]):
         y = 1.95 + i * 0.95
         d.text(s, sym, 7.15, y, 1.5, 0.4, size=17, font=HEAD, bold=True, color=CYAN)
         d.text(s, txt, 8.5, y + 0.03, 4.1, 0.75, size=13.5, color=BODY)
-    d.text(s, "Everything is scaled: time in units of protein lifetime, concentration in units of the repression threshold. Four parameters left, and every one is something you argued about ten minutes ago.",
+    d.text(s, "This is Box 1 of the paper, verbatim. Time is in units of protein lifetime, concentration in units of the repression threshold — four parameters left, and every one is something you argued about ten minutes ago.",
            M, 5.7, W - 2 * M, 0.75, size=15, color=INK)
-    d.notes(s, "Derive the scaling on the board — two minutes, and it is where the four parameters come from. Map each symbol back to the requirement list explicitly.")
+    d.paper_figure(s, "gardner2000_box1", M, 5.55, 6.0, 1.3,
+                   "Gardner 2000, Box 1", "the model as the paper states it")
+    d.notes(s, "Derive the scaling on the board — two minutes, and it is where the four parameters come from. Note the notation: the paper uses beta and gamma for the cooperativities; posb.toggle_model calls them m and n. Say so once so nobody is confused reading the paper.")
 
     # 9 NULLCLINES ------------------------------------------------------------
     s = d.light()
@@ -194,7 +198,7 @@ def build():
     for i, (p, verd, txt, c) in enumerate([
             ("α₁, α₂", "EASY", "Promoter libraries, RBS calculators, copy number. Continuously tunable over orders of magnitude.", GREEN),
             ("removal rate", "MODERATE", "ssrA/protease tags shorten lifetime — but they move the timescale AND the steady state together.", AMBER),
-            ("n, m", "HARD", "Cooperativity is set by the repressor's oligomerisation and operator architecture. You choose it by choosing a protein, not by tuning a knob.", RED),
+            ("β, γ", "HARD", "Cooperativity is set by the repressor's oligomerisation and operator architecture. You choose it by choosing a protein, not by tuning a knob.", RED),
             ("symmetry", "EASY, AND FRAGILE", "You can balance the arms — but growth rate, temperature and burden all unbalance them again.", AMBER)]):
         y = 1.88 + i * 1.10
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 2.3, 0.92, fill=CARD, line=c, lw=2)
@@ -241,10 +245,10 @@ def build():
         d.text(s, txt, x + 0.3, 3.0, 5.1, 1.1, size=14, color=BODY)
     d.text(s, "A circuit can be perfectly bistable and still useless, because it takes six hours to commit.",
            M, 4.42, W - 2 * M, 0.4, size=15, bold=True, color=INK)
-    d.paper_figure(s, "gardner2000_fig3", M, 4.9, 5.7, 1.35,
-                   "Gardner 2000, Fig. 3", "induction threshold")
-    d.paper_figure(s, "gardner2000_fig4", M + 6.2, 4.9, 5.7, 1.35,
-                   "Gardner 2000, Fig. 4", "switching time course")
+    d.paper_figure(s, "gardner2000_fig5", M, 4.9, 5.7, 1.35,
+                   "Gardner 2000, Fig. 5", "induction threshold")
+    d.paper_figure(s, "gardner2000_fig6", M + 6.2, 4.9, 5.7, 1.35,
+                   "Gardner 2000, Fig. 6", "switching time")
     d.notes(s, "This is where the fourth requirement from slide 7 — the one nobody raised — gets paid off.")
 
     # 13 THE DERIVATION -------------------------------------------------------
@@ -275,7 +279,7 @@ def build():
     d.shape(s, S.ROUNDED_RECTANGLE, 7.25, 4.58, 5.35, 1.0, fill=TEAL, line=TEAL)
     d.text(s, "critical α  =  n (n − 1)^−(n+1)/n", 7.25, 4.92, 5.35, 0.4, size=19,
            font=HEAD, bold=True, color=WHITE, align="c")
-    d.foot(s, "n = 2 gives critical α = 2 exactly. This is a theorem, not an observation.")
+    d.foot(s, "Writing β = γ = n for the symmetric case. n = 2 gives critical α = 2 exactly — a theorem, not an observation.")
     d.notes(s, "DO THIS ON THE BOARD. Ten lines, and it converts 'you need cooperativity' from asserted to proved. Elowitz/Bois derive the analogous single-gene autoactivation condition; this is the two-gene version. posb.toggle_alpha_critical carries the same derivation, and tests/test_analysis.py checks it against numerics at n = 1.5, 2, 3, 4.")
 
     # 14 THE BOUNDARY, CHECKED ------------------------------------------------
@@ -313,8 +317,8 @@ def build():
     s = d.dark()
     d.header(s, "72 – 77 min", "The part the paper does not celebrate")
     d.title(s, "The toggle set to green fails after 40 hours")
-    d.paper_figure(s, "gardner2000_fig5", M, 1.95, 6.0, 2.1,
-                   "Gardner 2000, Fig. 5", "flow cytometry at 2 h / 30 h / 40 h")
+    d.paper_figure(s, "UNSOURCED_toggle_longevity", M, 1.95, 6.0, 2.1,
+                   "SOURCE NEEDED", "RFP/GFP at 2 h / 30 h / 40 h — NOT Gardner 2000")
     for i, (t, txt) in enumerate([("2 h", "clean separation"),
                                   ("30 h", "green is broadening"),
                                   ("40 h", "leaked back to red")]):
@@ -327,7 +331,7 @@ def build():
     d.text(s, "Two minutes with your neighbour. There are at least four distinct mechanisms and they need different fixes.",
            M, 4.95, 11, 0.4, size=16, color=MINT)
     d.foot(s, "Mutation in a repressor · promoter mutation · plasmid loss · burden selecting against the expressing state", 6.3)
-    d.notes(s, "Do not reveal the four mechanisms until they have argued. Key distinction: a mutation that breaks the CIRCUIT versus selection that breaks the POPULATION. Different engineering responses — sequence redundancy versus lowering burden.")
+    d.notes(s, "CITATION PROBLEM: the 2 h / 30 h / 40 h RFP/GFP panels are not from Gardner 2000 — their longest time course is Fig. 4c at ~28 h and it shows STABILITY. Find the real source before delivering this slide, or replace it with Fig. 4c and ask instead how long the toggle SHOULD hold. Do not reveal the four mechanisms until they have argued. Key distinction: a mutation that breaks the CIRCUIT versus selection that breaks the POPULATION. Different engineering responses — sequence redundancy versus lowering burden.")
 
     # 17 ROBUSTNESS -----------------------------------------------------------
     s = d.light()
