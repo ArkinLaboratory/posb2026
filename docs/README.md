@@ -10,5 +10,6 @@
 | **[Lecture Design](lecture-design.md)** | The per-session template and the evidence for it. |
 | **[Design Notes](design-notes.md)** | Why the course is built this way, and what it is correcting. |
 | **[References](references.md)** | Recommended texts with BibTeX, and session readings. |
+| **[Figures, Demos, and Decks](figures-and-decks.md)** | Where visual material comes from, and the licensing line on paper figures. |
 | **[Instructor Setup](instructor-setup.md)** | Runbook: accounts, DataHub, Gradescope, the weekly loop, onboarding a reader. |
 | **[For Instructors](for-instructors.md)** | Adapting the material; how the build and CI work. |

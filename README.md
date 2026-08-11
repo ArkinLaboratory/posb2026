@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/assets/posb-logo-520.png" width="260" alt="Principles of Synthetic Biology">
+
 # Principles of Synthetic Biology
 
 **BioE 147 / BioE 247 · University of California, Berkeley · Fall 2026**
@@ -40,10 +42,12 @@ course relies on is worked rather than asserted.
 | Start working through the material | **[Getting Started](docs/getting-started.md)** |
 | See the whole course at a glance | **[Course Map](docs/course-map.md)** — all 28 sessions |
 | Browse the notebooks | [`sessions/`](sessions/) |
+| Run a live classroom demo | [`demos/`](demos/) |
 | Do the problem sets | [`problem-sets/`](problem-sets/) |
 | Look up a function in `posb` | **[Package Reference](docs/posb-reference.md)** |
 | Understand *why* it is built this way | **[Design Notes](docs/design-notes.md)** |
 | See how a lecture is structured | **[Lecture Design](docs/lecture-design.md)** |
+| Generate a figure or build a demo | **[Figures, Demos, and Decks](docs/figures-and-decks.md)** |
 | Set up / run the course | **[Instructor Setup](docs/instructor-setup.md)** |
 | Reuse this in my own course | **[For Instructors](docs/for-instructors.md)** |
 | Look up a citation | **[References](docs/references.md)** |
@@ -127,6 +131,11 @@ posb2026/
 ├── problem-sets/          One folder per set (student versions)
 │   ├── ps00-environment/
 │   └── ps01-modeling/
+├── demos/                 Interactive demos to drive live in lecture
+│   └── d09-toggle-explorer/
+├── figures/               Figure SOURCE. Slides embed figures/build/*.png
+│   ├── style.py           the course palette, for matplotlib
+│   └── s09_bistability.py
 ├── tools/                 Build and verification scripts
 │   ├── sources/           ← SOURCE OF TRUTH for notebooks
 │   ├── build_notebooks.py

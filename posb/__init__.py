@@ -10,10 +10,11 @@ Currently available
 -------------------
 core       Session 3.  Reaction, Model, Trajectory. Builds S and integrates
                        dx/dt = S @ v.
+analysis   Session 8.  Nullclines, fixed points, Jacobian, linear stability,
+                       and the toggle bifurcation condition.
 
 Coming later in the term
 ------------------------
-analysis   Session 8.  Nullclines, fixed points, Jacobian, linear stability.
 stochastic Session 12. Gillespie SSA — you write your own first.
 fba        Session 20. Flux balance analysis as a linear program.
 
@@ -22,9 +23,17 @@ symbolic engine, and no simulation framework. Read the source.
 """
 
 from .core import Reaction, Model, Trajectory
+from .analysis import (
+    nullcline, fixed_points, jacobian, classify, stability_report,
+    toggle_model, toggle_alpha_critical,
+)
 
-__version__ = "0.1.0"
-__all__ = ["Reaction", "Model", "Trajectory"]
+__version__ = "0.2.0"
+__all__ = [
+    "Reaction", "Model", "Trajectory",
+    "nullcline", "fixed_points", "jacobian", "classify", "stability_report",
+    "toggle_model", "toggle_alpha_critical",
+]
 
 
 def check_environment(verbose=True):

@@ -25,6 +25,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 NOTEBOOKS = [
     "sources.ps00",
     "sources.s03",
+    "sources.d09",
 ]
 
 METADATA = {

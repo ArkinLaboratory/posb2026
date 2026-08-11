@@ -17,7 +17,7 @@ from nbclient import NotebookClient
 from nbclient.exceptions import CellExecutionError
 
 ROOT = Path(__file__).resolve().parent.parent
-SEARCH = ["sessions", "problem-sets"]
+SEARCH = ["sessions", "problem-sets", "demos"]
 
 
 def main():
