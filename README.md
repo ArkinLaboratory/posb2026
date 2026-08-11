@@ -136,7 +136,8 @@ posb2026/
 │   └── ps01-modeling/
 ├── demos/                 Interactive demos to drive live in lecture
 │   └── d09-toggle-explorer/
-├── handouts/              Paper handouts. Markdown in, print-ready HTML out.
+├── handouts/              Paper handouts. Markdown in, print-ready PDF out.
+│                         Full LaTeX; the PDFs are committed on purpose.
 ├── figures/               Figure SOURCE. Slides embed figures/build/*.png
 │   ├── style.py           the course palette, for matplotlib
 │   └── s09_bistability.py

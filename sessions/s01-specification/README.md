@@ -17,8 +17,8 @@ Thirty years in, the answer is *partially*. The whole course is about which part
 | | | |
 |---|---|---|
 | 0–3 | The question | And the honest answer |
-| 3–11 | **Diagnostic** | Ungraded, on paper. [handouts/s01-diagnostic.md](../../handouts/s01-diagnostic.md) |
-| 11–26 | **Three specifications** | Groups of 3–4. [handouts/s01-launch-problem.md](../../handouts/s01-launch-problem.md) |
+| 3–11 | **Diagnostic** | Ungraded, on paper. [PDF](../../handouts/s01-diagnostic.pdf) · [source](../../handouts/s01-diagnostic.md) |
+| 11–26 | **Three specifications** | Groups of 3–4. [PDF](../../handouts/s01-launch-problem.pdf) · [source](../../handouts/s01-launch-problem.md) |
 | 26–34 | Consolidation | Sense · compute · actuate · **survive** |
 | 34–42 | Why this is not electrical engineering | Four things that are not true of transistors |
 | 42–48 | What 2026 can and cannot do | An honest scorecard |
@@ -68,10 +68,17 @@ comprehension, and none of it survives the only question this session asks:
 
 ## Before you teach it
 
+**Print two handouts.** Two pages each, so both duplex onto one sheet.
+
 One slide has a shelf life — **"What 2026 can and cannot do."** Re-check it every
-year. In particular: all sixteen Sc2.0 synthetic yeast chromosomes have been
-built individually (the last, synXVI, published January 2025), but whether a
-single strain now carries all sixteen consolidated is *[unverified]* here. Say
-"built" rather than "assembled into one organism" unless you know otherwise —
-and note that the distinction is not a quibble, it is the integration problem in
-its purest form.
+year.
+
+Its anchor is Sc2.0, and the point is the one in the *right*-hand column.
+Individual synthetic yeast chromosomes have been designed, built and debugged
+for over a decade — but **the project is not finished: there is no strain
+carrying all sixteen.** Do not say or imply otherwise. That is the whole lesson:
+every part was verified in isolation, by people who are extremely good at this,
+over fifteen years, in a genome that is small, well characterised and haploid,
+and *consolidation is still the hard part*. If integration is unsolved there,
+nobody should be surprised when a four-gene circuit behaves differently in a
+mouse gut.

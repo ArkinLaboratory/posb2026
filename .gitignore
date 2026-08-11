@@ -5,10 +5,13 @@ __pycache__/
 .DS_Store
 out/
 build/
-handouts/build/
+
 dist/
 *.egg-info/
 .venv/
+
+# One-time MathJax download for tools/build_handouts.py.
+tools/.cache/
 
 # Problem-set masters contain solutions. This repository is public.
 private/

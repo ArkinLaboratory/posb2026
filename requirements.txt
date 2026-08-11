@@ -21,3 +21,8 @@ otter-grader>=7.0
 python-pptx>=1.0
 Pillow>=10.0
 PyYAML>=6.0
+
+# Instructor only: building paper handouts (tools/build_handouts.py).
+# playwright also needs its browser once:  playwright install chromium
+markdown>=3.5
+playwright>=1.40

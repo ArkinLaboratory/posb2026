@@ -176,7 +176,7 @@ def build():
     for i, t in enumerate([
             "Reading and writing DNA. Sequencing and synthesis are no longer the bottleneck for anything in this course.",
             "Single-protein design. Binders and enzymes to specification is a working technology, not a promise.",
-            "Chromosome-scale construction. Every one of the 16 Sc2.0 synthetic yeast chromosomes has been built.",
+            "Megabase-scale DNA construction. Individual synthetic yeast chromosomes approaching 1 Mb are designed, built and debugged.",
             "Small circuits in a lab strain. Toggles, oscillators, logic gates — the objects of sessions 9–13."]):
         d.text(s, "▪", M + 0.3, 2.45 + i * 0.95, 0.25, 0.3, size=13, color=GREEN)
         d.text(s, t, M + 0.62, 2.45 + i * 0.95, 5.1, 0.9, size=12.5, color=BODY)
@@ -184,23 +184,32 @@ def build():
             line=RED, lw=2)
     d.text(s, "NOT SOLVED", M + 6.6, 2.05, 5.4, 0.3, size=11, bold=True, color=RED)
     for i, t in enumerate([
-            "Integration. Parts that each work do not compose into a system that works. This is the field's central failure.",
+            "Integration. Sc2.0 has been building synthetic yeast chromosomes since 2011 and there is still no strain carrying all sixteen.",
             "Prediction in a real host. Circuit behaviour in a lab strain does not transfer to a gut, a soil, or a tumour.",
             "Durability. Almost nothing published keeps working for a month of growth without selection to hold it there.",
             "Specification itself. There is no language in which you can state what you want and get an implementation."]):
         d.text(s, "▪", M + 6.6, 2.45 + i * 0.95, 0.25, 0.3, size=13, color=RED)
         d.text(s, t, M + 6.92, 2.45 + i * 0.95, 5.1, 0.9, size=12.5, color=BODY)
     d.text(s, "The left column is why the field is worth joining. The right column is what this course is for.",
-           M, 6.35, W - 2 * M, 0.4, size=15, bold=True, color=INK)
+           M, 6.3, W - 2 * M, 0.35, size=15, bold=True, color=INK)
+    d.text(s, "Note what the two columns have in common: making the parts is the solved problem. Putting them together is not — at every scale, from four genes to sixteen chromosomes.",
+           M, 6.7, W - 2 * M, 0.35, size=13, italic=True, color=MUTED)
     d.notes(s, "CHECK BEFORE DELIVERY -- this is the one slide in the course "
-               "with a shelf life, and it should be re-examined every year. "
-               "Sc2.0: the final chromosome, synXVI, was published in January "
-               "2025, so all sixteen are designed and built individually. "
-               "Whether a single strain now carries all sixteen consolidated is "
-               "NOT something I could confirm -- say 'built' rather than "
-               "'assembled into one organism' unless you know otherwise. That "
-               "distinction is not a quibble; it is the integration problem in "
-               "the right-hand column, in its purest form.")
+               "with a shelf life and it should be re-examined every year. "
+               "Sc2.0 is the anchor for the right-hand column and it is worth "
+               "two minutes on its own. Individual synthetic chromosomes have "
+               "been designed, built and debugged for over a decade; the most "
+               "recent, synXVI, was reported in early 2025. The project is NOT "
+               "fully built: there is no strain carrying all sixteen. "
+               "Do not say or imply otherwise. "
+               "That is the whole point. Every part was verified in isolation "
+               "by people who are extremely good at this, over fifteen years, "
+               "with a genome that is small, well characterised and haploid -- "
+               "and consolidation is still the hard part. If integration is "
+               "unsolved THERE, nobody should be surprised that a four-gene "
+               "circuit behaves differently in a mouse gut. "
+               "Ask the room: why should assembling verified parts be harder "
+               "than making them? That question is sessions 17 through 23.")
 
     # 8 THE ARCHITECTURE ------------------------------------------------------
     s = d.light()
