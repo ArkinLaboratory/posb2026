@@ -2,9 +2,9 @@
 
 [← back to README](../README.md)
 
-This material is [CC BY 4.0](../LICENSE) (content) and [MIT](../LICENSE-CODE)
-(code). Use it, adapt it, teach from it, including commercially, with
-attribution. If you run a course from it I would like to hear about it —
+This material is [CC BY 4.0](../LICENSE) (content) and
+[BSD 3-Clause](../LICENSE-CODE) (code). Use it, adapt it, teach from it,
+including commercially, with attribution. If you run a course from it I would like to hear about it —
 [open an issue](https://github.com/ArkinLaboratory/posb2026/issues) or email.
 
 ---
@@ -67,6 +67,16 @@ course. The ones least covered elsewhere, and therefore most worth taking:
 `posb` is independently useful. `pip install` is not set up (deliberately — it
 is course material, not a library), but the package is two files and vendors
 cleanly.
+
+### A note on licensing course code
+
+If you are at a university or national laboratory, check your own institution's
+software-release rules before publishing, even for a free licence. Several
+require disclosure to a technology-transfer office *prior to* external
+distribution regardless of whether money changes hands, and the requirement
+usually turns on how and why the code was written rather than on which GitHub
+account it sits in. Course scaffolding written for teaching is normally clear of
+this; research code repackaged for teaching often is not.
 
 ---
 

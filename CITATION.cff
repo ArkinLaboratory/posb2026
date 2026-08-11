@@ -23,6 +23,6 @@ keywords:
   - mathematical modeling
   - computational biology
   - education
-license: CC-BY-4.0
+license: CC-BY-4.0   # content; code in posb/, tools/, tests/ is BSD-3-Clause
 version: "2026.1"
 date-released: "2026-08-26"

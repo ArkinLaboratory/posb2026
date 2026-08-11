@@ -9,7 +9,7 @@ Adam P. Arkin · [arkinlab.bio](https://arkinlab.bio)
 building and analysing biological circuits from first principles.*
 
 [![tests](https://github.com/ArkinLaboratory/posb2026/actions/workflows/ci.yml/badge.svg)](https://github.com/ArkinLaboratory/posb2026/actions/workflows/ci.yml)
-[![Code: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](LICENSE-CODE)
+[![Code: BSD-3-Clause](https://img.shields.io/badge/code-BSD--3--Clause-blue.svg)](LICENSE-CODE)
 [![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey.svg)](LICENSE)
 
 </div>
@@ -44,6 +44,7 @@ course relies on is worked rather than asserted.
 | Look up a function in `posb` | **[Package Reference](docs/posb-reference.md)** |
 | Understand *why* it is built this way | **[Design Notes](docs/design-notes.md)** |
 | Reuse this in my own course | **[For Instructors](docs/for-instructors.md)** |
+| Look up a citation | **[References](docs/references.md)** |
 | Report an error | [CONTRIBUTING.md](CONTRIBUTING.md) |
 
 ## Quick start
@@ -143,11 +144,29 @@ in the course: this counts, and you will be credited. See
 
 ## Licence
 
-- **Code** (the `posb` package, `tools/`, `tests/`) — [MIT](LICENSE-CODE)
-- **Course content** (notebooks, documentation, problem sets) — [CC BY 4.0](LICENSE)
+| Paths | Licence |
+|---|---|
+| `posb/`, `tools/`, `tests/` | [BSD 3-Clause](LICENSE-CODE) |
+| `sessions/`, `problem-sets/`, `docs/`, all Markdown | [CC BY 4.0](LICENSE) |
 
 You may use, adapt, and teach from this material, including commercially, with
 attribution. If you teach a course from it, I would like to hear about it.
+
+BSD-3-Clause rather than MIT because it is the licence the University of
+California
+[recommends considering first](https://security.ucop.edu/files/documents/resources/guide-to-managing-open-source-software.pdf)
+for open-source releases, it is what comparable Berkeley course packages use,
+and its non-endorsement clause fits an author with a dual university and
+national-laboratory affiliation.
+
+### Disclaimer
+
+Developed for BioE 147/247 at the University of California, Berkeley. The views
+expressed are those of the author and do not necessarily reflect those of the
+University of California, The Regents of the University of California,
+Lawrence Berkeley National Laboratory, or the U.S. Department of Energy.
+Institutional affiliation is stated for identification only and does not imply
+endorsement.
 
 ## Citation
 
@@ -162,7 +181,10 @@ See [CITATION.cff](CITATION.cff), or:
   Bois, Caltech BE 150. Free, excellent, and covers much of this course's
   first half with a complementary framing. Every chapter has an executable
   appendix that regenerates its figures. Read it alongside this course.
-- **Alon**, *An Introduction to Systems Biology*, 2nd ed. — network motifs.
+- **Alon**, *An Introduction to Systems Biology*, 2nd ed. (CRC Press, 2019) —
+  network motifs.
 - **Del Vecchio & Murray**,
   *[Biomolecular Feedback Systems](https://www.cds.caltech.edu/~murray/BFSwiki/)*
   — free; the reference for retroactivity and control.
+
+Full citations with BibTeX: **[References](docs/references.md)**.

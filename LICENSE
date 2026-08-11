@@ -2,9 +2,12 @@ Creative Commons Attribution 4.0 International (CC BY 4.0)
 
 Copyright (c) 2026 Adam P. Arkin
 
-Applies to the course content: notebooks, documentation, problem sets, and
-lecture material in this repository. Code is separately licensed under MIT --
-see LICENSE-CODE.
+APPLIES TO: the course content -- notebooks, documentation, problem sets, and
+lecture material -- in `sessions/`, `problem-sets/`, `docs/`, and all Markdown
+files in this repository.
+
+The `posb/` package, `tools/`, and `tests/` are licensed separately under the
+BSD 3-Clause License -- see LICENSE-CODE.
 
 You are free to:
 
@@ -28,5 +31,13 @@ Suggested attribution:
   Arkin, A. P. (2026). Principles of Synthetic Biology: course materials for
   UC Berkeley BioE 147/247. https://github.com/ArkinLaboratory/posb2026
   Licensed CC BY 4.0.
+
+DISCLAIMER
+
+Developed for BioE 147/247 at the University of California, Berkeley. The views
+expressed are those of the author and do not necessarily reflect those of the
+University of California, The Regents of the University of California, Lawrence
+Berkeley National Laboratory, or the U.S. Department of Energy. Institutional
+affiliation is stated for identification only and does not imply endorsement.
 
 Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
