@@ -1,0 +1,14 @@
+# Version FLOOR set by Google Colab, which lags Berkeley DataHub.
+# CI installs these minimums deliberately -- the binding constraint is
+# whichever student environment is oldest, not the newest available.
+numpy>=2.0,<3
+scipy>=1.16,<2
+matplotlib>=3.10
+sympy>=1.13
+
+# Build and verification only (not needed to run the notebooks)
+nbformat>=5.9
+nbclient>=0.9
+nbconvert>=7.0
+pytest>=8.0
+ipykernel>=6.29

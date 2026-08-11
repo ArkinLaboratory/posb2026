@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: "Principles of Synthetic Biology: course materials for UC Berkeley BioE 147/247"
+message: "If you use these materials, please cite them as below."
+type: software
+authors:
+  - family-names: Arkin
+    given-names: Adam P.
+    orcid: "https://orcid.org/0000-0002-4999-2931"
+    affiliation: "University of California, Berkeley and Lawrence Berkeley National Laboratory"
+repository-code: "https://github.com/ArkinLaboratory/posb2026"
+abstract: >-
+  Lectures, executable Jupyter notebooks, problem sets, and a small Python
+  package for a one-semester course on the design of synthetic biological
+  systems. Covers circuit design principles (mass action, regulation functions,
+  phase-plane analysis, bistability, feedforward loops, oscillation, noise, the
+  digital abstraction) and engineering design under real host constraints
+  (resource competition, constraint-based metabolic design, retroactivity,
+  feedback control, evolutionary stability, communities, minimal cells,
+  therapeutic circuits, generative design, and biosecurity).
+keywords:
+  - synthetic biology
+  - systems biology
+  - gene circuits
+  - mathematical modeling
+  - computational biology
+  - education
+license: CC-BY-4.0
+version: "2026.1"
+date-released: "2026-08-26"
