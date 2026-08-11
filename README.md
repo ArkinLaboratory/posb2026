@@ -51,6 +51,7 @@ course relies on is worked rather than asserted.
 | Set up / run the course | **[Instructor Setup](docs/instructor-setup.md)** |
 | Reuse this in my own course | **[For Instructors](docs/for-instructors.md)** |
 | Look up a citation | **[References](docs/references.md)** |
+| See what's built and what's next | **[Status and Roadmap](docs/roadmap.md)** |
 | Report an error | [CONTRIBUTING.md](CONTRIBUTING.md) |
 
 ## Quick start

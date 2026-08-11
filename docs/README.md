@@ -4,6 +4,7 @@
 
 | | |
 |---|---|
+| **[Status and Roadmap](roadmap.md)** | What exists, what does not, and what to do next. |
 | **[Getting Started](getting-started.md)** | How to run the material: DataHub, Colab, or local. Start here. |
 | **[Course Map](course-map.md)** | All 28 sessions, all 9 problem sets, assessment, and a self-study path. |
 | **[Package Reference](posb-reference.md)** | `posb` API: `Reaction`, `Model`, `Trajectory`. |

@@ -11,3 +11,6 @@ dist/
 
 # Problem-set masters contain solutions. This repository is public.
 private/
+
+# Assembled decks may embed copyrighted figures. Never commit them.
+private/build/decks/

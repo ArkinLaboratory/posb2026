@@ -1,0 +1,50 @@
+# Manifest of figures reproduced from published papers.
+#
+# The IMAGES are not in this repository and must not be. This repo is public
+# and CC BY 4.0; reproducing a copyrighted figure in a lecture you deliver is
+# ordinary educational use, but publishing it under a licence granting everyone
+# redistribution rights is not something we can do.
+#
+# Each entry records exactly which figure a deck slot expects. To build a
+# classroom deck, save the images as:
+#
+#     private/paper-figures/<key>.png
+#
+# private/ is gitignored. With them present the build embeds the real figures;
+# without them it draws a labelled slot. Same command either way.
+
+gardner2000_fig1a:
+  paper: "Gardner TS, Cantor CR, Collins JJ. Construction of a genetic toggle switch in Escherichia coli. Nature 403:339-342 (2000)"
+  doi: "10.1038/35002131"
+  figure: "Fig. 1a"
+  shows: "the two plasmid constructs, pTAK and pIKE"
+  used_in: ["s09"]
+
+gardner2000_fig2:
+  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
+  doi: "10.1038/35002131"
+  figure: "Fig. 2"
+  shows: "nullcline geometry and the conditions for bistability"
+  used_in: ["s09"]
+  note: "Pair this with figures/build/s09_nullclines.png side by side -- the point is that a 2000 result is now four lines of posb."
+
+gardner2000_fig3:
+  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
+  doi: "10.1038/35002131"
+  figure: "Fig. 3"
+  shows: "induction threshold - the switching response"
+  used_in: ["s09"]
+
+gardner2000_fig4:
+  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
+  doi: "10.1038/35002131"
+  figure: "Fig. 4"
+  shows: "switching time course"
+  used_in: ["s09"]
+
+gardner2000_fig5:
+  paper: "Gardner TS, Cantor CR, Collins JJ. Nature 403:339-342 (2000)"
+  doi: "10.1038/35002131"
+  figure: "Fig. 5"
+  shows: "flow cytometry at 2 h / 30 h / 40 h - the toggle failing"
+  used_in: ["s09"]
