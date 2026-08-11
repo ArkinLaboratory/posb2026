@@ -1,6 +1,6 @@
 # Instructor Setup
 
-[← back to README](../README.md) · See also [For Instructors](for-instructors.md) (adapting the material) and [Design Notes](design-notes.md) (why it is built this way)
+[← back to README](../README.md) · See also [Lecture Design](lecture-design.md) (the per-session template), [For Instructors](for-instructors.md) (adapting the material), [Design Notes](design-notes.md) (why it is built this way)
 
 A runbook. This page is operational — accounts, commands, checklists. It is
 written for three people:
@@ -137,15 +137,62 @@ you will conclude it works when you tested a personal Gmail.
 
 ### 2.3 Grading — Gradescope **[Berkeley]**
 
-Berkeley site-licenses Gradescope; all features are free to instructors.
+Berkeley site-licenses Gradescope — no request form, no eligibility check.
+As of January 7 2026 only **LTI 1.3** exists; LTI 1.0 was removed.
 
-1. Enable it in bCourses course navigation
-2. Link the course and sync the roster
-3. Create one **Programming Assignment** per problem set
-4. Upload the autograder zip from `private/build/psNN/dist/autograder/`
+**Do this first, in August.** Log in once at
+`https://www.gradescope.com/auth/saml/berkeley` with CalNet, *before* touching
+bCourses. Then confirm you can see a **Create Course** button. If you cannot,
+your account was created as a *student* account and only `help@gradescope.com`
+can flip it — a multi-day round trip you do not want in week 1.
 
-Grades post back to bCourses. Free-response questions appear in Gradescope's
-manual-grading interface.
+**Decide the 147/247 question before publishing the sites.** They meet together,
+so use **one merged bCourses site containing both official sections**, linked to
+**one** Gradescope course. Berkeley's tool is **Manage Sites** (which now also
+contains the old Official Sections tool). Two parallel Gradescope courses means
+duplicating every assignment and every autograder Docker build. Merging *after*
+students have submitted work is not reliably self-service — email
+`bcourseshelp@berkeley.edu` if you are already past that point. If you need to
+distinguish 147 from 247, use **sections inside the one course**.
+
+**Enable and link:**
+
+1. bCourses → **Settings** → **Navigation** tab
+2. Drag **Gradescope** into the enabled list → **Save** *(easy to miss; nothing
+   persists without it)*
+3. Click the new **Gradescope** nav item → choose new or existing course →
+   **Link Course**
+4. Gradescope → **Roster** → **Sync bCourses Roster**
+
+> **Roster sync is manual.** It does not update on add/drop. Re-sync at the end
+> of week 1, end of week 2, and after the add/drop deadline. Re-syncing
+> overwrites any manually customised section names.
+
+**Create assignments from bCourses**, not from inside Gradescope, or they will
+not be linked to the gradebook: **Assignments** → **+ Assignment** → Submission
+Type **External Tool** → **Find** → **Gradescope** → create a new Gradescope
+assignment → **Link Assignment** → set points → **Save and Publish**.
+
+Then in Gradescope choose **Programming Assignment** and upload the zip from
+`private/build/psNN/dist/autograder/`. Take the **default Ubuntu 22.04 base
+image** — Otter's `setup.sh` builds its own conda environment, so a
+Python-preloaded variant only wastes layers.
+
+> **Build the Docker image days before release.** Otter's setup downloads
+> Miniforge and solves a conda environment; expect roughly 10–25 minutes, longer
+> if PDF export is enabled. Also raise the defaults on the assignment settings
+> page: memory defaults to **768 MB** and timeout to **10 minutes** (max 40),
+> both tight for a NumPy/SciPy autograder.
+
+**Grade passback is a manual push**, not automatic: Gradescope → **Review
+Grades** → **Post Grades to Canvas**. Only the overall score posts; the
+per-question breakdown stays in Gradescope. Two known failure modes — posting
+fails if the bCourses course has *concluded* (check the term end date), and
+TAs/Readers often cannot sync rosters or post grades due to a Canvas permission
+on viewing email addresses. If your reader needs to post, give them
+**Instructor** in Gradescope.
+
+Campus contact: `gradescope@berkeley.edu`, ~1 business day.
 
 ### 2.4 Distribution links — nbgitpuller
 
@@ -158,15 +205,64 @@ https://datahub.berkeley.edu/hub/user-redirect/git-pull
   &urlpath=lab/tree/posb2026/problem-sets/ps01-modeling/ps01.ipynb
 ```
 
-**Set `branch` explicitly.** It defaults to `master`, and students get an
-unhelpful failure otherwise.
+Generate and check them all at once:
 
-Add `&backup=true` to make a **reset link** — it renames the student's copy with
-a timestamp and re-clones fresh. Post one alongside each assignment; it is the
-answer to most "I broke my notebook" emails.
+```bash
+python tools/check_links.py
+```
 
-**Test every link in a private window.** In your own browser the repo is already
-cloned, so a broken link still appears to work.
+That reproduces nbgitpuller's own logic — `git ls-remote` for the repo and
+branch, a raw-content HEAD request for the notebook — and prints paste-ready
+links. It catches three of the four real failure modes with no browser.
+
+> **`&backup=true` does not work on DataHub.** It is an nbgitpuller **1.3.0**
+> feature and DataHub pins **1.2.2**, which silently ignores the parameter. A
+> "reset link" built this way appears to work and does nothing. Re-check after
+> DataHub bumps the pin. *(An earlier version of this runbook recommended it.
+> It was wrong.)*
+
+> **The `branch` default is not `master`.** nbgitpuller's own docs say it is,
+> and that has been false since 1.1.0 — it now resolves the repo's default HEAD.
+> So omitting `branch` works. But the **Berkeley link-generator extension
+> pre-fills the field with `master`** and uses it in preference to the branch it
+> detected, which produces a link that fails for every student on a `main`-only
+> repo. Always read the `branch=` in the generated URL.
+
+**The urlpath must include the clone folder name** — `lab/tree/posb2026/…`, not
+`lab/tree/…`. This is the single most common mistake, and its symptom is
+deceptive: the pull *succeeds*, then JupyterLab says "Could not find path",
+which students read as "the assignment is missing."
+
+### Testing a link — incognito does not work
+
+Your DataHub home directory is persistent NFS keyed to your CalNet ID. Once
+`~/posb2026` exists, nbgitpuller takes the *update* path — `git fetch` against
+the folder's own configured remote — instead of cloning. **A private window logs
+you in as the same CalNet ID, into the same home directory, so it tests
+nothing.**
+
+The correct test, in a DataHub terminal:
+
+```bash
+mv ~/posb2026 ~/posb2026-mine    # or rm -rf if you have no local edits
+```
+
+Then click the link. With the folder absent, nbgitpuller runs the true
+first-time path and exercises every failure mode a student would hit.
+
+Non-destructive alternative: add `&targetPath=linktest` and point `urlpath` at
+`linktest/…` instead. Cleaner, but it does not test the exact string you ship.
+
+Best of all: have your reader or a colleague click every link once. Their home
+directory genuinely lacks the folder, and they are a different identity.
+
+> **A Berkeley-specific false positive.** DataHub mounts a GitHub App
+> credential helper (`berkeley-datahub-git-access`). If you have ever authorised
+> it, your DataHub server can clone your *private* repos transparently and your
+> students' cannot — so a private-repo link works perfectly for you, even after
+> deleting the folder, and fails for all 35 of them. `check_links.py` guards
+> against this by testing unauthenticated; run it with no GitHub credentials in
+> the environment.
 
 > ### ⚠ The nbgitpuller trap
 >
@@ -187,9 +283,10 @@ cloned, so a broken link still appears to work.
 - [ ] DataHub memory increase confirmed via `/sys/fs/cgroup/memory.max`
 - [ ] Colab verified with an institutional account, in a private window
 - [ ] Version floor recorded; `requirements.txt` and CI pinned to it
-- [ ] Gradescope linked to bCourses, roster synced
-- [ ] Every nbgitpuller link tested in a private window
-- [ ] Reset (`backup=true`) links posted
+- [ ] 147/247 merged into one bCourses site; Gradescope linked; roster synced
+- [ ] Autograder Docker image built and **Test Autograder** run; memory and timeout raised
+- [ ] `python tools/check_links.py` passes, and one link clicked after `mv ~/posb2026 ~/posb2026-mine`
+- [ ] Gradescope: CalNet SAML login done, **Create Course** button visible
 - [ ] `private/` pushed to the private repo
 - [ ] Dates in `docs/course-map.md` and the syllabus match the registrar
 
@@ -355,7 +452,10 @@ Ten minutes, with laptops:
 | Kernel dies on a large simulation | 1 GB default memory | The §2.1 request; check `/sys/fs/cgroup/memory.max` |
 | Work lost after a break | 30-minute idle cull | Save intermediate results to disk; files persist, memory does not |
 | Student's notebook "won't run" | Cells run out of order | Restart Kernel and Run All Cells |
-| Your fix never reached a student | nbgitpuller keeps their version | Ship a new folder; send a `backup=true` reset link |
+| Your fix never reached a student | nbgitpuller keeps their version | Ship a new folder. `backup=true` does not work on DataHub 1.2.2 |
+| Link works for you, fails for students | Private repo + DataHub's GitHub App credential | `python tools/check_links.py` with no GitHub credentials |
+| "Could not find path" after a successful pull | urlpath missing the clone folder name | `lab/tree/posb2026/…` |
+| Gradescope grade posting fails | Course concluded, or TA permissions | Check term dates; post as Instructor |
 | Notebook works locally, not on DataHub | Version drift | Check against the floor in §2.2 |
 | `FileNotFoundError: 'otter'` | Instructor dependency missing | `pip install otter-grader` |
 
