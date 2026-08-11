@@ -26,7 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-DECKS = ["s09_bistability"]
+DECKS = ["s01_specification", "s09_bistability"]
 OUT = ROOT / "private" / "build" / "decks"
 
 

@@ -43,6 +43,7 @@ course relies on is worked rather than asserted.
 | See the whole course at a glance | **[Course Map](docs/course-map.md)** — all 28 sessions |
 | Browse the notebooks | [`sessions/`](sessions/) |
 | Run a live classroom demo | [`demos/`](demos/) |
+| Print a class handout | [`handouts/`](handouts/) |
 | Do the problem sets | [`problem-sets/`](problem-sets/) |
 | Look up a function in `posb` | **[Package Reference](docs/posb-reference.md)** |
 | Understand *why* it is built this way | **[Design Notes](docs/design-notes.md)** |
@@ -135,6 +136,7 @@ posb2026/
 │   └── ps01-modeling/
 ├── demos/                 Interactive demos to drive live in lecture
 │   └── d09-toggle-explorer/
+├── handouts/              Paper handouts. Markdown in, print-ready HTML out.
 ├── figures/               Figure SOURCE. Slides embed figures/build/*.png
 │   ├── style.py           the course palette, for matplotlib
 │   └── s09_bistability.py
