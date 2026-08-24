@@ -19,9 +19,9 @@ Thirty years in, the answer is *partially*. The whole course is about which part
 | | | |
 |---|---|---|
 | 0–3 | The question | And the honest answer: *partially* |
-| 3–11 | **Diagnostic** | Ungraded, on paper. [PDF](../../handouts/s01-diagnostic.pdf) · [source](../../handouts/s01-diagnostic.md) |
-| 11–31 | **Three specifications** | 5 min alone, then 15 in groups. [PDF](../../handouts/s01-launch-problem.pdf) · [source](../../handouts/s01-launch-problem.md) |
-| 31–39 | Consolidation | Sense · compute · actuate · **survive** |
+| 3–8 | **Diagnostic** | Ungraded, on paper, **five minutes**. Four questions; the background grid was collected online before today. [PDF](../../handouts/s01-diagnostic.pdf) · [source](../../handouts/s01-diagnostic.md) |
+| 8–28 | **Three specifications** | 5 min alone, then 15 in groups. [PDF](../../handouts/s01-launch-problem.pdf) · [source](../../handouts/s01-launch-problem.md) |
+| 28–39 | Consolidation | Sense · compute · actuate · **survive**. Eleven minutes, not eight — see below |
 | 39–42 | **ConcepTest 1** | Why the field sensors stopped turning red |
 | 42–48 | Why this is not electrical engineering | Circuit board, or burrito |
 | 48–51 | **ConcepTest 2** | The same promoter, a different construct |
@@ -30,6 +30,28 @@ Thirty years in, the answer is *partially*. The whole course is about which part
 | 58–78 | **Why the course is built this way** | Twenty minutes. The most important twenty of the term. |
 | 78–80 | Forward link | To the cell as a physical substrate |
 | 80–89 | **Laptops open** | DataHub, and the assessment weights said over the top of it spawning |
+
+### Where the diagnostic's three minutes went
+
+The diagnostic used to be eight minutes and five questions. Question 5 — the
+sixteen-box *what have you actually used* grid, plus *what do you want out of
+this course* — is **self-report**, and self-report has two properties that
+argue for collecting it online, before the term: it cannot be inflated by
+looking something up, and it is only useful to the instructor *before* he
+teaches. It now goes out with the welcome announcement, along with the
+self-rating scales that used to sit, uselessly late and in the wrong container,
+in [PS0](../../problem-sets/ps00-environment/).
+
+Questions 1–4 stay on paper, in the room. They are **performance** items, and
+three of the four are trivially lookup-able — question 4 is four lines of NumPy
+anyone can paste into Colab. Unproctored they would not measure the room; they
+would measure who bothered to check, and the bias runs toward apparent
+competence, which would make you under-scaffold sessions 3–9. The paper version
+also guarantees the sample: an online instrument gets 60–80% of a roster that
+is still churning, and the non-responders are not a random draw.
+
+The three recovered minutes go to **consolidation**, which was the real
+bottleneck: harvesting from ~10 groups in 8 minutes is 48 seconds each.
 
 ### Two things an earlier draft of this session got wrong
 
@@ -90,6 +112,8 @@ comprehension, and none of it survives the only question this session asks:
 ## Before you teach it
 
 **Print two handouts.** Two pages each, so both duplex onto one sheet.
+
+**Check the form responses the night before.** They set the pace of sessions 3–9.
 
 **Tell them at the door** to keep laptops shut until 9:20. The DataHub block is
 the close, not the background.

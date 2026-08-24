@@ -1,6 +1,6 @@
 <!--
 title: Session 1 — Diagnostic
-subtitle: Ungraded. Affects nothing. Eight minutes.
+subtitle: Ungraded. Affects nothing. Five minutes.
 session: 1
 -->
 
@@ -12,11 +12,18 @@ This is not graded and does not enter your grade in any way. Its only purpose is
 to tell me where this room actually is, so I can set the pace honestly rather
 than guess.
 
-The four questions below come from four different backgrounds on purpose.
-**Almost nobody answers all four.** If you have never seen something, leave it
-blank — a blank is more useful to me than a guess, and it costs you nothing.
+You already told me what you have *used*, in the form you filled in before
+today. These four questions are the other half: what you can *do* right now,
+cold, with nothing to look at.
+
+They come from four different backgrounds on purpose. **Almost nobody answers
+all four.** If you have never seen something, leave it blank — a blank is more
+useful to me than a guess, and it costs you nothing. Do not look anything up;
+a looked-up answer makes me teach the wrong course to the wrong room.
 
 ---
+
+<div class="q" markdown="1">
 
 ### 1. Molecular
 
@@ -29,8 +36,13 @@ in the cell?
 
 <div class="rule"></div>
 <div class="rule"></div>
+<div class="rule"></div>
+
+</div>
 
 ---
+
+<div class="q" markdown="1">
 
 ### 2. Dynamical
 
@@ -50,20 +62,29 @@ way there? Give the answer in terms of $\alpha$ and $\gamma$.
 <div class="rule"></div>
 <div class="rule"></div>
 
+</div>
+
 <div class="pagebreak"></div>
+
+<div class="q" markdown="1">
 
 ### 3. Physical
 
 An *E. coli* cell is about **1 femtolitre** ($10^{-15}$ L).
 
 Approximately how many molecules are in that cell at a concentration of
-**1 nM**? (Avogadro's number is $6\times10^{23}$ mol$^{-1}$.) An order of magnitude is a complete answer; show whatever
-working you use.
+**1 nM**? (Avogadro's number is $6\times10^{23}$ mol$^{-1}$.) An order of
+magnitude is a complete answer; show whatever working you use.
 
 <div class="rule"></div>
 <div class="rule"></div>
+<div class="rule"></div>
+
+</div>
 
 ---
+
+<div class="q" markdown="1">
 
 ### 4. Computational
 
@@ -83,24 +104,11 @@ What does this print, approximately? And what is this code doing?
 
 <div class="rule"></div>
 <div class="rule"></div>
+<div class="rule"></div>
+
+</div>
 
 ---
 
-### 5. Where you are coming from
-
-Tick anything you have **used**, not merely heard of.
-
-<table>
-<tr><th>Wet lab</th><td>&#9744; cloned a plasmid</td><td>&#9744; run a PCR</td>
-    <td>&#9744; used a flow cytometer</td><td>&#9744; done a Western or qPCR</td></tr>
-<tr><th>Mathematics</th><td>&#9744; solved an ODE by hand</td><td>&#9744; solved one numerically</td>
-    <td>&#9744; linearised a system</td><td>&#9744; eigenvalues of a 2&times;2</td></tr>
-<tr><th>Computing</th><td>&#9744; written a Python script</td><td>&#9744; used NumPy</td>
-    <td>&#9744; used a Jupyter notebook</td><td>&#9744; used git</td></tr>
-<tr><th>Coursework</th><td>&#9744; read a synbio paper</td><td>&#9744; built a genetic circuit</td>
-    <td>&#9744; a controls course</td><td>&#9744; a stat-mech course</td></tr>
-</table>
-
-**One sentence: what do you want out of this course?**
-
-<div class="rule"></div>
+*Hand this in on your way out. Nothing here is recorded against your name in the
+gradebook; I read them, I set the pace, and that is the end of it.*

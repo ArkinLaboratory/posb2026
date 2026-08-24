@@ -116,40 +116,7 @@ print("correct" if _b is not None and np.isclose(_b, 5.0)
       else "not yet — replace ... with your answer")'''),
 
     md("""---
-## 3. Tell me about you
-
-This is the ungraded diagnostic from Session 1, repeated here so I have it in
-writing. **There are no wrong answers and this does not affect your grade in
-any way.** It exists so I can set the pace of the first three weeks honestly.
-
-Edit the cell below."""),
-
-    code('''\
-BACKGROUND = {
-    # Your program / year, e.g. "BioE PhD, 2nd year" or "MCB undergrad, senior"
-    "program": "",
-
-    # Rate yourself 1-5.  1 = never seen it, 3 = took a course once,
-    # 5 = I use this regularly.
-    "differential_equations": 0,
-    "linear_algebra": 0,
-    "probability_and_statistics": 0,
-    "molecular_and_cell_biology": 0,
-    "programming_any_language": 0,
-    "python_specifically": 0,
-
-    # Free text.  What do you want to get out of this course?
-    "goal": "",
-
-    # Free text.  Anything you are worried about?
-    "concern": "",
-}
-
-for key, value in BACKGROUND.items():
-    print(f"{key:<28} {value}")'''),
-
-    md("""---
-## 4. Submit
+## 3. Submit
 
 1. `Kernel → Restart Kernel and Run All Cells`
 2. Confirm it runs top to bottom with no errors

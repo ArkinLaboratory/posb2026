@@ -16,8 +16,11 @@ want to know.
 1. Setup cell — the one you will run at the top of every notebook this term
 2. A `solve_ivp` check against an analytic solution, with a plot
 3. Two short functions — the level of Python fluency the course assumes
-4. A background questionnaire, so the pace of the first three weeks can be set
-   honestly
+
+Background and self-assessment are **not** here. They are collected once,
+before Session 1, in the short form linked from the bCourses announcement — in
+time to actually set the pace of the first three weeks rather than after them.
+If you added the course late and never filled that form in, do it now.
 
 ## If something breaks
 
