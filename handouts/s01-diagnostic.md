@@ -1,6 +1,6 @@
 <!--
 title: Session 1 — Diagnostic
-subtitle: Ungraded. Affects nothing. Five minutes.
+subtitle: Ungraded, and it affects nothing. Five minutes.
 session: 1
 -->
 
@@ -8,18 +8,15 @@ session: 1
 
 **Name** <span class="blank" style="width:2.6in"></span> **Course** BioE 147 / 247 *(circle one)*
 
-This is not graded and does not enter your grade in any way. Its only purpose is
-to tell me where this room actually is, so I can set the pace honestly rather
-than guess.
+This isn't graded and doesn't touch your grade. It's here so I can pitch the
+next few weeks at *you* rather than at an imaginary average student.
 
-You already told me what you have *used*, in the form you filled in before
-today. These four questions are the other half: what you can *do* right now,
-cold, with nothing to look at.
-
-They come from four different backgrounds on purpose. **Almost nobody answers
-all four.** If you have never seen something, leave it blank — a blank is more
-useful to me than a guess, and it costs you nothing. Do not look anything up;
-a looked-up answer makes me teach the wrong course to the wrong room.
+The form told me what you've used. These four are the other half — what you can
+do right now, cold. They come from four different backgrounds on purpose, and
+**almost nobody answers all four.** If you haven't seen something, leave it
+blank: a blank tells me something a guess doesn't, and it costs you nothing.
+Please don't look anything up — if you do, I'll cheerfully skip past something
+you'd rather I explained.
 
 ---
 
@@ -34,7 +31,6 @@ In one or two sentences: what physically stops the gene being expressed, and
 what would happen to expression if you doubled the number of repressor molecules
 in the cell?
 
-<div class="rule"></div>
 <div class="rule"></div>
 <div class="rule"></div>
 
@@ -78,7 +74,6 @@ magnitude is a complete answer; show whatever working you use.
 
 <div class="rule"></div>
 <div class="rule"></div>
-<div class="rule"></div>
 
 </div>
 
@@ -110,5 +105,7 @@ What does this print, approximately? And what is this code doing?
 
 ---
 
-*Hand this in on your way out. Nothing here is recorded against your name in the
-gradebook; I read them, I set the pace, and that is the end of it.*
+*Leave this with me on your way out. Nothing here goes near the gradebook — I
+read them, I work out what to do differently, and that's the end of it. If a
+question looked like a foreign language, that's fine, and it's exactly what I
+want to know.*

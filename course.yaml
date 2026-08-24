@@ -7,6 +7,12 @@
 # is checked against this file by tools/check_schedule.py.
 #
 # Dates are Fall 2026, UC Berkeley. TuTh 08:00-09:29, Dwinelle 219.
+#
+# `meets` below is the OFFICIAL SIS listing, which is what students see on
+# their schedules -- keep it verbatim. The ACTUAL meeting is 08:10-09:30:
+# under Berkeley Time instruction begins ten minutes after the official
+# start, and the ":29" is an SIS workaround, not a real end time.
+# EVERY SESSION IS BUDGETED TO 80 MINUTES. See docs/lecture-design.md.
 # Instruction begins Wed Aug 26; formal classes end Fri Dec 4.
 # The only meeting lost to a holiday is Thu Nov 26 (Thanksgiving).
 

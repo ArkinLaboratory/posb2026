@@ -14,22 +14,57 @@ Thirty years in, the answer is *partially*. The whole course is about which part
 
 ## What happens
 
-**89 minutes** — 8:00–9:29, not the 80 the template assumes.
+**80 minutes — 8:10 to 9:30.** The room is listed as 8:00–9:29 in the Student
+Information System; under Berkeley Time instruction begins ten minutes after the
+official start, and the `:29` is an SIS workaround, not a real end time. This is
+what [Lecture Design §6](../../docs/lecture-design.md) assumed all along.
 
 | | | |
 |---|---|---|
 | 0–3 | The question | And the honest answer: *partially* |
 | 3–8 | **Diagnostic** | Ungraded, on paper, **five minutes**. Four questions; the background grid was collected online before today. [PDF](../../handouts/s01-diagnostic.pdf) · [source](../../handouts/s01-diagnostic.md) |
 | 8–28 | **Three specifications** | 5 min alone, then 15 in groups. [PDF](../../handouts/s01-launch-problem.pdf) · [source](../../handouts/s01-launch-problem.md) |
-| 28–39 | Consolidation | Sense · compute · actuate · **survive**. Eleven minutes, not eight — see below |
-| 39–42 | **ConcepTest 1** | Why the field sensors stopped turning red |
-| 42–48 | Why this is not electrical engineering | Circuit board, or burrito |
-| 48–51 | **ConcepTest 2** | The same promoter, a different construct |
-| 51–56 | What 2026 can and cannot do | Nine built objects, four unsolved problems |
-| 56–58 | The whole course as one picture | [`figures/build/s01_pipeline.png`](../../figures/build/s01_pipeline.png) |
-| 58–78 | **Why the course is built this way** | Twenty minutes. The most important twenty of the term. |
-| 78–80 | Forward link | To the cell as a physical substrate |
-| 80–89 | **Laptops open** | DataHub, and the assessment weights said over the top of it spawning |
+| 28–38 | Consolidation | Sense · compute · actuate · **survive** |
+| 38–41 | **ConcepTest 1** | Why the field sensors stopped turning red |
+| 41–46 | Why this is not electrical engineering | Circuit board, or burrito |
+| 46–49 | **ConcepTest 2** | The same promoter, a different construct |
+| 49–53 | What 2026 can and cannot do | Nine built objects, four unsolved problems |
+| 53–55 | The whole course as one picture | [`figures/build/s01_pipeline.png`](../../figures/build/s01_pipeline.png) |
+| 55–75 | **Why the course is built this way** | Twenty minutes. The most important twenty of the term. |
+| 75–77 | Forward link | To the cell as a physical substrate |
+| 77–80 | Where the computing lives | Show the links, name the Colab fallback, and stop. See below |
+
+### The session is 80 minutes, not 89
+
+An earlier draft of this README read *"89 minutes — 8:00–9:29, not the 80 the
+template assumes."* That was wrong and the template was right. Berkeley's
+convention is that **instruction begins ten minutes after the official start
+time**, and classes are published with `:59` and `:29` end times only as a
+workaround for a Student Information System constraint — the Academic Senate
+and the Registrar are explicit that those published times "are not intended to
+affect actual class meeting times," and that instructors may end on the hour or
+half hour. So 8:00–9:29 on the schedule is **8:10–9:30 in the room: 80 minutes.**
+
+Nine minutes had to come out. Where they came from:
+
+- **The nine-minute laptops-open DataHub close is now three minutes.** It was
+  the weakest use of the time. Thirty-five students hitting a JupyterHub spawn
+  simultaneously in the last ten minutes of an 8am class is a coin flip, the
+  most common failure — *DataHub login fails, you are not enrolled yet* — is
+  one nobody in the room can fix, and attention at minute 77 is gone.
+  Three minutes to put the link and the Colab fallback on screen and say what
+  to do when it breaks. **The real environment session belongs in the Tuesday
+  discussion hour**, which is otherwise unused in week one and is where someone
+  can sit next to a stuck student.
+- One minute each from *why this is not EE*, *what 2026 can and cannot do*, and
+  consolidation.
+
+Untouched: the launch problem, both ConcepTests, and the twenty minutes on why
+the course is built this way. Those are the session.
+
+**Note that the online background form is now load-bearing.** It bought three
+minutes back from the diagnostic. Without it this session would be twelve
+minutes over, not nine.
 
 ### Where the diagnostic's three minutes went
 
@@ -115,8 +150,8 @@ comprehension, and none of it survives the only question this session asks:
 
 **Check the form responses the night before.** They set the pace of sessions 3–9.
 
-**Tell them at the door** to keep laptops shut until 9:20. The DataHub block is
-the close, not the background.
+**No laptops needed.** The computing is three minutes of pointing at a screen at
+the end; the environment session is the Tuesday discussion hour.
 
 One slide has a shelf life — **"What 2026 can and cannot do."** Re-check it every
 year.

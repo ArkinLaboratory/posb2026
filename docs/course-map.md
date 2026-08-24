@@ -2,7 +2,10 @@
 
 [← back to README](../README.md)
 
-All 28 sessions, Fall 2026. **TuTh 8:00–9:29, Dwinelle 219.**
+All 28 sessions, Fall 2026. **TuTh 8:00–9:29, Dwinelle 219** — which is
+**8:10–9:30 in the room**, 80 minutes. Berkeley Time: instruction begins ten
+minutes after the official start, and the `:29` is a Student Information System
+workaround rather than a real end time. Plan every session to 80 minutes.
 Instruction begins Aug 26; classes end Dec 4; no class Thu Nov 26.
 
 Each session is roughly **45 minutes of concept + 30 minutes of a worked
