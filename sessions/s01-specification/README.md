@@ -3,7 +3,7 @@
 [← all sessions](../README.md) · **Thursday, August 27, 2026**
 
 No notebook. This session is an argument and a diagnostic; the computing starts
-with [PS0](../../problem-sets/ps00-environment/), due Tuesday.
+with [PS0](../../problem-sets/ps00-environment/), due Wednesday September 2.
 
 ## The organising question
 
@@ -133,7 +133,14 @@ one spends real time on it. See
 
 ## Reading
 
-**None.** PS0 instead — ten minutes, ungraded, due Tuesday, started in the room.
+**None.** PS0 instead — ten minutes, ungraded, **due Wednesday September 2**.
+
+The date matters. PS0 used to be due Tuesday September 1, which is the same day
+as the discussion hour that is now the environment session — the repair would
+have arrived on or after the deadline. Moving it to Wednesday puts the help
+before the deadline and the deadline before Session 3, which is where the
+notebooks actually start. It also gives you a Gradescope count on Wednesday
+night telling you who is still broken before you teach the Python onboarding.
 
 ## What was cut from the 2025 version
 

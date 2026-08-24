@@ -4,7 +4,7 @@ from .common import md, code, header, SETUP
 REL = "problem-sets/ps00-environment/ps00.ipynb"
 TITLE = "PS0 — Environment Check"
 SUBTITLE = "Ungraded · ten minutes · proves your setup works"
-DATE = "due Tuesday, September 1, 2026"
+DATE = "due Wednesday, September 2, 2026, 11:59pm"
 
 
 CELLS = [
@@ -13,11 +13,16 @@ CELLS = [
     md("""This is not really a problem set. It exists to prove that your computing
 environment works, so that nothing about the tooling is a surprise in week 3.
 
-It should take **ten minutes**. If it takes longer than that, something is
-wrong and I want to know — post on the bCourses forum or bring it to the
-Tuesday discussion hour.
+It should take **ten minutes**. If it takes longer, something is wrong and I
+want to know — post on the bCourses forum, or bring it to the Tuesday
+discussion hour on September 1, which is before this is due.
 
-**Submit to Gradescope** (linked from bCourses) by Tuesday, September 1."""),
+**Submit to Gradescope** (linked from bCourses) by **Wednesday, September 2**.
+
+The deadline sits deliberately *after* the Tuesday discussion hour on September
+1. If any of this fights you, bring it there and we will sort it out together —
+that is what the hour is for in week one. It also sits before Session 3, which
+is where the notebooks really start."""),
 
     md("""---
 ## 0. Setup

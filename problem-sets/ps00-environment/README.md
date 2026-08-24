@@ -1,6 +1,6 @@
 # PS0 — Environment Check
 
-[← all problem sets](../README.md) · **Due Tuesday, September 1, 2026 · Ungraded**
+[← all problem sets](../README.md) · **Due Wednesday, September 2, 2026, 11:59pm · Ungraded**
 
 [**Open in DataHub**](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/ArkinLaboratory/posb2026&branch=main&urlpath=lab/tree/posb2026/problem-sets/ps00-environment/ps00.ipynb) ·
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ArkinLaboratory/posb2026/blob/main/problem-sets/ps00-environment/ps00.ipynb)
