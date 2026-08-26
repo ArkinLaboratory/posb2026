@@ -1,0 +1,10 @@
+{
+  "artifact": "s02_confinement_poster.png",
+  "artifact_sha256": "ef0a047f270612c6ee25b47f061fc1a70c2b29afe6611e58647f21c945083f5b",
+  "artifact_bytes": 121509,
+  "deps": {
+    "figures/s02_movie.py": "4d95293af4a7f49d063fa628ae573e7ae1a1eed88334b42304ae602a342ba3ae",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s02_movie.fig_confinement_movie"
+}

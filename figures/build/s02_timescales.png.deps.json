@@ -1,0 +1,10 @@
+{
+  "artifact": "s02_timescales.png",
+  "artifact_sha256": "32a7e776a6c27993094915fdd9ba920e2c173a817e5e9837e052064601269f49",
+  "artifact_bytes": 117242,
+  "deps": {
+    "figures/s02_substrate.py": "a8836dab81e54c1edb057fc69945954ad4632b3dc5e74b81c74e298cfbd44b25",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s02_substrate.fig_timescales"
+}

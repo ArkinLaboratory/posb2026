@@ -1,0 +1,10 @@
+{
+  "artifact": "s03_qssa_error.png",
+  "artifact_sha256": "8598032530f6f3358cf99dc27058a21cc17eeaa4d5c5d87eabef3b035179d4ea",
+  "artifact_bytes": 156840,
+  "deps": {
+    "figures/s03_modeling_i.py": "ab2f123a42097816f883d4f44e99a13b2d9b7908f30790e29c798c3bb634366d",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s03_modeling_i.fig_qssa_error"
+}

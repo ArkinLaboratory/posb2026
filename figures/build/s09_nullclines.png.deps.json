@@ -1,0 +1,10 @@
+{
+  "artifact": "s09_nullclines.png",
+  "artifact_sha256": "fb7cfc5fa4eec7ea4ae4b4e6a3db25ecaaceeacfc1c304aa99a47ecdc568fae1",
+  "artifact_bytes": 72352,
+  "deps": {
+    "figures/s09_bistability.py": "a91e821c62f0a4c45f9d664269e371083371c86503d53eec50a53636fad0307a",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s09_bistability.fig_nullclines"
+}

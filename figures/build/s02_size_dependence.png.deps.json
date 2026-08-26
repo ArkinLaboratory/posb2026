@@ -1,0 +1,10 @@
+{
+  "artifact": "s02_size_dependence.png",
+  "artifact_sha256": "7d5a9ca94872fe2fa40f82c41632e726376a0b37bfdfe070d008dffb14930fc3",
+  "artifact_bytes": 122808,
+  "deps": {
+    "figures/s02_substrate.py": "a8836dab81e54c1edb057fc69945954ad4632b3dc5e74b81c74e298cfbd44b25",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s02_substrate.fig_size_dependence"
+}

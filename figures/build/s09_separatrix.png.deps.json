@@ -1,0 +1,10 @@
+{
+  "artifact": "s09_separatrix.png",
+  "artifact_sha256": "baa6ff86a185b926ddcf8264ccd6fa8a076110fef952519cc61b7dc59a8f0e44",
+  "artifact_bytes": 215355,
+  "deps": {
+    "figures/s09_bistability.py": "a91e821c62f0a4c45f9d664269e371083371c86503d53eec50a53636fad0307a",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s09_bistability.fig_separatrix"
+}

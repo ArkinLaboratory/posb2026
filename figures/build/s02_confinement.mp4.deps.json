@@ -1,0 +1,10 @@
+{
+  "artifact": "s02_confinement.mp4",
+  "artifact_sha256": "acca1d08f6c5b8f6f372f012a10b545bd8c7a29be4d31ade9025c804f7b56de9",
+  "artifact_bytes": 2078243,
+  "deps": {
+    "figures/s02_movie.py": "4d95293af4a7f49d063fa628ae573e7ae1a1eed88334b42304ae602a342ba3ae",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s02_movie.fig_confinement_movie"
+}
