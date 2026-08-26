@@ -22,7 +22,7 @@ way.
 | # | Date | Topic | Worked example | |
 |---|---|---|---|---|
 | 1 | Thu Aug 27 | What synthetic biology is in 2026; the specification problem | Diagnostic; three specifications to argue about | [📝](../sessions/s01-specification/) |
-| 2 | Tue Sep 1 | The cell as a physical substrate: crowding, copy number, timescales | Order-of-magnitude estimation; diffusion times | 📝 |
+| 2 | Tue Sep 1 | The cell as a physical substrate: crowding, copy number, timescales | Faded set: four estimates, from copy number to a search-time paradox | [📝](../sessions/s02-substrate/) |
 | 3 | Thu Sep 3 | **Modeling I:** mass action, stoichiometry, d**x**/d*t* = **S·v** | Build and integrate a system three ways; prove they agree | [✅](../sessions/s03-modeling-i/) |
 | 4 | Tue Sep 8 | **Modeling II:** timescale separation, quasi-steady state and its limits | Derive Michaelis–Menten; derive Hill from cooperative binding | ⬜ |
 | 5 | Thu Sep 10 | Gene expression dynamics; response time; dilution vs. degradation | Response-time calculation; effect of degradation tags | ⬜ |

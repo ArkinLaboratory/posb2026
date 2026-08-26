@@ -45,6 +45,7 @@ sys.path.insert(0, str(ROOT))
 from tools.schedule import readings_spec, sessions  # noqa: E402
 
 PAPER_FIGURES = ROOT / "private" / "paper-figures"
+PAPER_MOVIES = ROOT / "private" / "paper-movies"
 MANIFEST = ROOT / "decks" / "paper_figures.yaml"
 
 
@@ -82,6 +83,33 @@ def _resolve_paper_figure(key):
     with _Image.open(parent) as im:
         im.crop(tuple(box)).save(img)
     return img
+
+
+def _extract_poster(video, dst):
+    """A still from `video`, cached at `dst`, for the slide to show at rest.
+
+    Without one, python-pptx gives the video a generic loudspeaker icon: a deck
+    full of grey speaker glyphs, which looks broken and tells the room nothing
+    if the clip never gets played. A frame from ~40% through is almost always
+    more representative than frame zero, which is often black or a title card.
+
+    Silently returns the missing path if ffmpeg is absent -- the deck still
+    builds, it just gets the icon.
+    """
+    import shutil
+    import subprocess
+    if not shutil.which("ffmpeg"):
+        return dst
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    dur = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(video)],
+        capture_output=True, text=True).stdout.strip()
+    seek = f"{float(dur) * 0.4:.2f}" if dur else "1"
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-ss", seek,
+                    "-i", str(video), "-frames:v", "1", str(dst)],
+                   capture_output=True)
+    return dst
 
 
 def short_cite(r):
@@ -132,6 +160,14 @@ class Deck:
         self.loose_slots = []
         self.assignment_rendered = False
         self.assignment_overflow = None
+        self.unattributed_figures = []
+        self.segments = []
+        self.missing_movies = []
+        # Every file this deck actually read while building. Not a guess from
+        # the source: the build records what it touched, so tools/manifest.py
+        # can later tell whether the .pptx on the teaching machine is older
+        # than any of them. See tools/manifest.py for why this is not mtimes.
+        self.assets = []
 
     # -- the calendar, from course.yaml rather than from a typed string ------
     @property
@@ -147,11 +183,21 @@ class Deck:
         day = d.strftime("%A %d %B %Y").replace(" 0", " ")
         return f"BioE 147 / 247  ·  {day}  ·  {c['room']}"
 
+    def _used(self, path):
+        """Record a file the build read. Idempotent; order does not matter."""
+        p = Path(path)
+        if not p.is_absolute():
+            p = ROOT / p
+        if p.exists() and p not in self.assets:
+            self.assets.append(p)
+        return p
+
     # -- slide construction --------------------------------------------------
     def _slide(self, dark):
         s = self.prs.slides.add_slide(self.prs.slide_layouts[6])   # blank
         bg = ROOT / "decks" / ("bg_dark.png" if dark else "bg_light.png")
         if bg.exists():
+            self._used(bg)
             pic = s.shapes.add_picture(str(bg), 0, 0,
                                        width=Inches(W), height=Inches(H))
             s.shapes._spTree.remove(pic._element)
@@ -224,9 +270,7 @@ class Deck:
         that put a caption underneath need the real rectangle, or the caption
         floats in the empty part of the box.
         """
-        p = Path(path)
-        if not p.is_absolute():
-            p = ROOT / p
+        p = self._used(path)
         if w is not None and h is not None:
             from PIL import Image as _Image
             iw, ih = _Image.open(p).size
@@ -242,10 +286,35 @@ class Deck:
                 pic.width / 914400, pic.height / 914400)
 
     # -- repeating layout elements ------------------------------------------
+    # Words in a segment label that mean the students are working, not
+    # watching. During those minutes the slide is deliberately static, so they
+    # are excluded from the pacing check below.
+    ACTIVITY_WORDS = ("group", "vote", "argue", "diagnostic", "laptops",
+                      "worked set", "retrieval", "notes closed", "pause",
+                      "i will not say", "in writing", "handout")
+
+    # Board work is a third category, not a kind of exposition and not a kind
+    # of student activity. During a derivation at the board the slide is static
+    # for the same reason it is static during a vote -- it is not the medium --
+    # so counting those minutes against the slide count flags a session that is
+    # doing exactly the right thing.
+    #
+    # This is an obvious loophole, so it is a narrow and VISIBLE one: the
+    # segment label has to say "board", which is a declaration in the deck
+    # source, and pacing() reports board minutes as their own line rather than
+    # folding them into student time. A deck that claims 40 minutes at the
+    # board is making a claim you can read and disbelieve.
+    BOARD_WORDS = ("board",)
+
     def header(self, s, badge, label):
         """Time badge + segment label. Same look every time: this is signalling,
         and signalling is one of the few interventions that helps novices and
-        experts equally."""
+        experts equally.
+
+        The badge is also the only machine-readable record of how long each
+        segment lasts, so it is what `pacing()` measures.
+        """
+        self.segments.append((badge, label))
         dark = s._posb_dark
         self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, 0.42, 1.62, 0.34,
                    fill=CYAN if dark else TEAL, line=None)
@@ -262,10 +331,56 @@ class Deck:
         self.text(s, txt, M, y, W - 2 * M, 0.4, size=11.5, italic=True,
                   color=SILVER if s._posb_dark else MUTED)
 
+    def sources(self, s, pairs, y=6.62):
+        """Source lines, each attached to the claim it actually supports.
+
+        A single citation in the footer reads as "the source for this slide",
+        and stops being true the moment a second source appears on it -- which
+        is exactly what happened when a movie from one paper landed under a
+        number from another. Taking (what, citation) pairs makes the omission
+        visible while you are writing the slide rather than while someone is
+        looking at it.
+
+            d.sources(s, [("D = 7.7 µm²/s", "Elowitz et al. 1999"),
+                          ("movie", "Valverde-Mendez et al. 2025, Movie S4")])
+        """
+        dark = s._posb_dark
+        wid = (W - 2 * M) / len(pairs)
+        for i, (what, cite) in enumerate(pairs):
+            x = M + i * wid
+            # NOT .upper(): these labels carry units, and case is meaningful
+            # in a unit. "µm²/s" upper-cases to "MM²/S", which is a different
+            # quantity and a thousand times bigger.
+            self.text(s, what, x, y, wid - 0.25, 0.22, size=9,
+                      bold=True, color=CYAN if dark else TEAL)
+            self.text(s, cite, x, y + 0.21, wid - 0.25, 0.4, size=9.5,
+                      italic=True, color=SILVER if dark else MUTED)
+        return y + 0.6
+
     def notes(self, s, txt):
         s.notes_slide.notes_text_frame.text = txt
 
     # -- the paper-figure slot ----------------------------------------------
+    def unattributed(self, s, x, y, w, note="source not yet identified"):
+        """A visible ATTRIBUTION NEEDED stamp, on the slide, not in the notes.
+
+        A speaker note is invisible in presentation mode, so a figure whose
+        source is unresolved can be projected in front of eighty people with
+        nothing to stop it. This is the stop: an amber bar that is impossible to
+        miss while rehearsing and embarrassing enough to remove before delivery.
+
+        The intended lifecycle is that this call gets deleted, not that it gets
+        tolerated.
+        """
+        self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, x, y, w, 0.42,
+                   fill=None, line=AMBER, lw=2)
+        self.text(s, "ATTRIBUTION NEEDED", x + 0.15, y + 0.06, 1.75, 0.3,
+                  size=10, bold=True, color=AMBER)
+        self.text(s, note, x + 1.95, y + 0.07, w - 2.1, 0.3, size=11,
+                  italic=True, color=AMBER)
+        self.unattributed_figures.append(note)
+        return y + 0.42
+
     def paper_figure(self, s, key, x, y, w, h, ref, caption):
         """Embed a figure from a published paper -- if it is available locally.
 
@@ -281,7 +396,7 @@ class Deck:
         """
         img = _resolve_paper_figure(key)
         if img.exists():
-            ix, iy, iw, ih = self.image(s, img, x, y, w, h)
+            ix, iy, iw, ih = self.image(s, img, x, y, w, h)   # records img
             self.text(s, ref, ix, iy + ih + 0.04, iw, 0.25, size=9,
                       italic=True, color=MUTED if not s._posb_dark else SILVER,
                       align="c")
@@ -392,6 +507,130 @@ class Deck:
                       W - 2 * M - 1.7, 0.28, size=10.5,
                       italic=True, color=MINT if dark else BODY)
         return y + h
+
+    # -- video ---------------------------------------------------------------
+    def movie(self, s, path, x, y, w, h, poster=None, caption=None):
+        """Embed a video, letterboxed into the box and centred.
+
+        PowerPoint plays an embedded mp4 in presentation mode; the poster frame
+        is what shows until you click it, so it should be the END state of the
+        clip rather than the first frame -- a still of the finished picture
+        reads as a figure if the video never gets played, which happens more
+        often than anyone admits.
+        """
+        from pptx.util import Inches as _In
+        p = self._used(path)
+        post = Path(poster) if poster else p.with_name(p.stem + "_poster.png")
+        if not post.is_absolute():
+            post = ROOT / post
+        if not post.exists():
+            post = _extract_poster(p, post)
+        self._used(post)
+
+        if post.exists():
+            from PIL import Image as _Image
+            iw, ih = _Image.open(post).size
+            scale = min(w / iw, h / ih)
+            dw, dh = iw * scale, ih * scale
+            x += (w - dw) / 2
+            y += (h - dh) / 2
+            w, h = dw, dh
+
+        s.shapes.add_movie(str(p), _In(x), _In(y), _In(w), _In(h),
+                           poster_frame_image=str(post) if post.exists() else None,
+                           mime_type="video/mp4")
+        if caption:
+            self.text(s, caption, x, y + h + 0.04, w, 0.25, size=9,
+                      italic=True, align="c",
+                      color=SILVER if s._posb_dark else MUTED)
+        return y + h
+
+    def paper_movie(self, s, key, x, y, w, h, ref, caption):
+        """A movie from a published paper -- if it is available locally.
+
+        Exactly the paper_figure contract, for video. Present in
+        private/paper-movies/<key>.mp4 -> embedded. Absent -> a labelled slot
+        naming the movie and where to get it, so the public build and a fork
+        see an instruction rather than a hole.
+
+        Supplementary movies are usually the one part of a paper that cannot be
+        replaced by a still, which is exactly why they are worth the trouble.
+        """
+        mp4 = PAPER_MOVIES / f"{key}.mp4"
+        if mp4.exists():
+            bottom = self.movie(s, mp4, x, y, w, h, caption=ref)
+            return True
+
+        self.missing_movies.append((key, ref))
+        box = self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, x, y, w, h,
+                         fill=CARD, line=AMBER, lw=2)
+        box.line.dash_style = 4
+        self.text(s, "▶  MOVIE FROM THE PAPER", x, y + h / 2 - 0.6, w, 0.3,
+                  size=9.5, bold=True, color=AMBER, align="c")
+        self.text(s, ref, x, y + h / 2 - 0.26, w, 0.35, size=14, font=HEAD,
+                  bold=True, color=INK, align="c")
+        self.text(s, caption, x + 0.2, y + h / 2 + 0.12, w - 0.4, 0.7,
+                  size=11.5, italic=True, color=MUTED, align="c")
+        self.text(s, f"private/paper-movies/{key}.mp4", x, y + h - 0.28, w, 0.25,
+                  size=9, italic=True, color=MUTED, align="c")
+        return False
+
+    # -- pacing --------------------------------------------------------------
+    def pacing(self, total=89, thin=4.5):
+        """Minutes of exposition per slide, per segment.
+
+        The failure this catches: a segment where you talk for eight minutes
+        with nothing on the screen changing. That is not a short lecture, it is
+        an improvised one, and it is invisible in the source -- the deck looks
+        fine, the slide looks fine, and only the ratio gives it away.
+
+        Reference point: the 2025 decks ran about 2.2 minutes per slide, with
+        almost no student working time. This course gives 35-48% of the period
+        back to the students, so the exposition slide count halves -- but the
+        RATE should not change much. Anything past `thin` minutes on one
+        exposition slide is flagged.
+
+        Segments whose label names an activity are excluded: during a vote or a
+        faded worked set the slide is static on purpose. So are segments whose
+        label says "board" -- see BOARD_WORDS -- but those are reported
+        separately, because "I will derive this at the board" is a claim about
+        how the session runs and should not hide inside the student-time number.
+
+        Returns (rows, summary).
+        """
+        rows, expo_min, expo_slides, act_min, board_min = [], 0, 0, 0, 0
+        merged, last = [], None
+        for badge, label in self.segments:
+            if badge == last and merged:
+                merged[-1][2] += 1
+            else:
+                merged.append([badge, label, 1])
+                last = badge
+
+        for badge, label, k in merged:
+            nums = re.findall(r"\d+", badge)
+            mins = int(nums[1]) - int(nums[0]) if len(nums) >= 2 else 0
+            low = label.lower()
+            activity = any(w in low for w in self.ACTIVITY_WORDS)
+            board = (not activity) and any(w in low for w in self.BOARD_WORDS)
+            if activity:
+                act_min += mins
+            elif board:
+                board_min += mins
+            else:
+                expo_min += mins
+                expo_slides += k
+            rows.append({"badge": badge, "label": label, "slides": k,
+                         "minutes": mins, "activity": activity, "board": board,
+                         "per_slide": mins / k if k else 0,
+                         "thin": (not activity) and (not board)
+                                 and k and mins / k > thin})
+        rate = expo_min / expo_slides if expo_slides else 0
+        return rows, {"exposition_min": expo_min, "exposition_slides": expo_slides,
+                      "min_per_slide": rate, "activity_min": act_min,
+                      "activity_frac": act_min / total if total else 0,
+                      "board_min": board_min,
+                      "thin": [r for r in rows if r["thin"]]}
 
     # -- output --------------------------------------------------------------
     def save(self, path):

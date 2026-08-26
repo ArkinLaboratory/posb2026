@@ -195,6 +195,15 @@ Best-supported rules ([Cromley & Chen 2025](https://experts.illinois.edu/en/publ
 claim that attention collapses after 10–15 minutes — that last one has been
 looked for and not found ([Wilson & Korn 2007](https://journals.sagepub.com/doi/10.1080/00986280701291291)).
 
+**Attach a source to the claim it supports, not to the slide.** A single
+citation in the footer reads as *the source for this slide*, and stops being
+true the moment a second source appears on it. `Deck.sources()` takes
+`(what, citation)` pairs for exactly this reason — it makes the omission
+visible while you are writing the slide rather than while thirty-five people
+are looking at it. This is convention **[C]**, adopted after a slide carried a
+diffusion coefficient from one paper under a movie from another with only the
+first one credited.
+
 **Slide provision.** Post the **complete deck after class**; hand out the
 **skeletal faded-example sheet during** class **[B]**. The reasoning is that the
 handout is the thing students must construct on, and construction is the point.

@@ -1,0 +1,105 @@
+# Manifest of supplementary MOVIES from published papers.
+#
+# Same contract as paper_figures.yaml, and for the same reason. The files are
+# not in this repository and must not be: it is public and CC BY 4.0, and
+# several of these are CC BY-NC-ND, which permits neither redistribution under
+# a more permissive licence nor modification.
+#
+# Save each as  private/paper-movies/<key>.mp4  (gitignored). Present -> the
+# deck embeds it and it plays in presentation mode. Absent -> the build draws a
+# labelled slot naming the movie and where to get it. Same command either way.
+#
+# Why bother with video at all: a supplementary movie is usually the one part
+# of a paper that a still cannot replace. If a frame of it would do, use a
+# frame of it.
+
+# --- Valverde-Mendez et al., PNAS 122(4) e2406340121 (2025) -----------------
+# "Macromolecular interactions and geometrical confinement determine the 3D
+#  diffusion of ribosome-sized particles in live Escherichia coli cells"
+# doi:10.1073/pnas.2406340121
+#
+# LICENCE: CC BY-NC-ND 4.0. Projecting it unmodified in a class is ordinary
+# educational use. Redistributing it, or cutting it up, is not.
+#
+# ==========================================================================
+# THE SI FILE NUMBERS DO NOT MATCH THE MOVIE NUMBERS. Verified by decoding a
+# frame from each file and comparing it against the published captions:
+#
+#     Movie S1  (biplane raw)            is   pnas.2406340121.sm04.avi
+#     Movie S2  (star tracking)          is   pnas.2406340121.sm03.avi
+#     Movie S3  (3D reconstruction)      is   pnas.2406340121.sm01.avi
+#     Movie S4  (colloidal simulation)   is   pnas.2406340121.sm02.mp4
+#
+# Downloading them in order and naming them in order gets you four movies with
+# the wrong captions on them, and nothing about the files says so. The keys
+# below follow the CAPTIONS, because that is what a citation on a slide has to
+# match.
+# ==========================================================================
+#
+# Three of the four ship as .avi with odd pixel dimensions, which libx264
+# refuses. To convert:
+#
+#   ffmpeg -i pnas.2406340121.sm04.avi \
+#          -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" \
+#          -c:v libx264 -crf 22 -pix_fmt yuv420p -movflags +faststart \
+#          valverde2025_s1.mp4
+
+valverde2025_s1:
+  movie: "PNAS 2025, Movie S1"
+  file: "pnas.2406340121.sm04.avi"
+  shows: >-
+    A raw biplane dataset. A single 50-nm bGEM (green) diffusing outside the
+    DNA-rich nucleoid (red) in a live E. coli cell. Two focal planes are imaged
+    onto separate halves of the same camera chip, which is why the cell appears
+    twice in every frame.
+  used_in: []
+  note: >-
+    The duplicate image needs explaining before anyone can read it, which costs
+    a minute the session does not have. Good for a methods aside; not the movie
+    to open with.
+
+valverde2025_s2:
+  movie: "PNAS 2025, Movie S2"
+  file: "pnas.2406340121.sm03.avi"
+  shows: >-
+    2D localisation of a bGEM in a live cell, after processing: the two focal
+    planes registered and summed, the bacterium segmented and rotated
+    horizontal, and a star marking the sub-pixel position frame by frame over a
+    trajectory of hundreds of frames (~1 s).
+  used_in: []
+  note: >-
+    The cleanest real-data movie of the four and the one to reach for if the
+    room asks "but how do you actually measure that". Referenced from the
+    session 2 speaker notes rather than placed on a slide.
+
+valverde2025_s3:
+  movie: "PNAS 2025, Movie S3"
+  file: "pnas.2406340121.sm01.avi"
+  shows: >-
+    3D reconstruction of a 50-nm bGEM trajectory. Black sphere is the particle;
+    fading traces show its history in full 3D (black) and projected onto the
+    three walls of the box -- xy in red, yz in blue, zx in green. Conventional
+    2D tracking recovers only the red one.
+  used_in: []
+  note: >-
+    A lovely argument that a projection throws information away, and it takes
+    ten seconds to land. Worth holding for a session where measurement is the
+    subject rather than the tool.
+
+valverde2025_s4:
+  movie: "PNAS 2025, Movie S4"
+  file: "pnas.2406340121.sm02.mp4"
+  shows: >-
+    Cross-section through the colloidal whole-cell simulation. Magenta nucleoid
+    interpenetrated by a polydisperse cytoplasm: negatively charged crowders in
+    grey, positively charged in white, ribosomes and polysomes in yellow, bGEMs
+    in green -- all at physiological abundance and density, inside a spherical
+    membrane.
+  used_in: ["s02"]
+  note: >-
+    This is the still on the crowding slide, alive. The 100 nm box shows that
+    the cytoplasm is packed; this shows the same packing MOVING, which is the
+    difference between "crowded" as an adjective and as a mechanism. It is also
+    the model that produces the paper's central result, so showing it here pays
+    for itself two slides later when the anomalous exponent turns out to be
+    geometry.

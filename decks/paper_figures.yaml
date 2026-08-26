@@ -131,3 +131,21 @@ l01_2025_prototypes_to_applications:
     Carries the LARGELY SOLVED column far better than four bullets, and six of
     the nine panels are objects this course builds or analyses later. Panel
     sources need resolving before any public release of the deck.
+
+l02_2025_crowding:
+  figure: "2025 Lecture 02, p. 11"
+  shows: "an E. coli EM at 1 fL, and a rendered 100 nm box of its cytoplasm packed with proteins, ribosomes, tRNAs and small molecules"
+  used_in: ["s02"]
+  source: "2025 deck; the packed-cytoplasm rendering is a well-known illustration in the Goodsell tradition and is uncredited on the original slide"
+  note: >-
+    The single most useful image in session 2. Every student arrives picturing
+    a beaker with a few things floating in it, and this is the correction. It
+    also makes the measured 11x reduction in diffusion coefficient look
+    inevitable rather than surprising.
+
+l02_2025_composition:
+  figure: "2025 Lecture 02, p. 10"
+  shows: "E. coli by mass: water, ions, precursors, proteins, nucleic acids, polysaccharides, with counts and percent weight"
+  used_in: ["s02"]
+  source: "2025 deck; standard textbook composition table, original uncredited"
+  note: "Held in reserve. The crowding figure carries the same point more vividly in less time; use this one only if the room asks for the breakdown."

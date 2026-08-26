@@ -9,7 +9,7 @@ There are three copies and they drift:
 
 | | |
 |---|---|
-| `~/Documents/PoSB/posb2026` on Adam's Mac | **authoritative.** This is what gets taught from. |
+| `~/Documents/Claude/Projects/PoSB/posb2026` on Adam's Mac | **authoritative.** This is what gets taught from. |
 | `github.com/ArkinLaboratory/posb2026` | the published copy; only as current as the last push |
 | Claude's sandbox clone | scratch. A separate filesystem, not a view of either of the above. |
 
@@ -33,7 +33,26 @@ Mac's even when the content does.
 **2. Ship artifacts, not just sources.** Anything generated — `.pptx`, `.pdf`,
 figures under `figures/build/` — must be built and copied to the Mac in the same
 turn as the source that produced it. A source file the instructor has to build
-himself is not a delivery.
+himself is not a delivery. **Copy the `.deps.json` sidecar with every artifact**;
+an artifact that arrives alone cannot be checked and `--verify` will say so.
+
+This rule was broken twice before it was enforceable. Now it is:
+
+```
+python tools/build_decks.py --verify     # on the Mac, before class
+```
+
+It builds nothing and answers one question — is the deck on this disk the one
+these sources would produce? Content hashes, not mtimes, because the bridge
+restamps everything it copies. See `tools/manifest.py`.
+
+**And close the loop on the delivery itself.** Before saying anything is
+delivered, run `python tools/handoff.py --emit`, ship `docs/handoff.json` with
+the rest, and verify against Adam's disk. `manifest.py` asks whether an artifact
+is stale; `handoff.py` asks whether the working copy is the one that was just
+handed over. A twenty-file delivery that lands nineteen looks exactly like
+success from this side. See [where-things-live](docs/where-things-live.md),
+which is the tutorial version for Adam.
 
 **3. Never run git in Adam's repositories.** Reads through the file bridge are
 fine. Anything that takes a lock is not: the bridge cannot delete files, so a
@@ -49,7 +68,9 @@ and obvious in the render.
 
 ```
 python tools/build_figures.py [s01]        # figures/build/*.png
+python tools/build_figures.py --verify     # committed figures vs generators (CI)
 python tools/build_decks.py [s01] [--pdf]  # private/build/decks/
+python tools/build_decks.py --verify       # built decks vs sources on THIS disk
 python tools/build_handouts.py [--check]   # handouts/*.pdf, committed
 python tools/build_readings.py [--check]   # docs/readings.md
 python tools/check_schedule.py             # course.yaml vs docs/course-map.md

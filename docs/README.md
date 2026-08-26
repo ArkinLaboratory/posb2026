@@ -7,6 +7,8 @@
 | **[Deck Triage](deck-triage.md)** | File-by-file verdict on the Fall 2025 decks: keep, merge, or cut. |
 | **[Status and Roadmap](roadmap.md)** | What exists, what does not, and what to do next. |
 | **[Getting Started](getting-started.md)** | How to run the material: DataHub, Colab, or local. Start here. |
+| **[Syllabus](syllabus.md)** | The document students get: assessment, policies, computing, week by week. |
+| **[Coverage Matrix](coverage-matrix.md)** | Every assessed technique, the session that demonstrates it, and how it is graded. **The contract.** |
 | **[Course Map](course-map.md)** | All 28 sessions, all 9 problem sets, assessment, and a self-study path. |
 | **[Package Reference](posb-reference.md)** | `posb` API: `Reaction`, `Model`, `Trajectory`. |
 | **[Lecture Design](lecture-design.md)** | The per-session template and the evidence for it. |

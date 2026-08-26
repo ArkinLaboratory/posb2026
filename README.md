@@ -40,7 +40,9 @@ course relies on is worked rather than asserted.
 | I want to… | Go to |
 |---|---|
 | Start working through the material | **[Getting Started](docs/getting-started.md)** |
+| Read the syllabus | **[Syllabus](docs/syllabus.md)** |
 | See the whole course at a glance | **[Course Map](docs/course-map.md)** — all 28 sessions |
+| Check what is assessed, and where it was taught | **[Coverage Matrix](docs/coverage-matrix.md)** |
 | Browse the notebooks | [`sessions/`](sessions/) |
 | Run a live classroom demo | [`demos/`](demos/) |
 | Print a class handout | [`handouts/`](handouts/) |

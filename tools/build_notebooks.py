@@ -24,6 +24,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 # Every notebook in the course. Add a line here when you add one.
 NOTEBOOKS = [
     "sources.ps00",
+    "sources.d02",
     "sources.s03",
     "sources.d09",
 ]

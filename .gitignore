@@ -4,9 +4,14 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 out/
-build/
-
 dist/
+
+# Python build directories, at the repository root ONLY. A bare `build/` here
+# also matched figures/build/, which silently untracked every generated figure
+# in the course -- the build script says they are committed, the session
+# READMEs link to them, and on GitHub those links were broken.
+/build/
+
 *.egg-info/
 .venv/
 
@@ -18,3 +23,6 @@ private/
 
 # Assembled decks may embed copyrighted figures. Never commit them.
 private/build/decks/
+
+# Intermediate HTML from tools/build_handouts.py. The PDFs are the artifact.
+handouts/build/
