@@ -26,3 +26,6 @@ private/build/decks/
 
 # Intermediate HTML from tools/build_handouts.py. The PDFs are the artifact.
 handouts/build/
+
+# Intermediate HTML from tools/build_handouts.py. The PDFs are the artifact.
+handouts/build/
