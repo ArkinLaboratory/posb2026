@@ -67,13 +67,18 @@ def build():
            M, 4.15, 9.4, 0.5, size=17, italic=True, color=MINT)
     d.text(s, d.date_line, M, 6.35, 9.0, 0.4, size=13, color=SILVER)
     d.image(s, "docs/assets/posb-logo-520.png", W - M - 2.9, 2.05, 2.9, 2.9)
-    d.notes(s, "PS0 is due today. Ask for hands: who got a plot? Anyone who "
-               "did not, see them after -- do not debug in the room now, you "
-               "did that on Thursday. "
-               "Also: report the diagnostic. Two minutes, anonymous, shape of "
-               "the distribution only. 'Half of you have solved an ODE by hand "
-               "and half have run a PCR, and almost nobody has done both' is "
-               "exactly the right thing for this room to hear out loud.")
+    d.notes(s, "PS0 is due TOMORROW, Wednesday 2 September -- not today. Ask "
+               "for hands: who has run it, who got a plot? Do not debug in the "
+               "room. The discussion hour is straight after this class in "
+               "Dwinelle 88 and that is the environment session: say so, and "
+               "say to bring a laptop to it. The deadline sits the day after "
+               "on purpose, so the help lands first. "
+               "Also: report the background form. Two minutes, anonymous, "
+               "shape of the distribution only -- the six-slide deck for this "
+               "is built (2026/decks/PoSB_Session01_WhoIsInThisRoom.pptx). "
+               "The line worth saying out loud is that the room is strongest in "
+               "biology and thinnest in linear algebra, and that thirteen of "
+               "twenty-one named maths or programming as their worry.")
 
     # 2 RETRIEVAL -------------------------------------------------------------
     s = d.light()

@@ -3,7 +3,9 @@
 [← all sessions](../README.md) · **Tuesday, September 1, 2026**
 
 No notebook — this is board work and paper. The computing starts Thursday in
-[Session 3](../s03-modeling-i/). **PS0 is due today.**
+[Session 3](../s03-modeling-i/). **PS0 is due tomorrow, Wednesday 2 September** —
+and the discussion hour straight after this class, in Dwinelle 88, is where it
+gets fixed for anyone it is fighting.
 
 ## The one thing to remember
 
@@ -126,4 +128,4 @@ time-to-circuit-failure from it and a factor of 10³ there is not survivable.
 
 ## Reading
 
-**None.** PS0 is due today; PS1 goes out Thursday.
+**None.** PS0 is due tomorrow, Wednesday 2 September; PS1 goes out Thursday.

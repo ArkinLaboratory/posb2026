@@ -1,25 +1,42 @@
 """Session 1 — What synthetic biology is in 2026; the specification problem.
 
-Eighty-nine minutes (8:00–9:29), not eighty. Four things compete for them: find
-out where the room actually is, establish the organising question, be honest
-about the answer, and buy twenty minutes to explain why the course is built the
-way it is. The syllabus additionally promises ten minutes of DataHub setup with
-laptops open, and that promise is kept here.
+Eighty minutes: 8:10–9:30. The 8:00–9:29 in the Student Information System is
+not the room -- under Berkeley Time instruction begins ten minutes after the
+official start, and the ':29' is an SIS workaround. Four things compete for the
+time: find out where the room actually is, establish the organising question, be
+honest about the answer, and buy twenty minutes to explain why the course is
+built the way it is.
 
-    0–3    the organising question, and the answer "partially"
-    3–11   diagnostic, on paper, ungraded
-    11–31  three given specifications, argued in groups          [20 min]
-    31–39  consolidation: sense / compute / actuate / SURVIVE
-    39–42  ConcepTest 1 — vote, argue, revote
-    42–48  four things that are not true of transistors
-    48–51  ConcepTest 2 — vote, argue, revote
-    51–56  what 2026 can and cannot do
-    56–58  the two halves
-    58–78  why the course is built this way                      [20 min]
-    78–80  forward link
-    80–89  laptops open: DataHub, and the mechanics while it spawns
+The close is NOT a laptops-open DataHub session. The posted syllabus says
+students will not usually need a laptop in lecture and moves environment setup
+to the Tuesday 1 September discussion hour in Dwinelle 88; the sent announcement
+says the same. So the last slide points at where the computing lives and stops.
 
-Two design notes, both corrections to an earlier draft of this deck.
+    0–2    the organising question, and the answer "partially"
+    2–10   diagnostic, on paper, ungraded
+    10–13  lambda phage: nature did it first
+    13–33  three given specifications, argued in groups          [20 min]
+    33–37  consolidation: sense, compute, actuate
+    37–40  SURVIVE — the one nobody wrote down
+    40–43  ConcepTest 1 — vote, argue, revote
+    43–46  the same cell, two ways
+    46–49  four things that are not true of transistors
+    49–52  ConcepTest 2 — vote, argue, revote
+    52–55  thirty years of things that were built
+    55–57  and four it still cannot do
+    57–59  the whole course as one picture
+    59–79  why the course is built this way                      [20 min, 6 slides]
+    79–80  forward link
+    close  where the computing lives, and the only administration
+
+Twenty-two slides. The count is not a target -- docs/lecture-design.md lists
+slide-count targets under "[C] Ignore" -- but the ratio behind it is: 46 minutes
+of exposition across 17 slides is about 2.7 min/slide, against roughly 2.2 in
+the 2025 decks. An earlier draft sat at 4.2, which meant six-to-eight-minute
+stretches with nothing on the screen changing. That is not a short lecture, it
+is an improvised one.
+
+Three design notes, all corrections to earlier drafts of this deck.
 
 **The 26–48 block was 22 minutes of unbroken instructor talk.** At 8am, on day
 one. It is now three segments with a vote at each seam, which is what
@@ -32,6 +49,13 @@ seductive-details finding justifies cutting the 2025 deck's pp. 4-9 -- Global
 Risks Report, population projections -- because those are tangential decoration.
 It says nothing against *explanatory* diagrams, which §5 grades [A]. Three
 figures come back from the 2025 deck and one is generated from figures/.
+
+**The twenty-minute format talk sat on four slides.** It is the block with the
+least rehearsed material and the highest stakes, and it now has six, including
+one that says where the evidence is weak and one on what to do when you are
+lost. Overselling the evidence is the failure mode that costs you the room in
+week nine; a student who checks the citation and finds a 300-person freshman
+physics course will discount everything else you said.
 """
 from pptx.enum.shapes import MSO_SHAPE as S
 
@@ -56,13 +80,14 @@ def build():
     d.image(s, "docs/assets/posb-logo-520.png", W - M - 2.9, 2.05, 2.9, 2.9)
     d.notes(s, "Do NOT open with administrivia. The syllabus is on bCourses and "
                "reading it aloud teaches nothing and sets the wrong expectation "
-               "about what this room is for. Mechanics are at minute 80, said "
-               "over the top of laptops booting. "
-               "Tell them at the door to get laptops out at 9:20, not before.")
+               "about what this room is for. Mechanics are the last two minutes. "
+               "No laptops today -- the syllabus and the welcome announcement "
+               "both said they would not need one, so do not ask for them. "
+               "Hand out both paper handouts at the door.")
 
     # 2 THE QUESTION ----------------------------------------------------------
     s = d.dark()
-    d.header(s, "0 – 3 min", "The whole course, in one sentence")
+    d.header(s, "0 – 2 min", "The whole course, in one sentence")
     d.title(s, "One question")
     d.text(s, "Can we specify what we want a biological system to do,\nand then build a cell that does it?",
            M, 2.3, 11.6, 1.6, size=30, font=HEAD, bold=True, color=MINT,
@@ -79,7 +104,7 @@ def build():
 
     # 3 DIAGNOSTIC ------------------------------------------------------------
     s = d.light()
-    d.header(s, "3 – 11 min", "Diagnostic  ·  ungraded  ·  affects nothing")
+    d.header(s, "2 – 10 min", "Diagnostic  ·  ungraded  ·  affects nothing")
     d.title(s, "Before anything else: where is this room?")
     d.text(s, "This cohort reliably spans molecular biology, physics, and EECS. That is not a problem to be managed quietly — it is a fact I need in order to set the pace honestly.",
            M, 1.95, 11.9, 0.8, size=17, color=BODY)
@@ -103,9 +128,33 @@ def build():
                "it in ten seconds. That asymmetry, said out loud on Tuesday, is "
                "worth more than any reassurance you could offer either group.")
 
+    # 3b NATURE DID IT FIRST --------------------------------------------------
+    s = d.light()
+    d.header(s, "10 – 13 min", "The existence proof")
+    d.title(s, "None of this would be worth trying if biology could not do it")
+    d.text(s, "Lambda phage infects E. coli and makes one decision: replicate and burst the cell, or integrate and wait.",
+           M, 1.9, 11.9, 0.45, size=17, color=BODY)
+    for i, (k, txt, c) in enumerate([
+            ("The decision is made once", "Two repressors, cI and Cro, each repressing the other's promoter. The circuit is small enough to draw on a napkin.", TEAL),
+            ("And then held for generations", "A lysogen carries the decision through hundreds of divisions without re-deciding. That is memory, in a cell, built from two genes.", CYAN),
+            ("And it is reversible on cue", "DNA damage cleaves cI and the switch flips. The state is stable, not frozen — which is a much harder specification.", GREEN)]):
+        y = 2.6 + i * 1.15
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.16, 0.95, fill=c, line=None)
+        d.text(s, k, M + 0.4, y, 3.6, 0.5, size=15.5, font=HEAD, bold=True, color=INK)
+        d.text(s, txt, M + 4.3, y + 0.03, 7.6, 0.9, size=13.5, color=BODY)
+    d.text(s, "So the question in 1999 was not whether a cell can hold a state. It was whether you can build one on purpose, from parts, in a cell that never had one.",
+           M, 6.1, W - 2 * M, 0.6, size=16, bold=True, color=INK)
+    d.notes(s, "Three minutes, no more, and no molecular detail -- Ptashne's "
+               "switch is an existence proof, not today's content. Session 9 "
+               "builds the synthetic version and session 7 does the "
+               "autoregulation that makes it possible. "
+               "The point students should leave with: the hard part was never "
+               "'can matter compute'. It was 'can we specify it'. That is the "
+               "title of the session.")
+
     # 4 LAUNCH ----------------------------------------------------------------
     s = d.dark()
-    d.header(s, "11 – 31 min", "Groups of 3–4  ·  no answers yet")
+    d.header(s, "13 – 33 min", "Groups of 3–4  ·  no answers yet")
     d.title(s, "Three things someone wants built")
     d.text(s, "You have the specification. You do not yet have any of the course.",
            M, 1.9, 11.6, 0.4, size=17, color=MINT)
@@ -142,43 +191,62 @@ def build():
                "If a group finishes early, ask them which of the three they "
                "would fund, which is a different question and a harder one.")
 
-    # 5 CONSOLIDATION ---------------------------------------------------------
+    # 5 CONSOLIDATION A ------------------------------------------------------
     s = d.light()
-    d.header(s, "31 – 39 min", "What you just said  ·  consolidation")
+    d.header(s, "33 – 37 min", "What you just said  ·  consolidation")
     d.title(s, "Every list in the room had the same three things on it")
-    d.paper_figure(s, "l01_2025_sense_compute_actuate", M, 1.85, 7.4, 3.5,
-                   "sense · compute · actuate",
-                   "the cell as a designed system")
+    d.paper_figure(s, "l01_2025_sense_compute_actuate", M, 1.85, 7.6, 3.6,
+                   "2025 deck, p. 19", "the cell as a designed system")
     for i, (k, txt, c) in enumerate([
-            ("SENSE", "with a threshold and a false-positive rate you can state", TEAL),
-            ("COMPUTE", "almost never one input — B needs two markers to separate tumour from healthy", TEAL),
-            ("ACTUATE", "and strongly enough to matter: C's output is grams of nitrogen per hectare", TEAL)]):
-        y = 1.95 + i * 0.78
-        d.text(s, k, 8.4, y, 1.9, 0.32, size=14, font=HEAD, bold=True, color=c)
-        d.text(s, txt, 8.4, y + 0.3, 4.2, 0.5, size=12, color=BODY)
-    d.shape(s, S.ROUNDED_RECTANGLE, 8.4, 4.45, 4.2, 1.55, fill=WASH,
-            line=AMBER, lw=2.5)
-    d.text(s, "AND THE ONE NOBODY WROTE", 8.65, 4.62, 3.9, 0.28, size=10,
-           bold=True, color=AMBER)
-    d.text(s, "SURVIVE", 8.65, 4.9, 3.9, 0.42, size=22, font=HEAD, bold=True,
-           color=INK)
-    d.text(s, "Keep doing it, in the real environment, for as long as it is needed.",
-           8.65, 5.35, 3.9, 0.55, size=12, color=BODY)
-    d.foot(s, "Look at the figure again: nothing in it represents burden, mutation, or an environment that fights back. That absence is the second half of this course.")
-    d.notes(s, "NAME THE GROUPS. 'Group 2 said X; group 5 disagreed, and here is "
-               "where the disagreement actually lives.' Skipping this makes the "
-               "previous twenty minutes a waste -- it is the single strongest "
-               "predictor of whether the technique works at all. "
-               "The amber box is almost always absent from every list in the "
-               "room. Do not scold; flag it as a debt and say which sessions pay "
-               "it (19-25). "
-               "FIGURE PROVENANCE: this is p. 19 of the 2025 Lecture 01. The "
-               "cell schematic looks redrawn from a review and is uncredited on "
-               "the original slide -- resolve before any public release.")
+            ("SENSE", "With a threshold and a false-positive rate you can state. A said 10 µg/L; what does your strain do at 9?", TEAL),
+            ("COMPUTE", "Almost never one input. B needs at least two markers to separate a tumour cell from a healthy one.", TEAL),
+            ("ACTUATE", "And strongly enough to matter. C's output is not a colour, it is grams of fixed nitrogen per hectare.", TEAL)]):
+        y = 2.0 + i * 1.45
+        d.text(s, k, 8.75, y, 2.0, 0.35, size=17, font=HEAD, bold=True, color=c)
+        d.text(s, txt, 8.75, y + 0.36, 3.85, 1.0, size=13, color=BODY)
+    d.foot(s, "Name the groups. Quote them. This is the ten minutes of argument being paid back.")
+    d.notes(s, "NAME THE GROUPS. 'Group 2 said X; group 5 disagreed, and here "
+               "is where the disagreement actually lives.' Skipping this makes "
+               "the previous twenty minutes a waste -- it is the single "
+               "strongest predictor of whether generation-before-instruction "
+               "works at all (Sinha & Kapur). "
+               "Four minutes. Do not add anything of your own yet; the next "
+               "slide is where you add the thing they missed.")
+
+    # 6 CONSOLIDATION B — THE MISSING ONE --------------------------------------
+    s = d.dark()
+    d.header(s, "37 – 40 min", "And the one that was not on anybody's list")
+    d.title(s, "SURVIVE")
+    d.text(s, "Keep doing it — in the real environment, for as long as it is needed.",
+           M, 2.0, 11.9, 0.45, size=22, font=HEAD, color=MINT)
+    for i, (spec, txt) in enumerate([
+            ("A", "Six months in a well. Hundreds of generations, no selection keeping your circuit there, and nobody coming to re-inoculate."),
+            ("B", "Weeks inside a patient, in a tissue that is actively hostile to the cell you injected."),
+            ("C", "A growing season, in soil, in a root community of thousands of species you did not choose.")]):
+        y = 2.85 + i * 0.95
+        d.shape(s, S.OVAL, M, y + 0.02, 0.44, 0.44, fill=AMBER, line=None)
+        d.text(s, spec, M, y + 0.1, 0.44, 0.3, size=15, bold=True, color=INK,
+               align="c")
+        d.text(s, txt, M + 0.8, y, 11.2, 0.8, size=15.5, color=WHITE)
+    d.text(s, "Look back at the figure. Nothing in it represents burden, mutation, or an environment that fights back.",
+           M, 5.9, 11.9, 0.4, size=16, color=SILVER)
+    d.text(s, "That absence is the second half of this course.", M, 6.35, 11.9,
+           0.4, size=17, bold=True, color=CYAN)
+    d.notes(s, "Three minutes, and it is the most important three in the "
+               "consolidation. Almost no room writes this down -- not because "
+               "they are careless, but because every diagram of a designed cell "
+               "they have ever seen omits it, including the one on the previous "
+               "slide. "
+               "Do NOT scold. Flag it as a debt and name the sessions that pay "
+               "it: 19 burden, 22 control, 23 evolutionary failure, 24 "
+               "communities. "
+               "If a group DID write it down, say whose it was. It is the single "
+               "best thing anyone can have said in the first twenty minutes of "
+               "the course.")
 
     # 6 CONCEPTEST 1 ----------------------------------------------------------
     s = d.dark()
-    d.header(s, "39 – 42 min", "Vote  ·  argue with your neighbour  ·  vote again")
+    d.header(s, "40 – 43 min", "Vote  ·  argue with your neighbour  ·  vote again")
     d.title(s, "Your arsenic sensor works perfectly in the lab.")
     d.text(s, "You deploy ten thousand of them in wells and come back in six months. Most have stopped turning red. What is the most likely reason?",
            M, 1.95, 11.9, 0.75, size=18, color=WHITE)
@@ -208,41 +276,60 @@ def build():
                "many generations six months is. Roughly a thousand. That number "
                "is the argument.")
 
-    # 7 WHAT IS DIFFERENT -----------------------------------------------------
+    # 7 TWO VIEWS -------------------------------------------------------------
     s = d.light()
-    d.header(s, "42 – 48 min", "Why this is not electrical engineering")
+    d.header(s, "43 – 46 min", "Why this is not electrical engineering")
     d.title(s, "The same object, two ways")
-    d.paper_figure(s, "l01_2025_cell_perspectives", M, 1.8, 6.5, 3.1,
+    d.paper_figure(s, "l01_2025_cell_perspectives", M, 1.75, 8.6, 4.1,
                    "circuit board: courtesy Tim Lu · burrito: after Michael Elowitz",
                    "two views of one cell")
+    d.text(s, "Which one\ndid you draw?", 9.6, 2.1, 3.0, 1.0, size=21,
+           font=HEAD, bold=True, color=INK, spacing=1.25)
+    d.text(s, "During the launch problem, everybody in this room was picturing the left-hand one. Defined parts, clean interfaces, a substrate that does what it is told.",
+           9.6, 3.3, 3.0, 1.6, size=13, color=BODY)
+    d.text(s, "The right-hand one is closer.", 9.6, 5.1, 3.0, 0.5, size=15,
+           bold=True, color=AMBER)
+    d.foot(s, "Everything in the right-hand column of the previous slide follows from picking the wrong picture.")
+    d.notes(s, "Three minutes. The images ARE the argument -- do not talk over "
+               "them at length. Ask the question on the slide out loud and wait "
+               "for hands; the room finds it funny and then finds it "
+               "uncomfortable, in that order, which is exactly the sequence you "
+               "want before the next slide. "
+               "Credits stay visible: circuit board courtesy of Tim Lu, burrito "
+               "after Michael Elowitz. Both are credited on the 2025 slide.")
+
+    # 8 FOUR CONSEQUENCES ------------------------------------------------------
+    s = d.light()
+    d.header(s, "46 – 49 min", "What follows from that")
+    d.title(s, "Four things that are not true of transistors")
     for i, (k, txt) in enumerate([
-            ("It is alive and has its own agenda",
-             "The host grows, competes for the ribosomes your circuit needs, and changes its physiology under your load."),
+            ("The substrate is alive and has its own agenda",
+             "The host grows, competes for the ribosomes your circuit needs, and changes its physiology under your load. You are not building ON a chassis; you are building INSIDE a system that is already running."),
             ("Every part is context-dependent",
-             "A promoter characterised in one construct does not keep its number in the next."),
+             "A promoter characterised in one construct does not keep its number in the next. Composition is not free, and session 21 measures exactly what it costs."),
             ("The population edits your design",
-             "Mutation plus selection is a design process you did not authorise and cannot switch off."),
+             "Mutation plus selection is a design process you did not authorise and cannot switch off. A circuit that costs growth gets deleted, on a timescale you can calculate."),
             ("You are always ignorant of most of it",
-             "Not 'unmeasured yet' — thousands of interactions you will never enumerate. Designs must work despite this.")]):
-        y = 1.85 + i * 1.15
-        d.shape(s, S.OVAL, 7.5, y + 0.02, 0.38, 0.38, fill=TEAL, line=None)
-        d.text(s, str(i + 1), 7.5, y + 0.09, 0.38, 0.28, size=12, bold=True,
+             "Not 'unmeasured yet' — thousands of interactions you will never enumerate. Designs have to work despite this, not after it is fixed.")]):
+        y = 1.95 + i * 1.2
+        d.shape(s, S.OVAL, M, y + 0.06, 0.44, 0.44, fill=TEAL, line=None)
+        d.text(s, str(i + 1), M, y + 0.14, 0.44, 0.3, size=14, bold=True,
                color=WHITE, align="c")
-        d.text(s, k, 8.05, y, 4.55, 0.36, size=14, font=HEAD, bold=True,
+        d.text(s, k, M + 0.8, y, 11.2, 0.4, size=17, font=HEAD, bold=True,
                color=INK)
-        d.text(s, txt, 8.05, y + 0.36, 4.55, 0.72, size=11.5, color=BODY)
-    d.foot(s, "The circuit board is the picture everyone arrives with. The burrito is closer, and it is why half this course exists.")
-    d.notes(s, "The two images ARE the argument -- do not talk over them for "
-               "long. Ask which one the room drew in their heads during the "
-               "launch problem. It is always the circuit board. "
-               "This is the 2025 L01 pp. 21 and 23-25 content, but it now lands "
-               "AFTER they have argued about three real specifications, so each "
-               "numbered item answers an objection somebody already raised. "
-               "Asserted first it is a list; earned, it is a diagnosis.")
+        d.text(s, txt, M + 0.8, y + 0.4, 11.2, 0.75, size=13.5, color=BODY)
+    d.foot(s, "None of these is a reason not to engineer biology. Each is a reason the engineering looks different.")
+    d.notes(s, "Three minutes -- one line each, then move. This is the 2025 "
+               "L01 pp. 23-25 content, but it lands AFTER they have argued "
+               "about three real specifications, so each item answers an "
+               "objection somebody in the room already raised. Asserted first "
+               "it is a list; earned, it is a diagnosis. "
+               "Item 2 is the one the next ConcepTest tests. Do not signpost "
+               "that.")
 
     # 8 CONCEPTEST 2 ----------------------------------------------------------
     s = d.dark()
-    d.header(s, "48 – 51 min", "Vote  ·  argue  ·  vote again")
+    d.header(s, "49 – 52 min", "Vote  ·  argue  ·  vote again")
     d.title(s, "You measure a promoter and get 100 units.")
     d.text(s, "Now you move that identical DNA sequence into a different construct — same cell, same medium, same day. What do you expect to measure?",
            M, 1.95, 11.9, 0.75, size=18, color=WHITE)
@@ -270,50 +357,61 @@ def build():
                "an order of magnitude, what would you have to measure to design "
                "with it anyway? That is retroactivity, and it is session 21.")
 
-    # 9 THE 2026 SCORECARD ----------------------------------------------------
+    # 9 WHAT THE FIELD BUILT --------------------------------------------------
     s = d.light()
-    d.header(s, "51 – 56 min", "Where the field actually is")
-    d.title(s, "What 2026 can and cannot do")
-    d.paper_figure(s, "l01_2025_prototypes_to_applications", M, 1.8, 6.5, 3.22,
-                   "2025 deck — panel sources need resolving",
+    d.header(s, "52 – 55 min", "Where the field actually is  ·  the good half")
+    d.title(s, "Thirty years of things that were actually built")
+    d.paper_figure(s, "l01_2025_prototypes_to_applications", M, 1.75, 8.4, 4.2,
+                   "2025 deck, p. 26 — panel sources need resolving",
                    "prototypes → systems → applications")
-    d.shape(s, S.ROUNDED_RECTANGLE, 7.5, 1.8, 5.1, 3.7, fill=CARD,
-            line=RED, lw=2)
-    d.text(s, "NOT SOLVED", 7.78, 1.98, 4.6, 0.28, size=11, bold=True, color=RED)
-    for i, t in enumerate([
-            "Integration. Sc2.0 has been building synthetic yeast chromosomes since 2011 and there is still no strain carrying all sixteen.",
-            "Prediction in a real host. A lab strain does not transfer to a gut, a soil, or a tumour.",
-            "Durability. Almost nothing keeps working for a month of growth without selection to hold it there.",
-            "Specification itself. There is no language in which you can state what you want and get an implementation."]):
-        d.text(s, "▪", 7.78, 2.4 + i * 0.78, 0.22, 0.28, size=12, color=RED)
-        d.text(s, t, 8.06, 2.4 + i * 0.78, 4.32, 0.75, size=11, color=BODY)
-    d.text(s, "Left: nine things the field built. Right: what still does not work. Every item on the right is a session in the second half.",
-           M, 5.75, W - 2 * M, 0.4, size=14, bold=True, color=INK)
-    d.notes(s, "The left picture is nine things that were built; the right list "
-               "is what still does not work. The strip underneath is the whole "
-               "course in one line -- come back to it in every session, and it "
-               "is the slide to reuse on the last day. "
-               "CHECK BEFORE DELIVERY -- the right-hand list is the one thing in "
-               "this course with a shelf life. "
+    for i, (k, txt) in enumerate([
+            ("You will build six of these", "Toggle, oscillator, band detector, multi-input logic, metabolic pathway, classifier — sessions 9 through 26."),
+            ("Reading and writing DNA is solved", "Sequencing and synthesis are not the bottleneck for anything in this course."),
+            ("So is single-protein design", "Binders and enzymes to specification is a working technology now, not a promise.")]):
+        y = 2.0 + i * 1.5
+        d.text(s, k, 9.4, y, 3.3, 0.7, size=14.5, font=HEAD, bold=True, color=GREEN)
+        d.text(s, txt, 9.4, y + 0.62, 3.3, 1.0, size=12, color=BODY)
+    d.notes(s, "Three minutes and keep it fast -- this slide is a tour, not a "
+               "syllabus. Point at the six the course actually builds; that is "
+               "the promise being made. "
+               "FIGURE PROVENANCE: 2025 Lecture 01 p. 26, a composite of "
+               "published panels whose individual sources are not marked on the "
+               "original slide. Resolve before any public release of the deck.")
+
+    # 10 WHAT IT CANNOT DO -----------------------------------------------------
+    s = d.dark()
+    d.header(s, "55 – 57 min", "Where the field actually is  ·  the other half")
+    d.title(s, "And four things it still cannot do")
+    for i, (k, txt) in enumerate([
+            ("Integration", "Sc2.0 has been building synthetic yeast chromosomes since 2011. There is still no strain carrying all sixteen."),
+            ("Prediction in a real host", "Behaviour in a lab strain does not transfer to a gut, a soil, or a tumour. Nobody can compute the difference."),
+            ("Durability", "Almost nothing published keeps working for a month of growth without selection holding it in place."),
+            ("Specification itself", "There is no language in which you state what you want and get an implementation. English is the state of the art.")]):
+        y = 1.95 + i * 1.12
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 0.85, fill=RED, line=None)
+        d.text(s, k, M + 0.4, y, 3.5, 0.4, size=17, font=HEAD, bold=True,
+               color=WHITE)
+        d.text(s, txt, M + 4.2, y + 0.02, 7.7, 0.85, size=14, color=MINT)
+    d.text(s, "Every one of these is a session in the second half of this course.",
+           M, 6.5, W - 2 * M, 0.4, size=16, bold=True, color=CYAN)
+    d.notes(s, "Two minutes. CHECK BEFORE DELIVERY -- this is the one slide "
+               "with a shelf life and it should be re-examined every year. "
                "SC2.0 IS NOT FINISHED. Individual synthetic chromosomes have "
                "been designed, built and debugged for over a decade, the most "
-               "recent reported in early 2025 -- but there is no strain carrying "
-               "all sixteen. Do not say or imply otherwise. That is the whole "
-               "point: every part verified in isolation, by people who are "
-               "extremely good at this, over fifteen years, in a genome that is "
-               "small, well characterised and haploid -- and consolidation is "
-               "still the hard part. If integration is unsolved THERE, nobody "
-               "should be surprised that a four-gene circuit behaves differently "
-               "in a mouse gut. "
+               "recent reported in early 2025 -- but there is no strain "
+               "carrying all sixteen. Do not say or imply otherwise. "
+               "That is the whole point, and it is worth saying slowly: every "
+               "part was verified in isolation, by people who are extremely "
+               "good at this, over fifteen years, in a genome that is small, "
+               "well characterised and haploid. Consolidation is STILL the hard "
+               "part. If integration is unsolved there, nobody should be "
+               "surprised when a four-gene circuit misbehaves in a mouse gut. "
                "Ask: why should assembling verified parts be harder than making "
-               "them? That question is sessions 17 through 23. "
-               "FIGURE PROVENANCE: 2025 Lecture 01 p. 26, a composite of "
-               "published panels whose individual sources are not marked. "
-               "Resolve before any public release.")
+               "them? That question is sessions 17 through 23.")
 
     # 10 THE ARCHITECTURE -----------------------------------------------------
     s = d.light()
-    d.header(s, "56 – 58 min", "The shape of the semester")
+    d.header(s, "57 – 59 min", "The shape of the semester")
     d.title(s, "The whole course, as one picture")
     d.image(s, "figures/build/s01_pipeline.png", M, 1.75, 11.9, 3.7)
     for i, (n, k, txt, c) in enumerate([
@@ -337,7 +435,7 @@ def build():
 
     # 11 FORMAT I -------------------------------------------------------------
     s = d.dark()
-    d.header(s, "58 – 78 min", "Why this course is built the way it is")
+    d.header(s, "59 – 79 min", "Why this course is built the way it is")
     d.title(s, "You are going to feel like you are learning less")
     d.text(s, "This is the most important twenty minutes of the semester, and it is not about synthetic biology.",
            M, 2.05, 11.9, 0.4, size=17, italic=True, color=MINT)
@@ -357,7 +455,7 @@ def build():
 
     # 12 FORMAT II — THE NUMBERS ---------------------------------------------
     s = d.light()
-    d.header(s, "58 – 78 min", "The measurement")
+    d.header(s, "59 – 79 min", "The measurement")
     d.title(s, "The same students, measured two ways")
     for i, (n, lab, txt, c) in enumerate([
             ("+0.46 SD", "ACTUAL LEARNING", "Measured by a test of the material, in a controlled comparison against a lecture on the same content by the same instructors.", GREEN),
@@ -380,9 +478,39 @@ def build():
                "extrapolation. Being straight about that buys more credibility "
                "than the claim does.")
 
+    # F3 THE HONEST CAVEAT -----------------------------------------------------
+    s = d.light()
+    d.header(s, "59 – 79 min", "What that evidence does not say")
+    d.title(s, "Where I think the argument is weak")
+    for i, (k, txt) in enumerate([
+            ("The studies are mostly not this course",
+             "Large introductory physics and biology courses, hundreds of students, short retention intervals. This is a 35-person advanced course with material of much higher element interactivity. Every number I just showed you is an extrapolation."),
+            ("Effect sizes are averages over designs that vary a lot",
+             "'Active learning' covers everything from clicker questions to full studio courses. The meta-analytic average does not tell you which parts did the work."),
+            ("Some of what I do here is convention, not evidence",
+             "Putting retrieval at the start of class, showing a course map, the two-minute pause — these are reasonable and unsupported. They are labelled [C] in the design document, and you can read which is which."),
+            ("One famous result in this area failed to replicate",
+             "The longhand-beats-laptop finding. I am not going to tell you to close your laptop on that basis. Multitasking harming your NEIGHBOUR is a different and better-supported claim.")]):
+        y = 1.88 + i * 1.16
+        d.shape(s, S.OVAL, M, y + 0.04, 0.4, 0.4, fill=AMBER, line=None)
+        d.text(s, str(i + 1), M, y + 0.11, 0.4, 0.28, size=13, bold=True,
+               color=WHITE, align="c")
+        d.text(s, k, M + 0.72, y, 11.3, 0.38, size=15.5, font=HEAD, bold=True,
+               color=INK)
+        d.text(s, txt, M + 0.72, y + 0.38, 11.3, 0.8, size=12.5, color=BODY)
+    d.foot(s, "I would rather you knew where the argument is soft than discover it yourself in week nine and conclude the whole thing was marketing.", 6.62)
+    d.notes(s, "Two to three minutes, and do not skip it to save time. "
+               "Overselling the evidence is the failure mode that costs you the "
+               "room later: a student who checks the citation and finds it is a "
+               "physics course with 300 freshmen will discount everything else "
+               "you said. Saying it first is cheap and it is true. "
+               "It also models the thing the course is about -- distinguishing "
+               "what was demonstrated from what was claimed, which is learning "
+               "outcome 9.")
+
     # 13 FORMAT III — WHAT IT MEANS -------------------------------------------
     s = d.light()
-    d.header(s, "58 – 78 min", "What that means for how a session runs")
+    d.header(s, "59 – 79 min", "What that means for how a session runs")
     d.title(s, "So here is what happens every Tuesday and Thursday")
     for i, (t, k, txt) in enumerate([
             ("0–5", "Retrieval, notes closed", "Two questions from last session, one from three or four back. It will feel like a quiz. It is not graded — retrieving is what makes it stick."),
@@ -402,9 +530,31 @@ def build():
                "that you are doing it. It converts 'trust me' into 'here is the "
                "argument, and here is where it is weak'.")
 
+    # F5 WHEN YOU ARE LOST -----------------------------------------------------
+    s = d.light()
+    d.header(s, "59 – 79 min", "The part nobody tells you")
+    d.title(s, "What to do when you are lost — and you will be")
+    for i, (k, txt, c) in enumerate([
+            ("In the room, mid-derivation", "Put your hand up. Someone else is lost at the same step and has not said so. You are not slowing us down; you are telling me my pace is wrong, which is information I cannot get any other way.", TEAL),
+            ("On the faded handout", "Move UP the sheet, not down. Item 1 is fully worked. Starting there is not a confession, it is what the sheet is for — nobody is watching where you start.", CYAN),
+            ("On a problem set, at 1am", "Stop. The set is meant to take a few hours, not a weekend. If it is taking longer, that is information about the course, not about you. Post it on the forum — the answer helps ten people.", GREEN),
+            ("Three weeks in, generally", "Come to Tuesday's discussion hour. Historically it is the most useful hour in the course for the students who use it, and almost nobody uses it in September.", AMBER)]):
+        y = 1.88 + i * 1.18
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.14, 0.95, fill=c, line=None)
+        d.text(s, k, M + 0.4, y, 3.5, 0.4, size=15, font=HEAD, bold=True,
+               color=INK)
+        d.text(s, txt, M + 4.2, y + 0.02, 7.7, 0.95, size=13, color=BODY)
+    d.foot(s, "If your background is light on differential equations, weeks 1–4 are the demanding stretch. If it is light on molecular biology, weeks 8–10 are. Both are survivable. Neither is if you wait until the midterm to say something.", 6.62)
+    d.notes(s, "Two to three minutes. This is the slide that makes the format "
+               "humane rather than merely demanding, and it is the one students "
+               "quote back in evaluations. "
+               "Say the discussion-hour line and mean it -- Dwinelle 88, "
+               "Tuesdays after class. The students who need it most are the "
+               "ones who assume it is for people who are already ahead.")
+
     # 14 FORMAT IV — THE DEAL -------------------------------------------------
     s = d.dark()
-    d.header(s, "58 – 78 min", "The deal")
+    d.header(s, "59 – 79 min", "The deal")
     d.title(s, "What I owe you, and what you owe the room")
     for i, (who, items, c) in enumerate([
             ("I will", ["Never assess a technique I did not demonstrate first — there is a matrix, and it is public.",
@@ -428,7 +578,7 @@ def build():
 
     # 15 FORWARD LINK ---------------------------------------------------------
     s = d.dark()
-    d.header(s, "78 – 80 min", "Next")
+    d.header(s, "79 – 80 min", "Next")
     d.title(s, "You listed what you would need to know. Start with the cell.")
     d.text(s, "Tuesday: the cell as a physical substrate.", M, 2.1, 11.6, 0.45,
            size=24, font=HEAD, bold=True, color=MINT)
@@ -437,23 +587,23 @@ def build():
     d.text(s, "You cannot design anything until you can answer those in your head, to an order of magnitude.",
            M, 4.95, 11.6, 0.4, size=16, bold=True, color=CYAN)
     d.assignment(s, y=5.5)
-    d.text(s, "No reading before Tuesday. Laptops out — we finish in DataHub.",
+    d.text(s, "No reading before Tuesday. PS0 is ten minutes, at home, due Wednesday 2 September.",
            M, 5.6, 11.6, 0.35, size=15, bold=True, color=SILVER)
-    d.notes(s, "LEAVE THIS SLIDE UP through the DataHub block. The three "
+    d.notes(s, "LEAVE THIS SLIDE UP through the closing slide. The three "
                "questions sit on the projector while they are clicking links, "
-               "which is free exposure at the exact moment their hands are busy "
-               "and their attention is not. They are the session 2 retrieval "
+               "which is free exposure while they photograph the links. "
+               "They are the session 2 retrieval "
                "opener, verbatim.")
 
     # 16 DATAHUB + MECHANICS --------------------------------------------------
     s = d.light()
-    d.header(s, "80 – 89 min", "Laptops open  ·  a working close")
-    d.title(s, "Get into DataHub before you leave")
+    d.header(s, "the last two minutes", "Where the computing lives")
+    d.title(s, "Where the computing lives — photograph this slide")
     for i, (n, k, txt) in enumerate([
-            ("1", "Click the link on bCourses", "It signs you in with CalNet, clones the repository, and opens the notebook. That is the whole setup — there is nothing to install."),
-            ("2", "Run the first cell", "If a plot appears, you are set for the semester."),
-            ("3", "If it does not work", "Put your hand up now. Ten of us fixing it in this room beats ten of you fixing it alone at midnight."),
-            ("4", "No CalNet yet?", "Use the Colab badge today and DataHub once enrolment catches up.")]):
+            ("1", "The link is on bCourses", "CalNet signs you in, clones the repository and opens the notebook. That is the whole setup — there is nothing to install, and nothing to do right now."),
+            ("2", "PS0 — ten minutes, ungraded", "Run it at home this week. Due Wednesday 2 September, 11:59pm. If it takes longer than ten minutes, something is wrong and I want to know."),
+            ("3", "If it fights you", "Tuesday's discussion hour, straight after class, Dwinelle 88. Bring a laptop to that one and we will fix it together, before PS0 is due."),
+            ("4", "Waitlisted, or CalNet not caught up?", "Use the Colab badge today — DataHub needs you enrolled and Colab does not. Then tell me.")]):
         y = 1.85 + i * 0.82
         d.shape(s, S.OVAL, M, y + 0.02, 0.4, 0.4, fill=TEAL, line=None)
         d.text(s, n, M, y + 0.09, 0.4, 0.28, size=12, bold=True, color=WHITE,
@@ -470,17 +620,19 @@ def build():
         x = M + 0.3 + i * 2.45
         d.text(s, v, x, 5.68, 1.2, 0.4, size=20, font=HEAD, bold=True, color=INK)
         d.text(s, k, x, 6.08, 2.3, 0.28, size=11.5, color=BODY)
-    d.text(s, "Nine sets, lowest two dropped · Midterm Thu 15 Oct · Project description due session 9 · PS0 tonight, ten minutes, ungraded, due Tuesday",
+    d.text(s, "Nine sets, lowest two dropped · Midterm Thu 15 Oct · Project description due session 9 · PS0 ten minutes, ungraded, due Wed 2 Sep",
            M + 0.3, 6.36, 12.0, 0.28, size=11, italic=True, color=MUTED)
-    d.notes(s, "This is the syllabus promise being kept: laptops, ten minutes, "
-               "and a plot on the screen before anyone leaves. It also finds the "
-               "broken environments TODAY rather than on Sept 1. "
-               "Say the assessment weights over the top of the spawn -- DataHub "
-               "takes 30-60 seconds per student and the room is otherwise dead. "
-               "Do not read the syllabus; it is on bCourses. "
-               "Leave the forward-link slide up on the second projector if there "
-               "is one. "
-               "Stay ten minutes after. The students who cannot get in are "
+    d.notes(s, "TWO MINUTES, NO LAPTOPS. The syllabus and the welcome "
+               "announcement both told them they would not need one today, and "
+               "the environment session is Tuesday's discussion hour in Dwinelle "
+               "88 -- do not contradict that here. Tell them to photograph the "
+               "slide. "
+               "Say the assessment weights out loud; do not read the syllabus, "
+               "it is on bCourses. "
+               "The one thing worth pressing: PS0 is due WEDNESDAY 2 September, "
+               "the day after the discussion hour, so the help lands before the "
+               "deadline and the deadline lands before session 3. "
+               "Stay a few minutes after. The students who cannot get in are "
                "exactly the ones who will not email.")
 
     return d

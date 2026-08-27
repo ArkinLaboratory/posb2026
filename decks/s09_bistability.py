@@ -322,9 +322,11 @@ def build():
     s = d.dark()
     d.header(s, "72 – 77 min", "The part the paper does not celebrate")
     d.title(s, "The toggle set to green fails after 40 hours")
-    d.paper_figure(s, "toggle_longevity_2025deck", M, 1.75, 5.3, 2.38,
-                   "unpublished flow data — attribution needed",
+    d.paper_figure(s, "toggle_longevity_2025deck", M, 1.62, 5.3, 2.38,
+                   "pTog dual-reporter toggle · unpublished flow cytometry",
                    "pTog dual-reporter toggle, 2 h / 31 h / 40 h")
+    d.unattributed(s, M, 4.32, 5.9,
+                   "whose pTog data is this? Weiss lab / course / other")
     for i, (t, txt) in enumerate([("2 h", "clean separation"),
                                   ("31 h", "green is broadening"),
                                   ("40 h", "leaked back to red")]):
@@ -332,10 +334,10 @@ def build():
         d.text(s, t, 7.1, y, 1.1, 0.45, size=20, font=HEAD, bold=True,
                color=AMBER if i == 2 else WHITE)
         d.text(s, txt, 8.3, y + 0.08, 4.3, 0.4, size=14, color=MINT)
-    d.text(s, "Why would it fail? What would you change?", M, 4.75, 11, 0.5,
+    d.text(s, "Why would it fail? What would you change?", M, 4.95, 11, 0.5,
            size=26, font=HEAD, bold=True, color=WHITE)
     d.text(s, "Two minutes with your neighbour. There are at least four distinct mechanisms and they need different fixes.",
-           M, 5.32, 11, 0.4, size=16, color=MINT)
+           M, 5.52, 11, 0.4, size=16, color=MINT)
     d.foot(s, "Mutation in a repressor · promoter mutation · plasmid loss · burden selecting against the expressing state", 6.3)
     d.notes(s, "PROVENANCE: these panels are NOT from Gardner 2000 (their longest run is Fig. 4c at ~28 h, and it shows stability). The FCS filenames visible in the original slide — 2h_pTog1,2f,+i.fcs / 31h_.. / 40h_.. — show this is unpublished flow cytometry on a pTog dual-reporter construct (mCherry + GFP, LacI/TetR, IPTG/aTc). Almost certainly Weiss-lab or course data. Confirm whose it is and put a name on the slide before delivering. Note also the middle panel is 31 h, not 30 h as the old caption said. Do not reveal the four mechanisms until they have argued. Key distinction: a mutation that breaks the CIRCUIT versus selection that breaks the POPULATION. Different engineering responses — sequence redundancy versus lowering burden.")
 
