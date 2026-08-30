@@ -283,7 +283,7 @@ directory genuinely lacks the folder, and they are a different identity.
 - [ ] DataHub memory increase confirmed via `/sys/fs/cgroup/memory.max`
 - [ ] Colab verified with an institutional account, in a private window
 - [ ] Version floor recorded; `requirements.txt` and CI pinned to it
-- [ ] 147/247 merged into one bCourses site; Gradescope linked; roster synced
+- [x] 147/247 merged into one bCourses site; Gradescope linked — **re-sync the roster after any section change; the merge does not push enrollments into Gradescope by itself**
 - [ ] Autograder Docker image built and **Test Autograder** run; memory and timeout raised
 - [ ] `python tools/check_links.py` passes, and one link clicked after `mv ~/posb2026 ~/posb2026-mine`
 - [ ] Gradescope: CalNet SAML login done, **Create Course** button visible

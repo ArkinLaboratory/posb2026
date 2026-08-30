@@ -161,7 +161,7 @@ be written first.
 | **Aug 25 — tomorrow** | nbgitpuller links posted and tested (`tools/check_links.py`, then one live click) | both |
 | now | Push `private/` to the private repo — it holds the only copy of the PS1 master | you |
 | now | Gradescope: CalNet SAML login, confirm **Create Course** appears | you |
-| now | Merge 147 + 247 into one bCourses site | you |
+| ~~now~~ | ~~Merge 147 + 247 into one bCourses site~~ — **done**; one site, SIS `CRS:BIOENG-147-2026-D`, carrying `BIOENG 147 LEC 001` and `BIOENG 247 LEC 001` | you |
 | now | DataHub memory request — verify with `/sys/fs/cgroup/memory.max` | filed |
 | **Aug 27** | **S2's reading, if it gets one.** The rule is that a paper discussed in class N is handed out at the end of class N−1, so anything S2 reads must be named on Thursday | both |
 | ~~Sep 3~~ | ~~S3 deck~~ — **built 24 August** | done |

@@ -93,7 +93,7 @@ fails; compare full vs. reduced numerically). All three are assessed in **PS1**,
 which is already out, and in the midterm. See the
 [Coverage Matrix](../../docs/coverage-matrix.md).
 
-**Note on PS1 Q5.** That question asks 247 students to write a partition
+**Note on PS1 Q5.** That question asks the 247 cohort (19 students) to write a partition
 function over four states — the technique of session 6, which is a week later.
 Item 4 of this session's handout is the same object, and item 1 demonstrates the
 method on the two-state case, so the coverage rule holds. Without it the first
