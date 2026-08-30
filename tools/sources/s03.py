@@ -353,6 +353,13 @@ S_by_hand = np.array([
 # print(np.array_equal(S_by_hand, cascade.S))
 '''),
 
+    # E4 is the 247-only item and was the one exercise with no cell to work in.
+    # More than half the room is in 247; an exercise with nowhere to answer it
+    # reads as an exercise that was not meant seriously.
+    code('''\
+# E4 — 247 only. P + P <-> P2, and the factor of two.
+'''),
+
     md("""---
 ## What to take away
 
