@@ -13,7 +13,7 @@ fixed:
 That is a promise in both directions. You will always have had a full
 class period's notice; and the discussion segments assume you used it.
 
-Declared so far: **4 reading(s)** across **2 of 27 teaching sessions**.
+Declared so far: **8 reading(s)** across **6 of 27 teaching sessions**.
 
 ---
 
@@ -21,6 +21,10 @@ Declared so far: **4 reading(s)** across **2 of 27 teaching sessions**.
 
 | Handed out | Read by | Paper | Focus on |
 |---|---|---|---|
+| end of S1 · Thu Aug 27 | S2 · Tue Sep 1 | [Phillips, R. & Milo, R. A feeling for the numbers in biology. PNAS 106(51), 21465-21471 (2009).](https://doi.org/10.1073/pnas.0907732106) | Results, "Case Study: Managing the Macromolecules of the Cell", pp. 21467-21468 -- the estimate that ends at "4% of the membrane". Follow it line by line and note what is thrown away on purpose. The paper has no numbered figures; the argument IS the text. Then ask of the whole paper: not the individual numbers, but the MOVE -- how each estimate is set up before any arithmetic happens. |
+| end of S4 · Tue Sep 8 | S5 · Thu Sep 10 | [Andersen, J. B., Sternberg, C., Poulsen, L. K., Bjorn, S. P., Givskov, M. & Molin, S. New unstable variants of green fluorescent protein for studies of transient gene expression in bacteria. Appl. Environ. Microbiol. 64(6), 2240-2246 (1998).](https://doi.org/10.1128/AEM.64.6.2240-2246.1998) | Figure 3A -- the semi-log decay of each Gfp variant after the medium downshift, and the half-lives it gives: about 40 minutes for the LAA and LVA tags, 60 for AAV, 110 for ASV, and no measurable degradation at all without a tag. Come able to put any one of those numbers into t_half = ln2/(gamma + mu) and say what it does to the response time. |
+| end of S5 · Thu Sep 10 | S6 · Tue Sep 15 | [Bintu, L., Buchler, N. E., Garcia, H. G., Gerland, U., Hwa, T., Kondev, J. & Phillips, R. Transcriptional regulation by the numbers: models. Curr. Opin. Genet. Dev. 15(2), 116-124 (2005).](https://pmc.ncbi.nlm.nih.gov/articles/PMC3482385/) | Figures 1 and 2. Figure 1 is the move the whole session rests on -- treating the DNA as a reservoir of RNAP and writing the promoter as a set of states rather than a rate. Figure 2 is the same argument with an activator: the states, their statistical weights, and fold-change as a function of activator number for different interaction energies. Skip Figure 3 (DNA looping) for now. The version linked is the NIH author manuscript, so it is double-spaced and the figures are at the end. |
+| end of S6 · Tue Sep 15 | S7 · Thu Sep 17 | [Rosenfeld, N., Elowitz, M. B. & Alon, U. Negative autoregulation speeds the response times of transcription networks. J. Mol. Biol. 323(5), 785-793 (2002).](https://doi.org/10.1016/S0022-2836(02)00994-4) | Figure 3 -- the measured kinetics of the negatively autoregulated circuit against the simple transcription unit, with rise times normalised to maximal fluorescence. Then Figure 2, the calculated rise time against repression ratio. Come able to say, in one sentence, what is held equal between the two circuits in Figure 3, because that is what the whole claim turns on. |
 | end of S8 · Tue Sep 22 | S9 · Thu Sep 24 | [Gardner, T. S., Cantor, C. R. & Collins, J. J. Construction of a genetic toggle switch in Escherichia coli. Nature 403, 339-342 (2000).](https://www.nature.com/articles/35002131) | Box 1 and Figures 1 and 2. Come able to state, in one sentence each, what alpha and beta are and what physical thing in the construct sets each of them. Do not read Figure 5 yet -- we do that one together. |
 | end of S9 · Thu Sep 24 | S10 · Tue Sep 29 | [Alon, U. Network motifs: theory and experimental approaches. Nature Reviews Genetics 8, 450-461 (2007).](https://doi.org/10.1038/nrg2102) *(optional)* | The motif catalogue in context. Read it if you want the map rather than the two landmarks. |
 | end of S9 · Thu Sep 24 | S10 · Tue Sep 29 | [Basu, S., Mehreja, R., Thiberge, S., Chen, M.-T. & Weiss, R. Spatiotemporal control of gene expression with pulse-generating networks. PNAS 101, 6355-6360 (2004).](https://doi.org/10.1073/pnas.0307571101) | The circuit diagram and the pulse traces. Before class, be able to say which arm of the loop is fast and which is slow, and what happens to the pulse if you swap them. |
@@ -32,5 +36,5 @@ Not every session needs one — some are derivation sessions and the
 reading is the notebook. But each of these is an open decision, not a
 decision already made:
 
-S1, S2, S3, S4, S5, S6, S7, S8, S11, S12, S13, S14, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28
+S1, S3, S4, S8, S11, S12, S13, S14, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28
 

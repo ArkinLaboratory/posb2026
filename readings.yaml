@@ -47,6 +47,16 @@ limits:
   # "one paper a week" syllabus becomes a fourteen-paper term. Exceptions are
   # named, and each one has to say why.
   overrides:
+    s05:
+      max_required_pages_per_assignment: 15
+      reason: >-
+        The only free version of Bintu 2005 is the NIH author manuscript
+        (PMC3482385), which is fifteen double-spaced pages with the figures at
+        the end. The published article is nine pages (Curr Opin Genet Dev
+        15(2):116-124). `pages` records what the students actually hold, not the
+        flattering number, so the cap is raised here rather than the length
+        understated.
+
     s09:
       max_required_per_assignment: 2
       reason: >-
@@ -59,6 +69,97 @@ limits:
 readings:
 
   # ---- Part I ------------------------------------------------------------
+  s02:
+    - key: phillips2009
+      cite: "Phillips, R. & Milo, R. A feeling for the numbers in biology. PNAS 106(51), 21465-21471 (2009)."
+      short: "Phillips & Milo, PNAS 2009"
+      doi: "10.1073/pnas.0907732106"
+      url: "https://doi.org/10.1073/pnas.0907732106"
+      pages: 7
+      required: true
+      focus: >-
+        Results, "Case Study: Managing the Macromolecules of the Cell",
+        pp. 21467-21468 -- the estimate that ends at "4% of the membrane".
+        Follow it line by line and note what is thrown away on purpose. The
+        paper has no numbered figures; the argument IS the text. Then ask of
+        the whole paper: not the individual numbers, but the MOVE -- how each
+        estimate is set up before any arithmetic happens.
+      why: >-
+        Session 2 teaches the habit through a faded set: four estimates, the
+        scaffolding removed one item at a time. What the session cannot do in
+        eighty minutes is argue for WHY the habit is worth having. This paper is
+        that argument, by the people who made it a field, in seven pages. It
+        also supplies more worked examples than the session has room for, which
+        is what a student who wants another go should be given.
+
+  s05:
+    - key: andersen1998
+      cite: "Andersen, J. B., Sternberg, C., Poulsen, L. K., Bjorn, S. P., Givskov, M. & Molin, S. New unstable variants of green fluorescent protein for studies of transient gene expression in bacteria. Appl. Environ. Microbiol. 64(6), 2240-2246 (1998)."
+      short: "Andersen et al., Appl Environ Microbiol 1998"
+      doi: "10.1128/AEM.64.6.2240-2246.1998"
+      url: "https://doi.org/10.1128/AEM.64.6.2240-2246.1998"
+      pages: 7
+      required: true
+      focus: >-
+        Figure 3A -- the semi-log decay of each Gfp variant after the medium
+        downshift, and the half-lives it gives: about 40 minutes for the LAA and
+        LVA tags, 60 for AAV, 110 for ASV, and no measurable degradation at all
+        without a tag. Come able to put any one of those numbers into
+        t_half = ln2/(gamma + mu) and say what it does to the response time.
+      why: >-
+        Session 5 derives the response time and the claim that dilution sets a
+        floor on every protein's lifetime. This is the paper that makes the
+        other term adjustable: four peptide tags, four half-lives, measured. It
+        turns "you could add a degradation tag" from a remark into a design
+        parameter with a number attached, and it is an engineering paper rather
+        than a derivation -- which the room needs after three sessions of
+        mathematics.
+
+  s06:
+    - key: bintu2005models
+      cite: "Bintu, L., Buchler, N. E., Garcia, H. G., Gerland, U., Hwa, T., Kondev, J. & Phillips, R. Transcriptional regulation by the numbers: models. Curr. Opin. Genet. Dev. 15(2), 116-124 (2005)."
+      short: "Bintu et al., Curr Opin Genet Dev 2005"
+      doi: "10.1016/j.gde.2005.02.007"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3482385/"
+      pages: 15
+      required: true
+      focus: >-
+        Figures 1 and 2. Figure 1 is the move the whole session rests on --
+        treating the DNA as a reservoir of RNAP and writing the promoter as a
+        set of states rather than a rate. Figure 2 is the same argument with an
+        activator: the states, their statistical weights, and fold-change as a
+        function of activator number for different interaction energies. Skip
+        Figure 3 (DNA looping) for now. The version linked is the NIH author
+        manuscript, so it is double-spaced and the figures are at the end.
+      why: >-
+        Session 6 derives regulation functions from a partition function instead
+        of asserting a Hill form, and this is the paper that made that a
+        standard method. Reading it first means the session can argue about
+        which states to include rather than spending its time justifying the
+        framework.
+
+  s07:
+    - key: rosenfeld2002
+      cite: "Rosenfeld, N., Elowitz, M. B. & Alon, U. Negative autoregulation speeds the response times of transcription networks. J. Mol. Biol. 323(5), 785-793 (2002)."
+      short: "Rosenfeld, Elowitz & Alon, JMB 2002"
+      doi: "10.1016/S0022-2836(02)00994-4"
+      url: "https://doi.org/10.1016/S0022-2836(02)00994-4"
+      pages: 9
+      required: true
+      focus: >-
+        Figure 3 -- the measured kinetics of the negatively autoregulated
+        circuit against the simple transcription unit, with rise times
+        normalised to maximal fluorescence. Then Figure 2, the calculated rise
+        time against repression ratio. Come able to say, in one sentence, what
+        is held equal between the two circuits in Figure 3, because that is what
+        the whole claim turns on.
+      why: >-
+        Session 7 derives the negative-autoregulation speed-up. This is that
+        derivation done experimentally, by the people who did it, in two
+        strains that differ by one feedback edge -- and Figure 2 is the same
+        curve the session produces at the board. It is also the cleanest example
+        in the course of a design principle being measured rather than argued.
+
   s09:
     - key: gardner2000
       cite: "Gardner, T. S., Cantor, C. R. & Collins, J. J. Construction of a genetic toggle switch in Escherichia coli. Nature 403, 339-342 (2000)."

@@ -586,9 +586,9 @@ def build():
            M, 2.8, 11.6, 2.0, size=17, color=WHITE, spacing=1.4)
     d.text(s, "You cannot design anything until you can answer those in your head, to an order of magnitude.",
            M, 4.95, 11.6, 0.4, size=16, bold=True, color=CYAN)
-    d.assignment(s, y=5.5)
-    d.text(s, "No reading before Tuesday. PS0 is ten minutes, at home, due Wednesday 2 September.",
-           M, 5.6, 11.6, 0.35, size=15, bold=True, color=SILVER)
+    bottom = d.assignment(s, y=5.4)
+    d.text(s, "PS0 is ten minutes, at home, due Wednesday 2 September.",
+           M, bottom + 0.06, 11.6, 0.35, size=15, bold=True, color=SILVER)
     d.notes(s, "LEAVE THIS SLIDE UP through the closing slide. The three "
                "questions sit on the projector while they are clicking links, "
                "which is free exposure while they photograph the links. "
