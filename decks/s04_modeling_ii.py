@@ -80,7 +80,7 @@ def build():
             ("2", "From Thursday",
              "Translation is m → m + p. What is the net stoichiometry of m, and why is that a modelling choice rather than a fact?", TEAL),
             ("3", "From session 2",
-             "A protein crosses E. coli in ~65 ms; the gene that makes it is transcribed in ~20 s. Which of the two is a variable in this course?", CYAN)]):
+             "A protein crosses E. coli in ~65 ms; the gene that makes it is transcribed in ~20 s. Is either of those a variable in this course?", CYAN)]):
         y = 1.9 + i * 1.5
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 1.15, fill=c, line=None)
         d.text(s, n, M, y + 0.38, 0.5, 0.35, size=17, bold=True, color=WHITE,
@@ -340,12 +340,15 @@ def build():
     d.notes(s, "Four minutes. Ask which panel is which BEFORE you say -- the "
                "shapes are identical and the only cue is the label, which is "
                "the point. "
-               "The shaded band is where PS1's integration window stops. On the "
-               "left it is a tenth of one turnover, so the number PS1 prints "
-               "for E0 = 0.001 is the error over the first ten per cent of the "
-               "reaction, not over the reaction. Both are tiny and the "
-               "conclusion is unaffected, but if a student notices, they are "
-               "right and should be told so.")
+               "PS1 Q3c runs five turnovers in every case, which is this "
+               "same clock -- so the numbers they compute at home are the "
+               "numbers on this slide. Worth one sentence on WHY the problem "
+               "set does that: tau is inversely proportional to E_tot, so a "
+               "fixed t_end measures the approximation in one case and the "
+               "integration window in the other -- and spread a fixed output "
+               "grid over too long a window and you miss the peak error "
+               "entirely. That is a real trap and they will meet it again "
+               "every time they sample a simulation.")
 
     # 9 THE ERROR IS A RATIO --------------------------------------------------
     s = d.light()

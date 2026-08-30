@@ -115,6 +115,7 @@ def main():
     missing_total = 0
     unassigned = 0
     thin_total = 0
+    long_total = 0
     for name in names:
         mod = importlib.import_module(f"decks.{name}")
         deck = mod.build()
@@ -164,6 +165,22 @@ def main():
                   f"{sm['min_per_slide']:.1f} min/slide;  "
                   f"{sm['activity_min']} min students working "
                   f"({sm['activity_frac']:.0%}){board}")
+            # theme.py computes this; nothing printed it, so the ceiling was
+            # a rule the build knew about and never mentioned. `.get` because
+            # the field arrived in a parallel session and an older theme.py
+            # would otherwise KeyError every deck build.
+            long_blocks = sm.get("long") or []
+            if long_blocks:
+                long_total += len(long_blocks)
+                cap = sm.get("max_activity", "?")
+                print(f"  !! {len(long_blocks)} block(s) of student work longer "
+                      f"than {cap} min -- past that the fast half has finished "
+                      f"and the slow half has stalled:")
+                for r in long_blocks:
+                    print(f"     {r['badge']:<12} {r['minutes']} min  "
+                          f"{r['label'][:44]}")
+                print(f"     -> split it and put the answers in between; "
+                      f"anything that will not fit belongs on the problem set")
             if sm["thin"]:
                 thin_total += len(sm["thin"])
                 print(f"  !! {len(sm['thin'])} segment(s) with too few slides "
@@ -190,10 +207,18 @@ def main():
                 print(f"    {key:<24} fills {fill:.0%} of {box[0]}x{box[1]}in "
                       f"-> renders {got[0]}x{got[1]}in")
 
+    # NOTE: long_total is reported above but deliberately NOT part of the
+    # strict exit yet. Session 2's faded set is labelled as one twenty-four
+    # minute block -- the two-block plan lives in its speaker notes, not in its
+    # segment headers -- so making this fail --check would fail CI on a known,
+    # dated deferral rather than on a surprise. Relabel s02 after 1 September
+    # and then add `or long_total` here, which is the point of counting it.
     if strict and (missing_total or unassigned or thin_total):
         sys.exit(f"\n--check: {missing_total} paper figure(s) missing, "
                  f"{unassigned} reading(s) never handed out, "
-                 f"{thin_total} under-slided segment(s)")
+                 f"{thin_total} under-slided segment(s)"
+                 + (f"  [and {long_total} over-long student block(s), "
+                    f"not yet strict]" if long_total else ""))
     print(f"\nDone. Decks in {OUT.relative_to(ROOT)}/ (gitignored).")
 
 

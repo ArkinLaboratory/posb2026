@@ -74,10 +74,12 @@ def qssa_error(e_tot, t_end):
 def tau(e_tot):
     """The natural clock: time to turn over one S_0's worth of substrate.
 
-    Both panels of the regime figure run to the same number of these, because a
-    fixed wall-clock window compares the approximation in one case and the
-    integration window in the other -- which is exactly the trap PS1 Q3c falls
-    into and which the shaded band below makes visible.
+    Both panels of the regime figure run to the same number of these, and so
+    does PS1 Q3c, which asks for five. A fixed wall-clock window would compare
+    the approximation in one case and the integration window in the other,
+    because tau is inversely proportional to E_tot -- and worse, would spread a
+    fixed output grid so thinly over a fast reaction that the peak error is
+    missed entirely.
     """
     return (KM + S0) / (VMAX_PER_E * e_tot)
 
@@ -93,20 +95,13 @@ def fig_qssa_regimes():
     """
     fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.0))
 
-    for ax, (e_tot, ps1_t, tag) in zip(axes, [
-            (0.001, 2000.0, "E$_{tot}$ = 0.001"),
-            (1.000, 200.0, "E$_{tot}$ = 1.0")]):
+    for ax, (e_tot, tag) in zip(axes, [
+            (0.001, "E$_{tot}$ = 0.001"),
+            (1.000, "E$_{tot}$ = 1.0")]):
         T = tau(e_tot)
         t, pf, pr = _pair(e_tot, 12.0 * T)
         ax.plot(t / T, pf, color=TEAL, lw=2.4, label="full, four species")
         ax.plot(t / T, pr, color=AMBER, lw=2.0, ls="--", label="Michaelis–Menten")
-
-        # Where PS1's integration window ends, in units of the natural clock.
-        if ps1_t / T < 12.0:
-            ax.axvspan(0, ps1_t / T, color=RULE, alpha=0.55, lw=0, zorder=0)
-            ax.text(ps1_t / T + 0.25, 0.60,
-                    f"PS1 stops here\n({ps1_t / T:.2f} turnovers)",
-                    fontsize=9, color=MUTED, va="center")
 
         err = np.max(np.abs(pf - pr)) / S0
         ratio = e_tot / (KM + S0)
