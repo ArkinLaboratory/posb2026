@@ -46,6 +46,14 @@ It builds nothing and answers one question — is the deck on this disk the one
 these sources would produce? Content hashes, not mtimes, because the bridge
 restamps everything it copies. See `tools/manifest.py`.
 
+**Confirm the mount before writing a single file.** Deliveries are addressed by
+path, and the connected-folder set can change mid-session. On 30 August three
+folders were connected, the name `posb2026` was rebound from the real working
+copy to an empty `~/Documents/PoSB/posb2026`, and eighteen files were written
+into the wrong directory with every call reporting success. Call
+`get_device_info` and confirm the real repo is in `connectedFolders` at the
+start of every delivery, and address files by their full canonical path.
+
 **And close the loop on the delivery itself.** Before saying anything is
 delivered, run `python tools/handoff.py --emit`, ship `docs/handoff.json` with
 the rest, and verify against Adam's disk. `manifest.py` asks whether an artifact
@@ -93,6 +101,14 @@ build never carries them.
 - **Say when something is not known.** Speaker notes carry the provenance
   problems — an uncited figure, a claim with a shelf life — rather than hiding
   them.
+- **No block of student work runs longer than ten minutes.** Past that the fast
+  half has finished and the slow half has stalled, and neither is being taught.
+  Split it and put teaching in the gap. `Deck.pacing()` enforces this and the
+  deck build fails on it.
+- **Board work needs a printed script.** A segment labelled "board" is excluded
+  from the slide-rate check, so it must earn that by having notes in
+  `board-notes/` — every line to write, in order, with the questions to ask, the
+  sanity checks, and what to cut if you are late.
 
 ## Critique before shipping
 

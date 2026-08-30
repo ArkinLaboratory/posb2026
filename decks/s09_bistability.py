@@ -297,7 +297,7 @@ def build():
 
     # 15 FADED WORKED SET -----------------------------------------------------
     s = d.light()
-    d.header(s, "60 – 72 min", "Worked set  ·  handout  ·  start where you like")
+    d.header(s, "60 – 66 min", "Worked set  ·  six minutes  ·  start where you like")
     d.title(s, "Four problems. The scaffolding falls away.")
     for i, (num, k, txt, c) in enumerate([
             ("1", "Fully worked", "fixed points for α = 3, n = 2", TEAL),
@@ -316,7 +316,62 @@ def build():
            M, 4.95, W - 2 * M, 0.4, size=16, bold=True, color=INK)
     d.text(s, "At each transition the handout asks: why does that step follow? Answer in writing before you go on.",
            M, 5.45, W - 2 * M, 0.4, size=14, color=BODY)
-    d.notes(s, "Circulate. Do NOT work item 1 at the board — that removes the fading and collapses it to a single demonstration.")
+    d.notes(s, "SIX MINUTES, then stop. This was one twelve-minute block; no "
+               "block of student work in this course runs past ten, because "
+               "past that the fast half has finished and the slow half has "
+               "stalled and neither is being taught. "
+               "Circulate. Do NOT work item 1 at the board -- that removes the "
+               "fading and collapses the set into a single demonstration. "
+               "You are also scouting: at 66 you say out loud whichever of the "
+               "two standard blockers you actually saw.")
+
+    # 15b MID-SET, TWO MINUTES ------------------------------------------------
+    s = d.dark()
+    d.header(s, "66 – 68 min", "Two minutes at the front  ·  then back to it")
+    d.title(s, "The two places people stall")
+    for i, (k, txt) in enumerate([
+            ("Setting the nullclines equal is not solving them",
+             "You want the intersections of du/dt = 0 and dv/dt = 0. Substitute one into the other and you get a single equation in one variable — a polynomial. Solve that. Do not try to solve the pair simultaneously by inspection."),
+            ("The Jacobian is evaluated AT a fixed point",
+             "It is a matrix of numbers, not of symbols. Get the fixed point first, then substitute. Half the algebra people get stuck in disappears the moment they put the numbers in before differentiating rather than after.")]):
+        y = 2.3 + i * 1.7
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 1.45, fill=CYAN, line=None)
+        d.text(s, k, M + 0.4, y, 4.2, 0.85, size=16, font=HEAD, bold=True,
+               color=WHITE)
+        d.text(s, txt, M + 5.0, y + 0.02, 7.5, 1.5, size=13, color=MINT)
+    d.text(s, "Four more minutes. Item 4 is the one to reach — n = 1 is where the switch stops being a switch.",
+           M, 5.85, 12.5, 0.5, size=18, font=HEAD, bold=True, color=CYAN)
+    d.notes(s, "Two minutes and not a second more. Say the two things, take no "
+               "questions, send them back. "
+               "Neither of these gives away any answer -- both are about HOW to "
+               "proceed, not what the result is, which is the line that keeps "
+               "the fading intact.")
+
+    # 15c WORKED SET, SECOND HALF ---------------------------------------------
+    s = d.light()
+    d.header(s, "68 – 72 min", "Worked set  ·  four more minutes  ·  reach item 4")
+    d.title(s, "Keep going from wherever you are")
+    for i, (num, k, txt, c) in enumerate([
+            ("3", "Last two blank", "you build the Jacobian too", CYAN),
+            ("4", "Bare problem", "n = 1. Prove only one state exists.", AMBER)]):
+        x = M + i * 6.35
+        d.shape(s, S.ROUNDED_RECTANGLE, x, 2.05, 6.15, 2.0, fill=CARD, line=c,
+                lw=2)
+        d.shape(s, S.OVAL, x + 0.3, 2.3, 0.5, 0.5, fill=c, line=None)
+        d.text(s, num, x + 0.3, 2.41, 0.5, 0.35, size=18, font=HEAD, bold=True,
+               color=WHITE, align="c")
+        d.text(s, k, x + 1.0, 2.35, 4.9, 0.4, size=16, font=HEAD, bold=True,
+               color=INK)
+        d.text(s, txt, x + 1.0, 2.8, 4.9, 0.5, size=13, color=MUTED)
+        d.text(s, "why does that step follow? — answer in writing before you go on",
+               x + 0.3, 3.45, 5.5, 0.5, size=11.5, italic=True, color=MUTED)
+    d.text(s, "Item 4 is the whole session in one problem: cooperativity is not decoration, and at n = 1 the bistability is simply gone.",
+           M, 4.35, W - 2 * M, 0.5, size=16, bold=True, color=INK)
+    d.foot(s, "Nobody is expected to finish item 4 here. What is expected is that you have tried it before I show you the answer.", 5.05)
+    d.notes(s, "Four minutes. Stop at 72 regardless -- the failure slide is "
+               "the point of the session and it needs its five minutes. "
+               "Item 4 is the one that matters. If someone has it, ask them to "
+               "say the argument out loud at 72 instead of you saying it.")
 
     # 16 IT FAILS -------------------------------------------------------------
     s = d.dark()

@@ -590,8 +590,15 @@ class Deck:
         RATE should not change much. Anything past `thin` minutes on one
         exposition slide is flagged.
 
-        Segments whose label names an activity are excluded: during a vote or a
-        faded worked set the slide is static on purpose. So are segments whose
+        It also enforces a ceiling on student work: no single block longer
+        than ten minutes. That is a teaching judgement, not a measurement --
+        past ten minutes the fast half has finished and stopped and the slow
+        half has stalled, and neither is being taught. Two eight-minute blocks
+        with a debrief between them are worth more than one twenty.
+
+        Segments whose label names an activity are excluded from the slide
+        rate: during a vote or a faded worked set the slide is static on
+        purpose. So are segments whose
         label says "board" -- see BOARD_WORDS -- but those are reported
         separately, because "I will derive this at the board" is a claim about
         how the session runs and should not hide inside the student-time number.
@@ -599,6 +606,12 @@ class Deck:
         Returns (rows, summary).
         """
         rows, expo_min, expo_slides, act_min, board_min = [], 0, 0, 0, 0
+        # Adam's rule, August 2026: no single stretch of student work may run
+        # longer than this. A long block is not more practice, it is less
+        # teaching -- the room drifts, the fast half finishes and stops, and
+        # nobody is being taught for the back half of it. Split it and put
+        # something in between.
+        MAX_ACTIVITY = 10
         merged, last = [], None
         for badge, label in self.segments:
             if badge == last and merged:
@@ -623,13 +636,15 @@ class Deck:
             rows.append({"badge": badge, "label": label, "slides": k,
                          "minutes": mins, "activity": activity, "board": board,
                          "per_slide": mins / k if k else 0,
+                         "long": activity and mins > MAX_ACTIVITY,
                          "thin": (not activity) and (not board)
                                  and k and mins / k > thin})
         rate = expo_min / expo_slides if expo_slides else 0
         return rows, {"exposition_min": expo_min, "exposition_slides": expo_slides,
                       "min_per_slide": rate, "activity_min": act_min,
                       "activity_frac": act_min / total if total else 0,
-                      "board_min": board_min,
+                      "board_min": board_min, "max_activity": MAX_ACTIVITY,
+                      "long": [r for r in rows if r["long"]],
                       "thin": [r for r in rows if r["thin"]]}
 
     # -- output --------------------------------------------------------------

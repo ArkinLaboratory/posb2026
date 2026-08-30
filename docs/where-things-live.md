@@ -70,6 +70,7 @@ hand-edited, because the next build silently destroys your edit.
 | `private/build/decks/*.pptx` and `.pdf` | `tools/build_decks.py` | `decks/s03_modeling_i.py` |
 | `figures/build/*.png`, `*.mp4` | `tools/build_figures.py` | `figures/s03_modeling_i.py` |
 | `handouts/*.pdf` | `tools/build_handouts.py` | `handouts/*.md` |
+| `board-notes/*.pdf` | `tools/build_handouts.py` | `board-notes/*.md` |
 | `docs/readings.md` | `tools/build_readings.py` | `readings.yaml` |
 | `problem-sets/*/ps01.ipynb` (student version) | `tools/build_problem_sets.py` | `private/sources/ps01.py` |
 | `docs/handoff.json` | `tools/handoff.py --emit` | nothing — it is a receipt |

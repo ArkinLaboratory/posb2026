@@ -5,19 +5,37 @@ session where the course's Python setup arrives. PS1 goes out at the end.
 
     0–5    retrieval: what session 2 left on the board
     5–8    map + goals as questions
-    8–14   mass action, derived from counting collisions
-    14–20  where mass action fails, with the numbers from session 2
-    20–24  ConcepTest 1 — the catalyst, which is the error everyone makes
-    24–29  the long way: three derivatives, and the redundancy in them
-    29–37  S, v, and BOTH null spaces — what is conserved, what can flow
-    37–39  the pause
-    39–59  laptops: the notebook, three ways, then the cascade      [20 min]
-    59–67  the cascade solved exactly, by integrating factor
-    67–73  nondimensionalise: four parameters become one
-    73–77  ConcepTest 2 — the knob that moves the level and the speed together
-    77–83  one matrix, three questions
-    83–87  PS1, and the forward link
+    8–13   mass action, derived from counting collisions          [board]
+    13–17  where mass action fails, with the numbers from session 2 [board]
+    17–21  the long way: three derivatives, and the redundancy      [board]
+    21–26  S and v, assembled entry by entry                        [board]
+    26–33  BOTH null spaces — what is conserved, what can flow      [board]
+    33–37  ConcepTest 1 — the catalyst, which is the error everyone makes
+    37–39  the pause: write S for the cascade, with the trap fresh
+    39–48  laptops: three ways to the same answer                   [9 min]
+    48–51  debrief at the front — the two things people are stuck on
+    51–59  laptops: the cascade, predicting first                   [8 min]
+    59–63  the steady state you can get without a computer          [board]
+    63–67  the cascade integrated exactly, by integrating factor    [board]
+    67–70  what the numbers look like: two clocks
+    70–74  nondimensionalise — four parameters become one           [board]
+    74–77  the QSSA error, which is what session 4 is about
+    77–80  ConcepTest 2 — the knob that moves level and speed together
+    80–84  one matrix, three questions
+    84–87  PS1, and the forward link
     87–89  close
+
+Twenty-three slides. 21 min of exposition over 8 slides (2.6 min/slide),
+31 min of student work in blocks of 4, 2, 9 and 8, and 37 min at a board — for
+which board-notes/s03-board-notes.pdf is the script.
+
+ConcepTest 1 sits at 33–37, immediately before the pause, and that placement is
+deliberate. It asks for the net stoichiometry of the mRNA in m → m + p; the
+pause then asks the room to write S for the cascade, in which that reaction is
+the third column. Trap, then use it thirty seconds later, with nothing in
+between. An earlier draft put the ConcepTest between the worked example and the
+assembly of S, which interrupted the A + B ⇌ C thread to ask about a different
+system and then went back.
 
 A FIRST DRAFT OF THIS DECK WAS TOO THIN. It had the reaction list, the matrix,
 one conservation law and a qualitative "look, two timescales" -- about
@@ -145,7 +163,7 @@ def build():
 
     # 4 MASS ACTION, DERIVED --------------------------------------------------
     s = d.light()
-    d.header(s, "8 – 14 min", "At the board  ·  derived, not asserted")
+    d.header(s, "8 – 13 min", "At the board  ·  derived, not asserted")
     d.title(s, "Where mass action comes from")
     for i, (step, txt) in enumerate([
             ("The rate is a collision rate",
@@ -179,7 +197,7 @@ def build():
 
     # 4b WHERE IT FAILS, WITH NUMBERS -----------------------------------------
     s = d.light()
-    d.header(s, "14 – 18 min", "At the board  ·  three assumptions, three numbers")
+    d.header(s, "13 – 17 min", "At the board  ·  three assumptions, three numbers")
     d.title(s, "Is mass action allowed in an E. coli?")
     for i, (name, test, num, verdict, c) in enumerate([
             ("Well mixed",
@@ -229,7 +247,7 @@ def build():
 
     # 5 THE LONG WAY ----------------------------------------------------------
     s = d.light()
-    d.header(s, "20 – 24 min", "At the board  ·  every term written out")
+    d.header(s, "17 – 21 min", "At the board  ·  every term written out")
     d.title(s, "A + B ⇌ C, and nothing clever")
     d.shape(s, S.ROUNDED_RECTANGLE, M, 1.75, 12.5, 1.5, fill=WASH, line=RULE,
             lw=1)
@@ -262,46 +280,9 @@ def build():
                "will get it. That is the point -- they already know the "
                "content, and what is coming is only bookkeeping.")
 
-    # 6 CONCEPTEST 1 ----------------------------------------------------------
-    s = d.dark()
-    d.header(s, "18 – 20 min", "ConcepTest  ·  vote  ·  argue")
-    d.title(s, "Translation:  m → m + p")
-    d.text(s, "What is the net stoichiometry of the mRNA in that reaction?",
-           M, 2.0, 12.5, 0.5, size=21, font=HEAD, color=MINT)
-    for i, (lab, txt) in enumerate([
-            ("A", "−1 — the mRNA is used up making the protein"),
-            ("B", "0 — it appears on both sides"),
-            ("C", "+1 — a protein appeared, so something was made"),
-            ("D", "It depends on whether the ribosome falls off")]):
-        y = 2.75 + i * 0.72
-        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.55, 0.52, fill=CYAN, line=None)
-        d.text(s, lab, M, y + 0.11, 0.55, 0.3, size=15, bold=True, color=INK,
-               align="c")
-        d.text(s, txt, M + 0.85, y + 0.08, 11.6, 0.4, size=16, color=WHITE)
-    d.foot(s, "Vote. Then find someone who voted differently and make them change their mind. Then vote again.", 6.05)
-    d.notes(s, "Four minutes, and it is the single most useful four minutes "
-               "in the session. "
-               "Answer B. The notebook calls this 'the single most common "
-               "modeling error in the first two weeks' and that is not "
-               "rhetoric -- it is the error that shows up on PS1 every year in "
-               "some form. "
-               "A is the majority answer on the first vote and it comes from a "
-               "real intuition: translation does consume something. It "
-               "consumes amino acids and GTP, which are not in this model. "
-               "That is worth saying, because it makes B a modelling choice "
-               "rather than a fact, and modelling choices are what this course "
-               "is about. "
-               "D is the interesting wrong answer -- if the ribosome DID "
-               "destroy the message, the stoichiometry would be -1, and there "
-               "are real systems where a message is translated a countable "
-               "number of times. Ask what that would change. It changes the "
-               "steady state from alpha*k_p/(gamma_m*gamma_p) to something "
-               "with no mRNA pool at all. "
-               "Do not resolve it before the second vote.")
-
-    # 7 THE ASSEMBLY ----------------------------------------------------------
+    # 6 THE ASSEMBLY ----------------------------------------------------------
     s = d.light()
-    d.header(s, "24 – 29 min", "At the board  ·  build it term by term")
+    d.header(s, "21 – 26 min", "At the board  ·  build it term by term")
     d.title(s, "Two fluxes, one matrix")
     d.text(s, "v₁ = kf[A][B]        v₂ = kr[C]", M, 1.72, 6.0, 0.4,
            size=17, font=TEXT, bold=True, color=INK)
@@ -346,9 +327,9 @@ def build():
                "conserved? what fluxes are feasible?) with no kinetics at all, "
                "and that is a whole field.")
 
-    # 8 CONSERVATION ----------------------------------------------------------
+    # 7 CONSERVATION ----------------------------------------------------------
     s = d.light()
-    d.header(s, "29 – 37 min", "At the board  ·  both null spaces")
+    d.header(s, "26 – 33 min", "At the board  ·  both null spaces")
     d.title(s, "Two null spaces, and what each one is for")
     for i, (side, algebra, means, dim, c) in enumerate([
             ("LEFT null space",
@@ -406,6 +387,50 @@ def build():
                "failure mode of checking. "
                "This is exercise E4 in the notebook. Do not solve it here.")
 
+    # 8b CONCEPTEST 1 — moved here on purpose ----------------------------------------------------------
+    s = d.dark()
+    d.header(s, "33 – 37 min", "ConcepTest  ·  vote  ·  argue  ·  vote again")
+    d.title(s, "Translation:  m → m + p")
+    d.text(s, "What is the net stoichiometry of the mRNA in that reaction?",
+           M, 2.0, 12.5, 0.5, size=21, font=HEAD, color=MINT)
+    for i, (lab, txt) in enumerate([
+            ("A", "−1 — the mRNA is used up making the protein"),
+            ("B", "0 — it appears on both sides"),
+            ("C", "+1 — a protein appeared, so something was made"),
+            ("D", "It depends on whether the ribosome falls off")]):
+        y = 2.75 + i * 0.72
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.55, 0.52, fill=CYAN, line=None)
+        d.text(s, lab, M, y + 0.11, 0.55, 0.3, size=15, bold=True, color=INK,
+               align="c")
+        d.text(s, txt, M + 0.85, y + 0.08, 11.6, 0.4, size=16, color=WHITE)
+    d.foot(s, "Vote. Then find someone who voted differently and make them change their mind. Then vote again.", 6.05)
+    d.notes(s, "Four minutes, and it is the single most useful four minutes "
+               "in the session. "
+               "Answer B. The notebook calls this 'the single most common "
+               "modeling error in the first two weeks' and that is not "
+               "rhetoric -- it is the error that shows up on PS1 every year in "
+               "some form. "
+               "A is the majority answer on the first vote and it comes from a "
+               "real intuition: translation does consume something. It "
+               "consumes amino acids and GTP, which are not in this model. "
+               "That is worth saying, because it makes B a modelling choice "
+               "rather than a fact, and modelling choices are what this course "
+               "is about. "
+               "D is the interesting wrong answer -- if the ribosome DID "
+               "destroy the message, the stoichiometry would be -1, and there "
+               "are real systems where a message is translated a countable "
+               "number of times. Ask what that would change. It changes the "
+               "steady state from alpha*k_p/(gamma_m*gamma_p) to something "
+               "with no mRNA pool at all. "
+               "Do not resolve it before the second vote. "
+               "AND DO NOT OVER-RESOLVE IT AFTER. The next two minutes are the "
+               "pause, and the pause asks them to write S for the cascade -- in "
+               "which m -> m + p is the third column and the answer to this "
+               "vote is the entry they are about to write. That adjacency is "
+               "the whole reason this sits here rather than twenty minutes "
+               "earlier. Land B, say 'you are about to need that', and stop "
+               "talking.")
+
     # 9 THE PAUSE -------------------------------------------------------------
     s = d.dark()
     d.header(s, "37 – 39 min", "Two minutes  ·  I will not say anything")
@@ -427,13 +452,12 @@ def build():
 
     # 10 THE NOTEBOOK ---------------------------------------------------------
     s = d.light()
-    d.header(s, "39 – 59 min", "Laptops  ·  the notebook  ·  I circulate")
+    d.header(s, "39 – 48 min", "Laptops  ·  nine minutes  ·  I circulate")
     d.title(s, "Three ways to the same answer")
     for i, (n, k, txt, c) in enumerate([
             ("1", "The long way", "Type the three derivatives out. Integrate with solve_ivp. This is the version you can defend to anyone.", TEAL),
             ("2", "S and v, by hand", "Build the 3×2 array yourself. Same integration. Check the two agree to 1e-9 — the notebook asserts it.", TEAL),
-            ("3", "posb.Model", "Give it the reaction list. Read _build_S; it is nine lines and it does exactly what you just did.", CYAN),
-            ("4", "The cascade", "Four reactions, two species. Predict m* and p* on paper first, then simulate. E1–E4 follow.", AMBER)]):
+            ("3", "posb.Model", "Give it the reaction list. Read _build_S; it is nine lines and it does exactly what you just did.", CYAN)]):
         y = 1.9 + i * 1.15
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 0.9, fill=c, line=None)
         d.text(s, n, M, y + 0.26, 0.5, 0.35, size=17, bold=True, color=WHITE,
@@ -441,20 +465,92 @@ def build():
         d.text(s, k, M + 0.8, y, 3.4, 0.4, size=15, font=HEAD, bold=True,
                color=INK)
         d.text(s, txt, M + 4.4, y + 0.02, 7.9, 0.9, size=13, color=BODY)
-    d.text(s, "If your DataHub is slow, use the Colab badge. Do not spend this period fighting an environment.",
-           M, 6.5, W - 2 * M, 0.4, size=15, bold=True, color=INK)
-    d.notes(s, "Twenty-four minutes. CIRCULATE -- do not work the notebook at "
-               "the front. They have it open; reading it aloud is the one way "
-               "to waste the period. "
+    d.text(s, "Nine minutes, and it stops whether or not you are finished — I will give away step 2 at the front before we move on.",
+           M, 5.5, W - 2 * M, 0.4, size=16, bold=True, color=INK)
+    d.text(s, "If DataHub is slow, use the Colab badge in the notebook. Do not spend this period fighting an environment.",
+           M, 6.0, W - 2 * M, 0.4, size=13, italic=True, color=MUTED)
+    d.notes(s, "NINE MINUTES, AND STOP ON TIME. This used to be one "
+               "twenty-minute block and it should not be: past about ten "
+               "minutes the fast half has finished and disengaged and the slow "
+               "half has stalled on something you could have said in a "
+               "sentence, and neither is being taught. Two short blocks with "
+               "three minutes of teaching between them beat one long one. "
+               "CIRCULATE -- do not work the notebook at the front. They have "
+               "it open; reading it aloud is the one way to waste the period. "
                "Expected trouble, in the order it arrives: (1) people who "
                "cannot get the environment up -- pair them with a neighbour "
                "immediately, do not debug at the front; (2) row order of S not "
                "matching the species order, which is why the notebook passes "
                "species= explicitly; (3) the catalyst zero, again, even after "
                "the ConcepTest. "
-               "Around minute 55, if more than a third are still on step 2, "
-               "say the answer to step 2 out loud and let them move. The "
-               "cascade is the part that matters.")
+               "Note who is stuck. You are about to spend three minutes on "
+               "exactly that at the front, so the walk around the room is "
+               "reconnaissance, not just help.")
+
+    # 10b DEBRIEF -------------------------------------------------------------
+    s = d.dark()
+    d.header(s, "48 – 51 min", "Three minutes at the front  ·  then back to it")
+    d.title(s, "The two things half the room is stuck on")
+    for i, (k, txt) in enumerate([
+            ("Row order is not automatic",
+             "S has one row per species, and 'per species' means whatever order the constructor chose. That is why the notebook passes species=[\"A\",\"B\",\"C\"] explicitly — so the matrix you built by hand and the matrix posb built can be compared at all. If your np.array_equal fails, check this before you check your signs."),
+            ("The zero you keep not writing",
+             "Translation is m → m + p. The mRNA row under that column is 0, not −1. We voted on this before the break and it is still the most common error in the room, which is exactly why it is worth saying twice.")]):
+        y = 2.2 + i * 1.6
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 1.35, fill=CYAN, line=None)
+        d.text(s, k, M + 0.4, y, 4.0, 0.8, size=17, font=HEAD, bold=True,
+               color=WHITE)
+        d.text(s, txt, M + 4.8, y + 0.02, 7.7, 1.4, size=13.5, color=MINT)
+    d.text(s, "Now the cascade — eight minutes, and predict before you simulate.",
+           M, 5.6, 12.5, 0.5, size=19, font=HEAD, bold=True, color=CYAN)
+    d.notes(s, "Three minutes, and the CONTENT OF THIS SLIDE IS NOT FIXED -- "
+               "it is written for the two problems that show up every year, "
+               "but you have just walked the room and you know what is actually "
+               "wrong. Say that instead if it differs. The point of the slide "
+               "is that the block gets interrupted by teaching, not that these "
+               "particular two things get said. "
+               "Do NOT work step 2 at the board. Give the row-order fact and "
+               "the catalyst zero, which are facts, and leave the assembly to "
+               "them.")
+
+    # 10c LAPTOPS, SECOND BLOCK -----------------------------------------------
+    s = d.light()
+    d.header(s, "51 – 59 min", "Laptops  ·  eight minutes  ·  the cascade")
+    d.title(s, "Four reactions, two species, one prediction first")
+    d.shape(s, S.ROUNDED_RECTANGLE, M, 1.75, 12.5, 0.95, fill=WASH, line=TEAL,
+            lw=1.5)
+    d.text(s, "∅ →(α) m        m →(γₘ) ∅        m →(kₚ) m + p        p →(γₚ) ∅",
+           M + 0.3, 2.0, 11.9, 0.45, size=18, font=TEXT, bold=True, color=INK)
+    for i, (n, k, txt, c) in enumerate([
+            ("1", "On paper, before anything runs",
+             "Set both derivatives to zero and get m* and p* in symbols, then in numbers. Write them down where you can see them.", TEAL),
+            ("2", "Then simulate",
+             "Build the model, integrate, and compare. If the two disagree, one of them is wrong and you now have thirty seconds of work to find out which.", CYAN),
+            ("3", "Then E1",
+             "Change α to 20 and predict before running. Then γₚ to 0.1. One sentence: which parameters set the level, and which set the speed?", AMBER)]):
+        y = 3.0 + i * 1.05
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 0.85, fill=c, line=None)
+        d.text(s, n, M, y + 0.24, 0.5, 0.35, size=17, bold=True, color=WHITE,
+               align="c")
+        d.text(s, k, M + 0.8, y, 3.9, 0.4, size=15, font=HEAD, bold=True,
+               color=INK)
+        d.text(s, txt, M + 4.9, y + 0.02, 7.6, 0.85, size=13, color=BODY)
+    d.text(s, "E2–E4 are for after class. E4 — the dimer and the factor of two — is set for 247, and it is the one worth doing whichever number you are enrolled in.",
+           M, 6.3, W - 2 * M, 0.4, size=13.5, italic=True, color=MUTED)
+    d.notes(s, "Eight minutes. Again: stop on time. "
+               "Item 1 is the one that matters and it is the one they will "
+               "want to skip -- circulate looking for people who have opened "
+               "the simulation without writing m* down, and make them write it "
+               "down. Predicting after the fact is not predicting. "
+               "If the room is fast, point the quick finishers at E4 rather "
+               "than letting them idle; it is the dimer and the factor of two, "
+               "and it is the best exercise in the notebook. The notebook sets "
+               "it for 247, but say out loud that any 147 student who wants it "
+               "should take it -- a 247-only label reads as 'not for you' to "
+               "exactly the undergraduates who would most benefit. "
+               "At 59 minutes stop regardless. The next twenty minutes are the "
+               "mathematics this block exists to motivate, and they are worth "
+               "more than the last two exercises.")
 
     # 11 THE CASCADE, ON PAPER ------------------------------------------------
     s = d.light()

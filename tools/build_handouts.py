@@ -57,6 +57,14 @@ import markdown
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "handouts"
+# Board notes are the same pipeline pointed at a different folder: markdown
+# with real mathematics in, a printable PDF out. They are for the instructor,
+# not the students -- every line to write on the board, in the order to write
+# it, with the sanity checks and the questions to ask marked. A session that
+# spends forty minutes at a board and has no script for it is a session that
+# gets improvised, which is the failure the pacing check exists to catch and
+# this is the other half of the fix.
+BOARD = ROOT / "board-notes"
 CACHE = ROOT / "tools" / ".cache"
 MATHJAX = CACHE / "mathjax-tex-svg-3.2.2.js"
 MATHJAX_URL = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"
@@ -202,7 +210,9 @@ def main():
     check = "--check" in sys.argv
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     # README.md documents the folder; it is not a handout.
-    available = sorted(p for p in SRC.glob("*.md") if p.stem.lower() != "readme")
+    folders = [SRC] + ([BOARD] if BOARD.is_dir() else [])
+    available = sorted((p for d in folders for p in d.glob("*.md")
+                        if p.stem.lower() != "readme"), key=lambda p: p.name)
     sources = [p for p in available if not args or any(a in p.name for a in args)]
     if not sources:
         sys.exit(f"no handout matches {args}. available: "
@@ -227,11 +237,11 @@ def main():
         html = PAGE.format(title=meta.get("title", src.stem), subtitle=sub,
                            term=term, css=CSS, mathjax=js,
                            body=render_markdown(text))
-        dst = SRC / f"{src.stem}.pdf"
+        dst = src.parent / f"{src.stem}.pdf"
 
         # A PDF carries a creation date, so it is never byte-identical between
         # runs. Stamp the source hash into a sidecar and compare that instead.
-        stamp = SRC / ".build" / f"{src.stem}.sha"
+        stamp = src.parent / ".build" / f"{src.stem}.sha"
         digest = hashlib.sha256(
             (html.replace(js, "")).encode("utf-8")).hexdigest()
 
