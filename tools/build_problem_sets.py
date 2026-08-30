@@ -70,8 +70,28 @@ def code(s):
 
 
 def otter(s):
-    """An Otter config block, written as a fenced markdown cell."""
-    return md("```otter\n" + s + "\n```")
+    """A fenced ```otter block cell.
+
+    Used for EVERY otter block -- `# ASSIGNMENT CONFIG`, `# BEGIN QUESTION`,
+    `# BEGIN SOLUTION`, `# BEGIN TESTS`. The marker line is therefore the
+    CALLER's job, and it is load-bearing: otter identifies a block by matching
+    its first line (otter/assign/blocks.py, `is_assignment_config_cell` and
+    `is_block_boundary_cell`, both anchored with re.match). A block whose first
+    line matches nothing is not a block at all -- it is passed through as
+    notebook content, silently, and everything in it is ignored.
+
+    ⚠ THAT IS A REAL BUG THIS REPO SHIPPED. The assignment config cell had no
+    marker and nested its keys under `assignment:`, so otter never read it. It
+    looked fine because otter generates a zip by DEFAULT, so the zip appearing
+    was never evidence the config was applied -- and the unread block survived
+    into the student notebook as a raw cell full of instructor configuration.
+
+    Do not put a marker in here. Putting `# ASSIGNMENT CONFIG` in this helper
+    prefixes it onto every question and solution block too, and otter then
+    parses `points:` as assignment config and dies with
+    "Unexpected key found in config: 'points'".
+    """
+    return md("```otter\n" + s.strip() + "\n```")
 
 
 def build_one(name):
@@ -123,6 +143,26 @@ def build_one(name):
     # same test passes when the notebook actually runs). We verify below by
     # executing the solution notebook and reading every grader.check result,
     # which is a stricter check because it uses the namespace students get.
+    # Stage the posb package beside the master notebook.
+    #
+    # The autograder needs it: on Gradescope the submission runs in
+    # /autograder/submission with nothing above it, so the notebook's SETUP cell
+    # -- which walks UP from cwd looking for a directory containing posb --
+    # walks to the filesystem root and inserts "/" on sys.path. No error; just a
+    # ModuleNotFoundError four lines later that reads like a student mistake.
+    #
+    # otter's `autograder_files` puts it in the zip under files/, and at grading
+    # time prepare_files() copies ./source/files/* into ./submission -- so posb
+    # lands beside the notebook and the SETUP walk finds it on its first
+    # iteration, unchanged. But otter REJECTS any autograder_files path outside
+    # its working directory ("... is not in the working directory"), and that
+    # directory is the master notebook's parent. Hence the copy.
+    staged = workdir / "posb"
+    if staged.exists():
+        shutil.rmtree(staged)
+    shutil.copytree(ROOT / "posb", staged,
+                    ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+
     r = subprocess.run(["otter", "assign", "--no-run-tests", str(master), str(dist)],
                        capture_output=True, text=True, cwd=str(workdir))
     if r.returncode != 0:
