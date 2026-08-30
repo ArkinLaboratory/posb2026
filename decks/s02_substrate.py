@@ -342,8 +342,15 @@ def build():
     d.foot(s, "The exponent is the whole answer. Everything else on this slide is a distractor.", 6.35)
     d.notes(s, "ANSWER: B. Diffusion time goes as L SQUARED, so 20x the "
                "distance is 400x the time: ~65 ms across E. coli becomes ~26 s "
-               "across a HeLa cell -- and that is an underestimate, because a "
-               "eukaryotic cytoplasm is more crowded and compartmentalised. "
+               "across a HeLa cell, HOLDING D FIXED -- which is what the "
+               "question asks. Do not add that eukaryotic cytoplasm is more "
+               "crowded: it is not. GFP moves ~27 um2/s in eukaryotic "
+               "cytoplasm against 7.7 in E. coli (Swaminathan, Hoang & "
+               "Verkman, Biophys J 1997; Elowitz et al. J Bacteriol 1999), so "
+               "26 s is an OVERestimate and the true ratio is nearer 110x. "
+               "That correction belongs at 63 min, with item 3 of the handout, "
+               "which asks students for the sign of exactly this assumption. "
+               "Here the exponent is the answer and the prefactor is noise. "
                "A is the majority answer on the first vote and it is the whole "
                "reason this question exists. Linear intuition about diffusion "
                "is wrong and it is wrong in the direction that matters. "
@@ -487,7 +494,17 @@ def build():
         d.text(s, txt, M + 4.2, y + 0.02, 7.7, 0.9, size=13, color=BODY)
     d.text(s, "Start wherever the scaffolding stops helping you. Nobody needs to announce where that is.",
            M, 6.5, W - 2 * M, 0.4, size=16, bold=True, color=INK)
-    d.notes(s, "Twenty-four minutes. CIRCULATE. Do NOT work item 1 at the "
+    d.notes(s, "TWO SHORT BLOCKS, NOT ONE LONG ONE. Items 1-3 first: "
+               "eight minutes, and say that eight is all they get -- item 1 "
+               "is already worked and 2 and 3 are two lines each, so the "
+               "clock is generous. Then stop the room, take the numbers, and "
+               "only then set item 4 for five or six minutes with the "
+               "instruction SET IT UP, DO NOT FINISH IT. "
+               "A single twenty-four minute block is where the room diffuses "
+               "and the context switch back costs more than the work gained. "
+               "Anything not reached in the room is fair game for PS1, which "
+               "assesses exactly this. "
+               "CIRCULATE. Do NOT work item 1 at the "
                "board -- that removes the fading and collapses the whole set "
                "into a single demonstration, which is precisely the "
                "intervention this replaces. "
@@ -502,9 +519,69 @@ def build():
                "than 3-D search) is one of the loveliest results in molecular "
                "biophysics. Do not give it away before 63 minutes.")
 
+    # 10b THE ANSWERS ---------------------------------------------------------
+    # The faded set asks students to finish items 2 and 3 and to answer a
+    # self-explanation prompt under each. Neither the numbers nor the prompts
+    # were confirmed anywhere in the deck, which makes the writing unverifiable
+    # for the student who did it and invisible for the one who did not. This
+    # slide closes both. It goes BEFORE the design consequences because a
+    # consequence drawn from a number the room is not sure it got right is a
+    # consequence the room does not believe.
+    s = d.light()
+    d.header(s, "63 – 67 min", "The answers  ·  and the question under each one")
+    d.title(s, "Items 1 to 3, and the sign of every assumption")
+    for i, (n, ans, prompt, c) in enumerate([
+            ("1",
+             "n = cV = 10⁻²³ mol, then × Avogadro ≈ 6 molecules.  Call it of order ten.",
+             "One significant figure because the cell volume is known to about a factor of two. The second digit would be a claim about something nobody measured.",
+             TEAL),
+            ("2",
+             "t ~ L²/2D = (1 µm)² / (2 × 7.7 µm²/s) ≈ 65 ms.  Tens of milliseconds.",
+             "Use the cytoplasmic D, not the value in water (87 µm²/s). Water is 11× higher, so it would have given ~6 ms — too fast by an order of magnitude. That factor of eleven IS the crowding.",
+             TEAL),
+            ("3",
+             "t ≈ (20 µm)² / (2 × 7.7 µm²/s) ≈ 26 s, so ~400× longer.  Because t ∝ L², not L.",
+             "Holding D fixed makes that answer TOO BIG. GFP moves at ~27 µm²/s in eukaryotic cytoplasm — 3.5× faster than in E. coli, which is the more crowded of the two. The real crossing is ~7 s and the real ratio ~110×. The exponent survives; the prefactor does not.",
+             CYAN)]):
+        y = 1.8 + i * 1.55
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 1.3, fill=c, line=None)
+        d.text(s, n, M, y + 0.45, 0.5, 0.35, size=17, bold=True, color=WHITE,
+               align="c")
+        d.text(s, ans, M + 0.8, y, 11.7, 0.5, size=14.5, font=HEAD, bold=True,
+               color=INK)
+        d.shape(s, S.ROUNDED_RECTANGLE, M + 0.8, y + 0.52, 0.1, 0.72,
+                fill=MUTED, line=None)
+        d.text(s, prompt, M + 1.15, y + 0.5, 11.35, 0.8, size=12.5, color=BODY)
+    d.text(s, "If you wrote something different, that is the useful case — tell me which step it diverged at.",
+           M, 6.5, W - 2 * M, 0.4, size=15, bold=True, color=INK)
+    d.notes(s, "Four minutes, and do not read the boxes -- ask for each number "
+               "from the room first and only then put the slide up. "
+               "ITEM 3 IS THE ONE TO SLOW DOWN ON. The handout asks for the "
+               "SIGN of the D assumption and the intuitive answer is backwards: "
+               "a eukaryotic cytoplasm is LESS crowded than E. coli's, not "
+               "more, so the same protein moves about 3.5x faster in it. "
+               "Holding D fixed therefore OVERestimates the HeLa time. Say "
+               "that explicitly -- it is the second time in ten minutes that a "
+               "confident intuition about crowding has come out the wrong way "
+               "round, and that is the lesson, not the number. "
+               "IF SOMEONE ARGUES THE OTHER WAY -- organelles, cytoskeleton, "
+               "membranes over twenty microns -- credit it. Obstruction over "
+               "long distances is real. It is just that the measured number "
+               "for a soluble GFP-sized protein still goes the other way, "
+               "and the point of the item is to make them check rather than "
+               "assume. "
+               "SOURCES, if asked: 7.7 um2/s in E. coli, Elowitz et al. "
+               "J Bacteriol 1999; ~27 um2/s in eukaryotic cytoplasm (CHO), "
+               "Swaminathan, Hoang & Verkman, Biophys J 1997; 87 um2/s in "
+               "water, same comparison. "
+               "The 400x from ConcepTest 2 still stands as the answer to the "
+               "question that was asked -- it fixed D deliberately, and the "
+               "exponent was the whole point. Do not let this slide read as a "
+               "retraction of that vote.")
+
     # 11a WHAT IT FORCES — COUNTING -------------------------------------------
     s = d.light()
-    d.header(s, "63 – 67 min", "What the numbers force on you  ·  1 of 2")
+    d.header(s, "67 – 71 min", "What the numbers force on you  ·  1 of 2")
     d.title(s, "Because things are countable")
     for i, (k, txt, fwd) in enumerate([
             ("Low copy number means noise, unavoidably",
@@ -554,14 +631,14 @@ def build():
 
     # 11b WHAT IT FORCES — GEOMETRY AND GROWTH ---------------------------------
     s = d.light()
-    d.header(s, "67 – 70 min", "What the numbers force on you  ·  2 of 2")
+    d.header(s, "71 – 74 min", "What the numbers force on you  ·  2 of 2")
     d.title(s, "Because things are slow, and the box has a size")
     for i, (k, txt, fwd) in enumerate([
             ("Growth is a rate you cannot switch off",
              "Dilution sets the floor on every protein's lifetime. Design a circuit slower than division and the cell erases it while you watch.",
              "sessions 5, 19"),
             ("Geometry changes the answer, not just the number",
-             "Twenty times bigger is four hundred times slower. A design that works in a bacterium can fail in a mammalian cell with no change to the DNA at all.",
+             "Twenty times bigger is two orders of magnitude slower — L², not L. A design that works in a bacterium can fail in a mammalian cell with no change to the DNA at all.",
              "session 18")]):
         y = 2.0 + i * 2.0
         d.shape(s, S.OVAL, M, y + 0.06, 0.46, 0.46, fill=AMBER, line=None)
@@ -584,7 +661,7 @@ def build():
 
     # 12a THE HABIT ------------------------------------------------------------
     s = d.dark()
-    d.header(s, "70 – 74 min", "The habit this course wants")
+    d.header(s, "74 – 77 min", "The habit this course wants")
     d.title(s, "How to be wrong by less than ten times")
     for i, (k, txt) in enumerate([
             ("State the convention before the number", "L²/2D or L²/6D? Say which. A factor of three is nothing; an unstated convention is an argument you cannot settle afterwards."),
@@ -603,34 +680,132 @@ def build():
                "someone hands them is plausible.")
 
     # 12b THE SEARCH-TIME ANSWER -----------------------------------------------
+    # Item 4 has TWO natural solution routes in a cohort this mixed, and they
+    # disagree by three orders of magnitude AND in direction. A student who
+    # counts sites gets hours; a student who reaches for the diffusion-limited
+    # capture rate gets seconds. An earlier version of this slide asserted only
+    # the first ("of order an hour") with no working and no source, which loses
+    # the physics half of the room at the payoff of the session. Both routes are
+    # now on the slide, and the measured value is cited.
     s = d.light()
-    d.header(s, "74 – 77 min", "Item 4  ·  your estimate was wrong")
-    d.title(s, "And being wrong is the result")
-    for i, (k, txt, c) in enumerate([
-            ("What you estimated", "A repressor bouncing around 1 fL of cytoplasm until it happens to hit one 20-base-pair target in 4.6 million. Diffusion-limited, three-dimensional, and slow — of order an hour.", MUTED),
-            ("What is measured", "Association in minutes. Fast enough that a cell can respond to a change in its environment within a fraction of a generation, which it manifestly does.", TEAL),
-            ("So the model is wrong, not the arithmetic", "The protein does not only search in three dimensions. It binds DNA non-specifically and slides along it, converting a hopeless 3-D search into a series of short 1-D ones.", CYAN)]):
-        y = 1.95 + i * 1.32
-        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.14, 1.05, fill=c, line=None)
-        d.text(s, k, M + 0.4, y, 3.7, 0.42, size=15, font=HEAD, bold=True,
+    d.header(s, "77 – 81 min", "Item 4  ·  both of your estimates were wrong")
+    d.title(s, "And that is a better result than either being right")
+    for i_, (k, txt, c) in enumerate([
+            ("Route 1 — count the sites",
+             "4.6 Mb / 20 bp ≈ 2×10⁵ places to look. If the protein has to cross the cell between looks, 2×10⁵ × 65 ms ≈ 1.5×10⁴ s — about four hours, ten cell cycles. Far too slow.",
+             AMBER),
+            ("Route 2 — diffusion-limited capture",
+             "t = V/4πDa with a ≈ 5 nm gives 1 µm³ / 0.48 µm³s⁻¹ ≈ 2 s. Far too fast.",
+             AMBER),
+            ("What is measured",
+             "3–5 minutes for one LacI dimer to find its operator in a living cell (Hammar et al., Science 2012 — 56 ± 2 s for any of three to five dimers). Between your two answers, and two orders from each.",
+             TEAL),
+            ("So both models are wrong, in opposite directions",
+             "Route 1 assumes it returns to the bulk between looks. It does not: it sticks non-specifically to the backbone and random-walks ~40 bp before letting go. Route 2 assumes a free sphere at D = 7.7; in a real cell it is on DNA about 90% of the time. Neither 3-D nor 1-D alone wins — the alternation does.",
+             CYAN)]):
+        y = 1.8 + i_ * 1.12
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.14, 0.92, fill=c, line=None)
+        d.text(s, k, M + 0.4, y, 4.0, 0.42, size=14.5, font=HEAD, bold=True,
                color=INK)
-        d.text(s, txt, M + 4.4, y + 0.02, 7.5, 1.05, size=13, color=BODY)
-    d.shape(s, S.ROUNDED_RECTANGLE, M, 6.0, W - 2 * M, 0.85, fill=WASH,
+        d.text(s, txt, M + 4.6, y + 0.02, 7.3, 0.92, size=12.5, color=BODY)
+    d.shape(s, S.ROUNDED_RECTANGLE, M, 6.35, W - 2 * M, 0.85, fill=WASH,
             line=TEAL, lw=2)
     d.text(s, "An estimate that disagrees with a measurement is not a failure. It is the most reliable way anyone has ever found a mechanism they were not looking for.",
-           M + 0.3, 6.2, 11.5, 0.6, size=15, bold=True, color=INK)
-    d.notes(s, "Three minutes, and this is the note to end the teaching on. "
-               "Do NOT derive facilitated diffusion -- Berg and von Hippel, "
-               "1981, and it is a beautiful piece of work that belongs in a "
-               "different course. The point here is entirely methodological: "
-               "the estimate was off by a factor of tens, that discrepancy was "
-               "not noise, and chasing it produced a mechanism. "
-               "If a group got close to this during the faded set, name them. "
-               "It is the best thing anyone can have done today.")
+           M + 0.3, 6.55, 11.5, 0.6, size=15, bold=True, color=INK)
+    d.notes(s, "Four minutes, and this is the note to end the teaching on. "
+               "ASK WHICH ROUTE THE ROOM TOOK before showing anything. Both "
+               "will be in the room and that is the point of the slide: the "
+               "biologists count sites and get hours, the physicists reach for "
+               "the capture rate and get seconds, and neither group can see the "
+               "other's error from inside their own method. "
+               "Do NOT derive facilitated diffusion -- Berg & von Hippel 1981, "
+               "beautiful, and a different course. "
+               "The historical form of the paradox, worth one sentence: in "
+               "vitro at low salt the measured association rate is about a "
+               "HUNDRED times the three-dimensional diffusion limit, and that "
+               "excess is what motivated the sliding model in the first place. "
+               "THREE THINGS TO GET RIGHT IF ASKED. (1) Sliding is DIFFUSION, "
+               "not translocation -- no ATP, no direction, an unbiased random "
+               "walk held on by electrostatics to the backbone. Do not say "
+               "processive; they meet real processive enzymes later. "
+               "(2) Pure 1-D sliding is WORSE than 3-D, not better: a 1-D walk "
+               "is recurrent and revisits sites, so scanning N sites costs "
+               "N^2 rather than N. The speed-up is the ALTERNATION -- short "
+               "slides separated by 3-D hops that decorrelate position -- and "
+               "it is optimal near an even split of time between the two "
+               "(Berg, Winter & von Hippel 1981). "
+               "(3) This is the REPRESSOR. For E. coli RNA POLYMERASE finding "
+               "a promoter, Wang et al., Nat Struct Mol Biol 2013, concluded "
+               "the search is dominated by three-dimensional diffusion and "
+               "that facilitated diffusion does not contribute much at "
+               "physiological concentrations. Do not generalise the sliding "
+               "story to every DNA-binding protein. "
+               "In a living cell the two errors largely cancel, which is why "
+               "the honest answer here is 'both wrong' rather than 'the 3-D "
+               "model is too slow'. "
+               "If a group got anywhere near this during the faded set, name "
+               "them. It is the best thing anyone can have done today.")
+
+    # 12c WHY ALTERNATING WORKS ------------------------------------------------
+    # This is here on a scaling argument, not on mechanism. The session's actual
+    # subject is that exponents beat prefactors, and it has already made that
+    # point twice -- t ~ L^2 in item 2, and again over twenty microns in item 3.
+    # A 1-D search costing N^2 where a 3-D search costs N is the same lesson a
+    # third time, on a different quantity, and three instances in eighty minutes
+    # is how a lesson survives the week. Berg & von Hippel proper stays out.
+    #
+    # IT IS ALSO THE DESIGNATED CUT. If the clock is tight this slide goes and
+    # nothing downstream depends on it -- unlike the consolidation behind it,
+    # which is the session's second retrieval and is load-bearing.
+    s = d.dark()
+    d.header(s, "81 – 83 min", "The third exponent  ·  optional")
+    d.title(s, "Why sliding alone would be worse")
+    for i, (k, txt, c) in enumerate([
+            ("A 1-D walk re-reads itself",
+             "Slide along the DNA and you keep returning to stretches you have already inspected — a one-dimensional random walk is recurrent. Covering N sites costs about N² steps.",
+             AMBER),
+            ("A 3-D excursion does not",
+             "Let go, and where you land is uncorrelated with where you left. Covering N sites costs about N.",
+             CYAN),
+            ("So neither wins alone — the alternation does",
+             "Short slides, ~40 bp, each ended by a hop that decorrelates position. Fastest near an even split of time between the two. Berg, Winter & von Hippel, 1981.",
+             MINT)]):
+        y = 2.0 + i * 1.28
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.14, 1.0, fill=c, line=None)
+        d.text(s, k, M + 0.4, y, 4.3, 0.44, size=15.5, font=HEAD, bold=True,
+               color=WHITE)
+        d.text(s, txt, M + 4.9, y + 0.02, 7.2, 1.0, size=13, color=MINT)
+    d.shape(s, S.ROUNDED_RECTANGLE, M, 6.05, W - 2 * M, 1.0, fill=None,
+            line=CYAN, lw=1.5)
+    d.text(s, "Third time this morning.  Crossing a cell:  L², not L.  Crossing a HeLa cell:  L², not L.  Searching a genome:  N², not N.",
+           M + 0.3, 6.18, 11.6, 0.4, size=15, bold=True, color=WHITE)
+    d.text(s, "You will forget the numbers by Thursday. The exponent is where the biology is.",
+           M + 0.3, 6.6, 11.6, 0.35, size=14, italic=True, color=CYAN)
+    d.notes(s, "Ninety seconds, and it is the closing argument rather than new "
+               "material -- do not let it become a lecture on facilitated "
+               "diffusion. The whole slide is one question: why does letting go "
+               "help? "
+               "Ask it before you show anything. Somebody will say 'because it "
+               "gets to skip ahead', which is exactly right and is the "
+               "decorrelation. "
+               "SAY THE WORD DIFFUSION, NOT PROCESSIVE. There is no ATP here and "
+               "no direction -- the protein is held on the backbone by "
+               "electrostatics and random-walks until it falls off. They meet "
+               "genuinely processive enzymes later and the words should not "
+               "already be spent. "
+               "IF ASKED ABOUT RNA POLYMERASE: this is the repressor. Wang et "
+               "al., Nat Struct Mol Biol 2013, found the E. coli RNAP promoter "
+               "search is dominated by THREE-dimensional diffusion, with "
+               "facilitated diffusion contributing little at physiological "
+               "concentrations. The sliding story does not generalise to every "
+               "DNA-binding protein, and saying so is worth more than the "
+               "mechanism is. "
+               "THIS IS THE SLIDE TO CUT if you are behind. The consolidation "
+               "after it is the second retrieval and is not optional.")
 
     # 13 CONSOLIDATION --------------------------------------------------------
     s = d.light()
-    d.header(s, "77 – 83 min", "Notes closed  ·  in writing")
+    d.header(s, "83 – 87 min", "Notes closed  ·  in writing")
     d.title(s, "The three questions again — now answer them")
     for i, (q, hint) in enumerate([
             ("How many copies of your sensor protein are in one cell?",
@@ -665,7 +840,7 @@ def build():
 
     # 14 FORWARD LINK ---------------------------------------------------------
     s = d.dark()
-    d.header(s, "83 – 86 min", "Next")
+    d.header(s, "87 – 89 min", "Next")
     d.title(s, "You can count the molecules. Now make them react.")
     d.text(s, "Thursday: Modeling I — mass action and the stoichiometric matrix.",
            M, 2.15, 11.9, 0.45, size=23, font=HEAD, bold=True, color=MINT)

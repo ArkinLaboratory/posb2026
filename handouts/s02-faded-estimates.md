@@ -130,8 +130,9 @@ say which one you are least confident in.
 <div class="rule"></div>
 <div class="rule"></div>
 
-**▶ The real question.** Measured association times for repressors are of order
-*minutes* — considerably faster than a plain three-dimensional search predicts.
+**▶ The real question.** The measured time is of order *minutes*. Whatever you
+got is probably two orders of magnitude away from that — and **which side** you
+landed on depends entirely on the assumption you made.
 
 Your estimate is not wrong because you made an arithmetic error. It is wrong
 because the *mechanism* is not what the problem said it was.

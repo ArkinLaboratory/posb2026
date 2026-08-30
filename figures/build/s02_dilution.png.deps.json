@@ -3,7 +3,7 @@
   "artifact_sha256": "5a864ee3211f7c35df31d6ae1619b42920bc69bc5d0a7ebf33769b02ad90ea63",
   "artifact_bytes": 175189,
   "deps": {
-    "figures/s02_substrate.py": "a8836dab81e54c1edb057fc69945954ad4632b3dc5e74b81c74e298cfbd44b25",
+    "figures/s02_substrate.py": "0d499f945ffd02d93ebb538ef89dd2e38b64dd7d73e0c15d27b0d96567e72778",
     "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
   },
   "generator": "figures.s02_substrate.fig_dilution"

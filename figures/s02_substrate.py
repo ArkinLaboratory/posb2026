@@ -115,8 +115,14 @@ def fig_timescales():
          "$L^2/2D$, D = 7.7 µm²/s"),
         ("transcribe a 1 kb gene", 1000 / 55, TEAL, "~55 nt/s"),
         ("translate a 300 aa protein", 300 / 17, TEAL, "~17 aa/s"),
+        # Plotted at the SAME D as E. coli, which is the question the handout's
+        # item 3 asks and the comparison the axis is for. Say "same D" on the
+        # annotation: GFP actually moves ~27 µm²/s in eukaryotic cytoplasm
+        # (Swaminathan, Hoang & Verkman, Biophys J 72:1900, 1997), so the real
+        # crossing is ~7 s and the real ratio ~110×. The exponent is the point;
+        # an unqualified "400×" would contradict the answers slide at 63 min.
         ("protein crosses a HeLa cell\n(20 µm)", diffusion_time(20.0), CYAN,
-         "400× the time for 20× the distance"),
+         "20× the distance, 400× the time — at the same D"),
         ("mRNA lifetime", 5 * 60, GREEN, "~2–8 min in E. coli"),
         ("cell division", 25 * 60, AMBER, "rich medium"),
         ("stable protein lifetime\n(set by dilution)", 25 * 60 / 0.693, AMBER,
