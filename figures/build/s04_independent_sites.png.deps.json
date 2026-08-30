@@ -1,0 +1,10 @@
+{
+  "artifact": "s04_independent_sites.png",
+  "artifact_sha256": "847687d6e3ed7cdcb8aea017fbe3aabc3401d77f00133d1cd7d917e99e9f0595",
+  "artifact_bytes": 98277,
+  "deps": {
+    "figures/s04_modeling_ii.py": "a75c806e6b2732615275d62d11d0fbd4d9b7789ed0ea3c7cf5b631ee44dbe579",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s04_modeling_ii.fig_independent_sites"
+}

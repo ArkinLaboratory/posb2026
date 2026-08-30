@@ -1,0 +1,10 @@
+{
+  "artifact": "s04_qssa_regimes.png",
+  "artifact_sha256": "d135e224a10490ff40760e391bfd348329a5c161c4092ea60c606d5a4df6a6e7",
+  "artifact_bytes": 113324,
+  "deps": {
+    "figures/s04_modeling_ii.py": "a75c806e6b2732615275d62d11d0fbd4d9b7789ed0ea3c7cf5b631ee44dbe579",
+    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+  },
+  "generator": "figures.s04_modeling_ii.fig_qssa_regimes"
+}
