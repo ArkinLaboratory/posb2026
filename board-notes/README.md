@@ -22,7 +22,9 @@ room is the part with no script. These are the script.
   at minute 70.
 
 Timings match the deck's segment badges exactly. If a badge moves, this file
-moves with it.
+moves with it — and so does `handouts/s03-board-sheet.md`, the students' version
+of the same eight segments with the algebra left blank. Three files carry those
+timings; changing one and not the others is the obvious way this goes wrong.
 
 ```
 python tools/build_handouts.py s03-board    # this folder, to PDF

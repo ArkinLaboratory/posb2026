@@ -7,20 +7,51 @@ session: 3
 # Board notes
 
 Print this and carry it. The deck records what is *projected*; this records what
-gets *written*, which is the half of this session with the highest load on the
-room and no other artefact.
+gets *written* — the half of the session with the highest load on the room and
+no other artefact.
 
-**Thirty-seven minutes across eight segments,** all before minute 74. Segments
-1 and 5 each gave up a minute so ConcepTest 1 could have the four it needs for
-vote–argue–vote; the ConcepTest then moved to 33–37, hard against the pause.
+**Thirty-seven minutes across eight segments,** all before minute 74.
 
 **Conventions.** **ASK** — put it to the room before writing the next line, and
 the answer to expect. **CHECK** — do it out loud; doing them is the habit being
 taught. **IF ASKED** — the question that always comes. **CUT** — drop this first
 if you are behind, decided now rather than at minute 70.
 
-Running total of board time is in the margin of each heading. If you are more
-than three minutes behind at the 37-minute mark, take the first CUT.
+<div class="rule"></div>
+
+## The board plan
+
+Dwinelle 219 is blackboard across the front with the projection screen coming
+down in the **centre**, leaving a **left wing** and a **right wing**. That is
+two working surfaces, not one, and the session is designed around it.
+
+**LEFT WING — the ledger. Written once, never wiped.** Three things, and the
+session breaks if any of them is erased:
+
+1. **The matrix**, from segment 4 — $S_{ij}$, the 3 × 2 table with its labels,
+   and $\dot{\mathbf{x}} = \mathbf{S}\mathbf{v}$ beneath it. Everything from
+   26 to 37 min points back at it; segment 5 is unteachable without it.
+2. **The cascade reaction list**, from segment 5 — $\varnothing \to m$,
+   $m \to \varnothing$, $m \to m + p$, $p \to \varnothing$. The ConcepTest at
+   33 is about its third reaction, the pause at 37 asks for its **S**, and the
+   laptops at 51 use it. It must survive from 26 min to 59.
+3. **$m^* = \alpha/\gamma_m$, $p^* = k_p\alpha/\gamma_m\gamma_p$, 20 and
+   1600**, from segment 6. Segments 7 and 8 both point at them.
+
+**RIGHT WING — the workings. Wiped between segments:** the collision dots, the
+Damköhler arithmetic, the integrating factor, the nondimensionalisation. The
+one exception is the three longhand derivatives from segment 3 — **wipe those
+only once the matrix is on the left wing**, because segment 4 is the act of
+watching them reappear as $\mathbf{S}\mathbf{v}$.
+
+The screen is down all session, so what is projected is central and what you
+write is peripheral: the lit rectangle wins by default, and when you want the
+room looking at the board you have to say so. Check from the back row before
+class that the outer third of each wing reads, and keep the matrix inboard
+rather than at the far edge.
+
+Running board time is in each heading. More than three minutes behind at the
+37-minute mark: take the first CUT.
 
 <div class="rule"></div>
 
@@ -244,10 +275,9 @@ $$\dim(\text{left null}) = 2 - 2 = 0, \qquad \dim(\text{right null}) = 4 - 2 = 2
 
 **CUT:** the cascade contrast. Keep left, right, and the FBA sentence.
 
-*Then ConcepTest 1 at 33–37, off the board, and the pause at 37–39. The vote
-asks for the mRNA's net stoichiometry in m → m + p; the pause asks them to
-write S for the cascade, where that is the third column. Do not let the
-ConcepTest overrun — the adjacency is the point.*
+*Then ConcepTest 1 at 33–37 and the pause at 37–39: the vote asks for the
+mRNA's stoichiometry in m → m + p, the pause asks for the cascade's **S**,
+where that is the third column. The adjacency is the point — do not overrun.*
 
 <div class="rule"></div>
 
