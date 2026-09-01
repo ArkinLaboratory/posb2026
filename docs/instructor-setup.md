@@ -173,7 +173,14 @@ not be linked to the gradebook: **Assignments** → **+ Assignment** → Submiss
 Type **External Tool** → **Find** → **Gradescope** → create a new Gradescope
 assignment → **Link Assignment** → set points → **Save and Publish**.
 
-Then in Gradescope choose **Programming Assignment** and upload the zip from
+**Always choose Programming Assignment**, even for work you do not autograde.
+It is the only type that accepts a `.ipynb`: Homework/Problem Set and Exam/Quiz
+take a single PDF or per-question images and nothing else. For an ungraded drop
+like PS0, create a Programming Assignment, leave autograder points at **0**, and
+tick **enable manual grading** — no zip, no Docker, and you still get a
+submission list and a gradebook column.
+
+Then, for anything you *do* autograde, upload the zip from
 `private/build/psNN/dist/autograder/`. Take the **default Ubuntu 22.04 base
 image** — Otter's `setup.sh` builds its own conda environment, so a
 Python-preloaded variant only wastes layers.
@@ -277,7 +284,17 @@ directory genuinely lacks the folder, and they are a different identity.
 > notebook students have run. And keep reusable logic in `.py` modules, which
 > students rarely edit, so merges stay clean.
 
-### 2.5 Pre-flight checklist
+### 2.5 The course site
+
+Building the bCourses site is its own runbook, because Canvas has half a dozen
+behaviours that are not what you would guess and each one costs twenty minutes
+the first time: Modules hidden from the student navigation by default, the
+built-in Syllabus being neither a Page nor a File, File items named after files
+because the dialog has no title box, a publish state on the item *and* on the
+module. All of it, with the module structure and the item type to use for each
+kind of thing, is in **[course-site-runbook](course-site-runbook.md)**.
+
+### 2.6 Pre-flight checklist
 
 - [ ] Tests, build-check, and notebook execution all pass on a clean clone
 - [ ] DataHub memory increase confirmed via `/sys/fs/cgroup/memory.max`
@@ -289,10 +306,18 @@ directory genuinely lacks the folder, and they are a different identity.
 - [ ] Gradescope: CalNet SAML login done, **Create Course** button visible
 - [ ] `private/` pushed to the private repo
 - [ ] Dates in `docs/course-map.md` and the syllabus match the registrar
+- [ ] bCourses: **Modules** enabled in Settings → Navigation, home page set to
+      Modules, *Start here* module built and published — see
+      [course-site-runbook §2](course-site-runbook.md)
+- [ ] Every module clicked through in **Student View**
 
 ---
 
 ## 3. The weekly loop
+
+The site half of the loop — building the week's module, uploading the deck PDF,
+posting the announcement — is in
+[course-site-runbook §8](course-site-runbook.md#8-the-weekly-loop-on-the-site).
 
 ### 3.1 Authoring a session notebook
 

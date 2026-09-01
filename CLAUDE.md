@@ -105,6 +105,12 @@ build never carries them.
   half has finished and the slow half has stalled, and neither is being taught.
   Split it and put teaching in the gap. `Deck.pacing()` enforces this and the
   deck build fails on it.
+- **A deck that has been taught from is a record, not a build artifact.** If it
+  was hand-edited it lives in `private/taught/` under a new name, because
+  `build_decks.py` overwrites `private/build/decks/` without asking. Never
+  suggest a command that rebuilds over one. If the edit matters, port it back
+  into the deck source. See
+  [where-things-live §2](docs/where-things-live.md#2-authored-versus-generated).
 - **Board work needs a printed script.** A segment labelled "board" is excluded
   from the slide-rate check, so it must earn that by having notes in
   `board-notes/` — every line to write, in order, with the questions to ask, the

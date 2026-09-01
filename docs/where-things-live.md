@@ -80,6 +80,34 @@ tell you: it reports **EDITED BY HAND after the build**. That is not a scolding,
 it is a warning that the fix is about to be thrown away. Put it in the deck
 source.
 
+### The exception: a deck you have already taught from
+
+Sometimes the fix happens in the room, or five minutes before it, and there is
+no time to go back through the source. That copy is now a **record**, not a
+build artifact, and it needs to be somewhere the build cannot reach:
+
+```
+private/build/decks/PoSB_Session02_Substrate.pptx        generated. Disposable.
+private/taught/PoSB_Session02_Substrate_APA.pptx         what was actually shown.
+```
+
+`tools/build_decks.py` writes into `private/build/decks/` unconditionally and
+will overwrite a hand-edited file there without asking. It never touches
+`private/taught/`. So the rule is one sentence: **the moment you hand-edit a
+deck, save it into `private/taught/` under a new name.**
+
+Two consequences worth knowing:
+
+- `--verify` does not check anything in `taught/`. There is no sidecar and
+  there should not be — the file is deliberately not what the sources produce.
+- If a hand edit is worth having next year, **port it back into the deck
+  source.** The taught copy records what happened in the room; the source is
+  what next year builds from. When they disagree, it is the source that is
+  wrong.
+
+`private/taught/` is in the private repository, so it is committed and it
+survives. Commit it with the rest of `private/` — see §3.
+
 ---
 
 ## 3. The two repositories, and what belongs in each
@@ -100,7 +128,8 @@ built decks.
     ├── sources/ps01.py             <- master, with solutions
     ├── paper-figures/*.png
     ├── paper-movies/*.mp4
-    └── build/decks/*.pptx
+    ├── build/decks/*.pptx          <- generated. Overwritten without asking.
+    └── taught/*_APA.pptx           <- as-taught copies. Never touched by a build.
 ```
 
 Two repositories means **two pushes**. Committing in the public repo does not
@@ -249,3 +278,16 @@ open private/build/decks/PoSB_Session03_Modeling_I.pptx
 - **Do not commit the raw downloads next to the converted ones.** Four PNAS
   supplementary files went in at 76 MB alongside the 15 MB of converted mp4s the
   build actually reads. Fixed, but only because the repo was three commits old.
+- **Do not use PowerPoint's own "Export as PDF" for a deck you are posting.**
+  It produced a PDF with the styling and the images gone, from a `.pptx` that
+  was byte-identical to a good one and opened perfectly. LibreOffice converted
+  the same file correctly. Use `python tools/build_decks.py --pdf`, or
+  `soffice --headless --convert-to pdf <file>.pptx` for a deck in
+  `private/taught/`. Then **look at the PDF** — the exporter failing silently is
+  exactly the failure mode you cannot reason your way out of.
+- **Do not run `soffice --convert-to pdf *.pptx`.** PowerPoint writes a
+  165-byte `~$<name>.pptx` lock file beside any open document and removes it on
+  close — but a crash leaves it behind, and the glob picks it up. LibreOffice
+  says `source file could not be loaded` twice and you assume your decks are
+  corrupt. They are not; the real conversions in the same run succeeded. `~$*`
+  is now in `private/.gitignore`; name the file you mean.

@@ -52,6 +52,7 @@ course relies on is worked rather than asserted.
 | See how a lecture is structured | **[Lecture Design](docs/lecture-design.md)** |
 | Generate a figure or build a demo | **[Figures, Demos, and Decks](docs/figures-and-decks.md)** |
 | Set up / run the course | **[Instructor Setup](docs/instructor-setup.md)** |
+| Build the bCourses site | **[Course Site Runbook](docs/course-site-runbook.md)** |
 | Reuse this in my own course | **[For Instructors](docs/for-instructors.md)** |
 | See what to read, and when | **[Readings](docs/readings.md)** |
 | Look up a citation | **[References](docs/references.md)** |

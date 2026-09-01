@@ -16,5 +16,6 @@
 | **[Readings](readings.md)** | Every paper, the class that hands it out, and the class that discusses it. |
 | **[References](references.md)** | Recommended texts with BibTeX, and session readings. |
 | **[Figures, Demos, and Decks](figures-and-decks.md)** | Where visual material comes from, and the licensing line on paper figures. |
+| **[Course Site Runbook](course-site-runbook.md)** | Building the bCourses site: module structure, which item type for what, and the six places Canvas does something other than what you expect. |
 | **[Instructor Setup](instructor-setup.md)** | Runbook: accounts, DataHub, Gradescope, the weekly loop, onboarding a reader. |
 | **[For Instructors](for-instructors.md)** | Adapting the material; how the build and CI work. |
