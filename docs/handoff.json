@@ -1,6 +1,6 @@
 {
  "note": "sha256 of every file in this handoff; run `python tools/handoff.py --check` to compare",
- "count": 166,
+ "count": 169,
  "files": {
   ".github/workflows/ci.yml": "c862559e66be8c45af36ea1ab25e1fa8c915e2f040bf07492db8adca47081a82",
   ".gitignore": "acfd5d60ff59c5eea146bbcb4fecc20ebe527106028cf680b2586d92dda900e5",
@@ -98,6 +98,7 @@
   "handouts/.build/s01-diagnostic.sha": "7bf97cab283786e87d5b6166828e8c8a4e8c8533e42e162a8b98d07c86c8ff9e",
   "handouts/.build/s01-launch-problem.sha": "485b9d33183afa8570856d0fd198ae4d092861536bfba6c6dfc67545c9584f25",
   "handouts/.build/s02-faded-estimates.sha": "97caec33d3b800928cc5e03548e0c61cf9f649192e8ac6a2ffdfd42ca7bbeba5",
+  "handouts/.build/s03-board-sheet.sha": "9f7605fe3ad4e842ee32c575b9335f1f2427662673613b92540234b70e4ee70a",
   "handouts/.build/s04-regulation-functions.sha": "6ff9f8ad424a75dba0d53c1b70516a4cfdaca309993eb59c61b7c22d13caf976",
   "handouts/README.md": "7e9610b800199cd329803d25a92f5c82cb64f65f9b4e95148d1994b46b98e54e",
   "handouts/s01-diagnostic.md": "44a02d6f3395faf894f37dd9ae05f51fddb8737a6bc9758719b762c3cf2c8f31",
@@ -106,6 +107,8 @@
   "handouts/s01-launch-problem.pdf": "5d9214bda05e15f89b83bf8ba9ad8f88a58f122005a64ebe028a0086ccc6135b",
   "handouts/s02-faded-estimates.md": "73ffdf1967b24d442d6b143c523b02667074cc6526749d87ab6bc61426adec7e",
   "handouts/s02-faded-estimates.pdf": "681367408b8ceb498266b762f43a715842ab3c9fc439ad4a8e850331b78a41b6",
+  "handouts/s03-board-sheet.md": "83bf57f48d4f68a7bdaaab24ca2670b3894857cfda9856d15879106fbd0bca9d",
+  "handouts/s03-board-sheet.pdf": "aa702a450ec9c03bf78437b93554a37cf2d6f6db8fc8c0f6a1f0882336eb7641",
   "handouts/s04-regulation-functions.md": "64aef6a2824fb577f6bbf8c0bb0e3159ad2a5ede89da2d0eab4c2b8b2f104ef3",
   "handouts/s04-regulation-functions.pdf": "f60d52277c605f3171659f02816ed2f190aafcf81d8064d5870028b5e8eb7d6c",
   "posb/README.md": "06da334882263cddc4772ffe9237db804ba475deee28dbfb085ed83d93dd5237",
@@ -132,7 +135,7 @@
   "private/build/decks/PoSB_Session09_Bistability.pptx.deps.json": "bb336c5ea146d7877c71905477ee88869681c68ec377152a9dd6874d0b04d8e6",
   "problem-sets/README.md": "152073f0c3c37950a40f130a718614217e75d96517e1133e2002333505c38ad2",
   "problem-sets/ps00-environment/README.md": "f918078417a47fad88169c1cba8b8e1186b40daf535c86bbc2190df25e3e274b",
-  "problem-sets/ps00-environment/ps00.ipynb": "02465cef4dba1b8085d3bef93e5c341fbfe57d3f7394c08e1063a67ac3583227",
+  "problem-sets/ps00-environment/ps00.ipynb": "2f3b6b2a97e45d307ed7c5d8e7d177a465321a1f37f8368f29636e54e0cd1e79",
   "problem-sets/ps01-modeling/README.md": "9f2aad92f94b3040703231deb4490e49d42b8e0eff21e2ff4f5a3ad04405cf49",
   "problem-sets/ps01-modeling/ps01.ipynb": "db5010ded2cdf1f5d7e4a1cd2be4300e2c1e5612b6e333e21730441a07971d27",
   "readings.yaml": "c2add9b580562e440f59f0e133c0bdb9bd893ab23472067ff698f6f14a59cb10",
@@ -165,7 +168,7 @@
   "tools/sources/common.py": "915573bab1f768826540af0c642e31d79422d968861965c1e42ecff6c9b33d2e",
   "tools/sources/d02.py": "01a826e640cc51e851e048467a7fe36bc4873b48020e55eb66e4e91c96e61bf3",
   "tools/sources/d09.py": "e003c6bc740e022a24c867f8a975d31932172f856a7be2bb7f42ab50764fad51",
-  "tools/sources/ps00.py": "69143853acec54e858f9a967de09ba4136e62c4737b2ddb356bf17ebb0a03963",
+  "tools/sources/ps00.py": "e1a73d915431f4251e908f3635109429fb4fbd7be4e6f60eaa5eeb3467309673",
   "tools/sources/s03.py": "d143e632b6075ae26df36e57c90c30ae0f82a1c7c063d1b39d41a0a0c42ee038",
   "tools/status.py": "54316aab66b017f17a04a2dc6f2f95ff1b135b96ff4cd00c24f9e475b1e4d0e8"
  }

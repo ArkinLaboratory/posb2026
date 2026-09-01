@@ -19,10 +19,10 @@ discussion hour on September 1, which is before this is due.
 
 **Submit to Gradescope** (linked from bCourses) by **Wednesday, September 2**.
 
-The deadline sits deliberately *after* the Tuesday discussion hour on September
-1. If any of this fights you, bring it there and we will sort it out together —
-that is what the hour is for in week one. It also sits before Session 3, which
-is where the notebooks really start."""),
+The deadline sits deliberately *after* the Tuesday discussion hour on
+September 1. If any of this fights you, bring it there and we will sort it out
+together — that is what the hour is for in week one. It also sits before
+Session 3, which is where the notebooks really start."""),
 
     md("""---
 ## 0. Setup
