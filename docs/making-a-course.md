@@ -2,14 +2,32 @@
 
 [← back to README](../README.md)
 
-Written for two readers: **you next August**, standing up this course again, and
-**a colleague** standing up a different one on the same machinery. It is the
-spine — the whole thing in order, with the decisions called out where they are
-actually made. Depth lives in the reference pages it links to; nothing here is
-repeated there, and nothing there is repeated here.
+**This is Berkeley-specific.** bCourses, Gradescope, DataHub, CalNet, the
+Berkeley nbgitpuller link generator, cross-listed 147/247 sections. A colleague
+elsewhere will find the structure transferable and roughly none of the clicks.
+That is a deliberate trade: a document that named no system would have been
+useless for the thing it is actually for.
 
-Everything in it was learned by doing it wrong first. Where a rule looks
-fussy, it is because something broke.
+It is the spine — the whole thing in order, with the decisions called out where
+they are actually made. Depth lives in the reference pages it links to; nothing
+here is repeated there, and nothing there is repeated here.
+
+Everything in it was learned by doing it wrong first. Where a rule looks fussy,
+it is because something broke.
+
+## Which parts are yours
+
+| If you are | Read | Skip |
+|---|---|---|
+| **the instructor**, standing the course up or running it again | all of it, in order, once | nothing |
+| **a GSI or reader**, grading | §2.1 (the shape), §5.5 (roster), §6 (where your week sits), §7 (what you can and cannot verify), then [instructor-setup §4](instructor-setup.md#4-onboarding-a-reader-or-gsi), which is written for you | §1, §3, §4 — you do not set any of it up |
+| **a co-instructor or guest**, teaching a session | §2.2 and §2.3 — what is generated, what you may edit, and where a hand-edited deck goes | the rest until you need it |
+
+**If you are grading, the one thing to know before you start:** 147 and 247 are
+**separate Gradescope assignments** for the same problem set. Each student
+appears in exactly one of them, so the total number of submissions is unchanged
+— but you will open two queues per problem set, and the questions common to both
+appear in each. Details in §5.4.
 
 ---
 

@@ -452,6 +452,26 @@ grading happens entirely in Gradescope's interface.
 private repo, and point them at [For Instructors](for-instructors.md) plus §3.3
 and §3.4 above.
 
+### Three things that were not obvious in 2026
+
+- **Two queues per problem set.** 147 and 247 are separate Gradescope
+  assignments with different totals — 34 and 39 — because the extra question is
+  required for 247 and extra credit for 147. Each student is in exactly one, so
+  the submission count is unchanged, but the questions common to both appear in
+  both. Open both before declaring a problem set graded.
+- **Build the rubric while grading, not before.** The assignment is configured
+  for it, and Gradescope applies a new rubric item retroactively to everything
+  already marked. Four or five earning items are enough to start; the
+  partial-credit items you actually need are ones you cannot guess and will see
+  in the first five submissions.
+- **Staff cannot preview the student experience.** A TA or reader opening a
+  Gradescope assignment through bCourses sees the staff console, exactly as the
+  instructor does — Canvas Student View cannot preview an LTI tool either. If
+  something needs checking from a student's side, it takes a person with a
+  student account. Staff *can* usefully test the DataHub links, where role is
+  irrelevant and all that matters is a home directory that has never held
+  `~/posb2026`.
+
 ### Load, so you can staff it honestly
 
 Roughly half the assessed techniques in this course are autogradable; the rest

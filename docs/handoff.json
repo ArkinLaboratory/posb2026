@@ -1,9 +1,10 @@
 {
  "note": "sha256 of every file in this handoff; run `python tools/handoff.py --check` to compare",
- "count": 170,
+ "count": 172,
  "files": {
   ".github/workflows/ci.yml": "c862559e66be8c45af36ea1ab25e1fa8c915e2f040bf07492db8adca47081a82",
   ".gitignore": "acfd5d60ff59c5eea146bbcb4fecc20ebe527106028cf680b2586d92dda900e5",
+  "AGENTS.md": "1f3dc7e5359c0354cb3a7bc25c1cf753dac33100890dbef175db17343950665b",
   "CITATION.cff": "73cff50fac6f8eaa307b231bf2b2ea5932a28e00e7160260a7a89ac3fc20f56f",
   "CLAUDE.md": "fc640fb14506704a294d16da9bd7e71d43545ad73bd13f5050f8310092fff25f",
   "CONTRIBUTING.md": "93735b73197c00933c3664736e721e78403612262cbee1553a7161742b464b2b",
@@ -41,8 +42,9 @@
   "docs/figures-and-decks.md": "be1687ccd2ade274b75988fa390a207271bc202af6eaf422398f9b79a737d060",
   "docs/for-instructors.md": "d59bab1eeeee3b0ed01d9e1e119ef4f8a0b52d20fc086ae5d5b06d8528b99e85",
   "docs/getting-started.md": "88dc8ec107da1e4f921ef13f66690564c699ca306c50bb8dc6e802e8526493a3",
-  "docs/instructor-setup.md": "ab9bbc708c618da28272dab637cedb4f34cb0021cb282d7d2550ba87e09cbf05",
+  "docs/instructor-setup.md": "42390ac0c8a9de458cfcd7780e952913f10f3382518267d893c9763e2ed88ebe",
   "docs/lecture-design.md": "5659fbc87afd2976116f0f61609026af109381d0b35d5264bedb7d8b496f5753",
+  "docs/making-a-course.md": "9d0e26fd8786782a1900e001d45da41bac189f39d3dc7811d630c08d324bfcb7",
   "docs/posb-reference.md": "70ddca0fcde46596e63b2410e361bb45dbc80eb20a2880e52710f745cf16c0a3",
   "docs/readings.md": "1645bc459159addd9693134d7887c4850421549c03e49f81784ccd079b739bd4",
   "docs/references.md": "2ed2fbb3bb98a827f751042bc48077cec05f1b72507d2690d859b193e5c38520",
