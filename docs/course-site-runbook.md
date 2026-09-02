@@ -211,6 +211,59 @@ The corollary is a lead time you cannot compress. A Programming Assignment that
 submission before students see it. Build it days before the assignment posts,
 not the morning of. See [instructor-setup §2.3](instructor-setup.md).
 
+### 5.7 Two course numbers, two assignments — and the ceiling that eats extra credit
+
+Every problem set carries one extra question: **required for BioE 247, extra
+credit for BioE 147.** Those are two different denominators, and one Gradescope
+assignment has one outline. So each set is **two assignments, one per section**:
+
+| | assigned to | Question *n* |
+|---|---|---|
+| `PSn` | 147 section | **0 points**, with rubric items worth up to +*e* |
+| `PSn — BioE 247` | 247 section | **worth *e* points**, so the total is base + *e* |
+
+Build the second by **duplicating** the first once it is fully configured —
+Gradescope's duplicate copies the outline, the rubric *and* the autograder —
+then change the one question's point value and the section it is assigned to.
+Each student submits once and appears in exactly one queue, so you grade N
+submissions, not 2N.
+
+**Do not** do this as a small add-on assignment alongside a shared main one.
+It looks tidier and it breaks the drop rule: a 247 student would carry
+eighteen items in the problem-set group against a 147 student's nine, so
+"lowest two dropped" could discard two small supplements instead of two whole
+problem sets. Same stated policy, materially different relief.
+
+**The trap.** A 0-point question with positive rubric items is Gradescope's
+documented way to do extra credit — but the **point ceiling is enabled by
+default and prevents scores above 100%**. Leave it on and a 147 student who
+earns +5 on a 34-point set is silently capped at 34. Disable the ceiling on
+that question when you build it. Nobody discovers this by looking; they
+discover it when a student asks where their extra credit went.
+
+The wording students read comes from `tools/sources/common.py` (`grad`), which
+is injected into every problem-set master. Do not retype the policy into a
+notebook — PS1 shipped saying "students in 147 may attempt this for no credit",
+which was the exact opposite, and a student had already pulled it.
+
+### 5.8 The Gradescope frame accepts the notebook. It never provides it.
+
+A problem set's Canvas description must carry **Open in DataHub** and **Open in
+Colab** links. The embedded Gradescope panel is an upload box and nothing else,
+so a description without links leaves a student with somewhere to submit and no
+way to get the thing they submit. This happened on PS1 in Fall 2026 and a
+student reported it within the hour.
+
+The rule that prevents it: **the Canvas description for a problem set is the
+problem-set README**, converted to HTML, not fresh prose. `problem-sets/psNN-*/README.md`
+already opens with both links. PS0's page worked because it was pasted from its
+README; PS1's failed because it was composed in the Canvas editor by someone
+who knew the README had the links and wrote *"links are in the problem-set
+README"* instead of carrying them across.
+
+Paste it with the **`</>`** button. The DataHub URL is a query string full of
+`&` and the rich-text editor mangles it.
+
 ---
 
 ## 6. The settling test: View as Student

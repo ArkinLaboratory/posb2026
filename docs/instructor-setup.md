@@ -310,6 +310,11 @@ kind of thing, is in **[course-site-runbook](course-site-runbook.md)**.
       Modules, *Start here* module built and published — see
       [course-site-runbook §2](course-site-runbook.md)
 - [ ] Every module clicked through in **Student View**
+- [ ] Each problem set's Canvas description carries the **DataHub and Colab
+      links** — the Gradescope frame does not supply the notebook
+- [ ] Each problem set exists as **two Gradescope assignments**, one per
+      section, with the **point ceiling disabled** on the 147 extra-credit
+      question — see [course-site-runbook §5.7](course-site-runbook.md)
 
 ---
 
@@ -343,6 +348,12 @@ Add each new notebook to the `NOTEBOOKS` list in `tools/build_notebooks.py`.
 # edit private/sources/psNN.py, then:
 python tools/build_problem_sets.py psNN
 ```
+
+Every master receives `grad` as its fifth argument — the shared 147/247
+language from `tools/sources/common.py`. Use `grad.points_line(core, extra, n)`
+in the header and `grad.question_header(n, core, extra)` to open the extra
+question. **Never write the 147/247 policy by hand in a master**; it has been
+wrong once already, in a notebook students had pulled.
 
 That one command produces three artifacts, going three places:
 

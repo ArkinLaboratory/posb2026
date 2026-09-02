@@ -34,7 +34,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PRIVATE = ROOT / "private"
 sys.path.insert(0, str(ROOT / "tools"))
 
-from sources.common import SETUP  # noqa: E402
+from sources.common import SETUP, grad  # noqa: E402
 
 
 def _load_master(name):
@@ -100,7 +100,7 @@ def build_one(name):
                  f"they are expected at {PRIVATE / 'sources'}.")
 
     mod = _load_master(name)
-    cells = mod.build(md, code, otter, SETUP)
+    cells = mod.build(md, code, otter, SETUP, grad)
 
     nb = nbf.v4.new_notebook()
     nb.cells = cells

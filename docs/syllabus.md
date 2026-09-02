@@ -243,7 +243,7 @@ New this year: the project is staged, with feedback at each stage. In previous y
 
 The two course numbers have not been meaningfully differentiated in past years. This year:
 
-- **Problem sets:** 247 students complete one additional problem per set, requiring either a derivation or an extension to a result from the primary literature.
+- **Problem sets:** 247 students complete one additional problem per set, requiring either a derivation or an extension to a result from the primary literature. **That question is also open to 147 students as extra credit** — it is not required, it is not needed for full marks, and it is worth points on top of the set. The two sections therefore have different totals: 147 is graded out of the base points, 247 out of base plus the extra question, and each section submits to its own assignment on bCourses.
 - **Project:** 247 projects must include a critical analysis of the primary literature the design draws on, and the model must go beyond reproducing a published result.
 - **Final exam:** 247 students answer one additional open-ended design question, graded on the quality of the argument rather than on reaching a particular answer.
 
