@@ -318,11 +318,13 @@ kind of thing, is in **[course-site-runbook](course-site-runbook.md)**.
 
 ---
 
-## 3. The weekly loop
+## 3. Authoring reference
 
-The site half of the loop — building the week's module, uploading the deck PDF,
-posting the announcement — is in
-[course-site-runbook §8](course-site-runbook.md#8-the-weekly-loop-on-the-site).
+**The week's sequence lives in
+[making-a-course §6](making-a-course.md#6-the-weekly-loop)** and is not repeated
+here. This section is the detail behind the authoring steps in it: how a session
+notebook and a problem set are actually built, and the Otter format traps that
+cost a day each.
 
 ### 3.1 Authoring a session notebook
 

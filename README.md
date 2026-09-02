@@ -51,6 +51,7 @@ course relies on is worked rather than asserted.
 | Understand *why* it is built this way | **[Design Notes](docs/design-notes.md)** |
 | See how a lecture is structured | **[Lecture Design](docs/lecture-design.md)** |
 | Generate a figure or build a demo | **[Figures, Demos, and Decks](docs/figures-and-decks.md)** |
+| Stand up this course, or another one like it | **[How to Make a Course](docs/making-a-course.md)** |
 | Set up / run the course | **[Instructor Setup](docs/instructor-setup.md)** |
 | Build the bCourses site | **[Course Site Runbook](docs/course-site-runbook.md)** |
 | Reuse this in my own course | **[For Instructors](docs/for-instructors.md)** |

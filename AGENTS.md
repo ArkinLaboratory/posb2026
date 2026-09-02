@@ -1,0 +1,155 @@
+# Working notes for coding agents
+
+How to work in this repository without producing stale artifacts. Read this
+first in any new session. `CLAUDE.md` is a stub pointing here; this file is
+canonical.
+
+**For the course itself** — how it is built, run and rebuilt next year — read
+[making-a-course](docs/making-a-course.md). This file is only about working on
+the repository.
+
+## Where the authoritative copy lives
+
+There are three copies and they drift:
+
+| | |
+|---|---|
+| `~/Documents/Claude/Projects/PoSB/posb2026` on Adam's Mac | **authoritative.** This is what gets taught from. |
+| `github.com/ArkinLaboratory/posb2026` | the published copy; only as current as the last push |
+| Claude's sandbox clone | scratch. A separate filesystem, not a view of either of the above. |
+
+**Claude cannot see or write Adam's disk directly.** The sandbox has its own
+filesystem; files reach the Mac only through an explicit copy step. This has
+already caused one wasted round trip — a deck source was updated while the built
+`.pptx` on the Mac stayed two hours old, and the session was reviewed from the
+stale file.
+
+## The rules that follow from that
+
+**1. Start a session by re-syncing.** Ask Adam to push, then:
+
+```
+git fetch origin && git reset --hard origin/main
+```
+
+Never assume the sandbox clone is current. Its commit hashes will not match the
+Mac's even when the content does.
+
+**2. Ship artifacts, not just sources.** Anything generated — `.pptx`, `.pdf`,
+figures under `figures/build/` — must be built and copied to the Mac in the same
+turn as the source that produced it. A source file the instructor has to build
+himself is not a delivery. **Copy the `.deps.json` sidecar with every artifact**;
+an artifact that arrives alone cannot be checked and `--verify` will say so.
+
+This rule was broken twice before it was enforceable. Now it is:
+
+```
+python tools/build_decks.py --verify     # on the Mac, before class
+```
+
+It builds nothing and answers one question — is the deck on this disk the one
+these sources would produce? Content hashes, not mtimes, because the bridge
+restamps everything it copies. See `tools/manifest.py`.
+
+**Confirm the mount before writing a single file.** Deliveries are addressed by
+path, and the connected-folder set can change mid-session. On 30 August three
+folders were connected, the name `posb2026` was rebound from the real working
+copy to an empty `~/Documents/PoSB/posb2026`, and eighteen files were written
+into the wrong directory with every call reporting success. Call
+`get_device_info` and confirm the real repo is in `connectedFolders` at the
+start of every delivery, and address files by their full canonical path.
+
+**And close the loop on the delivery itself.** Before saying anything is
+delivered, run `python tools/handoff.py --emit`, ship `docs/handoff.json` with
+the rest, and verify against Adam's disk. `manifest.py` asks whether an artifact
+is stale; `handoff.py` asks whether the working copy is the one that was just
+handed over. A twenty-file delivery that lands nineteen looks exactly like
+success from this side. See [where-things-live](docs/where-things-live.md),
+which is the tutorial version for Adam.
+
+**3. Never run git in Adam's repositories.** Reads through the file bridge are
+fine. Anything that takes a lock is not: the bridge cannot delete files, so a
+stranded `index.lock` blocks his next commit and only he can clear it.
+
+**4. Never report a file as written without a tool result proving it.** On
+2 September a runbook section was announced as written, its contents listed in
+prose, and the file was never touched — caught only because a commit showed no
+change to it. Saying it and doing it feel identical from this side. The rule:
+an edit is not reported until a command has read the file back, and a delivery
+is not reported until `handoff.py` or a hash comparison confirms it landed.
+`git status` before claiming completion is not optional.
+
+**5. Verify by rendering, not by reasoning.** These decks and handouts are
+generated, so "it should look right" is not evidence. Convert to PDF, rasterise,
+and look at the pixels. Several layout bugs — stretched figures, boxes hanging
+off the slide, captions floating in empty space — were invisible in the source
+and obvious in the render.
+
+## Building
+
+```
+python tools/build_figures.py [s01]        # figures/build/*.png
+python tools/build_figures.py --verify     # committed figures vs generators (CI)
+python tools/build_decks.py [s01] [--pdf]  # private/build/decks/
+python tools/build_decks.py --verify       # built decks vs sources on THIS disk
+python tools/build_handouts.py [--check]   # handouts/*.pdf, committed
+python tools/build_readings.py [--check]   # docs/readings.md
+python tools/check_schedule.py             # course.yaml vs docs/course-map.md
+python -m pytest tests/ -q
+```
+
+`private/` is a second, private repository mounted inside this one and ignored
+by it. Copyrighted paper figures live in `private/paper-figures/`; the deck
+build embeds them if present and draws a labelled slot if not, so the public
+build never carries them.
+
+## House rules for the material
+
+- **Nothing is assessed that was not demonstrated first.** The coverage matrix
+  is the contract.
+- **Do the mathematics.** Derive rather than assert, wherever it fits.
+- **Nothing in `posb` is abstracted away before it has been built by hand.**
+- **A paper discussed in class is assigned at the end of the previous class.**
+  `readings.yaml` enforces this; see [for-instructors](docs/for-instructors.md).
+- **Say when something is not known.** Speaker notes carry the provenance
+  problems — an uncited figure, a claim with a shelf life — rather than hiding
+  them.
+- **No block of student work runs longer than ten minutes.** Past that the fast
+  half has finished and the slow half has stalled, and neither is being taught.
+  Split it and put teaching in the gap. `Deck.pacing()` enforces this and the
+  deck build fails on it.
+- **A deck that has been taught from is a record, not a build artifact.** If it
+  was hand-edited it lives in `private/taught/` under a new name, because
+  `build_decks.py` overwrites `private/build/decks/` without asking. Never
+  suggest a command that rebuilds over one. If the edit matters, port it back
+  into the deck source. See
+  [where-things-live §2](docs/where-things-live.md#2-authored-versus-generated).
+- **Board work needs a printed script.** A segment labelled "board" is excluded
+  from the slide-rate check, so it must earn that by having notes in
+  `board-notes/` — every line to write, in order, with the questions to ask, the
+  sanity checks, and what to cut if you are late.
+
+## Writing for students, in Adam's voice
+
+Drafts of announcements, assignment descriptions and notebook prose go out over
+his name. Two things he consistently cuts, both observed on 2 September 2026
+when he edited an announcement draft line by line:
+
+- **Reassurance aimed at the reader.** "…and it is yours", "don't worry",
+  "you've got this". He struck *"You will see one PS1 assignment, and it is
+  yours"* down to *"You will see one PS1 assignment."* State the fact and stop.
+  The comfort is in the information being clear, not in a clause about it.
+- **Self-reference in an apology.** He struck *"Both are fixed, and both were my
+  errors"* to *"Both are fixed"*, and *"That was wrong and it was my error"* to
+  *"That was wrong."* Name the error, correct it, move on. Saying whose fault it
+  was a second time is about the writer, not the reader.
+
+What survives: what happened, what to click, what is due, in that order.
+
+## Critique before shipping
+
+Adam wants the hole found, not the compliment. Before delivering, state what is
+weakest about the thing just built, and what evidence would settle it. Several
+of the better decisions in this repository came from a correction he made to a
+draft; the drafts got better when they arrived with their own objections
+attached.

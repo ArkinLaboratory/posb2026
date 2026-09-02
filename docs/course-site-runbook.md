@@ -414,24 +414,13 @@ Two standing decisions worth writing down because they will come up again:
 
 ---
 
-## 8. The weekly loop, on the site
+## 8. The weekly loop
 
-After the last class of the week:
-
-1. `python tools/build_decks.py sNN --pdf` — or, if the deck was hand-corrected
-   in the room, convert the copy in `private/taught/` (see
-   [where-things-live §2](where-things-live.md#2-authored-versus-generated)).
-2. Upload the PDF to **Files** on bCourses.
-3. Create next week's module; add the slides as **File** items; **⋮ → Edit**
-   each one to give it a real title.
-4. Add the reading as an **External URL** through the library proxy — the paper
-   discussed in class *N* is assigned at the end of class *N−1*, so this goes up
-   with the *previous* week's module.
-5. Add the problem set as an **Assignment**, with the nbgitpuller link in the
-   body and a due date.
-6. Publish items, then publish the module.
-7. **Student View.** Click all of it.
-8. Post the announcement.
+The week's sequence — build, verify, print, upload, module, publish, Student
+View, announce — is in
+**[making-a-course §6](making-a-course.md#6-the-weekly-loop)**, which owns it.
+Steps 8 to 13 there are the site half. Come back here for the click detail on
+any of them.
 
 ---
 

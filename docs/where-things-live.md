@@ -253,13 +253,10 @@ git add -A && git commit -m "..." && git push
 cd private && git add -A && git commit -m "..." && git push && cd ..
 ```
 
-**The morning-of-lecture version** is three lines:
-
-```bash
-python tools/handoff.py --check
-python tools/build_decks.py --verify
-open private/build/decks/PoSB_Session03_Modeling_I.pptx
-```
+This is a lookup, not a sequence. The order you actually work in — across a
+week, not a session — is
+[making-a-course §6](making-a-course.md#6-the-weekly-loop), and what each check
+catches is [§7](making-a-course.md#7-verification).
 
 ---
 
