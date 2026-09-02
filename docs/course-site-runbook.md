@@ -314,6 +314,56 @@ Related: check the Canvas assignment's **Available from** date. PS1 carried
 Harmless here because assignments are exposed early on purpose, but a date
 nobody picked is how a "why can't I see this" message happens in November.
 
+### 5.12 Building the second section's assignment, click by click
+
+Everything in this subsection was learned the slow way on 2 September 2026,
+building `PS1 (BioE247)` from `PS1 (BioE147)`.
+
+**Duplicate is at the bottom of the Assignments page.** Not in the `⋮` menu
+beside an assignment — that offers only *Assignment Settings* and *Delete
+Assignment*, which is why you will conclude the feature does not exist. Scroll
+to the foot of the list; it sits beside *Create Assignment*. It needs an
+institutional licence, which Berkeley has.
+
+**What duplication carries:** settings, the question outline, every question
+rubric, and the autograder configuration. The copy then **starts its own Docker
+build** from the copied zip — expect `building as of …` on the Configure
+Autograder page, 10–25 minutes, and no action needed. That is the copy building
+*its own* image, not a link back to the original.
+
+**What it does not carry: the LMS link.** Good, because a second Gradescope
+assignment pointing at the same Canvas assignment would fight over grade
+passback. Verify rather than assume — the tell is on the assignment's Settings
+page:
+
+| | linked to Canvas | not linked |
+|---|---|---|
+| top field | read-only **BCourses Assignment Name** with a chain icon | editable **Title** |
+| footer | Delete · **Unlink from LMS** · Save | Delete · Save |
+
+**Canvas's quick-edit dialog cannot set a submission type.** The inline `+`
+form and `⋮ → Edit` expose only Name, Due at and Points. An assignment created
+there silently becomes **"a text entry box"**, and it will happily publish that
+way. **`More Options`**, or the full **Edit** page from the assignment itself,
+is the only route to Submission Type.
+
+**Linking an existing Gradescope assignment:** Submission Type → **External
+Tool** → **Find** → **Gradescope** → in the dialog choose **"An existing
+Gradescope assignment"**, pick it, **Link Assignment**. The dialog notes that
+*"the LMS assignment name will override the Gradescope assignment name"* — so
+rename in Canvas only; Gradescope catches up. (It does **not** refresh a name
+that changed *after* linking, which is cosmetic and not worth chasing.)
+
+**Assign to needs both sections per course number.** The site carries four
+sections — a LEC and a DIS for each of 147 and 247, with different counts
+(16/17 and 16/15 in 2026). A student in the DIS but not the LEC is invisible to
+a LEC-only assignment. Remove *Everyone*, add both.
+
+**A new assignment does not appear in a module by itself.** Add it: Modules →
+the week's `+` → **Assignment** → pick it. Both section variants can live in the
+same week; Canvas hides an assignment from students outside its *Assign to*
+list, in Modules as well as in Assignments, so each student sees exactly one.
+
 ---
 
 ## 6. The settling test: View as Student

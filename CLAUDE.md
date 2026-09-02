@@ -116,6 +116,23 @@ build never carries them.
   `board-notes/` — every line to write, in order, with the questions to ask, the
   sanity checks, and what to cut if you are late.
 
+## Writing for students, in Adam's voice
+
+Drafts of announcements, assignment descriptions and notebook prose go out over
+his name. Two things he consistently cuts, both observed on 2 September 2026
+when he edited an announcement draft line by line:
+
+- **Reassurance aimed at the reader.** "…and it is yours", "don't worry",
+  "you've got this". He struck *"You will see one PS1 assignment, and it is
+  yours"* down to *"You will see one PS1 assignment."* State the fact and stop.
+  The comfort is in the information being clear, not in a clause about it.
+- **Self-reference in an apology.** He struck *"Both are fixed, and both were my
+  errors"* to *"Both are fixed"*, and *"That was wrong and it was my error"* to
+  *"That was wrong."* Name the error, correct it, move on. Saying whose fault it
+  was a second time is about the writer, not the reader.
+
+What survives: what happened, what to click, what is due, in that order.
+
 ## Critique before shipping
 
 Adam wants the hole found, not the compliment. Before delivering, state what is
