@@ -354,10 +354,17 @@ Gradescope assignment"**, pick it, **Link Assignment**. The dialog notes that
 rename in Canvas only; Gradescope catches up. (It does **not** refresh a name
 that changed *after* linking, which is cosmetic and not worth chasing.)
 
-**Assign to needs both sections per course number.** The site carries four
-sections — a LEC and a DIS for each of 147 and 247, with different counts
-(16/17 and 16/15 in 2026). A student in the DIS but not the LEC is invisible to
-a LEC-only assignment. Remove *Everyone*, add both.
+**Assign to: the LEC for that course number.** The site carries four sections —
+a LEC and a DIS for each of 147 and 247 — but enrollments come in pairs, so the
+LEC alone reaches everyone in that number. Remove *Everyone*, add the one LEC.
+
+Listing both sections also works and is what PS1 shipped with. It is worth
+knowing why the shorter form is better: a student in two listed sections has two
+applicable due dates the moment you grant a per-section extension, which is the
+one occasion you would ever edit this field again.
+
+The check, if you doubt it: sort the People page by Section and look for anyone
+in a DIS without its LEC. There were none.
 
 **A new assignment does not appear in a module by itself.** Add it: Modules →
 the week's `+` → **Assignment** → pick it. Both section variants can live in the

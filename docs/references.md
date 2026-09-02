@@ -38,6 +38,23 @@ a substitute for the course.
 }
 ```
 
+**The course itself is a separate resource** —
+[be150.caltech.edu/2022](http://be150.caltech.edu/2022/) — carrying the lecture
+schedule, homework and tutorials that the book does not. Twenty-three lectures,
+with guest sessions from Uri Alon.
+
+The numbered technical appendices are the part worth mining, because they are
+executable and they land on this course's thinnest material: **TA 10b** (linear
+stability analysis) and **TA 11a** (stability diagrams by numerical
+eigenvalues) for session 8, **TA 17a** (Gillespie) for session 12, **TA 2a-2b**
+for session 5.
+
+Two cautions. Its spine is design principles of natural circuits; ours is
+specification to parts to composition to engineering, so its *ordering* is not
+transferable even where its derivations are. And this repository is public under
+CC BY 4.0 -- credit their figures and code in speaker notes rather than
+redistributing them. Deriving our own is the house rule anyway.
+
 ### Alon, *An Introduction to Systems Biology*
 
 The standard reference for network motifs. Directly relevant to sessions 7
