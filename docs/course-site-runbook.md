@@ -264,12 +264,71 @@ README"* instead of carrying them across.
 Paste it with the **`</>`** button. The DataHub URL is a query string full of
 `&` and the rich-text editor mangles it.
 
+### 5.9 The Gradescope roster is synced by hand, and nothing tells you it is stale
+
+**Gradescope → Roster → `Sync bCourses Roster`.** It is not automatic. Gradescope's
+own guide: *"If students add/drop in Canvas, be sure to re-sync the roster."*
+A student who is enrolled in bCourses and absent from the Gradescope roster
+**cannot submit**, and finds out at 11pm on the due date. Nothing warns you.
+
+On 2 September 2026 the roster held 25 students. One click of Sync took it to
+31. Six people could not have handed in PS1.
+
+**Do not check this by adding up the Sections page.** Sections counts
+*memberships*, not people — a student normally holds two, a LEC and a DIS — so
+four sections reading 16 / 17 / 16 / 15 is about 31 humans, not 64. The
+authoritative count is **People**, filtered to Students. The arithmetic is
+worth doing anyway: it is what exposed the gap.
+
+Re-sync after every add/drop, and at minimum before every problem set opens.
+Leave the enrolment notification **on** when you sync mid-term — someone being
+added now needs to know they can submit.
+
+The sync also brings sections across, so Gradescope's roster shows who is 147
+and who is 247. Useful for filtering while grading. It does **not** let you
+scope an assignment to a section; that stays on the Canvas side (§5.7).
+
+### 5.10 Gradescope's defaults are wrong for a course like this one
+
+Every one of these is on or set by default and every one needs changing. None
+of them announce themselves.
+
+| Default | Why it is wrong here | Set to |
+|---|---|---|
+| **Group submission: on**, no size limit | Lets any number of students submit one notebook for one grade. Contradicts the COLLABORATORS field and the individual-work policy. | **off** |
+| **GitHub and Bitbucket: on** | A student submitting via GitHub sends a repository, not `psNN.ipynb`, and the autograder finds nothing. | **off** — Upload only |
+| **0.5 CPU, 0.75 GB RAM** | A conda environment plus SciPy plus an ODE integration. | **2.0 CPU, 3.0 GB** |
+| **10 minute timeout** | Your correct code passes easily; a student's runaway loop hits the wall and fails as `autograder_error`, which reads as *your* bug. | **20 minutes** |
+| **Point ceiling: on** | Silently caps extra credit. See §5.7. | off, on extra-credit questions only |
+
+### 5.11 "Published" in Gradescope does not mean what it means in Canvas
+
+There is **no publish step for a Gradescope assignment.** Visibility to students
+is governed entirely by the **Release Date**. The *Published* column in the
+assignment list refers to **grades** being released, which is why a correctly
+configured, fully visible assignment shows an empty circle there and a banner
+reading "No Published Grades." That is the correct state until you have graded.
+
+Related: check the Canvas assignment's **Available from** date. PS1 carried
+"Available after Aug 3" — a leftover nobody chose, three weeks before term.
+Harmless here because assignments are exposed early on purpose, but a date
+nobody picked is how a "why can't I see this" message happens in November.
+
 ---
 
 ## 6. The settling test: View as Student
 
 Nothing above is finished until this passes. **Home → Student View**, then click
 every item in every module.
+
+**It cannot preview an LTI tool, and Gradescope is one.** Canvas launches as its
+Test Student, Gradescope has no such person on its roster, and the launch
+resolves to your instructor identity — so the embedded frame shows you *Manage
+Submissions* and *Configure Autograder*, which no student can ever see. Student
+View verifies the Canvas half only: publish state, points, dates, and whether
+the description renders. The Gradescope half can only be checked by a second
+person with a student account. Budget for that: a GSI or reader who clicks every
+link once is the single most valuable ten minutes in the setup.
 
 It catches, in the order it has actually caught them:
 
