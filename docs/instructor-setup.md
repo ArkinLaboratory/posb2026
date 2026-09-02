@@ -199,6 +199,20 @@ TAs/Readers often cannot sync rosters or post grades due to a Canvas permission
 on viewing email addresses. If your reader needs to post, give them
 **Instructor** in Gradescope.
 
+**But do not reach for Instructor by reflex.** A reader who grades and does not
+post is correctly a **TA**: that role reads submissions, applies rubrics, leaves
+comments and answers regrade requests. Escalating the role to solve a problem it
+does not cause hands out course settings and grade passback for no reason.
+
+The one thing a TA genuinely cannot do by default is **create** a rubric item —
+Gradescope's guides say TAs and Readers may edit rubrics *"only when allowed by
+an instructor in the Rubric Permission settings."* That is a per-course or
+per-assignment checkbox, not a role. It matters here because the house method is
+to grade five or six papers first and build the rubric from the failure modes
+you actually see, which is rubric creation on the first paper. **Turn the
+permission on before the deadline, and on every section variant of the
+assignment** — duplication does not reliably carry it.
+
 Campus contact: `gradescope@berkeley.edu`, ~1 business day.
 
 ### 2.4 Distribution links — nbgitpuller
