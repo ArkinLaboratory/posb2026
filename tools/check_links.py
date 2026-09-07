@@ -145,6 +145,83 @@ def check_link(url):
     return all(results)
 
 
+LINK_RE = __import__("re").compile(
+    r"https://datahub\.berkeley\.edu/hub/user-redirect/git-pull\?[^\s)\"'<>\\]+")
+
+
+def committed_links():
+    """Every DataHub link actually written down anywhere in the repository.
+
+    WHY THIS AND NOT ONLY derive_links(). The derived link is the one this tool
+    believes in; the committed link is the one a student clicks. Until these
+    were compared, nothing in the repository checked that they were the same
+    string -- `preflight.py` only grepped a README for the substring
+    "datahub.berkeley.edu", which passes just as happily on a link with
+    branch=master or a mistyped urlpath.
+
+    Returns [(where, url)], deduplicated on url.
+    """
+    seen, out = set(), []
+    for p in sorted(list(ROOT.rglob("*.md")) + list(ROOT.rglob("*.ipynb"))):
+        rel = p.relative_to(ROOT).as_posix()
+        if rel.startswith(("private/", "build/")) or ".ipynb_checkpoints" in rel:
+            continue
+        try:
+            text = p.read_text()
+        except (UnicodeDecodeError, OSError):
+            continue
+        for url in LINK_RE.findall(text):
+            url = url.rstrip(").,").replace("\\n", "")
+            if url not in seen:
+                seen.add(url)
+                out.append((rel, url))
+    return out
+
+
+def canonical(rel_notebook):
+    """The link this repository says a notebook should be distributed by."""
+    folder = REPO.rstrip("/").split("/")[-1]
+    urlpath = f"lab/tree/{folder}/{rel_notebook}" if rel_notebook else f"lab/tree/{folder}"
+    return (f"{HUB}/hub/user-redirect/git-pull"
+            f"?repo={urllib.parse.quote(REPO, safe='')}"
+            f"&urlpath={urllib.parse.quote(urlpath, safe='')}"
+            f"&branch={BRANCH}")
+
+
+def same_link(a, b):
+    """Do two links mean the same thing?
+
+    Not string equality. `repo=https://github.com/...` and
+    `repo=https%3A%2F%2Fgithub.com%2F...` are the same parameter -- both are
+    legal in a query string and nbgitpuller decodes both -- and the parameters
+    may be in any order. What matters is the three decoded values.
+    """
+    def key(u):
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(u).query)
+        return tuple(q.get(k, [""])[0].rstrip("/") for k in ("repo", "branch", "urlpath"))
+    return key(a) == key(b)
+
+
+def check_committed(rep_fail):
+    """Is every link written down in the repository the canonical one?"""
+    print("\nLinks committed in the repository (these are what a student clicks):")
+    bad_any = False
+    for where, url in committed_links():
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+        urlpath = q.get("urlpath", [""])[0]
+        folder = REPO.rstrip("/").split("/")[-1]
+        after = urlpath.split(f"{folder}/", 1)
+        rel = after[1] if len(after) == 2 else ""
+        want = canonical(rel)
+        if same_link(url, want):
+            ok(f"{where}  ->  {rel or '(repository root)'}")
+        else:
+            bad_any = True
+            bad(f"{where} carries a NON-CANONICAL link",
+                f"is:     {url}\n        should be: {want}")
+    return not bad_any
+
+
 def derive_links():
     """Build the canonical link for every committed notebook."""
     folder = REPO.rstrip("/").split("/")[-1]
@@ -181,7 +258,18 @@ def main():
         print(f"{RED}{results.count(False)} of {len(results)} link(s) failed.{RESET}")
         sys.exit(1)
 
-    print("\nLinks (paste into bCourses):")
+    if not sys.argv[1:]:
+        if not check_committed(None):
+            print(f"\n{RED}A link committed in the repository is not the "
+                  f"canonical one.{RESET}")
+            sys.exit(1)
+
+    print("\nCanonical link for every committed notebook.")
+    print(f"{DIM}These are URLs, not something to type into a form. Each one is")
+    print("already embedded in its notebook's README, and for a problem set it")
+    print("reaches bCourses inside the generated assignment description")
+    print("(tools/build_canvas_description.py) -- you do not paste it by hand.")
+    print(f"Paste one into a BROWSER to test it.{RESET}")
     for u in links:
         print(f"  {u}")
 
