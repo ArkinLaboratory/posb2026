@@ -364,10 +364,10 @@ def build():
     d.header(s, "50 – 58 min", "Handout  ·  items 1 and 2  ·  eight minutes")
     d.title(s, "Getting a removal rate out of real decay data")
     for i, (n, k, txt, c) in enumerate([
-            ("1", "Fully worked — one variant",
-             "Semi-log plot, slope, and the half-life that comes out of it. Read it; do not copy it.", TEAL),
-            ("2", "The last steps are yours — a second variant",
-             "Same four steps, different numbers, and then: is this \u03b3, or is it \u03b3 + \u03bc? The answer depends on how the experiment was run.", CYAN),
+            ("1", "Fully worked — the LAA tag",
+             "Seven points, take logs, read the slope, convert. Read it; do not copy it.", TEAL),
+            ("2", "The last steps are yours — the AAV tag",
+             "Same four steps, different numbers, and then: is this \u03b3, or \u03b3 + \u03bc? Subtract the wrong one and Andersen's 60 min does not come back.", CYAN),
             ("3", "On PS2 — the design question",
              "You need t\u00bd = 12 min in a host that divides every 25. Which tag, and what does it cost you?", MUTED),
             ("4", "On PS2 \u00b7 247",
@@ -402,8 +402,8 @@ def build():
              "The factor of ln2 is where most of the marks go. A slope of \u22120.04 min\u207b\u00b9 is a rate constant, and the half-life is 17 min, not 25. Units are the check: the slope is per minute, a half-life is minutes.",
              TEAL),
             ("2",
-             "growing cells give \u03b3 + \u03bc;  arrested cells give \u03b3 alone",
-             "So a number quoted as 'the half-life of this protein' is only \u03b3 if the experiment stopped growth first. Andersen's downshift does exactly that, which is why his numbers can be added to your own \u03bc instead of replacing it.",
+             "you fitted \u03b3 + \u03bc = 0.035 min\u207b\u00b9;  subtract \u03bc and \u03b3 gives 59 min \u2014 Andersen's 60",
+             "The loop closes: his half-life plus your growth rate predicts your data, and your data minus your growth rate returns his half-life. It works because his downshift arrested growth, so what he reported is \u03b3 alone and carries nobody else's doubling time inside it.",
              CYAN)]):
         y = 1.9 + i * 2.0
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 1.6, fill=c, line=None)
