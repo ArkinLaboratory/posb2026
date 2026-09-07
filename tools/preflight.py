@@ -218,6 +218,17 @@ def check_ps(num, rep):
     rep.add(FAIL if leaks else OK, f"{tag} notebook contains no solutions",
             "LEAKED: " + ", ".join(leaks) if leaks else "")
 
+    desc = ROOT / "private" / "build" / tag / "canvas-description.html"
+    readme_p = nb.parent / "README.md"
+    if not desc.exists():
+        rep.add(WARN, f"{tag} Canvas description not built",
+                f"run: python tools/build_canvas_description.py {tag}")
+    elif readme_p.exists() and desc.stat().st_mtime < readme_p.stat().st_mtime:
+        rep.add(FAIL, f"{tag} Canvas description is STALE",
+                f"run: python tools/build_canvas_description.py {tag}")
+    else:
+        rep.add(OK, f"{tag} Canvas description", desc.relative_to(ROOT))
+
     readme = nb.parent / "README.md"
     rep.add(OK if readme.exists() else FAIL, f"{tag} README (this IS the Canvas description)",
             readme.relative_to(ROOT) if readme.exists() else "missing")
@@ -232,6 +243,66 @@ def check_ps(num, rep):
     rep.add(OK if zips else FAIL, f"{tag} autograder zip",
             zips[-1].relative_to(ROOT) if zips else
             f"run: python tools/build_problem_sets.py {tag}")
+    if zips:
+        _check_zip(zips[-1], tag, rep)
+
+
+def _check_zip(zpath, tag, rep):
+    """Two things about the zip that no eye catches and Gradescope will not tell
+    you.
+
+    THE POINT TOTAL. Gradescope's "Autograder Points" field must be the
+    autograded subtotal alone -- the manual questions are added by the rubric --
+    and that subtotal lives nowhere except inside the zip's test files. Typing
+    the whole-set total there is silent: every student's score is simply wrong
+    by the manual points, and the first person to notice is a student.
+
+    THE FROZEN COPY OF posb/. The zip carries files/posb/, so once the Docker
+    image is built the autograder runs against THAT snapshot -- while the
+    student's notebook, pulled fresh from `main` by nbgitpuller, imports the
+    current one. Edit posb/data.py after the build and the synthetic data the
+    student fits is not the synthetic data the hidden test checks. Nothing
+    anywhere reports this; the submission just fails.
+    """
+    import ast
+    import zipfile
+
+    z = zipfile.ZipFile(zpath)
+
+    total, per = 0, []
+    for n in sorted(z.namelist()):
+        if not (n.startswith("tests/") and n.endswith(".py")):
+            continue
+        body = z.read(n).decode()
+        try:
+            ns = {}
+            exec(compile(ast.parse(body), n, "exec"), ns)      # OK_FORMAT dict
+            pts = ns["test"]["points"]
+        except Exception:
+            rep.add(WARN, f"{tag}: cannot read points from {n}")
+            continue
+        total += pts
+        per.append(f"{ns['test']['name']} {pts}")
+    rep.add(OK, f"{tag} AUTOGRADER POINTS = {total}   <- type this into Gradescope",
+            "  ".join(per) + "\n(manual questions are added by the rubric, not here)")
+
+    drift = []
+    for n in z.namelist():
+        if not n.startswith("files/posb/") or not n.endswith(".py"):
+            continue
+        repo = ROOT / n[len("files/"):]
+        import hashlib
+        inzip = hashlib.sha256(z.read(n)).hexdigest()
+        onrepo = hashlib.sha256(repo.read_bytes()).hexdigest() if repo.is_file() else None
+        if inzip != onrepo:
+            drift.append(n[len("files/"):] + (" (missing from repo)" if onrepo is None else ""))
+    rep.add(FAIL if drift else OK,
+            f"{tag} zip's posb/ matches the repo"
+            if not drift else f"{tag} zip's posb/ is BEHIND the repo",
+            "" if not drift else
+            "\n".join(drift) + f"\nthe autograder would run against a different "
+            f"posb/ than the student imports.\nrun: python tools/build_problem_sets.py {tag}"
+            f"  and re-upload the zip")
 
 
 # -------------------------------------------------------------- repo-wide ---

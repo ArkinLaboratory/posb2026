@@ -34,6 +34,7 @@ python tools/build_figures.py sNN          # needs scipy — your machine, not t
 python tools/build_decks.py --pdf sNN      # needs LibreOffice
 python tools/build_handouts.py sNN         # needs playwright; builds handout + answers + board notes
 python tools/build_problem_sets.py psNN    # needs otter-grader; only on a set's release day
+python tools/build_canvas_description.py psNN   # the README as pasteable HTML
 ```
 
 Then the copy that actually goes to the printer — it lives outside the repo and
@@ -94,14 +95,14 @@ git push
 Only on a problem-set release day. **Start this two days early**: the Docker
 build is 10–25 minutes and it has to be tested with a real submission.
 
-### 4.1 Create the 147 assignment
+### 4.1 Create the 147 assignment — `PSn (BioE147)`
 
 **Programming Assignment.** Not Homework — that type refuses `.ipynb`
 ([runbook §5.6](course-site-runbook.md)).
 
 | Field | Value | Default is wrong because |
 |---|---|---|
-| Autograder Points | *the autograded total only* | manual points are added by the rubric |
+| Autograder Points | *the autograded total only* — `preflight.py` prints it | manual points are added by the rubric |
 | Manual grading | **enabled** | the written questions |
 | Release / Due | the session date / +7 days, 11:59 pm | |
 | Group submission | **off** | on by default, with no size limit |
@@ -110,6 +111,13 @@ build is 10–25 minutes and it has to be tested with a real submission.
 | Timeout | **20 min** | 10 min fails a slow student as `autograder_error` |
 
 Upload the zip from `private/build/psNN/dist/autograder/`. Wait for the build.
+
+> **Do not edit anything under `posb/` after this upload.** The zip carries its
+> own copy of the package, so the built image is frozen against that snapshot
+> while the student's notebook imports the current one from `main`. Change
+> `posb/data.py` and the data a student fits stops being the data the hidden
+> test checks. `preflight.py` compares the two and fails if they have parted;
+> the fix is to rebuild the set and re-upload, which costs another Docker build.
 
 ### 4.2 Test it before anyone sees it
 
@@ -132,7 +140,9 @@ Assignment*. It is *not* in the `⋮` menu, which offers only Settings and Delet
 — which is why you will conclude the feature does not exist
 ([runbook §5.12](course-site-runbook.md)).
 
-Name it `PSn — BioE 247`. Change that one question to **worth *e* points**, and
+Name it `PSn (BioE247)` — the same shape as `PSn (BioE147)`, because the
+Canvas link dialog lists Gradescope assignments by name alone. Change that one
+question to **worth *e* points**, and
 assign it to the 247 section. The copy starts **its own** Docker build — another
 10–25 minutes, no action needed.
 
@@ -170,8 +180,15 @@ Gradescope assignment, assigned to its own section, with its own point total.
 submission type to a text box ([runbook §5.12](course-site-runbook.md)).
 
 **The description is the problem set's `README.md`, converted to HTML.** Not
-fresh prose. Paste with the **`</>`** button, because the DataHub URL is a query
-string the rich-text editor mangles. The embedded Gradescope panel is an upload
+fresh prose. The conversion is done for you —
+
+```bash
+open private/build/psNN/canvas-description.html   # or cat it
+```
+
+— and it refuses to write a file that lost either link. Select all, then paste
+with the **`</>`** button, because the DataHub URL is a query string the
+rich-text editor mangles. The embedded Gradescope panel is an upload
 box and nothing else — a description without the DataHub and Colab links leaves
 a student with somewhere to submit and no way to get the thing they submit.
 That happened on PS1 and a student reported it within the hour

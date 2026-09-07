@@ -219,8 +219,13 @@ assignment has one outline. So each set is **two assignments, one per section**:
 
 | | assigned to | Question *n* |
 |---|---|---|
-| `PSn` | 147 section | **0 points**, with rubric items worth up to +*e* |
-| `PSn — BioE 247` | 247 section | **worth *e* points**, so the total is base + *e* |
+| `PSn (BioE147)` | 147 LEC | **0 points**, with rubric items worth up to +*e* |
+| `PSn (BioE247)` | 247 LEC | **worth *e* points**, so the total is base + *e* |
+
+(Those are the names PS1 actually shipped under, and §5.12 below was written
+against them. Keep them: the Canvas link dialog lists Gradescope assignments by
+name and nothing else, so two sets named inconsistently is how you link the
+wrong one.)
 
 Build the second by **duplicating** the first once it is fully configured —
 Gradescope's duplicate copies the outline, the rubric *and* the autograder —
