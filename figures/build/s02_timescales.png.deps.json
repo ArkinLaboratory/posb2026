@@ -1,10 +1,10 @@
 {
   "artifact": "s02_timescales.png",
-  "artifact_sha256": "8a2821df7e8f2f10c22199e6eef4ed0426bb2367993f44be7d5641ab3acab45b",
-  "artifact_bytes": 118648,
+  "artifact_sha256": "c63809508e13f7fcd8676da43e9fa9ec63b9d6f2e5dbe90acaedf90699d96416",
+  "artifact_bytes": 119456,
   "deps": {
     "figures/s02_substrate.py": "0d499f945ffd02d93ebb538ef89dd2e38b64dd7d73e0c15d27b0d96567e72778",
-    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s02_substrate.fig_timescales"
 }

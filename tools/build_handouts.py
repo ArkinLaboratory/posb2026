@@ -65,6 +65,26 @@ SRC = ROOT / "handouts"
 # gets improvised, which is the failure the pacing check exists to catch and
 # this is the other half of the fix.
 BOARD = ROOT / "board-notes"
+# The copies actually carried to the printer live OUTSIDE the repository, in
+# 2026/handouts-to-print/, and they are made by hand. That is a staleness trap
+# with the worst possible failure time: 7am, forty copies, and the sheet in your
+# hand is a week old. Nothing can safely automate the copy -- which handouts get
+# printed is a judgement, and only some of them do -- so the build refuses to
+# stay quiet about it instead.
+PRINT_DIR = ROOT.parent / "2026" / "handouts-to-print"
+
+
+def check_print_copies(built):
+    """Warn for every *-PRINT-THIS.pdf older than the handout it came from."""
+    if not PRINT_DIR.is_dir():
+        return []
+    stale = []
+    for pdf in built:
+        copy = PRINT_DIR / f"{pdf.stem}-PRINT-THIS.pdf"
+        if copy.exists() and copy.stat().st_mtime < pdf.stat().st_mtime:
+            stale.append((copy, pdf))
+    return stale
+
 CACHE = ROOT / "tools" / ".cache"
 MATHJAX = CACHE / "mathjax-tex-svg-3.2.2.js"
 MATHJAX_URL = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"
@@ -226,6 +246,7 @@ def main():
     js = "" if check else mathjax()
 
     stale = []
+    built = []
     for src in sources:
         meta, text = front_matter(src.read_text())
         sub = meta.get("subtitle", "")
@@ -254,6 +275,7 @@ def main():
         build_pdf(html, dst)
         stamp.parent.mkdir(parents=True, exist_ok=True)
         stamp.write_text(digest + "\n")
+        built.append(dst)
         print(f"  {src.name:<28} -> {dst.relative_to(ROOT)}")
 
     if check:
@@ -262,6 +284,13 @@ def main():
                      f"{', '.join(stale)}. Run `python tools/build_handouts.py`.")
         print(f"OK: {len(sources)} handout(s) up to date")
         return
+
+    for copy, pdf in check_print_copies(built):
+        print(f"\n  !! {copy.name} in 2026/handouts-to-print/ is OLDER than the\n"
+              f"     handout it was copied from. That folder is what goes to the\n"
+              f"     printer. Refresh it:\n"
+              f"     cp {pdf.relative_to(ROOT.parent)} \\\n"
+              f"        {copy.relative_to(ROOT.parent)}")
 
     print("\nPDFs are committed. Print them; do not rebuild on the morning.")
 

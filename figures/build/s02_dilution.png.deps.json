@@ -1,10 +1,10 @@
 {
   "artifact": "s02_dilution.png",
-  "artifact_sha256": "5a864ee3211f7c35df31d6ae1619b42920bc69bc5d0a7ebf33769b02ad90ea63",
-  "artifact_bytes": 175189,
+  "artifact_sha256": "a3aeaf069eec119888968142abf5f907050cb4e8b5a1ad68f65979aeb789955d",
+  "artifact_bytes": 187817,
   "deps": {
     "figures/s02_substrate.py": "0d499f945ffd02d93ebb538ef89dd2e38b64dd7d73e0c15d27b0d96567e72778",
-    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s02_substrate.fig_dilution"
 }

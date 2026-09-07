@@ -262,16 +262,16 @@ def build():
     d.title(s, "Where the requirement comes from")
     d.text(s, "At a symmetric fixed point  u = v = x :", M, 1.85, 6.2, 0.3,
            size=14, color=BODY)
-    d.text(s, "x = α / (1 + xⁿ)        so        α = x + xⁿ⁺¹", M, 2.18, 6.2, 0.4,
+    d.text(s, "x = α / (1 + x^{n})        so        α = x + x^{n+1}", M, 2.18, 6.2, 0.4,
            size=17, font=HEAD, bold=True, color=INK)
-    d.text(s, "The Jacobian there is  [[−1, g], [g, −1]] , so the eigenvalues are −1 ± |g| .\nUsing (1 + xⁿ) = α/x this collapses to",
+    d.text(s, "The Jacobian there is  [[−1, g], [g, −1]] , so the eigenvalues are −1 ± |g| .\nUsing (1 + x^{n}) = α/x this collapses to",
            M, 2.68, 6.2, 0.7, size=14, color=BODY)
-    d.text(s, "|g| = n xⁿ⁺¹ / α", M, 3.42, 6.2, 0.4, size=17, font=HEAD,
+    d.text(s, "|g| = n x^{n+1} / α", M, 3.42, 6.2, 0.4, size=17, font=HEAD,
            bold=True, color=INK)
     d.text(s, "It becomes a saddle exactly when |g| > 1 :", M, 3.9, 6.2, 0.3,
            size=14, color=BODY)
     d.shape(s, S.ROUNDED_RECTANGLE, M, 4.28, 6.2, 1.6, fill=WASH, line=TEAL, lw=2)
-    d.text(s, "n xⁿ⁺¹  >  x + xⁿ⁺¹\n(n − 1) xⁿ  >  1\nx  >  (n − 1)^(−1/n)",
+    d.text(s, "n x^{n+1}  >  x + x^{n+1}\n(n − 1) x^{n}  >  1\nx  >  (n − 1)^(−1/n)",
            M + 0.35, 4.45, 5.6, 1.3, size=16, font=HEAD, bold=True, color=INK,
            spacing=1.35)
     d.shape(s, S.ROUNDED_RECTANGLE, 7.25, 1.85, 5.35, 2.2, fill=CARD, line=RED, lw=2)
@@ -279,7 +279,7 @@ def build():
            bold=True, color=RED)
     d.text(s, "(n − 1)^(−1/n) is undefined. There is no x, and therefore no α however large, that gives two states.\n\nCooperativity is not an optimisation. It is a necessary condition.",
            7.55, 2.52, 4.8, 1.4, size=13.5, color=BODY)
-    d.text(s, "Substituting back into  α = x(1 + xⁿ) :", 7.25, 4.2, 5.35, 0.3,
+    d.text(s, "Substituting back into  α = x(1 + x^{n}) :", 7.25, 4.2, 5.35, 0.3,
            size=13.5, color=BODY)
     d.shape(s, S.ROUNDED_RECTANGLE, 7.25, 4.58, 5.35, 1.0, fill=TEAL, line=TEAL)
     d.text(s, "critical α  =  n (n − 1)^−(n+1)/n", 7.25, 4.92, 5.35, 0.4, size=19,

@@ -144,6 +144,72 @@ def first_sentence(txt, limit=105):
     return head if len(head) <= limit else head[:limit - 1].rstrip() + "\u2026"
 
 
+# -- subscript / superscript markup ------------------------------------------
+#
+# Calibri and Cambria have NO glyphs for the Unicode subscript-letter block
+# (U+2090-U+209C: the small a, e, o, x, h, k, l, m, n, p, s, t). Subscript
+# DIGITS exist; subscript LETTERS do not. So "K" + U+2098 rendered as an empty
+# box on the projector, and every K_M, E_tot and V_max in session 4 was a hole.
+# LibreOffice's PDF export drops them silently, which is why the built deck
+# looked fine in PowerPoint on one machine and blank on another.
+#
+# The fix is to write real PowerPoint baseline runs instead of borrowing
+# characters. Markup, in any string passed to Deck.text():
+#
+#     "K_{M}"        -> K with a subscript M
+#     "x^{n}"        -> x with a superscript n
+#     "E_{tot} << K_{M} + S_{0}"
+#
+# Braces are required, so a bare underscore in prose is still a bare
+# underscore. Subscript digits (U+2080-2089) are left alone: they are present
+# in both fonts and they read fine.
+
+_SUB, _SUP = "-25000", "30000"
+_MARKUP = re.compile(r"([_^])\{([^{}]*)\}")
+
+
+def _runs(line):
+    """Split a line into (text, baseline) pairs. baseline is None for normal."""
+    out, i = [], 0
+    for m in _MARKUP.finditer(line):
+        if m.start() > i:
+            out.append((line[i:m.start()], None))
+        out.append((m.group(2), _SUB if m.group(1) == "_" else _SUP))
+        i = m.end()
+    if i < len(line):
+        out.append((line[i:], None))
+    return out or [(line, None)]
+
+
+# Codepoints that Calibri and Cambria do not carry. A missing glyph does not
+# raise anything: PowerPoint substitutes a fallback font if it can find one and
+# draws an empty box if it cannot, and LibreOffice's PDF export tends to draw
+# nothing at all. So the deck builds clean, the check passes, and the hole is
+# found by the room. Anything added here is caught at build time instead.
+MISSING_GLYPHS = {
+    # Unicode subscript letters, U+2090-U+209C. Use _{...} markup instead.
+    "\u2090": "_{a}", "\u2091": "_{e}", "\u2092": "_{o}", "\u2093": "_{x}",
+    "\u2095": "_{h}", "\u2096": "_{k}", "\u2097": "_{l}", "\u2098": "_{m}",
+    "\u2099": "_{n}", "\u209a": "_{p}", "\u209b": "_{s}", "\u209c": "_{t}",
+    # Superscript letters that are also absent or unreliable.
+    "\u207f": "^{n}", "\u2071": "^{i}", "\u1d40": "^{T}",
+    "\u2c7c": "_{j}", "\u1d62": "_{i}",
+    # Calibri has \u2264 and \u2265 but NOT \u226a / \u226b. Session 4 slide 7
+    # was the only slide in the course using them, and it was the one Adam saw
+    # blank. Write << and >> instead.
+    "\u226a": "<<", "\u226b": ">>",
+    # Long arrows: present in some symbol fonts, absent in Calibri.
+    "\u27f9": "=>", "\u27f8": "<=", "\u27fa": "<=>",
+}
+
+
+def _check_glyphs(deck, line):
+    for ch in line:
+        if ch in MISSING_GLYPHS:
+            deck.bad_glyphs.append((ch, MISSING_GLYPHS[ch], line[:60]))
+
+
+
 class Deck:
     """A lecture deck. Every method returns self or a slide, so decks read
     top to bottom like the lecture does."""
@@ -162,6 +228,11 @@ class Deck:
         self.assignment_overflow = None
         self.unattributed_figures = []
         self.segments = []
+        self.bad_glyphs = []
+        self.step_slides = 0
+        self._in_step_run = False
+        # badge -> number of steps, for the minutes-per-STEP check
+        self.step_runs = {}
         self.missing_movies = []
         # Every file this deck actually read while building. Not a guess from
         # the source: the build records what it touched, so tools/manifest.py
@@ -230,14 +301,18 @@ class Deck:
                 p.line_spacing = spacing
             if space_pt:
                 p.space_after = Pt(space_pt)
-            r = p.add_run()
-            r.text = line
-            f = r.font
-            f.name = font or TEXT
-            f.size = Pt(size)
-            f.bold = bold
-            f.italic = italic
-            f.color.rgb = color or BODY
+            _check_glyphs(self, line)
+            for chunk, base in _runs(line):
+                r = p.add_run()
+                r.text = chunk
+                f = r.font
+                f.name = font or TEXT
+                f.size = Pt(size)
+                f.bold = bold
+                f.italic = italic
+                f.color.rgb = color or BODY
+                if base:
+                    r.font._rPr.set("baseline", base)
         return box
 
     def shape(self, s, kind, x, y, w, h, fill=None, line=None, lw=1.5):
@@ -289,9 +364,14 @@ class Deck:
     # Words in a segment label that mean the students are working, not
     # watching. During those minutes the slide is deliberately static, so they
     # are excluded from the pacing check below.
+    # "pose" and "paper" are the vocabulary of the single in-class rhythm
+    # introduced in docs/lecture-design.md 5c -- pose on a slide, work on paper,
+    # silent vote, argue. Without them a segment where the room is working in
+    # silence is scored as exposition and reported as improvising.
     ACTIVITY_WORDS = ("group", "vote", "argue", "diagnostic", "laptops",
                       "worked set", "retrieval", "notes closed", "pause",
-                      "i will not say", "in writing", "handout")
+                      "i will not say", "in writing", "handout",
+                      "pose", "paper", "on your own", "your own notes")
 
     # Board work is a third category, not a kind of exposition and not a kind
     # of student activity. During a derivation at the board the slide is static
@@ -314,14 +394,149 @@ class Deck:
         The badge is also the only machine-readable record of how long each
         segment lasts, so it is what `pacing()` measures.
         """
-        self.segments.append((badge, label))
+        self.segments.append((badge, label, self._in_step_run))
         dark = s._posb_dark
-        self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, 0.42, 1.62, 0.34,
-                   fill=CYAN if dark else TEAL, line=None)
-        self.text(s, badge, M, 0.47, 1.62, 0.3, size=11, bold=True,
-                  color=INK if dark else WHITE, align="c")
-        self.text(s, label.upper(), M + 1.8, 0.47, 9.5, 0.3, size=11, bold=True,
+        # If this segment IS board work, say so on the slide. The label
+        # already declares it for pacing(); this makes the same declaration
+        # visible to the person who has to act on it.
+        board = any(w in label.lower() for w in self.BOARD_WORDS)
+        if board:
+            self.board_glyph(s, M, 0.44)
+        self.text(s, label.upper(), M + (0.5 if board else 0), 0.47,
+                  9.5 - (0.5 if board else 0), 0.3, size=11.5, bold=True,
                   color=MINT if dark else MUTED)
+        # The run sheet, small and out of the reading path. Nobody in row 8
+        # needs to know the segment is four minutes long.
+        self.text(s, badge, W - M - 2.4, 0.47, 2.4, 0.3, size=10.5,
+                  color=MINT if dark else MUTED, align="r")
+        self.text(s, str(len(self.prs.slides._sldIdLst)),
+                  W - M - 0.6, H - 0.42, 0.6, 0.26, size=10.5,
+                  color=MINT if dark else MUTED, align="r")
+
+    # -- derivations ---------------------------------------------------------
+    def derivation(self, s_unused, badge, label, title, steps, closing=None,
+                   note=None, dark=False, board=None):
+        """A derivation as a run of step slides, one line revealed at a time.
+
+        WHY THIS EXISTS (7 September 2026). Sessions 3 and 4 put 37 and 32
+        minutes of derivation on the blackboard. `docs/lecture-design.md` never
+        sanctioned that -- it crept in -- and it has a cost the pacing numbers
+        hide: the derivation of the QSSA validity condition, which PS1 Q3a
+        assesses, existed only on an erased blackboard and in a board-notes file
+        written in the instructor's stage directions. A student who missed class
+        could not read it anywhere. The coverage-matrix contract ("nothing is
+        assessed that was not demonstrated") was being satisfied only for people
+        who were present and taking good notes under time pressure -- which is
+        exactly the filter the bimodal-cohort design was meant to remove.
+
+        The naive fix -- put the finished derivation on one slide -- is worse
+        than the board, because a completed derivation shows the endpoint before
+        the room has processed step one. What makes chalk work is the RATE, not
+        the medium.
+
+        So: one slide per step, each identical to the last plus one line. In the
+        room it advances at the speed of the instructor's clicker; in the
+        exported PDF each page is a step and the last page carries the whole
+        argument. The deck is generated, so the near-duplicate slides cost
+        nothing to author and one edit to `steps` propagates through all of them.
+
+        `steps` is a list of (lhs, rhs, aside) triples. `aside` may be None.
+        The final slide adds `closing`, which is the line the next surface
+        inherits. `note` goes on the LAST step slide only -- speaker notes on
+        the intermediate ones would be read out mid-derivation.
+        """
+        made = []
+        for i in range(1, len(steps) + 1):
+            s = self.dark() if dark else self.light()
+            self._in_step_run = (i != len(steps))
+            self.header(s, badge, label)
+            self._in_step_run = False
+            self.title(s, title)
+            # Geometry adapts to the step count and to whether a closing box
+            # has to be reserved: with five steps and a closing line the old
+            # fixed 0.92 pitch ran the last aside underneath the box.
+            top, bottom = 1.72, (5.48 if closing else 6.55)
+            pitch = (bottom - top) / max(len(steps), 1)
+            asides = pitch >= 0.62      # no room for the italic line below that
+            for j, (lhs, rhs, aside) in enumerate(steps[:i]):
+                y = top + j * pitch
+                live = (j == i - 1)
+                bar = (CYAN if dark else TEAL) if live else (
+                    MUTED if dark else RULE)
+                self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, y, 0.11,
+                           min(pitch - 0.16, 0.62), fill=bar, line=None)
+                self.text(s, lhs, M + 0.34, y - 0.02, 3.9, 0.52, size=14,
+                          font=HEAD, bold=True,
+                          color=(WHITE if dark else INK) if live
+                                else (MINT if dark else MUTED))
+                self.text(s, rhs, M + 4.5, y - 0.02, 7.9, 0.42, size=17,
+                          font=TEXT, bold=True,
+                          color=(WHITE if dark else INK) if live
+                                else (MINT if dark else MUTED))
+                # On a crowded run the asides survive only on the live step;
+                # on the earlier ones they are history and cost the room
+                # nothing to lose.
+                if aside and (asides or live):
+                    self.text(s, aside, M + 4.5, y + 0.40, 7.9, 0.44, size=12.5,
+                              italic=True, color=MINT if dark else MUTED)
+            if i == len(steps) and closing:
+                self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, 5.66,
+                           W - 2 * M, 0.92,
+                           fill=None if dark else WASH,
+                           line=CYAN if dark else TEAL, lw=2)
+                self.text(s, closing, M + 0.3, 5.84, W - 2 * M - 0.6, 0.62,
+                          size=17, bold=True, color=WHITE if dark else INK)
+            # The board cue belongs on the LAST step only: the instruction is
+            # "now that this is derived, put it on the wing", and showing it
+            # earlier tells him to write a line that is not on screen yet.
+            if i == len(steps) and board:
+                self.to_board(s, board, y=6.68, size=13)
+            if i == len(steps) and note:
+                self.notes(s, note)
+            made.append(s)
+        # Only the last slide of a run counts toward the slide-rate check; the
+        # others are the same surface at an earlier moment. Without this a
+        # six-step derivation reads as six slides in four minutes and the
+        # checker calls a carefully paced segment "rushed".
+        self.step_slides += len(steps) - 1
+        self.step_runs[badge] = self.step_runs.get(badge, 0) + len(steps)
+        return made[-1]
+
+    # -- "go to the board" --------------------------------------------------
+    def board_glyph(self, s, x, y, w=0.34, h=0.26):
+        """A small chalkboard, drawn from shapes rather than a font glyph.
+
+        Adam, 7 September 2026: he needs to know from the SLIDE, not from the
+        notes, when he is meant to leave the screen and write. Drawn rather than
+        typed because an emoji or a dingbat depends on a font being present, and
+        this deck has already lost a session's worth of subscripts to exactly
+        that (see MISSING_GLYPHS).
+        """
+        dark = s._posb_dark
+        ink = CYAN if dark else TEAL
+        self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, x, y, w, h,
+                   fill=ink, line=None)
+        # two chalk strokes
+        self.shape(s, MSO_SHAPE.RECTANGLE, x + 0.06, y + 0.08, w - 0.16, 0.022,
+                   fill=WHITE if not dark else INK, line=None)
+        self.shape(s, MSO_SHAPE.RECTANGLE, x + 0.06, y + 0.145, w - 0.24, 0.022,
+                   fill=WHITE if not dark else INK, line=None)
+        # the ledge
+        self.shape(s, MSO_SHAPE.RECTANGLE, x - 0.03, y + h, w + 0.06, 0.035,
+                   fill=MUTED if not dark else SILVER, line=None)
+
+    def to_board(self, s, text, y=6.42, size=13.5):
+        """An explicit cue: leave the screen and write this.
+
+        Used inside slide-resident sessions, where the derivation is projected
+        but two or three results still have to go on the wing and stay there.
+        The header cue (see `header`) covers whole board SEGMENTS; this covers
+        a single instruction in the middle of one.
+        """
+        dark = s._posb_dark
+        self.board_glyph(s, M, y - 0.02)
+        self.text(s, text, M + 0.5, y, W - 2 * M - 0.5, 0.32, size=size,
+                  bold=True, color=CYAN if dark else TEAL)
 
     def title(self, s, txt, y=0.95, size=32):
         self.text(s, txt, M, y, W - 2 * M, 0.95, size=size, font=HEAD,
@@ -438,11 +653,38 @@ class Deck:
                 "it. Run `python tools/build_readings.py` to see why.")
         return [r for r in rows if r["assign"] == self.session]
 
+    def previewed_here(self):
+        """Papers named as coming, weeks before they are assigned.
+
+        See the note on `preview_in` in tools/build_readings.py. This is the
+        answer to abstract machinery with no visible destination: the paper is
+        named now, the obligation arrives later.
+        """
+        from tools.build_readings import resolve
+        rows, _ = resolve(readings_spec(), sessions())
+        return [r for r in rows if self.session in (r.get("preview") or [])]
+
+    def coming_up(self, s, y=6.35, size=13):
+        """One line: the paper this session is building toward."""
+        rows = self.previewed_here()
+        if not rows:
+            return False
+        dark = s._posb_dark
+        r = rows[0]
+        when = sessions().get(r["discuss"], {}).get("date")
+        when = when.strftime("%d %B").lstrip("0") if when is not None else "later"
+        self.text(s, f"BUILDING TOWARD  —  {r['short']}, session {r['discuss']}, {when}",
+                  M, y, W - 2 * M, 0.3, size=size, bold=True,
+                  color=CYAN if dark else TEAL)
+        return True
+
     def discussed_here(self):
         """Papers this session discusses -- i.e. what they were told to read."""
         from tools.build_readings import resolve
         rows, _ = resolve(readings_spec(), sessions())
-        return [r for r in rows if r["discuss"] == self.session]
+        return [r for r in rows
+                if r["discuss"] == self.session
+                or self.session in (r.get("again") or [])]
 
     def assigned_on(self, x, y, w, s, prefix="You read this for today"):
         """A one-line reminder of when the reading for this session went out.
@@ -480,7 +722,10 @@ class Deck:
         # not alphabetical order, which is what the file happens to be sorted by.
         rows = sorted(rows, key=lambda r: (not r["required"], r.get("key", "")))
 
-        h = 0.52 + 0.56 * len(rows)
+        # One or two papers get a two-line blurb; three (session 9) would
+        # overflow the slide, so they fall back to a single line.
+        row_h = 0.74 if len(rows) <= 2 else 0.56
+        h = 0.52 + row_h * len(rows)
         # The box grows with the number of readings, and a deck written when
         # there was one paper will happily run it off the bottom when a second
         # is added. Clamp, and tell the build so the deck gets reflowed rather
@@ -495,16 +740,24 @@ class Deck:
         self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, y, W - 2 * M, h,
                    fill=None if dark else WASH, line=CYAN if dark else TEAL, lw=1.5)
         self.text(s, f"{label.upper()} — {when.upper()}", M + 0.3, y + 0.1,
-                  6.0, 0.26, size=10, bold=True, color=CYAN if dark else TEAL)
+                  6.0, 0.28, size=11.5, bold=True, color=CYAN if dark else TEAL)
         for i, r in enumerate(rows):
-            yy = y + 0.4 + i * 0.56
+            yy = y + 0.4 + i * row_h
             tag = "READ" if r["required"] else "OPTIONAL"
-            self.text(s, tag, M + 0.3, yy + 0.02, 0.95, 0.24, size=9.5,
-                      bold=True, color=AMBER if r["required"] else MUTED)
+            # AMBER on the dark card measured 3.6:1 -- below AA. CYAN/MINT
+            # both clear 4.5:1 on this background.
+            self.text(s, tag, M + 0.3, yy + 0.02, 1.05, 0.26, size=11,
+                      bold=True,
+                      color=(CYAN if dark else AMBER) if r["required"] else MUTED)
             self.text(s, short_cite(r), M + 1.3, yy, W - 2 * M - 1.7, 0.28,
-                      size=12.5, bold=True, color=WHITE if dark else INK)
-            self.text(s, first_sentence(r.get("focus")), M + 1.3, yy + 0.25,
-                      W - 2 * M - 1.7, 0.28, size=10.5,
+                      size=14, bold=True, color=WHITE if dark else INK)
+            # `slide_focus` if readings.yaml supplies one, else the first
+            # sentence of `focus`. The focus text is written for the
+            # readings page and runs long; on a slide it clipped.
+            blurb = r.get("slide_focus") or first_sentence(r.get("focus"))
+            self.text(s, blurb, M + 1.3, yy + 0.28,
+                      W - 2 * M - 1.7, 0.44 if row_h > 0.6 else 0.26,
+                      size=12.5 if row_h > 0.6 else 11.5,
                       italic=True, color=MINT if dark else BODY)
         return y + h
 
@@ -613,19 +866,33 @@ class Deck:
         # something in between.
         MAX_ACTIVITY = 10
         merged, last = [], None
-        for badge, label in self.segments:
+        for badge, label, is_step in self.segments:
+            # An intermediate slide in a derivation run is the SAME surface at
+            # an earlier moment, not another slide's worth of material. Counting
+            # it would make a six-step derivation read as six slides in four
+            # minutes and report a carefully paced segment as rushed.
             if badge == last and merged:
-                merged[-1][2] += 1
+                if not is_step:
+                    merged[-1][2] += 1
             else:
-                merged.append([badge, label, 1])
+                merged.append([badge, label, 0 if is_step else 1])
                 last = badge
+        for row in merged:
+            row[2] = max(row[2], 1)
 
+        # A derivation run is one surface revealed a line at a time, so
+        # slides-per-minute is the wrong measure of it. What matters is whether
+        # there are enough STEPS for the time: past this many minutes on one
+        # step the reveal has stopped pacing anything and the room is watching
+        # a static slide again.
+        MAX_MIN_PER_STEP = 3.0
         for badge, label, k in merged:
             nums = re.findall(r"\d+", badge)
             mins = int(nums[1]) - int(nums[0]) if len(nums) >= 2 else 0
             low = label.lower()
             activity = any(w in low for w in self.ACTIVITY_WORDS)
             board = (not activity) and any(w in low for w in self.BOARD_WORDS)
+            n_steps = self.step_runs.get(badge, 0)
             if activity:
                 act_min += mins
             elif board:
@@ -635,16 +902,25 @@ class Deck:
                 expo_slides += k
             rows.append({"badge": badge, "label": label, "slides": k,
                          "minutes": mins, "activity": activity, "board": board,
+                         "steps": n_steps,
                          "per_slide": mins / k if k else 0,
+                         "per_step": mins / n_steps if n_steps else 0,
                          "long": activity and mins > MAX_ACTIVITY,
+                         # A step run is exempt from the slide-rate check and
+                         # held to the per-step one instead.
+                         "sparse": bool(n_steps) and mins / n_steps > MAX_MIN_PER_STEP,
                          "thin": (not activity) and (not board)
+                                 and (not n_steps)
                                  and k and mins / k > thin})
         rate = expo_min / expo_slides if expo_slides else 0
         return rows, {"exposition_min": expo_min, "exposition_slides": expo_slides,
                       "min_per_slide": rate, "activity_min": act_min,
                       "activity_frac": act_min / total if total else 0,
                       "board_min": board_min, "max_activity": MAX_ACTIVITY,
+                      "bad_glyphs": self.bad_glyphs,
                       "long": [r for r in rows if r["long"]],
+                      "sparse": [r for r in rows if r["sparse"]],
+                      "max_min_per_step": MAX_MIN_PER_STEP,
                       "thin": [r for r in rows if r["thin"]]}
 
     # -- output --------------------------------------------------------------

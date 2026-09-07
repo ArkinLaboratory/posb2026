@@ -24,9 +24,20 @@ def use():
         "figure.dpi": 160,
         "savefig.dpi": 160,
         "savefig.bbox": "tight",
-        "font.size": 11,
-        "axes.titlesize": 13,
-        "axes.labelsize": 11.5,
+        # Projected in a lecture hall: 11pt inside a figure that is then
+        # scaled into a 13in slide lands around 7pt of ink on the wall. The
+        # floor is 15.
+        "font.size": 15,
+        "axes.titlesize": 16,
+        "axes.labelsize": 15,
+        "xtick.labelsize": 14,
+        "ytick.labelsize": 14,
+        "legend.fontsize": 14,
+        "lines.linewidth": 2.6,
+        # The slide ground, so the figure does not sit in a white rectangle.
+        "figure.facecolor": "#F8FAF9",
+        "axes.facecolor": "#F8FAF9",
+        "savefig.facecolor": "#F8FAF9",
         "axes.edgecolor": MUTED,
         "axes.labelcolor": INK,
         "axes.titlecolor": INK,

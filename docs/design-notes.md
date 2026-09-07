@@ -165,11 +165,52 @@ sessions 19–23.
 
 ## Acknowledged weaknesses
 
-**Eight consecutive dynamics-heavy sessions (8–13) may lose the students with
-biology backgrounds.** The cohort spans biology to physics to EECS. Mitigations
-are a diagnostic in session 1, a weekly discussion hour, and the
-[Biological Circuit Design](https://biocircuits.github.io) chapters as a second
-voice on the same material. It remains a real risk.
+**Eleven consecutive quantitative sessions (3–13) may lose the students with
+biology backgrounds.** *Revised 7 September 2026: this entry previously said
+"eight consecutive sessions (8–13)" and under-counted its own top risk by three.
+The run starts at session 3, not session 8, and the only break in it is session
+9's toggle.*
+
+The cohort spans biology to physics to EECS. The mitigations originally listed
+here — a diagnostic in session 1, a weekly discussion hour, and the
+[Biological Circuit Design](https://biocircuits.github.io) chapters — are one
+diagnostic and two opt-ins. **A diagnostic diagnoses; it does not mitigate.**
+None of the three changes what happens in the room during weeks 3–5.
+
+Two harder facts, both visible in `readings.yaml`:
+
+- **The first paper about something someone built and used arrived in week 5.**
+  Before session 8 the reading list ran: a numbers essay (Phillips & Milo), a
+  *reagent* paper mined for four half-lives (Andersen), a theory review (Bintu),
+  and a measurement of a construct (Rosenfeld). Synthetic biology was supplying
+  parameters rather than purpose.
+- **Session 8 had no reading at all**, and it is the driest session in Part I.
+
+Compare Fall 2025, which reached *Top-Down Design* at lecture 4 and *Logic
+Therapies* at lecture 13. The 2026 rebuild traded early purpose for early rigour.
+That trade is defensible — five sessions of gate minimisation is what it bought
+back — but it was made silently and it is the reason Part I reads as abstract.
+
+**What was done about it, 7 September 2026.** Not a change to the ramp: the
+sequence into the midterm is the pedagogical hinge and cutting derivations would
+undo the rebuild. Purpose goes *inside* the derivations instead.
+
+1. **`preview_in` in `readings.yaml`.** A paper can now be *named* weeks before
+   it is assigned, with no obligation attached and outside the `max_days_notice`
+   cap. Gardner 2000 is named from session 5, and `Deck.coming_up()` renders
+   "BUILDING TOWARD — Gardner, Cantor & Collins, session 9" on the goals slide.
+   Four consecutive derivations now have a stated destination.
+2. **Gardner moved from session 9 to session 8** (assigned in session 7, five
+   days' notice; `also_discussed_in` keeps session 9's second pass). Session 8's
+   running example *is* that toggle, so the room now meets the circuit before the
+   algebra rather than after it. "A two-gene system" becomes "the circuit in the
+   paper you read."
+3. **Sessions 5–8 each open on a construct** that lived or died on the thing
+   about to be derived — one artifact, one number, three minutes. Not a
+   slideshow: the test from "Choices worth arguing about" still applies, and a
+   session that cannot be examined on its opener has a seminar in it.
+
+It remains a real risk. Revisit after session 8 is taught.
 
 **Sessions 27–28 get no formative practice.** They fall after the last problem
 set and are assessed only on the final. Accepted deliberately; weighted

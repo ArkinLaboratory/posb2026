@@ -124,6 +124,39 @@ build never carries them.
   suggest a command that rebuilds over one. If the edit matters, port it back
   into the deck source. See
   [where-things-live §2](docs/where-things-live.md#2-authored-versus-generated).
+- **Speaker notes carry content, not stage directions.** Adam's rule,
+  7 September 2026. A note says what point has to land, what to expect from the
+  room, and what to say to students. It does not say "Four minutes", "Do NOT
+  skip this" or "SAY IT OUT LOUD" — he is reading these while teaching, and a
+  directive is a line he has to skip past to reach the thing he needed. Times
+  live in the segment badge, where the pacing check can see them. A scope
+  decision is stated as a fact ("Segel's argument belongs in a different
+  course"), never as an order.
+- **Never put a Unicode subscript or superscript letter in a deck.** Calibri and
+  Cambria have no glyphs for U+2090–U+209C or U+207F, so `Kₘ` and `Eₜₒₜ` render
+  as blanks on the projector and vanish entirely through LibreOffice's PDF
+  export. Session 4 shipped with ninety-seven of them. Use the `_{...}` and
+  `^{...}` markup that `Deck.text()` understands; it emits real PowerPoint
+  baseline runs. `build_decks.py --check` fails on the raw characters now.
+- **Handouts with answers get an answer sheet.** `handouts/<name>-answers.md`,
+  built by the same pipeline, posted to bCourses after the class. It covers only
+  the items done **in the room** — an item that is also a problem-set question
+  must not have its solution in a public repository.
+- **Peer work needs a target.** Vote–argue–vote ConcepTests stay: the argument
+  is aimed at convincing someone of an answer. Open-ended "compare notes with
+  your neighbour" does not work in this room — the cohort's backgrounds are too
+  uneven, so it becomes one student tutoring another and the retrieval that
+  needed practice is the one that does not happen. Use individual written work,
+  collected.
+- **Releasing a session is a written ritual, and half of it is a script.**
+  `python tools/preflight.py N --ps M` owns every mechanical precondition —
+  builds, stale PDFs, stale print copies, solution leaks in the public
+  notebook, links that do not resolve on `main`. It exits non-zero until
+  they all hold. [session-release-checklist](docs/session-release-checklist.md)
+  owns the half a script cannot do: Gradescope and bCourses. **A derivable
+  check belongs in `preflight.py`, never in the checklist** — a
+  hand-maintained list of derivable facts is wrong within a fortnight and
+  nothing about it looks wrong.
 - **Board work needs a printed script.** A segment labelled "board" is excluded
   from the slide-rate check, so it must earn that by having notes in
   `board-notes/` — every line to write, in order, with the questions to ask, the

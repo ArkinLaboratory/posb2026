@@ -72,9 +72,9 @@ execute the week's technique, not a weekend-consuming exercise.
 |---|---|---|---|---|
 | PS0 | Aug 27 | **Sep 2** | Environment check — *ungraded*. Due after the Sep 1 discussion hour, before Session 3 | [✅](../problem-sets/ps00-environment/) |
 | PS1 | Sep 3 | Sep 10 | Mass action, timescale separation, Michaelis–Menten, Hill | [✅](../problem-sets/ps01-modeling/) |
-| PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, promoter occupancy | ⬜ |
-| PS3 | Sep 17 | Sep 24 | Autoregulation, phase plane, stability | ⬜ |
-| PS4 | Sep 24 | Oct 1 | Bistability, the toggle, hysteresis | ⬜ |
+| PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, dilution vs degradation | ⬜ |
+| PS3 | Sep 17 | Sep 24 | Promoter occupancy, regulation functions, autoregulation | ⬜ |
+| PS4 | Sep 24 | Oct 1 | Phase plane, stability, bistability, the toggle | ⬜ |
 | PS5 | Oct 1 | Oct 8 | Feedforward loops, oscillation criteria | ⬜ |
 | PS6 | Oct 20 | Oct 29 | Stochastic simulation, digital abstraction, hazards, assembly | ⬜ |
 | PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden, FBA | ⬜ |

@@ -74,6 +74,59 @@ def resolve(spec, sessions):
             k = item.get("key", "<no key>")
             where = f"{key}/{k}"
 
+            # `preview_in` NAMES a paper early without assigning it. Adam,
+            # 7 September 2026: sessions 5-8 are four consecutive derivations
+            # and the synthetic biology in them supplies parameters rather than
+            # purpose. Saying "in three weeks you read Gardner, and everything
+            # today is why their switch works" costs one line and gives abstract
+            # machinery somewhere to be going. It is NOT an assignment, so it is
+            # not bound by max_days_notice and it creates no obligation.
+            previews = item.get("preview_in") or []
+            if isinstance(previews, str):
+                previews = [previews]
+            bad = []
+            for pv in previews:
+                try:
+                    pn = num(pv)
+                except ValueError as e:
+                    errors.append(f"{where}: preview_in {e}")
+                    bad.append(pv)
+                    continue
+                if pn not in sessions:
+                    errors.append(f"{where}: preview_in {pv} is not a session")
+                    bad.append(pv)
+                elif pn >= n:
+                    errors.append(
+                        f"{where}: preview_in {pv} is not BEFORE the session "
+                        f"that discusses it ({key}). A preview points forward.")
+                    bad.append(pv)
+            previews = [p for p in previews if p not in bad]
+
+            # A paper can be the subject of more than one meeting. Gardner is
+            # read before session 8 (so the phase-plane algebra is applied to a
+            # circuit the room has actually read) and taken apart again in
+            # session 9. `also_discussed_in` records the second meeting without
+            # duplicating the entry or re-assigning the paper.
+            agains = item.get("also_discussed_in") or []
+            if isinstance(agains, str):
+                agains = [agains]
+            keep = []
+            for ag in agains:
+                try:
+                    gn = num(ag)
+                except ValueError as e:
+                    errors.append(f"{where}: also_discussed_in {e}")
+                    continue
+                if gn not in sessions:
+                    errors.append(f"{where}: also_discussed_in {ag} is not a session")
+                elif gn <= n:
+                    errors.append(
+                        f"{where}: also_discussed_in {ag} must come AFTER the "
+                        f"session that first discusses it ({key}).")
+                else:
+                    keep.append(gn)
+            agains = keep
+
             if item.get("assign_in"):
                 try:
                     a = num(item["assign_in"])
@@ -124,6 +177,8 @@ def resolve(spec, sessions):
                               f"to read. 'Read the paper' is not an assignment.")
 
             rows.append({
+                "preview": [num(p) for p in previews],
+                "again": agains,
                 "discuss": n, "assign": a, "explicit": explicit,
                 "notice": notice, **item,
                 "required": item.get("required", True),

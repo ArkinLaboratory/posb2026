@@ -212,6 +212,132 @@ The laptop-versus-longhand finding everyone cites
 
 ---
 
+## 5b. Derivations live on slides, not on the board
+
+**Added 7 September 2026, after sessions 3 and 4 were built.** This section
+exists because a practice entered the course without ever being decided.
+
+### What happened
+
+Nothing above this line mentions a blackboard. The template was written without
+one. Sessions 3 and 4 nevertheless put **37 and 32 minutes** of derivation at the
+board — and they are the only two sessions that do. Sessions 1, 2 and 9 have
+none. The habit arrived with the two sessions carrying the hardest derivations
+in Part I, which is the worst possible place for an undecided practice to land.
+
+It cost student time. Sessions 1 and 2 give the room 38% and 46% of the period.
+Sessions 3 and 4 give 35% and 29%. **Session 4 has the lowest student-activity
+fraction in the course**, and it bought that with board minutes.
+
+### Why it has to stop for anything assessed
+
+PS1 Q3a assesses the QSSA validity condition. Before this change, the derivation
+of that condition existed in exactly two places: a blackboard that was erased,
+and `board-notes/s04-board-notes.md`, which is written in the instructor's stage
+directions — *ASK*, *CHECK*, *CUT if behind*. A student who missed the class, or
+who was present but a step behind, had the result on a slide and the argument
+nowhere they could read.
+
+`docs/coverage-matrix.md` says nothing is assessed that was not demonstrated
+first. An **ephemeral** demonstration satisfies that only for students who were
+in the room *and* took good notes in real time — which is precisely the filter
+§1's bimodal-cohort argument exists to remove. It falls hardest on the student
+who needs to read the elimination of a fast variable three times, which is the
+student the whole design is for.
+
+> **The rule.** The board carries nothing that is assessed. Every technique with
+> a T-number in the coverage matrix has a derivation that lives on slides.
+
+### Why a finished derivation on one slide is worse than chalk
+
+Do not read the rule as "paste the algebra onto a slide." A completed derivation
+shows the endpoint before the room has processed step one, and the reason
+blackboards work is not the medium — it is the **rate**. Chalk moves at roughly
+the speed at which a person can follow a manipulation they have not seen, and
+the student watches the argument being *made* rather than meeting it finished.
+
+So derivations are built as **step slides**: one slide per step, each identical
+to the last plus one line, the live line in full colour and the earlier ones
+dimmed. In the room it advances on the clicker at chalk speed. In the exported
+PDF each page is a step and the final page carries the whole argument, which is
+the artifact a revising student needs. `Deck.derivation()` in `decks/theme.py`
+emits the run from a single list of steps, so the near-duplicate slides cost
+nothing to author and one edit propagates through all of them. **This is only
+affordable because the decks are generated**; a hand-built deck could not carry
+six near-identical surfaces per derivation.
+
+`Deck.pacing()` excludes intermediate step slides from the slide-rate check — an
+earlier moment of the same surface is not another slide's worth of material.
+
+### What the board keeps
+
+A blackboard does one thing no deck can: it is **parallel and persistent**.
+Slides are serial. Session 4's K<sub>M</sub> and V<sub>max</sub> definitions sit
+on the left wing for forty minutes and ConcepTest 1 is unanswerable without them;
+no slide can hold that while other slides are showing. So the board keeps:
+
+- **The ledger** — the two or three results that must stay visible across the
+  whole period.
+- **Working a student's wrong answer**, which is unplannable by definition.
+- **Anything improvised** in response to the room.
+
+Board notes stay, and stay instructor-facing, but they now script the ledger and
+the responses rather than a derivation the slides do not carry.
+
+---
+
+## 5c. One in-class rhythm, not four
+
+**Also 7 September 2026.** Session 4 as first built ran four distinct student
+activity modes with four sets of conventions: a retrieval opener, vote–argue–vote
+ConcepTests, a written pause, and a faded handout set. A mixed-background room
+spends attention learning each format, and that attention is not spent on the
+content.
+
+### The rhythm
+
+> **Pose on a slide → 2–4 minutes on their own paper → poll the room → discuss.**
+
+Everything that was a "ConcepTest" and everything that was a "short class
+problem" is now this one shape. Students learn it once.
+
+**Nothing is collected.** An earlier draft of session 4 had students write
+answers on paper and hand them in for the instructor to read that evening. That
+was a mistake and it is worth recording why: the feedback went to the
+*instructor*, not to the student, who got nothing back until the next meeting and
+— because the slips were anonymous — never individually. A minute paper is an
+instrument for a hall too large to talk to. **This room is about 31 students.**
+Collecting slips from 31 people you could simply ask is the wrong tool.
+
+**The first vote is silent and eyes-down.** Public hands induce conformity, which
+is the specific failure vote–argue–vote exists to prevent; a show of hands before
+the argument has to be a private one.
+
+**Record the poll distribution.** That is the between-class signal the collected
+slips were really buying, and writing down "18 for B, 9 for A" after each vote
+costs nothing.
+
+### What this does NOT replace
+
+The **backward-faded worked-example set** stays exactly as §1 describes it. It is
+a different instrument for a different job — self-paced entry into a procedure,
+serving novice and expert from one handout — and it is the course's central
+pedagogical commitment. Three modes, not one: the rhythm above, the faded set,
+and the retrieval opener.
+
+### Where this is weakest
+
+Whether step slides are adequate for the highest element-interactivity content is
+untested. A phase plane — nullclines, fixed points, Jacobian, eigenvalues held
+together at once — is exactly where a parallel persistent surface may beat any
+serial one, and session 8 is where the cohort is thinnest (5 of 21 respondents
+had seen a phase portrait). **Session 8 is the deliberate test case**: built with
+slide-resident derivations, keeping one board segment for the ledger, with a
+student-facing derivation handout as the record. Revisit this section after it is
+taught.
+
+---
+
 ## 6. The template
 
 **80 minutes** (Berkeley time: a nominal 90-minute slot).
@@ -221,8 +347,8 @@ The laptop-versus-longhand finding everyone cites
 | **0–5** | **Retrieval opener** | 2–3 questions, notes closed. Two from last session, **one from ~3 sessions back**. Elaborative, not factual. | Testing effect **[A]**, spacing **[A]**, interleaving **[A]**. Placement **[C]** |
 | **5–8** | **Map + goals as questions** | Course map with today highlighted; three questions students cannot yet answer. | Signaling **[A]**; objectives-as-pretest **[B]**; map **[C]** |
 | **8–20** | **Generation** *(concept days only)* | A launch problem they cannot yet solve, in groups of 3–4, with **contrasting cases**. Collect solutions. **No feedback yet.** | PS-I *g* = 0.36; *g* = 1.03 for postgraduates **[A/B]** |
-| **20–48** | **Concept, in ~3 segments** | ~9 min each, each ending in a vote → discuss → revote. Reference student solutions **by name**. | Peer instruction **[A]**; segmenting **[B]**; PF consolidation fidelity **[A]** |
-| **48–50** | **Pause** | Two minutes, instructor silent: compare and revise notes with a neighbour. | Pause procedure **[B]** |
+| **20–48** | **Concept, in ~3 segments** | ~9 min each. Derivations as step-slide runs (§5b); each segment ends in the rhythm of §5c — pose, 2–4 min on paper, silent vote, discuss, revote. | Peer instruction **[A]**; segmenting **[B]**; PF consolidation fidelity **[A]** |
+| **48–50** | **Pause** | Two minutes, instructor silent, individual: revise your own notes. Not collected — see §5c. | Pause procedure **[B]** |
 | **50–72** | **Faded worked-example set** | 3–4 isomorphic problems on a skeletal handout, backward-faded. Subgoal labels throughout. Self-explanation prompt at each transition. Circulate. | Backward fading **[A]**; subgoal labels **[A]**; self-explanation **[A]** |
 | **72–78** | **Consolidation + retrieval** | Close the loop on the launch problem explicitly. Then two minutes: notes closed, write one-sentence answers to the three opening questions. | PF consolidation **[A]**; second retrieval **[A]** |
 | **78–80** | **Forward link** | One slide: today's result as a *constraint* on next session's problem, posed as a question. | Prequestion **[B]**, with a null result; the ritual **[C]** |

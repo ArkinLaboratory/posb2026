@@ -61,12 +61,14 @@ def _pair(e_tot, t_end):
     kw = dict(t_eval=t, rtol=1e-10, atol=1e-12, method="LSODA")
     full = solve_ivp(_full, (0, t_end), [e_tot, S0, 0.0, 0.0], **kw)
     red = solve_ivp(_reduced, (0, t_end), [S0, 0.0], args=(e_tot,), **kw)
-    return t, full.y[3], red.y[1]
+    # full.y[2] is [ES] -- the substrate the reduced model has no variable for.
+    # That is the mechanism of the failure, so the figure reports it.
+    return t, full.y[3], red.y[1], full.y[2]
 
 
 def qssa_error(e_tot, t_end):
     """max |P_full - P_reduced| / S0 -- the metric PS1 Q3c asks students to write."""
-    _, pf, pr = _pair(e_tot, t_end)
+    _, pf, pr, _es = _pair(e_tot, t_end)
     return float(np.max(np.abs(pf - pr)) / S0)
 
 
@@ -93,13 +95,13 @@ def fig_qssa_regimes():
     nothing about the enzyme changed, the reduction is algebraically identical,
     and it is wrong by fifteen per cent of the substrate.
     """
-    fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.0))
+    fig, axes = plt.subplots(1, 2, figsize=(13.0, 4.6))
 
     for ax, (e_tot, tag) in zip(axes, [
             (0.001, "E$_{tot}$ = 0.001"),
             (1.000, "E$_{tot}$ = 1.0")]):
         T = tau(e_tot)
-        t, pf, pr = _pair(e_tot, 12.0 * T)
+        t, pf, pr, es = _pair(e_tot, 12.0 * T)
         ax.plot(t / T, pf, color=TEAL, lw=2.4, label="full, four species")
         ax.plot(t / T, pr, color=AMBER, lw=2.0, ls="--", label="Michaelis–Menten")
 
@@ -110,15 +112,19 @@ def fig_qssa_regimes():
         ax.set_ylim(-0.03, 1.12)
         ax.set_xlim(0, 12)
         ax.set_title(f"{tag}    E$_{{tot}}$/(K$_M$+S$_0$) = {ratio:.3g}",
-                     color=INK, fontsize=12)
-        ax.text(0.5, 0.965, f"max error over the whole reaction: {err:.1e}",
-                transform=ax.transAxes, ha="center", va="top", fontsize=10.5,
-                color=RED if err > 0.01 else MUTED,
-                fontweight="bold" if err > 0.01 else "normal")
-        ax.legend(loc="lower right", fontsize=9.5)
+                     color=INK, fontsize=15)
+        # Percentages, not 1.5e-01; and good/bad carried by weight and a
+        # box rather than by red-vs-grey alone.
+        held = np.max(es) / S0
+        ax.text(0.5, 0.985, f"peak substrate held in ES: {held*100:.1f}%       "
+                            f"max error: {err*100:.2f}%",
+                transform=ax.transAxes, ha="center", va="top", fontsize=14,
+                color=INK, fontweight="bold" if err > 0.01 else "normal",
+                bbox=dict(boxstyle="round,pad=0.35",
+                          facecolor="#FDF0E4" if err > 0.01 else "#EEF3F1",
+                          edgecolor=AMBER if err > 0.01 else RULE))
+        ax.legend(loc="lower right")
 
-    fig.suptitle("Same reduction, same enzyme, same clock. Only the enzyme "
-                 "CONCENTRATION changed.", color=INK, fontsize=12.5, y=1.02)
     fig.tight_layout()
     fig.savefig(f"{OUT}/s04_qssa_regimes.png")
     plt.close(fig)
@@ -141,26 +147,26 @@ def fig_qssa_error():
         ratios.append(e_tot / (KM + S0))
         errs.append(qssa_error(e_tot, t_end))
 
-    fig, ax = plt.subplots(figsize=(7.4, 4.0))
+    fig, ax = plt.subplots(figsize=(11.5, 4.6))
     ax.loglog(ratios, errs, "o-", color=TEAL, lw=2.0, ms=5,
               label="measured  max|ΔP|/S$_0$")
     ref = np.array(ratios)
     ax.loglog(ref, errs[0] * ref / ref[0], color=MUTED, lw=1.2, ls=":",
               label="slope 1")
     ax.axhline(0.01, color=RULE, lw=1.0)
-    ax.text(ratios[0] * 1.2, 0.0115, "1% error", fontsize=9.5, color=MUTED)
+    ax.text(ratios[0] * 1.2, 0.0125, "1% error", fontsize=14, color=INK,
+            fontweight="bold")
 
     for e_tot, lab in [(0.001, "PS1: E$_{tot}$ = 0.001"), (1.0, "PS1: E$_{tot}$ = 1.0")]:
         r = e_tot / (KM + S0)
         e = qssa_error(e_tot, 30.0 * (KM + S0) / (VMAX_PER_E * e_tot))
         ax.plot([r], [e], "o", color=AMBER, ms=10, zorder=5)
         ax.annotate(lab, (r, e), textcoords="offset points", xytext=(8, -12),
-                    fontsize=9.5, color=AMBER, fontweight="bold")
+                    fontsize=13, color=INK, fontweight="bold")
 
-    ax.set_xlabel(r"$E_{tot} / (K_M + S_0)$   —  the group that controls it")
+    ax.set_xlabel(r"$E_{tot} / (K_M + S_0)$")
     ax.set_ylabel("relative error in [P]")
-    ax.set_title("The QSSA fails on a ratio, not on a species", color=INK)
-    ax.legend(loc="upper left", fontsize=9.5)
+    ax.legend(loc="upper left")
     fig.tight_layout()
     fig.savefig(f"{OUT}/s04_qssa_error.png")
     plt.close(fig)
@@ -179,10 +185,12 @@ def fig_hill_family():
     the only thing n means.
     """
     x = np.geomspace(1e-2, 1e2, 600)
-    fig, ax = plt.subplots(figsize=(7.6, 4.2))
+    fig, ax = plt.subplots(figsize=(11.5, 4.8))
 
-    for n, c in zip([1, 2, 4, 8], [MUTED, CYAN, TEAL, INK]):
-        ax.semilogx(x, hill(x, 1.0, n), color=c, lw=2.2, label=f"n = {n}")
+    for n, (c, ls) in zip([1, 2, 4, 8],
+                          [(MUTED, ":"), (CYAN, "-"), (AMBER, "--"), (INK, "-")]):
+        ax.semilogx(x, hill(x, 1.0, n), color=c, lw=2.8, ls=ls,
+                    label=f"n = {n}")
         x10, x90 = (1 / 9) ** (1 / n), 9 ** (1 / n)
         ax.plot([x10, x90], [0.1, 0.9], "o", color=c, ms=4.5)
 
@@ -191,12 +199,11 @@ def fig_hill_family():
     ax.set_xlabel("[X] / K")
     ax.set_ylabel("bound fraction")
     ax.set_ylim(-0.03, 1.03)
-    ax.set_title("Same half-point, four different sensitivities", color=INK)
-    ax.legend(loc="upper left", fontsize=10)
+    ax.legend(loc="upper left")
 
-    rows = "\n".join(f"n = {n}:  {81 ** (1 / n):5.2f}×" for n in (1, 2, 4, 8))
+    rows = "\n".join(f"n = {n}:  {81 ** (1 / n):.3g}\u00d7" for n in (1, 2, 4, 8))
     ax.text(0.985, 0.06, "fold-change in [X],\n10% → 90%\n\n" + rows,
-            transform=ax.transAxes, ha="right", va="bottom", fontsize=9.5,
+            transform=ax.transAxes, ha="right", va="bottom", fontsize=13,
             color=INK, family="monospace",
             bbox=dict(boxstyle="round,pad=0.45", facecolor="white",
                       edgecolor=RULE))
@@ -220,28 +227,21 @@ def fig_independent_sites():
     Z = 1 + 2 * w + w ** 2
     occupancy = (2 * w + 2 * w ** 2) / (2 * Z)      # mean sites bound / 2
 
-    fig, ax = plt.subplots(figsize=(7.6, 4.2))
-    ax.semilogx(x, occupancy, color=TEAL, lw=3.0,
-                label="two INDEPENDENT sites, exact")
-    ax.semilogx(x, hill(x, kd, 1), color=AMBER, lw=1.6, ls="--",
-                label="Hill, n = 1")
-    ax.semilogx(x, hill(x, kd, 2), color=RED, lw=1.8, ls=":",
-                label="Hill, n = 2 — what 'two sites' would predict")
+    fig, ax = plt.subplots(figsize=(11.5, 4.8))
+    # Coincidence must read as CONTAINMENT, not as two similar hues -- a
+    # deuteranope cannot separate the old amber from the old red.
+    ax.semilogx(x, occupancy, color=CYAN, lw=12.0, alpha=0.5,
+                solid_capstyle="round", label="two independent sites, exact")
+    ax.semilogx(x, hill(x, kd, 1), color=INK, lw=2.2,
+                label="Hill, n = 1  \u2014 lies inside it")
+    ax.semilogx(x, hill(x, kd, 2), color=INK, lw=2.2, ls=(0, (8, 5)), alpha=0.5,
+                label="Hill, n = 2  \u2014 what \"two sites\" would predict")
     ax.set_xlabel("[X] / K$_d$")
     ax.set_ylabel("fractional occupancy")
     ax.set_ylim(-0.03, 1.03)
     # NOT "two sites, no cooperativity, n = 1" -- that is the slide's title, and
     # a figure that repeats its slide's title wastes the only line it has.
-    ax.set_title("The square cancels, and the site count disappears with it",
-                 color=INK)
-    ax.legend(loc="upper left", fontsize=9.5)
-    ax.text(0.985, 0.06,
-            "Z = 1 + 2w + w²  = (1 + w)²,   w = [X]/K$_d$\n"
-            "occupancy = w(1+w)/(1+w)² = w/(1+w)",
-            transform=ax.transAxes, ha="right", va="bottom", fontsize=10,
-            color=INK,
-            bbox=dict(boxstyle="round,pad=0.45", facecolor="white",
-                      edgecolor=RULE))
+    ax.legend(loc="upper left")
     fig.tight_layout()
     fig.savefig(f"{OUT}/s04_independent_sites.png")
     plt.close(fig)

@@ -28,14 +28,14 @@
 | T10 | Response time; *t*₁⁄₂ = ln2/(γ+μ) | S5 (Sep 10) | PS2, Mid | AUTO |
 | T11 | Dilution vs. degradation; effect of degradation tags on circuit speed | S5 | PS2 | MIX |
 | T12 | Steady-state expression level from production/removal balance | S5 | PS2 | AUTO |
-| T13 | Promoter occupancy from statistical thermodynamics (partition function) | S6 (Sep 15) | PS2, Mid | HAND |
-| T14 | **Derive** activator, repressor, and AND-like regulation functions | S6 | PS2, Mid | HAND |
+| T13 | Promoter occupancy from statistical thermodynamics (partition function) | S6 (Sep 15) | PS3, Mid | HAND |
+| T14 | **Derive** activator, repressor, and AND-like regulation functions | S6 | PS3, Mid | HAND |
 | T15 | **Derive** the negative-autoregulation speed-up | S7 (Sep 17) | PS3, Mid | HAND |
 | T16 | Positive autoregulation → graphical bistability condition | S7 | PS3 | MIX |
 | T17 | Variance reduction under NAR (scaling argument) | S7 | PS3 | HAND |
-| T18 | Compute and plot nullclines for a 2-D system | S8 (Sep 22) | PS3, Mid | MIX |
-| T19 | Find fixed points — analytically and by numerical root-finding | S8 | PS3, PS4, Mid | AUTO |
-| T20 | Jacobian, eigenvalues, linear stability classification | S8 | PS3, PS4, Mid | AUTO |
+| T18 | Compute and plot nullclines for a 2-D system | S8 (Sep 22) | PS4, Mid | MIX |
+| T19 | Find fixed points — analytically and by numerical root-finding | S8 | PS4, Mid | AUTO |
+| T20 | Jacobian, eigenvalues, linear stability classification | S8 | PS4, Mid | AUTO |
 | T21 | Toggle-switch fixed points for *n* = 4 and *n* = 1 | S9 (Sep 24) | PS4, Mid | AUTO |
 | T22 | Bifurcation diagram; hysteresis loop | S9 | PS4, Mid | AUTO |
 | T23 | Identify a saddle-node bifurcation and say what destroys bistability | S9 | PS4 | HAND |

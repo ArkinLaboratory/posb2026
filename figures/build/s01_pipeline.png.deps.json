@@ -1,10 +1,10 @@
 {
   "artifact": "s01_pipeline.png",
-  "artifact_sha256": "fdff40237709f073f43f585399ebb8abeaeb6c6b88316080b4473a5b557d0b71",
-  "artifact_bytes": 97982,
+  "artifact_sha256": "64c61f0bdda550011edb187f913fe90461fa965da5a1da5692c7e94feaa70bff",
+  "artifact_bytes": 99281,
   "deps": {
     "figures/s01_specification.py": "353f38f47b94a52505df5e11bf4f1385478591d1bb2871c21cef0997a3bf0782",
-    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s01_specification.fig_pipeline"
 }

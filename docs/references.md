@@ -125,6 +125,26 @@ See [CITATION.cff](../CITATION.cff), or:
 Papers the lectures argue from or take numbers from, beyond the assigned
 readings in [Readings](readings.md).
 
+### Session 5 — gene expression dynamics
+
+**Elowitz, M. B. & Leibler, S.** A synthetic oscillatory network of
+transcriptional regulators. *Nature* **403**, 335–338 (2000).
+[doi:10.1038/35002125](https://doi.org/10.1038/35002125)
+
+> The repressilator: three repressors in a ring, each repressing the next. It
+> is in session 5 for one reason — the repressors carry ssrA degradation tags,
+> the same trick as the session's reading, and the circuit is a demonstration of
+> why a removal rate is a design parameter rather than a nuisance. Session 11
+> analyses it properly.
+>
+> The **network** is redrawn in our own notation
+> (`figures/s05_expression.py`, `fig_repressilator_ring`) with the tags called
+> out, which the paper's own figure does not emphasise because it was not the
+> paper's point. The **data** panel is reproduced from the paper under
+> `paper_figure("elowitz2000_fig2")` and is cited on the slide.
+
+---
+
 ### Session 2 — the cell as a physical substrate
 
 **Elowitz, M. B., Surette, M. G., Wolf, P. E., Stock, J. B. & Leibler, S.**

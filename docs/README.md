@@ -18,5 +18,6 @@
 | **[Figures, Demos, and Decks](figures-and-decks.md)** | Where visual material comes from, and the licensing line on paper figures. |
 | **[How to Make a Course](making-a-course.md)** | **Start here.** The whole thing in order: the four decisions, the repository, compute, the site, grading, the weekly loop, verification. Everything else is reference. |
 | **[Course Site Runbook](course-site-runbook.md)** | Building the bCourses site: module structure, which item type for what, and the six places Canvas does something other than what you expect. |
+| **[Releasing a session](session-release-checklist.md) — the per-class ritual: build, preflight, push, Gradescope, bCourses.
 | **[Instructor Setup](instructor-setup.md)** | Runbook: accounts, DataHub, Gradescope, the weekly loop, onboarding a reader. |
 | **[For Instructors](for-instructors.md)** | Adapting the material; how the build and CI work. |

@@ -18,7 +18,7 @@ step follow?**, answer in writing before going on.
 <table>
 <tr><th>Notation</th><td>$x = [\mathrm{X}]$, the free transcription factor</td>
     <th>Site</th><td>$\mathrm{P}$ = empty promoter, $\mathrm{PX}$ = bound</td></tr>
-<tr><th>Dissociation constant</th><td>$K_d = [\mathrm{P}][\mathrm{X}]/[\mathrm{PX}]$ — *large* $K_d$ means *weak* binding</td>
+<tr><th>Dissociation constant</th><td>$K_d = [\mathrm{P}][\mathrm{X}]/[\mathrm{PX}]$ — <em>large</em> $K_d$ means <em>weak</em> binding</td>
     <th>Assume</th><td>binding equilibrates far faster than transcription</td></tr>
 </table>
 

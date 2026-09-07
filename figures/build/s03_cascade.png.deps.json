@@ -1,10 +1,10 @@
 {
   "artifact": "s03_cascade.png",
-  "artifact_sha256": "b30e87da8388bdeeeb301fa12a7bba39102c15db26852f7765b1af59b606925e",
-  "artifact_bytes": 95183,
+  "artifact_sha256": "420d469316291b7c9a687fc5c1de26613e51389e6ee5a36de82e3da5f0472b36",
+  "artifact_bytes": 101617,
   "deps": {
     "figures/s03_modeling_i.py": "ab2f123a42097816f883d4f44e99a13b2d9b7908f30790e29c798c3bb634366d",
-    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s03_modeling_i.fig_cascade"
 }

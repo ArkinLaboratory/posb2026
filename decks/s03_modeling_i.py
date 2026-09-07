@@ -301,7 +301,7 @@ def build():
             d.text(s, val, M + 0.25 + (j + 1) * 1.5, y, 1.5, 0.3, size=15,
                    font=TEXT, bold=True,
                    color=TEAL if val.startswith("+") else AMBER, align="c")
-    d.text(s, "Sᵢⱼ  =  net molecules of species i made by reaction j",
+    d.text(s, "S_{i}_{j}  =  net molecules of species i made by reaction j",
            M, 4.4, 6.0, 0.3, size=12, italic=True, color=MUTED)
     d.text(s, "dx/dt  =  S v(x)", M + 5.4, 2.5, 7.0, 0.7, size=32, font=HEAD,
            bold=True, color=INK)
@@ -333,7 +333,7 @@ def build():
     d.title(s, "Two null spaces, and what each one is for")
     for i, (side, algebra, means, dim, c) in enumerate([
             ("LEFT null space",
-             "wᵀS = 0   ⟹   d(wᵀx)/dt = wᵀS v = 0,  whatever v is",
+             "w^{T}S = 0   ⇒   d(w^{T}x)/dt = w^{T}S v = 0,  whatever v is",
              "conserved quantities", "dim  =  n − rank S", TEAL),
             ("RIGHT null space",
              "S v = 0   with v ≠ 0",
@@ -519,7 +519,7 @@ def build():
     d.title(s, "Four reactions, two species, one prediction first")
     d.shape(s, S.ROUNDED_RECTANGLE, M, 1.75, 12.5, 0.95, fill=WASH, line=TEAL,
             lw=1.5)
-    d.text(s, "∅ →(α) m        m →(γₘ) ∅        m →(kₚ) m + p        p →(γₚ) ∅",
+    d.text(s, "∅ →(α) m        m →(γ_{m}) ∅        m →(k_{p}) m + p        p →(γ_{p}) ∅",
            M + 0.3, 2.0, 11.9, 0.45, size=18, font=TEXT, bold=True, color=INK)
     for i, (n, k, txt, c) in enumerate([
             ("1", "On paper, before anything runs",
@@ -527,7 +527,7 @@ def build():
             ("2", "Then simulate",
              "Build the model, integrate, and compare. If the two disagree, one of them is wrong and you now have thirty seconds of work to find out which.", CYAN),
             ("3", "Then E1",
-             "Change α to 20 and predict before running. Then γₚ to 0.1. One sentence: which parameters set the level, and which set the speed?", AMBER)]):
+             "Change α to 20 and predict before running. Then γ_{p} to 0.1. One sentence: which parameters set the level, and which set the speed?", AMBER)]):
         y = 3.0 + i * 1.05
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 0.85, fill=c, line=None)
         d.text(s, n, M, y + 0.24, 0.5, 0.35, size=17, bold=True, color=WHITE,
@@ -559,9 +559,9 @@ def build():
     d.shape(s, S.ROUNDED_RECTANGLE, M, 1.75, 12.5, 1.72, fill=WASH, line=TEAL,
             lw=1.5)
     for i, (line, why) in enumerate([
-            ("dm/dt  =  α − γₘ m  =  0        ⟹        m*  =  α / γₘ",
+            ("dm/dt  =  α − γ_{m} m  =  0        ⇒        m*  =  α / γ_{m}",
              "the mRNA does not know the protein exists"),
-            ("dp/dt  =  kₚ m* − γₚ p  =  0    ⟹        p*  =  kₚ α / (γₘ γₚ)",
+            ("dp/dt  =  k_{p} m* − γ_{p} p  =  0    ⇒        p*  =  k_{p} α / (γ_{m} γ_{p})",
              "so the cascade solves top-down, one line at a time")]):
         y = 1.92 + i * 0.72
         d.text(s, line, M + 0.3, y, 8.4, 0.4, size=15.5, font=TEXT, bold=True,
@@ -570,7 +570,7 @@ def build():
                color=MUTED)
     d.shape(s, S.ROUNDED_RECTANGLE, M + 8.9, 1.92, 3.6, 1.42, fill=CARD,
             line=TEAL, lw=1)
-    d.text(s, "α = 10   γₘ = 0.5   kₚ = 4   γₚ = 0.05",
+    d.text(s, "α = 10   γ_{m} = 0.5   k_{p} = 4   γ_{p} = 0.05",
            M + 9.05, 2.02, 3.4, 0.3, size=11.5, font=TEXT, color=MUTED)
     d.text(s, "m* = 20        p* = 1600", M + 9.05, 2.44, 3.4, 0.45, size=17,
            font=TEXT, bold=True, color=TEAL)
@@ -578,7 +578,7 @@ def build():
            italic=True, color=MUTED)
     for i, (k, txt) in enumerate([
             ("All four set the level.  One sets the speed.",
-             "Every parameter appears in p*, so all four move it. But the protein approaches p* exponentially with time constant 1/γₚ, and γₚ is the only one in that expression — which means the one knob that changes the speed also changes the level. ConcepTest 2 is about that collision."),
+             "Every parameter appears in p*, so all four move it. But the protein approaches p* exponentially with time constant 1/γ_{p}, and γ_{p} is the only one in that expression — which means the one knob that changes the speed also changes the level. ConcepTest 2 is about that collision."),
             ("A simulation you cannot check is not evidence",
              "You had both numbers before you ran anything. If the plot had disagreed, one of the two was wrong and you would have known within a minute which — that is the entire reason for predicting first.")]):
         y = 3.75 + i * 1.25
@@ -604,26 +604,26 @@ def build():
     d.shape(s, S.ROUNDED_RECTANGLE, M, 1.7, 12.5, 2.55, fill=WASH, line=TEAL,
             lw=1.5)
     for i, (line, why) in enumerate([
-            ("m(t)  =  m* (1 − e^(−γₘ t))",
+            ("m(t)  =  m* (1 − e^(−γ_{m} t))",
              "first-order linear, one variable — integrate it directly"),
-            ("dp/dt + γₚ p  =  kₚ m(t)",
+            ("dp/dt + γ_{p} p  =  k_{p} m(t)",
              "now p is forced by a known function of time"),
-            ("multiply by e^(γₚ t):     d/dt [ p e^(γₚ t) ]  =  kₚ m(t) e^(γₚ t)",
+            ("multiply by e^(γ_{p} t):     d/dt [ p e^(γ_{p} t) ]  =  k_{p} m(t) e^(γ_{p} t)",
              "the integrating factor — the whole trick, and it is the same trick every time"),
-            ("p(t)  =  p* [ 1  −  ( γₘ e^(−γₚ t) − γₚ e^(−γₘ t) ) / (γₘ − γₚ) ]",
+            ("p(t)  =  p* [ 1  −  ( γ_{m} e^(−γ_{p} t) − γ_{p} e^(−γ_{m} t) ) / (γ_{m} − γ_{p}) ]",
              "check it: zero at t = 0, and p* as t → ∞")]):
         y = 1.85 + i * 0.6
         d.text(s, line, M + 0.3, y, 11.8, 0.35, size=15, font=TEXT, bold=True,
                color=INK)
         d.text(s, why, M + 0.35, y + 0.32, 11.6, 0.28, size=11, italic=True,
                color=MUTED)
-    d.text(s, "Two exponentials, not one. The protein does not simply relax at rate γₚ — it also carries the mRNA's rise, and the difference between those two facts is what session 4 is about.",
+    d.text(s, "Two exponentials, not one. The protein does not simply relax at rate γ_{p} — it also carries the mRNA's rise, and the difference between those two facts is what session 4 is about.",
            M, 4.45, 12.5, 0.5, size=16, font=HEAD, bold=True, color=AMBER)
     for i, (k, txt) in enumerate([
             ("Why bother, when the computer will do it",
              "Because in twenty minutes we are going to approximate this, and an approximation with nothing to compare against is a hope. You cannot compute the error of a method if you do not have the answer."),
             ("And because it degenerates",
-             "Put γₘ = γₚ and the expression divides by zero. The limit exists — it is p*(1 − (1 + γt)e^(−γt)) — and the fact that the algebra flinches exactly where the two timescales coincide is not a coincidence.")]):
+             "Put γ_{m} = γ_{p} and the expression divides by zero. The limit exists — it is p*(1 − (1 + γt)e^(−γt)) — and the fact that the algebra flinches exactly where the two timescales coincide is not a coincidence.")]):
         y = 5.08 + i * 0.72
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 0.6, fill=CYAN, line=None)
         d.text(s, k, M + 0.35, y, 4.0, 0.55, size=12.5, font=HEAD, bold=True,
@@ -650,7 +650,7 @@ def build():
     d.header(s, "67 – 70 min", "What the numbers look like")
     d.title(s, "Same system, two clocks")
     d.image(s, "figures/build/s03_cascade.png", M, 1.62, 12.5, 3.45)
-    d.text(s, "You now have this curve exactly. So: what would you have lost by deleting the mRNA equation and writing m = α/γₘ?",
+    d.text(s, "You now have this curve exactly. So: what would you have lost by deleting the mRNA equation and writing m = α/γ_{m}?",
            M, 5.22, 12.5, 0.62, size=18, font=HEAD, bold=True, color=AMBER)
     d.text(s, "Guess a percentage before the next slide. Write it down — you will be able to check it.",
            M, 5.86, 12.5, 0.4, size=14, italic=True, color=MUTED)
@@ -678,7 +678,7 @@ def build():
             lw=1.5)
     d.text(s, "Scale everything by the answer:", M + 0.25, 1.8, 5.4, 0.3,
            size=12, italic=True, color=MUTED)
-    d.text(s, "τ = γₚ t         μ = m / m*         π = p / p*",
+    d.text(s, "τ = γ_{p} t         μ = m / m*         π = p / p*",
            M + 0.25, 2.14, 5.4, 0.4, size=15, font=TEXT, bold=True, color=INK)
     d.text(s, "no units left anywhere — τ counts protein lifetimes",
            M + 0.25, 2.62, 5.4, 0.3, size=11, italic=True, color=MUTED)
@@ -688,13 +688,13 @@ def build():
            font=TEXT, bold=True, color=INK)
     d.text(s, "dπ/dτ  =  μ − π", M + 6.6, 2.30, 5.6, 0.4, size=16, font=TEXT,
            bold=True, color=INK)
-    d.text(s, "ε  =  γₚ / γₘ   —   the only parameter left",
+    d.text(s, "ε  =  γ_{p} / γ_{m}   —   the only parameter left",
            M + 6.6, 2.76, 5.6, 0.3, size=12, bold=True, color=AMBER)
     for i, (k, txt) in enumerate([
-            ("α, kₚ, γₘ, γₚ  →  ε",
+            ("α, k_{p}, γ_{m}, γ_{p}  →  ε",
              "Four numbers you would have to measure become one ratio. Every cascade with the same ε has the same shape; the other three parameters only set the axes. That is not tidying up — it is a statement about which experiments could distinguish two systems."),
             ("ε is small when the mRNA is fast",
-             "Our cascade: γₚ/γₘ = 0.05/0.5 = 0.1. Bacterial mRNAs turn over in minutes and proteins are removed by dilution, so ε ≈ 0.05–0.2 is the normal situation and not a special case."),
+             "Our cascade: γ_{p}/γ_{m} = 0.05/0.5 = 0.1. Bacterial mRNAs turn over in minutes and proteins are removed by dilution, so ε ≈ 0.05–0.2 is the normal situation and not a special case."),
             ("Setting ε = 0 is the approximation",
              "Put ε = 0 in the first equation and it says μ = 1 instantly — the mRNA is always at steady state. That is the quasi-steady-state approximation, and it now has a small parameter attached to it rather than a hand wave.")]):
         y = 3.42 + i * 1.05
@@ -750,7 +750,7 @@ def build():
     # 13 CONCEPTEST 2 ---------------------------------------------------------
     s = d.dark()
     d.header(s, "77 – 80 min", "ConcepTest  ·  vote  ·  argue  ·  vote again")
-    d.title(s, "You double γₚ. What happens?")
+    d.title(s, "You double γ_{p}. What happens?")
     for i, (lab, txt) in enumerate([
             ("A", "p* halves, and it gets there twice as fast"),
             ("B", "p* halves, and the time to reach it is unchanged"),

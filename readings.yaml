@@ -100,6 +100,8 @@ readings:
       url: "https://doi.org/10.1128/AEM.64.6.2240-2246.1998"
       pages: 7
       required: true
+      slide_focus: >-
+        Figure 3A. Four peptide tags, four measured half-lives.
       focus: >-
         Figure 3A -- the semi-log decay of each Gfp variant after the medium
         downshift, and the half-lives it gives: about 40 minutes for the LAA and
@@ -160,8 +162,17 @@ readings:
         curve the session produces at the board. It is also the cleanest example
         in the course of a design principle being measured rather than argued.
 
-  s09:
+  # Moved from s09 to s08 on 7 September 2026. Session 8 is the phase plane,
+  # and its running example IS this toggle -- so the room should have read the
+  # paper BEFORE the algebra, not after it. That turns "a two-gene system" into
+  # "the circuit in the paper", which is the single cheapest fix available for
+  # sessions 5-8 reading as pure mathematics. Session 9 takes it apart again.
+  s08:
     - key: gardner2000
+      also_discussed_in: [s09]
+      # Named from session 5 onward: four consecutive derivations need a
+      # visible destination, and this is the built thing they are derivations of.
+      preview_in: [s05, s06, s07]
       cite: "Gardner, T. S., Cantor, C. R. & Collins, J. J. Construction of a genetic toggle switch in Escherichia coli. Nature 403, 339-342 (2000)."
       short: "Gardner, Cantor & Collins, Nature 2000"
       doi: "10.1038/35002131"

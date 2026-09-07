@@ -23,12 +23,12 @@ error bar that comes with it.
 | 5–8 | Map + goals as questions | |
 | 8–14 | The small parameter, at the board | ε from session 3, and what ε → 0 actually *claims* |
 | 14–26 | **Michaelis–Menten**, derived | Four named steps: QSSA on [ES], enzyme conservation, eliminate [E], the rate |
-| 26–30 | The real validity condition | E<sub>tot</sub> ≪ K<sub>M</sub> + S₀ — and *not* E ≪ S |
-| 30–34 | Where that group comes from | Two clocks, at the board |
+| 26–30 | **Where the substrate goes**, at the board | [ES] ≤ E<sub>tot</sub>S₀/(K<sub>M</sub>+S₀); demand it be negligible against S₀ |
+| 30–34 | That group, named as the condition | E<sub>tot</sub> ≪ K<sub>M</sub> + S₀ — the usual E ≪ S is the case S₀ ≫ K<sub>M</sub> |
 | 34–38 | **ConcepTest 1** | You double E<sub>tot</sub>. What happens to K<sub>M</sub>? |
 | 38–42 | The two regimes | [regimes](../../figures/build/s04_qssa_regimes.png) |
 | 42–46 | The error is one ratio | [slope 1, four decades](../../figures/build/s04_qssa_error.png) |
-| 46–48 | **The pause** | Two minutes. Say nothing. Then hand out the paper. |
+| 46–48 | **The pause** | Two minutes, written, on an index card. Collected. Then hand out the paper. |
 | 48–58 | **Faded set, items 1–2 only** | Ten minutes. [PDF](../../handouts/s04-regulation-functions.pdf) · [source](../../handouts/s04-regulation-functions.md) |
 | 58–62 | The answers | And the one that is not K<sub>d</sub> |
 | 62–67 | Sensitivity | [Hill family](../../figures/build/s04_hill_family.png) — 81<sup>1/n</sup> |

@@ -176,9 +176,9 @@ Nine sets, roughly weekly, **2–4 problems each**. These are deliberately short
 |---|---|---|---|
 | PS0 | Aug 27 | **Sep 2** | Environment check — **ungraded** |
 | PS1 | Sep 3 | Sep 10 | Mass action, timescale separation, Michaelis–Menten, Hill |
-| PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, promoter occupancy |
-| PS3 | Sep 17 | Sep 24 | Autoregulation, phase plane, stability |
-| PS4 | Sep 24 | Oct 1 | Bistability, the toggle, hysteresis |
+| PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, dilution vs degradation |
+| PS3 | Sep 17 | Sep 24 | Promoter occupancy, regulation functions, autoregulation |
+| PS4 | Sep 24 | Oct 1 | Phase plane, stability, bistability, the toggle |
 | PS5 | Oct 1 | Oct 8 | Feedforward loops, oscillation criteria |
 | — | — | — | *Midterm Oct 15 — no set* |
 | PS6 | Oct 20 | Oct 29 | Digital abstraction, signal matching, hazards, assembly design |

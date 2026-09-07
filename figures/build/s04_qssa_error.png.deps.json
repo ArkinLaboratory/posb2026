@@ -1,10 +1,10 @@
 {
   "artifact": "s04_qssa_error.png",
-  "artifact_sha256": "758daa658b62beb3201ebee58fc301ecd5e8aa1a3f4448d0d4c6ee980d29bafa",
-  "artifact_bytes": 74014,
+  "artifact_sha256": "5b893431af9462640c5567837fc1509261068a0faa3fc5447a67fd440442d0ac",
+  "artifact_bytes": 84416,
   "deps": {
-    "figures/s04_modeling_ii.py": "fe60e94ba2646ae49ba5ded8e579550431e464cab2554ecbe70b1ad7ea634f6c",
-    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+    "figures/s04_modeling_ii.py": "c43f0284621a620d5ece88b24d65c534c79eadf8005a8fd57ddd1cc9e33d9847",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s04_modeling_ii.fig_qssa_error"
 }

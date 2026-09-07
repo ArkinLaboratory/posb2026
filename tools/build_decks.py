@@ -45,7 +45,8 @@ sys.path.insert(0, str(ROOT))
 from tools import manifest                                  # noqa: E402
 
 DECKS = ["s01_specification", "s02_substrate", "s03_modeling_i",
-         "s04_modeling_ii", "s09_bistability"]
+         "s04_modeling_ii", "s05_expression", "s08_phase_plane",
+         "s09_bistability"]
 OUT = ROOT / "private" / "build" / "decks"
 
 # Inputs every deck depends on regardless of what it happens to draw. The
@@ -116,6 +117,7 @@ def main():
     unassigned = 0
     thin_total = 0
     long_total = 0
+    glyph_total = 0
     for name in names:
         mod = importlib.import_module(f"decks.{name}")
         deck = mod.build()
@@ -169,6 +171,32 @@ def main():
             # a rule the build knew about and never mentioned. `.get` because
             # the field arrived in a parallel session and an older theme.py
             # would otherwise KeyError every deck build.
+            # A glyph Calibri does not carry draws as an empty box in
+            # PowerPoint and as nothing at all through LibreOffice's PDF
+            # export. Session 4 shipped with every K_M, E_tot and V_max
+            # invisible on the projector and the build said it was fine.
+            bad = sm.get("bad_glyphs") or []
+            if bad:
+                glyph_total += len(bad)
+                seen = {}
+                for ch, fix, ctx in bad:
+                    seen.setdefault((ch, fix), ctx)
+                print(f"  !! {len(bad)} character(s) with no glyph in "
+                      f"Calibri/Cambria -- these render as blanks:")
+                for (ch, fix), ctx in seen.items():
+                    print(f"     U+{ord(ch):04X}  use {fix:<8} in: {ctx}")
+
+            sparse = sm.get("sparse") or []
+            if sparse:
+                cap = sm.get("max_min_per_step", "?")
+                print(f"  !! {len(sparse)} derivation run(s) with too few steps "
+                      f"for the time -- past {cap} min on one step the reveal "
+                      f"has stopped pacing anything:")
+                for r in sparse:
+                    print(f"     {r['badge']:<12} {r['minutes']} min over "
+                          f"{r['steps']} step(s) = {r['per_step']:.1f} min/step "
+                          f" {r['label'][:34]}")
+
             long_blocks = sm.get("long") or []
             if long_blocks:
                 long_total += len(long_blocks)
@@ -213,10 +241,11 @@ def main():
     # segment headers -- so making this fail --check would fail CI on a known,
     # dated deferral rather than on a surprise. Relabel s02 after 1 September
     # and then add `or long_total` here, which is the point of counting it.
-    if strict and (missing_total or unassigned or thin_total):
+    if strict and (missing_total or unassigned or thin_total or glyph_total):
         sys.exit(f"\n--check: {missing_total} paper figure(s) missing, "
                  f"{unassigned} reading(s) never handed out, "
-                 f"{thin_total} under-slided segment(s)"
+                 f"{thin_total} under-slided segment(s), "
+                 f"{glyph_total} missing glyph(s)"
                  + (f"  [and {long_total} over-long student block(s), "
                     f"not yet strict]" if long_total else ""))
     print(f"\nDone. Decks in {OUT.relative_to(ROOT)}/ (gitignored).")

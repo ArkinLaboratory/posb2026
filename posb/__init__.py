@@ -10,6 +10,8 @@ Currently available
 -------------------
 core       Session 3.  Reaction, Model, Trajectory. Builds S and integrates
                        dx/dt = S @ v.
+data       Session 5.  Synthetic decay and induction timecourses, generated
+                       from the model with Andersen's half-lives. Seeded.
 analysis   Session 8.  Nullclines, fixed points, Jacobian, linear stability,
                        and the toggle bifurcation condition.
 
@@ -22,6 +24,7 @@ Everything here is plain NumPy and SciPy. There is no hidden solver, no
 symbolic engine, and no simulation framework. Read the source.
 """
 
+from . import data
 from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,
