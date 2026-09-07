@@ -347,7 +347,7 @@ def build():
     s = d.dark()
     d.header(s, "48 – 50 min", "Two minutes  ·  your own notes")
     d.title(s, "Two minutes. Fix your own notes.")
-    d.text(s, "Not a break, and nothing to hand in. Find the one line in the last forty minutes you could not reconstruct on your own, and write it out properly.",
+    d.text(s, "Find the one line in the last forty minutes you could not reconstruct on your own and write it out properly.",
            M, 2.2, 11.9, 0.9, size=20, color=WHITE, spacing=1.3)
     d.text(s, "Then: handouts.", M, 3.9, 11.9, 0.5, size=22, font=HEAD,
            bold=True, color=CYAN)

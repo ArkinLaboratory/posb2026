@@ -148,14 +148,16 @@ def check_session(n, rep):
         # Afterwards the two are SUPPOSED to diverge: taught/ is a record of
         # what was shown, and the source keeps moving. Comparing a past session
         # turns a correct, permanent difference into a permanent FAIL.
-        copies = sorted((ROOT / "private" / "taught").glob(f"*Session{n:02d}*.pptx"))
+        copies = sorted(p for p in (ROOT / "private" / "taught").glob(f"*Session{n:02d}*.pptx")
+                    if not p.name.startswith("~$"))   # PowerPoint lock file, not a deck
         rep.add(OK if copies else WARN, f"private/taught/ record for session {n}",
                 f"{copies[0].name} — as shown on {meta['date']:%d %B}; "
                 f"divergence from the current source is expected" if copies
                 else "no record of what was actually shown")
         return
 
-    copies = sorted((ROOT / "private" / "taught").glob(f"*Session{n:02d}*.pptx"))
+    copies = sorted(p for p in (ROOT / "private" / "taught").glob(f"*Session{n:02d}*.pptx")
+                    if not p.name.startswith("~$"))   # PowerPoint lock file, not a deck
     if not copies:
         rep.add(WARN, f"private/taught/ has no deck for session {n}",
                 "not approved for teaching yet")
