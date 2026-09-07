@@ -193,6 +193,20 @@ students with no warning ([runbook §5.3](course-site-runbook.md)).
 python tools/preflight.py N --ps M     # one more time; things drift
 ```
 
+This run is not the same question as Phase 2's. Phase 2 asked *is it right*;
+this one asks *is the file I am about to open still the one my sources make*.
+Between the two runs sit a night of edits, and the three things that actually
+drift are all hash-checked here: the built `.pptx` and `.pdf` against the deck
+source, theme, and every figure they embed; the copy in `private/taught/`
+against that build; and the `-PRINT-THIS.pdf` against the handout it came from.
+A `FAIL` on any of those means the artifact predates an edit — rebuild and
+re-copy, do not present it.
+
+What this run still cannot see is everything on the far side of a browser: the
+Gradescope roster, whether the Docker image built, whether the point ceiling
+matches the rubric, whether the Canvas module is published. Those are the rest
+of this phase, and that is why the split exists.
+
 - **Gradescope → Roster → Sync bCourses Roster.** Not automatic. A student
   enrolled in bCourses and absent here **cannot submit** and finds out at 11pm.
   One sync on 2 September took the roster from 25 to 31

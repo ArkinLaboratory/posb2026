@@ -1,0 +1,10 @@
+{
+  "artifact": "s05_repressilator_ring.png",
+  "artifact_sha256": "bb1b0a378a8595e1958acfa0d29450ae4ef562d3ca991f5bd2d56a58639b674d",
+  "artifact_bytes": 37836,
+  "deps": {
+    "figures/s05_expression.py": "1fedc526aee124693bae0a781ac1aeee1cb3ed075e5a1153f5423b71a7e35f88",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s05_expression.fig_repressilator_ring"
+}

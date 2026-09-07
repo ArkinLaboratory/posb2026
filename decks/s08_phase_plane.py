@@ -70,13 +70,13 @@ def build():
     d.title(s, "Why you cannot do what you did in session 5")
     d.shape(s, S.ROUNDED_RECTANGLE, M, 1.8, W - 2 * M, 1.25, fill=WASH,
             line=RULE, lw=1)
-    d.text(s, "du/dt  =  a / (1 + v\^{n})  \\u2212  u                    dv/dt  =  a / (1 + u\^{n})  \\u2212  v",
+    d.text(s, "du/dt  =  a / (1 + v^{n})  \u2212  u                    dv/dt  =  a / (1 + u^{n})  \u2212  v",
            M + 0.3, 2.05, 12.0, 0.5, size=22, font=TEXT, bold=True, color=INK)
     d.text(s, "Two genes, each repressing the other. This is the toggle from Gardner, Cantor & Collins — the paper you read for today.",
            M + 0.3, 2.58, 12.0, 0.35, size=14, italic=True, color=MUTED)
     for i, (n, q) in enumerate([
-            ("1", "In session 5 you solved dp/dt = \\u03b1 \\u2212 (\\u03b3+\\u03bc)p in one line. Try the same move here. Where exactly does it fail?"),
-            ("2", "You want to know whether this circuit is a switch. Write down what \\u201cis a switch\\u201d means as a statement about solutions."),
+            ("1", "In session 5 you solved dp/dt = \u03b1 \u2212 (\u03b3+\u03bc)p in one line. Try the same move here. Where exactly does it fail?"),
+            ("2", "You want to know whether this circuit is a switch. Write down what \u201cis a switch\u201d means as a statement about solutions."),
             ("3", "From session 4: a Hill coefficient of n. What did n buy you, in one sentence?")]):
         y = 3.35 + i * 0.95
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 0.75, fill=TEAL, line=None)

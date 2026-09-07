@@ -1,0 +1,10 @@
+{
+  "artifact": "s05_response_tags.png",
+  "artifact_sha256": "40d6edf3602414691faab57d827f3f1b91a1556b4a416791e4a7dd14b0523d24",
+  "artifact_bytes": 145154,
+  "deps": {
+    "figures/s05_expression.py": "1fedc526aee124693bae0a781ac1aeee1cb3ed075e5a1153f5423b71a7e35f88",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s05_expression.fig_response_tags"
+}

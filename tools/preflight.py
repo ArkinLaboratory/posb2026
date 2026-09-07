@@ -22,6 +22,7 @@ they are things that are missing on purpose sometimes (a session with no
 notebook, a handout with no answer sheet yet).
 """
 import argparse
+import importlib
 import json
 import subprocess
 import sys
@@ -97,10 +98,51 @@ def check_session(n, rep):
             rep.add(WARN, f"deck: {label}", tail(out, 3))
 
     # a taught deck must have a PDF to upload
-    pdf = ROOT / "private" / "build" / "decks"
-    built = list(pdf.glob(f"*Session{n:02d}*.pdf")) if pdf.is_dir() else []
-    rep.add(OK if built else WARN, "deck PDF built (for bCourses)",
-            "" if built else "run: python tools/build_decks.py --pdf " + name)
+    build = ROOT / "private" / "build" / "decks"
+    mod = importlib.import_module(f"decks.{name}")
+    pptx = build / f"{mod.FILENAME}.pptx"
+    pdf = build / f"{mod.FILENAME}.pdf"
+    rep.add(OK if pdf.exists() else WARN, "deck PDF built (for bCourses)",
+            "" if pdf.exists() else "run: python tools/build_decks.py --pdf " + name)
+
+    # THE THURSDAY-MORNING CHECK. Everything above asks whether the SOURCE is
+    # right. This asks whether the FILE YOU WILL OPEN was made from it. The
+    # sequence that breaks it is ordinary: the deck is built and approved on
+    # Wednesday, the source is edited Wednesday night, and on Thursday nothing
+    # says the .pptx on disk predates the edit. Hashes, not mtimes -- see
+    # tools/manifest.py for why.
+    from tools import manifest
+    for art, what in [(pptx, "deck .pptx"), (pdf, "deck .pdf")]:
+        status, detail = manifest.verify(art)
+        if status == "absent":
+            rep.add(WARN, f"{what} on this machine", manifest.LABEL[status])
+        elif status in manifest.FAIL:
+            rep.add(FAIL, f"{what}: {manifest.LABEL[status]}",
+                    "\n".join(f"{how:<8} {p}" for p, how in detail[:6])
+                    + ("\n" if detail else "")
+                    + "run: python tools/build_decks.py --pdf " + name)
+        else:
+            rep.add(OK, f"{what} matches its sources")
+
+    # ...and whether the copy you actually present from is that build. The deck
+    # is presented out of private/taught/, which is a manual `cp`. A rebuild
+    # after that copy leaves the two silently different, and the one on the
+    # projector is the old one.
+    taught = ROOT / "private" / "taught"
+    for art, ext in [(pptx, ".pptx"), (pdf, ".pdf")]:
+        copies = sorted(taught.glob(f"*Session{n:02d}*{ext}")) if taught.is_dir() else []
+        if not art.is_file():
+            continue
+        if not copies:
+            rep.add(WARN, f"private/taught/ has no {ext} for session {n}",
+                    "not approved for teaching yet")
+            continue
+        for c in copies:
+            same = manifest.digest(c) == manifest.digest(art)
+            rep.add(OK if same else FAIL,
+                    f"{c.name} " + ("is the current build" if same
+                                    else "DIFFERS from the current build"),
+                    "" if same else f"cp {art.relative_to(ROOT)} {c.relative_to(ROOT)}")
 
 
 # --------------------------------------------------------------- handouts ---

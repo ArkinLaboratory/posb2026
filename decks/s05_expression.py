@@ -124,12 +124,19 @@ def build():
                bold=True, color=INK)
         d.text(s, txt, M + 0.32, y + 0.40, 5.2, 0.78, size=13.5, color=BODY)
 
-    d.image(s, "figures/build/s05_repressilator_ring.png", 6.35, 1.45, 3.15, 1.78)
-    d.paper_figure(s, "elowitz2000_fig2", 9.72, 1.45, 2.91, 1.78,
+    # Slot geometry is derived from the images, not guessed: the ring PNG is
+    # 890x658 (aspect 1.353) and the Elowitz crop 1448x1192 (aspect 1.215).
+    # Sized by eye at 3.15x1.78 and 2.91x1.78 they filled 76% and 74% of the
+    # space they reserved, which is the "loose slot" the build warns about --
+    # and, being height-limited, the Elowitz trace was smaller than the room
+    # could read. Common height 2.35in is the largest that still leaves the
+    # caption and the closing box their space.
+    d.image(s, "figures/build/s05_repressilator_ring.png", 6.35, 1.45, 3.18, 2.35)
+    d.paper_figure(s, "elowitz2000_fig2", 9.78, 1.45, 2.86, 2.35,
                    "Elowitz & Leibler, Nature 2000, Fig. 2",
                    "fluorescence oscillations in single cells")
     d.text(s, "Two years after Andersen, Elowitz & Leibler tagged all three repressors the same way. Without fast degradation the only removal is dilution — and the period they measured, about 150 min, is threefold longer than the cells' own division time.",
-           6.35, 3.78, 6.28, 1.0, size=14, color=BODY)
+           6.35, 4.15, 6.28, 1.0, size=14, color=BODY)
 
     d.shape(s, S.ROUNDED_RECTANGLE, M, 5.62, W - 2 * M, 0.95, fill=WASH,
             line=TEAL, lw=2)

@@ -1,10 +1,10 @@
 {
   "artifact": "s02_confinement.mp4",
-  "artifact_sha256": "acca1d08f6c5b8f6f372f012a10b545bd8c7a29be4d31ade9025c804f7b56de9",
-  "artifact_bytes": 2078243,
+  "artifact_sha256": "910c011afc9b61f64050d125ae123374333864da14437988bb63342d30a493e9",
+  "artifact_bytes": 2026605,
   "deps": {
     "figures/s02_movie.py": "4d95293af4a7f49d063fa628ae573e7ae1a1eed88334b42304ae602a342ba3ae",
-    "figures/style.py": "a13c371cfe85e01885c65658db2333219b23a9d8a143a0b198b8786d16616e8f"
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s02_movie.fig_confinement_movie"
 }
