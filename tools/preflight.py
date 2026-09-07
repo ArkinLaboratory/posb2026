@@ -124,25 +124,70 @@ def check_session(n, rep):
         else:
             rep.add(OK, f"{what} matches its sources")
 
-    # ...and whether the copy you actually present from is that build. The deck
-    # is presented out of private/taught/, which is a manual `cp`. A rebuild
-    # after that copy leaves the two silently different, and the one on the
-    # projector is the old one.
-    taught = ROOT / "private" / "taught"
-    for art, ext in [(pptx, ".pptx"), (pdf, ".pdf")]:
-        copies = sorted(taught.glob(f"*Session{n:02d}*{ext}")) if taught.is_dir() else []
-        if not art.is_file():
+    # ...and whether the copy you present from predates a source change.
+    #
+    # NOT a content comparison. Every deck in private/taught/ carries
+    # docProps Application="Microsoft Macintosh PowerPoint", AppVersion 16,
+    # lastModifiedBy "Adam Arkin" -- all four of them -- while the build is
+    # pristine python-pptx (AppVersion 14, "Steve Canny", the template's
+    # author). The taught copy is always a PowerPoint round-trip, so it never
+    # matches the build byte-for-byte OR content-for-content, and a check that
+    # compares them fires on every session forever.
+    #
+    # It also means overwriting a taught copy with `cp` destroys whatever was
+    # done to it in PowerPoint. So this reports and never proposes a copy.
+    #
+    # What IS worth knowing: was the copy made before or after the sources
+    # changed? Both files are local and both are produced here, so mtime
+    # answers that -- the objection in manifest.py is about files that travel
+    # between machines, which these do not.
+    import datetime
+    import json as _json
+
+    if meta["date"] < datetime.date.today():
+        # Afterwards the two are SUPPOSED to diverge: taught/ is a record of
+        # what was shown, and the source keeps moving. Comparing a past session
+        # turns a correct, permanent difference into a permanent FAIL.
+        copies = sorted((ROOT / "private" / "taught").glob(f"*Session{n:02d}*.pptx"))
+        rep.add(OK if copies else WARN, f"private/taught/ record for session {n}",
+                f"{copies[0].name} — as shown on {meta['date']:%d %B}; "
+                f"divergence from the current source is expected" if copies
+                else "no record of what was actually shown")
+        return
+
+    copies = sorted((ROOT / "private" / "taught").glob(f"*Session{n:02d}*.pptx"))
+    if not copies:
+        rep.add(WARN, f"private/taught/ has no deck for session {n}",
+                "not approved for teaching yet")
+        return
+
+    want = manifest.deck_content(pptx)
+    for c in copies:
+        got = manifest.deck_content(c)
+        if got is None or want is None:
+            rep.add(WARN, f"{c.name} could not be read")
             continue
-        if not copies:
-            rep.add(WARN, f"private/taught/ has no {ext} for session {n}",
-                    "not approved for teaching yet")
-            continue
-        for c in copies:
-            same = manifest.digest(c) == manifest.digest(art)
-            rep.add(OK if same else FAIL,
-                    f"{c.name} " + ("is the current build" if same
-                                    else "DIFFERS from the current build"),
-                    "" if same else f"cp {art.relative_to(ROOT)} {c.relative_to(ROOT)}")
+        wt, wm, wn = want
+        gt, gm, gn = got
+        why = []
+        if gn != wn:
+            why.append(f"slide count {gn} vs {wn} in the build")
+        if gt != wt:
+            why.append("the slide TEXT differs")
+        if gm != wm:
+            why.append("an embedded FIGURE differs")
+        stamp = datetime.datetime.fromtimestamp(c.stat().st_mtime)
+        if why:
+            rep.add(FAIL, f"{c.name} is not the current deck",
+                    "; ".join(why) +
+                    f"\ncopied {stamp:%d %b %H:%M}. Do NOT cp over it blind — "
+                    f"PowerPoint saved this file, so it may carry edits that are "
+                    f"not in decks/{name}.py. Diff first, port anything you want "
+                    f"to keep back into the source, then rebuild and re-copy.")
+        else:
+            rep.add(OK, f"{c.name} matches the build on text and figures",
+                    f"copied {stamp:%d %b %H:%M}; styling not compared, since "
+                    f"PowerPoint rewrites it on save")
 
 
 # --------------------------------------------------------------- handouts ---

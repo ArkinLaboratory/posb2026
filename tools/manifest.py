@@ -56,6 +56,81 @@ def digest(path):
     return h.hexdigest()
 
 
+
+def content_digest(path):
+    """A hash of what a file MEANS, not of its bytes.
+
+    A .pptx is a zip, and a zip records the time each member was written. So
+    two builds from identical sources produce different bytes -- always. A
+    byte comparison between the copy in private/taught/ and the current build
+    therefore fires on every rebuild, whether or not anything changed, and a
+    check that cries wolf is worse than no check: it trains you to ignore it.
+
+    Verified rather than assumed: building s04 twice in a row gives different
+    bytes and an identical content digest, with zero differing zip members.
+
+    For a zip, this is a hash over (member name, member content) for every
+    member in sorted order. For anything else it is the file's own hash.
+    """
+    import zipfile
+    p = Path(path)
+    if not p.is_file():
+        return None
+    try:
+        z = zipfile.ZipFile(p)
+        names = sorted(z.namelist())
+    except (zipfile.BadZipFile, OSError):
+        return digest(p)
+    h = hashlib.sha256()
+    for n in names:
+        h.update(n.encode())
+        h.update(hashlib.sha256(z.read(n)).digest())
+    return h.hexdigest()
+
+
+
+def deck_content(path):
+    """What survives a PowerPoint round-trip: the words and the pictures.
+
+    Every deck in private/taught/ has been opened and saved by PowerPoint --
+    docProps says Application="Microsoft Macintosh PowerPoint", AppVersion 16,
+    against the build's pristine python-pptx (AppVersion 14, "Steve Canny").
+    So a taught copy never matches the build byte-for-byte, never matches it
+    zip-member-for-member, and its mtime moves for reasons that have nothing to
+    do with the source. All three of the obvious comparisons give a false alarm.
+
+    What does compare cleanly is the content a round-trip preserves exactly:
+    the text of every slide, in order, and the bytes of every embedded image.
+    Returns (text_digest, media_digest, n_slides), or None if unreadable.
+
+    Deliberately blind to styling. A theme change that moves a rule or adds an
+    icon is not a different deck, and treating it as one is how a checker
+    becomes noise.
+    """
+    import re
+    import zipfile
+    p = Path(path)
+    if not p.is_file():
+        return None
+    try:
+        z = zipfile.ZipFile(p)
+    except (zipfile.BadZipFile, OSError):
+        return None
+    slides = sorted((n for n in z.namelist()
+                     if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)),
+                    key=lambda n: int(re.search(r"(\d+)", n.split("/")[-1]).group(1)))
+    th = hashlib.sha256()
+    for n in slides:
+        text = " ".join(re.findall(r"<a:t>(.*?)</a:t>", z.read(n).decode("utf-8"), re.S))
+        th.update(re.sub(r"\s+", " ", text).strip().encode())
+        th.update(b"\x00")
+    mh = hashlib.sha256()
+    for n in sorted(x for x in z.namelist() if x.startswith("ppt/media/")):
+        mh.update(n.split("/")[-1].encode())
+        mh.update(hashlib.sha256(z.read(n)).digest())
+    return th.hexdigest(), mh.hexdigest(), len(slides)
+
+
 def rel(path):
     """Repository-relative POSIX path, so a manifest is machine-independent."""
     p = Path(path).resolve()
