@@ -4,6 +4,7 @@
 
 | | |
 |---|---|
+| **[The weekly ritual](weekly-ritual.md)** | The calendar: build Friday, review over the weekend, post Monday, teach from something three days old. |
 | **[Deck Triage](deck-triage.md)** | File-by-file verdict on the Fall 2025 decks: keep, merge, or cut. |
 | **[Status and Roadmap](roadmap.md)** | What exists, what does not, and what to do next. |
 | **[Getting Started](getting-started.md)** | How to run the material: DataHub, Colab, or local. Start here. |

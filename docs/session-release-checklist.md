@@ -1,8 +1,16 @@
 # Releasing a session
 
-[← back to README](../README.md) · Companions: [course-site-runbook](course-site-runbook.md)
-(*why* bCourses is shaped this way) · [instructor-setup](instructor-setup.md)
-(accounts, DataHub, Gradescope) · [where-things-live](where-things-live.md)
+[← back to README](../README.md) · Companions: [weekly-ritual](weekly-ritual.md)
+(*which day* each of these steps happens on) ·
+[course-site-runbook](course-site-runbook.md) (*why* bCourses is shaped this
+way) · [instructor-setup](instructor-setup.md) (accounts, DataHub, Gradescope) ·
+[where-things-live](where-things-live.md)
+
+> This document is **session**-shaped: it is everything one session and its
+> problem set need. [weekly-ritual.md](weekly-ritual.md) is **week**-shaped and
+> says when to run it — the short version being *build Friday, review over the
+> weekend, post Monday*. Running this checklist on the morning it is due is the
+> failure mode that document exists to prevent.
 
 The ritual, in order, for every teaching day. It has two halves and the split is
 deliberate.
