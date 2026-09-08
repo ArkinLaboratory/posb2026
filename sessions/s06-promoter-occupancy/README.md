@@ -213,52 +213,51 @@ which is the reason to learn it rather than memorise Hill functions — and the
 **labels do not**. Saturation is the enzymatic version of the weak-promoter
 limit: another regime you have to know you are standing in.
 
-### The currency nobody has been charged for yet
+### The foreshadow — one question, no arithmetic
 
-Session 5 landed on *one knob, two requirements*: *t*½ and *p** share the
-denominator (γ+μ), so a degradation tag buys speed and pays in level. Session 6
-lands on the opposite, and both are true. But there is a third option neither
-session has priced, and it is the one a real designer reaches for first:
+The full pricing belongs in session 7, where negative autoregulation makes it
+sharp. Session 6 leaves exactly one question on the consolidation slide, asked
+and **not answered**:
 
-**Hold the level and buy the speed by raising α.** Since *p** = α/(γ+μ), holding
-*p** fixed while adding a tag means α must rise in exactly the same proportion:
+> Two cells. One expresses a protein with a degradation tag, one without, and
+> both hold the **same steady level**. Which cell is spending more?
 
-$$\frac{\alpha_{\text{fast}}}{\alpha_{\text{slow}}}
-= \frac{\gamma+\mu}{\mu}
-= \frac{t_{1/2,\text{slow}}}{t_{1/2,\text{fast}}}$$
+Most of the room will say *the same* — the levels are equal, so what is there to
+spend? It is the wrong answer and they cannot yet see why, which is the same
+deliberate non-resolution as session 5's ConcepTest 1. Fifteen seconds, no
+numbers, and Thursday opens on it.
 
-**The energy cost of speed is exactly the speed-up factor** — identically, not
-approximately, and it falls out of an expression they already have.
-
-| tag | *t*½ | α needed, same *p** |
-|---|---|---|
-| none | 30.0 min | 1.00× |
-| ASV | 23.6 min | 1.27× |
-| AAV | 20.0 min | 1.50× |
-| LVA / LAA | **17.1 min** | **1.75×** |
-
-At roughly 1300 ATP for a 300-residue protein, holding 1000 copies costs about
-**30k ATP/min untagged and 52k tagged**. Session 5's LAA row said the tag buys
-1.75× in speed and costs 43% of the level. It also says: *or* keep the level and
-pay 1.75× the synthesis flux, forever, for as long as the circuit is on.
-
-**There is always a currency. The design question is which one you can afford.**
-
-This is a telegraph, not a session — two minutes at the ledger. It is the first
-appearance of the constraint **S19 (Resource sharing and burden)** is built on,
-it is why Hwa's proteome-allocation work exists, and it makes the shared-RNAP
-line in the Constraints column concrete rather than a gesture. **S07 is where it
-gets sharp**, because negative autoregulation's entire claim is speed without
-changing the steady state — so the question *what did that cost?* has a clean
-answer there and an interesting one.
+It also does real work in this session. The Constraints column already says RNAP
+is a shared reservoir; every promoter in the cell draws on the same pool, and
+today's calculation treated that pool as infinite. The question above is the
+first crack in that assumption, and S19 is where it becomes the whole subject.
 
 ## What this sets up
 
-**S07 — autoregulation.** Two threads land there. Rosenfeld's speed-up needs the
-regulation function to be decreasing *everywhere* — now a checkable condition
-rather than a picture, and the check is the one derived today. And NAR claims
-speed *without* changing the steady state, which is precisely the trade priced
-above: ask what it costs in synthesis flux, and compare it with the tag.
+**S07 — autoregulation, and where the cost question is answered.** Two threads
+land there. Rosenfeld's speed-up needs the regulation function to be decreasing
+*everywhere* — now a checkable condition rather than a picture, and the check is
+the one derived today.
+
+The second thread answers Tuesday's closing question, and it is the session's
+design ledger. **Three ways to reach the same steady level 1.75× faster**, in a
+host dividing every 30 minutes, holding *p** = 1000 molecules:
+
+| route | *t*½ | steady-state synthesis | what it costs |
+|---|---|---|---|
+| do nothing | 30.0 min | 23.1 protein/min | — |
+| **degradation tag**, α raised to hold the level | 17.1 min | **40.4 protein/min** | **1.75×, forever** |
+| **negative autoregulation** | ~17 min | **23.1 protein/min** | the transient only |
+
+Since *p** = α/(γ+μ), holding the level while adding a tag forces α up by exactly
+the factor the response time falls — **the energy cost of speed is the speed-up
+factor, identically.** NAR does not touch γ, so at steady state its flux is the
+same as doing nothing: it buys the identical speed-up and pays only during the
+rise, with a strong promoter that throttles itself as the protein accumulates.
+
+**The tag takes out a standing charge; autoregulation buys on credit and pays it
+back.** That is a quantitative reason why NAR is the most over-represented
+single-node motif in *E. coli*, and it is the answer to Tuesday's question.
 
 **S08 / S09 — phase plane and the toggle.** A nullcline **is** a regulation
 function. Its shape decides how many fixed points there are, so Gedeon's
