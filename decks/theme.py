@@ -224,6 +224,7 @@ class Deck:
         self.session = session
         self.missing_figures = []
         self.loose_slots = []
+        self.unclassified = []
         self.assignment_rendered = False
         self.assignment_overflow = None
         self.unattributed_figures = []
@@ -850,7 +851,7 @@ class Deck:
         with a debrief between them are worth more than one twenty.
 
         Segments whose label names an activity are excluded from the slide
-        rate: during a vote or a faded worked set the slide is static on
+        rate: during a vote or a handout set the slide is static on
         purpose. So are segments whose
         label says "board" -- see BOARD_WORDS -- but those are reported
         separately, because "I will derive this at the board" is a claim about
@@ -892,6 +893,15 @@ class Deck:
             low = label.lower()
             activity = any(w in low for w in self.ACTIVITY_WORDS)
             board = (not activity) and any(w in low for w in self.BOARD_WORDS)
+            # A header that matches NEITHER list is counted as exposition by
+            # default, and that default is silent and wrong often enough to
+            # matter: session 8 spent a fortnight reported at 22% student time
+            # because its handout segment was headed "Faded set", which is on
+            # no list, so twelve minutes of student work were counted as me
+            # talking. A design decision was taken on that number. So an
+            # unmatched header is now reported rather than assumed.
+            if not activity and not board and mins >= 4:
+                self.unclassified.append((badge, label, mins))
             n_steps = self.step_runs.get(badge, 0)
             if activity:
                 act_min += mins

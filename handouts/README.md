@@ -3,7 +3,8 @@
 [← back to README](../README.md) · See also [Lecture Design](../docs/lecture-design.md)
 
 Paper. Things that get printed and written on: diagnostics, launch problems, and
-the backward-faded worked-example sheets that are the course's central
+the handout sets — one derivation repeated with less of my working shown
+each time — that are the course's central
 pedagogical device.
 
 **The PDFs in this folder are committed**, which is a deliberate exception to
@@ -37,7 +38,7 @@ GitHub:
 
 ```
 <!--
-title: Session 8 — Faded worked examples
+title: Session 8 — One derivation, four times
 subtitle: Start wherever the scaffolding stops helping you.
 session: 8
 -->

@@ -82,7 +82,7 @@ this repo is CC BY 4.0. See [Figures, Demos, and Decks](figures-and-decks.md).
 | **Staleness check** — `--verify` on decks and figures | done, in CI |
 | Syllabus, coverage matrix (76 techniques), course map, deck triage | in the repo |
 | **Decks: S1 (22 slides), S2 (20), S3 (21), S9 (18)** | **4 of 28** |
-| Handouts: S1 diagnostic, S1 launch problem, S2 faded set | 3, PDF, committed |
+| Handouts: S1 diagnostic, S1 launch problem, S2 handout set | 3, PDF, committed |
 | Figures: 15 generated, across 5 modules + 1 movie | done |
 | Demos: D2 crowding, D9 toggle explorer | 2 |
 | Notebooks: S3 only | 1 of 28 |
@@ -132,7 +132,7 @@ visible now rather than on 6 September.
    days of work; written together they are closer to three, and the shared
    notation stops being re-derived.
 2. **Define a second deck standard and say which sessions get which.** The S1/S2
-   build — movies, demos, faded sets — is right for the sessions that carry the
+   build — movies, demos, handout sets — is right for the sessions that carry the
    course's argument and unaffordable for all twenty-eight. A B-standard deck is
    fourteen slides, one generated figure, one ConcepTest, no demo, notes that
    still carry provenance. Name the eight A-standard sessions in advance;

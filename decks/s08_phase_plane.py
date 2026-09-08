@@ -7,7 +7,7 @@ content in Part I, in the session where the cohort is thinnest, built with
 slide-resident derivations to find out whether the format survives it.
 
 Still to add before 22 September: the generation opener, the figures (nullcline
-plot, trace-determinant chart, the toggle's three fixed points), the faded
+plot, trace-determinant chart, the toggle's three fixed points), the handout
 handout and its answer sheet, and the board notes for the ledger.
 
 WHY THIS SESSION IS THE HARD ONE
@@ -354,7 +354,7 @@ def build():
 
     # 11 FORWARD --------------------------------------------------------------
     s = d.dark()
-    d.header(s, "68 – 80 min", "Faded set  ·  then next")
+    d.header(s, "68 – 80 min", "Handout  ·  then next")
     d.title(s, "You just did this to a real circuit")
     d.text(s, "Thursday: bistability, hysteresis, and what Gardner had to build.",
            M, 1.95, 11.6, 0.45, size=22, font=HEAD, bold=True, color=MINT)
@@ -362,12 +362,12 @@ def build():
            M, 2.55, 11.6, 1.1, size=16, color=WHITE, spacing=1.35)
     d.assigned_on(M, 3.85, 8.0, s)
     bottom = d.assignment(s, y=4.35)
-    d.text(s, "The faded set (68–78) is on your handout: nullclines, fixed points and the Jacobian for a system that is NOT symmetric. PS3 Q1–Q3.",
+    d.text(s, "The handout (68–78) is on your desk: nullclines, fixed points and the Jacobian for a system that is NOT symmetric. PS3 Q1–Q3.",
            M, bottom + 0.15, 11.6, 0.5, size=15, bold=True, color=SILVER)
     d.notes(s, "They read Gardner for TODAY, not for Thursday - moved on "
                "7 September so the algebra lands on a circuit they have met. "
                "Ask early who has read it.\n"
-               "SPINE NOTE: the 68-78 faded set is referenced here and not yet "
+               "SPINE NOTE: the 68-78 handout set is referenced here and not yet "
                "written. It has to break the symmetry - two different Hill "
                "coefficients - because everything derived today used u <-> v "
                "symmetry to get onto the diagonal, and a student who only ever "

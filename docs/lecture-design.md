@@ -60,9 +60,14 @@ available inference, not a finding:
 
 > **Give everyone the same materials, but let them enter at different points.**
 
-The mechanism is the **backward-faded worked-example set**. Not one worked
-problem, but a short series of isomorphic problems in which the instructor's
-solution is progressively withdrawn:
+The mechanism, said plainly, is **a short series of the same problem with less
+of my working shown each time.** The handouts say exactly that at the top, and
+that phrasing is the one to use — in the room, in a session plan, and in this
+document. (In the literature it is the *backward-faded worked-example set*;
+the term is worth knowing once and then not using, because a label a student
+cannot parse is a label that does not tell them what to do.)
+
+Four versions of one derivation, the solution withdrawn a step at a time:
 
 | Item | What students get | Who it serves |
 |---|---|---|
@@ -76,7 +81,9 @@ Fading beats both pure worked examples and pure problem solving
 
 Delivered as a handout, this is self-paced: a physicist starts at item 3, a
 biologist works item 1 carefully. **Nobody is told which to start with, and
-nobody has to announce their background to the room.**
+nobody has to announce their background to the room.** The instruction on every
+such handout is the same sentence — *start wherever the scaffolding stops
+helping you* — which is the whole design in eight words.
 
 Two additions with independent support:
 
@@ -117,7 +124,7 @@ resolution used here:
 
 Bistability, adaptation, and why retroactivity exists are concept days — worth
 a launch problem. Deriving the Hill function is a procedure — go straight to the
-faded set. And [Sinha & Kapur's own finding](https://janfasen.nl/wp-content/uploads/2023/05/Sinha-and-Kapur-PS-I.pdf) that stacking many design features into one short session *backfires* is a direct warning against using every technique on this page every day.
+handout set. And [Sinha & Kapur's own finding](https://janfasen.nl/wp-content/uploads/2023/05/Sinha-and-Kapur-PS-I.pdf) that stacking many design features into one short session *backfires* is a direct warning against using every technique on this page every day.
 
 ---
 
@@ -205,7 +212,7 @@ diffusion coefficient from one paper under a movie from another with only the
 first one credited.
 
 **Slide provision.** Post the **complete deck after class**; hand out the
-**skeletal faded-example sheet during** class **[B]**. The reasoning is that the
+**skeletal handout of the same problem four times, with less working each time, during** class **[B]**. The reasoning is that the
 handout is the thing students must construct on, and construction is the point.
 The laptop-versus-longhand finding everyone cites
 ([Mueller & Oppenheimer 2014](https://journals.sagepub.com/doi/abs/10.1177/0956797620965541)) **failed to replicate** ([Urry et al. 2021](https://journals.sagepub.com/doi/abs/10.1177/0956797620965541)) **[C]** — do not tell students to close laptops on that basis. Multitasking on a laptop *does* harm neighbours ([Sana et al. 2013](https://www.sciencedirect.com/science/article/pii/S0360131512002254)) **[B]**, which is a different and better argument.
@@ -290,7 +297,7 @@ the responses rather than a derivation the slides do not carry.
 
 **Also 7 September 2026.** Session 4 as first built ran four distinct student
 activity modes with four sets of conventions: a retrieval opener, vote–argue–vote
-ConcepTests, a written pause, and a faded handout set. A mixed-background room
+ConcepTests, a written pause, and the handout set. A mixed-background room
 spends attention learning each format, and that attention is not spent on the
 content.
 
@@ -319,10 +326,11 @@ costs nothing.
 
 ### What this does NOT replace
 
-The **backward-faded worked-example set** stays exactly as §1 describes it. It is
+**The handout set — the same problem four times with less of my working each
+time — stays exactly as §1 describes it.** It is
 a different instrument for a different job — self-paced entry into a procedure,
 serving novice and expert from one handout — and it is the course's central
-pedagogical commitment. Three modes, not one: the rhythm above, the faded set,
+pedagogical commitment. Three modes, not one: the rhythm above, the handout set,
 and the retrieval opener.
 
 ### Where this is weakest
@@ -338,6 +346,50 @@ taught.
 
 ---
 
+## 5d. Every session ends with a design ledger
+
+This course is taken by engineers. A session that derives a result and stops has
+told them how the world works and left them no better at building anything in
+it. **Every session closes by saying, in the session's own quantities, what a
+designer controls and what they do not.**
+
+Three columns. They are short — a slide, not a lecture — and they are written
+last, after the content is settled, because a knob you cannot name in the
+session's own symbols is not a knob you taught.
+
+| | the question it answers |
+|---|---|
+| **Knobs** | What can I *set*? Which symbol in today's result is a design variable, and what physical change moves it — a sequence, a copy number, a medium, a part choice |
+| **Constraints** | What is set *for* me? Which symbols belong to the host, the physics or the shared economy of the cell, and what determines them |
+| **Limits** | Where does today's result stop being true? Every derivation here is taken in some limit; name it, and name the observable that tells you when you have left it |
+
+**The Limits column is the one that must not be skipped**, and it is the one
+that is hardest to write, because it requires knowing the derivation's
+assumptions well enough to say what breaks them. It is also what separates a
+course that teaches models from one that teaches modelling.
+
+### Why the ledger, rather than "applications"
+
+An applications slide shows what other people built. A ledger says what *this
+student* could now change, and what would stop them. It is the difference
+between an anecdote and a specification.
+
+It also creates the course's only recurring cross-session argument. Session 5's
+ledger ends with **one knob for two requirements** — speed and level share the
+denominator (γ+μ), so a degradation tag cannot buy both. Session 6's ledger ends
+with the opposite — cooperativity buys **sharpness** without touching amplitude,
+so those two requirements *do* separate. A student who has both ledgers has
+learned something no single session teaches: **whether your requirements share a
+knob is a property of the mechanism, and finding out is the first thing a
+designer does.**
+
+### What it is not
+
+Not a "real world" aside, not a company logo, not a list of products. If it does
+not use the symbols that were on the board that day, it is decoration.
+
+---
+
 ## 6. The template
 
 **80 minutes** (Berkeley time: a nominal 90-minute slot).
@@ -349,12 +401,12 @@ taught.
 | **8–20** | **Generation** *(concept days only)* | A launch problem they cannot yet solve, in groups of 3–4, with **contrasting cases**. Collect solutions. **No feedback yet.** | PS-I *g* = 0.36; *g* = 1.03 for postgraduates **[A/B]** |
 | **20–48** | **Concept, in ~3 segments** | ~9 min each. Derivations as step-slide runs (§5b); each segment ends in the rhythm of §5c — pose, 2–4 min on paper, silent vote, discuss, revote. | Peer instruction **[A]**; segmenting **[B]**; PF consolidation fidelity **[A]** |
 | **48–50** | **Pause** | Two minutes, instructor silent, individual: revise your own notes. Not collected — see §5c. | Pause procedure **[B]** |
-| **50–72** | **Faded worked-example set** | 3–4 isomorphic problems on a skeletal handout, backward-faded. Subgoal labels throughout. Self-explanation prompt at each transition. Circulate. | Backward fading **[A]**; subgoal labels **[A]**; self-explanation **[A]** |
+| **50–72** | **The handout set** | The same derivation 3–4 times on one sheet, with less of my working shown each time. Subgoal labels throughout. Self-explanation prompt at each transition. Circulate. | Backward fading **[A]**; subgoal labels **[A]**; self-explanation **[A]** |
 | **72–78** | **Consolidation + retrieval** | Close the loop on the launch problem explicitly. Then two minutes: notes closed, write one-sentence answers to the three opening questions. | PF consolidation **[A]**; second retrieval **[A]** |
 | **78–80** | **Forward link** | One slide: today's result as a *constraint* on next session's problem, posed as a question. | Prequestion **[B]**, with a null result; the ritual **[C]** |
 
 On non-concept days, drop the generation phase and give the extra 12 minutes to
-the faded set.
+the handout set.
 
 ---
 
@@ -388,7 +440,7 @@ more than twice as strongly as growth mindset does ([Cavanagh et al.](https://ww
 Stated plainly, because the rest of this page is confident.
 
 1. **Nothing in the literature tells you how to serve a bimodal room in a single
-   lecture.** The self-paced faded handout is my best inference, not a finding.
+   lecture.** The self-paced handout set is my best inference, not a finding.
 2. **Graduate-level pedagogy is barely studied.** The two encouraging moderators
    — Freeman's null for course level, PS-I's postgraduate effect — rest on thin
    subsets.
@@ -405,7 +457,7 @@ Stated plainly, because the rest of this page is confident.
 
 **Which argues for staging the adoption.** If only three things are adopted:
 
-1. The **backward-faded worked-example set** with subgoal labels and
+1. The **handout set** — one derivation, four times, less working each time — with subgoal labels and
    self-explanation prompts
 2. The **spaced, interleaved retrieval opener**
 3. The **day-one conversation** about feeling-of-learning versus actual learning

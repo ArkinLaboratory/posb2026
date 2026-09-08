@@ -167,6 +167,21 @@ def main():
                   f"{sm['min_per_slide']:.1f} min/slide;  "
                   f"{sm['activity_min']} min students working "
                   f"({sm['activity_frac']:.0%}){board}")
+            # min/slide EXCLUDES intermediate step slides, so a session with
+            # more derivation runs shows a worse rate by construction and the
+            # number reads like trouble when it is not. Session 8 was reported
+            # at 8.0 min/slide and read as over-dense; its four runs are at
+            # 1.6-2.5 min/step, inside session 5's own range. For a deck with
+            # step runs, min/step is the metric that governs and it now prints
+            # beside the other one instead of only when it fails.
+            runs = [r for r in rows if r.get("steps")]
+            if runs:
+                worst = max(runs, key=lambda r: r["per_step"])
+                print(f"          {len(runs)} derivation run(s), "
+                      f"{min(r['per_step'] for r in runs):.1f}"
+                      f"-{worst['per_step']:.1f} min/step "
+                      f"(cap {sm['max_min_per_step']:.1f}) "
+                      f"-- this, not min/slide, is the rate a run is judged on")
             # theme.py computes this; nothing printed it, so the ceiling was
             # a rule the build knew about and never mentioned. `.get` because
             # the field arrived in a parallel session and an older theme.py
@@ -228,6 +243,22 @@ def main():
                   f"ATTRIBUTION NEEDED on the slide:")
             for n in deck.unattributed_figures:
                 print(f"     {n}")
+        # Behind --audit, not --check. Across the seven built decks this flags
+        # 25 segments and 24 of them are correctly classified: "Built one line
+        # at a time", "The answers", a figure walk-through -- all genuinely me
+        # talking. Printing it every build would be noise, and a check that
+        # cries wolf is a check nobody reads. But the ONE it caught was real,
+        # and it had already changed a design decision, so the audit stays
+        # available and should be run whenever a session's headers change.
+        if "--audit" in sys.argv and getattr(deck, "unclassified", None):
+            print(f"  !! {len(deck.unclassified)} segment(s) whose header matches "
+                  f"neither the student-activity nor the board word list, so the "
+                  f"minutes were counted as ME TALKING:")
+            for badge, label, mins in deck.unclassified:
+                print(f"     {badge:<14} {mins:>3} min   {label}")
+            print("     -> if the room is working, add a word from "
+                  "Deck.ACTIVITY_WORDS to the header. The pacing percentage "
+                  "above is wrong until this list is empty.")
         if deck.loose_slots:
             print(f"  {len(deck.loose_slots)} slot(s) much larger than the "
                   f"figure -- the image shrinks and floats:")
@@ -236,7 +267,7 @@ def main():
                       f"-> renders {got[0]}x{got[1]}in")
 
     # NOTE: long_total is reported above but deliberately NOT part of the
-    # strict exit yet. Session 2's faded set is labelled as one twenty-four
+    # strict exit yet. Session 2's handout set is labelled as one twenty-four
     # minute block -- the two-block plan lives in its speaker notes, not in its
     # segment headers -- so making this fail --check would fail CI on a known,
     # dated deferral rather than on a surprise. Relabel s02 after 1 September
