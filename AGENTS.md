@@ -132,6 +132,30 @@ build never carries them.
   live in the segment badge, where the pacing check can see them. A scope
   decision is stated as a fact ("Segel's argument belongs in a different
   course"), never as an order.
+- **Mine the prior years before designing or building a session.** Adam's
+  rule, 8 September 2026. The archive at `~/Arkin Lab Dropbox/Adam Arkin/
+  Classes/PoSB` holds 2010–2025: decks as `.pptx` and `.pdf` under
+  `<year>/Lectures/`, and — the part that is easy to miss — the Weiss & Arkin
+  textbook chapters and `20.405_LectureNotes.docx` under
+  `Dropbox (1)/2019/PoSB Textbook Chapters/`. The 2026 course diverges from all
+  of them, and that is not a reason to skip this: what you are looking for is
+  **grounding material**, not structure — worked derivations, the real systems
+  and numbers a point was made with, the discussion questions that worked, and
+  the reading that was already assigned. Session 5 was built this way.
+
+  It also tells you what is genuinely new, which is a claim sessions make on
+  slides and therefore a claim that has to be true. Two hours on 8 September
+  found that no deck 2023–2025 contains *partition function*, *Boltzmann*,
+  *Ackers*, *Shea* or *Bintu* — but that **Weiss & Arkin Chapter 3 §3.3.5–3.3.7
+  derives the whole thing**, was assigned as reading in 2025 L10, and states the
+  two-lever Shea–Ackers form (`k_b` basal versus `k_t` regulated) that session 6
+  attributes to Gedeon 2008. Session 6's hinge was overstated as a result, and a
+  student who did the assigned reading could have caught it.
+
+  How: `pdftotext` every deck in a year's `Lectures/` once, grep the text, then
+  open the `.pptx` for anything that hits. Cite what you find by year, lecture
+  number and the slide's own words.
+
 - **Never put a Unicode subscript or superscript letter in a deck.** Calibri and
   Cambria have no glyphs for U+2090–U+209C or U+207F, so `Kₘ` and `Eₜₒₜ` render
   as blanks on the projector and vanish entirely through LibreOffice's PDF

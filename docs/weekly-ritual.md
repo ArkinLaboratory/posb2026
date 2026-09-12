@@ -46,9 +46,37 @@ the deadline instead of against itself.
 | **Friday** | build both sessions + the problem set | `preflight` exits 0 for both |
 | **Saturday** | review on paper; approve; port back; rebuild | decks copied to `private/taught/` |
 | **Sunday** | Gradescope, bCourses, modules, announcement, reader | final `preflight` exits 0 |
-| **Mon–Fri** | teach; upload after class | nothing is built |
+| **Mon–Fri** | teach; upload after class | nothing is built *against a design that is not settled* — see below |
 
 `NN` = Tuesday's session, `MM` = Thursday's, `psPP` = the set released that week.
+
+## Earlier is always allowed
+
+**These are deadlines, not start times.** Adam's rule, 8 September 2026: he will
+pull work forward whenever the week gives him room, and this document must not
+be read as forbidding that. Friday is the day by which both sessions and the
+problem set are *finished*; nothing about it says they may not be finished on
+Wednesday.
+
+Two conditions, and they are the whole of it:
+
+1. **A session is built only against a settled design.** The gate is the
+   design, not the day. Building from an unsettled plan is how you get a deck
+   that has to be rebuilt after the plan changes, which costs more than waiting.
+2. **Design never happens on build day.** This is the failure the ritual was
+   originally written against, in its other form. Friday assumes a settled plan
+   from F1 onward; a Friday that opens by designing a session has already lost
+   its gate. Design work belongs *earlier* in the week — it is not a build, and
+   the "nothing is built" rule does not reach it.
+
+What does not move: **the Saturday review and the Sunday publish still happen**,
+on paper and in that order, however early the build finished. Finishing
+Wednesday buys a longer gap between building and reviewing, which is worth
+having. It does not buy skipping the review.
+
+Week 4 is the first week run this way — session 6's design was settled on
+Sunday, so it was built Tuesday to Wednesday, and session 7 was designed
+Thursday and built Friday. See `2026/SESSION-LOG.md`, 8 September.
 
 ---
 
@@ -442,8 +470,14 @@ published, the announcement is posted.
 
 # MONDAY TO FRIDAY — teach only
 
-**Nothing is built during the week.** If something must change, it changes on
-the following Friday unless it is wrong rather than improvable.
+**Nothing is built during the week for the week being taught.** If something
+must change in a session about to be taught, it changes on the following Friday
+unless it is wrong rather than improvable — you do not rebuild a deck the night
+before the room sees it.
+
+That is not a prohibition on working ahead. Building *next* week's sessions
+early, from settled designs, is encouraged; see **Earlier is always allowed**
+above. The rule protects the taught copy, not the calendar.
 
 ### Morning of each class
 

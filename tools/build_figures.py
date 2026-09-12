@@ -48,7 +48,8 @@ COMMON = ["figures/style.py"]
 
 MODULES = ["figures.s01_specification", "figures.s02_substrate",
            "figures.s03_modeling_i", "figures.s04_modeling_ii",
-           "figures.s05_expression", "figures.s09_bistability"]
+           "figures.s05_expression", "figures.s06_promoter_occupancy",
+           "figures.s09_bistability"]
 
 # Slow to render (video encoding), so not built unless asked for by name.
 SLOW = ["figures.s02_movie"]

@@ -2,8 +2,11 @@
 
 [← all sessions](../README.md) · **Tuesday, September 15, 2026**
 
-**Plan, revision 2. Not yet built.** Built Friday 11 September alongside session
-7, under [the weekly ritual](../../docs/weekly-ritual.md).
+**Plan settled; built Wednesday 9 September** — early, under *Earlier is always
+allowed* in [the weekly ritual](../../docs/weekly-ritual.md), because the design
+was settled and session 7 needed Friday. Deck, four figures, handout, answer
+sheet and board notes all exist; `preflight.py 6` exits 0. Not yet reviewed on
+paper, and no `private/taught/` copy.
 
 Covers **T13** (promoter occupancy from a partition function) and **T14**
 (derive activator, repressor and AND-like regulation functions). Both are
@@ -44,11 +47,19 @@ is the whole structural change, and this session is its hinge.
 Session 4 already produced a regulation function: write the binding equilibrium,
 form the bound fraction, cancel [P], out comes *x*/(*K*ᵈ + *x*).
 
-**That method cannot do an activator.** Activation is not "blocked or not". An
+**That method cannot DERIVE an activator, only assume one.** You can always
+posit a productive bound state and hand it a rate constant — 2025's L10 did
+exactly that, and Chapter 3 §3.3.7 does it with $k_b$ and $k_t$ — but the method
+cannot tell you what that rate is, how two sites combine, or why the answer does
+not depend on the size of the genome. Activation is not "blocked or not": an
 activator either **recruits** RNAP — a protein–protein contact — or **stimulates
-the closed-to-open transition**; Bintu's applications paper treats both, and
-they are different functions. There is no dissociation constant for *makes
-transcription more likely*.
+the closed-to-open transition**, and there is no dissociation constant for
+*makes transcription more likely*.
+
+*Rephrased 9 September.* The earlier wording — "that method cannot do an
+activator" — is too strong and a student who did the assigned Chapter 3 reading
+can catch it. Assuming a productive state is not deriving one, and that is the
+sharper claim.
 
 The statistical-mechanics route can, because it enumerates **states of the
 promoter** and gives each a weight. As Gedeon et al. put it, the Shea–Ackers
@@ -58,26 +69,93 @@ general one, and the generality is the point.
 
 ## What happens
 
+**Revised 11 September, and the revision is structural.** The first build taught
+the mathematics with no biology under it — see the log entry for that day. Three
+tutorial surfaces now precede any counting, and they are paid for by cutting the
+Ackers segment and ConcepTest 3.
+
 | | | |
 |---|---|---|
 | 0–5 | **Retrieval**, notes closed | Two from Thursday, one from session 4 — the Hill derivation, today's hinge |
 | 5–8 | Map + goals as questions | |
-| 8–10 | **The hinge** | Try to write an activator's regulation function the session-4 way. Where exactly does it fail? |
-| 10–22 | **Derivation 1**, ~6 step slides | The machinery: RNAP over *N*_NS non-specific sites plus one promoter, Boltzmann weights, *p*_bound, and the **weak-promoter limit** in which fold-change = *F*_reg |
-| 22–28 | **Rhythm 1** | |
-| 28–36 | **Derivation 2**, ~5 step slides | **Simple activation, the real one**: *lac* + CRP₂*. Two parameters — *K*_A and the enhancement factor *f* |
-| 36–42 | **Rhythm 2** | |
-| 42–46 | λ P_RM, from the paper | cI₂ at O_R2 activates, cI₂ at O_R1 helps recruit. Cooperativity ω **buys sharpness, not amplitude** — full activation is still *f* |
-| 46–48 | **Pause** | Two minutes, nothing collected |
-| 48–58 | **Handout, items 1–2** | Ten minutes. One derivation, twice, with less of my working the second time |
-| 58–62 | The answers | |
-| 62–66 | **λ O_R as a solved design problem** | Ackers, Johnson & Shea 1982: one repressor, one operator region, **two divergent promoters** — P_R nearly fully repressed while P_RM stays highly active, at the same repressor concentration. Measured ΔG values, 37 °C |
-| 66–72 | **Rhythm 3** | Which of the arrows in the network diagrams you have already drawn are safe? |
-| 72–76 | **[Design ledger](../../docs/lecture-design.md#5d-every-session-ends-with-a-design-ledger)** | Knobs · Constraints · Limits, below |
-| 76–80 | Consolidation; **Rosenfeld 2002 handed out** | |
+| 8–12 | **The object** | A promoter, drawn. −35, −10, +1, and an operator in both positions. Where the site sits decides the mechanism |
+| 12–16 | **Where the polymerase is** | Bintu Fig. 1a: almost all RNAP is stuck to DNA. Session 2's search problem, with the other consequence. *N*_NS arrives as a fact about cells. Fig. 1c makes the weak-promoter limit visible — lac at 10⁻³ |
+| 16–20 | **Two levers, and only two** | Recruitment versus the closed-to-open transition, drawn. Today's model charges for the first and holds the second fixed, and the room is told so while the choice is made |
+| 20–22 | **The hinge** | Try to write an activator's regulation function the session-4 way |
+| 22–34 | **Derivation 1**, 8 step slides | States, weights, *p*_bound, the weak-promoter limit |
+| 34–38 | **Rhythm 1** | Do you need to know *N*_NS to read a fold-change? |
+| 40–49 | **Derivation 2**, 7 step slides | Simple activation: *lac* + CRP₂*. *K*_A and *f* |
+| 49–55 | **Rhythm 2** | Ten-fold out, four-fold in |
+| 55–59 | λ P_RM, from the paper | Cooperativity **buys sharpness, not amplitude** |
+| 59–61 | **Pause** | |
+| 61–70 | **Handout, items 1–2** | |
+| 70–74 | The answers | |
+| 74–78 | **λ O_R as a solved specification** | Ackers 1982. Two outputs, opposite requirements, one input — met with the knobs on the right wing |
+| 78–81 | **Design ledger** | Knobs · Constraints · Limits, checked against the room's own minute-12 list |
+| 81–83 | **The comparison** | Thursday's one knob against today's two, on its own surface |
+| 83–87 | Consolidation; **Rosenfeld 2002 handed out** | |
 
-**Student working: 34 of 80 minutes, 42%.** Two derivation runs on slides, not
-four — see below.
+### Budgeted to 87 against an 80-minute room
+
+Adam, 12 September: sessions have been finishing **five to twelve minutes
+early**. Four of the extra minutes bought back the λ O_R case study; the other
+three came from expanding both derivations after he found derivation 1 doing
+the multinomial, the *P* ≪ *N*_NS limit and the definition of *p* in a single
+step. Six steps became eight, five became seven, and both runs now sit at
+1.3–1.5 min/step.
+
+Seven minutes over an eighty-minute budget only works at the optimistic end of
+the observed slack, so **two segments are designated to go, in order**, and the
+board notes carry the list: λ O_R at 74 first, then the prompts under the
+answers at 70. Both are placed where dropping them costs nothing downstream.
+
+### What was cut, and why
+
+**ConcepTest 3 (was 66–72), and the λ O_R segment, since restored.** Together
+they bought the twelve minutes of biology.
+
+ConcepTest 3 asked the room to accept that an activator can repress. That claim
+is *entirely* about the two levers — recruitment versus isomerisation — and
+before the 16-minute slide existed it rested on vocabulary nobody had been
+taught. It is now a stated entry in the Limits column with Gedeon cited, which
+is what that column is for. It stays cut.
+
+**λ O_R was restored on the 12th** on the strength of the observed slack: it is
+the session's only worked engineering case study, and it now closes the loop the
+minute-12 question opens.
+
+### Where the engineering lands, surface by surface
+
+The first build put every design consequence in the last six minutes. Now:
+
+| surface | what it lets you choose |
+|---|---|
+| 8–12 the object | **the tee-up question**: what can you change, and what would you have to do to change it? The room's answers go on the right wing and stay there until 75 |
+| 16–20 two levers | which lever a part uses decides whether it travels between constructs |
+| 22–32 derivation 1 | a part is characterised in fold-change, not in molecules, because everything unmeasurable cancelled |
+| 36–38 ConcepTest 1 resolve | **the composability result** — *p* is the core promoter and it cancelled, so the same part on any weak promoter gives the same fold-change. And C is that reuse breaking: modularity is a property of the regime, not the part |
+| 46–52 ConcepTest 2 | a specification you can price and reject before cloning |
+| 52–56 λ P_RM | sharpness and amplitude are separate knobs |
+| 71–75 λ O_R | a two-output specification met with exactly the knobs on the right wing |
+| 75–80 ledger + comparison | whether your requirements share a knob is a property of the mechanism |
+
+The minute-12 question is the spine of that column: the Knobs list is not handed
+down at 75, it is the room's own list from before any mathematics, checked.
+
+### The cost, stated plainly
+
+Student working time falls from **37 of 80 minutes (42%) to 30 (34%)**. The
+tutorial block is exposition, and no relabelling changes that — `min/step` on
+both derivation runs is 1.6–1.7, well inside the cap, so the session is not
+rushed, it is simply more expository than session 5. 34% sits inside the course
+band (s04 28%, s09 34%, s01 38%) at the low end.
+
+The honest alternative is that **this is two sessions' material**: T13 and T14,
+a ledger, and two historical case studies do not fit in eighty minutes once the
+biology is taught properly. Nothing in the schedule makes room, so the cut above
+is the answer for this year, and the note for next year is in the log.
+
+Two derivation runs on slides, not four — see below.
 
 ## The handout — one derivation, four times
 
@@ -136,9 +214,46 @@ equal the regulation factor.
 | activator + helper | λ P_RM, cI₂ at O_R1/O_R2 | *K*_R1, *K*_R2, cooperativity ω, *f* |
 | two TFs | *melAB*, MelR₂* + CRP₂* | *K*_1, *K*_2, ω, *f* |
 
-**Still to extract before Friday:** the numeric values of *K*_A, *f* and ω for
-at least the *lac*/CRP case, and *N*_NS. They are in the applications paper's
-figures and text; they must be read off, not remembered.
+**Extracted 9 September**, all read off rather than recalled:
+
+| quantity | value | where |
+|---|---|---|
+| *N*_NS | 5 × 10⁶ | models paper, Fig. 1 legend |
+| *f* (λ P_RM) | ≈ 11 | applications, Fig. 2 legend |
+| ω | 80 (range 49–130); Bintu round to 100 | Koblan & Ackers 1992, Table II, 37 °C |
+| ω | 25.2 — **superseded** | Ackers, Johnson & Shea 1982, Table 3 |
+| *K*_R2/*K*_R1 | ≈ 25 | applications, text |
+| sensitivity *s* | .54, .66, .84, .93 for ratios ∞, 10³, 10⁻¹, 25 | applications, Fig. 2b legend |
+
+*K*_A and *f* for *lac*/CRP are **not stated numerically** in the applications
+paper — they are defined as things you read off Figure 1b, and the paper says
+its inferred in vivo *K*_A is "not expected to be accurate to within a factor of
+2." The slide says so too.
+
+**The two ω values are the same laboratory at the same temperature, ten years
+apart.** Bintu's *f* ≈ 11 is Hawley & McClure 1982; their ω ≈ 100 and their
+"realistic" *K*_R2/*K*_R1 ≈ 25 both come from the 37 °C row of Koblan & Ackers
+1992 (measured ω = 80, range 49–130; measured ratio 26). The 1982 value of 25
+lies **outside** that interval, and the 1992 error bar is five times wider
+because it now includes systematic differences between experiments and between
+operator templates. Both curves are on the figure.
+
+The 1992 paper also kills an inference I had made from its title: cooperativity
+is **temperature-invariant** across 5–37 °C. What moves with temperature is the
+intrinsic site affinity, and differentially — so it is *K*_R2/*K*_R1 that is
+temperature-controlled, 26-fold at 37 °C and 92-fold at 5 °C. Feeding each
+temperature's measured pair through the derived expression gives *s* = 0.92,
+0.93, 0.91, 0.86, 0.76 from 37 °C down to 5 °C: **both inputs swing by a factor
+of four and the sharpness barely moves.** That robustness result is the answer
+sheet's closing argument, and it is only visible because the regulation function
+was derived rather than quoted.
+
+**The regulation factors are derived, not transcribed.** Bintu's Table 1 is an
+image in both PDFs and cannot be extracted as text, so
+`figures/s06_promoter_occupancy.py` derives the forms from the state list. Those
+derived forms then reproduce **all four** sensitivities in the Figure 2b legend
+— .54, .66, .84 and .93 — which is the check that the algebra on the slides is
+the algebra in the paper.
 
 ## The design ledger
 

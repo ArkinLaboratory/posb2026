@@ -46,7 +46,7 @@ from tools import manifest                                  # noqa: E402
 
 DECKS = ["s01_specification", "s02_substrate", "s03_modeling_i",
          "s04_modeling_ii", "s05_expression", "s08_phase_plane",
-         "s09_bistability"]
+         "s06_promoter_occupancy", "s09_bistability"]
 OUT = ROOT / "private" / "build" / "decks"
 
 # Inputs every deck depends on regardless of what it happens to draw. The

@@ -1,0 +1,10 @@
+{
+  "artifact": "s06_sensitivity_ratio.png",
+  "artifact_sha256": "821382a5e94297dc0fc57618aafc8ba64e2159e4b28b91248070e924703e8baa",
+  "artifact_bytes": 114943,
+  "deps": {
+    "figures/s06_promoter_occupancy.py": "76b1d919910348cb2ff2c2bf72eb0ccb6632dddf558b2410aebbf8eb157cfe2c",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s06_promoter_occupancy.fig_sensitivity_ratio"
+}

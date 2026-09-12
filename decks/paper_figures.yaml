@@ -149,3 +149,136 @@ l02_2025_composition:
   used_in: ["s02"]
   source: "2025 deck; standard textbook composition table, original uncredited"
   note: "Held in reserve. The crowding figure carries the same point more vividly in less time; use this one only if the room asks for the breakdown."
+
+# --- Bintu et al., Curr Opin Genet Dev 15:116-124 and 125-135 (2005) --------
+# "Transcriptional regulation by the numbers: models" (private/readings) and
+# "...: applications" (literature/). Session 6 discusses the models paper and
+# takes every number from the applications paper.
+#
+# NOTE on what we do and do not take from these. The regulation factors in
+# Table 1 are IMAGES in both PDFs and cannot be extracted as text, so
+# figures/s06_promoter_occupancy.py derives them from the states instead. The
+# derived forms reproduce both sensitivities the applications paper states in
+# words (0.54 single-site, 0.93 with the helper), which is the check that the
+# algebra on our slides is theirs.
+
+bintu2005_models_fig1:
+  figure: "models, Fig. 1"
+  shows: "the DNA as a reservoir of non-specifically bound RNAP; the two states of the promoter with their statistical weights; p_bound against RNAP number for the lac and T7 promoters"
+  used_in: ["s06"]
+  note: >-
+    Panels a and b are the picture derivation 1 builds in our own notation
+    (figures/build/s06_states_weights.png). Show the paper's version AFTER the
+    derivation, not before -- it is the same object and seeing it first gives
+    away the counting. The legend is where N_NS = 5 x 10^6 comes from.
+
+bintu2005_app_fig1:
+  figure: "applications, Fig. 1"
+  shows: "simple activation at the lac promoter by CRP2*: (a) the cis-regulatory architecture, (b) log-log fold-change against [CRP2*] with K_A at half-activation and the plateau at f"
+  used_in: ["s06"]
+  note: >-
+    Pairs with figures/build/s06_fold_change.png. THIS is where K_A and f are
+    read off rather than recalled, and the paper is explicit that the in vivo
+    K_A is inferred and "not expected to be accurate to within a factor of 2" --
+    say that out loud, it is the honest version of a parameter.
+
+bintu2005_app_fig2:
+  figure: "applications, Fig. 2"
+  shows: "cooperative activation at lambda P_RM: (a) O_R1 and O_R2 with cI2 and RNAP, (b) log-log fold-change for different K_R2/K_R1, with the maximum log-log slopes listed"
+  used_in: ["s06"]
+  provenance: "cropped from page 12 of literature/bintu-2005-transcriptional-regulation-by-the-numbers-APPLICATIONS.pdf at 200 dpi, box (0.33, 0.075)-(1.0, 0.46) in page fractions"
+  note: >-
+    The session's ledger figure and the one to project beside
+    figures/build/s06_cooperativity.png. Legend states f ~ 11 and omega ~ 100;
+    the curves saturate at the same f whatever the helper does. Our version
+    also plots Ackers' measured omega = 25 for comparison -- see the answer
+    sheet.
+
+# --- Ackers, Johnson & Shea, PNAS 79:1129-1133 (1982) -----------------------
+# "Quantitative model for gene regulation by lambda phage repressor"
+# In literature/ackers-johnson-shea-1982-quantitative-model-lambda-repressor.pdf.
+# Shea & Ackers 1985 (J Mol Biol 181:211) is
+# also in literature/ as the full physical-chemical treatment.
+
+ackers1982_fig2:
+  figure: "Fig. 2"
+  shows: "predicted repression curves at the divergent promoters P_R and P_RM against repressor concentration; at physiological repressor P_R is nearly fully repressed while P_RM stays highly active"
+  used_in: ["s06"]
+  provenance: "cropped from page 3 of literature/ackers-johnson-shea-1982-quantitative-model-lambda-repressor.pdf at 200 dpi, box (0.522, 0.638)-(0.997, 0.945) in page fractions; caption included"
+  note: >-
+    A two-output specification, met in 1982 with the knobs in today's ledger.
+    All interaction parameters measured at 37 C, 0.2 M KCl by DNase
+    protection; Table 3 gives dG_12 = -1.99 +/- 0.06 kcal/mol, which is the
+    omega = 25 on our comparison curve. Evolution solved this before anyone
+    could build it, and Gardner (session 9) does the same thing on purpose.
+
+ackers1982_table3:
+  figure: "Table 3"
+  shows: "resolved interaction free energies for O_R: dG1 = -11.69, dG2 = -10.10, dG3 = -10.09, dG12 = -1.99, dG23 = -1.94 kcal/mol"
+  used_in: ["s06"]
+  note: >-
+    Five numbers, and the whole switch. Worth putting on the screen next to
+    the ledger: every entry in the Knobs column is one of these, measured.
+
+# --- Bintu models Figure 1 and 2a, cropped 11 September ---------------------
+# Added after Adam's review found session 6 introducing non-specific binding,
+# recruitment and the closed-to-open transition as vocabulary with no picture
+# anywhere. Panels cropped from the models paper in private/readings/ at
+# 200 dpi; boxes in page fractions are recorded per key.
+
+bintu2005_models_fig1a:
+  figure: "models, Fig. 1a"
+  derived_from: bintu2005_models_fig1
+  shows: "a cell with RNAP molecules bound all over the DNA and only two free in the cytoplasm — the genome AS the reservoir"
+  used_in: ["s06"]
+  provenance: "page 11, box (0.145, 0.078)-(0.552, 0.178) — trimmed on 11 Sep, the first cut caught the top of panel (b)"
+  note: >-
+    Show this BEFORE N_NS is written down. Session 2 already taught that a
+    repressor finds its operator by sticking non-specifically and sliding
+    (Berg-von Hippel); this is the same physics with the other consequence —
+    if proteins stick to DNA, then most of the polymerase in the cell is on
+    DNA, and that is what N_NS counts.
+
+bintu2005_models_fig1b:
+  figure: "models, Fig. 1b"
+  derived_from: bintu2005_models_fig1
+  shows: "the two states of the promoter — empty, or one RNAP bound with P-1 elsewhere — with their statistical weights 1 and (P/N_NS)exp(-dE/kT)"
+  used_in: ["s06"]
+  provenance: "page 11, box (0.145, 0.183)-(0.570, 0.325)"
+  note: "The paper's version of derivation 1. Show it AFTER the run, as confirmation, never before."
+
+bintu2005_models_fig1c:
+  figure: "models, Fig. 1c"
+  derived_from: bintu2005_models_fig1
+  shows: "p_bound against RNAP copy number for lacP1 and T7 A1: lac sits near 10^-3, T7 near 10^-1"
+  used_in: ["s06"]
+  provenance: "page 11, box (0.558, 0.078)-(0.928, 0.318)"
+  note: >-
+    This is what makes the weak-promoter limit VISIBLE rather than asserted.
+    lacP1 at p_bound ~ 3e-3 is p << 1 with two orders of room; T7 A1 at 0.4 is
+    the promoter where the limit fails. Put the condition on the screen as a
+    measured fact before the derivation needs it.
+
+bintu2005_models_fig2a:
+  figure: "models, Fig. 2a"
+  derived_from: bintu2005_models_fig2
+  shows: "the four states of an activated promoter drawn on DNA — activator site and core promoter, CRP, RNAP, the contact energy — each with its weight"
+  used_in: ["s06"]
+  provenance: "page 12, box (0.130, 0.022)-(0.535, 0.495)"
+  note: >-
+    The paper's states-and-weights ladder, drawn on real DNA with real
+    proteins. Ours (figures/build/s06_states_weights.png) is the same object
+    in course notation; this one is the one to show while the room is still
+    deciding whether the abstraction is legitimate.
+
+bintu2005_models_fig1:
+  figure: "models, Fig. 1 (whole)"
+  shows: "parent figure for the 1a/1b/1c crops"
+  used_in: []
+  note: "Parent only. Save the full-page crop here if the derived boxes ever need re-cutting."
+
+bintu2005_models_fig2:
+  figure: "models, Fig. 2 (whole)"
+  shows: "parent figure for the 2a crop"
+  used_in: []
+  note: "Parent only."
