@@ -15,8 +15,8 @@ The procedure, every time:
 <table>
 <tr><th>1</th><td>Draw the production rate against $p$.</td>
     <th>3</th><td>Mark every crossing.</td></tr>
-<tr><th>2</th><td>Draw the removal rate against $p$ on the same axes.</td>
-    <th>4</th><td>Classify each one by the <em>sign of the gap</em> either side.</td></tr>
+<tr><th>2</th><td>Draw the removal rate on the same axes.</td>
+    <th>4</th><td>Classify each by the <em>sign of the gap</em> either side.</td></tr>
 </table>
 
 Throughout, one host and one target: a protein that must sit at

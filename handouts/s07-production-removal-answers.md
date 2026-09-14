@@ -31,8 +31,9 @@ on the functional form is a criterion you have to re-derive for every circuit;
 this one you do not.
 
 *Worth noticing:* the one thing that **would** break it is a production curve
-that crosses the removal line from below with a steeper slope — which is exactly
-the middle crossing in item 3, and it is unstable for precisely this reason.
+that crosses the removal line from below with a steeper slope. You will meet
+exactly that crossing in item 3 — work out for yourself what the sign of the gap
+does either side of it.
 
 </div>
 
@@ -58,9 +59,13 @@ before and after, because negative autoregulation does not touch $\gamma$ or the
 growth rate.
 
 So the synthesis rate **at the crossing** is $\mu p^* = \alpha_0 = 23.1$ per
-minute, exactly what it was in item 1. At steady state, NAR is free. The bill
-$\alpha = 46.2$ is the rate the promoter *would* fire at if the repressor were
-absent — which is true only while $p$ is still small, early in the transient.
+minute, exactly what it was in item 1. At steady state, NAR is free.
+
+**It is not free overall, and that distinction is the session.** The bill
+$\alpha = 46.2$ is what the promoter fires at while $p$ is still small and the
+operator still empty — early in the transient, which is when the extra protein
+gets made. The lunch is not free; it is prepaid. PS3 asks you to price it over a
+day against the tag route, which pays every minute forever instead of once.
 
 **▶ Why it is faster.** At $p = p^*/2 = 500$: item 1 has production $23.1$ and
 removal $11.6$, a gap of $11.5$. Item 2 has production $46.2/1.5 = 30.8$ and the
@@ -68,9 +73,10 @@ same removal $11.6$, a gap of $19.2$ — **two-thirds larger**. The gap *is*
 $dp/dt$, so the NAR circuit is climbing harder at the same level, and it keeps
 that advantage all the way up because its production curve is falling toward the
 crossing while the flat one just waits there. Half-time $16.8$ min against
-$30.0$ — a **1.79-fold** speed-up, which is marginally better than the best
-degradation tag in Andersen 1998 buys ($1.75$), and which this circuit gets
-without moving the removal line at all.
+$30.0$ — a **1.79-fold** speed-up. That is the same as the best degradation tag
+in Andersen 1998 buys ($1.75$), to within the precision of a measured half-life;
+do not read the 2% as a win. What matters is that NAR gets it **without moving
+the removal line at all**. The ratio that would match the tag exactly is $1.94$.
 
 **▶ Let $K \to \infty$.** The repressor never occupies the operator, so the
 promoter never sees it; $\alpha/(1+p/K) \to \alpha$, and the required $\alpha$

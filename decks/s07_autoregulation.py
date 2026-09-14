@@ -47,9 +47,13 @@ THE NUMBERS, all computed in figures/s07_autoregulation.py and none asserted:
 Speed-ups: the tag buys 1.75x, NAR at repression ratio 2 buys 1.79x. The
 repression ratio matching the tag exactly is 1.94.
 
-The repression ratio of 2 sits just past the value at which NAR matches the
+The repression ratio of 2 sits just short of the value at which NAR matches the
 strongest tag in Andersen 1998, which is 1.94 (solved for, not guessed). At 2
-the circuit is a shade faster than the tag: 1.79x against 1.75x.
+the circuit gives 1.79x against the tag's 1.75x -- the same number to within the
+precision of a measured half-life, and NOT to be claimed as a win. The claim
+worth making is that NAR matches the best tag WITHOUT moving the removal line.
+The slide aside and the answer sheet were both corrected on 14 September; if you
+change one, change the other.
 
 Coverage matrix: T15, T16 (assessed PS3); T17 (demonstrated here, assessed PS6).
 """
@@ -87,7 +91,7 @@ def build():
     d.title(s, "Three questions, notes closed")
     for i, (n, src, q, c) in enumerate([
             ("1", "From Tuesday",
-             "You measured a fold-change. Name one thing that cancelled out of it, and say why that matters for reusing the part.", TEAL),
+             "You measured a fold-change. Name one thing that cancelled out of it and say why that matters for reusing the part.", TEAL),
             ("2", "From Tuesday",
              "A helper operator raises the slope and not the ceiling. Which parameter sets the ceiling?", TEAL),
             ("3", "From session 5",
@@ -351,7 +355,7 @@ def build():
           "so the NAR curve is below the flat one everywhere past the origin — no quadratic needed"),
          ("Put a number on the speed",
           "repression ratio 2  ⇒  t½ = 16.8 min against 30.0",
-          "1.79× — a shade better than Andersen's strongest tag, which bought 1.75×"),
+          "1.79× against the best tag's 1.75× — the same, within measurement error"),
          ("So compare the two bills",
           "tag: 40.4/min forever.   NAR: 46.2 at first, → 23.1",
           "the tag takes out a standing charge; autoregulation buys on credit")],
@@ -674,7 +678,13 @@ def build():
                "the assessment sits on PS6, after they can simulate it. What "
                "you are promising here is session 12, and PS6 is where they "
                "pay for it. Saying so out loud is the whole point of the "
-               "slide: the deferral is a plan with a date on it.")
+               "slide: the deferral is a plan with a date on it.\n"
+               "IF YOU ARE RUNNING LATE: this segment is the LAST cut, not "
+               "the first. It was the first until 14 September, when T17's "
+               "assessment moved to PS6 -- which means nothing between today "
+               "and session 12 asks them to think about variance again, and "
+               "these four minutes are the only demonstration it gets. Cut "
+               "13c at 74 instead; its knob list is on the ledger at 81.")
 
     # 15 THE DESIGN LEDGER -----------------------------------------------------
     s = d.light()

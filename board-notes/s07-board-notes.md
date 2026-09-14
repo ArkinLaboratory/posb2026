@@ -122,16 +122,28 @@ things, and then you pay both bills. Good question, and worth thirty seconds.
 
 Cut in this order:
 
-1. **The variance segment at 77 min** — down to one minute: say NAR narrows the
-   distribution as well as speeding it up, that the mechanism is the same
-   restoring gap acting on fluctuations, and that the derivation is session 12.
-2. **13c, what positive autoregulation buys you, at 74 min** — down to two
+1. **13c, what positive autoregulation buys you, at 74 min** — down to two
    minutes: keep "you have built a memory" and the growth-rate caveat, drop the
-   knob list, which is on the ledger slide anyway.
-3. **9a, the Rosenfeld design slide at 44 min** — merge into 9b: put the figure
+   knob list, which is on the ledger slide at 81 anyway. **This is the cheapest
+   cut in the session**: it is the only one whose content survives somewhere
+   else in the same hour.
+2. **9a, the Rosenfeld design slide at 44 min** — merge into 9b: put the figure
    up, take the axes from the room in thirty seconds, and go straight to the
    result.
+3. **The variance segment at 77 min** — down to one minute: say NAR narrows the
+   distribution as well as speeding it up, that the mechanism is the same
+   restoring gap acting on fluctuations, and that the derivation is session 12.
+   **Cut this one last, and read the note below before you do.**
 4. **Nothing else.** Do not cut the handout and do not cut the design ledger.
+
+> **Why variance moved from first cut to last, 14 September.** T17's assessment
+> moved off PS3 and onto PS6 that day, so nothing between now and session 12
+> asks a student to think about variance again — the four minutes at 77 are the
+> only demonstration it gets, and session 12's worked comparison is an
+> obligation on a deck that does not yet exist. When this cut order was written,
+> PS3 was going to make them write about the mechanism within a week and one
+> minute here was cheap. It is not cheap now. The knob list at 74 is duplicated
+> on the ledger; variance is duplicated nowhere.
 
 **Never cut:** the vote resolution at 26 min and line 2 at 43. Those two
 together are the session, and session 9's toggle has no foundation without the

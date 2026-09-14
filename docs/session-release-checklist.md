@@ -170,7 +170,7 @@ or it pollutes the queue and the statistics.
 > the solutions stripped, so it scores near zero — right mechanism, wrong
 > file.)
 
-### 4.3 The extra-credit question — and it must happen BEFORE 4.2's deletion
+### 4.3 The extra-credit question
 
 Every set carries one question that is **required for 247, extra credit for
 147**. On the 147 assignment that question is **0 points with rubric items worth
@@ -178,19 +178,28 @@ up to +*e*** — and you must **disable the point ceiling on it**. It is on by
 default, it caps scores at 0.0, and nobody discovers it by looking; they
 discover it when a student asks where their extra credit went.
 
-> **Where the setting actually lives, learned 14 September.** *Rubric Settings*
-> → *Score Bounds* → uncheck **Ceiling (maximum score is 0.0)**. That dialog is
-> reachable **only from the grading view of an actual submission** —
-> `Grade Submissions` → the extra-credit question → *Rubric Settings*. With zero
-> submissions there is no way in at all, and the assignment's own Settings page
-> has no equivalent control.
+> **Where the setting lives.** **Create Rubric** (left nav) lists every
+> manually graded question with its own **Rubric Settings** link. Open the one
+> for the extra-credit question and set:
 >
-> **So the order is: submit the test (4.2) → fix the ceiling (4.3) → *then*
-> delete the test submission.** Delete it first and you have locked yourself
-> out of the one setting nobody discovers by looking.
+> | | 147 | 247 |
+> |---|---|---|
+> | Scoring Method | **Positive scoring** (points added to 0) | Negative scoring |
+> | Ceiling | **unchecked** | leave checked — *maximum score is e* is correct there |
+> | Floor | either; it cannot bind when every item is positive | checked |
+> | Rubric item | one, **`Correct +e`** | one, `Correct -0.0` |
 >
-> On the **247** copy the same question is worth *e* points and its ceiling
-> reads *maximum score is e*. That is correct. Leave it on.
+> **No submission is required.** An earlier version of this note claimed the
+> dialog was reachable only from the grading view of a real submission, and that
+> the ceiling therefore had to be fixed between the test submission and its
+> deletion. That is wrong — it was written from the one route I happened to find
+> first. *Create Rubric* works on an assignment with zero submissions, which is
+> also why this step can be done the moment the outline is saved, before the
+> Docker image has even finished building.
+>
+> The grading-view route (`Grade Submissions` → the question → *Rubric
+> Settings*) does also work, and is the one to use if you are already mid-grade.
+> Both edit the same per-question state.
 
 ### 4.4 Duplicate for 247
 
