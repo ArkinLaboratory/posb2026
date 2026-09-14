@@ -1,0 +1,10 @@
+{
+  "artifact": "s06_table_counting.png",
+  "artifact_sha256": "1abdcfb58d4615f915847fa2905234efe7d397ecdfa49b1ada252840b4527888",
+  "artifact_bytes": 98680,
+  "deps": {
+    "figures/s06_promoter_occupancy.py": "50f040443d3d0a51907dac3682f6955158b60c81443226c590d81c45509cafd3",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s06_promoter_occupancy.fig_table_counting"
+}

@@ -1,0 +1,10 @@
+{
+  "artifact": "s07_bistable_condition.png",
+  "artifact_sha256": "18329635e034ae8562fe7682a810d20ffaa2aa6a629b9616b8bd96abe4993ff6",
+  "artifact_bytes": 135119,
+  "deps": {
+    "figures/s07_autoregulation.py": "f57db379f1aa895ea33d8cf2a594a807c5cb2cae09d060a20aa9ca857d69bd46",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s07_autoregulation.fig_bistable_condition"
+}

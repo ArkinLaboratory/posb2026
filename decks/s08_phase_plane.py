@@ -226,7 +226,7 @@ def build():
          ("For the toggle on the diagonal it is symmetric",
           "J  =  [[ \u22121 , \u2212\u03b2 ] , [ \u2212\u03b2 , \u22121 ]] ,      \u03b2 \u2261 n x^{n+1} / a",
           "one number \u03b2 carries the whole coupling. Everything now depends on it alone"),
-         ("A linear system decays if its eigenvalues have negative real part",
+         ("Decay needs both eigenvalues negative",
           "\u03bb  =  \u22121 \u00b1 \u03b2",
           "read straight off a symmetric 2\u00d72 \u2014 no characteristic polynomial needed"),
          ("So the diagonal point is stable exactly when",

@@ -8,20 +8,23 @@ session: 6
 
 Four promoters of increasing architecture, and **one procedure applied to all
 four**, with less of my working shown each time. **We do items 1 and 2 in the
-room** — ten minutes, and item 1 is already done. Items 3 and 4 are on **PS3**.
+room** — nine minutes, and item 1 is already done. Items 3 and 4 are on **PS3**.
 
-The procedure, every time:
+The procedure, every time — the same four boxes as the slides:
 
 <table>
 <tr><th>1</th><td>List every state the promoter can be in.</td>
-    <th>3</th><td>Say which states transcribe, and how fast.</td></tr>
+    <th>3</th><td>Say what each state fires at.</td></tr>
 <tr><th>2</th><td>Give each state a weight.</td>
-    <th>4</th><td>Divide the transcribing weight by the total.</td></tr>
+    <th>4</th><td>$\text{rate} = \alpha\,\dfrac{\sum (\text{weight} \times \text{fires-at})}{\sum \text{weight}}$</td></tr>
 </table>
 
 Throughout: $a = [A]/K_A$ is an occupancy variable, $p$ is the polymerase
 weight, and $f = e^{-\varepsilon_{ap}/k_BT}$ is charged **only** to a state in
-which two proteins are actually touching. Every answer below is taken in the
+which two proteins are actually touching. **Rates are in units of $\alpha$,**
+the rate a promoter fires at with polymerase bound and nothing else — so that
+column reads 0, 1 or $f$, and $\alpha$ multiplies the whole expression and
+never changes. Every answer below is taken in the
 **weak-promoter limit** ($p \ll 1$), where the fold-change is the regulation
 factor and $p$ cancels.
 
@@ -37,16 +40,18 @@ be bound.
 
 **List the states.** Three, not four. The missing one is what makes this repression.
 
-| state | weight | transcribes? |
+| state | weight | fires at ($\times\,\alpha$) |
 |---|---|---|
-| empty | $1$ | no |
-| LacI$_4$ on $O_m$ | $r = [R]/K_m$ | no |
-| RNAP on the promoter | $p$ | yes, at rate 1 |
-| *both* | — | **does not exist** |
+| empty | $1$ | $0$ |
+| LacI$_4$ on $O_m$ | $r = [R]/K_m$ | $0$ |
+| RNAP on the promoter | $p$ | $1$ |
+| *both* | — | **this state cannot exist** |
 
-**Divide the transcribing weight by the total.**
+**Rate-weight the rows and divide by the total.** Only one row fires, so the
+sum on top has one term:
 
-$$p_{\text{bound}} = \frac{p}{1 + r + p}$$
+$$\frac{\text{rate}}{\alpha} = \frac{0\cdot 1 + 0\cdot r + 1\cdot p}{1 + r + p}
+= \frac{p}{1 + r + p}$$
 
 **Take the ratio to the unregulated promoter** ($r = 0$), which is what an
 experiment reports:
@@ -58,7 +63,7 @@ $$\text{fold-change} = \frac{p/(1 + r + p)}{p/(1 + p)} = \frac{1 + p}{1 + r + p}
 $$\boxed{\;F_{\text{reg}} = \frac{1}{1 + [R]/K_m}\;}$$
 
 which is exactly the form you derived in session 4 from a binding equilibrium —
-reached here by counting states, with no $[P]$ to cancel.
+reached here by counting states, with no polymerase weight left to cancel.
 
 **▶ Why does that step follow?** There is no $f$ anywhere in this answer.
 Answer from the *mechanism*, not the algebra: what would $f$ have been charged
@@ -83,9 +88,15 @@ move together: write $a = [\mathrm{cI}_2]/K_{R2}$ and $h = [\mathrm{cI}_2]/K_{R1
 
 **List the states, and give each a weight.** Four of them. Two are filled in.
 
-| state | weight | transcribes at |
+**Read the convention before you fill it in, because it is not the one on the
+slides.** This table is already in the weak-promoter limit: the polymerase has
+been divided out, so every row here has RNAP bound and the states listed are
+the states of **cI only**. "No cI" therefore fires at 1, not at 0 — it is the
+unregulated promoter, which is what everything else is measured against.
+
+| state of the operators | weight | fires at ($\times\,\alpha$) |
 |---|---|---|
-| empty | $1$ | 1 |
+| no cI bound | $1$ | $1$ |
 | cI$_2$ on $O_R2$ only | $a$ | $f$ |
 | cI$_2$ on $O_R1$ only | | |
 | both | | |
@@ -104,20 +115,20 @@ $$F_{\text{reg}} = $$
 <div class="rule"></div>
 <div class="rule"></div>
 
-**Three checks, and do all three — they are worth more than the derivation.**
+**Two checks, and do both — they are worth more than the derivation.**
 
-**▶ Set $\omega = 1$.** What should the expression become, physically, and does
-it?
-
-<div class="rule"></div>
-
-**▶ Set $h = 0$** (delete $O_R1$). You should recover item 2 of the lecture.
+**▶ Set $\omega = 1$, then separately set $h = 0$.** One leaves the helper bound
+but not helping; the other deletes the helper site altogether. Do both, and then
+answer the question the result raises: **why do two different edits give the
+same expression, and what does that tell you about what $\omega$ is for?**
 
 <div class="rule"></div>
+<div class="rule"></div>
 
-**▶ Let $[\mathrm{cI}_2] \to \infty$.** Show that the answer is $f$, **whatever
-$\omega$ and $K_{R1}$ are.** This is one line, and it is the whole design
-result: the helper site cannot raise the ceiling.
+**▶ Let $[\mathrm{cI}_2] \to \infty$** — remembering that $a$ and $h$ both rise
+with it. Show that the answer is $f$, **whatever $\omega$ and $K_{R1}$ are.**
+One line, and it is the whole design result: the helper site cannot raise the
+ceiling.
 
 <div class="rule"></div>
 <div class="rule"></div>

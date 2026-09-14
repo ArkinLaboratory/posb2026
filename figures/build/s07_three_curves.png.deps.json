@@ -1,0 +1,10 @@
+{
+  "artifact": "s07_three_curves.png",
+  "artifact_sha256": "f4950f85d1b6f3a0392fc80a17b9dc4ec80cf5b8a81afc0d26d4611e65c1a69d",
+  "artifact_bytes": 145912,
+  "deps": {
+    "figures/s07_autoregulation.py": "f57db379f1aa895ea33d8cf2a594a807c5cb2cae09d060a20aa9ca857d69bd46",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s07_autoregulation.fig_three_curves"
+}

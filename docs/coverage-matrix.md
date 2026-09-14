@@ -32,7 +32,7 @@
 | T14 | **Derive** activator, repressor, and AND-like regulation functions | S6 | PS3, Mid | HAND |
 | T15 | **Derive** the negative-autoregulation speed-up | S7 (Sep 17) | PS3, Mid | HAND |
 | T16 | Positive autoregulation → graphical bistability condition | S7 | PS3 | MIX |
-| T17 | Variance reduction under NAR (scaling argument) | S7 | PS3 | HAND |
+| T17 | Variance reduction under NAR (measured, not asserted) | S7 (stated); **S12 owes the worked comparison** | **PS6** | MIX |
 | T18 | Compute and plot nullclines for a 2-D system | S8 (Sep 22) | PS4, Mid | MIX |
 | T19 | Find fixed points — analytically and by numerical root-finding | S8 | PS4, Mid | AUTO |
 | T20 | Jacobian, eigenvalues, linear stability classification | S8 | PS4, Mid | AUTO |
@@ -110,27 +110,37 @@ So in the naive schedule, students write a Gillespie simulator on Oct 6, are exa
 
 **Alternative:** move noise to session 11 and oscillators to session 12, so PS5 can cover it. This costs the clean "dynamics → digital abstraction → midterm" ramp into Part II, which is the pedagogical hinge of the whole course. I do not recommend it.
 
-### 2. Sessions 27–28 are assessed only on the final
+### 2. T17 is demonstrated in September and assessed in October — deliberately
+
+**Decided 14 September.** T17 sits in session 7 (Sep 17) but is assessed on **PS6** (out Oct 20), a five-week gap and the longest in the matrix. The reason: variance reduction under negative autoregulation cannot be *computed* with anything a student owns before session 12. On PS3 it could only be described — it was part 3 of a five-point written question, asking for a mechanism in words and for the admission that the ODE they had been integrating all set cannot produce a variance at all. That admission is worth making, and session 7 makes it in the room; what it is not worth is a matrix row and a grade.
+
+With T32 (Gillespie) and T33 (CV and Fano) in hand, PS6 can assess T17 properly: simulate the constitutive unit and the autoregulated unit at matched mean, report both CVs, and compare with Becskei & Serrano (*Nature* 2000). That is why the grading column moved from HAND to MIX.
+
+**The cost, stated:** five weeks between demonstration and assessment, so the session-7 statement must be recoverable from the deck and notes alone in late October.
+
+**The obligation this creates, and it is binding.** Session 12 is not yet authored. When it is, it **must** carry a worked NAR-versus-constitutive variance comparison — matched mean, two CVs, Becskei & Serrano as the measurement — or T17's PS6 item has no demonstration within reach of it and this move has made the contract worse, not better. Written here because this is the document that gets audited before a set is released. *(Status: owed. S12 deck does not exist as of 14 September.)*
+
+### 3. Sessions 27–28 are assessed only on the final
 
 PS9 is due **Dec 3**; session 27 is **Dec 1** and session 28 is **Dec 3** itself. There is no way to assess them on a problem set. So PS9 covers sessions 24–26 only, and T71–T74 are final-exam-only.
 
 This is defensible — closing sessions on frontier material and governance — but it means those four techniques get **zero formative practice**. Either accept that and weight them lightly on the final, or move one earlier. Flagged, not fixed.
 
-### 3. PS8 spans two weeks
+### 4. PS8 spans two weeks
 
 Out Nov 5, due Nov 19, covering sessions 21–23. This is the longest window and the heaviest conceptual load (retroactivity, control, evolutionary stability — the three sessions with no existing deck). Consider splitting into two shorter sets if authoring allows.
 
-### 4. Grading load, computed
+### 5. Grading load, computed
 
 | | Count |
 |---|---|
 | AUTO techniques | 38 |
-| HAND techniques | 24 |
-| MIX techniques | 12 |
+| HAND techniques | 23 |
+| MIX techniques | 13 |
 
 Roughly **half the assessed techniques are autogradable.** With 35 students × 9 sets, that is a real reduction, but the reader still handles ~24 derivation-type techniques across the term. Budget for it.
 
-Note the asymmetry: Part I is derivation-heavy (14 HAND of 38 techniques), Part II is computation-heavy. The reader's load is front-weighted, peaking around PS2–PS3 where five of the eleven techniques are pure derivations.
+Note the asymmetry: Part I is derivation-heavy (13 HAND of 38 techniques), Part II is computation-heavy. The reader's load is front-weighted, peaking at PS3, where three of its four techniques (T13, T14, T15) are pure derivations.
 
 ---
 

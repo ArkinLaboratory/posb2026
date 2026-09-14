@@ -404,7 +404,7 @@ class Deck:
         if board:
             self.board_glyph(s, M, 0.44)
         self.text(s, label.upper(), M + (0.5 if board else 0), 0.47,
-                  9.5 - (0.5 if board else 0), 0.3, size=11.5, bold=True,
+                  9.5 - (0.5 if board else 0), 0.3, size=13, bold=True,
                   color=MINT if dark else MUTED)
         # The run sheet, small and out of the reading path. Nobody in row 8
         # needs to know the segment is four minutes long.
@@ -416,7 +416,7 @@ class Deck:
 
     # -- derivations ---------------------------------------------------------
     def derivation(self, s_unused, badge, label, title, steps, closing=None,
-                   note=None, dark=False, board=None):
+                   note=None, dark=False, board=None, label_steps=False):
         """A derivation as a run of step slides, one line revealed at a time.
 
         WHY THIS EXISTS (7 September 2026). Sessions 3 and 4 put 37 and 32
@@ -450,15 +450,48 @@ class Deck:
         for i in range(1, len(steps) + 1):
             s = self.dark() if dark else self.light()
             self._in_step_run = (i != len(steps))
-            self.header(s, badge, label)
+            # Adam struck the segment label from all fifteen step slides of
+            # session 6 before teaching it, 12 September. The label is the same
+            # on every surface of a run -- it tells the room nothing it did not
+            # know one click ago, and it competes with the title. The time
+            # badge still prints, because that is the run sheet, and pacing()
+            # reads the label from the header CALL rather than the rendering,
+            # so nothing downstream notices. Pass label_steps=True to put it
+            # back on every surface of a run.
+            self.header(s, badge, "" if not label_steps else label)
             self._in_step_run = False
             self.title(s, title)
             # Geometry adapts to the step count and to whether a closing box
             # has to be reserved: with five steps and a closing line the old
             # fixed 0.92 pitch ran the last aside underneath the box.
-            top, bottom = 1.72, (5.48 if closing else 6.55)
+            top, bottom = 1.62, (5.52 if closing else 6.60)
             pitch = (bottom - top) / max(len(steps), 1)
-            asides = pitch >= 0.62      # no room for the italic line below that
+            asides = pitch >= 0.70      # no room for the italic line below that
+            # A step label longer than the 3.9in column wraps to two lines, and
+            # on a long run the pitch is smaller than two lines are tall -- so
+            # row j runs into row j+1. Found in session 7's eight-step runs on
+            # 12 September by rendering the PDF and looking at it. The fix is to
+            # shorten the label, so say so at build time rather than silently
+            # producing an overlap nobody sees until it is on the wall.
+            if i == 1:
+                cap = 44 if pitch < 0.62 else 58
+                for lhs, _r, _a in steps:
+                    if len(lhs) > cap:
+                        print(f"  !! step label wraps into the next row "
+                              f"({len(lhs)} chars, cap {cap} at this pitch): "
+                              f"{lhs!r}")
+                # Same failure on the right: the equation column is 7.9in at
+                # 20pt, so a line past ~62 RENDERED characters wraps onto its
+                # own aside. Count rendered, not source: _{NS} is five source
+                # characters and two narrow glyphs, and counting the markup
+                # flagged four session-6 equations that fit on the wall
+                # perfectly well. Checked against the rendered PDF, 13 Sept.
+                for _l, rhs, _a in steps:
+                    shown = _MARKUP.sub(lambda m: m.group(2), rhs)
+                    if len(shown) > 62:
+                        print(f"  !! step equation wraps onto its aside "
+                              f"({len(shown)} rendered chars, cap 62): "
+                              f"{rhs!r}")
             for j, (lhs, rhs, aside) in enumerate(steps[:i]):
                 y = top + j * pitch
                 live = (j == i - 1)
@@ -466,32 +499,44 @@ class Deck:
                     MUTED if dark else RULE)
                 self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, y, 0.11,
                            min(pitch - 0.16, 0.62), fill=bar, line=None)
-                self.text(s, lhs, M + 0.34, y - 0.02, 3.9, 0.52, size=14,
+                self.text(s, lhs, M + 0.34, y - 0.02, 3.9, 0.52, size=16,
                           font=HEAD, bold=True,
                           color=(WHITE if dark else INK) if live
                                 else (MINT if dark else MUTED))
-                self.text(s, rhs, M + 4.5, y - 0.02, 7.9, 0.42, size=17,
+                self.text(s, rhs, M + 4.5, y - 0.02, 7.9, 0.42, size=20,
                           font=TEXT, bold=True,
                           color=(WHITE if dark else INK) if live
                                 else (MINT if dark else MUTED))
                 # On a crowded run the asides survive only on the live step;
                 # on the earlier ones they are history and cost the room
                 # nothing to lose.
+                # ...and never running under the closing box. The first
+                # version of this guard DROPPED such an aside, which silently
+                # cost session 6 two lines it had been taught with -- including
+                # "p cancels, and with it N_NS", which is the session's
+                # punchline. So clamp it into the band above the box instead of
+                # deleting it: one tight line at 13pt, which is what fits.
                 if aside and (asides or live):
-                    self.text(s, aside, M + 4.5, y + 0.40, 7.9, 0.44, size=12.5,
-                              italic=True, color=MINT if dark else MUTED)
+                    ay, ah, asz = y + 0.40, 0.44, 14
+                    ceiling = 5.66 if closing else 7.00
+                    if ay + ah > ceiling:
+                        ah, asz = 0.22, 13
+                        ay = ceiling - ah - 0.02
+                    if ay > y + 0.30:          # never on top of the equation
+                        self.text(s, aside, M + 4.5, ay, 7.9, ah, size=asz,
+                                  italic=True, color=MINT if dark else MUTED)
             if i == len(steps) and closing:
                 self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, 5.66,
                            W - 2 * M, 0.92,
                            fill=None if dark else WASH,
                            line=CYAN if dark else TEAL, lw=2)
                 self.text(s, closing, M + 0.3, 5.84, W - 2 * M - 0.6, 0.62,
-                          size=17, bold=True, color=WHITE if dark else INK)
+                          size=20, bold=True, color=WHITE if dark else INK)
             # The board cue belongs on the LAST step only: the instruction is
             # "now that this is derived, put it on the wing", and showing it
             # earlier tells him to write a line that is not on screen yet.
             if i == len(steps) and board:
-                self.to_board(s, board, y=6.68, size=13)
+                self.to_board(s, board, y=6.68, size=14)
             if i == len(steps) and note:
                 self.notes(s, note)
             made.append(s)
@@ -526,7 +571,7 @@ class Deck:
         self.shape(s, MSO_SHAPE.RECTANGLE, x - 0.03, y + h, w + 0.06, 0.035,
                    fill=MUTED if not dark else SILVER, line=None)
 
-    def to_board(self, s, text, y=6.42, size=13.5):
+    def to_board(self, s, text, y=6.42, size=14):
         """An explicit cue: leave the screen and write this.
 
         Used inside slide-resident sessions, where the derivation is projected
@@ -543,8 +588,17 @@ class Deck:
         self.text(s, txt, M, y, W - 2 * M, 0.95, size=size, font=HEAD,
                   bold=True, color=WHITE if s._posb_dark else INK)
 
-    def foot(self, s, txt, y=6.45):
-        self.text(s, txt, M, y, W - 2 * M, 0.4, size=11.5, italic=True,
+    def foot(self, s, txt, y=6.75):
+        """The italic line at the bottom of a surface.
+
+        SIZE AND PLACE ARE ADAM'S, twice over. 12 September he took it from
+        11.5 to 13 by hand; 13 September, from 13 to 16, and moved every one he
+        touched down to roughly 6.75 -- the foot belongs against the bottom
+        edge, not floating above it, and at 13pt it was not readable from row
+        8. Callers that pass y explicitly are honoured; the default is where he
+        put them.
+        """
+        self.text(s, txt, M, y, W - 2 * M, 0.34, size=16, italic=True,
                   color=SILVER if s._posb_dark else MUTED)
 
     def sources(self, s, pairs, y=6.62):
@@ -567,9 +621,9 @@ class Deck:
             # NOT .upper(): these labels carry units, and case is meaningful
             # in a unit. "µm²/s" upper-cases to "MM²/S", which is a different
             # quantity and a thousand times bigger.
-            self.text(s, what, x, y, wid - 0.25, 0.22, size=9,
+            self.text(s, what, x, y, wid - 0.25, 0.22, size=11,
                       bold=True, color=CYAN if dark else TEAL)
-            self.text(s, cite, x, y + 0.21, wid - 0.25, 0.4, size=9.5,
+            self.text(s, cite, x, y + 0.21, wid - 0.25, 0.4, size=11,
                       italic=True, color=SILVER if dark else MUTED)
         return y + 0.6
 
@@ -592,7 +646,7 @@ class Deck:
                    fill=None, line=AMBER, lw=2)
         self.text(s, "ATTRIBUTION NEEDED", x + 0.15, y + 0.06, 1.75, 0.3,
                   size=10, bold=True, color=AMBER)
-        self.text(s, note, x + 1.95, y + 0.07, w - 2.1, 0.3, size=11,
+        self.text(s, note, x + 1.95, y + 0.07, w - 2.1, 0.3, size=12,
                   italic=True, color=AMBER)
         self.unattributed_figures.append(note)
         return y + 0.42
@@ -613,7 +667,7 @@ class Deck:
         img = _resolve_paper_figure(key)
         if img.exists():
             ix, iy, iw, ih = self.image(s, img, x, y, w, h)   # records img
-            self.text(s, ref, ix, iy + ih + 0.04, iw, 0.25, size=9,
+            self.text(s, ref, ix, iy + ih + 0.04, iw, 0.28, size=14,
                       italic=True, color=MUTED if not s._posb_dark else SILVER,
                       align="c")
             # A slot whose aspect ratio does not match the figure's wastes the
@@ -632,7 +686,7 @@ class Deck:
                          fill=CARD, line=AMBER, lw=2)
         box.line.dash_style = 4      # dashed
         self.text(s, "FIGURE FROM THE PAPER", x, y + h / 2 - 0.55, w, 0.3,
-                  size=9.5, bold=True, color=AMBER, align="c")
+                  size=11, bold=True, color=AMBER, align="c")
         self.text(s, ref, x, y + h / 2 - 0.22, w, 0.35, size=14, font=HEAD,
                   bold=True, color=INK, align="c")
         self.text(s, caption, x + 0.2, y + h / 2 + 0.14, w - 0.4, 0.6,
@@ -665,7 +719,7 @@ class Deck:
         rows, _ = resolve(readings_spec(), sessions())
         return [r for r in rows if self.session in (r.get("preview") or [])]
 
-    def coming_up(self, s, y=6.35, size=13):
+    def coming_up(self, s, y=6.35, size=16):
         """One line: the paper this session is building toward."""
         rows = self.previewed_here()
         if not rows:
@@ -794,7 +848,7 @@ class Deck:
                            poster_frame_image=str(post) if post.exists() else None,
                            mime_type="video/mp4")
         if caption:
-            self.text(s, caption, x, y + h + 0.04, w, 0.25, size=9,
+            self.text(s, caption, x, y + h + 0.04, w, 0.28, size=12,
                       italic=True, align="c",
                       color=SILVER if s._posb_dark else MUTED)
         return y + h
@@ -820,13 +874,13 @@ class Deck:
                          fill=CARD, line=AMBER, lw=2)
         box.line.dash_style = 4
         self.text(s, "▶  MOVIE FROM THE PAPER", x, y + h / 2 - 0.6, w, 0.3,
-                  size=9.5, bold=True, color=AMBER, align="c")
+                  size=11, bold=True, color=AMBER, align="c")
         self.text(s, ref, x, y + h / 2 - 0.26, w, 0.35, size=14, font=HEAD,
                   bold=True, color=INK, align="c")
         self.text(s, caption, x + 0.2, y + h / 2 + 0.12, w - 0.4, 0.7,
                   size=11.5, italic=True, color=MUTED, align="c")
         self.text(s, f"private/paper-movies/{key}.mp4", x, y + h - 0.28, w, 0.25,
-                  size=9, italic=True, color=MUTED, align="c")
+                  size=12, italic=True, color=MUTED, align="c")
         return False
 
     # -- pacing --------------------------------------------------------------

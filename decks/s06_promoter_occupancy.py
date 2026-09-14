@@ -5,19 +5,49 @@ which was settled before any of this existed and is not re-opened here.
 
     0–5    retrieval (2 from Thursday, 1 interleaved from session 4)
     5–8    map + goals as questions
-    8–10   THE HINGE — try the session-4 method on an activator; watch it fail
-    10–22  DERIVATION 1 — states, weights, p_bound, the weak-promoter limit
-    22–28  rhythm 1 — do you need to know N_NS to read a fold-change?
-    28–36  DERIVATION 2 — simple activation, lac + CRP2*: the parameters K_A and f
-    36–42  rhythm 2 — a specification that needs s = 1.66
-    42–46  lambda P_RM: cooperativity buys sharpness, not amplitude
-    46–48  pause (individual, not collected)
-    48–58  handout, items 1 and 2 — one derivation, twice
-    58–62  the answers
-    62–66  lambda O_R as a solved design problem — Ackers, Johnson & Shea 1982
-    66–72  rhythm 3 — which arrows in your network diagrams are safe?
-    72–76  the design ledger
-    76–80  consolidation, Rosenfeld handed out, the unanswered cost question
+    8–12   THE OBJECT — what a promoter is, drawn, before anything is counted
+    12–16  where the polymerase is: the genome as a reservoir
+    16–20  two levers — recruitment and the closed-to-open transition
+    20–22  the hinge: try session 4's method on an activator; watch it fail
+    22–29  DERIVATION 1 — counting: where a weight comes from, ending at p
+    29–32  THE TABLE — four columns, and the rule that replaces the algebra
+    32–34  a repressor, added as rows
+    34–36  the general form, F_reg as an odds ratio, and the hinge closes
+    36–42  rhythm 1 — do you need N_NS to read a fold-change? (pose, resolve)
+    42–45  activation as two more rows: the RATE column is the new lever
+    45–49  DERIVATION 2 — read the design parameters off: plateau, midpoint, s
+    49–55  rhythm 2 — a specification that needs s = 1.66
+    55–59  lambda P_RM: cooperativity buys sharpness, not amplitude
+    59–68  handout, items 1 and 2 — one procedure, twice
+    68–72  the answers
+    72–76  lambda O_R as a solved design problem — Ackers, Johnson & Shea 1982
+    76–79  the design ledger
+    79–81  two sessions side by side
+    81–85  consolidation, Rosenfeld handed out, the unanswered cost question
+
+RESTRUCTURED 13 SEPTEMBER — the table, and why
+    The deck derived the machinery ALGEBRAICALLY; the handout, PS3 and the
+    midterm all assess it as a TABLE -- state, weight, transcribes -- and no
+    table appeared anywhere in the deck. At minute 59 the room was asked to
+    fill in a format nobody had built in front of them.
+
+    Adam found three symptoms before the cause: F_reg asserted with no
+    definition, p_bound(A) written four surfaces before A existed, and "a and
+    p are each a concentration over a reference -- exactly the p you built",
+    which is false as written. The p built in derivation 1 was a count ratio
+    times a Boltzmann factor, and nothing had said that N_NS e^{+de/kT} is an
+    effective dissociation constant.
+
+    The counting IS a two-row table, so the cancellation is a COLUMN: the
+    factorials, the genome and the absolute energies live in "ways x
+    Boltzmann" and die when you divide by the empty row. Derivation 1 now ends
+    by naming p = [RNAP]/K_RNAP; the table is built at 29; every architecture after
+    that is ROWS, not algebra; and F_reg is read off by pointing -- the factor
+    by which a regulator multiplies the ODDS of polymerase being bound.
+
+    Derivation 2 lost four steps to the activation table and kept the three
+    that matter (weak-promoter limit, divide, read the parameters off), so the
+    sensitivity result ConcepTest 2 depends on is untouched.
 
 WHAT THIS SESSION OWES PS3 AND THE MIDTERM
 - T13 promoter occupancy from a partition function: derivation 1, handout 1.
@@ -54,12 +84,12 @@ def build():
 
     # 1 TITLE -----------------------------------------------------------------
     s = d.dark()
-    d.text(s, "Session 6", M, 2.25, 8.6, 0.4, size=16, bold=True, color=CYAN)
+    d.text(s, "Session 6", M, 2.25, 8.6, 0.4, size=20, bold=True, color=CYAN)
     d.text(s, "Promoter occupancy", M, 2.72, 9.4, 1.3,
            size=40, font=HEAD, bold=True, color=WHITE)
     d.text(s, "Where α comes from — and why one calculation does all of it",
-           M, 4.15, 9.4, 0.5, size=17, italic=True, color=MINT)
-    d.text(s, d.date_line, M, 6.35, 9.0, 0.4, size=13, color=SILVER)
+           M, 4.15, 9.4, 0.5, size=20, italic=True, color=MINT)
+    d.text(s, d.date_line, M, 6.35, 9.0, 0.4, size=16, color=SILVER)
     d.image(s, "docs/assets/posb-logo-520.png", W - M - 2.9, 2.05, 2.9, 2.9)
     d.notes(s, "PS2 is due Thursday. PS3 posts Thursday and carries five "
                "techniques, two of them from today.\n"
@@ -80,12 +110,12 @@ def build():
              "A repressor binds one site. Write the fraction of time the site is occupied. You have done this; do it again from scratch.", CYAN)]):
         y = 1.9 + i * 1.5
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 1.15, fill=c, line=None)
-        d.text(s, n, M, y + 0.38, 0.5, 0.35, size=17, bold=True, color=WHITE,
+        d.text(s, n, M, y + 0.38, 0.5, 0.35, size=20, bold=True, color=WHITE,
                align="c")
-        d.text(s, src, M + 0.8, y, 3.0, 0.3, size=11.5, bold=True, color=c)
-        d.text(s, q, M + 0.8, y + 0.3, 11.7, 0.85, size=15.5, color=BODY)
+        d.text(s, src, M + 0.8, y, 3.0, 0.3, size=14, bold=True, color=c)
+        d.text(s, q, M + 0.8, y + 0.3, 11.7, 0.85, size=20, color=BODY)
     d.text(s, "Two minutes in writing. Question 3 stays on the board — we are about to break it.",
-           M, 6.45, W - 2 * M, 0.4, size=15, bold=True, color=INK)
+           M, 6.45, W - 2 * M, 0.34, size=20, bold=True, color=INK)
     d.notes(s, "Q1: alpha sets the LEVEL the exponential climbs to; the rate "
                "of climb is the removal rate, and alpha is not a removal "
                "rate.\n"
@@ -108,16 +138,16 @@ def build():
         x, here = M + i * 2.42, n == "6"
         d.shape(s, S.ROUNDED_RECTANGLE, x, 1.95, 2.15, 0.62,
                 fill=TEAL if here else WASH, line=TEAL if here else RULE, lw=1)
-        d.text(s, f"{n}  {lab}", x, 2.13, 2.15, 0.3, size=13.5, bold=here,
+        d.text(s, f"{n}  {lab}", x, 2.13, 2.15, 0.3, size=16, bold=here,
                color=WHITE if here else MUTED, align="c")
     for i, g in enumerate([
-            "Where does a Hill function actually come from, and what is it the special case of?",
+            "Where does a Hill function come from, and what is it the special case of?",
             "Your specification says the output must swing ten-fold while the input moves four-fold. Can any single promoter do that?",
             "Every network diagram you have drawn puts a + or a − on each edge. When is that label wrong?"]):
         y = 3.25 + i * 1.0
-        d.text(s, "?", M, y, 0.4, 0.5, size=26, font=HEAD, bold=True,
+        d.text(s, "?", M, y, 0.4, 0.5, size=32, font=HEAD, bold=True,
                color=CYAN, align="c")
-        d.text(s, g, M + 0.6, y, W - 2 * M - 0.6, 0.8, size=17, color=BODY)
+        d.text(s, g, M + 0.6, y, W - 2 * M - 0.6, 0.8, size=20, color=BODY)
     d.coming_up(s, y=6.5)
     d.notes(s, "Questions, not statements.\n"
                "The third one is the session's sting and they will not believe "
@@ -136,12 +166,12 @@ def build():
     # segment and ConcepTest 3; see the module docstring.
     s = d.light()
     d.header(s, "8 – 12 min", "The object, before the model")
-    d.title(s, "What a promoter actually is")
+    d.title(s, "What a promoter is")
     d.image(s, "figures/build/s06_promoter_anatomy.png", M, 1.35, 12.4, 4.6)
     d.shape(s, S.ROUNDED_RECTANGLE, M, 6.02, W - 2 * M, 0.86, fill=WASH,
             line=TEAL, lw=2)
-    d.text(s, "You have this promoter in your hands. What can you actually change — and what would you have to DO to change each one?",
-           M + 0.3, 6.14, 11.6, 0.56, size=16.5, bold=True, color=INK)
+    d.text(s, "You have this promoter in your hands. What can you change — and what would you have to DO to change each one?",
+           M + 0.3, 6.14, 11.6, 0.56, size=20, bold=True, color=INK)
     d.notes(s, "Do not rush this — it is the first time in "
                "the course that a promoter is a piece of DNA rather than a "
                "symbol, and half the room has never seen it.\n"
@@ -175,7 +205,7 @@ def build():
 
     # 3c WHERE THE POLYMERASE IS ----------------------------------------------
     s = d.light()
-    d.header(s, "12 – 16 min", "Where the polymerase actually is")
+    d.header(s, "12 – 16 min", "Where the polymerase is")
     d.title(s, "Almost every polymerase in the cell is stuck to DNA")
     d.paper_figure(s, "bintu2005_models_fig1a", M, 1.40, 5.9, 2.5,
                    "Bintu et al. 2005 (models), Fig. 1a",
@@ -190,9 +220,9 @@ def build():
              "about 5 × 10⁶ of them — the genome itself. It is not a parameter you set, and in twelve minutes it will cancel.")]):
         y = 4.15 + i * 1.05
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.11, 0.9, fill=TEAL, line=None)
-        d.text(s, k, M + 0.3, y - 0.02, 5.6, 0.36, size=13.5, font=HEAD,
+        d.text(s, k, M + 0.3, y - 0.02, 5.6, 0.36, size=16, font=HEAD,
                bold=True, color=INK)
-        d.text(s, txt, M + 0.3, y + 0.33, 5.7, 0.64, size=12, color=BODY)
+        d.text(s, txt, M + 0.3, y + 0.33, 5.7, 0.64, size=14, color=BODY)
     d.foot(s, "And read the right-hand panel: lac sits near 10⁻³. A promoter that is occupied a thousandth of the time is what ‘weak promoter’ will mean.", 6.42)
     d.notes(s, "This slide exists so that N_NS is a fact about cells before it "
                "is a symbol in an equation.\n"
@@ -215,7 +245,7 @@ def build():
     d.shape(s, S.ROUNDED_RECTANGLE, M, 6.02, W - 2 * M, 0.82, fill=WASH,
             line=TEAL, lw=2)
     d.text(s, "Today's model charges for the first and holds the second fixed. Remember that it does — at 72 minutes it is the entry in the Limits column.",
-           M + 0.3, 6.20, 11.6, 0.5, size=16, bold=True, color=INK)
+           M + 0.3, 6.20, 11.6, 0.5, size=20, bold=True, color=INK)
     d.foot(s, "Which lever a part uses decides whether it travels. Hold that question until minute 46 — the algebra answers it.", 6.95)
     d.notes(s, "This is the slide the session rests "
                "on.\n"
@@ -239,12 +269,12 @@ def build():
     d.header(s, "20 – 22 min", "On your own  ·  ninety seconds")
     d.title(s, "Now do question 3 for an activator.")
     d.text(s, "Same method, same two minutes. A protein binds one site and transcription goes UP. Write the regulation function.",
-           M, 1.85, 12.5, 0.55, size=19, font=HEAD, color=INK)
+           M, 1.85, 12.5, 0.55, size=20, font=HEAD, color=INK)
     for i, (k, txt, c) in enumerate([
             ("What the method gives you",
              "the fraction of time the site is occupied — a number between 0 and 1, of the form [A]/(K_{d} + [A]). Nothing more.",
              TEAL),
-            ("What activation actually is",
+            ("What activation is",
              "either the bound protein RECRUITS polymerase — a protein–protein contact — or it speeds the closed-to-open transition. Two different mechanisms.",
              CYAN),
             ("So the question the method cannot answer",
@@ -252,13 +282,13 @@ def build():
              AMBER)]):
         y = 2.7 + i * 1.22
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.11, 1.02, fill=c, line=None)
-        d.text(s, k, M + 0.34, y - 0.02, 5.0, 0.5, size=15, font=HEAD,
+        d.text(s, k, M + 0.34, y - 0.02, 5.0, 0.5, size=16, font=HEAD,
                bold=True, color=INK)
-        d.text(s, txt, M + 5.5, y - 0.02, 6.9, 1.05, size=13.5, color=BODY)
+        d.text(s, txt, M + 5.5, y - 0.02, 6.9, 1.05, size=16, color=BODY)
     d.shape(s, S.ROUNDED_RECTANGLE, M, 6.15, W - 2 * M, 0.82, fill=WASH,
             line=TEAL, lw=2)
     d.text(s, "Session 4 counted molecules on a site. Today we count STATES of the promoter, and give each one a weight and a firing rate.",
-           M + 0.3, 6.33, 11.6, 0.5, size=16.5, bold=True, color=INK)
+           M + 0.3, 6.33, 11.6, 0.5, size=20, bold=True, color=INK)
     d.notes(s, "Let them try it, then take the failure from the room rather "
                "than announcing it.\n"
                "Be precise about what fails, because a sharp student will say "
@@ -272,83 +302,170 @@ def build():
                "Leave question 3 on the board. Derivation 2 reproduces it as a "
                "special case at 36 min, and that is the payoff.")
 
-    # 5 DERIVATION 1 — the machinery -------------------------------------------
-    # Expanded 12 September. Adam: the class will not get this off one line per
-    # move. The old step 4 did the multinomial, the P << N_NS limit and the
-    # definition of p at once, which is where a biologist loses the thread and
-    # a physicist stops watching. Eight steps now, and the two that matter --
-    # counting the arrangements, and what survives the division -- each get
-    # their own surface.
+    # 5 DERIVATION 1 — where a weight comes from --------------------------------
+    # Restructured 13 September, Adam's review. The deck derived the machinery
+    # ALGEBRAICALLY and the handout assesses it as a TABLE, and the deck never
+    # showed a table at all -- so at minute 59 the room was asked to fill in a
+    # format nobody had built in front of them. Three symptoms of that, all
+    # his: F_reg asserted with no definition (old slide 14), p_bound(A) with no
+    # A in existence yet (15), and "a and p are each a concentration over a
+    # reference -- exactly the p you built" (19), which is FALSE as written,
+    # because the p they built is a count ratio times a Boltzmann factor.
+    #
+    # The fix is not to bolt a table on after the algebra. The counting IS a
+    # two-row table, and the cancellation is a COLUMN: everything unmeasurable
+    # lives in "ways x Boltzmann" and dies when you divide by the empty row.
+    # This run now stops at p and names it [RNAP]/K_RNAP, which is what makes the
+    # activation table's weights the same kind of object.
     d.derivation(
-        None, "22 – 34 min", "Built one line at a time",
-        "Count the states. Weight them. Divide by the sum.",
-        [("Ask where the polymerase actually is",
-          "P molecules,  N_{NS} = 5 × 10⁶ non-specific sites,  one promoter",
+        None, "22 – 29 min", "Built one line at a time",
+        "Where a weight comes from",
+        [("Where is the polymerase?",
+          "N_{P} polymerases,  N_{NS} = 5 × 10⁶ sites,  one core promoter",
           "the genome is the reservoir — you saw the picture at 12 minutes"),
-         ("Count the ways to put P of them on N_{NS} sites",
-          "W(P)  =  N_{NS}! / [ P! (N_{NS} − P)! ]   ≈   N_{NS}^{P} / P!",
-          "balls in boxes. N_{NS} is five million and P a few thousand, so the falling factorial is just N_{NS}^{P}"),
-         ("State 1 — promoter empty, all P stuck non-specifically",
-          "Z_{1}  =  (N_{NS}^{P} / P!) · e^{−P ε_NS / k_BT}",
+         ("Count the arrangements",
+          "W  =  N_{NS}! / [ N_{P}! (N_{NS} − N_{P})! ]   ≈   N_{NS}^{N_P} / N_{P}!",
+          "balls in boxes. N_{NS} is five million and N_{P} a few thousand, so the falling factorial is just N_{NS}^{N_P}"),
+         ("Row 1 — promoter empty",
+          "(N_{NS}^{N_P} / N_{P}!) · e^{−N_P ε_NS / k_BT}",
           "every one of those arrangements has the same energy, so they share one Boltzmann factor"),
-         ("State 2 — one polymerase on the promoter, P−1 elsewhere",
-          "Z_{2}  =  (N_{NS}^{P−1} / (P−1)!) · e^{−(P−1) ε_NS / k_BT} · e^{−ε_P / k_BT}",
+         ("Row 2 — one on the promoter",
+          "(N_{NS}^{N_P−1} / (N_{P}−1)!) · e^{−(N_P−1) ε_NS/k_BT} · e^{−ε_prom/k_BT}",
           "one fewer molecule in the reservoir, and one sitting on the site we care about"),
-         ("Divide. Watch what fails to survive",
-          "Z_{2} / Z_{1}  =  (P / N_{NS}) · e^{−(ε_P − ε_NS) / k_BT}   ≡   p",
-          "P!/(P−1)! = P, one factor of N_{NS} is left over, and only the energy DIFFERENCE survives"),
-         ("So the promoter is occupied some fraction of the time",
-          "p_{bound}  =  Z_{2} / (Z_{1} + Z_{2})  =  p / (1 + p)",
-          "two states, so the sum has two terms. That is the whole of the statistical mechanics"),
-         ("A regulator does not change the method. It changes the list",
-          "p_{bound}  =  p F_{reg} / (1 + p F_{reg})",
-          "every promoter in this course is this equation. Only F_{reg} changes"),
-         ("And take the weak-promoter limit: p << 1",
-          "fold-change  =  p_{bound}(A) / p_{bound}(0)  =  F_{reg}",
-          "p cancels — and with it N_{NS}, the polymerase count, and both energies")],
-        closing="fold-change = F_{reg}. Everything you cannot measure has cancelled — which is why a part is characterised in fold-change and not in molecules.",
-        board="LEFT WING, and leave it up all period:   p_{bound} = p F_{reg}/(1 + p F_{reg})   and   fold-change = F_{reg}  (weak promoter)",
+         ("Divide row 2 by row 1",
+          "(N_{P} / N_{NS}) · e^{−(ε_prom − ε_NS) / k_BT}   ≡   p",
+          "N_{P}!/(N_{P}−1)! = N_{P}, one factor of N_{NS} is left over, and only the energy DIFFERENCE survives"),
+         ("Name what you just built",
+          "p  =  [RNAP] / K_{RNAP} ,      K_{RNAP}  =  N_{NS} · e^{+Δε / k_BT}",
+          "a concentration over the concentration that half-occupies the site")],
+        closing="Every weight in this course has that shape: how much there is, over how much it takes to half-occupy the site.",
+        board="LEFT WING, and leave it up all period:   p = [RNAP]/K_{RNAP} ,   K_{RNAP} = N_{NS} e^{+Δε/k_BT}",
         note=("Build it with them. Ask for the state list before you write "
               "it.\n"
               "Step 2 is where a biologist will stall, so do the count out "
               "loud: how many ways to put 3 balls in 5 boxes, then generalise. "
-              "The approximation is worth ten seconds — N_NS is 5e6 and P is a "
+              "The approximation is worth ten seconds — N_NS is 5e6 and N_P is a "
               "few thousand, so (N_NS − P) is still 5e6.\n"
               "Step 3: say why all those arrangements share one Boltzmann "
               "factor. They are the same energy. That is the only reason the "
               "count and the weight separate.\n"
               "STEP 5 IS THE ONE. Do the division on the board beside the "
               "slide if you have to. Three things happen: the factorials leave "
-              "a single P, the powers of N_NS leave a single N_NS "
+              "a single N_P, the powers of N_NS leave a single N_NS "
               "downstairs, and the absolute energies cancel to a difference. "
               "That last one is why nobody ever has to measure an absolute "
               "binding energy.\n"
-              "Ask after step 6: what have we NOT needed to know? The number "
-              "of polymerases, the size of the genome, and every energy in the "
-              "problem. Three things, and none of them measurable.\n"
-              "LEDGER, left wing: p_bound = pF/(1+pF), fold-change = F_reg."))
+              "STEP 6 IS NEW AND IT IS LOAD-BEARING. Until this line p is a "
+              "count ratio times a Boltzmann factor; after it, p is a "
+              "concentration over a dissociation constant, which is the same "
+              "object as a = [A]/K_A at 42 min. Without it the activation "
+              "table's weights look like a different kind of thing and the "
+              "room is right to be confused.\n"
+              "DO NOT ask 'what did we not need to know?' here. We still need "
+              "all of it — P, N_NS and both energies are sitting in p. That "
+              "question belongs at 34 min, after the ratio, and asking it now "
+              "pre-teaches the wrong answer to the vote at 36."))
+
+    # 5b THE TABLE -------------------------------------------------------------
+    s = d.light()
+    d.header(s, "29 – 32 min", "The object you will use for the rest of the term")
+    d.title(s, "That calculation was a table with two rows")
+    d.image(s, "figures/build/s06_table_counting.png", 0.30, 1.50, 12.75, 3.80)
+    d.shape(s, S.ROUNDED_RECTANGLE, M, 5.40, W - 2 * M, 1.42, fill=WASH,
+            line=TEAL, lw=2)
+    d.text(s, "A weight is  (how much there is) ÷ (how much half-occupies the site),  times one Boltzmann factor for every CONTACT made in that state.",
+           M + 0.3, 5.52, 11.6, 0.48, size=17, bold=True, color=INK)
+    d.text(s, "p = [RNAP]/K_{RNAP},   K_{RNAP} = N_{NS} e^{+Δε/k_BT}.      rate = α · Σ(weight × fires-at) ÷ Σ(weight),   so two rows give α p/(1 + p).",
+           M + 0.3, 6.06, 11.6, 0.45, size=15, bold=True, color=TEAL)
+    d.text(s, "The rate column is in units of α: an empty promoter fires at 0, a bare RNAP-bound one at 1. α multiplies everything and never changes.",
+           M + 0.3, 6.46, 11.6, 0.4, size=14, color=BODY)
+    d.notes(s, "Three minutes, and it is the surface the rest of the session "
+               "stands on.\n"
+               "Say the α convention out loud and point at the column: the "
+               "RATE column is measured in units of α, so an empty promoter "
+               "fires at 0 and a bare RNAP-bound promoter fires at 1. α itself "
+               "multiplies the whole expression and never changes. Every table "
+               "after this one is in those units.\n"
+               "ASK: which column would you have to measure? Neither of the "
+               "first two. You measure the ratio, and that is the next "
+               "surface.\n"
+               "This is the format of the handout at 59 minutes and of PS3. "
+               "Say so — they should recognise the columns when the paper "
+               "lands in their hands.")
+
+    # 5c ADD A REGULATOR -------------------------------------------------------
+    s = d.light()
+    d.header(s, "32 – 34 min", "One more row, and one that cannot exist")
+    d.title(s, "A repressor changes the list, not the physics")
+    d.image(s, "figures/build/s06_table_repression.png", 0.79, 1.51, 11.75, 5.17)
+    d.foot(s, "Two operators' worth of algebra never happened. You added a row, deleted a state, and divided.")
+    d.notes(s, "Two minutes. Build the rows WITH them — ask what states exist "
+               "before you show the figure.\n"
+               "The struck row is the mechanism. An operator that overlaps the "
+               "core promoter means the repressor and the polymerase cannot "
+               "both be bound, so that state is not weighted small — it is "
+               "ABSENT from the sum.\n"
+               "ASK: what would change if the operator sat beside the promoter "
+               "instead of over it? The row comes back, with an interaction "
+               "factor on it. That is the minute-16 picture, and it is item 1 "
+               "of the handout.")
+
+    # 5d THE GENERAL RESULT, AND THE HINGE CLOSES ------------------------------
+    s = d.light()
+    d.header(s, "34 – 36 min", "The general form  ·  and Tuesday's question, answered")
+    d.title(s, "Every promoter in this course is one equation")
+    for i, (k, txt, c) in enumerate([
+            ("Whatever the regulator does, it lands on one factor",
+             "add rows, delete rows, re-rate rows — take the RNAP-containing rows over the rest and you get p F_{reg}. So p_{bound} = p F_{reg} / (1 + p F_{reg}), and F_{reg} is the factor by which the regulator multiplies the ODDS of finding polymerase there.", TEAL),
+            ("Measure the ratio, not the occupancy",
+             "fold-change ≡ p_{bound}(regulator present) / p_{bound}(absent) = F_{reg} (1 + p) / (1 + p F_{reg}). For a WEAK promoter, p << 1, that is F_{reg}.", CYAN),
+            ("Now ask what you never needed",
+             "the polymerase count, the size of the genome, and both binding energies. All of them live in p, and p cancelled — but only in the limit above.", AMBER)]):
+        y = 1.72 + i * 1.36
+        d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 1.18, fill=c, line=None)
+        d.text(s, k, M + 0.45, y, 12.1, 0.42, size=17, font=HEAD, bold=True,
+               color=INK)
+        d.text(s, txt, M + 0.45, y + 0.40, 12.1, 0.92, size=14, color=BODY)
+    d.shape(s, S.ROUNDED_RECTANGLE, M, 5.96, W - 2 * M, 0.92, fill=WASH,
+            line=TEAL, lw=2)
+    d.text(s, "Set the repressor's row back: F_{reg} = 1/(1 + r) — which is what you wrote on the board in the first five minutes, from a completely different argument.",
+           M + 0.3, 6.12, 11.6, 0.62, size=16, bold=True, color=INK)
+    d.notes(s, "Two minutes, and the second half of it is the hinge closing.\n"
+               "Box 1: F_reg as an ODDS RATIO is the sentence to land. Odds of "
+               "polymerase bound, with the regulator, over the odds without. "
+               "An odds ratio is exactly the kind of quantity in which "
+               "uncountable things cancel, and the vote in two minutes is "
+               "about when they do not.\n"
+               "Box 3 is the question I told you not to ask at 29 minutes. Ask "
+               "it now, and make them say the condition out loud.\n"
+               "THEN TURN TO THE RIGHT WING. Retrieval question 3 has been up "
+               "since minute 4. Point at it: that is F_reg = 1/(1+r), which is "
+               "what this table gives for a repressor that occludes. Session 4 "
+               "was not wrong — it was the special case, and it could not have "
+               "told you it was one.\n"
+               "LEDGER, left wing: p_bound = pF/(1+pF), fold-change = F_reg "
+               "(weak promoter).")
 
     # 6 RHYTHM 1 --------------------------------------------------------------
     s = d.light()
-    d.header(s, "34 – 38 min", "Pose  ·  paper  ·  silent vote  ·  argue")
+    d.header(s, "36 – 40 min", "Pose  ·  paper  ·  silent vote  ·  argue")
     d.title(s, "Your collaborator wants the genome size.")
     d.text(s, "She says your fold-change measurement cannot be interpreted without knowing N_{NS} and the RNAP copy number. Work it before you vote.",
-           M, 1.95, 12.5, 0.55, size=19, font=HEAD, color=INK)
+           M, 1.95, 12.5, 0.55, size=20, font=HEAD, color=INK)
     for i, (lab, opt) in enumerate([
             ("A", "She is right — both appear in p, and p is in the model."),
             ("B", "She is wrong — they cancel in the ratio, always."),
             ("C", "She is wrong for a weak promoter, right for a strong one."),
-            ("D", "She is right, but only the ratio P/N_{NS} matters.")]):
+            ("D", "She is right, but only the ratio N_{P}/N_{NS} matters.")]):
         y = 2.85 + i * 0.8
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.55, 0.54, fill=TEAL, line=None)
-        d.text(s, lab, M, y + 0.12, 0.55, 0.3, size=15, bold=True, color=WHITE,
+        d.text(s, lab, M, y + 0.12, 0.55, 0.3, size=16, bold=True, color=WHITE,
                align="c")
-        d.text(s, opt, M + 0.85, y + 0.09, 11.6, 0.4, size=17, color=BODY)
-    d.foot(s, "Three minutes on paper. Eyes down to vote, argue with your neighbour, vote again.", 6.3)
+        d.text(s, opt, M + 0.85, y + 0.09, 11.6, 0.4, size=20, color=BODY)
     d.notes(s, "Answer C, and B is the trap — it is the right instinct with "
                "the condition filed off.\n"
-               "Work it: p_bound = pF/(1+pF). The ratio to the unregulated "
-               "case is F(1+p)/(1+pF). For p << 1 that is F and everything "
+               "They have the algebra from box 2 of the last surface: the "
+               "ratio is F(1+p)/(1+pF). For p << 1 that is F and everything "
                "cancels. For p of order 1 or larger it is not, and the "
                "measured fold-change depends on how strong the promoter "
                "already was.\n"
@@ -376,11 +493,11 @@ def build():
     # the instructor happened to say it. It is the session's first engineering
     # payoff and it was living in a speaker note.
     s = d.dark()
-    d.header(s, "38 – 40 min", "Vote  ·  argue  ·  vote again")
+    d.header(s, "40 – 42 min", "Vote  ·  argue  ·  vote again")
     d.title(s, "C — and you just proved parts are reusable.")
     for i, (k, txt) in enumerate([
             ("The algebra, in one line",
-             "p_{bound}(A)/p_{bound}(0) = [pF/(1+pF)] · [(1+p)/p] = F_{reg}(1+p)/(1+pF_{reg}). For p << 1 that is F_{reg}."),
+             "p_{bound}(reg)/p_{bound}(none) = [pF/(1+pF)] · [(1+p)/p] = F_{reg}(1+p)/(1+pF_{reg}). For p << 1 that is F_{reg}."),
             ("p is the core promoter",
              "and it cancelled. So the same regulatory part, bolted onto any WEAK promoter, gives the same fold-change. Characterise it once, reuse it anywhere."),
             ("Which is why datasheets quote fold-change",
@@ -389,9 +506,9 @@ def build():
              "on a strong promoter the two knobs stop being independent and your characterisation stops transferring. Modularity is a property of the REGIME, not of the part.")]):
         y = 1.85 + i * 1.12
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 0.94, fill=CYAN, line=None)
-        d.text(s, k, M + 0.4, y, 4.6, 0.45, size=14, font=HEAD, bold=True,
+        d.text(s, k, M + 0.4, y, 4.6, 0.45, size=16, font=HEAD, bold=True,
                color=WHITE)
-        d.text(s, txt, M + 5.3, y - 0.02, 7.1, 0.95, size=13, color=MINT)
+        d.text(s, txt, M + 5.3, y - 0.02, 7.1, 0.95, size=16, color=MINT)
     d.foot(s, "Session 17 calls this composability and spends a whole period on when it fails. You have just derived the condition.", 6.4)
     d.notes(s, "B is the majority answer and it is right about the cancelling "
                "and wrong about the condition.\n"
@@ -403,58 +520,63 @@ def build():
                "project: a characterisation taken on a weak promoter does not "
                "transfer to a strong one, and nothing about the part changed.")
 
-    # 7 DERIVATION 2 — simple activation --------------------------------------
+    # 7 ACTIVATION — the same table, two more rows ------------------------------
+    s = d.light()
+    d.header(s, "42 – 45 min", "Simple activation  ·  lac and CRP")
+    d.title(s, "An activator cannot empty a row — it re-rates one")
+    d.image(s, "figures/build/s06_table_activation.png", 0.51, 1.62, 12.86, 5.17)
+    d.foot(s, "Two levers: what is BOUND, and how fast the bound thing FIRES. That is the last vote of the session.")
+    d.notes(s, "Three minutes. Ask for the four states before you show them.\n"
+               "THE POINT OF THE SURFACE is the rate column. A repressor that "
+               "occludes deletes a row; an activator leaves every row in place "
+               "and changes what one of them FIRES AT. Same table, different "
+               "column, and that is the whole difference between the two "
+               "mechanisms they saw at minute 16.\n"
+               "f is a protein-protein interaction energy, which means it is a "
+               "surface, which means it is engineerable. It appears in TWO "
+               "places — the weight of the both-bound row and its rate — and "
+               "that is not a coincidence: the same contact that holds them "
+               "together is the one that speeds up initiation.\n"
+               "a = [A]/K_A is the same shape as p = [RNAP]/K_RNAP from 29 "
+               "minutes. "
+               "Say that explicitly and point at both.\n"
+               "IF ASKED why the both-bound row fires at f and not at 1: "
+               "because recruitment is not the only thing the contact does. "
+               "Session 7's paper takes that apart.")
+
+    # 7b DERIVATION 2 — what the table gives you -------------------------------
     d.derivation(
-        None, "40 – 49 min", "Built one line at a time",
-        "Simple activation: lac and CRP, with measured parameters",
-        [("Write the state list for one activator site plus the promoter",
-          "empty · A bound · RNAP bound · both bound",
-          "four states, and choosing them is the modelling decision"),
-         ("Weight them the same way you just did",
-          "1  ·  a  ·  p  ·  a p f,      a = [A]/K_{A},   f = e^{−ε_ap/k_BT}",
-          "a and p are each a concentration over a reference — exactly the p you built"),
-         ("Charge f only where the two proteins are actually touching",
-          "ε_ap < 0 means they like being adjacent, so f > 1",
-          "this is the recruitment lever from minute 16, and it is the only new object today"),
-         ("Only the states with RNAP on the promoter transcribe",
-          "p_{bound}  ∝  (p + a p f) / (1 + a + p + a p f)",
-          "the activator-bound one fires f times as often, so it is counted f times"),
-         ("Weak promoter again: drop p and apf from the denominator",
+        None, "45 – 49 min", "Built one line at a time",
+        "Read the design parameters off the table",
+        [("Weak promoter, again",
           "p_{bound}  ≈  p (1 + a f) / (1 + a)",
-          "p is small, so any term carrying it is small next to 1 and a"),
-         ("Divide by the promoter with no activator, a = 0",
+          "p is small, so any term carrying it is small next to 1 and a — the same move as 34 minutes"),
+         ("Divide by the a = 0 case",
           "F_{reg}  =  (1 + f a) / (1 + a)",
           "two parameters. Not four, not six — and both of them are visible"),
-         ("Read them off a log–log plot instead of measuring energies",
+         ("Read the parameters off",
           "plateau = f      midpoint = K_{A}      s = (√f − 1)/(√f + 1)",
           "dF/da = (f−1)/(1+a)², so s = a(f−1)/[(1+a)² F], and at a = 1/√f that collapses")],
-        closing="F_{reg} = (1 + fa)/(1 + a). Set f = 0 and the repressor from session 4 falls out — same equation, one state deleted.",
+        closing="One site, one contact, and a ceiling: s < 1 for every finite f. A single operator cannot be made sharp.",
         board="LEFT WING, under the first two:   F_{reg} = (1 + fa)/(1 + a),   a = [A]/K_{A}",
-        note=("Slow down on step 3. f is a protein-protein interaction energy, "
-              "which means it is a surface, which means it is engineerable. It "
-              "is the left-hand panel of the minute-16 figure with a number on "
-              "it.\n"
-              "Step 5 is the same move as step 8 of the last run. Say so — "
-              "they have done this once already and it should feel cheap the "
-              "second time.\n"
-              "STEP 7 IS THE OTHER HARD ONE. The aside carries the "
-              "differentiation; do it on the board if the room wants it. What "
-              "matters is where the midpoint is: in a log-log plot the middle "
-              "is F = sqrt(f), not F = f/2, and that is a = 1/sqrt(f). Put "
-              "f = 11 in and you get 0.54, which is the number printed in "
-              "Bintu's Figure 2 legend.\n"
-              "The ceiling is the design consequence: s < 1 for every finite "
-              "f. One site cannot be made sharp. That is the next vote.\n"
-              "The closing line is the hinge closing. Point at question 3, "
-              "still on the board: set f = 0 and you get session 4's answer "
-              "back. The old method was the special case."))
+        note=("Three steps, and they have done the first two once already — "
+              "say so, it should feel cheap the second time.\n"
+              "STEP 3 IS THE HARD ONE. The aside carries the differentiation; "
+              "do it on the board if the room wants it. What matters is where "
+              "the midpoint is: in a log-log plot the middle is F = sqrt(f), "
+              "not F = f/2, and that is a = 1/sqrt(f). Put f = 11 in and you "
+              "get 0.54, which is the number printed in Bintu's Figure 2 "
+              "legend.\n"
+              "The ceiling is the design consequence and it is the closing "
+              "line: s < 1 for every finite f. One site cannot be made sharp. "
+              "That is the next vote."))
 
     # 8 RHYTHM 2 --------------------------------------------------------------
     s = d.light()
     d.header(s, "49 – 55 min", "Pose  ·  paper  ·  silent vote  ·  argue")
     d.title(s, "Ten-fold out, four-fold in.")
     d.text(s, "The specification: output rises ten-fold while the input rises only four-fold. Your activator has f = 11 at one site. Work out the slope you need.",
-           M, 1.95, 12.5, 0.55, size=19, font=HEAD, color=INK)
+           M, 1.95, 12.5, 0.55, size=20, font=HEAD, color=INK)
     for i, (lab, opt) in enumerate([
             ("A", "Use a stronger core promoter — more output per bound RNAP."),
             ("B", "Improve the activator–RNAP contact: raise f at the one site."),
@@ -462,9 +584,9 @@ def build():
             ("D", "No promoter built from these parts reaches it.")]):
         y = 2.85 + i * 0.8
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.55, 0.54, fill=TEAL, line=None)
-        d.text(s, lab, M, y + 0.12, 0.55, 0.3, size=15, bold=True, color=WHITE,
+        d.text(s, lab, M, y + 0.12, 0.55, 0.3, size=16, bold=True, color=WHITE,
                align="c")
-        d.text(s, opt, M + 0.85, y + 0.09, 11.6, 0.4, size=17, color=BODY)
+        d.text(s, opt, M + 0.85, y + 0.09, 11.6, 0.4, size=20, color=BODY)
     d.foot(s, "You need one number before you can answer: the log–log slope the specification is asking for. Three minutes.", 6.3)
     d.notes(s, "The slope required is log10/log4 = 1.66.\n"
                "A does nothing: the core promoter is in p, and p cancelled.\n"
@@ -503,9 +625,9 @@ def build():
         y = 4.15 + i * 0.80
         d.shape(s, S.ROUNDED_RECTANGLE, 7.95, y, 0.11, 0.66, fill=TEAL,
                 line=None)
-        d.text(s, k, 8.20, y - 0.02, 4.4, 0.35, size=13.5, font=HEAD,
+        d.text(s, k, 8.20, y - 0.02, 4.4, 0.35, size=16, font=HEAD,
                bold=True, color=INK)
-        d.text(s, txt, 8.20, y + 0.30, 4.4, 0.48, size=12, color=BODY)
+        d.text(s, txt, 8.20, y + 0.30, 4.4, 0.48, size=14, color=BODY)
     d.foot(s, "s = 0.54 with O_{R}1 deleted, 0.93 with it. Same plateau, nearly double the slope — and 0.93 is still under the 1.66 you were asked for.", 6.42)
     d.notes(s, "Resolve the vote here, with their own numbers on the screen.\n"
                "The two curves have the SAME plateau. Make them look at it "
@@ -532,27 +654,16 @@ def build():
                "Ask: you have two requirements now, amplitude and sharpness. "
                "Do they share a knob? No. Hold that until the ledger.")
 
-    # 10 PAUSE ----------------------------------------------------------------
-    s = d.dark()
-    d.header(s, "59 – 61 min", "Two minutes  ·  your own notes")
-    d.title(s, "Two minutes. Fix your own notes.")
-    d.text(s, "Find the one line in the last forty minutes you could not reconstruct on your own and write it out properly.",
-           M, 2.2, 11.9, 0.9, size=20, color=WHITE, spacing=1.3)
-    d.text(s, "Then: handouts.", M, 3.9, 11.9, 0.5, size=22, font=HEAD,
-           bold=True, color=CYAN)
-    d.foot(s, "If nothing comes to mind: write the state list for a promoter with TWO repressor sites that cannot both be occupied at once.", 6.3)
-    d.notes(s, "Say nothing for the full two minutes. Stand at the back.\n"
-               "Nothing is collected.\n"
-               "The foot line is the mutually-exclusive-states case and it is "
-               "handout item 1's structure. Answer: three states, not four — "
-               "the doubly-bound one is simply absent from the sum, which is "
-               "the whole trick.\n"
-               "Hand the paper out during the second minute.")
+    # 10 PAUSE — CUT by Adam in PowerPoint before teaching, 12 September, and
+    # ported here rather than left to be regenerated. At 87 minutes it is the
+    # cheapest two minutes in the session, and this deck has three surfaces
+    # where the room is already working alone. One d.dark() block restores it;
+    # see git history for 18a48cf.
 
     # 11 HANDOUT --------------------------------------------------------------
     s = d.light()
-    d.header(s, "61 – 70 min", "Handout  ·  items 1 and 2  ·  nine minutes")
-    d.title(s, "The same calculation, four times, with less of my working each time")
+    d.header(s, "59 – 68 min", "Handout  ·  items 1 and 2  ·  nine minutes")
+    d.title(s, "The same calculation, four times")
     for i, (n, k, txt, c) in enumerate([
             ("1", "Fully worked — simple repression",
              "lacUV5 truncated to one operator, LacI₄ at O_{m}. Every step labelled. Read it; do not copy it.", TEAL),
@@ -564,14 +675,14 @@ def build():
              "Build a promoter whose fold-change is AND-like. Give the truth table, and say which knob you turned to get it.", MUTED)]):
         y = 1.85 + i * 1.15
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 0.9, fill=c, line=None)
-        d.text(s, n, M, y + 0.26, 0.5, 0.35, size=17, bold=True, color=WHITE,
+        d.text(s, n, M, y + 0.26, 0.5, 0.35, size=20, bold=True, color=WHITE,
                align="c")
-        d.text(s, k, M + 0.8, y, 4.6, 0.4, size=14.5, font=HEAD, bold=True,
+        d.text(s, k, M + 0.8, y, 4.6, 0.4, size=16, font=HEAD, bold=True,
                color=INK if i < 2 else MUTED)
-        d.text(s, txt, M + 5.6, y + 0.02, 6.7, 0.9, size=13,
+        d.text(s, txt, M + 5.6, y + 0.02, 6.7, 0.9, size=16,
                color=BODY if i < 2 else MUTED)
-    d.text(s, "Start wherever the scaffolding stops helping you. Ten minutes, and only the first two.",
-           M, 6.45, W - 2 * M, 0.45, size=15, bold=True, color=INK)
+    d.text(s, "Start wherever the scaffolding stops helping you. Nine minutes, and only the first two.",
+           M, 6.45, W - 2 * M, 0.34, size=20, bold=True, color=INK)
     d.notes(s, "Item 1 is worked. They read it and start at item 2 if the "
                "first is obvious. Do not announce who should start where.\n"
                "Errors to watch for while circulating: (a) forgetting the "
@@ -586,12 +697,12 @@ def build():
 
     # 12 THE ANSWERS ----------------------------------------------------------
     s = d.light()
-    d.header(s, "70 – 74 min", "The answers  ·  items 1 and 2")
+    d.header(s, "68 – 72 min", "The answers  ·  items 1 and 2")
     d.title(s, "The denominator is the whole answer.")
     for i, (n, ans, prompt, c) in enumerate([
             ("1",
              "three states, not four:  F_{reg} = 1/(1 + [R]/K_{m})",
-             "LacI on O_{m} and RNAP on the promoter overlap, so the doubly-occupied state does not exist and is simply absent from the sum. Repression has no f in it — there is no contact to charge for. This is session 4's answer, reached by counting instead of by cancelling [P].",
+             "LacI on O_{m} and RNAP on the promoter overlap, so the doubly-occupied state does not exist and is simply absent from the sum. Repression has no f in it — there is no contact to charge for. This is session 4's answer, reached by counting instead of by cancelling the polymerase weight.",
              TEAL),
             ("2",
              "four states:  F_{reg} = (1 + fa + h + fωah)/(1 + a + h + ωah)",
@@ -599,15 +710,15 @@ def build():
              CYAN)]):
         y = 1.9 + i * 2.0
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.5, 1.6, fill=c, line=None)
-        d.text(s, n, M, y + 0.6, 0.5, 0.35, size=17, bold=True, color=WHITE,
+        d.text(s, n, M, y + 0.6, 0.5, 0.35, size=20, bold=True, color=WHITE,
                align="c")
-        d.text(s, ans, M + 0.8, y, 11.7, 0.5, size=16, font=HEAD, bold=True,
+        d.text(s, ans, M + 0.8, y, 11.7, 0.5, size=20, font=HEAD, bold=True,
                color=INK)
         d.shape(s, S.ROUNDED_RECTANGLE, M + 0.8, y + 0.58, 0.1, 0.95,
                 fill=MUTED, line=None)
-        d.text(s, prompt, M + 1.15, y + 0.55, 11.35, 1.0, size=13, color=BODY)
+        d.text(s, prompt, M + 1.15, y + 0.55, 11.35, 1.0, size=16, color=BODY)
     d.text(s, "Two checks that catch nearly everything: is the empty state in the denominator, and does every state you wrote physically exist?",
-           M, 6.3, W - 2 * M, 0.45, size=16, font=HEAD, bold=True, color=INK)
+           M, 6.3, W - 2 * M, 0.45, size=20, font=HEAD, bold=True, color=INK)
     d.notes(s, "Take both from the room before showing them.\n"
                "Item 1 closes the hinge for the second time: the session-4 "
                "result, derived by counting. Say so.\n"
@@ -626,7 +737,7 @@ def build():
     # cited, and the two-levers slide at 16 min now teaches the mechanism it
     # rested on.
     s = d.light()
-    d.header(s, "74 – 78 min", "Ackers, Johnson & Shea 1982")
+    d.header(s, "72 – 76 min", "Ackers, Johnson & Shea 1982")
     d.title(s, "One operator, two promoters, opposite requirements")
     d.paper_figure(s, "ackers1982_fig2", M, 1.45, 6.1, 4.3,
                    "Ackers, Johnson & Shea, PNAS 79:1129 (1982), Fig. 2",
@@ -643,9 +754,9 @@ def build():
         y = 1.55 + i * 1.15
         d.shape(s, S.ROUNDED_RECTANGLE, M + 6.5, y, 0.11, 0.98, fill=TEAL,
                 line=None)
-        d.text(s, k, M + 6.75, y - 0.02, 5.8, 0.4, size=14, font=HEAD,
+        d.text(s, k, M + 6.75, y - 0.02, 5.8, 0.4, size=16, font=HEAD,
                bold=True, color=INK)
-        d.text(s, txt, M + 6.75, y + 0.34, 5.8, 0.78, size=12.5, color=BODY)
+        d.text(s, txt, M + 6.75, y + 0.34, 5.8, 0.78, size=14, color=BODY)
     d.foot(s, "An engineering document written eighteen years before anyone could build one. Read its Table 3 as a parts list with measured values.", 6.42)
     d.notes(s, "Teach the shape of the achievement, not the phage "
                "biology.\n"
@@ -664,13 +775,13 @@ def build():
 
     # 16 THE DESIGN LEDGER ----------------------------------------------------
     s = d.light()
-    d.header(s, "78 – 81 min", "The design ledger")
+    d.header(s, "76 – 79 min", "The design ledger")
     d.title(s, "Knobs, constraints, limits")
     for i, (head, items, c) in enumerate([
-            ("KNOBS — what a sequence change can move",
+            ("KNOBS — what a sequence change moves",
              ["operator affinity K — it is a binding site, so it is a sequence",
               "number and spacing of sites — add a helper operator",
-              "the interaction energy ω — protein surfaces and linkers. Ackers measured λ's at −1.99 kcal/mol in 1982, and that one number holds lysogeny stable",
+              "the interaction energy ω — protein surfaces and linkers. Ackers measured λ's at −1.99 kcal/mol",
               "the enhancement factor f — which mechanism you recruit through"],
              TEAL),
             ("CONSTRAINTS — what you do not set",
@@ -679,21 +790,21 @@ def build():
               "k_{B}T is not adjustable — which is why 2–3 k_{B}T is a large effect and 0.1 is nothing",
               "and synthesis flux is a currency you have not been charged for yet"],
              CYAN),
-            ("LIMITS — where today's answer stops being true",
+            ("LIMITS — where today's answer stops",
              ["the weak-promoter limit: strong promoters break fold-change = F_{reg}",
-              "equilibrium: binding must settle fast against transcription. Fine in bacteria, shakier in eukaryotes",
-              "the monotone arrow. Restore the second lever — each state has its own firing rate — and an activator can repress (Gedeon 2008). Every + and − you have drawn is the one-lever special case"],
+              "equilibrium: binding settles fast against transcription. Fine in bacteria, shakier in eukaryotes",
+              "the monotone arrow. Give each state its own firing rate and an activator can repress (Gedeon 2008)"],
              AMBER)]):
         x = M + i * 4.28
         d.shape(s, S.ROUNDED_RECTANGLE, x, 1.75, 4.05, 0.52, fill=c, line=None)
-        d.text(s, head, x + 0.18, 1.87, 3.75, 0.32, size=12.5, bold=True,
+        d.text(s, head, x + 0.18, 1.87, 3.75, 0.32, size=14, bold=True,
                color=WHITE)
         for j, it in enumerate(items):
-            y = 2.48 + j * 1.02
-            d.shape(s, S.ROUNDED_RECTANGLE, x, y, 0.08, 0.86, fill=c,
+            y = 2.42 + j * 1.09
+            d.shape(s, S.ROUNDED_RECTANGLE, x, y, 0.08, 0.94, fill=c,
                     line=None)
-            d.text(s, it, x + 0.28, y - 0.04, 3.75, 0.95, size=12, color=BODY)
-    d.foot(s, "Check this against the list on the right wing — the one you made at minute 12, before any of the mathematics.", 6.35)
+            d.text(s, it, x + 0.28, y - 0.05, 3.75, 1.02, size=16, color=BODY)
+    d.foot(s, "Check this against the list on the right wing — the one you made at minute 12, before any of the mathematics.")
     d.notes(s, "Read the comparison box out loud. It is the strongest single "
                "thing in the session and it only exists because Thursday came "
                "first.\n"
@@ -705,7 +816,7 @@ def build():
 
     # 16b THE COMPARISON — the session's actual argument, on its own surface
     s = d.dark()
-    d.header(s, "81 – 83 min", "Two sessions, side by side")
+    d.header(s, "79 – 81 min", "Two sessions, side by side")
     d.title(s, "Do your requirements share a knob?")
     for i, (when, eqn, verdict, c) in enumerate([
             ("THURSDAY", "p* = α/(γ+μ)      t½ = ln2/(γ+μ)",
@@ -714,15 +825,15 @@ def build():
              "Two knobs, two requirements. Sharpness and amplitude move independently.", CYAN)]):
         y = 2.05 + i * 1.55
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 1.3, fill=c, line=None)
-        d.text(s, when, M + 0.4, y, 2.2, 0.4, size=15, font=HEAD, bold=True,
+        d.text(s, when, M + 0.4, y, 2.2, 0.4, size=16, font=HEAD, bold=True,
                color=c)
-        d.text(s, eqn, M + 2.8, y - 0.02, 9.5, 0.45, size=19, font=TEXT,
+        d.text(s, eqn, M + 2.8, y - 0.02, 9.5, 0.45, size=20, font=TEXT,
                bold=True, color=WHITE)
-        d.text(s, verdict, M + 2.8, y + 0.52, 9.5, 0.75, size=14, color=MINT)
+        d.text(s, verdict, M + 2.8, y + 0.52, 9.5, 0.75, size=16, color=MINT)
     d.shape(s, S.ROUNDED_RECTANGLE, M, 5.25, W - 2 * M, 0.95, fill=None,
             line=CYAN, lw=2)
     d.text(s, "Which case you are in is a property of the mechanism, not of how hard you push. Finding out is the first thing a designer does.",
-           M + 0.3, 5.48, 11.6, 0.6, size=17, bold=True, color=WHITE)
+           M + 0.3, 5.48, 11.6, 0.6, size=20, bold=True, color=WHITE)
     d.notes(s, "This is the strongest thing in the session and it only exists "
                "because Thursday came first. Say it slowly.\n"
                "The two equations are on the left wing. Point at them.\n"
@@ -733,17 +844,17 @@ def build():
 
     # 17 CONSOLIDATION --------------------------------------------------------
     s = d.dark()
-    d.header(s, "83 – 87 min", "Next")
+    d.header(s, "81 – 85 min", "Next")
     d.title(s, "One question, and I am not answering it today.")
     d.text(s, "Two cells. One expresses a protein with a degradation tag, one without, and both hold the same steady level.",
            M, 2.05, 11.6, 0.85, size=20, color=WHITE, spacing=1.3)
-    d.text(s, "Which cell is spending more?", M, 3.1, 11.6, 0.5, size=26,
+    d.text(s, "Which cell is spending more?", M, 3.1, 11.6, 0.5, size=32,
            font=HEAD, bold=True, color=CYAN)
     d.text(s, "Fifteen seconds. Do not write anything down. Thursday opens on it, and the answer is why the most common single-gene circuit in E. coli looks the way it does.",
-           M, 3.75, 11.6, 0.75, size=15, color=MINT)
+           M, 3.75, 11.6, 0.75, size=16, color=MINT)
     bottom = d.assignment(s, y=4.7)
     d.text(s, "PS2 is due Thursday. PS3 posts Thursday and carries today's two techniques.",
-           M, bottom + 0.12, 11.6, 0.35, size=15, bold=True, color=SILVER)
+           M, bottom + 0.12, 11.6, 0.35, size=16, bold=True, color=SILVER)
     d.notes(s, "No arithmetic, and no resolution.\n"
                "Most of the room will say 'the same' — the levels are equal, "
                "so what is there to spend? It is wrong and they cannot yet see "

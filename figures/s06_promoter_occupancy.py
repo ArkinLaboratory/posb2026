@@ -161,6 +161,221 @@ def fig_states_weights():
     plt.close(fig)
 
 
+
+# ---------------------------------------------------------------------------
+# THE STATE TABLE
+#
+# Added 13 September after Adam's review. The deck derived the machinery
+# algebraically and the handout assessed it as a TABLE -- state, weight,
+# transcribes -- and the deck never showed a table at all. So at minute 59 the
+# room was asked to fill in a format it had never watched anyone build, and the
+# three symptoms he found (F_reg asserted at slide 14, p_bound(A) with no A at
+# 15, "a and p are the same kind of object" at 19) are all that mismatch.
+#
+# The fix is not to bolt a table on after the algebra. It is to make the
+# algebra BUILD the table: the two-state calculation already is a two-row
+# table, and the cancellation is a COLUMN -- everything unmeasurable lives in
+# "ways x Boltzmann" and dies when you divide by the empty row.
+# ---------------------------------------------------------------------------
+
+_CELL = "#EEF3F1"
+
+
+def _promoter_cartoon(ax, x0, y, sites, contact=False, w=2.55, faint=False):
+    """A short piece of DNA with named sites, some of them occupied.
+
+    `sites` is a list of (label, occupant, colour); occupant None means empty.
+    """
+    al = 0.38 if faint else 1.0
+    ax.add_patch(mpatches.FancyBboxPatch(
+        (x0, y - 0.19), w, 0.40, boxstyle="round,pad=0.03",
+        facecolor=_CELL, edgecolor=RULE, lw=1.5, zorder=1, alpha=al))
+    n = len(sites)
+    xs = [x0 + w * (i + 1) / (n + 1) for i in range(n)]
+    for x, (lab, occ, c) in zip(xs, sites):
+        bw = 0.60 if len(lab) <= 1 else 0.28 + 0.20 * len(lab)
+        ax.add_patch(mpatches.Rectangle((x - bw / 2, y - 0.10), bw, 0.20,
+                     facecolor="#FFFFFF", edgecolor=MUTED, lw=1.4, zorder=2,
+                     alpha=al))
+        ax.text(x, y, lab, ha="center", va="center",
+                fontsize=11 if len(lab) <= 1 else 9.5,
+                color=MUTED, zorder=3, alpha=al)
+        if occ:
+            pw = 0.54 if len(occ) <= 1 else 0.24 + 0.21 * len(occ)
+            ax.add_patch(mpatches.FancyBboxPatch(
+                (x - pw / 2, y + 0.12), pw, 0.27, boxstyle="round,pad=0.03",
+                facecolor=c, edgecolor="none", zorder=4, alpha=al))
+            ax.text(x, y + 0.255, occ, ha="center", va="center",
+                    fontsize=12 if len(occ) <= 1 else 10.5,
+                    color="white", fontweight="bold", zorder=5, alpha=al)
+    if contact and len(xs) >= 2:
+        ax.plot([xs[0], xs[1]], [y + 0.47, y + 0.47], color=AMBER, lw=3.0,
+                solid_capstyle="round", zorder=6)
+        for x in (xs[0], xs[1]):
+            ax.plot([x, x], [y + 0.40, y + 0.47], color=AMBER, lw=3.0,
+                    zorder=6)
+    return xs
+
+
+def fig_table_counting():
+    """Derivation 1, drawn as the first two rows of the table.
+
+    Column 2 is the reservoir bookkeeping -- factorials, the genome, absolute
+    energies. Column 3 is what survives dividing by the empty row. Column 2 is
+    never needed again, and that is the whole point: it is the column the room
+    watches die.
+    """
+    fig, ax = plt.subplots(figsize=(13.6, 4.9))
+    ax.set_axis_off()
+    ax.set_xlim(0, 13.6)
+    ax.set_ylim(-0.80, 3.70)
+
+    for x, lab in ((1.25, "state"), (7.20, "ways  \u00d7  Boltzmann"),
+                   (11.45, "weight"), (13.05, "fires at")):
+        ax.text(x, 3.22, lab, ha="center", fontsize=13.5, color=MUTED,
+                style="italic")
+    ax.plot([0.12, 13.48], [3.02, 3.02], color=RULE, lw=1.6)
+
+    rows = [
+        (2.32, [("core", None, CYAN)], "empty",
+         r"$\dfrac{N_{\rm NS}^{\,N_P}}{N_P!}\;e^{-N_P\varepsilon_{\rm NS}/k_BT}$",
+         r"$1$", r"$0$", MUTED),
+        (0.92, [("core", "RNAP", CYAN)], "RNAP bound",
+         r"$\dfrac{N_{\rm NS}^{\,N_P-1}}{(N_P-1)!}\;"
+         r"e^{-(N_P-1)\varepsilon_{\rm NS}/k_BT}\;e^{-\varepsilon_{\rm prom}/k_BT}$",
+         r"$\dfrac{N_P}{N_{\rm NS}}\,e^{-\Delta\varepsilon/k_BT} \equiv p$",
+         r"$\alpha$", CYAN),
+    ]
+    for y, sites, name, raw, wgt, rate, c in rows:
+        _promoter_cartoon(ax, 0.15, y, sites, w=1.55)
+        ax.text(1.90, y, name, ha="left", va="center", fontsize=13,
+                color=INK)
+        ax.text(7.20, y, raw, ha="center", va="center", fontsize=13,
+                color=MUTED)
+        ax.text(11.45, y, wgt, ha="center", va="center", fontsize=15,
+                color=c, fontweight="bold")
+        ax.text(13.05, y, rate, ha="center", va="center", fontsize=15,
+                color=INK if rate != r"$0$" else MUTED)
+
+    # the division, drawn as the operation that turns column 2 into column 3
+    ax.annotate("", xy=(10.55, 1.62), xytext=(9.65, 1.62),
+                arrowprops=dict(arrowstyle="-|>", color=TEAL, lw=2.4))
+    ax.text(10.10, 1.84, "\u00f7 the empty row", ha="center", fontsize=12.5,
+            color=TEAL, fontweight="bold")
+
+    ax.plot([0.12, 13.48], [0.28, 0.28], color=RULE, lw=1.6)
+    ax.text(0.15, -0.10,
+            "Divide every row by the empty row and the bookkeeping dies. The "
+            "factorials leave one N$_P$, the powers of N"
+            r"$_{\rm NS}$" " leave one N" r"$_{\rm NS}$"
+            " underneath, and the two absolute",
+            fontsize=13, color=BODY, va="top")
+    ax.text(0.15, -0.47,
+            "energies survive only as their DIFFERENCE. Nobody ever measures "
+            "an absolute binding energy.",
+            fontsize=13, color=BODY, va="top")
+
+    fig.subplots_adjust(left=0.008, right=0.992, top=0.99, bottom=0.01)
+    fig.savefig(f"{OUT}/s06_table_counting.png", bbox_inches=None)
+    plt.close(fig)
+
+
+def _weight_table(fname, rows, foot, note=None, figsize=(11.0, 4.6),
+                  ytop=3.30, dy=0.86):
+    """A state table in the handout's three columns: state, weight, fires at.
+
+    `rows` is a list of (sites, contact, name, weight, rate, colour, dead).
+    A `dead` row is drawn struck through: the state that cannot exist is as
+    much a part of the model as the ones that can.
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.set_axis_off()
+    ax.set_xlim(0, 11.0)
+    ax.set_ylim(ytop - dy * len(rows) - 1.05, ytop + 0.62)
+
+    for x, lab in ((1.45, "state"), (7.55, "weight"),
+                   (9.85, "fires at  (\u00d7 \u03b1)")):
+        ax.text(x, ytop + 0.42, lab, ha="center", fontsize=13.5, color=MUTED,
+                style="italic")
+    ax.plot([0.15, 10.85], [ytop + 0.24, ytop + 0.24], color=RULE, lw=1.6)
+
+    for i, (sites, contact, name, wgt, rate, c, dead) in enumerate(rows):
+        y = ytop - 0.18 - i * dy
+        if dead:
+            # A state that cannot exist is drawn faint and SAID, not struck.
+            # The first version put a red rule through the row and it read as
+            # a printing artefact -- Adam, 13 September. The handout writes
+            # "does not exist" in the weight column; match it.
+            ax.add_patch(mpatches.FancyBboxPatch(
+                (0.10, y - 0.40), 10.70, 0.80, boxstyle="round,pad=0.02",
+                facecolor="#F2F4F3", edgecolor=RULE, lw=1.2, zorder=0))
+        _promoter_cartoon(ax, 0.20, y, sites, contact=contact,
+                          faint=dead)
+        ax.text(3.05, y, name, ha="left", va="center", fontsize=13.5,
+                color=MUTED if dead else INK)
+        if dead:
+            ax.text(8.70, y, "this state cannot exist", ha="center",
+                    va="center", fontsize=14, color=RED, style="italic")
+        else:
+            ax.text(7.55, y, wgt, ha="center", va="center", fontsize=16,
+                    color=c, fontweight="bold")
+            ax.text(9.85, y, rate, ha="center", va="center", fontsize=16,
+                    color=MUTED if rate == r"$0$" else INK)
+
+    ybot = ytop - 0.18 - (len(rows) - 1) * dy - 0.52
+    ax.plot([0.15, 10.85], [ybot, ybot], color=RULE, lw=1.6)
+    ax.text(0.20, ybot - 0.42, foot, fontsize=16, color=INK, va="center")
+    if note:
+        ax.text(0.20, ybot - 0.98, note, fontsize=13, color=BODY, va="center",
+                style="italic")
+
+    fig.tight_layout(pad=0.3)
+    fig.savefig(f"{OUT}/{fname}.png")
+    plt.close(fig)
+
+
+def fig_table_repression():
+    """Add a repressor: one new row, and one row that cannot exist."""
+    _weight_table(
+        "s06_table_repression",
+        [([("O", None, AMBER), ("core", None, CYAN)], False, "empty",
+          r"$1$", r"$0$", MUTED, False),
+         ([("O", None, AMBER), ("core", "RNAP", CYAN)], False,
+          "RNAP on the promoter", r"$p$", r"$1$", CYAN, False),
+         ([("O", "R", AMBER), ("core", None, CYAN)], False,
+          "repressor on the operator", r"$r = [R]/K_R$", r"$0$", AMBER, False),
+         ([("O", "R", AMBER), ("core", "RNAP", CYAN)], False,
+          "both",
+          r"$-$", r"$-$", MUTED, True)],
+        foot=r"rate $= \alpha\,\dfrac{p}{1 + p + r}$"
+             "\u2003\u2003 weak promoter: \u2003"
+             r"$F_{\rm reg} = \dfrac{1}{1+r}$",
+        note="Repression by occlusion deletes a state from the sum. That is "
+             "the whole mechanism, and it is session 4's answer.")
+
+
+def fig_table_activation():
+    """lac and CRP: four rows, and the new column is the one that matters."""
+    _weight_table(
+        "s06_table_activation",
+        [([("O", None, TEAL), ("core", None, CYAN)], False, "empty",
+          r"$1$", r"$0$", MUTED, False),
+         ([("O", "A", TEAL), ("core", None, CYAN)], False, "activator only",
+          r"$a = [A]/K_A$", r"$0$", TEAL, False),
+         ([("O", None, TEAL), ("core", "RNAP", CYAN)], False, "RNAP only",
+          r"$p$", r"$1$", CYAN, False),
+         ([("O", "A", TEAL), ("core", "RNAP", CYAN)], True,
+          "both, and they touch", r"$a\,p\,f$", r"$f$", AMBER, False)],
+        foot="weak promoter:   "
+             r"$F_{\rm reg} = \dfrac{1 + fa}{1 + a}$"
+             "\u2003\u2003\u2003"
+             r"$f = e^{-\varepsilon_{ap}/k_BT}$, charged only where two "
+             r"proteins touch",
+        note="The activator changes no binding step \u2014 it changes the "
+             "RATE column. A repressor empties rows; an activator re-rates "
+             "them.")
+
+
 def fig_fold_change():
     """Fold-change against activator concentration for a single site.
 
@@ -431,5 +646,7 @@ def fig_two_mechanisms():
     plt.close(fig)
 
 
-FIGURES = [fig_promoter_anatomy, fig_two_mechanisms, fig_states_weights, fig_fold_change, fig_cooperativity,
+FIGURES = [fig_promoter_anatomy, fig_two_mechanisms,
+           fig_table_counting, fig_table_repression, fig_table_activation,
+           fig_states_weights, fig_fold_change, fig_cooperativity,
            fig_sensitivity_ratio]

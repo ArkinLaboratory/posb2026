@@ -103,7 +103,14 @@ git push
 Only on a problem-set release day. **Start this two days early**: the Docker
 build is 10–25 minutes and it has to be tested with a real submission.
 
-### 4.1 Create the 147 assignment — `PSn (BioE147)`
+### 4.1 Create the 147 assignment — `PSn — <Full Title> (BioE147)`
+
+> **Corrected 14 September.** This document used to say the name was
+> `PSn (BioE147)`. The convention actually in use on Gradescope is the set's
+> full title with the section in parentheses — `PS2 — Expression Dynamics and
+> the Cost of Speed (BioE147)`. Match it: the Canvas link dialog lists
+> Gradescope assignments **by name alone**, and a set named differently from
+> its siblings is the one you mislink at 11pm.
 
 **Programming Assignment.** Not Homework — that type refuses `.ipynb`
 ([runbook §5.6](course-site-runbook.md)).
@@ -114,11 +121,23 @@ build is 10–25 minutes and it has to be tested with a real submission.
 | Manual grading | **enabled** | the written questions |
 | Release / Due | the session date / +7 days, 11:59 pm | |
 | Group submission | **off** | on by default, with no size limit |
-| GitHub / Bitbucket | **off** — upload only | a repo submission finds no notebook |
+| GitHub / Bitbucket | **off** — upload only | **both are ON by default, and the Create-Assignment wizard never shows them** — they appear only on Settings *after* the assignment exists, so this is a second visit, not a field you can get right the first time |
+| Grade by course section | **on** | on by default; leave it — the reader grades one section at a time |
 | CPU / RAM | **2.0 / 3.0 GB** | 0.5 / 0.75 GB cannot solve the conda env |
 | Timeout | **20 min** | 10 min fails a slow student as `autograder_error` |
 
 Upload the zip from `private/build/psNN/dist/autograder/`. Wait for the build.
+
+**Two things the wizard gets wrong and one it hides.** The create flow collects
+only name, autograder points, manual grading, dates and sections. Container
+specs (0.5 CPU default), timeout (10 min default) and the submission methods
+(GitHub and Bitbucket both **on**) live on **Settings**, which only exists once
+the assignment does. So the order is: create → outline → upload zip (starts the
+Docker build) → **Settings, fix four things, Save**. The build and the settings
+are independent, so fixing settings while the image builds costs nothing.
+
+**Base image** is Ubuntu 22.04 / Base, which is the default and matches every
+prior set. Do not change it.
 
 > **Do not edit anything under `posb/` after this upload.** The zip carries its
 > own copy of the package, so the built image is frozen against that snapshot
@@ -129,17 +148,49 @@ Upload the zip from `private/build/psNN/dist/autograder/`. Wait for the build.
 
 ### 4.2 Test it before anyone sees it
 
-Submit `private/build/psNN/psNN.ipynb` — the **solution** notebook — as a test
-submission and confirm it scores full autograder points. Then **delete that
-submission**, or it pollutes the queue and the statistics.
+Submit **`private/build/psNN/dist/autograder/psNN.ipynb`** as a test submission
+and confirm it scores full autograder points. Then **delete that submission**,
+or it pollutes the queue and the statistics.
 
-### 4.3 The extra-credit question
+> **Corrected 14 September — this step used to name the wrong file.** It said
+> `private/build/psNN/psNN.ipynb`. That is the **master** notebook this
+> repository writes *before* otter runs, and it carries no
+> `metadata.otter.assignment_name`. Submitting it does not fail a test; it
+> fails the whole run, with
+>
+> ```
+> OtterRuntimeError: Received submission for assignment 'None'
+>                    (this is assignment 'psNN')
+> ```
+>
+> — an *Autograder Error*, 0.0/NN, which looks like a broken image rather than
+> a wrong upload. The file you want is the solutions copy **otter itself
+> emits**, under `dist/autograder/`: same solutions, plus the metadata the
+> grader checks. (`dist/student/psNN.ipynb` also carries the metadata but has
+> the solutions stripped, so it scores near zero — right mechanism, wrong
+> file.)
+
+### 4.3 The extra-credit question — and it must happen BEFORE 4.2's deletion
 
 Every set carries one question that is **required for 247, extra credit for
 147**. On the 147 assignment that question is **0 points with rubric items worth
 up to +*e*** — and you must **disable the point ceiling on it**. It is on by
-default, it caps scores at 100%, and nobody discovers it by looking; they
+default, it caps scores at 0.0, and nobody discovers it by looking; they
 discover it when a student asks where their extra credit went.
+
+> **Where the setting actually lives, learned 14 September.** *Rubric Settings*
+> → *Score Bounds* → uncheck **Ceiling (maximum score is 0.0)**. That dialog is
+> reachable **only from the grading view of an actual submission** —
+> `Grade Submissions` → the extra-credit question → *Rubric Settings*. With zero
+> submissions there is no way in at all, and the assignment's own Settings page
+> has no equivalent control.
+>
+> **So the order is: submit the test (4.2) → fix the ceiling (4.3) → *then*
+> delete the test submission.** Delete it first and you have locked yourself
+> out of the one setting nobody discovers by looking.
+>
+> On the **247** copy the same question is worth *e* points and its ceiling
+> reads *maximum score is e*. That is correct. Leave it on.
 
 ### 4.4 Duplicate for 247
 

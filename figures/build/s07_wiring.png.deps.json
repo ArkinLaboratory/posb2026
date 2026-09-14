@@ -1,0 +1,10 @@
+{
+  "artifact": "s07_wiring.png",
+  "artifact_sha256": "89626f680193b856b483efa5788ffc8bc96ed6e8ef1d95bfd53a15946e37aca7",
+  "artifact_bytes": 112271,
+  "deps": {
+    "figures/s07_autoregulation.py": "f57db379f1aa895ea33d8cf2a594a807c5cb2cae09d060a20aa9ca857d69bd46",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s07_autoregulation.fig_wiring"
+}

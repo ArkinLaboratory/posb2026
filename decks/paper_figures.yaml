@@ -282,3 +282,23 @@ bintu2005_models_fig2:
   shows: "parent figure for the 2a crop"
   used_in: []
   note: "Parent only."
+
+# --- Rosenfeld, Elowitz & Alon, J Mol Biol 323:785-793 (2002) --------------
+# Handed out at session 6, discussed at session 7. In private/readings/.
+
+rosenfeld2002_fig3:
+  figure: "Fig. 3"
+  shows: "measured kinetics of a negatively autoregulated TetR-GFP circuit against the same unit with the feedback cut; fluorescence per cell normalised to its maximum, against time in cell cycles"
+  used_in: ["s07"]
+  provenance: "cropped from page 5 of private/readings/Session 07 - rosenfeld-2002-negative-autoregulation-speeds-response.pdf at 220 dpi, box (0.112, 0.095)-(0.885, 0.487) in page fractions. Recropped 12 September: the first box cut the x axis off, which made the 'read the axes out loud' cue impossible to obey. Caption not included -- it is on the slide."
+  note: >-
+    Two strains differing by ONE feedback edge, which is the whole claim --
+    the broken black line is the same circuit with tetR inactivated by aTc, so
+    the feedback is cut and the construct is otherwise identical. Rise time
+    0.21 cell cycles against 1.0.
+
+    Say the honest caveat: their speed-up is about fivefold, ours is 1.8, and
+    the difference is the strength of the autorepression. They are in the limit
+    beta_2/alpha >> k -- strong autorepression -- while the session's worked
+    example uses a repression ratio of 2, which is a modest design. Same
+    mechanism, different aggression.

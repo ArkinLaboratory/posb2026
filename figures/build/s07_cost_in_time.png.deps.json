@@ -1,0 +1,10 @@
+{
+  "artifact": "s07_cost_in_time.png",
+  "artifact_sha256": "9841863a80df7d18fc1a3a8858bdbe83630ed97e81eae6c3d1bf36f7224f1fa3",
+  "artifact_bytes": 116877,
+  "deps": {
+    "figures/s07_autoregulation.py": "f57db379f1aa895ea33d8cf2a594a807c5cb2cae09d060a20aa9ca857d69bd46",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s07_autoregulation.fig_cost_in_time"
+}

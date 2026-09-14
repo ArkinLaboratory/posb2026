@@ -41,12 +41,15 @@ an $\omega$-like factor. Not every repressor occludes.
 
 ## 2 · Cooperative activation at $\lambda$ P$_{RM}$
 
-| state | weight | transcribes at |
+| state of the operators | weight | fires at ($\times\,\alpha$) |
 |---|---|---|
-| empty | $1$ | 1 |
+| no cI bound | $1$ | $1$ |
 | cI$_2$ on $O_R2$ only | $a$ | $f$ |
-| cI$_2$ on $O_R1$ only | $h$ | 1 |
+| cI$_2$ on $O_R1$ only | $h$ | $1$ |
 | both | $\omega a h$ | $f$ |
+
+Every row here has RNAP bound — the polymerase weight has already been divided
+out, which is why the unbound-cI row fires at 1 rather than at 0.
 
 **▶ Where $\omega$ goes.** On the **doubly-occupied state only**. $\omega$ is
 an interaction between two bound dimers, so it can only appear in a state where
@@ -54,29 +57,38 @@ there are two bound dimers. It is not a property of a site, and it does not
 multiply $a$ or $h$ on their own. Putting $\omega$ on a single-occupancy state
 is the most common error on this item.
 
-**▶ Why the $O_R1$-only state still transcribes at 1, not $f$.** $O_R1$ is not
+**▶ Why the $O_R1$-only state still fires at 1, not $f$.** $O_R1$ is not
 in contact with polymerase. Its dimer recruits the *other* dimer; it does
 nothing to transcription directly. The enhancement belongs to the contact, and
 the contact belongs to $O_R2$.
 
 $$\boxed{\;F_{\text{reg}} = \frac{1 + fa + h + f\omega a h}{1 + a + h + \omega a h}\;}$$
 
-### The three checks
+### The two checks
 
-**▶ $\omega = 1$.** The expression factorises:
+**▶ $\omega = 1$, and separately $h = 0$.** Set $\omega = 1$ and the expression
+factorises:
 
 $$F_{\text{reg}} = \frac{(1+fa)(1+h)}{(1+a)(1+h)} = \frac{1 + fa}{1 + a}$$
 
-The helper occupancy cancels completely: with no cooperativity a second site
-that does not touch polymerase does **nothing at all** — not a weak effect,
-exactly zero. Cooperativity is not a bonus on top of a second site; it is the
-whole mechanism by which a second site matters.
-
-**▶ $h = 0$.** Same expression, $F_{\text{reg}} = (1 + fa)/(1 + a)$: the
-single-site result from the lecture, sensitivity $s = (\sqrt f - 1)/(\sqrt f + 1)
+Set $h = 0$ instead and you get **the same thing**, which is the single-site
+result from the activation table — sensitivity $s = (\sqrt f - 1)/(\sqrt f + 1)
 = 0.54$ at $f = 11$.
 
-**▶ $[\mathrm{cI}_2] \to \infty$.** Both $a$ and $h$ grow without bound and the
+**▶ Why two different edits give the same expression.** Because *a helper that
+does not interact is indistinguishable from no helper at all.* The two edits are
+different in the laboratory — in one, cI is sitting on $O_R1$ and doing nothing;
+in the other, $O_R1$ is not there — and the promoter cannot tell them apart. The
+helper occupancy cancels **completely**: not a weak effect, exactly zero.
+
+So $\omega$ is not a bonus on top of a second site. It is the entire mechanism
+by which a second site matters, and that is the design statement: **if you add
+an operator and get no cooperativity, you have added nothing.** A student who
+reports only "both give $(1+fa)/(1+a)$" has done the algebra and missed the
+item.
+
+**▶ $[\mathrm{cI}_2] \to \infty$.** Both $a$ and $h$ grow without bound —
+they are the same concentration over two different dissociation constants — and the
 $ah$ terms dominate top and bottom:
 
 $$F_{\text{reg}} \longrightarrow \frac{f\omega a h}{\omega a h} = f$$
