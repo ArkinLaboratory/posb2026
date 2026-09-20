@@ -85,14 +85,14 @@ gardner2000_fig6:
 # cytometry on a pTog dual-reporter construct (mCherry + GFP, LacI/TetR,
 # IPTG/aTc). Note 31 h, not the 30 h printed on the axis label.
 #
-# ADAM: this needs a name on it before it is delivered. Weiss lab? A rotation
-# student? Course data? Nobody but you and Ron can close this.
+# DECISION (Adam, 20 September 2026): deliver it unattributed. The slide
+# labels it "unpublished flow cytometry" and names no lab. It stays in
+# private/paper-figures/ and never enters a redistributable build.
 toggle_longevity_2025deck:
   figure: "unpublished flow cytometry"
   shows: "pTog dual-reporter toggle at 2 h / 31 h / 40 h; the green state degrades"
   used_in: ["s09"]
-  source: UNKNOWN
-  note: "Attribution required before delivery. See the block above."
+  source: "unpublished; origin not on record (2025 deck, Lectures 20/21). Delivered unattributed by decision, 20 Sep 2026."
 
 # --- Extracted from the 2025 decks -----------------------------------------
 # ATTRIBUTION: these are lifted from Adam's own 2025 slides, which is fine for

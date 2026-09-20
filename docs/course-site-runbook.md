@@ -485,3 +485,42 @@ Folder ids: `PoSB 2026 Lectures` 12441239, `PoSB 2026 Handouts and Problem
 Sets` 12453613, `PoSB 2026 Handout answers` 12518837, `readings` 12453626.
 Week 5 module: 2610597. Titles are set on the item, not the file, so the deck
 can be titled *Session 8 slides — Sep 22* while the file keeps its build name.
+
+**Assignments the same way (20 September, PS4).** `POST
+/api/v1/courses/1557313/assignments` with `assignment[...]`: `name`,
+`description` (the built `canvas-description.html` as a string),
+`points_possible`, `grading_type: points`, `assignment_group_id` 2354765
+(Problem Sets), `submission_types: ["external_tool"]`,
+`external_tool_tag_attributes: {url:
+"https://lti.int.turnitin.com/launch/gs-proxy", new_tab: true, content_type:
+"ContextExternalTool", content_id: 98597}`, `only_visible_to_overrides:
+true`, `published: false`, and `assignment_overrides` — one per section with
+`course_section_id`, `unlock_at`, `due_at`, `lock_at` in UTC (Berkeley 11:59
+pm = 06:59:59Z next day; 8:00 am = 15:00Z). Sections: 147 LEC 1860309 + DIS
+1860310; 247 LEC 1860364 + DIS 1860365. Read PS*n−1* with
+`include[]=overrides` first and copy its shape.
+
+Canvas stores a `custom_gradescope_resource_id` custom param on the tool tag
+but **Gradescope ignores it**: the link is keyed on Gradescope's side by the
+resource link. So after creating, launch each assignment once as instructor
+(the "Load in a new window" form; set its `target` to `_self` if the popup is
+not wanted) and answer Gradescope's *Link to bCourses Assignment* dialog with
+*An existing Gradescope assignment* → pick → **Link Assignment**. Clicking
+the dropdown option alone dismisses the dialog without linking; the button
+is required. Gradescope's Settings page then shows *BCourses Assignment
+Name* and an *Unlink from LMS* button, and the assignment drops out of the
+picker for the next launch — that is the check.
+
+Then `PUT .../assignments/<id>` `{assignment: {published: true}}`,
+`POST .../modules/<module>/items` `{module_item: {type: "Assignment",
+content_id}}`, and `PUT .../modules/<module>` `{module: {published: true}}`.
+The items endpoint pages at 10 — list with `page=1,2` before trusting a
+count, or you will add an item twice.
+
+Two traps in the browser. Canvas's Assignments and Modules pages are heavy
+enough that the extension's script calls time out on them; run the API calls
+from a bare page on the same origin (any `/api/v1/...` URL). Gradescope's
+*Configure Autograder* page streams the whole Docker build log into the DOM
+while an image is building — that page froze Chrome twice; do not open it
+until the sidebar tick on *Configure Autograder* is green, and read the
+status from the assignment's Settings page sidebar instead.

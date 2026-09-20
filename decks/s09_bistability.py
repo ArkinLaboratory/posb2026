@@ -441,8 +441,9 @@ def build():
     d.paper_figure(s, "toggle_longevity_2025deck", M, 1.62, 5.3, 2.38,
                    "pTog dual-reporter toggle · unpublished flow cytometry",
                    "pTog dual-reporter toggle, 2 h / 31 h / 40 h")
-    d.unattributed(s, M, 4.32, 5.9,
-                   "whose pTog data is this? Weiss lab / course / other")
+    # Attribution: unpublished pTog flow cytometry from the 2025 deck, origin
+    # not on record. Adam's decision, 20 Sep 2026: deliver it labelled as
+    # unpublished (the ref line above), no name. See decks/paper_figures.yaml.
     for i, (t, txt) in enumerate([("2 h", "clean separation"),
                                   ("31 h", "green is broadening"),
                                   ("40 h", "leaked back to red")]):
