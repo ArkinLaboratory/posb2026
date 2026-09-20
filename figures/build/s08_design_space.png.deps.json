@@ -1,0 +1,10 @@
+{
+  "artifact": "s08_design_space.png",
+  "artifact_sha256": "e1365efb5d3424de664b356a8bc8641fc96668567a69a36ad7ad5881fb20d4b1",
+  "artifact_bytes": 101383,
+  "deps": {
+    "figures/s08_phase_plane.py": "603054626f2477ee3a44178a0a64eaafdb5c1b9cebe3410766c6326e6bc64fec",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s08_phase_plane.fig_design_space"
+}

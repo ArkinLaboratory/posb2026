@@ -1,0 +1,10 @@
+{
+  "artifact": "s09_hysteresis.png",
+  "artifact_sha256": "ed3ae7fd99b50f9d351b6baecf1e02a83e065f84060c4bcad8cda5bcabd6c9ca",
+  "artifact_bytes": 70243,
+  "deps": {
+    "figures/s09_bistability.py": "d1e0aefb550725e01100bc0df92f7a6af1833a509cb930c6c9634392914401c6",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s09_bistability.fig_hysteresis"
+}

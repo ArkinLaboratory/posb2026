@@ -12,6 +12,7 @@ weekend-consuming exercise. The two lowest scores are dropped.
 | PS1 | Sep 10 | [Mass action, timescales, Michaelis–Menten, Hill](ps01-modeling/) | ✅ |
 | PS2 | Sep 17 | [Expression dynamics, response time, dilution vs degradation](ps02-expression/) | ✅ |
 | PS3 | Sep 24 | [Regulation functions and autoregulation](ps03-regulation/) | ✅ |
+| PS4 | Oct 1 | [The phase plane, bistability, and the toggle switch](ps04-phase-plane/) | ✅ |
 
 Remaining sets are in preparation — see the
 [Course Map](../docs/course-map.md) for the schedule.

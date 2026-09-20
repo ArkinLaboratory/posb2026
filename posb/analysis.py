@@ -104,8 +104,11 @@ def fixed_points(model, guesses, params=None, tol=1e-8, decimals=6):
             continue
         if np.any(sol < -tol):          # negative concentrations are not physical
             continue
-        key = tuple(np.round(sol, decimals))
-        if key not in [tuple(np.round(f, decimals)) for f in found]:
+        # Tolerance, not rounding: two solves of the same root that straddle a
+        # rounding boundary (6.7341635 vs 6.7341634) used to count as two fixed
+        # points. Seen on the Gardner 2000 pTAK117 parameters, 18 Sep 2026.
+        if not any(np.allclose(sol, f, atol=10.0 ** -decimals, rtol=0)
+                   for f in found):
             found.append(sol)
     found.sort(key=lambda v: tuple(v))
     return [dict(zip(model.species, f)) for f in found]

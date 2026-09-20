@@ -1,9 +1,9 @@
 {
   "artifact": "s09_bifurcation.png",
-  "artifact_sha256": "7282175c7388a6a0365171521b9afc078baae05232d6cd7565c79fbf88074eae",
-  "artifact_bytes": 68350,
+  "artifact_sha256": "ca94064cd29b292999c3ec32fb787e8167a8c703ca66ec890eb2a14e93d02f8a",
+  "artifact_bytes": 59125,
   "deps": {
-    "figures/s09_bistability.py": "a91e821c62f0a4c45f9d664269e371083371c86503d53eec50a53636fad0307a",
+    "figures/s09_bistability.py": "d1e0aefb550725e01100bc0df92f7a6af1833a509cb930c6c9634392914401c6",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s09_bistability.fig_bifurcation"

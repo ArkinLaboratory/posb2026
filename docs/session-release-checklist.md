@@ -292,9 +292,12 @@ Gradescope roster, whether the Docker image built, whether the point ceiling
 matches the rubric, whether the Canvas module is published. Those are the rest
 of this phase, and that is why the split exists.
 
-- **Gradescope → Roster → Sync bCourses Roster.** Not automatic. A student
-  enrolled in bCourses and absent here **cannot submit** and finds out at 11pm.
-  One sync on 2 September took the roster from 25 to 31
+- **Compare the two rosters — and sync only if Gradescope is short.** Read
+  bCourses **People → active students** against the Gradescope **Roster**. The
+  failure is one-directional: enrolled in bCourses, absent from Gradescope,
+  **cannot submit**, finds out at 11pm. Sync when Gradescope has **fewer**. When
+  it has **more** — 31 vs 27 active on 14 September 2026 — do **not** sync; it
+  reconciles downward against people who may hold submissions
   ([runbook §5.9](course-site-runbook.md)).
 - **Student View**, from the course home page. It does not exercise the
   Gradescope half — have a reader click that once.

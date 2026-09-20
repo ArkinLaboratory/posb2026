@@ -51,7 +51,7 @@ def _load_master(name):
     spec.loader.exec_module(mod)
     return mod
 
-PROBLEM_SETS = ["ps01", "ps02", "ps03"]
+PROBLEM_SETS = ["ps01", "ps02", "ps03", "ps04"]
 
 METADATA = {
     "kernelspec": {"display_name": "Python 3", "language": "python",

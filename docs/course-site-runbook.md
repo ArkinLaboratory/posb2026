@@ -279,6 +279,13 @@ A student who is enrolled in bCourses and absent from the Gradescope roster
 On 2 September 2026 the roster held 25 students. One click of Sync took it to
 31. Six people could not have handed in PS1.
 
+**The rule is one-directional, and that matters by mid-semester.** Sync when
+Gradescope has **fewer** students than bCourses — that is the only direction in
+which the failure above happens. By 14 September Gradescope held 31 and bCourses
+**27 active**: drops had left Gradescope high, and a sync then would have
+reconciled *downward* against four people who may hold PS1 submissions. Count
+both sides before clicking.
+
 **Do not check this by adding up the Sections page.** Sections counts
 *memberships*, not people — a student normally holds two, a LEC and a DIS — so
 four sections reading 16 / 17 / 16 / 15 is about 31 humans, not 64. The
@@ -454,3 +461,27 @@ any of them.
   pulled PS0 you cannot change it, because nbgitpuller keeps their copy.
 - Decide once whether **Files** is in the student navigation. It is not needed —
   they navigate by Modules — and hiding it removes a second place to look.
+
+---
+
+## 7. Posting from a Cowork session — the API route (20 September 2026)
+
+Canvas's upload dialogs do not accept a file placed into their `<input
+type=file>` by browser automation: the Add Item → File dialog and the Files
+page uploader both sit there with "2 files" and never start. What does work,
+from the instructor's own logged-in tab, is Canvas's REST API with the session
+cookie and the `_csrf_token` cookie sent as `X-CSRF-Token`:
+
+1. Get a `File` object into the page (any file input will do).
+2. `POST /api/v1/courses/1557313/files` with `name`, `size`,
+   `parent_folder_id`, `on_duplicate: overwrite` → `upload_url` +
+   `upload_params`; multipart-POST the file there. The response carries the
+   Canvas file id.
+3. `POST /api/v1/courses/1557313/modules/<module>/items` with
+   `{module_item: {title, type: "File", content_id}}`. Items arrive published;
+   the module does not.
+
+Folder ids: `PoSB 2026 Lectures` 12441239, `PoSB 2026 Handouts and Problem
+Sets` 12453613, `PoSB 2026 Handout answers` 12518837, `readings` 12453626.
+Week 5 module: 2610597. Titles are set on the item, not the file, so the deck
+can be titled *Session 8 slides — Sep 22* while the file keeps its build name.

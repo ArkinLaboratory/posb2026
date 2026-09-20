@@ -186,7 +186,42 @@ def render_markdown(text):
                              extensions=["tables", "fenced_code", "md_in_html"])
     for i, s in enumerate(spans):
         html = html.replace(f"@@MATH{i}@@", s)
-    return html
+    return inline_images(html)
+
+
+def inline_images(html):
+    """Embed every repository-relative <img src> as a data URI.
+
+    The page is handed to Chromium as a string, not a file, so a relative
+    image path has nothing to resolve against and renders as a broken icon.
+    Inlining at build time keeps the Markdown source pointing at the tracked
+    PNG (e.g. `../figures/build/s08_gardner_nullclines.png`, relative to the
+    handout) and makes the --check digest change when the figure does, which
+    is the staleness the figure verifier already tracks on the deck side.
+    """
+    import base64
+    import mimetypes
+
+    def sub(m):
+        src = m.group(2)
+        if src.startswith(("data:", "http:", "https:")):
+            return m.group(0)
+        path = (ROOT / "handouts" / src).resolve()
+        if not path.exists():
+            path = (ROOT / "board-notes" / src).resolve()
+        if not path.exists():
+            print(f"  !! image not found, left as-is: {src}")
+            return m.group(0)
+        mime = mimetypes.guess_type(path.name)[0] or "image/png"
+        data = base64.b64encode(path.read_bytes()).decode("ascii")
+        # Sizing is inline rather than in CSS so that adding an image rule
+        # does not change the digest -- and so the --check verdict -- of the
+        # seventeen handouts that have no images.
+        return (f'{m.group(1)}data:{mime};base64,{data}{m.group(3)} '
+                f'style="max-width:100%;height:auto;display:block;'
+                f'margin:0.6em auto"')
+
+    return re.sub(r'(<img\b[^>]*\bsrc=")([^"]+)(")', sub, html)
 
 
 def mathjax():

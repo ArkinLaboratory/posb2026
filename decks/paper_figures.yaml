@@ -42,7 +42,7 @@ gardner2000_fig3:
 
 gardner2000_fig4:
   figure: "Fig. 4"
-  shows: "demonstration of bistability. c is long-term stability of pTAK117 to ~28 h"
+  shows: "demonstration of bistability. c is long-term stability: both states held for 22 h after a 6 h induction (the text says 22 h; an earlier registry line said ~28 h)"
   used_in: ["s09"]
 
 gardner2000_fig5:
@@ -302,3 +302,15 @@ rosenfeld2002_fig3:
     beta_2/alpha >> k -- strong autorepression -- while the session's worked
     example uses a repression ratio of 2, which is a modest design. Same
     mechanism, different aggression.
+
+# --- Gardner Fig. 2 panels c,d, cropped 18 September ------------------------
+# The bistable region and its bifurcation lines. Paired on the session-8
+# payoff surface with figures/build/s08_design_space.png, which recomputes the
+# same lines analytically (figures/s08_phase_plane.py::bifurcation_line) with
+# the same axis orientation as the paper.
+gardner2000_fig2cd:
+  figure: "Fig. 2c,d"
+  shows: "bistable region in log(alpha_1) vs log(alpha_2); bifurcation-line slopes beta and 1/gamma at large alpha; panel d for beta=gamma=1.1, 2, 3"
+  used_in: ["s08"]
+  derived_from: gardner2000_fig2
+  crop: [30, 690, 1120, 1300]

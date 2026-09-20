@@ -1,0 +1,10 @@
+{
+  "artifact": "s09_fold_p3.png",
+  "artifact_sha256": "4c512d62e0c796e60fb015775c63ed8c6990d367c768641703a7e15dc433784e",
+  "artifact_bytes": 61919,
+  "deps": {
+    "figures/s09_bistability.py": "d1e0aefb550725e01100bc0df92f7a6af1833a509cb930c6c9634392914401c6",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s09_bistability.fig_fold"
+}

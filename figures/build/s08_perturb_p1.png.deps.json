@@ -1,0 +1,10 @@
+{
+  "artifact": "s08_perturb_p1.png",
+  "artifact_sha256": "0334c4a0a6f755fcedd2091e52eeac801b679d06f6c7d766f51d04a63ee0392b",
+  "artifact_bytes": 58080,
+  "deps": {
+    "figures/s08_phase_plane.py": "603054626f2477ee3a44178a0a64eaafdb5c1b9cebe3410766c6326e6bc64fec",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s08_phase_plane.fig_perturb"
+}

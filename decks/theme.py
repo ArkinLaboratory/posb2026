@@ -548,6 +548,104 @@ class Deck:
         self.step_runs[badge] = self.step_runs.get(badge, 0) + len(steps)
         return made[-1]
 
+    def derivation_fig(self, badge, label, title, steps, figs, closing=None,
+                       note=None, board=None):
+        """A derivation with a picture that advances alongside the algebra.
+
+        WHY THIS EXISTS (18 September 2026). Adam: the proofs on the slides are
+        not clear enough, so he spends the time at the board explaining -- and
+        that is where about ten minutes per class goes. Session 8 was the
+        sharpest case: twenty-five surfaces of symbols about a plane that was
+        never drawn, in a room where 5 of 21 had seen a phase portrait. He was
+        the graphics engine, live, four times a period.
+
+        `derivation()` has no room for a picture: its equation column runs to
+        x = 13.1. So this is the same reveal -- one surface per step, each the
+        last plus one line -- on a split surface. LEFT, 5.4in: one figure per
+        step, so the drawing grows as the algebra does. RIGHT, 6.6in: the step
+        stack, with the label ABOVE its equation instead of beside it, which is
+        what pays for the picture.
+
+        `figs` is a list the length of `steps`: a path per step, or None to
+        keep the previous step's picture. The closing line, when given, sits
+        under the algebra column rather than across the slide, so the figure
+        keeps its full height.
+
+        The narrower column costs about ten characters: 52 rendered characters
+        at 20pt against derivation()'s 62. That is a feature, not a limit -- a
+        line that does not fit is a step doing more than one move.
+        """
+        FX, FW = M, 5.4                       # figure column
+        CX, CW = 6.4, W - M - 6.4             # algebra column, 6.6in
+        FIG_CAP, CLOSE_CAP = 52, 85
+        if len(figs) != len(steps):
+            raise ValueError(f"derivation_fig: {len(steps)} steps but "
+                             f"{len(figs)} figures for {title!r}")
+        for _l, rhs, _a in steps:
+            shown = _MARKUP.sub(lambda m: m.group(2), rhs)
+            if len(shown) > FIG_CAP:
+                print(f"  !! split-surface equation wraps ({len(shown)} rendered "
+                      f"chars, cap {FIG_CAP}): {rhs!r}")
+        for lhs, _r, _a in steps:
+            if len(lhs) > 58:
+                print(f"  !! split-surface step label wraps ({len(lhs)} chars, "
+                      f"cap 58): {lhs!r}")
+        if closing and len(closing) > CLOSE_CAP:
+            print(f"  !! closing line overflows its box ({len(closing)} chars, "
+                  f"cap {CLOSE_CAP}): {closing!r}")
+
+        made, current = [], None
+        for i in range(1, len(steps) + 1):
+            s = self.light()
+            self._in_step_run = (i != len(steps))
+            self.header(s, badge, "")
+            self._in_step_run = False
+            self.title(s, title)
+            # The picture. Full height of the body whether or not there is a
+            # closing line, because the closing line lives in the other column.
+            current = figs[i - 1] or current
+            if current:
+                self.image(s, current, FX, 1.66, FW, 4.95)
+            top, bottom = 1.62, (5.40 if closing else 6.62)
+            pitch = (bottom - top) / max(len(steps), 1)
+            roomy = pitch >= 1.02             # label + equation + aside all fit
+            for j, (lhs, rhs, aside) in enumerate(steps[:i]):
+                y = top + j * pitch
+                live = (j == i - 1)
+                col = INK if live else MUTED
+                self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, CX, y + 0.02, 0.11,
+                           min(pitch - 0.14, 0.95), fill=TEAL if live else RULE,
+                           line=None)
+                self.text(s, lhs, CX + 0.34, y - 0.02, CW - 0.34, 0.34,
+                          size=16, font=HEAD, bold=True, color=col)
+                self.text(s, rhs, CX + 0.34, y + 0.32, CW - 0.34, 0.42,
+                          size=20, font=TEXT, bold=True, color=col)
+                if aside and (roomy or live):
+                    # The live aside is clamped into the band above the
+                    # closing box rather than dropped, at 14pt -- nothing
+                    # below 14 carries content (posb-slide-legibility).
+                    ay, ah = y + 0.72, 0.40
+                    ceiling = bottom + 0.16
+                    if ay + ah > ceiling:
+                        ah = 0.26
+                        ay = ceiling - ah
+                    if ay >= y + 0.60:
+                        self.text(s, aside, CX + 0.34, ay, CW - 0.34, ah,
+                                  size=14, italic=True, color=MUTED)
+            if i == len(steps) and closing:
+                self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, CX, 5.58, CW, 1.05,
+                           fill=WASH, line=TEAL, lw=2)
+                self.text(s, closing, CX + 0.22, 5.70, CW - 0.44, 0.85,
+                          size=20, bold=True, color=INK)
+            if i == len(steps) and board:
+                self.to_board(s, board, y=6.68, size=14)
+            if i == len(steps) and note:
+                self.notes(s, note)
+            made.append(s)
+        self.step_slides += len(steps) - 1
+        self.step_runs[badge] = self.step_runs.get(badge, 0) + len(steps)
+        return made[-1]
+
     # -- "go to the board" --------------------------------------------------
     def board_glyph(self, s, x, y, w=0.34, h=0.26):
         """A small chalkboard, drawn from shapes rather than a font glyph.

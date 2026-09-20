@@ -492,9 +492,14 @@ print copy against its handout.
 
 Then the two things no script can see:
 
-- **Gradescope → Roster → Sync bCourses Roster.** Not automatic. A student
-  enrolled in bCourses and absent here **cannot submit** and finds out at 11pm.
-  One sync took the roster from 25 to 31.
+- **Compare the two rosters — and sync only if Gradescope is short.** The
+  failure this guards against is one-directional: a student enrolled in
+  bCourses and absent from Gradescope **cannot submit** and finds out at 11pm.
+  So read both counts first — bCourses **People → active students**, Gradescope
+  **Roster**. Sync when Gradescope has **fewer**. When Gradescope has **more**,
+  as on 14 September 2026 (31 vs 27 active), do **not** sync: it reconciles
+  downward against people who may already hold submissions. Sync is manual and
+  does not follow add/drop in either direction.
 - **Student View**, from the course home page.
 
 Close PowerPoint before you leave — it holds a `~$` lock file, and a deck open on

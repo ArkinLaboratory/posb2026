@@ -31,8 +31,8 @@ way.
 | 5 | Thu Sep 10 | Gene expression dynamics; response time; dilution vs. degradation | Response-time calculation; effect of degradation tags | ⬜ |
 | 6 | Tue Sep 15 | Promoter occupancy from statistical thermodynamics | Derive activator, repressor, and AND-like rate laws | 📝 |
 | 7 | Thu Sep 17 | Autoregulation: negative (speed, variance) and positive (bistability) | Derive the negative-autoregulation speed-up | 📝 |
-| 8 | Tue Sep 22 | **The phase plane:** nullclines, fixed points, Jacobian, linear stability | Complete two-dimensional stability analysis | ⬜ |
-| 9 | Thu Sep 24 | Bistability and the toggle switch: bifurcation, hysteresis, failure | Fixed points for *n* = 4 and *n* = 1 | ⬜ |
+| 8 | Tue Sep 22 | **The phase plane:** nullclines, fixed points, Jacobian, linear stability | Complete two-dimensional stability analysis | [📝](../sessions/s08-phase-plane/) |
+| 9 | Thu Sep 24 | Bistability and the toggle switch: bifurcation, hysteresis, failure | Fixed points for *n* = 4 and *n* = 1 | [📝](../sessions/s09-bistability/) |
 | 10 | Tue Sep 29 | Feedforward loops: persistence detection, pulse generation, adaptation | FFL timing analysis; numerical IFFL adaptation | ⬜ |
 | 11 | Thu Oct 1 | Oscillators: repressilator, delayed negative feedback | State and apply the oscillation criterion; find the Hopf boundary | ⬜ |
 | 12 | Tue Oct 6 | Noise: intrinsic vs. extrinsic, CV, bursting, the master equation | Write a Gillespie simulator from scratch | ⬜ |
@@ -74,7 +74,7 @@ execute the week's technique, not a weekend-consuming exercise.
 | PS1 | Sep 3 | Sep 10 | Mass action, timescale separation, Michaelis–Menten, Hill | [✅](../problem-sets/ps01-modeling/) |
 | PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, dilution vs degradation | [✅](../problem-sets/ps02-expression/) |
 | PS3 | Sep 17 | Sep 24 | Promoter occupancy, regulation functions, autoregulation | [✅](../problem-sets/ps03-regulation/) |
-| PS4 | Sep 24 | Oct 1 | Phase plane, stability, bistability, the toggle | ⬜ |
+| PS4 | Sep 24 | Oct 1 | Phase plane, stability, bistability, the toggle | [✅](../problem-sets/ps04-phase-plane/) |
 | PS5 | Oct 1 | Oct 8 | Feedforward loops, oscillation criteria | ⬜ |
 | PS6 | Oct 20 | Oct 29 | Stochastic simulation, digital abstraction, hazards, assembly | ⬜ |
 | PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden, FBA | ⬜ |

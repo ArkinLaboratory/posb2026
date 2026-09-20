@@ -1,0 +1,10 @@
+{
+  "artifact": "s08_crossings.png",
+  "artifact_sha256": "0d104a4229c06dabeedec5d949b66ee28ef4aa913365c85e7feac301d0822f14",
+  "artifact_bytes": 84575,
+  "deps": {
+    "figures/s08_phase_plane.py": "603054626f2477ee3a44178a0a64eaafdb5c1b9cebe3410766c6326e6bc64fec",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s08_phase_plane.fig_crossings"
+}
