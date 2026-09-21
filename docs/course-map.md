@@ -36,7 +36,7 @@ way.
 | 10 | Tue Sep 29 | Feedforward loops: persistence detection, pulse generation, adaptation | FFL timing analysis; numerical IFFL adaptation | ⬜ |
 | 11 | Thu Oct 1 | Oscillators: repressilator, delayed negative feedback | State and apply the oscillation criterion; find the Hopf boundary | ⬜ |
 | 12 | Tue Oct 6 | Noise: intrinsic vs. extrinsic, CV, bursting, the master equation | Write a Gillespie simulator from scratch | ⬜ |
-| 13 | Thu Oct 8 | **The digital abstraction:** transfer curves, gain, noise margins | Numeric signal matching between two measured gates | ⬜ |
+| 13 | Thu Oct 8 | **The digital abstraction and its price:** transfer curves, gain, noise margins — then analog computation | Signal matching between two gates; then the log-domain circuit that needs neither | ⬜ |
 | 14 | Tue Oct 13 | Review and worked problems | Open problem session | 📝 |
 | 15 | **Thu Oct 15** | **Midterm** — sessions 1–13 | | |
 
@@ -46,16 +46,16 @@ way.
 
 | # | Date | Topic | Worked example | |
 |---|---|---|---|---|
-| 16 | Tue Oct 20 | Combinational logic in cells; hazards; why design automation plateaued | Hazard timing table, end to end | ⬜ |
-| 17 | Thu Oct 22 | Building it physically: parts, compositors, context, DNA assembly | Compose a two-part system; design Golden Gate overhangs | ⬜ |
-| 18 | Tue Oct 27 | Implementation layers: CRISPRi/a, recombinase memory, protein circuits | Compare gate families on orthogonality, speed, load | ⬜ |
+| 16 | Tue Oct 20 | Combinational **and sequential** logic: hazards; latches and registers; recombinase memory; why design automation plateaued | Hazard timing table; the toggle as an SR latch | ⬜ |
+| 17 | Thu Oct 22 | Building it physically: parts, compositors, context, implementation media (CRISPRi/a, bridge RNAs), DNA assembly from oligos to genomes | Compose a two-part system; design Golden Gate overhangs | ⬜ |
+| 18 | Tue Oct 27 | **Protein circuits:** scaffolds, allosteric switches, phosphorylation toggles, ultrasensitivity | Zero-order ultrasensitivity: sharpness without cooperative binding | ⬜ |
 | 19 | Thu Oct 29 | Resource sharing, cellular economy, growth laws, burden | Shared-resource simulation | ⬜ |
 | 20 | Tue Nov 3 | **Metabolic engineering and constraint-based design** | FBA as a linear program on the same **S** from session 3 | ⬜ |
 | 21 | Thu Nov 5 | Retroactivity, impedance, insulation, load drivers | Retroactivity calculation for a loaded module | ⬜ |
 | 22 | Tue Nov 10 | Robustness and control: integral feedback, antithetic control | Simulate an antithetic controller; quantify what it costs | ⬜ |
 | 23 | Thu Nov 12 | Evolutionary failure: mutation, burden, circuit loss; containment | Time-to-circuit-failure from mutation rate and fitness cost | ⬜ |
 | 24 | Tue Nov 17 | Communities: quorum sensing, patterning, division of labour | Sender/receiver band-detection analysis | ⬜ |
-| 25 | Thu Nov 19 | Minimal and synthetic cells: top-down and bottom-up | Binomial genome partitioning: why most daughters are incomplete | ⬜ |
+| 25 | Thu Nov 19 | **Design at population scale:** defective interfering particles, TIPs, gene drives | Push *R*₀ above 1 for a therapeutic parasite — and find where it stops being one | ⬜ |
 | 26 | Tue Nov 24 | Therapeutic circuits: logic-gated cell therapies, synNotch, delivery | Multi-input classifier to a false-positive budget | ⬜ |
 | — | Thu Nov 26 | *Thanksgiving — no class* | | |
 | 27 | Tue Dec 1 | Machine learning as the specification layer; genome language models | Design–filter–validate arithmetic: what beats directed evolution? | ⬜ |
@@ -79,7 +79,7 @@ execute the week's technique, not a weekend-consuming exercise.
 | PS6 | Oct 20 | Oct 29 | Stochastic simulation, digital abstraction, hazards, assembly | ⬜ |
 | PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden, FBA | ⬜ |
 | PS8 | Nov 5 | Nov 19 | Retroactivity, feedback control, evolutionary stability | ⬜ |
-| PS9 | Nov 19 | Dec 3 | Communities, minimal cells, therapeutic design | ⬜ |
+| PS9 | Nov 19 | Dec 3 | Communities, population-scale design, therapeutic design | ⬜ |
 
 ## Assessment
 
@@ -88,7 +88,7 @@ execute the week's technique, not a weekend-consuming exercise.
 | Problem sets (9, lowest two dropped) | 30% |
 | Midterm — Thu Oct 15 | 15% |
 | Final exam — in person, finals week | 25% |
-| Term project — staged from week 5 | 30% |
+| Term project — staged from week 7 | 30% |
 
 ---
 

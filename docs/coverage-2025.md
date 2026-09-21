@@ -132,15 +132,25 @@ list and a literature search — and it therefore missed the papers this course
 actually teaches from. That is a defect in how it was made, not a close call.
 Six additions, in priority order:
 
-1. **Hooshangi et al., PNAS 2005** — closes the noise gap named in that file.
-2. **Xie et al., Science 2011** — the miRNA classifier; a truth table in a cell.
-3. **Mishra et al., Science 2021** — S9's analysis at the protein level.
-4. **Daniel et al., Nature 2013** — analog computation; small model, large idea.
-5. **Chen et al., Nat Methods 2013** — 582 terminators, beside Cambray.
-6. **Tanner et al., PLoS Genet 2016** — TIPs; an R₀ argument.
+**Done, 20 September** — five verified and added as entries 21–25:
+Chen et al., Nat Methods 2013 (correct senior author is **Voigt**, not Endy, as
+the slide implies); Hooshangi, Thiberge & Weiss, PNAS 2005; Xie et al., Science
+2011; Mishra et al., Science 2021; Daniel et al., Nature 2013.
 
-Each still needs the deposit check that the other twenty passed, and none is in
-that file until it does.
+**Not added: Tanner, Kirkegaard & Weinberger, PLoS Genet 2016.** It is a
+**review** — no model of its own, no parameters, no data. It fails the brief as
+a project source and stays a reading.
+
+**Session 25's anchor, found.** Adam pointed at the Weinberger lab. The arc runs
+from Weinberger, Schaffer & Arkin, *J Virol* 77, 10028–10036 (2003) — six ODEs
+and the only closed-form threshold in the literature, R₀ᵀ = P²D(1 − 1/R₀) — to
+Pitchai et al., *Science* 385, eadn5866 (2024), which is the same two knobs
+turned in macaques and the only paper in the set with a public code repository.
+The 2003 paper is now the s25 reading in `readings.yaml`; 2003, the 2022 PNAS
+hamster paper and the 2024 Science paper are entries 26–28 of the project list.
+Two further papers are named inside those entries rather than given slots:
+Metzger, Lloyd-Smith & Weinberger, *PLoS Comput Biol* 7, e1002015 (2011) for the
+between-host scale, and Chaturvedi et al., *Cell* 184, 6022 (2021) for SARS-CoV-2.
 
 **A harder problem the archive exposes.** `PoSB Term Project Examples/PoSB
 Project ideas.xlsx` lists 32 project titles from 2014. Nearly every one is a

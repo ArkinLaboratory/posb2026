@@ -11,7 +11,8 @@
 | **[Syllabus](syllabus.md)** | The document students get: assessment, policies, computing, week by week. |
 | **[Coverage Matrix](coverage-matrix.md)** | Every assessed technique, the session that demonstrates it, and how it is graded. **The contract.** |
 | **[Coverage Audit 2025](coverage-2025.md)** | What Fall 2025 taught, paper by paper, and where each piece went — or did not. |
-| **[Project Papers](project-papers.md)** | The curated list the first project milestone draws on: 20 papers, two tracks. |
+| **[Project Papers](project-papers.md)** | The curated list the first project milestone draws on: 28 papers, each with what it hands you to build with. |
+| **[Reading Plan](reading-plan.md)** | Proposed readings for sessions 11–28, with the reasoning and what still needs deciding. |
 | **[Course Map](course-map.md)** | All 28 sessions, all 9 problem sets, assessment, and a self-study path. |
 | **[Package Reference](posb-reference.md)** | `posb` API: `Reaction`, `Model`, `Trajectory`. |
 | **[Lecture Design](lecture-design.md)** | The per-session template and the evidence for it. |

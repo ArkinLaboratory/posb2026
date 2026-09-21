@@ -2,8 +2,18 @@
 
 [← back to README](../README.md) · [Syllabus](syllabus.md) · [Readings](readings.md)
 
-This is the list the first project milestone draws on. Pick one paper, answer
-four questions about it, and the fourth answer is your project.
+This is the list the first project milestone draws on. Pick one paper and
+answer three things: what they built and what model sits behind their main
+figure, what **you** would build that their result makes possible, and what you
+would have to compute to know whether your thing could work.
+
+That second answer is the point. The projects that work in this course are
+designs — a thing that should exist, with a model showing how it would be
+implemented, how it would behave, and whether it is feasible. A paper is not
+the assignment; it is the ground you stand on so that the design is about
+something real. Every entry below therefore ends with **Build with** — the
+parts, parameters or characterised components that paper hands you to
+recombine. That line, not the data line, is usually the one you will use.
 
 **Why a list at all.** The milestone used to ask for a project description in
 week 5 — the system, the objective, why it is interesting. That is the neck of
@@ -21,12 +31,14 @@ It would delete the toggle switch. So the rule here is *something machine-readab
 must exist*, and that comes in two kinds:
 
 - **Track A — data to fit.** Numbers you can download and fit a model to.
-  Supplementary tables, source-data files, a Zenodo or GEO deposit. The project
-  shape is: re-fit their model, then ask it something they did not ask.
+  Supplementary tables, source-data files, a Zenodo or GEO deposit.
 - **Track B — a model to run.** No downloadable measurements, but a deposited
-  SBML model or a parameter set complete enough in the paper to rebuild. The
-  project shape is: rebuild the model, then explore where it goes that the
-  paper stopped short of.
+  SBML model or a parameter set complete enough in the paper to rebuild.
+
+Either track supports a design. Track A lets you calibrate your design against
+somebody's measurements; Track B lets you simulate it from their parameters.
+What neither lets you do is design in the air, which is the failure mode this
+milestone exists to prevent.
 
 Track B is not the lesser track. Track A projects are judged partly on data
 handling, which some of you have and some of you don't. Track B projects are
@@ -194,6 +206,72 @@ go further than the lecture does.
 
 ---
 
+## Papers the course itself teaches from
+
+Added 20 September after the [coverage audit](coverage-2025.md) found that the
+twenty above were chosen from the 2026 topic list and a literature search, and
+so missed the papers this course has actually lectured from. These five are
+strong on **Build with** and weaker on downloadable data — which, for a design
+project, is the right trade.
+
+### 21. Chen et al. 2013 — 582 terminators, measured
+*Chen, Y.-J., Liu, P., Nielsen, A. A. K., Brophy, J. A. N., Clancy, K., Peterson, T. & Voigt, C. A.* Characterization of 582 natural and synthetic terminators and quantification of their design constraints. **Nature Methods** 10(7), 659–664 (2013). [doi:10.1038/nmeth.2515](https://doi.org/10.1038/nmeth.2515) · 6 pp · *session 17*
+
+**Model.** Termination strength from hairpin thermodynamic stability and its displacement of the U-tract from the DNA/RNA hybrid, fit to the measured set.
+**Data.** Supplementary Tables 2, 3 and 4 as **.xlsx** — 227 natural and 265 synthetic terminators with measured fold-repression. Paywalled main text; library access needed.
+**Build with.** The strongest parts catalogue on this list. Tables 2 and 3 give you a sequence and a measured strength for nearly 500 terminators, 39 of them above 50-fold. If your design needs two genes at a fixed expression ratio, or an operon whose downstream gene must be insulated from its neighbour, you can pick the actual parts and predict the ratio before building anything.
+
+### 22. Hooshangi, Thiberge & Weiss 2005 — ultrasensitivity down a cascade
+*Hooshangi, S., Thiberge, S. & Weiss, R.* Ultrasensitivity and noise propagation in a synthetic transcriptional cascade. **PNAS** 102(10), 3581–3586 (2005). [doi:10.1073/pnas.0408507102](https://doi.org/10.1073/pnas.0408507102) · free: PMC552778 · 6 pp · *sessions 12 and 13*
+
+**Model.** A Gillespie simulation of a TetR→LacI→CI repression cascade with every rate constant given in Methods, plus steady-state transfer curves fit to a Hill form.
+**Data.** Figures and SI only — no deposit. [Track B]
+**Build with.** The Methods section is a parts list with numbers: transcription 2 min⁻¹ unoccupied and 0.02 min⁻¹ occupied, translation 2 min⁻¹, dimerisation 0.03 nM⁻¹min⁻¹, and decay rates. Figure 2A gives measured Hill coefficients of 2.3, 7.0 and 7.5 for one-, two- and three-stage cascades. You can build a cascade of your own topology from these constants and ask what it costs you in noise to buy that sharpness — which is the trade every design on this list eventually meets.
+
+### 23. Xie et al. 2011 — a truth table inside a HeLa cell
+*Xie, Z., Wroblewska, L., Prochazka, L., Weiss, R. & Benenson, Y.* Multi-input RNAi-based logic circuit for identification of specific cancer cells. **Science** 333(6047), 1307–1311 (2011). [doi:10.1126/science.1205527](https://doi.org/10.1126/science.1205527) · 5 pp · *session 26*
+
+**Model.** Individually measured miRNA sensor dose-responses, composed as a Boolean expression — miR-21 AND miR-17-30a AND NOT(miR-141) AND NOT(miR-142(3p)) AND NOT(miR-146a) — used to predict classifier selectivity before the circuit was built.
+**Data.** "Available upon request"; Tables S1–S6 are supplementary PDF. [Track B]
+**Build with.** Six characterised sensor modules with measured responses across seven cell lines (Fig. 2D, Tables S1 and S3). This is a classifier construction kit: pick a different target cell, choose the miRNAs that separate it, and compute the false-positive rate your logic would give — the worked example of session 26, on a cell type of your choosing.
+
+### 24. Mishra et al. 2021 — a toggle with no promoter in it
+*Mishra, D., Bepler, T., Teague, B., Berger, B., Broach, J. & Weiss, R.* An engineered protein-phosphorylation toggle network with implications for endogenous network discovery. **Science** 373(6550), eaav0780 (2021). [doi:10.1126/science.aav0780](https://doi.org/10.1126/science.aav0780) · free: PMC11203391 · *session 18*
+
+**Model.** Bistability from mutual cross-repression between two MAPK phospho-signalling branches, analysed by numerical bifurcation and stochastic simulation — no closed form was tractable.
+**Data.** Main text and supplementary materials; no deposit. [Track B]
+**Build with.** Eleven named phospho-in/phospho-out parts — chimeric fusions plus endogenous high-osmolarity MAPK components — and the bifurcation analysis in supplementary notes 1.5–1.6.7 as a template. Session 9's phase plane transfers to this system unchanged, but the timescale is seconds rather than hours, which makes a different class of design possible. Ask what you would build that needs to switch in seconds.
+
+### 25. Daniel, Rubens, Sarpeshkar & Lu 2013 — arithmetic, not logic
+*Daniel, R., Rubens, J. R., Sarpeshkar, R. & Lu, T. K.* Synthetic analog computation in living cells. **Nature** 497(7451), 619–623 (2013). [doi:10.1038/nature12148](https://doi.org/10.1038/nature12148) · 5 pp · *session 13*
+
+**Model.** Computation in the logarithmic domain — log-linear sensing, addition, ratiometric and power-law operations — from three transcription factors, over about four orders of magnitude.
+**Data.** Supplementary Information is a PDF of 53 figures and 4 tables. Paywalled, no PMC deposit. **[unverified: whether SI Tables 1–4 contain reusable transfer-function parameters. Confirm before choosing this one.]** [Track B]
+**Build with.** The idea more than the parts: the Hill function you derived in session 4 is a logarithm over the right range, so a circuit that computes a ratio needs three transcription factors rather than a gate array. Any design that must report *relative* concentration — a sensor that fires on the ratio of two metabolites rather than a threshold of one — starts here.
+
+### 26. Pitchai et al. 2024 — a conditional parasite, in macaques
+*Pitchai, F. N., Tanner, E. J., Khetan, N., Vasen, G., Levrel, C., Kumar, A. J. et al.* Engineered deletions of HIV replicate conditionally to reduce disease in nonhuman primates. **Science** 385(6709), eadn5866 (2024). [doi:10.1126/science.adn5866](https://doi.org/10.1126/science.adn5866) · free: PMC11545966 · *session 25*
+
+**Model.** A within-host ODE for SHIV, extended so that TIPs are explicit obligate molecular parasites competing for Gag, with conditional replication stated as R₀^TIP > 1. Reported: R₀ ≈ 24 for HIV alone, ≈ 12 with TIPs present. Fit by nonlinear least squares and MCMC.
+**Data.** The best on this list. Code at [github.com/khetanneha/HIV-SIV-TIP-Modeling](https://github.com/khetanneha/HIV-SIV-TIP-Modeling), archived at Zenodo [10.5281/zenodo.11391302](https://doi.org/10.5281/zenodo.11391302) — the archive holds the modelling and visualisation code under GPLv3 plus `Pitchai_et_al_ExperimentalData_File.xlsx`. Sequences at GenBank PP597405–PP597522 and PP646066–PP646153. **The only paper here with a runnable public repository.**
+**Build with.** Table S1 and Fig. 2A give the actual constructs: the original ~2.5 kb *pol–vpr* deletion, TIP-1 with cPPT restored, TIP-2 with *tat/rev/vpu/env* ablated, and the optimised HIV-TIP carrying two smaller deletions. Measured: 94% titre reduction in vitro (Fig. 1C), R₀^TIP by three-colour flow (Fig. 2E–F), 3–4 log₁₀ plasma viral load reduction sustained about thirty weeks (Fig. 3C, 3E). You can design a different deletion and ask what it does to R₀^TIP. The sibling paper for a respiratory virus is Chaturvedi et al., *Cell* 184, 6022–6036.e18 (2021) — SARS-CoV-2 TIPs, GEO GSE184447, Zenodo 5579847, measured R₀ ≈ 1.57 — with a heavier two-compartment model.
+
+### 27. Chaturvedi et al. 2022 — one dose, and it blocks transmission
+*Chaturvedi, S., Beutler, N., Vasen, G., Pablo, M., Chen, X., Calia, G., Buie, L., Rodick, R., Smith, D., Rogers, T. & Weinberger, L. S.* A single-administration therapeutic interfering particle reduces SARS-CoV-2 viral shedding and pathogenesis in hamsters. **PNAS** 119(39), e2204624119 (2022). [doi:10.1073/pnas.2204624119](https://doi.org/10.1073/pnas.2204624119) · free: PMC9522362 · *session 25*
+
+**Model.** Eight states — T, E, I, V for the virus, mirrored for the TIP — with about seven parameters including ρ = 1.5 (relative TIP production) and ψ = 0.02 (suppression). Single compartment. Genuinely a one-week build.
+**Data.** All data, code and materials at Zenodo [record 6762604](https://zenodo.org/record/6762604).
+**Build with.** The transmission-blocking experiment itself (Fig. 1B): infect source animals, treat, cohouse with contacts, measure shedding and onward transmission. That design is the bridge between the within-host model and the between-host one, and it is the natural thing to turn into a stochastic exercise. If you want the population scale done properly, Metzger, Lloyd-Smith & Weinberger, *PLoS Comput Biol* 7, e1002015 (2011) carries the three-scale model with risk-structured mixing.
+
+### 28. Weinberger, Schaffer & Arkin 2003 — where the threshold came from
+*Weinberger, L. S., Schaffer, D. V. & Arkin, A. P.* Theoretical design of a gene therapy to prevent AIDS but not human immunodeficiency virus type 1 infection. **Journal of Virology** 77(18), 10028–10036 (2003). [doi:10.1128/JVI.77.18.10028-10036.2003](https://doi.org/10.1128/JVI.77.18.10028-10036.2003) · free: PMC224590 · 9 pp · *session 25*
+
+**Model.** Six ODEs — uninfected cells, HIV-infected, TIP-infected, dually infected, free virus, free TIP — and two composite design parameters: *D*, the antiviral inhibition, and *P*, the TIP's packaging advantage. Out of it falls a closed form, **R₀ᵀ = P²D(1 − 1/R₀)**, the condition for the therapy to persist.
+**Data.** Figures only; the 2003 supplementary URL is dead. [Track B]
+**Build with.** Table 1 is the whole parameter set — production and death rates, burst size ≈ 200, clearance ≈ 30/day, T₀ = 800/µl — with the swept ranges. Six equations and one formula, rebuildable from the paper text alone. This is the object session 25 derives, and it is the only closed-form R₀ in the whole TIP literature: everything after it fits parameters numerically. The design question it poses is still open — P and D are the two knobs, the paper draws the surface over them (Fig. 3), and #26 is what twenty-one years of trying to move those knobs produced.
+
+---
+
 ## What was screened out, and why
 
 Four of the assigned readings do not meet the brief and are not project sources,
@@ -217,16 +295,18 @@ with a verified Zenodo deposit.
 
 ## Gaps — where this list is still thin
 
-Three areas where nothing found meets the bar, and where a better paper would be
+Two areas where nothing found meets the bar, and where a better paper would be
 worth adding:
 
-1. **Noise (session 12).** No paper found combines a built reporter library with
-   downloadable single-cell distributions. Deloupy et al. 2020 (Sci Adv) was the
-   best candidate and its numbers live inside a PDF, with the rest on request.
-2. **Oscillators with data (session 11).** #20 is Track B for the same reason.
-3. **The digital abstraction as measured devices (session 13).** #14 supplies
+1. **Oscillators with data (session 11).** #20 is Track B because its
+   single-cell trace repository could not be located.
+2. **The digital abstraction as measured devices (session 13).** #14 supplies
    fitted gate parameters, which is the abstraction's output; no verified deposit
    of raw measured transfer curves was found.
+Noise (session 12) was a gap here until #22 closed it, and population-scale
+design (session 25) until #26–#28 did. The review that looked like the obvious
+candidate there — Tanner, Kirkegaard & Weinberger, PLoS Genet 2016 — has no
+model, no parameters and no data; it stays a reading.
 
 ---
 

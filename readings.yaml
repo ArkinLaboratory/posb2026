@@ -243,7 +243,31 @@ readings:
         as optional depth so the required load stays primary literature.
 
   # ---- Part II -----------------------------------------------------------
-  # Nothing declared yet. That is a gap, not a design: every session that
+  s25:
+    - key: weinberger2003
+      cite: "Weinberger, L. S., Schaffer, D. V. & Arkin, A. P. Theoretical design of a gene therapy to prevent AIDS but not human immunodeficiency virus type 1 infection. J. Virol. 77(18), 10028-10036 (2003)."
+      short: "Weinberger, Schaffer & Arkin, J Virol 2003"
+      doi: "10.1128/JVI.77.18.10028-10036.2003"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC224590/"
+      pages: 9
+      required: true
+      focus: >-
+        The model in Figure 1 and the parameters in Table 1, then the threshold
+        R0_T = P^2 D (1 - 1/R0) and the surfaces it generates in Figure 3. Come
+        able to say what P and D are physically -- what you would have to change
+        in a construct to move each one -- because the whole session turns on
+        those being the two knobs.
+      why: >-
+        Session 25 asks what it takes to engineer something whose point is that
+        it spreads, and this is the paper that wrote down the condition. Six
+        equations, one closed-form threshold, and a full parameter table: the
+        only analytic R0 in the interfering-particle literature, everything
+        after it being fitted numerically. Students should also know it is mine,
+        with Schaffer and Weinberger, from 2003 -- and that Pitchai et al.,
+        Science 2024 is what twenty-one years of trying to move P and D
+        produced, in macaques.
+
+  # Nothing else declared yet. That is a gap, not a design: every session that
   # discusses a paper needs an entry here, and `python tools/build_readings.py`
   # will keep saying so until they exist.
   #

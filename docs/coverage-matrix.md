@@ -14,7 +14,7 @@
 
 | # | Technique | Demonstrated | Assessed | Grading |
 |---|---|---|---|---|
-| T0a | Read a specification and enumerate what must be known and built | S1 (Aug 27) | Project proposal | HAND |
+| T0a | Read a specification and enumerate what must be known and built | S1 (Aug 27) | Project milestone 1 (Oct 8) | HAND |
 | T0b | Name the four requirement classes — sense, compute, actuate, **survive** | S1 | Project, Final | HAND |
 | T1 | Order-of-magnitude estimation: molecule counts from concentration and cell volume | S2 (Sep 1) | PS1 | AUTO |
 | T2 | Diffusion timescale, *t* ~ *L*²/2*D* | S2 | PS1, Final | AUTO |

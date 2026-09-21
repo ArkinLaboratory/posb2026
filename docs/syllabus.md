@@ -21,9 +21,9 @@ The material requires a good conceptual basis in molecular biology, biochemistry
 
 The course is organized in two halves that do different work.
 
-**Weeks 1–7 — Design principles.** What can a circuit do, and why is it built that way? Mass action and timescale separation, regulation functions derived from equilibrium binding, phase-plane analysis, bistability, feedforward loops, oscillation, stochasticity, and the digital abstraction. The goal is that every student, whatever your background, can take a circuit diagram, write the equations, and determine its behavior quantitatively.
+**Weeks 1–7 — Design principles.** What can a circuit do, and why is it built that way? Mass action and timescale separation, regulation functions derived from equilibrium binding, phase-plane analysis, bistability, feedforward loops, oscillation, stochasticity, and the digital abstraction — together with the analog computation it is usually assumed to replace. The goal is that every student, whatever your background, can take a circuit diagram, write the equations, and determine its behavior quantitatively.
 
-**Weeks 8–15 — Engineering design.** Now build one that survives in a real host. Implementation layers, resource competition and burden, retroactivity and insulation, feedback control and robustness, evolutionary stability, multicellular consortia, minimal cells, therapeutic circuits, machine-learning-based design, and biosecurity.
+**Weeks 8–15 — Engineering design.** Now build one that survives in a real host. Sequential logic and memory, parts in context and DNA assembly, protein-level circuits, resource competition and burden, metabolic design, retroactivity and insulation, feedback control and robustness, evolutionary stability, multicellular consortia, design at population scale, therapeutic circuits, machine-learning-based design, and biosecurity.
 
 ### What is different in 2026
 
@@ -33,8 +33,8 @@ This course has been team-taught with Ron Weiss (MIT) for fifteen years. In 2026
 - **Digital logic design is compressed** from roughly seven lectures to two. The digital abstraction is a genuinely useful lens on biological circuits; Karnaugh maps and gate minimization are not the best use of your semester.
 - **Every lecture includes a worked example** — a problem solved in real time using the exact technique the next problem set demands.
 - **Nothing is assessed that was not demonstrated first.** If a problem set asks you to find fixed points, you will have watched fixed points be found. This is a commitment. If I violate it, tell me and I will fix the problem set.
-- **The term project roughly doubles in weight**, with staged deadlines and feedback beginning in week 5 rather than being effectively a December activity.
-- **The final third of the course is substantially new**, covering work published since 2020: genome-scale language models and generative design, synthetic minimal cells, logic-gated cell therapies, and biosecurity as a technical problem.
+- **The term project roughly doubles in weight**, with staged deadlines and feedback beginning in week 7 rather than being effectively a December activity.
+- **The final third of the course is substantially new**, covering work published since 2020: genome-scale language models and generative design, protein-level circuits, logic-gated cell therapies, engineered agents that spread on purpose, and biosecurity as a technical problem.
 
 ---
 
@@ -184,7 +184,7 @@ Nine sets, roughly weekly, **2–4 problems each**. These are deliberately short
 | PS6 | Oct 20 | Oct 29 | Digital abstraction, signal matching, hazards, assembly design |
 | PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden, flux balance analysis |
 | PS8 | Nov 5 | Nov 19 | Retroactivity, feedback control, evolutionary stability |
-| PS9 | Nov 19 | Dec 3 | Communities, minimal cells, therapeutic and generative design |
+| PS9 | Nov 19 | Dec 3 | Communities, population-scale design, therapeutic and generative design |
 
 ### Midterm — Thursday, October 15
 
@@ -234,10 +234,27 @@ New this year: the project is staged, with feedback at each stage. In previous y
 
 | Milestone | Due | What you get back |
 |---|---|---|
-| **Project description** (1–2 pp): the system, the objective, why it is interesting | Thu Sep 24 | Written comments within one week |
+| **A paper and the design it suggests** (1 p): see below | Thu Oct 8 | Written comments within one week |
 | **Model description + preliminary results** (2–3 pp) | Thu Oct 22 | Written comments |
 | **Draft write-up** | Thu Nov 12 | Peer review plus my comments |
 | **Final write-up + code + 10-minute video** | Fri Dec 11 **[to confirm — RRR week]** | Grade and comments |
+
+**The first milestone, in detail.** One page. Pick a paper from the
+[project-paper list](project-papers.md) — or bring your own, on the same terms —
+and answer three things. What did they build, and what is the model behind the
+figure they lean on hardest? What would *you* build that their result makes
+possible? And what, in their model, would you have to compute to know whether
+your thing could work?
+
+That third answer is your project. It is deliberately not a proposal: in week
+six you have not read enough to write one, and a proposal written that early is
+either a restatement of the paper or a wish with no model under it. What you can
+do by week six — and what the rest of this course is — is take a working device
+somebody characterised and ask what else it could be made to do.
+
+**This replaces the project description that earlier versions of this syllabus
+placed on 24 September.** The date moved and the ask changed. Nothing else in
+the milestone schedule moved.
 
 ### BioE 147 versus BioE 247
 
@@ -288,11 +305,11 @@ Instruction begins Wednesday, August 26. Classes end Friday, December 4. RRR wee
 | 6 | Tue 9/15 | W4 | Promoter occupancy from statistical thermodynamics; regulation functions | Derive activator, repressor, and AND-like rate laws | |
 | 7 | Thu 9/17 | W4 | Autoregulation: negative (speed, variance) and positive (bistability) | Derive the negative-autoregulation speed-up | PS2 due · PS3 posted |
 | 8 | Tue 9/22 | W5 | The phase plane: nullclines, fixed points, the Jacobian, linear stability | Complete two-dimensional stability analysis | |
-| 9 | Thu 9/24 | W5 | Bistability and the toggle switch: bifurcation, hysteresis, failure modes | Fixed points for *n* = 4 and *n* = 1 | PS3 due · PS4 posted · **Project description due** |
+| 9 | Thu 9/24 | W5 | Bistability and the toggle switch: bifurcation, hysteresis, failure modes | Fixed points for *n* = 4 and *n* = 1 | PS3 due · PS4 posted |
 | 10 | Tue 9/29 | W6 | Feedforward loops: persistence detection, pulse generation, adaptation | FFL timing analysis; numerical IFFL adaptation | |
 | 11 | Thu 10/1 | W6 | Oscillators: the repressilator, delayed negative feedback, conditions for oscillation | State and apply the oscillation criterion; locate the Hopf boundary | PS4 due · PS5 posted |
 | 12 | Tue 10/6 | W7 | Noise: intrinsic versus extrinsic, CV, bursting, the master equation | Write a Gillespie simulator from scratch | |
-| 13 | Thu 10/8 | W7 | The digital abstraction: transfer curves, gain, thresholds, noise margins | Full numeric signal matching between two measured gates | PS5 due |
+| 13 | Thu 10/8 | W7 | The digital abstraction and its price: transfer curves, gain, thresholds, noise margins — then **analog computation**, where the Hill function is arithmetic rather than a switch | Signal matching between two measured gates; then the log-domain circuit that needs neither | PS5 due · **Paper and design due** |
 | 14 | Tue 10/13 | W8 | **Review and worked problems** | Open problem session | Midterm scope published |
 | 15 | **Thu 10/15** | W8 | **MIDTERM** — sessions 1–13 | | |
 
@@ -300,16 +317,16 @@ Instruction begins Wednesday, August 26. Classes end Friday, December 4. RRR wee
 
 | # | Date | Week | Lecture content | Worked example | Assignments |
 |---|---|---|---|---|---|
-| 16 | Tue 10/20 | W9 | Combinational logic in cells; hazards; Cello, and why design automation plateaued | Hazard timing table, end to end | PS6 posted |
-| 17 | Thu 10/22 | W9 | Building it physically: parts, compositors, context dependence, and DNA assembly (Golden Gate/MoClo, Gibson, enzymatic synthesis) | Compose a two-part system in code; design overhangs for a three-part assembly | **Model description due** |
-| 18 | Tue 10/27 | W10 | Implementation layers: CRISPRi/a, recombinase memory, bridge RNAs, protein circuits | Compare gate families on orthogonality, speed, and load | |
+| 16 | Tue 10/20 | W9 | Combinational **and sequential** logic in cells: hazards; latches and registers (session 9's toggle, named); recombinase memory; Cello, and why design automation plateaued | Hazard timing table, end to end; the toggle as an SR latch | PS6 posted |
+| 17 | Thu 10/22 | W9 | Building it physically: parts, compositors, context dependence, the implementation media (CRISPRi/a, bridge RNAs), and DNA assembly from oligos to genomes (Golden Gate/MoClo, Gibson, enzymatic synthesis, syn1.0 and syn3A) | Compose a two-part system in code; design overhangs for a three-part assembly | **Model description due** |
+| 18 | Tue 10/27 | W10 | **Protein circuits:** scaffolds and recruitment, allosteric switches, phosphorylation toggles, and where ultrasensitivity comes from when no promoter is involved | Zero-order ultrasensitivity: how sharp a switch gets without cooperative binding | |
 | 19 | Thu 10/29 | W10 | Resource sharing, cellular economy, growth laws, burden | Shared-resource simulation | PS6 due · PS7 posted |
 | 20 | Tue 11/3 | W11 | **Metabolic engineering and constraint-based design:** flux balance analysis, the stoichiometric matrix as a design object, knockout and coupling strategies | Solve an FBA problem as a linear program with `scipy.optimize.linprog` on a hand-written **S** — the same matrix from session 3, asked a different question | |
 | 21 | Thu 11/5 | W11 | Retroactivity, impedance, insulation, load drivers | Retroactivity calculation for a loaded module | PS7 due · PS8 posted |
 | 22 | Tue 11/10 | W12 | Robustness and control: integral feedback, antithetic control, exact adaptation | Simulate an antithetic controller; quantify what it costs | |
 | 23 | Thu 11/12 | W12 | Evolutionary failure: mutation, burden, circuit loss; design for stability; containment | Time-to-circuit-failure from mutation rate and fitness cost | **Draft write-up due** |
 | 24 | Tue 11/17 | W13 | Communities: cell–cell communication, quorum sensing, patterning, division of labor | Sender/receiver band-detection analysis | |
-| 25 | Thu 11/19 | W13 | Minimal and synthetic cells: syn3A and bottom-up construction | Genome-partitioning fidelity: why most daughters are incomplete | PS8 due · PS9 posted |
+| 25 | Thu 11/19 | W13 | **Design at population scale:** defective interfering particles, therapeutic interfering particles, gene drives — engineering a thing whose point is that it spreads | Push *R*₀ above 1 for a therapeutic parasite, and find where it stops being a therapy | PS8 due · PS9 posted |
 | 26 | Tue 11/24 | W14 | Therapeutic circuits: logic-gated cell therapies, synNotch, in vivo delivery | Design a multi-input classifier to a false-positive budget | |
 | — | Thu 11/26 | W14 | **Thanksgiving — no instruction** | | |
 | 27 | Tue 12/1 | W15 | Machine learning as the specification layer: structure prediction, protein design, genome language models | Design–filter–validate arithmetic: what hit rate beats directed evolution? | |

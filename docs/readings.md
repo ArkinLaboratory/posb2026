@@ -13,7 +13,7 @@ fixed:
 That is a promise in both directions. You will always have had a full
 class period's notice; and the discussion segments assume you used it.
 
-Declared so far: **8 reading(s)** across **6 of 27 teaching sessions**.
+Declared so far: **9 reading(s)** across **7 of 27 teaching sessions**.
 
 ---
 
@@ -29,6 +29,7 @@ Declared so far: **8 reading(s)** across **6 of 27 teaching sessions**.
 | end of S9 · Thu Sep 24 | S10 · Tue Sep 29 | [Alon, U. Network motifs: theory and experimental approaches. Nature Reviews Genetics 8, 450-461 (2007).](https://doi.org/10.1038/nrg2102) *(optional)* | The motif catalogue in context. Read it if you want the map rather than the two landmarks. |
 | end of S9 · Thu Sep 24 | S10 · Tue Sep 29 | [Basu, S., Mehreja, R., Thiberge, S., Chen, M.-T. & Weiss, R. Spatiotemporal control of gene expression with pulse-generating networks. PNAS 101, 6355-6360 (2004).](https://doi.org/10.1073/pnas.0307571101) | The circuit diagram and the pulse traces. Before class, be able to say which arm of the loop is fast and which is slow, and what happens to the pulse if you swap them. |
 | end of S9 · Thu Sep 24 | S10 · Tue Sep 29 | [Mangan, S. & Alon, U. Structure and function of the feed-forward loop network motif. PNAS 100, 11980-11985 (2003).](https://doi.org/10.1073/pnas.2133841100) | The eight FFL types and which ones are actually found. Then the sign-sensitive delay argument for the C1-FFL -- that is the piece the lecture builds on. |
+| end of S24 · Tue Nov 17 | S25 · Thu Nov 19 | [Weinberger, L. S., Schaffer, D. V. & Arkin, A. P. Theoretical design of a gene therapy to prevent AIDS but not human immunodeficiency virus type 1 infection. J. Virol. 77(18), 10028-10036 (2003).](https://pmc.ncbi.nlm.nih.gov/articles/PMC224590/) | The model in Figure 1 and the parameters in Table 1, then the threshold R0_T = P^2 D (1 - 1/R0) and the surfaces it generates in Figure 3. Come able to say what P and D are physically -- what you would have to change in a construct to move each one -- because the whole session turns on those being the two knobs. |
 
 ## Sessions with no reading declared
 
@@ -36,5 +37,5 @@ Not every session needs one — some are derivation sessions and the
 reading is the notebook. But each of these is an open decision, not a
 decision already made:
 
-S1, S3, S4, S9, S11, S12, S13, S14, S16, S17, S18, S19, S20, S21, S22, S23, S24, S25, S26, S27, S28
+S1, S3, S4, S9, S11, S12, S13, S14, S16, S17, S18, S19, S20, S21, S22, S23, S24, S26, S27, S28
 
