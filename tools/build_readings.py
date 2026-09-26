@@ -203,6 +203,45 @@ def limits_for(spec, a):
     return limits, over
 
 
+def check_notice(rows, sessions, spec):
+    """Warn where a reading is heavy relative to the notice it actually gets.
+
+    `max_days_notice` caps the long end. Nothing caps the short end, and the
+    calendar supplies two very different short ends: a paper for a Tuesday
+    session is handed out the previous Thursday (about five days), a paper for a
+    Thursday session is handed out Tuesday morning (about forty-six hours). Half
+    the sessions are Thursdays, so half the readings get a fifth of the time.
+
+    This is a WARNING, not an error. A hard six-page Thursday cap was tried on
+    paper and rejected: it fails Andersen (7 pp, s05) and Rosenfeld (9 pp, s07),
+    both of which were taught without trouble. The threshold below is set where
+    it condemns nothing that has worked and still catches the case that
+    motivated the rule -- session 13's original eleven-page pair, two days
+    before the week of the midterm.
+    """
+    short_notice_pages = (spec.get("limits", {})
+                              .get("short_notice_pages_per_assignment", 10))
+    warnings = []
+    by_assign = {}
+    for r in rows:
+        if r["required"]:
+            by_assign.setdefault(r["assign"], []).append(r)
+    for a, items in sorted(by_assign.items()):
+        notice = min(i["notice"] for i in items)
+        if notice > 2:
+            continue
+        pages = sum(i["pages"] or 0 for i in items)
+        if pages > short_notice_pages:
+            n = items[0]["discuss"]
+            day = sessions[n]["date"].strftime("%a %d %b")
+            warnings.append(
+                f"s{a:02d} assigns {pages} required pages with {notice} days' "
+                f"notice for s{n:02d} ({day}); the short-notice guidance is "
+                f"{short_notice_pages}. Narrow the focus or move a paper to "
+                f"optional.")
+    return warnings
+
+
 def check_load(rows, spec):
     """No class hands out more than the syllabus promises."""
     errors = []
@@ -313,6 +352,7 @@ def main():
     course, sessions, spec = load()
     rows, errors = resolve(spec, sessions)
     errors += check_load(rows, spec)
+    warnings = check_notice(rows, sessions, spec)
 
     if errors:
         print("readings.yaml FAILED:\n")
@@ -324,12 +364,16 @@ def main():
     if check_only:
         if OUT.exists() and OUT.read_text() == text:
             print(f"OK: {len(rows)} reading(s); docs/readings.md up to date")
+            for w in warnings:
+                print(f"  WARNING  {w}")
             return
         sys.exit("--check: docs/readings.md is stale. "
                  "Run `python tools/build_readings.py`.")
 
     OUT.write_text(text)
     print(f"OK: {len(rows)} reading(s) -> {OUT.relative_to(ROOT)}")
+    for w in warnings:
+        print(f"  WARNING  {w}")
     for r in rows:
         print(f"  s{r['assign']:02d} assigns -> s{r['discuss']:02d} discusses  "
               f"{r.get('key')}  ({r['notice']} days)")

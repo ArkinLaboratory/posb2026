@@ -93,7 +93,7 @@
 | T70 | Sensitivity/specificity trade-off reasoning | S26 | PS9 | HAND |
 | T71 | Design–filter–validate arithmetic (hit rate) | S27 (Dec 1) | **Final only** | AUTO |
 | T72 | Compare generative design vs. directed evolution yield | S27 | **Final only** | HAND |
-| T73 | Compute *R*₀ for a therapeutic interfering particle | S28 (Dec 3) | **Final only** | AUTO |
+| T73 | Compute *R*₀ for a therapeutic interfering particle | S25 (Nov 19) | PS9, Final | AUTO |
 | T74 | Why similarity-based screening fails on generated sequences | S28 | **Final only** | HAND |
 
 ---
@@ -109,6 +109,25 @@ So in the naive schedule, students write a Gillespie simulator on Oct 6, are exa
 **Recommended fix:** the S12 notebook ships with a **self-checking, ungraded Gillespie exercise** — otter public tests that students run themselves, no submission. PS6 then assesses it properly (T32, T33, T35 are all AUTO, so this costs the reader nothing). The midterm scope document states explicitly that stochastic simulation is examinable *conceptually* — master equation setup, CV reasoning, when noise matters — but that a from-scratch implementation will not be required under exam conditions.
 
 **Alternative:** move noise to session 11 and oscillators to session 12, so PS5 can cover it. This costs the clean "dynamics → digital abstraction → midterm" ramp into Part II, which is the pedagogical hinge of the whole course. I do not recommend it.
+
+### 1b. The same gap at session 13 — T36, T37, T38
+
+**Found 21 September, decided 26 September.** §1 diagnoses the Gillespie gap and
+prescribes a fix. Two rows below T35 sit **T36** (transfer curve and gain),
+**T37** (threshold and noise margins) and **T38** (numeric signal matching), all
+demonstrated in **S13 (Oct 8)** and all assessed on **"PS6, Mid"**. Identical
+calendar, identical failure: demonstrated Oct 8, examined Oct 15, practised
+Oct 29. §1 did not catch it, and S13 is also the session that grew a second half
+on 20 September and the last content session before review and exam.
+
+**The fix is §1's, applied twice.** The S13 notebook ships the same
+self-checking, ungraded exercise — signal matching between two measured gates,
+which is `AUTO` and costs the reader nothing. And the midterm scope document
+published on Oct 13 states the scope for **sessions 12 and 13 together**:
+examinable conceptually — what a transfer curve is, what a noise margin buys,
+why a cascade sharpens and what it costs — with no from-scratch implementation
+and no numeric signal-matching problem under exam conditions. Saying it once for
+both sessions is simpler than saying it twice and is less likely to drift.
 
 ### 2. T17 is demonstrated in September and assessed in October — deliberately
 

@@ -42,6 +42,15 @@ limits:
   max_required_pages_per_assignment: 12
   max_days_notice: 14                # assigning much earlier than this and they forget
 
+  # The short end of the notice window, which max_days_notice does not see.
+  # A Tuesday session's paper goes out the previous Thursday -- about five days.
+  # A Thursday session's paper goes out Tuesday morning -- about forty-six
+  # hours. Half the sessions are Thursdays. This is a WARNING threshold, not a
+  # cap: 6 pp was tried and rejected because it fails Andersen (7 pp, s05) and
+  # Rosenfeld (9 pp, s07), both taught without trouble. 10 pp condemns nothing
+  # that has worked and still catches s13's original eleven-page pair.
+  short_notice_pages_per_assignment: 10
+
   # Per-session exceptions. Raising the global cap because one session needs two
   # papers would silently license every session to assign two, which is how a
   # "one paper a week" syllabus becomes a fourteen-paper term. Exceptions are
@@ -56,6 +65,16 @@ limits:
         15(2):116-124). `pages` records what the students actually hold, not the
         flattering number, so the cap is raised here rather than the length
         understated.
+
+    s17:
+      max_required_pages_per_assignment: 15
+      reason: >-
+        Mishra 2021 (Science, eaav0780) is a research article with no page range
+        -- article-numbered, so neither Crossref nor Europe PMC returns a count.
+        `pages: 14` is an estimate and is marked [unverified] in the entry. The
+        cap is raised rather than the length understated, and the focus is
+        narrowed to the phospho-toggle network and its bifurcation analysis so
+        the actual read is short even though the article is not.
 
     s09:
       max_required_per_assignment: 2
@@ -221,7 +240,7 @@ readings:
       pages: 6
       required: true
       focus: >-
-        The eight FFL types and which ones are actually found. Then the
+        The eight FFL types and which ones turn up in real networks. Then the
         sign-sensitive delay argument for the C1-FFL -- that is the piece the
         lecture builds on.
       why: >-
@@ -241,6 +260,30 @@ readings:
       why: >-
         The review the 2025 deck cites once, on the autoregulation slide. Kept
         as optional depth so the required load stays primary literature.
+
+  s11:
+    - key: potvintrottier2016
+      cite: "Potvin-Trottier, L., Lord, N. D., Vinnicombe, G. & Paulsson, J. Synchronous long-term oscillations in a synthetic gene circuit. Nature 538, 514-517 (2016)."
+      short: "Potvin-Trottier et al., Nature 2016"
+      doi: "10.1038/nature19841"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5637407/"
+      pages: 4
+      required: true
+      focus: >-
+        The four modifications to the original repressilator and what each one
+        removes. Come able to say which of them you would expect to matter most
+        BEFORE you see the data, and to name the quantity each one is supposed to
+        protect. Then the traces: what a period looks like when it is kept and
+        when it is not.
+      why: >-
+        The 2000 repressilator is where the circuit comes from and it belongs on
+        the slide, but as a reading it teaches the wrong lesson -- it oscillates
+        badly, and the session's question is what makes an oscillator keep time.
+        This is the same circuit with its noise sources removed one at a time, so
+        the reading is an argument about which term was destroying the period,
+        which is the session's argument. Elowitz & Leibler 2000 goes on the slide
+        as the construct; students who have never seen it can read it as
+        background, and it is not required.
 
   # ---- Part II -----------------------------------------------------------
   s25:
@@ -266,6 +309,320 @@ readings:
         with Schaffer and Weinberger, from 2003 -- and that Pitchai et al.,
         Science 2024 is what twenty-one years of trying to move P and D
         produced, in macaques.
+
+  s12:
+    - key: elowitz2002
+      cite: "Elowitz, M. B., Levine, A. J., Siggia, E. D. & Swain, P. S. Stochastic gene expression in a single cell. Science 297, 1183-1186 (2002)."
+      short: "Elowitz et al., Science 2002"
+      doi: "10.1126/science.1070919"
+      url: "https://doi.org/10.1126/science.1070919"
+      pages: 4
+      required: true
+      focus: >-
+        Figure 2 and the algebra that turns the difference between two colours in
+        one cell into intrinsic noise. Come able to say what is being held equal
+        between the two reporters, because the whole decomposition rests on it.
+      why: >-
+        The two-colour decomposition is the session's whole apparatus and it is
+        four pages -- a strain designed and built for the purpose. No free copy
+        exists anywhere (no PMC, no repository, checked 21 September 2026);
+        reach it through the Library proxy.
+
+  s13:
+    - key: hooshangi2005
+      cite: "Hooshangi, S., Thiberge, S. & Weiss, R. Ultrasensitivity and noise propagation in a synthetic transcriptional cascade. PNAS 102(10), 3581-3586 (2005)."
+      short: "Hooshangi, Thiberge & Weiss, PNAS 2005"
+      doi: "10.1073/pnas.0408507102"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC552778/"
+      pages: 6
+      required: true
+      focus: >-
+        Figure 2A -- the transfer curves for one-, two- and three-stage cascades
+        and their fitted Hill coefficients of 2.3, 7.0 and 7.5. Come able to say
+        what each added stage bought and what it cost, because the cost is the
+        session's argument.
+      why: >-
+        The digital half of the session, done honestly: someone built the
+        cascade, measured the sharpening, and measured the noise that sharpening
+        costs. The students arrive having seen the price of the abstraction
+        rather than being told about it.
+
+    - key: daniel2013
+      cite: "Daniel, R., Rubens, J. R., Sarpeshkar, R. & Lu, T. K. Synthetic analog computation in living cells. Nature 497(7451), 619-623 (2013)."
+      short: "Daniel et al., Nature 2013"
+      doi: "10.1038/nature12148"
+      url: "https://doi.org/10.1038/nature12148"
+      pages: 5
+      required: false
+      focus: >-
+        Figure 1 and the range over which the response is logarithmic. The Hill
+        function you derived in session 4 is a logarithm over the right range,
+        which is why a ratio needs three transcription factors and not a gate
+        array.
+      why: >-
+        The analog half. Required for 247, optional depth for 147: the session
+        makes the argument in the room either way, and the week before the
+        midterm is the wrong place for a second required paper. Paywalled with
+        no deposit -- Library proxy.
+
+  s16:
+    - key: nielsen2016
+      cite: "Nielsen, A. A. K., Der, B. S., Shin, J., Vaidyanathan, P., Paralanov, V., Strychalski, E. A., Ross, D., Densmore, D. & Voigt, C. A. Genetic circuit design automation. Science 352(6281), aac7341 (2016)."
+      short: "Nielsen et al., Science 2016 -- Cello"
+      doi: "10.1126/science.aac7341"
+      url: "https://doi.org/10.1126/science.aac7341"
+      pages: 10
+      required: true
+      focus: >-
+        The NOR gate response functions and the circuit-scoring rule, then the
+        numbers: 60 circuits designed, all 60 built with no additional tuning,
+        45 correct in every output state, 92% of output states as predicted, up
+        to 10 regulators and 55 parts. Come able to say what "signal separation"
+        means in the units of session 13's transfer curves. [unverified: page
+        count -- article-numbered, no range published.]
+      why: >-
+        The paper the session is about -- the compiler, the gate library, and
+        the honest failure rate. 45 of 60 is the quantitative form of why design
+        automation plateaued, and it is the continuity that puts session 13
+        before this one. Cello 2.0 (Jones et al., Nat Protoc 2022) is a
+        seventeen-page protocol: right for the project list, wrong for a
+        reading. The sequential half gets no reading -- session 9's toggle is an
+        SR latch and the students already own it.
+
+  s17:
+    - key: cambray2013
+      cite: "Cambray, G., Guimaraes, J. C., Mutalik, V. K., Lam, C., Quynh-Anh, M., Thimmaiah, T., Carothers, J. M., Arkin, A. P. & Endy, D. Measurement and modeling of intrinsic transcription terminators. Nucleic Acids Research 41(9), 5139-5148 (2013)."
+      short: "Cambray et al., NAR 2013"
+      doi: "10.1093/nar/gkt163"
+      url: "https://academic.oup.com/nar/article/41/9/5139/1073753"
+      pages: 10
+      required: true
+      focus: >-
+        The biophysical model and what it says makes a terminator strong. Come
+        able to name the sequence features the model uses and say which of them
+        you could change in a design, because that is the difference between a
+        part being a number and a part being a name.
+      why: >-
+        The session's thesis is that a part is a measurement, not a name, and
+        this is the version with a model under it rather than a regression --
+        which is the bar every reading on this course has to clear. Gold open
+        access. Students should know it is mine, with Mutalik, Carothers and
+        Endy, from 2013.
+
+    - key: chen2013
+      cite: "Chen, Y.-J., Liu, P., Nielsen, A. A. K., Brophy, J. A. N., Clancy, K., Peterson, T. & Voigt, C. A. Characterization of 582 natural and synthetic terminators and quantification of their design constraints. Nature Methods 10(7), 659-664 (2013)."
+      short: "Chen et al., Nat Methods 2013"
+      doi: "10.1038/nmeth.2515"
+      url: "https://doi.org/10.1038/nmeth.2515"
+      pages: 6
+      required: false
+      focus: >-
+        Table 1 and the design constraints. 582 terminators with measured
+        strengths, 39 of them above 50-fold -- an actual parts catalogue, in
+        xlsx.
+      why: >-
+        Carried alongside Cambray rather than instead of it, at Adam's
+        direction: the lecture shows both, because the catalogue and the model
+        are different things and a designer needs both. It is also
+        project-papers entry 21. Paywalled -- Library proxy.
+
+  s18:
+    - key: mishra2021
+      cite: "Mishra, D., Bepler, T., Teague, B., Berger, B., Broach, J. & Weiss, R. An engineered protein-phosphorylation toggle network with implications for endogenous network discovery. Science 373(6550), eaav0780 (2021)."
+      short: "Mishra et al., Science 2021"
+      # Named from session 9, where the course first assumes n > 1 without
+      # saying where a real n comes from. Nine sessions is a long wait; the
+      # forward pointer turns it from a hole into a stated arc.
+      preview_in: [s09]
+      doi: "10.1126/science.aav0780"
+      url: "https://doi.org/10.1126/science.aav0780"
+      pages: 14
+      required: true
+      focus: >-
+        The phospho-toggle network and its bifurcation analysis, and nothing
+        else -- supplementary notes 1.5-1.6.7 if you want the algebra. Come able
+        to draw its phase plane on the session 8 axes. [unverified: page count
+        -- article-numbered, no range published. See the s17 override.]
+      why: >-
+        A toggle with no promoter in it. Everything proved in sessions 8 and 9
+        transfers unchanged, but the timescale is seconds rather than hours and
+        the parts are phosphorylation sites. That transfer is the best argument
+        available that the room learned a method and not a special case. Free at
+        the publisher; the PMC copy (PMC11203391) is the SUBMITTED version, so
+        figure numbers may differ -- use the publisher link.
+
+  s19:
+    - key: ceroni2015
+      cite: "Ceroni, F., Algar, R., Stan, G.-B. & Ellis, T. Quantifying cellular capacity identifies gene expression designs with reduced burden. Nature Methods 12(5), 415-418 (2015)."
+      short: "Ceroni et al., Nat Methods 2015"
+      doi: "10.1038/nmeth.3339"
+      url: "https://doi.org/10.1038/nmeth.3339"
+      pages: 4
+      required: true
+      focus: >-
+        The capacity-against-expression curve. Come able to state what is being
+        measured in what units, because "burden" is otherwise a word.
+      why: >-
+        Four pages, a capacity monitor inside the cell, and a linear
+        relationship between what you express and what you take from the host.
+        The cheapest way to make "your circuit is not alone" quantitative.
+        Paywalled with no deposit -- Library proxy.
+
+  s20:
+    - key: fong2004
+      cite: "Fong, S. S. & Palsson, B. O. Metabolic gene-deletion strains of Escherichia coli evolve to computationally predicted growth phenotypes. Nature Genetics 36(10), 1056-1058 (2004)."
+      short: "Fong & Palsson, Nat Genet 2004"
+      doi: "10.1038/ng1432"
+      url: "https://doi.org/10.1038/ng1432"
+      pages: 3
+      required: true
+      focus: >-
+        Supplementary Table 1 and the predicted-against-observed comparison --
+        39 of 50 right. Come with a guess about what the eleven failures have in
+        common.
+      why: >-
+        Three pages in which a model predicts a growth rate, someone builds the
+        strain, evolves it, and checks. The clearest example in the course of a
+        design calculation being tested rather than admired, and the eleven
+        failures are more interesting than the successes. Paywalled -- Library
+        proxy.
+
+  s21:
+    - key: mishra2014
+      cite: "Mishra, D., Rivera, P. M., Lin, A., Del Vecchio, D. & Weiss, R. A load driver device for engineering modularity in biological networks. Nature Biotechnology 32, 1268-1275 (2014)."
+      short: "Mishra et al., Nat Biotech 2014"
+      doi: "10.1038/nbt.3044"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4262674/"
+      pages: 8
+      required: true
+      focus: >-
+        The delay and bandwidth measurements with and without the load driver --
+        76% of the response time and 25% of the bandwidth lost to a downstream
+        load, and mostly recovered. Come able to say where the timescale
+        separation is doing the work.
+      why: >-
+        Retroactivity is the most counter-intuitive idea in Part II -- that
+        reading a signal changes it -- and this paper puts a number on it. The
+        supplementary MATLAB is the model.
+
+  s22:
+    - key: aoki2019
+      cite: "Aoki, S. K., Lillacci, G., Gupta, A., Baumschlager, A., Schweingruber, D. & Khammash, M. A universal biomolecular integral feedback controller for robust perfect adaptation. Nature 570, 533-537 (2019)."
+      short: "Aoki et al., Nature 2019"
+      doi: "10.1038/s41586-019-1321-1"
+      url: "https://doi.org/10.3929/ethz-b-000351590"
+      pages: 5
+      required: true
+      focus: >-
+        The step-response figures and what "perfect" in perfect adaptation is
+        claiming. Then ask what dilution does to it -- that is the session's
+        argument.
+      why: >-
+        Two molecules that annihilate each other are an integrator. That one
+        sentence is the session, and this is the paper that built it and
+        measured the adaptation. Green open access in the ETH Zurich Research
+        Collection, not preprint-only as an earlier note had it.
+
+  s23:
+    - key: rottinghaus2022
+      cite: "Rottinghaus, A. G., Ferreiro, A., Fishbein, S. R. S., Dantas, G. & Moon, T. S. Genetically stable CRISPR-based kill switches for engineered microbes. Nature Communications 13, 672 (2022)."
+      short: "Rottinghaus et al., Nat Commun 2022"
+      doi: "10.1038/s41467-022-28163-5"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8813983/"
+      pages: 10
+      required: true
+      focus: >-
+        The viability-against-generations series, tracked over 224 generations.
+        Fit an exponential before class and bring the number. [unverified: page
+        count -- article-numbered.]
+      why: >-
+        A kill switch is the one device whose specification is that it must not
+        evolve. The session's calculation -- time to circuit failure from
+        mutation rate and fitness cost -- has a measured answer to check
+        against, and the source data is published. Open access.
+
+  s24:
+    - key: balagadde2008
+      cite: "Balagadde, F. K., Song, H., Ozaki, J., Collins, C. H., Barnet, M., Arnold, F. H., Quake, S. R. & You, L. A synthetic Escherichia coli predator-prey ecosystem. Molecular Systems Biology 4, 187 (2008)."
+      short: "Balagadde et al., Mol Syst Biol 2008"
+      doi: "10.1038/msb.2008.24"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2387235/"
+      pages: 7
+      required: true
+      focus: >-
+        The three dynamical regimes and what moves the system between them.
+        The model is in BioModels as BIOMD0000000296, so run it rather than
+        retype it. [unverified: page count -- article-numbered.]
+      why: >-
+        Two strains, each holding the other's life in a quorum-sensing molecule.
+        Lotka-Volterra that somebody built. Li et al., Methods Ecol Evol 2022 is
+        the recent comparator -- programmable competition, mutualism or
+        exploitation, with a Zenodo CSV -- and gets a short summary in lecture
+        rather than a row here, at 14 pp over the cap. Open access.
+
+  s26:
+    - key: xie2011
+      cite: "Xie, Z., Wroblewska, L., Prochazka, L., Weiss, R. & Benenson, Y. Multi-input RNAi-based logic circuit for identification of specific cancer cells. Science 333(6047), 1307-1311 (2011)."
+      short: "Xie et al., Science 2011"
+      doi: "10.1126/science.1205527"
+      url: "https://doi.org/10.1126/science.1205527"
+      pages: 5
+      required: true
+      focus: >-
+        The truth table and the six sensor modules behind it, with their
+        measured responses across seven cell lines (Fig. 2D, Tables S1 and S3).
+        Come able to say which miRNA does which job, and what a false positive
+        costs here.
+      why: >-
+        A truth table implemented inside a HeLa cell. The session's worked
+        example -- a multi-input classifier held to a false-positive budget --
+        already done, so the period argues about the budget rather than
+        explaining the construction. Tousley et al., Nature 2023 is the modern
+        comparator and gets a compact treatment in lecture; it is
+        project-papers entry 11. Paywalled -- Library proxy.
+
+  s27:
+    - key: zhang2023
+      cite: "Zhang, P., Wang, H., Xu, H., Wei, L., Liu, L., Hu, Z. & Wang, X. Deep flanking sequence engineering for efficient promoter design using DeepSEED. Nature Communications 14, 6309 (2023)."
+      short: "Zhang et al., Nat Commun 2023"
+      doi: "10.1038/s41467-023-41899-y"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10562447/"
+      pages: 11
+      required: true
+      focus: >-
+        The designed-against-measured expression comparison. Come able to say
+        what fraction of designs worked, because that number is the session.
+        [unverified: page count -- article-numbered.]
+      why: >-
+        The session's worked example is design-filter-validate arithmetic: what
+        hit rate beats directed evolution. This paper designs promoters,
+        synthesises them and measures them, with the designed-and-measured set
+        on Zenodo, so the hit rate is in the reading. RFdiffusion (Watson et
+        al., Nature 2023) is more famous and belongs on the slide, but its
+        subject is protein structure, which this course has not taught. Open
+        access.
+
+  s28:
+    - key: wittmann2025
+      cite: "Wittmann, B. J., Alexanian, T., Bartling, C., Beal, J., Clore, A., Diggans, J., Flyangolts, K., Gemler, B. T., Mitchell, T., Murphy, S. T., Wheeler, N. E. & Horvitz, E. Strengthening nucleic acid biosecurity screening against generative protein design tools. Science 390(6768), 82-87 (2025)."
+      short: "Wittmann et al., Science 2025"
+      doi: "10.1126/science.adu8578"
+      url: "https://doi.org/10.1126/science.adu8578"
+      pages: 6
+      required: true
+      focus: >-
+        The detection rates before and after the patches. Treat the screening
+        pipeline as a classifier and come able to say what its false-negative
+        rate was, on what input, and who pays when it misses.
+      why: >-
+        The session's subject exactly: AI-redesigned variants run against the
+        screening software gene synthesis companies actually use, the failure
+        measured, patches built and deployed, detection measured again. It
+        closes the sessions 26-28 argument -- a classifier and an error budget,
+        three times, with a different party paying each time. The authorship is
+        the field red-teaming its own infrastructure: Twist, the standards
+        community, and Microsoft Research. Not a project paper -- there is no
+        model with parameters in it. Reachable on campus through Science.
 
   # Nothing else declared yet. That is a gap, not a design: every session that
   # discusses a paper needs an entry here, and `python tools/build_readings.py`

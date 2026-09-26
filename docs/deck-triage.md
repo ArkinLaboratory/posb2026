@@ -79,7 +79,7 @@ L24 has 7.
 | L20 *(titled "Feedforward and Feedback")* | **SPLIT** — pp. 1–10 motifs → S10; pp. 11–23 toggle → S9 | S9, S10 |
 | L21 Latches II + Oscillators | **SPLIT** — toggle → S9; oscillators → S11 | S9, S11 |
 | L24 Protein Circuits | **KEEP** — 82 novel pages | S18 |
-| L25 Epidemics | **KEEP** — DIPs/TIPs → biosecurity | S28 |
+| L25 Epidemics | **KEEP** — DIPs/TIPs → population-scale design | S25 |
 
 ### What this recovers
 
@@ -146,7 +146,7 @@ either a fragment or a cut.
 3. **S16, S17** — L09 + L10 merged, with the Cello material from L18. L08's
    assembly pages to S17.
 4. **S9, S11** — L20 + L21 split. The S9 deck already exists, built new.
-5. **S18, S26, S28** — L24, L13/L14/L15's therapy pages, L25.
+5. **S18, S25, S26** — L24; L25 to S25; L13/L14/L15's therapy pages to S26.
 
 **A correction to the row above.** The file called *Sequential Dynamics* is
 titled **"Feedforward and Feedback"** on its own first page, and it splits

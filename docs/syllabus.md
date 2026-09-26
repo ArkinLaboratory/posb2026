@@ -161,7 +161,7 @@ If you would rather not wait, open PS0 in Colab today and run the first cell. If
 |---|---|
 | Problem sets (9, lowest two dropped) | **30%** |
 | Midterm — Thursday, October 15, in class | **15%** |
-| Final exam — finals week, in person | **25%** |
+| Final exam — Wednesday, December 16, 3–6 pm | **25%** |
 | Term project | **30%** |
 
 Compared with previous years, exams fall from 60% to 40% and the project doubles from 15% to 30%.
@@ -192,7 +192,7 @@ In class, covering sessions 1–13 (everything through the digital abstraction).
 
 ### Final exam
 
-In person during the finals block, cumulative but weighted toward the second half.
+**Wednesday, December 16, 3–6 pm**, in person. Cumulative, but weighted toward the second half.
 
 Both exams are in person, and it is worth saying why. Problem sets are open-book, open-collaboration, and open-tool. That is the right policy for learning, but it makes them a weak signal of individual understanding. Two proctored exams at a combined 40% — down from 60% — is the trade: substantially less exam pressure than this course has carried, while preserving a real measure of what you personally can do.
 
@@ -237,7 +237,7 @@ New this year: the project is staged, with feedback at each stage. In previous y
 | **A paper and the design it suggests** (1 p): see below | Thu Oct 8 | Written comments within one week |
 | **Model description + preliminary results** (2–3 pp) | Thu Oct 22 | Written comments |
 | **Draft write-up** | Thu Nov 12 | Peer review plus my comments |
-| **Final write-up + code + 10-minute video** | Fri Dec 11 **[to confirm — RRR week]** | Grade and comments |
+| **Final write-up + code + 10-minute video** | **Mon Dec 14** | Grade and comments |
 
 **The first milestone, in detail.** One page. Pick a paper from the
 [project-paper list](project-papers.md) — or bring your own, on the same terms —
@@ -252,9 +252,14 @@ either a restatement of the paper or a wish with no model under it. What you can
 do by week six — and what the rest of this course is — is take a working device
 somebody characterised and ask what else it could be made to do.
 
+**Nothing in this course is due during RRR week.** The final milestone sits on
+Monday, December 14 — after RRR, before the exam — so the reading and review
+week is yours.
+
 **This replaces the project description that earlier versions of this syllabus
-placed on 24 September.** The date moved and the ask changed. Nothing else in
-the milestone schedule moved.
+placed on 24 September.** The date moved and the ask changed. The only other
+milestone that moved is the last one, from Friday December 11 to Monday
+December 14.
 
 ### BioE 147 versus BioE 247
 
@@ -332,8 +337,8 @@ Instruction begins Wednesday, August 26. Classes end Friday, December 4. RRR wee
 | 27 | Tue 12/1 | W15 | Machine learning as the specification layer: structure prediction, protein design, genome language models | Design–filter–validate arithmetic: what hit rate beats directed evolution? | |
 | 28 | Thu 12/3 | W15 | Biosecurity and governance as technical problems; what actually limits synthetic biology | Why sequence-similarity screening fails on generated sequences | PS9 due |
 
-**Final project due:** Friday, December 11 **[to confirm]**
-**Final exam:** finals block, December 14–18 — **exam group to confirm with the registrar**
+**Final project due:** Monday, December 14
+**Final exam:** Wednesday, December 16, 3–6 pm
 
 ---
 

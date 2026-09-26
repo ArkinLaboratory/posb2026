@@ -168,9 +168,10 @@ be written first.
 | Sep 8 | S4 deck + notebook | me |
 | Sep 10 | S5 deck; **PS2 posted**; PS1 due | me |
 
-Three syllabus items remain unresolved and one of them is a registrar
-dependency: final-project date (Fri Dec 11, RRR week), the exam group, and
-whether the final falls in the Dec 14–18 block.
+**Settled 20 September 2026.** The final exam is **Wednesday, December 16,
+3–6 pm**, and the final project is due **Monday, December 14** — after RRR week,
+before the exam, on the rule that nothing in this course is due during RRR.
+Both brackets have been struck from the syllabus.
 
 ---
 

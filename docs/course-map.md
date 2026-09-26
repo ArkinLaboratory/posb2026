@@ -44,6 +44,27 @@ way.
 
 *Now build one that survives in a real host.*
 
+Part II is three arguments, not thirteen topics, and it is worth knowing which
+one you are in.
+
+**Sessions 16–18 — the media you build in.** DNA-encoded logic, physical parts
+and assembly, protein. Three substrates for the same circuit, with different
+speeds and different failure modes.
+
+**Sessions 19–25 — the ladder of contexts that break it.** One axis, climbed one
+rung at a time: the host's economy (19, 20), the module next door (21),
+disturbance (22), time and evolution (23), the community (24), the population of
+hosts (25). A circuit that works on a plasmid and fails in a chassis, in a
+consortium, or after two hundred generations has failed somewhere on this ladder.
+
+**Sessions 26–28 — design as a search, and who pays for the errors.** The same
+object three times: a classifier with a threshold and a budget for its mistakes.
+Session 26 is a false-positive budget paid by a patient. Session 27 is a hit
+rate. Session 28 is a false-negative rate on sequences that were generated
+rather than found, where the cost of a miss is not yours. The last rung of the
+ladder above is other people — which is where session 1's specification problem
+comes back.
+
 | # | Date | Topic | Worked example | |
 |---|---|---|---|---|
 | 16 | Tue Oct 20 | Combinational **and sequential** logic: hazards; latches and registers; recombinase memory; why design automation plateaued | Hazard timing table; the toggle as an SR latch | ⬜ |
@@ -87,7 +108,7 @@ execute the week's technique, not a weekend-consuming exercise.
 |---|---|
 | Problem sets (9, lowest two dropped) | 30% |
 | Midterm — Thu Oct 15 | 15% |
-| Final exam — in person, finals week | 25% |
+| Final exam — in person, Wed Dec 16, 3–6 pm | 25% |
 | Term project — staged from week 7 | 30% |
 
 ---

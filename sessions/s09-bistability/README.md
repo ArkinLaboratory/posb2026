@@ -59,6 +59,17 @@ the faded set's item 4).
 | Handout | [s09-faded-toggle](../../handouts/s09-faded-toggle.md) + [answers](../../handouts/s09-faded-toggle-answers.md) |
 | Board notes | [s09-board-notes](../../board-notes/s09-board-notes.md) |
 
+## Forward pointer, added 26 September
+
+This session assumes cooperativity — *n* > 1 on at least one arm — and the
+engineerability row calls it hard. Where a real *n* comes from is **session 18**,
+where sharpness gets built rather than assumed: zero-order ultrasensitivity,
+multi-step, and a toggle whose parts are phosphorylation sites instead of
+promoters (Mishra et al., *Science* 2021, now `preview_in: [s09]` in
+`readings.yaml`). Nine sessions is a long wait for an answer to a question this
+session raises, and the gap is deliberate — Part I has no room for the
+derivation — so both ends say so out loud rather than leaving it a hole.
+
 ## Open
 
 - **Provenance of the 40-hour pTog panels** (`toggle_longevity_2025deck`). Not

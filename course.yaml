@@ -35,19 +35,19 @@ sessions:
   - {n: 10, date: 2026-09-29, part: I,  title: "Feedforward loops"}
   - {n: 11, date: 2026-10-01, part: I,  title: "Oscillators"}
   - {n: 12, date: 2026-10-06, part: I,  title: "Noise and the master equation"}
-  - {n: 13, date: 2026-10-08, part: I,  title: "The digital abstraction"}
+  - {n: 13, date: 2026-10-08, part: I,  title: "The digital abstraction and its price"}
   - {n: 14, date: 2026-10-13, part: I,  title: "Review and worked problems"}
   - {n: 15, date: 2026-10-15, part: I,  title: "Midterm", kind: exam}
-  - {n: 16, date: 2026-10-20, part: II, title: "Combinational logic in cells"}
-  - {n: 17, date: 2026-10-22, part: II, title: "Parts, compositors, context, DNA assembly"}
-  - {n: 18, date: 2026-10-27, part: II, title: "Implementation layers"}
+  - {n: 16, date: 2026-10-20, part: II, title: "Combinational and sequential logic"}
+  - {n: 17, date: 2026-10-22, part: II, title: "Parts, context, implementation media, DNA assembly"}
+  - {n: 18, date: 2026-10-27, part: II, title: "Protein circuits"}
   - {n: 19, date: 2026-10-29, part: II, title: "Resource sharing and burden"}
   - {n: 20, date: 2026-11-03, part: II, title: "Metabolic engineering and constraint-based design"}
   - {n: 21, date: 2026-11-05, part: II, title: "Retroactivity and insulation"}
   - {n: 22, date: 2026-11-10, part: II, title: "Robustness and control"}
   - {n: 23, date: 2026-11-12, part: II, title: "Evolutionary failure and containment"}
   - {n: 24, date: 2026-11-17, part: II, title: "Communities and quorum sensing"}
-  - {n: 25, date: 2026-11-19, part: II, title: "Minimal and synthetic cells"}
+  - {n: 25, date: 2026-11-19, part: II, title: "Design at population scale"}
   - {n: 26, date: 2026-11-24, part: II, title: "Therapeutic circuits"}
   - {n: 27, date: 2026-12-01, part: II, title: "Machine learning as the specification layer"}
   - {n: 28, date: 2026-12-03, part: II, title: "Biosecurity and governance"}
