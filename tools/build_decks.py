@@ -42,7 +42,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from tools import manifest                                  # noqa: E402
+from tools import manifest, slide_fit                       # noqa: E402
 
 DECKS = ["s01_specification", "s02_substrate", "s03_modeling_i",
          "s04_modeling_ii", "s05_expression", "s08_phase_plane",
@@ -120,6 +120,7 @@ def main():
     thin_total = 0
     long_total = 0
     glyph_total = 0
+    fit_total = 0
     for name in names:
         mod = importlib.import_module(f"decks.{name}")
         deck = mod.build()
@@ -132,6 +133,40 @@ def main():
             pdf = to_pdf(path)
             manifest.write(pdf, deps, extra={"deck": name, "from": path.name})
             print(f"  also  {pdf.name}")
+        # DOES THE TEXT FIT, AND DOES IT LAND ON ANYTHING? This gate existed
+        # as a script nobody ran, which is why Adam was sent a session 11 with
+        # 76 overlapping text pairs on it: every other check here passed. It
+        # runs on the saved file because that is the only place the rendered
+        # geometry exists.
+        #
+        # NINE NAMED DECKS ARE REPORTED BUT NOT COUNTED, and the list only ever
+        # shrinks. Sessions 1-9 were delivered from hand-tuned copies frozen in
+        # private/taught/ and they carry the same latent defect this gate was
+        # written to catch: their row pitches were measured by eye against
+        # 13-16pt body text and the scale is now 20. Rewriting nine taught
+        # decks to satisfy a check is the wrong order of work -- the frozen PDF
+        # is what the room saw, and Adam's instruction on 26 September was to
+        # apply the formatting pass going forward only. So the count prints, so
+        # nobody believes they are clean, and the strict exit skips them.
+        #
+        # This is deliberately a NAMED LIST rather than "anything in
+        # private/taught/". Copying a deck to taught/ is the last step of
+        # releasing it, and keying the exemption on that would have quietly
+        # un-gated session 10 and 11 the moment they were released -- the two
+        # decks that were just brought to zero. A deck that is clean when it is
+        # taught stays gated forever; only these nine are grandfathered.
+        GRANDFATHERED = {
+            "s01_specification", "s02_substrate", "s03_modeling_i",
+            "s04_modeling_ii", "s05_expression", "s06_promoter_occupancy",
+            "s07_autoregulation", "s08_phase_plane", "s09_bistability",
+        }
+        bad = slide_fit.report(path, indent="  ")
+        if bad and name in GRANDFATHERED:
+            print(f"  ^ taught before the fit gate existed -- reported, "
+                  f"not counted. Remove {name!r} from GRANDFATHERED in "
+                  f"tools/build_decks.py when it is fixed.")
+        else:
+            fit_total += bad
         if deck.missing_figures:
             missing_total += len(deck.missing_figures)
             print(f"  {len(deck.missing_figures)} paper figure(s) shown as slots:")
@@ -274,11 +309,13 @@ def main():
     # segment headers -- so making this fail --check would fail CI on a known,
     # dated deferral rather than on a surprise. Relabel s02 after 1 September
     # and then add `or long_total` here, which is the point of counting it.
-    if strict and (missing_total or unassigned or thin_total or glyph_total):
+    if strict and (missing_total or unassigned or thin_total or glyph_total
+                   or fit_total):
         sys.exit(f"\n--check: {missing_total} paper figure(s) missing, "
                  f"{unassigned} reading(s) never handed out, "
                  f"{thin_total} under-slided segment(s), "
-                 f"{glyph_total} missing glyph(s)"
+                 f"{glyph_total} missing glyph(s), "
+                 f"{fit_total} text box(es) that do not fit"
                  + (f"  [and {long_total} over-long student block(s), "
                     f"not yet strict]" if long_total else ""))
     print(f"\nDone. Decks in {OUT.relative_to(ROOT)}/ (gitignored).")

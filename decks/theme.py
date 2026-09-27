@@ -10,6 +10,7 @@ mode boundaries, extracted terms rather than prose -- so a new deck is short and
 cannot drift from the house style. See docs/lecture-design.md for why the
 structure is what it is.
 """
+import math
 import re
 import sys
 from pathlib import Path
@@ -165,6 +166,88 @@ def first_sentence(txt, limit=105):
 # in both fonts and they read fine.
 
 _SUB, _SUP = "-25000", "30000"
+
+# ---------------------------------------------------------------------------
+# THE TYPE SCALE
+# ---------------------------------------------------------------------------
+# Adam has raised the type on these decks BY HAND three times: the foot from
+# 11.5 to 13 on 12 September, from 13 to 16 on 13 September, and on
+# 26 September a pass over the whole of session 10 that moved 116 shapes --
+# every body run between 13 and 17 pt to 20, emphasis to 24, the segment
+# header to 24, the title-slide display type to 32.
+#
+# Three times, because there was nothing to change but the call sites, and
+# there are several hundred of those across eleven decks. So: one scale, named
+# by the job the text does, and every helper below asks for a role rather than
+# a number. Change a value here and every deck in the course moves.
+#
+# Dwinelle 219 is a wide room with the projector at the back; these are floors
+# for legibility from row 8, not preferences (posb-slide-legibility).
+TYPE = {
+    "micro":    12,   # the slide number, and nothing else
+    "badge":    14,   # the time badge -- the run sheet, not the lecture
+    "caption":  16,   # figure refs, source lines, the foot, derivation asides
+    "body":     20,   # ANYTHING THAT CARRIES CONTENT. The important one.
+    "emphasis": 24,   # the one line per surface that has to land
+    "header":   24,   # the segment label
+    "title":    32,   # the slide title
+    "display":  32,   # title-slide subtitle, the big glyphs
+}
+
+
+def scale(pt):
+    """Map a legacy literal point size onto the scale.
+
+    Deck modules pass numbers (``size=14``). Rather than rewrite several
+    hundred call sites -- and get one wrong -- they are mapped here, using the
+    bands Adam's own pass established. Anything already 20 or above he left
+    alone, so it passes through untouched; 26 was the one exception and he
+    took it to 32.
+    """
+    if pt is None:
+        return None
+    if pt <= 12.5:
+        return TYPE["caption"]
+    if pt < 18:
+        return TYPE["body"]
+    if pt < 20:
+        return TYPE["emphasis"]
+    if pt == 26:
+        return TYPE["display"]
+    return pt
+
+
+
+# -- how tall is a string? ------------------------------------------------
+# One model, used twice: here, so a helper can size the box it is about to
+# draw, and in tools/slide_fit.py, so a built deck can be audited against the
+# same arithmetic the builder used. Two copies of this would drift, and the
+# drift would show up as an overlap on the wall.
+#
+# ADVANCE = 0.5 em is the average advance of proportional Latin text,
+# calibrated against PowerPoint's own autofit heights in Adam's hand-raised
+# session 10 (318 boxes, mean error -0.10 in -- so the estimate is slightly
+# conservative and a box it calls full really is full). LINE is line height.
+ADVANCE = 0.5
+LINE = 1.21
+
+
+def text_height(txt, w, size):
+    """Inches of height this string needs at `size` pt in a `w` inch box."""
+    cw = size / 72.0 * ADVANCE
+    per = max(1, int(w / cw))
+    h = 0.0
+    for line in str(txt).split("\n"):
+        shown = _MARKUP.sub(lambda m: m.group(2), line) if "{" in line else line
+        h += max(1, math.ceil(len(shown) / per)) * size / 72.0 * LINE
+    return h
+
+
+def line_cap(w, size):
+    """How many characters fit on one line of a `w` inch box at `size` pt."""
+    return max(1, int(w / (size / 72.0 * ADVANCE)))
+
+
 _MARKUP = re.compile(r"([_^])\{([^{}]*)\}")
 
 
@@ -286,7 +369,25 @@ class Deck:
     # -- text ----------------------------------------------------------------
     def text(self, s, txt, x, y, w, h, size=14, font=None, bold=False,
              italic=False, color=None, align="l", valign=None, spacing=None,
-             space_pt=0):
+             space_pt=0, role=None):
+        # `role` names the scale (see TYPE above) and is what this module's own
+        # helpers use. A bare `size=` is a legacy call from a deck module and
+        # is mapped up. If both are given, role wins.
+        size = TYPE[role] if role else scale(size)
+        # A TEXT BOX IS NEVER SMALLER THAN ITS TEXT. PowerPoint does not clip an
+        # overfull box -- it renders the extra lines outside it -- so a box
+        # declared shorter than its contents is a box that lies about where its
+        # ink is, and every downstream check reads the lie. Growing it downward
+        # moves nothing on the wall (these are top-anchored) and turns the whole
+        # class of "overflow" defects into the one that actually matters: does
+        # this ink land on somebody else's? 57 of the 133 problems in session 11
+        # were this, and each of them was also generating a phantom-free
+        # collision somewhere below it.
+        # `spacing` is a line-height multiplier, so it multiplies the need.
+        # Leaving it out made every generously-led block under-measure: the
+        # forward-link surface of session 11 was set at 1.4 and came out
+        # 0.8in taller than the box the check thought it had.
+        h = max(h, text_height(txt, w, size) * (spacing or 1.0))
         box = s.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
         tf = box.text_frame
         tf.word_wrap = True
@@ -315,6 +416,90 @@ class Deck:
                 if base:
                     r.font._rPr.set("baseline", base)
         return box
+
+    def rows(self, s, items, top=2.10, bottom=6.58, label_w=3.0,
+             side=True, gap=0.10, bar=0.14, indent=0.32, pad=0.0,
+             label_role="body", body_role="body", label_color=None,
+             left=None, right=None, numbered=False):
+        """A stack of label/body rows, pitched by what the text actually needs.
+
+        WHY THIS EXISTS (26 September 2026). Every slide of this kind was
+        written as
+
+            for i, (k, v) in enumerate(...):
+                y = 2.10 + i * 1.16
+                d.text(s, k, M, y, 3.0, 0.74, ...)
+                d.text(s, v, M + 3.4, y, 8.2, 1.06, ...)
+
+        -- a base and a pitch, measured by eye against the sizes of the day and
+        then frozen in the source. The day the type scale moved from 13.5pt to
+        20, every one of those pitches was wrong by about a line, and session
+        11 came out of the build with 76 overlapping pairs across 23 surfaces.
+        Adam found them by reading the PDF. No pitch written down by hand
+        survives a change to the type scale, so this writes none down: it asks
+        each row how tall it is, stacks what it is told, and says so when the
+        answer does not fit the band.
+
+        `items` is a list of (label, body) or (label, body, colour). With
+        `side` the label sits in its own left column beside the body; without
+        it the label sits above the body, full width. A colour draws the
+        rounded bar at the left edge, the full height of its row.
+
+        Returns the y the stack ended at, so a caller can put something under
+        it, and prints the shortfall rather than overlapping when the text
+        given will not fit the band it was given.
+        """
+        dark = s._posb_dark
+        lab_pt, body_pt = TYPE[label_role], TYPE[body_role]
+        x1 = M if left is None else left
+        x0 = x1 + (0.50 if numbered else
+                   (bar + 0.06 if any(len(it) > 2 and it[2] for it in items)
+                    else 0.0))
+        body_x = x0 + (label_w + 0.20 if side else 0.0)
+        edge = right if right is not None else W - M
+        body_w = edge - body_x
+        lab_w = label_w if side else edge - x0
+
+        plan = []
+        for it in items:
+            k, v = it[0], it[1]
+            lh = text_height(k, lab_w, lab_pt) if k else 0.0
+            vh = text_height(v, body_w, body_pt) if v else 0.0
+            plan.append((it, lh, vh, max(lh, vh) if side else lh + vh + pad))
+        need = sum(r[3] for r in plan) + gap * max(len(plan) - 1, 0)
+        band = bottom - top
+        if need > band + 0.02:
+            over = need - band
+            print(f"  !! row stack needs {need:.2f}in in a {band:.2f}in band "
+                  f"-- {over:.2f}in too tall. Cut about "
+                  f"{int(over / (body_pt / 72.0 * LINE) * line_cap(body_w, body_pt))} "
+                  f"characters of body text, or lose a row: "
+                  f"{[str(r[0][0])[:26] for r in plan]}")
+        # Spread whatever is left over as extra breathing room between rows,
+        # up to a limit -- a four-row slide in a five-inch band should not have
+        # its rows welded together at the top with two inches of white below.
+        slack = max(0.0, band - need) / max(len(plan), 1)
+        step = gap + min(slack, 0.34)
+        y = top
+        for n, (it, lh, vh, rh) in enumerate(plan, 1):
+            col = it[2] if len(it) > 2 else None
+            if numbered:
+                self.shape(s, MSO_SHAPE.OVAL, x1, y + 0.04, 0.34, 0.34,
+                           fill=col or (CYAN if dark else TEAL), line=None)
+                self.text(s, str(n), x1, y + 0.05, 0.34, 0.32, size=14,
+                          bold=True, color=INK if dark else WHITE, align="c")
+            elif col:
+                self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, x1, y, bar, rh,
+                           fill=col, line=None)
+            self.text(s, it[0], x0, y, lab_w, lh, role=label_role, font=HEAD,
+                      bold=True,
+                      color=label_color or (WHITE if dark else INK))
+            if it[1]:
+                self.text(s, it[1], body_x, y + (0.0 if side else lh + pad),
+                          body_w, vh, role=body_role,
+                          color=SILVER if dark else BODY)
+            y += rh + step
+        return y - step
 
     def shape(self, s, kind, x, y, w, h, fill=None, line=None, lw=1.5):
         shp = s.shapes.add_shape(kind, Inches(x), Inches(y), Inches(w), Inches(h))
@@ -403,15 +588,15 @@ class Deck:
         board = any(w in label.lower() for w in self.BOARD_WORDS)
         if board:
             self.board_glyph(s, M, 0.44)
-        self.text(s, label.upper(), M + (0.5 if board else 0), 0.47,
-                  9.5 - (0.5 if board else 0), 0.3, size=13, bold=True,
+        self.text(s, label.upper(), M + (0.5 if board else 0), 0.38,
+                  9.5 - (0.5 if board else 0), 0.44, role="header", bold=True,
                   color=MINT if dark else MUTED)
         # The run sheet, small and out of the reading path. Nobody in row 8
         # needs to know the segment is four minutes long.
-        self.text(s, badge, W - M - 2.4, 0.47, 2.4, 0.3, size=10.5,
+        self.text(s, badge, W - M - 2.4, 0.44, 2.4, 0.34, role="badge",
                   color=MINT if dark else MUTED, align="r")
         self.text(s, str(len(self.prs.slides._sldIdLst)),
-                  W - M - 0.6, H - 0.42, 0.6, 0.26, size=10.5,
+                  W - M - 0.6, H - 0.40, 0.6, 0.28, role="micro",
                   color=MINT if dark else MUTED, align="r")
 
     # -- derivations ---------------------------------------------------------
@@ -474,24 +659,30 @@ class Deck:
             # shorten the label, so say so at build time rather than silently
             # producing an overlap nobody sees until it is on the wall.
             if i == 1:
-                cap = 44 if pitch < 0.62 else 58
+                # The cap is the column, measured, not a hand-set number: the
+                # 44/58 written here were set when a step label rendered at
+                # 16pt and became 25% too generous the day the scale moved to
+                # 20. A label past the cap now gets the height it needs (see
+                # below) -- this says it will cost a line.
+                cap = line_cap(3.9, TYPE["body"])
                 for lhs, _r, _a in steps:
                     if len(lhs) > cap:
-                        print(f"  !! step label wraps into the next row "
-                              f"({len(lhs)} chars, cap {cap} at this pitch): "
-                              f"{lhs!r}")
+                        print(f"  !! step label wraps onto a second line "
+                              f"({len(lhs)} chars, cap {cap} at "
+                              f"{TYPE['body']}pt): {lhs!r}")
                 # Same failure on the right: the equation column is 7.9in at
                 # 20pt, so a line past ~62 RENDERED characters wraps onto its
                 # own aside. Count rendered, not source: _{NS} is five source
                 # characters and two narrow glyphs, and counting the markup
                 # flagged four session-6 equations that fit on the wall
                 # perfectly well. Checked against the rendered PDF, 13 Sept.
+                eqcap = line_cap(7.9, TYPE["body"])
                 for _l, rhs, _a in steps:
                     shown = _MARKUP.sub(lambda m: m.group(2), rhs)
-                    if len(shown) > 62:
+                    if len(shown) > eqcap:
                         print(f"  !! step equation wraps onto its aside "
-                              f"({len(shown)} rendered chars, cap 62): "
-                              f"{rhs!r}")
+                              f"({len(shown)} rendered chars, cap {eqcap} at "
+                              f"{TYPE['body']}pt): {rhs!r}")
             for j, (lhs, rhs, aside) in enumerate(steps[:i]):
                 y = top + j * pitch
                 live = (j == i - 1)
@@ -499,11 +690,17 @@ class Deck:
                     MUTED if dark else RULE)
                 self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, M, y, 0.11,
                            min(pitch - 0.16, 0.62), fill=bar, line=None)
-                self.text(s, lhs, M + 0.34, y - 0.02, 3.9, 0.52, size=16,
+                # Both boxes get the height their text needs. They used to
+                # get 0.52 and 0.42, which is one line at 16pt and one at
+                # 20 -- fine until the scale moved and a wrapped label
+                # started landing on the row below it.
+                lab_h = max(0.52, text_height(lhs, 3.9, TYPE["body"]))
+                eq_h = max(0.42, text_height(rhs, 7.9, TYPE["body"]))
+                self.text(s, lhs, M + 0.34, y - 0.02, 3.9, lab_h, size=16,
                           font=HEAD, bold=True,
                           color=(WHITE if dark else INK) if live
                                 else (MINT if dark else MUTED))
-                self.text(s, rhs, M + 4.5, y - 0.02, 7.9, 0.42, size=20,
+                self.text(s, rhs, M + 4.5, y - 0.02, 7.9, eq_h, size=20,
                           font=TEXT, bold=True,
                           color=(WHITE if dark else INK) if live
                                 else (MINT if dark else MUTED))
@@ -517,7 +714,9 @@ class Deck:
                 # punchline. So clamp it into the band above the box instead of
                 # deleting it: one tight line at 13pt, which is what fits.
                 if aside and (asides or live):
-                    ay, ah, asz = y + 0.40, 0.44, 14
+                    ay, ah, asz = (y + max(0.40, eq_h),
+                                   max(0.44, text_height(aside, 7.9,
+                                                         TYPE["caption"])), 14)
                     ceiling = 5.66 if closing else 7.00
                     if ay + ah > ceiling:
                         ah, asz = 0.22, 13
@@ -530,8 +729,15 @@ class Deck:
                            W - 2 * M, 0.92,
                            fill=None if dark else WASH,
                            line=CYAN if dark else TEAL, lw=2)
-                self.text(s, closing, M + 0.3, 5.84, W - 2 * M - 0.6, 0.62,
-                          size=20, bold=True, color=WHITE if dark else INK)
+                ch = text_height(closing, W - 2 * M - 0.6, TYPE["body"])
+                if ch > 0.62:
+                    print(f"  !! closing line needs {ch:.2f}in in a 0.62in "
+                          f"box ({len(closing)} chars, cap "
+                          f"{2 * line_cap(W - 2 * M - 0.6, TYPE['body'])}): "
+                          f"{closing!r}")
+                self.text(s, closing, M + 0.3, 5.84, W - 2 * M - 0.6,
+                          max(0.62, ch), size=20, bold=True,
+                          color=WHITE if dark else INK)
             # The board cue belongs on the LAST step only: the instruction is
             # "now that this is derived, put it on the wing", and showing it
             # earlier tells him to write a line that is not on screen yet.
@@ -577,22 +783,29 @@ class Deck:
         """
         FX, FW = M, 5.4                       # figure column
         CX, CW = 6.4, W - M - 6.4             # algebra column, 6.6in
-        FIG_CAP, CLOSE_CAP = 52, 85
+        TW = CW - 0.34                        # text column, inside the bar
         if len(figs) != len(steps):
             raise ValueError(f"derivation_fig: {len(steps)} steps but "
                              f"{len(figs)} figures for {title!r}")
-        for _l, rhs, _a in steps:
-            shown = _MARKUP.sub(lambda m: m.group(2), rhs)
-            if len(shown) > FIG_CAP:
-                print(f"  !! split-surface equation wraps ({len(shown)} rendered "
-                      f"chars, cap {FIG_CAP}): {rhs!r}")
-        for lhs, _r, _a in steps:
-            if len(lhs) > 58:
-                print(f"  !! split-surface step label wraps ({len(lhs)} chars, "
-                      f"cap 58): {lhs!r}")
-        if closing and len(closing) > CLOSE_CAP:
+        # A wrapped line is no longer an overlap -- the stack below measures
+        # what it draws -- but it still costs column and reads as two moves,
+        # so say so. The cap is derived from the type scale rather than
+        # written down: the hand-set 52 and 58 were set when body text was
+        # 16pt and were silently 25% too generous once it went to 20.
+        cap = line_cap(TW, TYPE["body"])
+        for lhs, rhs, _a in steps:
+            # Rendered, not source: _{NS} is five source characters and two
+            # narrow glyphs, and counting the markup flagged labels that sit
+            # on one line perfectly well.
+            for what, txt in (("equation", rhs), ("step label", lhs)):
+                shown = _MARKUP.sub(lambda m: m.group(2), txt)
+                if len(shown) > cap:
+                    print(f"  !! split-surface {what} wraps ({len(shown)} "
+                          f"rendered chars, cap {cap} at {TYPE['body']}pt): "
+                          f"{txt!r}")
+        if closing and text_height(closing, CW - 0.44, TYPE["body"]) > 0.85:
             print(f"  !! closing line overflows its box ({len(closing)} chars, "
-                  f"cap {CLOSE_CAP}): {closing!r}")
+                  f"cap {2 * line_cap(CW - 0.44, TYPE['body'])}): {closing!r}")
 
         made, current = [], None
         for i in range(1, len(steps) + 1):
@@ -606,32 +819,62 @@ class Deck:
             current = figs[i - 1] or current
             if current:
                 self.image(s, current, FX, 1.66, FW, 4.95)
+            # THE STACK IS SIZE-AWARE, and it has to be. At the old sizes a
+            # seven-step run overflowed its column and every line collided
+            # with the next -- 40 overlapping pairs across s11-s17 of session
+            # 10, which is the defect tools/slide_fit.py was written to find.
+            #
+            # Completed steps are the RECORD; the live step is the WORK. So
+            # they are typeset differently: a finished line keeps its label and
+            # its equation at caption size, and only the live step gets body
+            # size plus its aside. Seven steps fit where uniform sizing fits
+            # four, and the eye lands on the line being derived.
             top, bottom = 1.62, (5.40 if closing else 6.62)
-            pitch = (bottom - top) / max(len(steps), 1)
-            roomy = pitch >= 1.02             # label + equation + aside all fit
+            # EVERY BOX IS MEASURED, not guessed from a line count. The
+            # previous version multiplied the point size by a fixed 1.35 and
+            # assumed one line per label and one per equation; a 46-character
+            # label in a 5.9in column at 20pt is two lines, so the equation
+            # under it landed on top of it and the next step landed on both.
+            # That was 12 of the 76 overlapping pairs in this session.
+            def _geo(lhs, rhs, aside, live, with_rhs):
+                sz = TYPE["body"] if live else TYPE["caption"]
+                lh = text_height(lhs, TW, sz)
+                rh = text_height(rhs, TW, sz) if (live or with_rhs) else 0.0
+                ah = text_height(aside, TW, TYPE["caption"]) \
+                    if (aside and live) else 0.0
+                return lh + rh + ah, lh, rh, ah
+            # Fit the stack; if it will not fit, drop the finished equations
+            # and fit again. Completed steps are the RECORD and the live step
+            # is the WORK, so the record is what gives way first.
+            for with_rhs in (True, False):
+                geo = [_geo(l, r, a, j == i - 1, with_rhs)
+                       for j, (l, r, a) in enumerate(steps[:i])]
+                need = sum(g[0] for g in geo)
+                if need + 0.05 * i <= bottom - top:
+                    break
+            gap = max(0.04, min(0.22, (bottom - top - need) / max(i, 1)))
+            if i == len(steps) and need > bottom - top + 0.05:
+                print(f"  !! step stack overruns its column by "
+                      f"{need - (bottom - top):.2f}in -- shorten a label, an "
+                      f"equation or an aside in {title!r}")
+            y = top
             for j, (lhs, rhs, aside) in enumerate(steps[:i]):
-                y = top + j * pitch
                 live = (j == i - 1)
                 col = INK if live else MUTED
+                block, lab, eqh, ash = geo[j]
+                role = "body" if live else "caption"
                 self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, CX, y + 0.02, 0.11,
-                           min(pitch - 0.14, 0.95), fill=TEAL if live else RULE,
+                           max(block - 0.12, 0.18), fill=TEAL if live else RULE,
                            line=None)
-                self.text(s, lhs, CX + 0.34, y - 0.02, CW - 0.34, 0.34,
-                          size=16, font=HEAD, bold=True, color=col)
-                self.text(s, rhs, CX + 0.34, y + 0.32, CW - 0.34, 0.42,
-                          size=20, font=TEXT, bold=True, color=col)
-                if aside and (roomy or live):
-                    # The live aside is clamped into the band above the
-                    # closing box rather than dropped, at 14pt -- nothing
-                    # below 14 carries content (posb-slide-legibility).
-                    ay, ah = y + 0.72, 0.40
-                    ceiling = bottom + 0.16
-                    if ay + ah > ceiling:
-                        ah = 0.26
-                        ay = ceiling - ah
-                    if ay >= y + 0.60:
-                        self.text(s, aside, CX + 0.34, ay, CW - 0.34, ah,
-                                  size=14, italic=True, color=MUTED)
+                self.text(s, lhs, CX + 0.34, y, TW, lab, role=role,
+                          font=HEAD, bold=True, color=col)
+                if eqh:
+                    self.text(s, rhs, CX + 0.34, y + lab, TW, eqh, role=role,
+                              font=TEXT, bold=True, color=col)
+                if ash:
+                    self.text(s, aside, CX + 0.34, y + lab + eqh, TW, ash,
+                              role="caption", italic=True, color=MUTED)
+                y += block + gap
             if i == len(steps) and closing:
                 self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, CX, 5.58, CW, 1.05,
                            fill=WASH, line=TEAL, lw=2)
@@ -683,8 +926,17 @@ class Deck:
                   bold=True, color=CYAN if dark else TEAL)
 
     def title(self, s, txt, y=0.95, size=32):
-        self.text(s, txt, M, y, W - 2 * M, 0.95, size=size, font=HEAD,
-                  bold=True, color=WHITE if s._posb_dark else INK)
+        # The box gets the height the title needs, not a flat 0.95. The text is
+        # top-anchored, so this moves nothing on the wall -- but a 0.95in box
+        # holding one 0.54in line reads to the fit check as 0.4in of occupied
+        # space that is not occupied, and reported a collision against the
+        # derivation stack on every step slide of this course. Measured, a
+        # one-line title clears the stack and a two-line one really does
+        # collide with it, which is the thing worth being told.
+        self.text(s, txt, M, y, W - 2 * M,
+                  max(0.54, text_height(txt, W - 2 * M, scale(size))),
+                  size=size, font=HEAD, bold=True,
+                  color=WHITE if s._posb_dark else INK)
 
     def foot(self, s, txt, y=6.75):
         """The italic line at the bottom of a surface.
@@ -696,8 +948,23 @@ class Deck:
         8. Callers that pass y explicitly are honoured; the default is where he
         put them.
         """
-        self.text(s, txt, M, y, W - 2 * M, 0.34, size=16, italic=True,
-                  color=SILVER if s._posb_dark else MUTED)
+        # Stops short of the slide number, which lives in the bottom-right
+        # corner -- at 16pt a full-width foot collides with it on every slide.
+        wid = W - 2 * M - 0.72
+        # A long foot wraps, and the box grows UPWARD from the bottom edge so
+        # that it never runs off the slide. Growing upward is honest rather
+        # than safe: it puts the foot into whatever sits above it, and the
+        # fit check then reports the collision. Past two lines the foot is not
+        # a foot any more, so say so here, where it can be cut.
+        need = text_height(txt, wid, TYPE["caption"])
+        two = 2 * TYPE["caption"] / 72.0 * LINE
+        if need > two + 0.02:
+            print(f"  !! foot runs to {need / (TYPE['caption'] / 72.0 * LINE):.0f} "
+                  f"lines ({len(str(txt))} chars, {2 * line_cap(wid, TYPE['caption'])} "
+                  f"fits): {str(txt)[:60]!r}...")
+        h = max(0.56, need)
+        self.text(s, txt, M, y + 0.56 - h, wid, h, role="caption",
+                  italic=True, color=SILVER if s._posb_dark else MUTED)
 
     def sources(self, s, pairs, y=6.62):
         """Source lines, each attached to the claim it actually supports.
@@ -719,10 +986,13 @@ class Deck:
             # NOT .upper(): these labels carry units, and case is meaningful
             # in a unit. "µm²/s" upper-cases to "MM²/S", which is a different
             # quantity and a thousand times bigger.
-            self.text(s, what, x, y, wid - 0.25, 0.22, size=11,
+            wh = max(0.26, text_height(what, wid - 0.25, TYPE["caption"]))
+            self.text(s, what, x, y, wid - 0.25, wh, role="caption",
                       bold=True, color=CYAN if dark else TEAL)
-            self.text(s, cite, x, y + 0.21, wid - 0.25, 0.4, size=11,
-                      italic=True, color=SILVER if dark else MUTED)
+            self.text(s, cite, x, y + wh, wid - 0.25,
+                      max(0.44, text_height(cite, wid - 0.25, TYPE["caption"])),
+                      role="caption", italic=True,
+                      color=SILVER if dark else MUTED)
         return y + 0.6
 
     def notes(self, s, txt):
@@ -765,7 +1035,14 @@ class Deck:
         img = _resolve_paper_figure(key)
         if img.exists():
             ix, iy, iw, ih = self.image(s, img, x, y, w, h)   # records img
-            self.text(s, ref, ix, iy + ih + 0.04, iw, 0.28, size=14,
+            # 0.28in held a 14pt ref on one line. At caption size a long ref
+            # in a narrow column wraps, so the box has to grow -- but growing
+            # it unconditionally pushed the caption into whatever the caller
+            # placed underneath (session 10 slide 7). Grow it only when the
+            # ref will actually wrap: at 16pt a column holds about 9 characters
+            # per inch.
+            ref_h = max(0.30, text_height(ref, iw, TYPE["caption"]))
+            self.text(s, ref, ix, iy + ih + 0.04, iw, ref_h, size=14,
                       italic=True, color=MUTED if not s._posb_dark else SILVER,
                       align="c")
             # A slot whose aspect ratio does not match the figure's wastes the
