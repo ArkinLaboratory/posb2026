@@ -43,7 +43,7 @@ the deadline instead of against itself.
 
 | day | operations | gate |
 |---|---|---|
-| **Friday** | build both sessions + the problem set | `preflight` exits 0 for both |
+| **Friday** | build both sessions + the problem set; **adversarially review both** | `preflight` exits 0 for both, after the review's fixes |
 | **Saturday** | review on paper; approve; port back; rebuild | decks copied to `private/taught/` |
 | **Sunday** | Gradescope, bCourses, modules, announcement, reader | final `preflight` exits 0 |
 | **Mon–Fri** | teach; upload after class | nothing is built *against a design that is not settled* — see below |
@@ -84,6 +84,30 @@ Thursday and built Friday. See `2026/SESSION-LOG.md`, 8 September.
 
 Nothing here touches a browser. All of it is repeatable.
 
+## Where each step runs
+
+**New, 26 September 2026.** This document was written as if there were one
+machine. There is not, and a step run in the wrong place fails in a way that
+looks like a broken repository rather than a missing dependency.
+
+| step | runs where | because |
+|---|---|---|
+| **F1, F7, S7** — all git | **Adam's terminal, always** | Anything else leaves `.git/index.lock` and blocks his own commits. No assistant, no bridge, no script runs git here — including `git status`. |
+| **F2, F2b** — figures | **cloud container** | Needs scipy. The device VM does not have it. |
+| **F3** — decks | **either** | Pure python-pptx. `--pdf` needs LibreOffice, which the device has. |
+| **F4** — handouts | **cloud container** | Needs playwright and Chromium for MathJax rendering. |
+| **F5** — problem sets | **cloud container** | Needs otter-grader and a registered `python3` kernel. |
+| **F6, status.py** | **either** | Pure stdlib plus PyYAML. |
+
+**When a build runs off-device, copy the artifact and its stamp together.** A
+figure without its `.deps.json`, or a handout PDF without its `.build/*.sha`,
+reads as stale on the machine that will open it. Both stamp files hash
+*sources*, not the artifact's bytes, so they are valid wherever they were
+computed — which is what makes this split safe.
+
+**Verify the copy landed.** The bridge has reported success on writes that did
+not take. Grep the destination for the change before believing it.
+
 ### F1 · Start from a clean tree
 
 ```bash
@@ -111,6 +135,37 @@ python tools/build_figures.py --verify
   `python tools/build_figures.py` with no arguments and expect ~20 rewrites.
 - The s02 movie is in `SLOW` and is only built when named:
   `python tools/build_figures.py s02_movie`. Needs ffmpeg. Takes a minute.
+
+### F2b · Deep figure check — re-render and compare pictures
+
+```bash
+python tools/build_figures.py sNN sMM --deep
+```
+
+**Expect:** "Every committed figure is the picture its generator draws."
+
+`--verify` above asks whether the recorded hashes still hold. It cannot answer
+the question that actually bit us on 26 September: **is the committed PNG the
+one this generator produces?** The committed `s10_iffl_adaptation.png` was the
+*annotated* variant — peak, final and the adaptation error printed on a surface
+three slides before those numbers are defined, and the same three numbers a
+handout item and a hidden autograder test ask students to produce. The
+generator was correct throughout. Only the artifact was wrong, and it carried a
+manifest written from its own bad bytes, so `--verify` called it clean.
+
+`--deep` renders every figure into a scratch directory and compares decoded
+pixels. Slower. It is the only check that catches a committed figure which is
+simply the wrong picture, so run it at least on the week's two sessions.
+
+> **Why the manifest hashes pixels and not bytes.** The bridge that moves files
+> between the build machine and the teaching machine re-encodes PNGs. Verified
+> on `s11_sweep.png`: 104,847 bytes on one side, 110,617 on the other, byte
+> hashes unrelated, **decoded pixels identical to the bit**. A byte comparison
+> therefore fired on all eighteen week-6 figures after every transfer, which is
+> exactly the cry-wolf failure `tools/manifest.py`'s own docstring says it
+> exists to avoid. `manifest.image_digest()` hashes the decoded pixels plus the
+> size and mode — the same move `content_digest` already made for zips — so a
+> re-encode passes and a resize or a colour-space change still fails.
 
 ### F3 · Decks — both sessions
 
@@ -147,6 +202,76 @@ Every session with a handout needs a **matching answer sheet** — students get
 nothing back otherwise — and every session needs **board notes**, even a short
 card, because the deck records what is *projected* and nothing else records what
 is *written*.
+
+### F4.5 · Adversarial review — both sessions, before Saturday
+
+**New, 26 September 2026.** Saturday's paper read is one reader, and that
+reader designed the session. It catches what paper catches: a figure that dies
+at the back of the room, a derivation that is clear step by step and pointless
+overall, a handout with nowhere to write. It does not catch a wrong
+multiple-choice key, a number quoted from the wrong row of a table, or a claim
+about a paper the paper does not make, because those need recomputation and
+cross-document comparison rather than reading.
+
+The first time this step was run it returned, on materials that had already
+passed every mechanical check: a committed figure that printed three answers
+three surfaces before they were defined, and that `--verify` called clean; an
+answer sheet whose headline claim was refuted by a circuit the students
+classify twenty minutes earlier; a technique on the goals slide, graded on the
+problem set, and demonstrated nowhere; a ConcepTest distractor whose stated
+rationale was false; an FFL type misidentified against the paper's own prose;
+a "find the optimum" question whose optimum is always the left endpoint; and
+$Y_{\max}$ defined one way in three documents and another way in two.
+
+Run one agent **per session**, and give each of them:
+
+- `decks/sNN_*.py`, `figures/sNN_*.py`
+- `handouts/sNN-*.md` and its answer sheet
+- `board-notes/sNN-board-notes.md`
+- `sessions/sNN-*/README.md`
+- `private/sources/psPP.py`
+- `docs/coverage-matrix.md` — the rows this session claims
+- `posb/` — the library the figures and the set both call
+- the assigned papers, as **PDFs**, in `private/readings/`
+
+Tell it to find defects, not to summarize, and to rank by severity. Name the
+classes explicitly, because a general request gets a general answer:
+
+1. **Numerical claims.** Every number on a slide, in a handout, in an answer
+   sheet or in a speaker note is checkable. Recompute them from `posb` and
+   report disagreements with the computation.
+2. **Paper claims.** Quote the PDF and give the page.
+3. **Cross-document drift** between deck, handout, answer sheet, board notes,
+   plan, coverage matrix and problem set. They are written at different times.
+4. **Multiple-choice keys** — more than one correct option, a wrong key, or a
+   distractor whose stated rationale is false.
+5. **Assessed but never demonstrated.** A speaker note is not a demonstration.
+6. **A figure that gives away a later answer**, or that annotates a quantity
+   the class has not yet defined.
+7. **Questions with no real answer** — an optimum that is always an endpoint, a
+   convergence that is not monotone, a bracket that need not bracket.
+8. **Legibility** — type below the 14 pt floor, overlapping boxes, aspect-ratio
+   mismatches.
+9. **Tutorial gaps.** The room spans biology, engineering, chemistry, chemical
+   engineering and physics. A result asserted rather than derived, algebra done
+   off-screen, notation never defined, or an unlabelled axis is a defect here
+   even though it is correct.
+
+**Re-verify every finding before acting on it.** The reports are lead lists,
+not patches. Of the two run on 26 September, one put a crossing at 0.72 that is
+0.655 and claimed a tolerance inconsistency that does not exist. Recompute
+before you change anything, and record in the log where the agent was wrong.
+
+Then triage in two piles. **Mechanical defects** — a wrong number, a
+misidentified type, an overlapping box, a spelling — get fixed on the spot.
+**Anything that changes what is taught, what is assessed, or student workload**
+goes to the instructor as a decision with the evidence and a recommendation,
+and waits. The C1-versus-C4 answer to session 10's item 4 was that kind of
+finding and it was right to hold it.
+
+Rebuild after fixing, then run F6 again. **Saturday should read a corrected
+artifact**, which is the whole point of putting this before it rather than
+after.
 
 ### F5 · Problem set — release weeks only
 
@@ -207,8 +332,12 @@ cd ..
 
 ### Friday gate
 
-Both preflights exit 0; `check_links` is all PASS; both repos pushed. If any of
-those is false, Friday is not finished.
+Both preflights exit 0; `--deep` is clean; **F4.5 has been run on both sessions
+and its mechanical findings are fixed**; `check_links` is all PASS; both repos
+pushed. If any of those is false, Friday is not finished.
+
+Findings held for the instructor do not block the gate — they go to him with
+the Saturday print, so he decides on paper alongside everything else.
 
 ---
 
@@ -434,8 +563,25 @@ Add, in order:
 1. the reading for the *following* week — **External URL**, ✅ *Load in a new
    tab*, named `Read before Session X — <author>, "<title>"`
 2. both problem-set assignments — type **Assignment**
+3. **both deck PDFs**, from `private/taught/` — never from
+   `private/build/decks/`, which is not the file you will teach from
+4. **both handout PDFs**
 
-Slides and answer sheets are added after each class, not now.
+**What goes up now and what waits.** Adam's rule, 26 September 2026: *slides,
+handouts and problem sets go up early; answer sheets go up after each class.*
+Students prepare against the deck and the handout, so withholding them buys
+nothing and costs the students who read ahead. An answer sheet released before
+the room has worked the handout destroys the exercise, so it is the one item
+that waits.
+
+> **Upload the taught copy, not the build.** S3 copies the approved deck into
+> `private/taught/`, and that is the file that gets hand-edited in PowerPoint.
+> A module built from `private/build/decks/` is correct on Sunday and wrong the
+> moment you fix a typo at the lectern, with nothing to say so. This was done
+> the wrong way round in week 6.
+
+**Publish the items, then publish the module.** Two separate states; published
+items inside an unpublished module are invisible with no warning.
 
 **Publish the items, then publish the module.** Two separate states; published
 items inside an unpublished module are invisible with no warning.
@@ -507,10 +653,15 @@ your laptop argues with you at the lectern.
 
 ### After each class
 
-Into that week's module: the **deck PDF** from `private/build/decks/`, and the
-**answer sheet**, which is the one item that must wait until the room has done
-the handout. Attachments have no name field in the Add Item dialog and take the
-raw filename — `⋮ → Edit` each to name it. Publish both.
+Into that week's module: the **answer sheet**, which is the one item that waits
+until the room has done the handout. The deck and the handout went up on Sunday
+(B3). Attachments have no name field in the Add Item dialog and take the raw
+filename — `⋮ → Edit` to name it. Publish it.
+
+**If you hand-edited the deck in PowerPoint**, port the edit into
+`decks/sNN_*.py` (S4), rebuild, re-copy to `private/taught/`, and **replace the
+deck PDF in the module**. The copy students have is otherwise the one from
+before the edit.
 
 ---
 

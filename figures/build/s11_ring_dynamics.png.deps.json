@@ -1,0 +1,11 @@
+{
+  "artifact": "s11_ring_dynamics.png",
+  "artifact_sha256": "c01f0b950901d5b2e1f23e5d1feb3aa5162bc997e8aa925ee90e7692f6652949",
+  "artifact_content": "41cf403c857e46753ad775271a6e9cc4f7b321709a6e558a46a14948973e6832",
+  "artifact_bytes": 240527,
+  "deps": {
+    "figures/s11_oscillators.py": "87d78b886c4b5bf6f27ccfbda246f5259a5a72b2e7b400890bf90b0b31b78ea3",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s11_oscillators.fig_ring_dynamics"
+}

@@ -8,7 +8,9 @@ import numpy as np
 import pytest
 
 from posb import (Model, Reaction, fixed_points, jacobian, classify,
-                  stability_report, toggle_model, toggle_alpha_critical)
+                  stability_report, toggle_model, toggle_alpha_critical,
+                  repressilator_model, repressilator_alpha_critical, loop_gain,
+                  sweep, leading_real_part, hopf_boundary)
 
 
 def n_stable(alpha, n):
@@ -77,3 +79,75 @@ def test_fixed_points_finds_the_unstable_one():
                        guesses=[{"u": 1.2, "v": 1.2}])
     assert len(pts) == 1
     assert np.isclose(pts[0]["u"], pts[0]["v"], rtol=1e-4)
+
+
+# --- the repressilator and its Hopf boundary  (session 11) -----------------
+
+def test_repressilator_needs_cooperativity_above_two():
+    # A three-gene ring with n <= 2 cannot oscillate no matter how strong the
+    # promoters. This is the counterpart of the toggle needing n > 1.
+    assert repressilator_alpha_critical(2) == float("inf")
+    assert repressilator_alpha_critical(1) == float("inf")
+    assert np.isfinite(repressilator_alpha_critical(2.5))
+
+
+def test_repressilator_alpha_critical_at_n_four_is_exactly_two():
+    # alpha_c = (2/(n-2))**(1/n) * n/(n-2); at n = 4 that is 1**(1/4) * 2 = 2.
+    assert np.isclose(repressilator_alpha_critical(4), 2.0, rtol=1e-12)
+
+
+def test_loop_gain_is_two_at_the_boundary():
+    # The criterion the session exists to produce: the ring loses stability
+    # exactly when the gain around it reaches 2.
+    for n in (2.5, 3.0, 4.0, 5.0, 8.0):
+        assert np.isclose(loop_gain(repressilator_alpha_critical(n), n), 2.0,
+                          rtol=1e-9)
+
+
+def test_analytic_boundary_matches_numerical_bisection():
+    # The analytic alpha_c against hopf_boundary, which knows nothing about it
+    # and only watches the leading eigenvalue cross zero.
+    for n in (2.5, 3.0, 4.0, 5.0, 8.0):
+        ac = repressilator_alpha_critical(n)
+        num = hopf_boundary(repressilator_model(n=n), "alpha",
+                            0.3 * ac, 5.0 * ac)
+        assert np.isclose(num, ac, rtol=1e-6)
+
+
+def test_leading_real_part_changes_sign_across_the_boundary():
+    n = 3
+    ac = repressilator_alpha_critical(n)
+    m = repressilator_model(n=n)
+    assert leading_real_part(m, {"alpha": 0.7 * ac}) < 0
+    assert leading_real_part(m, {"alpha": 1.5 * ac}) > 0
+
+
+def test_sweep_collects_one_result_per_value():
+    m = repressilator_model(n=3)
+    vals = [2.0, 4.0, 8.0]
+    got = sweep(m, "alpha", vals, leading_real_part)
+    assert len(got) == len(vals)
+    # monotone in alpha over this range, and it crosses zero inside it
+    assert got[0] < 0 < got[-1]
+
+
+def test_period_at_onset_is_two_pi_over_root_three():
+    # At the boundary g = 2, so the complex pair is -1 + g/2 +/- i g sqrt(3)/2
+    # = 0 +/- i sqrt(3): the emerging oscillation has period 2 pi / sqrt(3).
+    n = 3
+    ac = repressilator_alpha_critical(n)
+    J = jacobian(repressilator_model(n=n),
+                 fixed_points(repressilator_model(n=n),
+                              [[1.0, 1.0, 1.0]], {"alpha": ac})[0],
+                 {"alpha": ac})
+    ev = np.linalg.eigvals(J)
+    omega = np.max(np.abs(ev.imag))
+    assert np.isclose(omega, np.sqrt(3.0), rtol=1e-6)
+    assert np.isclose(2 * np.pi / omega, 3.6276, rtol=1e-4)
+
+
+def test_hopf_boundary_refuses_a_bracket_that_does_not_straddle():
+    m = repressilator_model(n=3)
+    ac = repressilator_alpha_critical(3)
+    with pytest.raises(ValueError):
+        hopf_boundary(m, "alpha", 0.2 * ac, 0.5 * ac)

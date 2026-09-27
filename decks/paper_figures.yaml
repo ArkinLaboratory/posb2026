@@ -314,3 +314,123 @@ gardner2000_fig2cd:
   used_in: ["s08"]
   derived_from: gardner2000_fig2
   crop: [30, 690, 1120, 1300]
+
+# --- Mangan & Alon, PNAS 100:11980-11985 (2003) ----------------------------
+# "Structure and function of the feed-forward loop network motif"
+# doi:10.1073/pnas.2133841100  (open access)
+# The eight structural types and their function/abundance are Tables 1 and 2.
+# Handed out at session 9, discussed at session 10. Save the images (or crops
+# of the 2025 L20 renderings, which reproduce these tables) to
+# private/paper-figures/; the deck draws a labelled slot until then.
+mangan2003_coherent_table:
+  figure: "Table 1"
+  shows: "the four coherent FFL types: structure, abundance in E. coli and S. cerevisiae, steady-state Z logic, and the sign-sensitive delay row for on/off Sx steps under AND and OR"
+  used_in: ["s10"]
+  note: >-
+    Coherent type 1 (three activations) dominates: 28 in E. coli, 26 in yeast,
+    against 2/5, 4/0, 1/0 for types 2-4. That abundance is the design principle
+    -- of the four coherent wirings, the one that is a persistence detector on
+    the ON step is the one nature keeps.
+
+mangan2003_incoherent_table:
+  figure: "Table 2"
+  shows: "the four incoherent FFL types: structure, abundance, steady-state Z logic, the pulse row (Sy enable/destroy), and the response-acceleration row"
+  used_in: ["s10"]
+  note: >-
+    Incoherent type 1 (X activates Y and Z, Y represses Z) dominates the
+    incoherent set: 5 in E. coli, 21 in yeast. It is the pulse/accelerator, and
+    it is Basu's circuit.
+
+# --- Basu, Mehreja, Thiberge, Chen & Weiss, PNAS 101:6355-6360 (2004) -------
+# "Spatiotemporal control of gene expression with pulse-generating networks"
+# doi:10.1073/pnas.0307571101  (open access). Weiss is co-instructor of record
+# in prior years, so this is a house paper.
+# Handed out at session 9, discussed at session 10.
+basu2004_fig1:
+  figure: "Fig. 1"
+  shows: "the sender/receiver pulse generator: LuxI makes AHL; in receivers LuxR-AHL activates both CI(LVA) and GFP(LVA), and CI represses the GFP promoter -- an incoherent type-1 FFL"
+  used_in: ["s10"]
+  note: >-
+    This is the artifact the abstraction comes from. Point at the incoherence:
+    the signal activates the output AND activates its own delayed repressor.
+
+basu2004_fig3:
+  figure: "Fig. 3"
+  shows: "pulse response to different AHL concentrations (a) and to different rates of AHL increase (b, c) -- all reaching the same final level; slower rise gives a smaller, later pulse"
+  used_in: ["s10"]
+  note: >-
+    Fig. 3b,c is the rate-sensing result and the reason the receivers detect
+    distance. Our figures/build/s10_pulse_generator.png recomputes the same
+    qualitative behaviour from posb; show them side by side.
+
+# --- Elowitz & Leibler, Nature 403:335-338 (2000) --------------------------
+# "A synthetic oscillatory network of transcriptional regulators"
+# doi:10.1038/35002125. NOT a declared reading -- it is paywalled with no
+# deposit, so it goes on the slide as the construct and is not assigned.
+# See readings.yaml, s11.
+elowitz2000_fig1:
+  figure: "Fig. 1a"
+  derived_from: elowitz2000_fig1
+  crop: [0.055, 0.055, 0.505, 0.262]
+  shows: "panel a alone: the two plasmids -- the repressilator (lacI, tetR, cI in a ring, pSC101 origin) and the separate, higher-copy ColE1 reporter carrying gfp-aav"
+  used_in: ["s11"]
+  provenance: "cropped from page 2 of literature/elowitz-leibler-2000-repressilator.pdf at 220 dpi, box (0.055,0.055)-(0.505,0.262) in page fractions. Panel a alone; the whole of Fig. 1 is three stacked panels and is illegible at slide size."
+
+elowitz2000_fig1b:
+  figure: "Fig. 1b"
+  derived_from: elowitz2000_fig1
+  crop: [0.055, 0.268, 0.505, 0.500]
+  shows: "their own stability diagram: protein lifetime / mRNA lifetime against maximum proteins per cell, divided into a stable steady state and an unstable region in which the circuit oscillates"
+  used_in: ["s11"]
+  provenance: "cropped from page 2 of literature/elowitz-leibler-2000-repressilator.pdf at 220 dpi, box (0.055,0.268)-(0.505,0.500)."
+  note: >-
+    This is the same KIND of object as figures/build/s11_alpha_critical.png --
+    a boundary in a design space, with oscillation on one side. Show them side
+    by side on the design-space surface, the way session 8 paired Gardner
+    Fig. 2c,d with our computed bifurcation line. Their axes are not ours (they
+    keep the mRNA step, so protein/mRNA lifetime ratio is an axis we scaled
+    away), and saying that out loud is the point: same argument, different
+    reduction.
+  note: >-
+    The artifact. Point at the ring and at the fact that the reporter is on a
+    SEPARATE plasmid -- that is the load which session 21 calls retroactivity.
+
+elowitz2000_fig2:
+  figure: "Fig. 2"
+  shows: "single-cell GFP traces: oscillation with period longer than the cell cycle, and visible variability in amplitude and period between cells and between successive peaks"
+  used_in: ["s11"]
+  note: >-
+    Show this BEFORE the criterion, as the thing to be explained, and again
+    after Potvin-Trottier as the thing that was noisy. The period is about
+    150 min, longer than the division time.
+
+# --- Potvin-Trottier, Lord, Vinnicombe & Paulsson, Nature 538:514-517 (2016)
+# "Synchronous long-term oscillations in a synthetic gene circuit"
+# doi:10.1038/nature19841, PMC5637407 (green OA).
+# Handed out at session 10, discussed at session 11.
+potvintrottier2016_fig1d:
+  figure: "Fig. 1d (top)"
+  derived_from: potvintrottier2016_fig1
+  crop: [0.295, 0.255, 0.560, 0.380]
+  shows: "a single cell's YFP trace across a plasmid-loss event: while the separate mCherry-ASV reporter plasmid is present the oscillations are irregular; the moment it is lost they become regular and the period shifts from ~2.5 to ~5.5 generations"
+  used_in: ["s11"]
+  provenance: "cropped from page 23 of private/readings/Session 11 - potvin-trottier-2016-synchronous-long-term-oscillations.pdf (the PMC author manuscript, NIHMS816655) at 220 dpi, box (0.295,0.255)-(0.560,0.380) in page fractions. Figure numbering in the author manuscript matches the published Nature version; the figures sit on pp. 23, 25, 27."
+  note: >-
+    THE panel for the discussion segment. The measuring device was corrupting
+    the circuit: the reporter's own ssrA-ASV degradation tag was interfering,
+    and losing the reporter plasmid fixed the clock. Pair it with the artifact
+    slide, where Elowitz's GFP sits on a separate HIGHER-copy plasmid -- that
+    is the same design decision, fifteen years earlier.
+
+potvintrottier2016_fig3a:
+  figure: "Fig. 3a"
+  derived_from: potvintrottier2016_fig3
+  crop: [0.145, 0.070, 0.552, 0.381]
+  shows: "period in generations at 37, 30 and 25 C and in conditioned media, for the streamlined circuit without repressor degradation (blue, ~14 generations throughout) against the version with degradation (yellow, varying)"
+  used_in: ["s11"]
+  provenance: "cropped from page 27 of the same PDF at 220 dpi, box (0.145,0.070)-(0.552,0.381)."
+  note: >-
+    The payoff, and the number: 14 generations, essentially invariant across a
+    2x range of division times. Division times are 27, 40 and 59 min at the
+    three temperatures and 44 min in conditioned media, so the period tracks
+    the generation, not the clock on the wall.

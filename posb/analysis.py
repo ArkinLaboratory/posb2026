@@ -251,3 +251,163 @@ def toggle_alpha_critical(n):
     if n <= 1:
         return np.inf
     return n * (n - 1) ** (-(n + 1) / n)
+
+
+# ---------------------------------------------------------------------------
+# The repressilator, and its oscillation condition          (session 11)
+# ---------------------------------------------------------------------------
+
+def repressilator_model(alpha=None, n=3):
+    """The symmetric three-gene repressor ring, in scaled form.
+
+        dx_i/dt = alpha / (1 + x_{i-1}**n) - x_i,     i = 1, 2, 3
+
+    Same scaling as `toggle_model`: time in protein lifetimes, concentration in
+    units of the repression threshold, so only `alpha` and the cooperativity
+    `n` survive. Built here because sessions 11 and 22 both need it.
+
+    This is Elowitz & Leibler's circuit with the mRNA step folded away. The
+    real device has six variables and a translational delay; dropping to three
+    keeps the geometry (a cyclic Jacobian) and therefore the criterion, and it
+    is what the class derives by hand.
+    """
+    from .core import Reaction, Model
+
+    a = 10.0 if alpha is None else alpha
+    # max(x, 0) for the same reason as toggle_model: the root finder probes
+    # negative concentrations and a negative base to a fractional power is NaN.
+    ring = [("x1", "x3"), ("x2", "x1"), ("x3", "x2")]
+    rxns = []
+    for target, repressor in ring:
+        rxns.append(Reaction(
+            {}, {target: 1},
+            rate=lambda c, p, r=repressor: p["alpha"] / (1 + max(c[r], 0.0) ** p["n"]),
+            name=f"synthesis of {target}, repressed by {repressor}"))
+        rxns.append(Reaction({target: 1}, {}, k=1.0, name=f"removal of {target}"))
+
+    return Model(rxns, params={"alpha": a, "n": n},
+                 species=["x1", "x2", "x3"])
+
+
+def loop_gain(alpha, n):
+    """Gain around the ring at the symmetric fixed point.
+
+        g = n * x**n / (1 + x**n),    where x solves  x (1 + x**n) = alpha
+
+    Each repression contributes |df/dx| at the operating point; `g` is that
+    quantity, and it is the number the oscillation criterion is stated in.
+    """
+    from scipy.optimize import brentq
+
+    x = brentq(lambda y: y * (1 + y ** n) - alpha, 1e-12, max(alpha, 1.0) + 1.0)
+    return n * x ** n / (1 + x ** n)
+
+
+def repressilator_alpha_critical(n):
+    """Smallest alpha that makes the symmetric three-gene ring oscillate.
+
+        alpha_c = (2 / (n - 2))**(1/n) * n / (n - 2),     valid for n > 2
+
+    Derivation, which is the session 11 worked example.
+
+    At the symmetric fixed point x1 = x2 = x3 = x,
+
+        x = alpha / (1 + x**n)        so     alpha = x (1 + x**n)
+
+    The Jacobian there is  J = -I - g P,  where P is the cyclic permutation
+    that sends each gene to the one it represses and
+
+        g = alpha n x**(n-1) / (1 + x**n)**2 = n x**n / (1 + x**n).
+
+    P's eigenvalues are the cube roots of unity, so J's are
+
+        lambda_k = -1 - g * omega_k,    omega_k = 1, e^(2 pi i / 3), e^(-2 pi i / 3).
+
+    The real root is -1 - g < 0 always. The complex pair has real part
+    -1 + g/2, so the fixed point loses stability exactly when
+
+        **g = 2**
+
+    -- a Hopf bifurcation, and the criterion this session exists to produce.
+    Solving g = 2 for x gives x**n = 2 / (n - 2), hence the alpha above, and it
+    is infinite for n <= 2: **a ring of three with no cooperativity cannot
+    oscillate, no matter how strong the promoters.**
+
+    Compare `toggle_alpha_critical`: the toggle needs n > 1, this ring needs
+    n > 2. Adding a gene to the loop made the cooperativity requirement
+    harder, not easier.
+
+    ⚠ TWO CAVEATS, both of which matter when teaching this.
+
+    1. SIGN CONVENTION. `toggle_alpha_critical` defines its coupling with the
+       derivative's own sign (negative) and then uses the magnitude;
+       here `g` is defined positive from the start. Same letter, opposite
+       sign, two sessions apart. If you are comparing the two derivations,
+       compare |g|.
+    2. n > 2 IS A PROPERTY OF THIS THREE-VARIABLE REDUCTION, not of
+       repressilators. Folding away mRNA is the worst case. Elowitz &
+       Leibler keep the mRNA step, and their Fig. 1b shows an unstable
+       region at n = 2 -- which is where they put their own design. Do not
+       tell students a ring of three "cannot oscillate at n = 2"; tell them
+       OUR model says so, and that keeping mRNA relaxes it.
+    """
+    if n <= 2:
+        return float("inf")
+    return (2.0 / (n - 2)) ** (1.0 / n) * n / (n - 2)
+
+
+def sweep(model, param, values, quantity, params=None):
+    """Evaluate `quantity` across a one-parameter sweep. Returns a list.
+
+    `quantity(model, params)` is called once per value with `param` set to it,
+    and whatever it returns is collected. This is deliberately thin -- it is a
+    for-loop with the bookkeeping done once -- because the point of the session
+    is that the student writes the loop first and imports it afterwards.
+
+        >>> sweep(repressilator_model(n=3), "alpha", [2.0, 4.0], leading_real_part)
+        [-0.25, 0.0186]
+
+    (At alpha = 2, n = 3 the fixed point is exactly x = 1, so g = 3/2 and
+    Re lambda = -1 + g/2 = -0.25. At alpha = 4 it has just crossed.)
+    """
+    out = []
+    for v in values:
+        p = {**(params or {}), param: v}
+        out.append(quantity(model, p))
+    return out
+
+
+def leading_real_part(model, params=None, guess=None):
+    """Largest real part of the Jacobian eigenvalues at the fixed point.
+
+    Positive means the steady state is unstable, so the system leaves it. For
+    the repressilator that is the oscillation test, and sweeping this across
+    alpha is how session 11 locates the Hopf boundary numerically.
+    """
+    if guess is None:
+        guess = {s: 1.0 for s in model.species}
+    pts = fixed_points(model, [[guess[s] for s in model.species]], params)
+    if not pts:
+        return float("nan")
+    J = jacobian(model, pts[0], params)
+    return float(np.max(np.linalg.eigvals(J).real))
+
+
+def hopf_boundary(model, param, lo, hi, params=None, tol=1e-10):
+    """Bisect for the parameter value where the fixed point loses stability.
+
+    Returns the value of `param` at which `leading_real_part` crosses zero.
+    Raises if the interval does not bracket a crossing, which is the honest
+    failure: if both ends are stable there is no boundary in between.
+    """
+    from scipy.optimize import brentq
+
+    def f(v):
+        return leading_real_part(model, {**(params or {}), param: v})
+
+    if f(lo) * f(hi) > 0:
+        raise ValueError(
+            f"{param} = {lo} and {hi} are both on the same side of the "
+            f"boundary (leading real parts {f(lo):.3g} and {f(hi):.3g}); "
+            f"widen the bracket")
+    return brentq(f, lo, hi, xtol=tol)

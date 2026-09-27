@@ -47,6 +47,7 @@ course relies on is worked rather than asserted.
 | Run a live classroom demo | [`demos/`](demos/) |
 | Print a class handout | [`handouts/`](handouts/) |
 | Do the problem sets | [`problem-sets/`](problem-sets/) |
+| Start the term-project package | [`project-template/`](project-template/) |
 | Look up a function in `posb` | **[Package Reference](docs/posb-reference.md)** |
 | Understand *why* it is built this way | **[Design Notes](docs/design-notes.md)** |
 | See how a lecture is structured | **[Lecture Design](docs/lecture-design.md)** |
@@ -136,6 +137,7 @@ posb2026/
 ├── sessions/              One folder per lecture, each with a README
 │   └── s03-modeling-i/
 ├── problem-sets/          One folder per set (student versions)
+├── project-template/      Starting point for the term-project package
 │   ├── ps00-environment/
 │   └── ps01-modeling/
 ├── demos/                 Interactive demos to drive live in lecture

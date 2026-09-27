@@ -57,6 +57,52 @@ def digest(path):
 
 
 
+IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".tif",
+                  ".tiff"}
+
+
+def image_digest(path):
+    """A hash of what an image SHOWS, not of the file that carries it.
+
+    Same reason `content_digest` exists for zips, different mechanism. A PNG
+    re-encoded anywhere along the way -- a different zlib level, a stripped
+    text chunk, a transfer that decodes and re-saves -- is a different file
+    carrying an identical picture. This repository's figures reach the
+    teaching machine over a bridge that does exactly that: verified on
+    s11_sweep.png, 104847 bytes here and 110617 bytes there, byte hashes
+    unrelated, decoded pixels identical to the bit. A byte comparison fires on
+    every figure after every transfer, which is the cry-wolf failure this
+    module was written to avoid.
+
+    So: hash the decoded pixels, plus the size and mode so a resize or a
+    colour-space change still counts. Falls back to the byte hash if Pillow is
+    unavailable or the file will not decode.
+    """
+    p = Path(path)
+    if not p.is_file():
+        return None
+    try:
+        from PIL import Image
+        with Image.open(p) as im:
+            im.load()
+            mode, size = im.mode, im.size
+            raw = im.convert("RGBA").tobytes()
+    except Exception:
+        return digest(p)
+    h = hashlib.sha256()
+    h.update(f"{mode}:{size[0]}x{size[1]}:".encode())
+    h.update(raw)
+    return h.hexdigest()
+
+
+def artifact_digest(path):
+    """The right digest for whatever kind of artifact this is."""
+    p = Path(path)
+    if p.suffix.lower() in IMAGE_SUFFIXES:
+        return image_digest(p)
+    return digest(p)
+
+
 def content_digest(path):
     """A hash of what a file MEANS, not of its bytes.
 
@@ -155,6 +201,7 @@ def write(artifact, deps, extra=None):
     body = {
         "artifact": artifact.name,
         "artifact_sha256": digest(artifact),
+        "artifact_content": artifact_digest(artifact),
         "artifact_bytes": artifact.stat().st_size if artifact.is_file() else None,
         "deps": dict(sorted(entries.items())),
     }
@@ -201,9 +248,19 @@ def verify(artifact):
     if changed:
         return "stale", sorted(changed)
 
+    # Compare on CONTENT where we recorded it. For an image that means the
+    # decoded pixels, which survive the transfer that re-encodes the file;
+    # falling back to the byte hash only for manifests written before this
+    # field existed, and only when the bytes happen to still match, so an
+    # old manifest can neither raise nor silence a real alarm on its own.
+    recorded_content = body.get("artifact_content")
+    if recorded_content is not None:
+        if artifact_digest(artifact) != recorded_content:
+            return "tampered", []
+        return "ok", []
     recorded = body.get("artifact_sha256")
     if recorded and digest(artifact) != recorded:
-        return "tampered", []
+        return "legacy-bytes", []
     return "ok", []
 
 
@@ -214,8 +271,9 @@ LABEL = {
     "unmanifest": "NO MANIFEST -- cannot tell; rebuild it",
     "stale": "STALE -- built before these inputs changed",
     "tampered": "EDITED BY HAND after the build -- a rebuild will discard that",
+    "legacy-bytes": "manifest predates the content hash -- rebuild to re-stamp",
 }
-FAIL = ("stale", "unmanifest", "tampered")
+FAIL = ("stale", "unmanifest", "tampered", "legacy-bytes")
 
 
 def report(name, artifact, indent="  "):

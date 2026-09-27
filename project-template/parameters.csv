@@ -1,0 +1,5 @@
+symbol,value,units,source,note
+alpha,10.0,nM/min,assumption,"production rate; sets the scale of x_ss, not the response time"
+t_double,30.0,min,assumption,"doubling time of the culture; replace with your strain and medium"
+t_half_LAA,40.0,min,"Andersen et al. 1998, Appl. Environ. Microbiol. 64:2240, Fig. 3A","LAA ssrA tag, half-life after downshift"
+t_half_none,inf,min,"Andersen et al. 1998, Appl. Environ. Microbiol. 64:2240, Fig. 3A","untagged GFP: no measurable degradation"

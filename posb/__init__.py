@@ -14,6 +14,8 @@ data       Session 5.  Synthetic decay and induction timecourses, generated
                        from the model with Andersen's half-lives. Seeded.
 analysis   Session 8.  Nullclines, fixed points, Jacobian, linear stability,
                        and the toggle bifurcation condition.
+           Session 11. The repressilator, the loop gain, parameter sweeps and
+                       the Hopf boundary.
 
 Coming later in the term
 ------------------------
@@ -29,6 +31,8 @@ from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,
     toggle_model, toggle_alpha_critical,
+    repressilator_model, repressilator_alpha_critical, loop_gain,
+    sweep, leading_real_part, hopf_boundary,
 )
 
 __version__ = "0.2.0"

@@ -426,6 +426,28 @@ readings:
         are different things and a designer needs both. It is also
         project-papers entry 21. Paywalled -- Library proxy.
 
+    - key: stanton2014
+      cite: "Stanton, B. C., Nielsen, A. A. K., Tamsir, A., Clancy, K., Peterson, T. & Voigt, C. A. Genomic mining of prokaryotic repressors for orthogonal logic gates. Nature Chemical Biology 10(2), 99-105 (2014)."
+      short: "Stanton et al., Nat Chem Biol 2014"
+      doi: "10.1038/nchembio.1411"
+      url: "https://doi.org/10.1038/nchembio.1411"
+      pages: 7
+      required: false
+      focus: >-
+        How many candidate repressors were mined, how many survived each filter,
+        and how few gates came out the other end. Then the orthogonality matrix:
+        what "orthogonal" is being measured against, and why that number is the
+        one that limits circuit size.
+      why: >-
+        Added at Adam's direction, 26 September. The gate library behind Cello:
+        where a usable repressor actually comes from, and the attrition on the
+        way. Session 16 reads Nielsen for the compiler and its 45-of-60; this is
+        the other end of the same story -- the parts had to be found before the
+        compiler could place them, and the reason circuits do not get bigger is
+        that the orthogonal set does not. Green OA at PMC4165527, but that copy
+        is the SUBMITTED version, so figure numbers may differ; the DOI is
+        linked instead.
+
   s18:
     - key: mishra2021
       cite: "Mishra, D., Bepler, T., Teague, B., Berger, B., Broach, J. & Weiss, R. An engineered protein-phosphorylation toggle network with implications for endogenous network discovery. Science 373(6550), eaav0780 (2021)."

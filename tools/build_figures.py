@@ -30,6 +30,11 @@ Usage:
     python tools/build_figures.py s09      # one session
     python tools/build_figures.py --verify # build nothing; is any committed
                                            # figure older than its generator?
+    python tools/build_figures.py --deep   # re-render everything into a
+                                           # scratch dir and compare PIXELS.
+                                           # Slower, and the only check that
+                                           # catches a committed figure that
+                                           # is simply the wrong picture.
 """
 import importlib
 import sys
@@ -50,7 +55,8 @@ MODULES = ["figures.s01_specification", "figures.s02_substrate",
            "figures.s03_modeling_i", "figures.s04_modeling_ii",
            "figures.s05_expression", "figures.s06_promoter_occupancy",
            "figures.s07_autoregulation", "figures.s08_phase_plane",
-           "figures.s09_bistability"]
+           "figures.s09_bistability",
+           "figures.s10_feedforward", "figures.s11_oscillators"]
 
 # Slow to render (video encoding), so not built unless asked for by name.
 SLOW = ["figures.s02_movie"]
@@ -76,8 +82,70 @@ def verify():
     return bad
 
 
+
+def deep_verify(want=None):
+    """Re-run every generator and compare PIXELS with what is committed.
+
+    `verify()` above asks whether the recorded hashes still hold. It cannot
+    answer the question that actually bit us: is the committed PNG the one this
+    generator produces? On 26 September the committed s10_iffl_adaptation.png
+    was the ANNOTATED variant -- peak, final and the adaptation error printed on
+    a surface three slides before those numbers are defined, and the same three
+    numbers a handout item and a hidden autograder test ask students to
+    produce. The generator was correct throughout. Only the artifact was wrong,
+    and it carried a manifest written from its own bad bytes, so `--verify`
+    called it clean.
+
+    The only check that catches that is to build the figure again and look at
+    it. This renders into a scratch directory, so nothing committed is touched.
+    """
+    import shutil
+    import tempfile
+    from PIL import Image  # noqa: F401  (manifest.image_digest needs it)
+
+    mods = [m for m in MODULES if not want or any(w in m for w in want)]
+    print("Re-rendering "
+          + ("every figure" if not want else ", ".join(mods))
+          + " and comparing pixels with what is committed.\n")
+    scratch = Path(tempfile.mkdtemp(prefix="posb-figcheck-"))
+    real = BUILD
+    bad = 0
+    try:
+        globals()["BUILD"] = scratch
+        import figures as _figpkg  # noqa: F401
+        for name in mods:
+            mod = importlib.import_module(name)
+            mod.OUT = str(scratch)
+            for fn in mod.FIGURES:
+                fn()
+        for f in sorted(scratch.iterdir()):
+            if not f.is_file() or f.suffix == ".json":
+                continue
+            committed = real / f.name
+            if not committed.is_file():
+                print(f"  {f.name:<34} MISSING from figures/build/")
+                bad += 1
+                continue
+            if manifest.image_digest(f) != manifest.image_digest(committed):
+                print(f"  {f.name:<34} DIFFERENT PICTURE from its generator")
+                bad += 1
+    finally:
+        globals()["BUILD"] = real
+        shutil.rmtree(scratch, ignore_errors=True)
+
+    if bad:
+        print(f"\n{bad} committed figure(s) are not what their code draws. "
+              f"Rebuild:\n    python tools/build_figures.py")
+    else:
+        print("\nEvery committed figure is the picture its generator draws.")
+    return bad
+
+
 def main():
     BUILD.mkdir(parents=True, exist_ok=True)
+    if "--deep" in sys.argv:
+        sys.exit(1 if deep_verify([a for a in sys.argv[1:]
+                                   if not a.startswith("--")]) else 0)
     if "--verify" in sys.argv:
         sys.exit(1 if verify() else 0)
 

@@ -1,0 +1,11 @@
+{
+  "artifact": "s11_crit_p4.png",
+  "artifact_sha256": "f8e323232fa92f548a0d710ee066ed02cd10434e5a1a9a8120b7c789a8eed30a",
+  "artifact_content": "64aa3ee689ab4021eb2816b2201081d3dd8b73f46cbf051f088c8c3df36d22ad",
+  "artifact_bytes": 29968,
+  "deps": {
+    "figures/s11_oscillators.py": "87d78b886c4b5bf6f27ccfbda246f5259a5a72b2e7b400890bf90b0b31b78ea3",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s11_oscillators.fig_criterion"
+}

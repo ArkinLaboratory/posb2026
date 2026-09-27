@@ -1,0 +1,4 @@
+# Every file run.py must create inside outputs/. One per line.
+# check.py and the autograder fail the package if any is missing.
+response.png
+numbers.json

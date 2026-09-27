@@ -162,7 +162,8 @@ If you would rather not wait, open PS0 in Colab today and run the first cell. If
 | Problem sets (9, lowest two dropped) | **30%** |
 | Midterm — Thursday, October 15, in class | **15%** |
 | Final exam — Wednesday, December 16, 3–6 pm | **25%** |
-| Term project | **30%** |
+| Term project — milestones 1–4, credit/no-credit | **10%** |
+| Term project — final proposal and package | **20%** |
 
 Compared with previous years, exams fall from 60% to 40% and the project doubles from 15% to 30%.
 
@@ -202,7 +203,7 @@ Both exams are in person, and it is worth saying why. Problem sets are open-book
 
 The final project showcases your understanding of the course material — or at least its spirit — by demonstrating your ability to formulate a new idea in synthetic biology and to set up and at least partially execute a model or data analysis of a biological problem.
 
-The final deliverable takes the form of the **'front-end' of a research proposal**, plus a data/software package: a well-documented set of code and data used to create the results presented, where relevant (in the past, some projects have been pure mathematics). This is a 'paper' of a sort, with three sections, total length **under 10 pages**.
+The final deliverable takes the form of the **'front-end' of a research proposal**, plus a **runnable package**: the code and data that produce every figure and number in it (see *The package*, below). Pure-mathematics projects are welcome, and they submit a package too. This is a 'paper' of a sort, with three sections, total length **under 10 pages**.
 
 ### 1. Background and Significance
 
@@ -230,36 +231,96 @@ You are allowed to work together on obtaining and cleaning target datasets, and 
 
 ### Milestones
 
-New this year: the project is staged, with feedback at each stage. In previous years it was effectively a December activity, and students said so.
+The project is staged, with feedback at each stage. In previous years it was effectively a December activity, and students said so. Each milestone after the first is a section of the final proposal, so the last deliverable is an assembly and a revision rather than a write from scratch.
 
-| Milestone | Due | What you get back |
-|---|---|---|
-| **A paper and the design it suggests** (1 p): see below | Thu Oct 8 | Written comments within one week |
-| **Model description + preliminary results** (2–3 pp) | Thu Oct 22 | Written comments |
-| **Draft write-up** | Thu Nov 12 | Peer review plus my comments |
-| **Final write-up + code + 10-minute video** | **Mon Dec 14** | Grade and comments |
+| Milestone | Due | Length | Becomes | What you get back |
+|---|---|---|---|---|
+| **M1 · A paper and the design it suggests** | Thu Oct 8 | 1 p | — | Written comments within one week |
+| **M2 · Specific Aims and the model** | Thu Oct 22 | ~2 pp | Section 2, and the model under section 3 | Written comments |
+| **M3 · Preliminary Results and a first package** | Thu Nov 12 | 4–5 pp + package | Section 3 | Peer review plus my comments; the package is checked mechanically |
+| **M4 · Background and Significance** | Tue Dec 1 | ~2 pp | Section 1 | Written comments |
+| **Final proposal and package** | **Mon Dec 14** | under 10 pp + package | All three sections | Grade and comments |
 
-**The first milestone, in detail.** One page. Pick a paper from the
+**Weighting.** M1–M4 are credit/no-credit, 2.5% each and 10% together. Credit means a submission that answers what the milestone asks. The final proposal and package are graded, 20%. The comments on the milestones are where the final grade gets made.
+
+**Deadlines on the milestones.** Same as the problem sets: due at 11:59 pm on the date shown, accepted without penalty until 11:59 pm the following day, and not after. **M1 only** may be resubmitted for credit within one week of getting its comments — the first milestone is where you find out what "answers what it asks" means, and it would be perverse to charge you for that.
+
+**M1, in detail.** One page. Pick a paper from the
 [project-paper list](project-papers.md) — or bring your own, on the same terms —
 and answer three things. What did they build, and what is the model behind the
 figure they lean on hardest? What would *you* build that their result makes
 possible? And what, in their model, would you have to compute to know whether
 your thing could work?
 
-That third answer is your project. It is deliberately not a proposal: in week
+That third answer is your project. M1 is deliberately not a proposal: in week
 six you have not read enough to write one, and a proposal written that early is
 either a restatement of the paper or a wish with no model under it. What you can
 do by week six — and what the rest of this course is — is take a working device
-somebody characterised and ask what else it could be made to do.
+somebody characterized and ask what else it could be made to do. The proposal
+gets built one section at a time from M2 on.
+
+**M2.** Your Specific Aims, and the model written down. The equations; every
+parameter with its value, its units, and where it came from — a named table or
+figure in a named paper, or an assumption labeled as one; and the one quantity
+that has to come out right for your design to work, with the value it has to
+reach. No results yet.
+
+**M3.** Preliminary Results against that quantity: did it come out, what moved
+it, and what you now think. Plus the first version of your package, which the
+autograder runs. At M3 the package is checked for mechanics only — it runs and
+produces what it says it produces. A broken environment is fixable in November
+and not on December 14.
+
+**M4.** Background and Significance, the top of the hourglass. It comes last on
+purpose: section 1 narrows to your specific problem, and you do not know which
+problem that is until the model has told you what is feasible. For 247, this is
+where the critical analysis of the primary literature lives.
+
+**Final.** The three sections assembled and revised, under ten pages, plus the
+package.
+
+### The package
+
+A stranger runs it and gets your numbers. That is the whole standard, and the
+rest of this section is how it is checked.
+
+- **One command.** `python run.py` regenerates every figure and every number in
+  the proposal into `outputs/`.
+- **One environment.** The autograder on Gradescope is the judge, and it is
+  built to the same pinned versions as the problem sets (`requirements.txt` in
+  the course repository). Develop on DataHub or Colab; if it runs in the
+  autograder, it runs.
+- **Limits.** NumPy, SciPy, matplotlib, SymPy and `posb` — if you need anything
+  else, ask before M3. Under ten minutes on one CPU. No GPU. No network access
+  at run time — the data ships inside the package. If your data will not fit in an
+  upload, talk to me before M3, not after.
+- **A README with fixed sections:** what the package reproduces; how to run it;
+  what is in it; a **parameter table** giving every parameter's symbol, value,
+  units and source (paper, and table or figure) or the word *assumption* — kept
+  as `parameters.csv`, which `run.py` reads, so the table and the model cannot
+  disagree; the
+  methods note on AI use; and a one-page **FAIR self-assessment**, saying for
+  each of Findable, Accessible, Interoperable and Reusable how your package does
+  and does not meet it, and why.
+- **Pure-mathematics projects** submit a script that checks the key result
+  numerically or symbolically and reproduces the key figure.
+
+Start from the template in
+[`project-template/`](https://github.com/ArkinLaboratory/posb2026/tree/main/project-template):
+it has the folder layout, the README sections, the parameter table and a
+`check.py` that runs the same mechanical checks the autograder does.
+
+The autograder checks mechanics — the environment resolves, `run.py` runs inside
+the limits, the declared outputs appear, the README has its sections. I read the
+science.
 
 **Nothing in this course is due during RRR week.** The final milestone sits on
-Monday, December 14 — after RRR, before the exam — so the reading and review
-week is yours.
+Monday, December 14 — after RRR, before the exam.
 
-**This replaces the project description that earlier versions of this syllabus
-placed on 24 September.** The date moved and the ask changed. The only other
-milestone that moved is the last one, from Friday December 11 to Monday
-December 14.
+**What changed in week 6.** M2 now asks for the aims and the model without
+results; results move to M3; Background and Significance became its own
+milestone, M4, on December 1; the video is gone, and the package is specified.
+M1 did not change.
 
 ### BioE 147 versus BioE 247
 
@@ -314,7 +375,7 @@ Instruction begins Wednesday, August 26. Classes end Friday, December 4. RRR wee
 | 10 | Tue 9/29 | W6 | Feedforward loops: persistence detection, pulse generation, adaptation | FFL timing analysis; numerical IFFL adaptation | |
 | 11 | Thu 10/1 | W6 | Oscillators: the repressilator, delayed negative feedback, conditions for oscillation | State and apply the oscillation criterion; locate the Hopf boundary | PS4 due · PS5 posted |
 | 12 | Tue 10/6 | W7 | Noise: intrinsic versus extrinsic, CV, bursting, the master equation | Write a Gillespie simulator from scratch | |
-| 13 | Thu 10/8 | W7 | The digital abstraction and its price: transfer curves, gain, thresholds, noise margins — then **analog computation**, where the Hill function is arithmetic rather than a switch | Signal matching between two measured gates; then the log-domain circuit that needs neither | PS5 due · **Paper and design due** |
+| 13 | Thu 10/8 | W7 | The digital abstraction and its price: transfer curves, gain, thresholds, noise margins — then **analog computation**, where the Hill function is arithmetic rather than a switch | Signal matching between two measured gates; then the log-domain circuit that needs neither | PS5 due · **M1 due: paper and design** |
 | 14 | Tue 10/13 | W8 | **Review and worked problems** | Open problem session | Midterm scope published |
 | 15 | **Thu 10/15** | W8 | **MIDTERM** — sessions 1–13 | | |
 
@@ -323,18 +384,18 @@ Instruction begins Wednesday, August 26. Classes end Friday, December 4. RRR wee
 | # | Date | Week | Lecture content | Worked example | Assignments |
 |---|---|---|---|---|---|
 | 16 | Tue 10/20 | W9 | Combinational **and sequential** logic in cells: hazards; latches and registers (session 9's toggle, named); recombinase memory; Cello, and why design automation plateaued | Hazard timing table, end to end; the toggle as an SR latch | PS6 posted |
-| 17 | Thu 10/22 | W9 | Building it physically: parts, compositors, context dependence, the implementation media (CRISPRi/a, bridge RNAs), and DNA assembly from oligos to genomes (Golden Gate/MoClo, Gibson, enzymatic synthesis, syn1.0 and syn3A) | Compose a two-part system in code; design overhangs for a three-part assembly | **Model description due** |
+| 17 | Thu 10/22 | W9 | Building it physically: parts, compositors, context dependence, the implementation media (CRISPRi/a, bridge RNAs), and DNA assembly from oligos to genomes (Golden Gate/MoClo, Gibson, enzymatic synthesis, syn1.0 and syn3A) | Compose a two-part system in code; design overhangs for a three-part assembly | **M2 due: aims and model** |
 | 18 | Tue 10/27 | W10 | **Protein circuits:** scaffolds and recruitment, allosteric switches, phosphorylation toggles, and where ultrasensitivity comes from when no promoter is involved | Zero-order ultrasensitivity: how sharp a switch gets without cooperative binding | |
 | 19 | Thu 10/29 | W10 | Resource sharing, cellular economy, growth laws, burden | Shared-resource simulation | PS6 due · PS7 posted |
 | 20 | Tue 11/3 | W11 | **Metabolic engineering and constraint-based design:** flux balance analysis, the stoichiometric matrix as a design object, knockout and coupling strategies | Solve an FBA problem as a linear program with `scipy.optimize.linprog` on a hand-written **S** — the same matrix from session 3, asked a different question | |
 | 21 | Thu 11/5 | W11 | Retroactivity, impedance, insulation, load drivers | Retroactivity calculation for a loaded module | PS7 due · PS8 posted |
 | 22 | Tue 11/10 | W12 | Robustness and control: integral feedback, antithetic control, exact adaptation | Simulate an antithetic controller; quantify what it costs | |
-| 23 | Thu 11/12 | W12 | Evolutionary failure: mutation, burden, circuit loss; design for stability; containment | Time-to-circuit-failure from mutation rate and fitness cost | **Draft write-up due** |
+| 23 | Thu 11/12 | W12 | Evolutionary failure: mutation, burden, circuit loss; design for stability; containment | Time-to-circuit-failure from mutation rate and fitness cost | **M3 due: preliminary results + package** |
 | 24 | Tue 11/17 | W13 | Communities: cell–cell communication, quorum sensing, patterning, division of labor | Sender/receiver band-detection analysis | |
 | 25 | Thu 11/19 | W13 | **Design at population scale:** defective interfering particles, therapeutic interfering particles, gene drives — engineering a thing whose point is that it spreads | Push *R*₀ above 1 for a therapeutic parasite, and find where it stops being a therapy | PS8 due · PS9 posted |
 | 26 | Tue 11/24 | W14 | Therapeutic circuits: logic-gated cell therapies, synNotch, in vivo delivery | Design a multi-input classifier to a false-positive budget | |
 | — | Thu 11/26 | W14 | **Thanksgiving — no instruction** | | |
-| 27 | Tue 12/1 | W15 | Machine learning as the specification layer: structure prediction, protein design, genome language models | Design–filter–validate arithmetic: what hit rate beats directed evolution? | |
+| 27 | Tue 12/1 | W15 | Machine learning as the specification layer: structure prediction, protein design, genome language models | Design–filter–validate arithmetic: what hit rate beats directed evolution? | **M4 due: background and significance** |
 | 28 | Thu 12/3 | W15 | Biosecurity and governance as technical problems; what actually limits synthetic biology | Why sequence-similarity screening fails on generated sequences | PS9 due |
 
 **Final project due:** Monday, December 14
@@ -368,7 +429,7 @@ The honest reasoning: every technique in this course is examined in a proctored 
 
 **Exams:** prohibited, as with any outside assistance.
 
-**Project:** permitted and disclosed. Include a short methods note describing what you used and for what. Using an LLM to help write code, survey literature, or draft prose is fine. Submitting a design you cannot defend is not — and the video is where that becomes obvious.
+**Project:** permitted and disclosed. Include a short methods note describing what you used and for what. Using an LLM to help write code, survey literature, or draft prose is fine. Submitting a design you cannot defend is not. The parameter table and the reproduction check are where that shows, and I may ask any student for a ten-minute conversation about their project — what a parameter means, why the model has the form it does, what would change if an assumption failed.
 
 ### Absences and Extenuating Circumstances
 

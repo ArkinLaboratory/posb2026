@@ -8,6 +8,18 @@
 
 **Grading column.** `AUTO` = otter-grader can check it (returns a number, array, or function output). `HAND` = requires a human reading a derivation, plot, or argument. `MIX` = a computational part plus an interpretive part.
 
+**⚠ Open gaps.** A row marked ⚠ is one where the audit currently fails and the
+fix is a decision, not an edit. There is one:
+
+- **T30** is demonstrated in session 11 for everyone (the 67–71 min segment and
+  handout item 3), but its only *assessment* is PS5 Q6 — required for BioE 247,
+  extra credit for BioE 147. So a 147 student can earn full marks without ever
+  being assessed on it, which is not what this table claims. Three ways out:
+  make Q6 required for both and give 247 a new extra (the asymmetric ring,
+  $g_1g_2g_3 > 8$, is already derived in the PS5 answer sheet); or put T30 on
+  the midterm; or drop the assessment claim and mark T30 demonstrated-only.
+  Not yet chosen.
+
 ---
 
 ## Part I — Design Principles
@@ -39,13 +51,13 @@
 | T21 | Toggle-switch fixed points for *n* = 4 and *n* = 1 | S9 (Sep 24) | PS4, Mid | AUTO |
 | T22 | Bifurcation diagram; hysteresis loop | S9 | PS4, Mid | AUTO |
 | T23 | Identify a saddle-node bifurcation and say what destroys bistability | S9 | PS4 | HAND |
-| T24 | FFL sign logic: coherent vs. incoherent classification | S10 (Sep 29) | PS5, Mid | HAND |
-| T25 | FFL timing/delay table **with a stated delay convention** | S10 | PS5, Mid | AUTO |
+| T24 | FFL sign logic: coherent vs. incoherent classification | S10 (Sep 29) | PS5, Mid | MIX |
+| T25 | FFL timing/delay table **with a stated delay convention** | S10 | PS5, Mid | MIX |
 | T26 | IFFL adaptation: compute pulse amplitude and adaptation error numerically | S10 | PS5 | AUTO |
 | T27 | Construct the repressilator model | S11 (Oct 1) | PS5 | MIX |
 | T28 | **State and apply the oscillation criterion** | S11 | PS5, Mid | HAND |
 | T29 | Locate the Hopf boundary numerically by parameter sweep | S11 | PS5 | AUTO |
-| T30 | Delay as a driver of oscillation | S11 | PS5 | HAND |
+| T30 | Delay as a driver of oscillation | S11 | PS5 Q6 — **247 required, 147 extra credit** ⚠ | HAND |
 | T31 | Set up a chemical master equation | S12 (Oct 6) | PS6, Final | HAND |
 | T32 | **Write a Gillespie SSA from scratch** | S12 | PS6, Final | AUTO |
 | T33 | Compute CV and Fano factor from trajectories | S12 | PS6, Final | AUTO |

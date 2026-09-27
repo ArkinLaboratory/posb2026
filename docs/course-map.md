@@ -109,7 +109,7 @@ execute the week's technique, not a weekend-consuming exercise.
 | Problem sets (9, lowest two dropped) | 30% |
 | Midterm — Thu Oct 15 | 15% |
 | Final exam — in person, Wed Dec 16, 3–6 pm | 25% |
-| Term project — staged from week 7 | 30% |
+| Term project — M1–M4 credit/no-credit (10%), final proposal and package (20%) | 30% |
 
 ---
 
