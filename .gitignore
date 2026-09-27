@@ -27,6 +27,5 @@ private/build/decks/
 # Intermediate HTML from tools/build_handouts.py. The PDFs are the artifact.
 handouts/build/
 
-# Intermediate HTML from tools/build_handouts.py. The PDFs are the artifact.
-handouts/build/
+# Session scratch: files parked for deletion because the device shell cannot rm.
 _to_delete/

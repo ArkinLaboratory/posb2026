@@ -666,6 +666,33 @@ that waits.
 > moment you fix a typo at the lectern, with nothing to say so. This was done
 > the wrong way round in week 6.
 
+**Re-check every module file by HASH, not by size.** A file that changed after
+it was uploaded is the normal case here — decks get re-cut, handouts get
+rebuilt — and the module gives no sign of it. On 26 September six of the eight
+week 6 files were stale; five were caught by size, and `s11-oscillators.pdf`
+was **the same 166,113 bytes with different content** and was missed until it
+was hashed. Paste this on any bCourses page and compare against
+`sha256sum` in the repo:
+
+```js
+const r = await fetch('/api/v1/courses/1557313/modules/<MODULE_ID>/items?per_page=50',
+                      {credentials:'include', headers:{'Accept':'application/json'}});
+for (const i of JSON.parse((await r.text()).replace(/^while\(1\);/,''))
+                   .filter(x => x.type === 'File')) {
+  const j = JSON.parse((await (await fetch(
+    `/api/v1/courses/1557313/files/${i.content_id}`,
+    {credentials:'include', headers:{'Accept':'application/json'}})).text())
+    .replace(/^while\(1\);/,''));
+  const b = await (await fetch(j.url)).arrayBuffer();
+  console.log([...new Uint8Array(await crypto.subtle.digest('SHA-256', b))]
+    .map(x => x.toString(16).padStart(2,'0')).join('').slice(0,16), j.display_name);
+}
+```
+
+Uploading with `on_duplicate:'overwrite'` mints a **new file id**, and Canvas
+repoints the module items to it by itself — so the items do not need editing,
+but they do need re-reading to confirm it happened.
+
 **Publish the items, then publish the module.** Two separate states; published
 items inside an unpublished module are invisible with no warning.
 
@@ -673,10 +700,36 @@ items inside an unpublished module are invisible with no warning.
 
 ### A1 · The announcement
 
-`/discussion_topics/new?is_announcement=true`. Draft lives in
-`2026/announcements/`. It covers, in this order: **both** sessions of the coming
-week with room and time; the deadline closest; the set that opens; the reading
-for the week after; and one thing further out so nobody is surprised.
+Draft lives in `private/announcements/YYYY-MM-DD-weekN.md`, with everything below
+the `**Subject:**` line being the posted text and everything above it being the
+record. A weekly one covers, in this order: **both** sessions of the coming week
+with room and time; the deadline closest; the set that opens; the reading for the
+week after; and one thing further out so nobody is surprised.
+
+**Post it from the file, not by retyping it.** Generate HTML from the markdown
+below the Subject line, base64 it, and POST from a logged-in bCourses tab:
+
+```js
+POST /api/v1/courses/1557313/discussion_topics
+{title: <the Subject line>, message: <html>, is_announcement: true, published: true}
+```
+
+CSRF from the `_csrf_token` cookie, header `X-CSRF-Token`, as in S-section uploads.
+The response's `message` length should equal what was sent.
+
+**Then verify, because "looks right" has been wrong here before.** Re-fetch
+`/api/v1/courses/1557313/discussion_topics/<id>` and SHA-256 its `message`
+against the locally generated HTML. Comparing lengths alone is what let a stale
+file through on 26 September — two files of identical size with different
+content. Check `published: true`, `delayed_post_at: null`, and
+`is_section_specific: false` unless the post is meant for one cohort. Record the
+topic id and the hash in the draft's header, and change its subtitle to
+**As posted**.
+
+An off-cycle announcement (a policy or staging change, not a week) gets its own
+dated file and the same treatment. Do not fold it into the weekly post if the
+weekly post has already gone out — a changed rule buried in a week-six roundup
+is a rule nobody read.
 
 ### A2 · The reader — release weeks only
 
