@@ -731,6 +731,41 @@ dated file and the same treatment. Do not fold it into the weekly post if the
 weekly post has already gone out — a changed rule buried in a week-six roundup
 is a rule nobody read.
 
+### A1b · Updating the syllabus on bCourses — whenever `docs/syllabus.md` changes
+
+The syllabus lives in the course's `syllabus_body`, not as a file or a page, so
+nothing in `2026/bcourses/` reaches students by being regenerated. Three steps,
+and the middle one is the one that gets skipped:
+
+```bash
+python tools/export_syllabus.py --check    # link problems, writes nothing
+python tools/export_syllabus.py            # writes ../2026/bcourses/
+```
+
+Then PUT the exported body into the course:
+
+```js
+PUT /api/v1/courses/1557313  {course: {syllabus_body: <html minus the banner comment>}}
+```
+
+**Do not retype 50 KB of HTML into a browser call.** Stage the exported
+`syllabus.html`, append a throwaway `<input type=file>` to the page, put the file
+on it with the Chrome `file_upload` tool, and read it in the page with
+`file.text()`. The content never passes through the conversation, so it cannot be
+truncated or mistyped. Remove the scratch input afterwards.
+
+**Verify by hash, and expect one known difference.** Canvas's sanitizer rewrites
+every `<hr />` as `<hr>`, so the stored body is exactly 2 characters shorter per
+horizontal rule — twelve of them, 24 characters, as of 27 September. Compute the
+expected hash locally from the export with that substitution applied, then hash
+the re-fetched `syllabus_body` and compare. A difference that is *not* accounted
+for by the rules means something else changed.
+
+**Freshness check, because this went stale once.** If `docs/syllabus.md` is newer
+than `2026/bcourses/syllabus.html`, students are reading an old syllabus. On
+26 September the source had said for six hours that PS5 opened Sep 27 while
+bCourses still said Oct 1.
+
 ### A2 · The reader — release weeks only
 
 Send `private/reader-briefs/psPP.md` and
