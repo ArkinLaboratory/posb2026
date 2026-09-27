@@ -188,6 +188,24 @@ in `theme.py`), `shown as slots` (a paper figure missing from
 `private/paper-figures/`), `loose slot` (an image filling under 75% of the space
 reserved for it — size the slot from the image's aspect ratio).
 
+**And the fit report, which is the one that decides whether the deck is
+readable.** `tools/slide_fit.py` runs inside the deck build and prints three
+kinds of finding:
+
+- `text box(es) overflow` — should be impossible now; `Deck.text()` grows a box
+  to its contents. If you see one, something bypassed `text()`.
+- `overlapping text pair(s)` — two boxes whose ink lands in the same place. This
+  is what a reader sees first and what no other gate has ever caught. **Fix
+  every one before Saturday.** The usual cause is a hand-written row pitch; the
+  fix is `Deck.rows()`, which pitches itself. See AGENTS.md.
+- `shape(s) run off the slide` — a box grew past an edge. Cut the text.
+
+`row stack needs X in a Y band` during the build tells you the shortfall and
+roughly how many characters to cut, per slide, before you go looking at a PDF.
+The count is part of `--check`. Sessions 1–9 predate the gate and are named in
+`GRANDFATHERED` in `build_decks.py`: reported, not counted. Nothing else is
+exempt, including a deck you have already taught.
+
 ### F4 · Handouts, answer sheets, board notes — both sessions
 
 ```bash
@@ -478,6 +496,27 @@ Save, then on **Settings**:
 **Edit Outline.** Question 1 is `Autograder` at the autograded total; then one
 row per manually graded question. The header total must equal the 147 total.
 
+**Build the rows with `+ New Question` in this editor and nowhere else.** The
+button creates a `FreeResponseQuestion`, which is what every working problem set
+uses. A row created any other way can come out a **`QuestionGroup`** — a
+container that sums children and has no rubric of its own, so G4 below fails
+with a 500 and a modal that says only *"Unexpected Error"*. The type is invisible
+in the UI. To see it, on any outline or rubric page:
+
+```js
+JSON.parse(document.querySelector('[data-react-props]')
+  .getAttribute('data-react-props')).outline.map(q => q.type + ' ' + q.title)
+```
+
+All four PS5 rows were `QuestionGroup` on 26 September and the extra credit could
+not be configured at all until they were rebuilt.
+
+> **The `Autograder` row exists only because of the creation form.** It is made
+> once, from **Autograder Points** in G1. Re-uploading the zip does not recreate
+> it; neither does a submission — the submission's own results page then 500s.
+> Lose it and the assignment must be rebuilt from scratch. Deleting *other* rows
+> in this editor is safe and leaves it alone.
+
 ### G3 · Autograder — start the build
 
 **Configure Autograder** → leave **Zip file upload** selected → upload from
@@ -497,9 +536,43 @@ Watch **Docker Image Status** for *built as of …*. 10–25 minutes.
 
 ### G5 · Test
 
-Submit `private/build/psPP/psPP.ipynb` — the **solution** notebook. It must
-score the full autograded total. **Then delete the submission**, or it pollutes
-the queue and the statistics.
+Submit **`private/build/psPP/psPP-solved.ipynb`**. It must score the full
+autograded total. **Then delete the submission**, or it pollutes the queue and
+the statistics. *Student Name* is optional — leave it blank and the submission
+belongs to nobody.
+
+> **Not `psPP.ipynb`.** That is the master: it has the answers but no
+> `metadata.otter`, so otter rejects it before running a single test —
+> *"Received submission for assignment 'None' (this is assignment 'psPP')"* —
+> which reads like a broken autograder and is not one. The student notebook has
+> the identity and no answers. `psPP-solved.ipynb` is built for exactly this by
+> `build_problem_sets.write_solved()` and `preflight` asserts it is current.
+
+### G5b · Diff the structure against the set that worked
+
+Before trusting any of the above, put the new assignment beside the previous
+release and compare field by field. The previous working instance is the
+specification; *"it looks right"* is not a check.
+
+```js
+// paste on any Gradescope page, with the two assignment ids
+for (const [lbl, aid] of [['new', NEW_ID], ['prev', PREV_ID]]) {
+  const h = await (await fetch(`/courses/1347910/assignments/${aid}/rubric/edit`,
+                               {cache:'no-store'})).text();
+  const p = JSON.parse(new DOMParser().parseFromString(h,'text/html')
+              .querySelector('[data-react-props]').getAttribute('data-react-props'));
+  console.log(lbl, p.questions.map(q =>
+    `${q.title} w=${q.weight} ${q.scoring_type} ceil=${q.ceiling}`));
+}
+```
+
+Expect the extra-credit row to read `w=0.0 positive ceil=false` on 147. Anything
+else and G4 did not take.
+
+**Verify from a fresh page load, never from a response code.** A 200 that
+changes nothing is routine here: the server accepts and ignores fields it does
+not permit, and the rubric modal reports success on saves that never left the
+browser.
 
 ### G6 · Duplicate for 247
 
@@ -512,6 +585,19 @@ again.
 > **The invariant:** both Configure Autograder pages must show the **same zip
 > filename**. Nothing compares them. If you ever replace one, replace both in
 > the same sitting.
+
+> **Never send a write to Gradescope to find out how its API works.** On 26
+> September one "no-op" `PATCH` — the current outline posted back unchanged,
+> purely to learn the route — returned **200** and silently deleted every
+> question on a live assignment, `Autograder` row included, which then had to be
+> rebuilt from nothing. Use the UI, or a payload you have watched the page
+> itself send. And capture the current state before any change you cannot
+> trivially undo.
+
+> **A stalled Docker build is not a bad zip.** One cold build sat frozen at an
+> identical log length for 45 minutes and then finished in minutes once
+> restarted from the Gradescope page. Give it 25 minutes, then restart it before
+> suspecting the autograder.
 
 ## bCourses · `bcourses.berkeley.edu/courses/1557313`
 
@@ -579,9 +665,6 @@ that waits.
 > A module built from `private/build/decks/` is correct on Sunday and wrong the
 > moment you fix a typo at the lectern, with nothing to say so. This was done
 > the wrong way round in week 6.
-
-**Publish the items, then publish the module.** Two separate states; published
-items inside an unpublished module are invisible with no warning.
 
 **Publish the items, then publish the module.** Two separate states; published
 items inside an unpublished module are invisible with no warning.

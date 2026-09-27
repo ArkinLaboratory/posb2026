@@ -162,6 +162,38 @@ build never carries them.
   export. Session 4 shipped with ninety-seven of them. Use the `_{...}` and
   `^{...}` markup that `Deck.text()` understands; it emits real PowerPoint
   baseline runs. `build_decks.py --check` fails on the raw characters now.
+- **Never write a row pitch by hand.** Every overlapping-text bug this course
+  has had came from the same line: `y = BASE + i * PITCH`, with both numbers
+  measured by eye against the point sizes of the day. They are correct until
+  `theme.TYPE` moves, and then every one of them is wrong at once — when the
+  body scale went from 13–16pt to 20 on 26 September, session 11 came out of the
+  build with **76 overlapping text pairs across 23 of its 27 surfaces** and
+  every other gate passed it. Use `Deck.rows()`, which measures each row and
+  pitches the stack from what it is told; when the text will not fit the band it
+  prints the shortfall and how many characters to cut, instead of overlapping:
+
+      !! row stack needs 5.01in in a 4.26in band -- 0.75in too tall.
+         Cut about 70 characters of body text, or lose a row: [...]
+
+  For a layout `rows()` cannot express, accumulate `y` from
+  `theme.text_height(txt, w, pt)` — never from a constant. Same rule for
+  character caps: derive them with `theme.line_cap(w, pt)`. The hand-set 44, 52,
+  58 and 62 in the two derivation helpers were all set at 16pt and were silently
+  a quarter too generous at 20.
+- **`Deck.text()` grows a box that is too small, and that is the contract.**
+  PowerPoint does not clip an overfull text box, it renders the extra lines
+  outside it — so a box declared shorter than its contents is a box lying about
+  where its ink is, and every check downstream reads the lie. Sizes passed to
+  `text()` are therefore minimums, not promises. Do not "fix" an overflow by
+  shrinking type; cut the text or give the stack more band.
+- **`build_decks.py` fails on text that does not fit.** `tools/slide_fit.py`
+  measures every text box in the saved `.pptx` and reports boxes that overflow,
+  pairs that overlap, and shapes that run off the slide; the count is part of
+  `--check`. Sessions 1–9 were taught before it existed and are named in
+  `GRANDFATHERED` in `build_decks.py` — they are reported but not counted, and
+  that list only ever shrinks. **A deck that is clean when it is taught stays
+  gated.** Do not key the exemption on `private/taught/`; that would un-gate
+  every deck at the moment it is released.
 - **Handouts with answers get an answer sheet.** `handouts/<name>-answers.md`,
   built by the same pipeline, posted to bCourses after the class. It covers only
   the items done **in the room** — an item that is also a problem-set question
