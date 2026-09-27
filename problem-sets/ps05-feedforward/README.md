@@ -1,6 +1,6 @@
 # PS5 — Feedforward Loops and Oscillation
 
-[← all problem sets](../README.md) · **Out Oct 1 · Due Oct 8** · 42 points (BioE 247: 48)
+[← all problem sets](../README.md) · **Out Sep 27 · Due Oct 8** · 42 points (BioE 247: 48)
 
 [**Open in DataHub**](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/ArkinLaboratory/posb2026&branch=main&urlpath=lab/tree/posb2026/problem-sets/ps05-feedforward/ps05.ipynb) ·
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ArkinLaboratory/posb2026/blob/main/problem-sets/ps05-feedforward/ps05.ipynb)

@@ -180,7 +180,7 @@ Nine sets, roughly weekly, **2–4 problems each**. These are deliberately short
 | PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, dilution vs degradation |
 | PS3 | Sep 17 | Sep 24 | Promoter occupancy, regulation functions, autoregulation |
 | PS4 | Sep 24 | Oct 1 | Phase plane, stability, bistability, the toggle |
-| PS5 | Oct 1 | Oct 8 | Feedforward loops, oscillation criteria |
+| PS5 | Sep 27 | Oct 8 | Feedforward loops, oscillation criteria |
 | — | — | — | *Midterm Oct 15 — no set* |
 | PS6 | Oct 20 | Oct 29 | Digital abstraction, signal matching, hazards, assembly design |
 | PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden, flux balance analysis |
@@ -227,6 +227,8 @@ This is the actual meat of the proposal. It demonstrates that what you propose i
 
 On **intellectual coherence and the strength of the arguments** for importance and approach, *and* on the **demonstrated ability to actually accomplish and document an analysis**. In general, students do best when choosing to extend an analysis well presented by another researcher — that is, from an excellent paper.
 
+An entirely original design — not an extension of a published result — is welcome, and one that works earns bonus credit on the final proposal. It is the harder route: you inherit no characterized device and no sourced parameters, and the parameter table is still required.
+
 You are allowed to work together on obtaining and cleaning target datasets, and I encourage you to hone your ideas by talking to each other and to us. However, the bulk of the aims and analysis must be your own unique work product, and Section 1 must be wholly written by you, oriented toward the problem you choose. Where you leverage a peer's work, acknowledge it and give proper credit.
 
 ### Milestones
@@ -245,12 +247,18 @@ The project is staged, with feedback at each stage. In previous years it was eff
 
 **Deadlines on the milestones.** Same as the problem sets: due at 11:59 pm on the date shown, accepted without penalty until 11:59 pm the following day, and not after. **M1 only** may be resubmitted for credit within one week of getting its comments — the first milestone is where you find out what "answers what it asks" means, and it would be perverse to charge you for that.
 
-**M1, in detail.** One page. Pick a paper from the
-[project-paper list](project-papers.md) — or bring your own, on the same terms —
-and answer three things. What did they build, and what is the model behind the
-figure they lean on hardest? What would *you* build that their result makes
-possible? And what, in their model, would you have to compute to know whether
-your thing could work?
+**M1, in detail.** One page, on one of two tracks.
+
+*Starting from a paper* — from the [project-paper list](project-papers.md), or
+bring your own on the same terms. What did they build, and what is the model
+behind the figure they lean on hardest? What would *you* build that their result
+makes possible? And what, in their model, would you have to compute to know
+whether your thing could work?
+
+*Starting from your own idea.* What would you build? Which published work
+establishes that the pieces it depends on function — named papers, named
+figures? And what would you have to compute to know whether your thing could
+work?
 
 That third answer is your project. M1 is deliberately not a proposal: in week
 six you have not read enough to write one, and a proposal written that early is
@@ -372,8 +380,8 @@ Instruction begins Wednesday, August 26. Classes end Friday, December 4. RRR wee
 | 7 | Thu 9/17 | W4 | Autoregulation: negative (speed, variance) and positive (bistability) | Derive the negative-autoregulation speed-up | PS2 due · PS3 posted |
 | 8 | Tue 9/22 | W5 | The phase plane: nullclines, fixed points, the Jacobian, linear stability | Complete two-dimensional stability analysis | |
 | 9 | Thu 9/24 | W5 | Bistability and the toggle switch: bifurcation, hysteresis, failure modes | Fixed points for *n* = 4 and *n* = 1 | PS3 due · PS4 posted |
-| 10 | Tue 9/29 | W6 | Feedforward loops: persistence detection, pulse generation, adaptation | FFL timing analysis; numerical IFFL adaptation | |
-| 11 | Thu 10/1 | W6 | Oscillators: the repressilator, delayed negative feedback, conditions for oscillation | State and apply the oscillation criterion; locate the Hopf boundary | PS4 due · PS5 posted |
+| 10 | Tue 9/29 | W6 | Feedforward loops: persistence detection, pulse generation, adaptation | FFL timing analysis; numerical IFFL adaptation | PS5 already posted |
+| 11 | Thu 10/1 | W6 | Oscillators: the repressilator, delayed negative feedback, conditions for oscillation | State and apply the oscillation criterion; locate the Hopf boundary | PS4 due |
 | 12 | Tue 10/6 | W7 | Noise: intrinsic versus extrinsic, CV, bursting, the master equation | Write a Gillespie simulator from scratch | |
 | 13 | Thu 10/8 | W7 | The digital abstraction and its price: transfer curves, gain, thresholds, noise margins — then **analog computation**, where the Hill function is arithmetic rather than a switch | Signal matching between two measured gates; then the log-domain circuit that needs neither | PS5 due · **M1 due: paper and design** |
 | 14 | Tue 10/13 | W8 | **Review and worked problems** | Open problem session | Midterm scope published |
