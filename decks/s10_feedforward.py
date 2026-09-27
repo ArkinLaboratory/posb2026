@@ -119,8 +119,8 @@ def build():
             ("The window is finite", "The wedge. Outside it, one state. pTAK117 sits inside — and close to the lower edge."),
             ("Mutation is a random walk in parameter space", "Every generation some cells step. A cell that steps out of the wedge loses the state, permanently."),
             ("Expression costs growth", "The state that expresses more is selected against. Not a circuit failure — the population editing your design."),
-            ("Robustness is an objective, not a property", "You can put the operating point in the middle of the wedge instead of the edge. That costs dynamic range.")]):
-        y = 2.4 + i * 1.05
+            ("Robustness is an objective, not a property", "You can put the operating point in the middle of the wedge, not at the edge. That costs dynamic range.")]):
+        y = 2.36 + i * 1.02
         d.text(s, k, M, y, 4.3, 0.85, size=16, font=HEAD, bold=True, color=INK)
         d.text(s, txt, M + 4.6, y + 0.03, 7.3, 0.9, size=14, color=BODY)
     d.text(s, "Today the circuits have three components instead of two, and what they control is not which state you are in — it is when.",
@@ -144,7 +144,7 @@ def build():
     for i, g in enumerate([
             "One circuit ignores a signal that flickers on and off, but responds the moment the signal is steady. How, and why only in one direction?",
             "Another turns a lasting step of signal into a single pulse — on, then off, while the signal stays on. What makes it let go?",
-            "Can a three-gene circuit reach its steady state faster than the one-gene version of the same thing \u2014 without changing a single lifetime?"]):
+            "Can a three-gene circuit reach its steady state faster than the one-gene version of the same thing — without changing a single lifetime?"]):
         y = 3.25 + i * 1.0
         d.text(s, "?", M, y, 0.4, 0.5, size=26, font=HEAD, bold=True,
                color=CYAN, align="c")
@@ -152,8 +152,8 @@ def build():
     d.notes(s, "Goals as questions they cannot yet answer. All three are the "
                "same object seen three ways; the point of the session is that "
                "the wiring signs decide which one you get.\n"
-               "Q1 lands on the derivation at 30\u201342. Q2 lands at 42\u201348. Q3 "
-               "lands at 52\u201358, on the acceleration surface \u2014 and it is "
+               "Q1 lands on the derivation at 30–42. Q2 lands at 42–48. Q3 "
+               "lands at 52–58, on the acceleration surface — and it is "
                "graded on PS5, so do not let that one get cut for time.")
 
     # 4 THE ARTIFACT ----------------------------------------------------------
@@ -161,15 +161,15 @@ def build():
     d.header(s, "8 – 14 min", "The artifact")
     d.title(s, "Basu, Mehreja, Thiberge, Chen & Weiss, PNAS 2004")
     d.text(s, "“Spatiotemporal control of gene expression with pulse-generating networks”",
-           M, 1.9, 7.0, 0.4, size=16, font=HEAD, italic=True, color=TEAL)
+           M, 1.86, 7.2, 0.72, size=16, font=HEAD, italic=True, color=TEAL)
     for i, (k, v) in enumerate([
-            ("Sender", "makes AHL, a small molecule that diffuses to its neighbors."),
-            ("Receiver", "LuxR·AHL turns on GFP — and turns on CI, which represses the GFP promoter."),
-            ("The output", "GFP rises, then CI catches up and shuts it. A step in gives a pulse out."),
-            ("The signature", "the signal drives the output and its own delayed brake. That is the incoherence.")]):
-        y = 2.5 + i * 0.86
-        d.text(s, k, M, y, 2.0, 0.8, size=14, font=HEAD, bold=True, color=INK)
-        d.text(s, v, M + 2.05, y, 4.6, 0.85, size=14, color=BODY)
+            ("Sender", "makes AHL, which diffuses to its neighbors."),
+            ("Receiver", "LuxR·AHL turns on GFP — and turns on CI, which represses GFP."),
+            ("The output", "GFP rises, CI catches up and shuts it. A step in, a pulse out."),
+            ("The signature", "one signal drives the output AND its own delayed brake.")]):
+        y = 2.72 + i * 0.84
+        d.text(s, k, M, y, 2.0, 0.40, size=14, font=HEAD, bold=True, color=INK)
+        d.text(s, v, M + 2.05, y, 5.15, 0.76, size=14, color=BODY)
     d.paper_figure(s, "basu2004_fig1", 7.9, 1.95, 3.9, 3.6,
                    "Basu 2004, Fig. 1", "the sender/receiver pulse circuit")
     d.assigned_on(M, 6.05, 6.6, s)
@@ -186,18 +186,21 @@ def build():
     s = d.light()
     d.header(s, "8 – 14 min", "The artifact  ·  what it does")
     d.title(s, "A lasting signal in, a single pulse out")
-    d.paper_figure(s, "basu2004_fig3", M, 1.72, 11.9, 3.35,
+    # The figure gives up 0.34in so its citation line clears the row grid:
+    # the caption sits immediately under the image, and at caption size it
+    # needs 0.30in that the old layout did not leave it.
+    d.paper_figure(s, "basu2004_fig3", M, 1.66, 11.9, 3.01,
                    "Basu 2004, Fig. 3",
                    "pulses at different AHL levels (a), and at different rates of rise (b, c)")
     for i, (k, txt) in enumerate([
-            ("The AHL stays on", "It never goes away. The circuit lets go by itself."),
-            ("Above ~47 nM it stops growing", "More signal, no more output — the repressor rises with it."),
-            ("Rate matters, not just level", "A slow ramp gives a smaller, later pulse."),
-            ("So a receiver tells near from far", "Distance from the sender IS the rate of rise. Cells 4.5 mm out never respond.")]):
-        x = M + (i % 2) * 6.05
-        y = 5.48 + (i // 2) * 0.62
-        d.text(s, k, x, y, 5.8, 0.3, size=14, font=HEAD, bold=True, color=INK)
-        d.text(s, txt, x, y + 0.27, 5.8, 0.32, size=14, color=BODY)
+            ("The AHL stays on", "The circuit lets go by itself."),
+            ("Above ~47 nM it stops growing", "More signal, no more output."),
+            ("Rate matters, not just level", "A slow ramp gives a smaller pulse."),
+            ("A receiver tells near from far", "Distance IS the rate of rise.")]):
+        x = M + (i % 2) * 6.30
+        y = 5.22 + (i // 2) * 0.78
+        d.text(s, k, x, y, 5.63, 0.38, size=15, font=HEAD, bold=True, color=INK)
+        d.text(s, txt, x, y + 0.37, 5.63, 0.38, size=14, color=BODY)
     d.foot(s, "A circuit that responds to how fast something changed, built out of two promoters and a repressor.")
     d.notes(s, "The rate result is the hook for the argue block, so land it "
                "here and do not explain it — question 3 next slide asks them to "
@@ -245,28 +248,28 @@ def build():
     d.image(s, FIG + "s10_pulse_generator.png", M, 1.85, 6.6, 3.0)
     for i, (k, txt, c) in enumerate([
             ("Two paths, one delayed",
-             "AHL → GFP directly, and AHL → CI → GFP through a build-up. Every FFL is this.", TEAL),
-            ("The delay is the second path's build time",
-             "CI has to be made and cross its operator threshold. That is why the brake is late.", CYAN),
+             "AHL → GFP direct; AHL → CI → GFP through a build-up. Every FFL is this.", TEAL),
+            ("The delay is CI’s build time",
+             "CI must be made and cross its threshold. That is why the brake is late.", CYAN),
             ("Agree or fight decides the job",
-             "Here the two paths fight — activate, then repress. That is an incoherent FFL, and fighting paths make a pulse.", AMBER),
-            ("⚠ Rate sensing, and an honest gap",
-             "Right: a slow ramp gives a SMALLER pulse, not just a later one — 1.21, 1.08, 0.78 as the rise stretches. But look how far it took: 500× in rate for a 35% drop, because our Y and Z share a lifetime. Basu’s GFP reports faster than CI accumulates, so his device separates distances our reduction barely resolves.", RED)]):
-        y = 1.88 + i * 1.12
-        d.shape(s, S.ROUNDED_RECTANGLE, 7.4, y, 0.16, 0.95, fill=c, line=None)
-        d.text(s, k, 7.75, y, 5.0, 0.42, size=15, font=HEAD, bold=True, color=INK)
-        d.text(s, txt, 7.75, y + 0.4, 5.0, 0.72, size=13, color=BODY)
-    d.foot(s, "Our own simulation of the same circuit — the fast path and the slow brake are the two curves crossing. Dotted, on the right, is the input ramp itself.")
+             "Here they fight — activate, then repress. Fighting paths make a pulse.", AMBER),
+            ("⚠ A slow ramp gives a SMALLER pulse",
+             "1.21, 1.08, 0.78 as the rise stretches — but that needed 500× in rate.", RED)]):
+        y = 1.86 + i * 1.24
+        d.shape(s, S.ROUNDED_RECTANGLE, 7.4, y, 0.16, 1.14, fill=c, line=None)
+        d.text(s, k, 7.75, y, 5.0, 0.40, size=16, font=HEAD, bold=True, color=INK)
+        d.text(s, txt, 7.75, y + 0.40, 5.0, 0.78, size=14, color=BODY)
+    d.foot(s, "Our own simulation of the same circuit — the fast path and the slow brake are the two curves crossing. Dotted, on the right, is the input ramp itself.", y=6.90)
     d.notes(s, "Name real groups. This is the consolidation step and it is the "
                "fidelity condition for the generation phase. The figure is "
-               "s10_pulse_generator.png, built from posb \u2014 GFP (fast) overshoots "
+               "s10_pulse_generator.png, built from posb — GFP (fast) overshoots "
                "while CI (slow) is still rising.\n"
                "ROW 3 is the answer to the ten-minute argument and it has to "
                "land: a slow ramp gives a SMALLER pulse, because the brake has "
                "time to arrive before the output gets going. Point at the "
                "three dots.\n"
                "ROW 4 IS THE ONE TO SAY OUT LOUD, and it is uncomfortable on "
-               "purpose. The rate sensitivity in our model is weak \u2014 12% "
+               "purpose. The rate sensitivity in our model is weak — 12% "
                "across 0.2 to 10 lifetimes, and you need 500x in rate to get "
                "35%. Basu resolves 2.5 mm from 4.5 mm. Our reduction cannot, "
                "and the reason is that we gave Y and Z the same lifetime. His "
@@ -299,7 +302,7 @@ def build():
     d.derivation_fig(
         "30 – 42 min", "Built one line at a time",
         "Where the delay comes from  (coherent type 1, AND)",
-        [("X switches on; Y builds on its own timescale",
+        [("X switches on; Y builds on its own clock",
           "Y(t) = Y_{max}(1 - e^{-α_y t})",
           "the direct path to Z is fast; this slow one is the whole story"),
          ("Z needs both X and Y, so it waits for Y",
@@ -309,24 +312,24 @@ def build():
           "t_{cross} = α_y^{-1} ln[Y_{max}/(Y_{max} − K_{yz})]",
           "solve Y_{max}(1 − e^{−α_y t}) = K_{yz} for t — rearrange, take the log, divide. The only algebra in the session"),
          ("Now compare it to one gene, fairly",
-          "FFL: t_{½} = t_{cross} + ln2   one gene: t_{½} = ln2",
+          "FFL: t_{½} = t_{cross} + ln2   vs ln2 alone",
           "this is why the steady states must match: the same Z rise happens in BOTH, so it cancels"),
          ("Subtract, and only the wait survives",
-          "t_D = t_{cross} ≈ ln 2 ≈ 0.69  at K_{yz} = ½",
+          "t_{D} = t_{cross} ≈ ln 2 ≈ 0.69  at K_{yz} = ½",
           "measured off the curve: 0.75. The gap is the gate leaking — at H = 2 Z is already at 18% when Y crosses. Item 2 asks which way that pushes"),
          ("Turn X off and Z falls at once",
           "off step:  t_D = 0",
           "X is gone, so the gate shuts the instant X drops. The wait was only on the way up"),
-         ("It acts on a steady signal, ignores a flicker",
+         ("Acts on a steady signal, ignores a flicker",
           "short pulse of X  ⇒  Y never reaches K_{yz}",
           "Z reaches only 13% of its full response and decays — a persistence detector, and it filters ON, not OFF")],
         [FIG + "s10_c1_p1.png", FIG + "s10_c1_p2.png", None, FIG + "s10_c1_p3.png",
          FIG + "s10_c1_p3.png", FIG + "s10_c1_p4.png", FIG + "s10_c1_p5.png"],
         closing="Same steady state as one gene — but it makes you wait, and only on the way up.",
         board="t_{D} = ln[Y_{max}/(Y_{max}−K_{yz})] ≈ 0.69 lifetimes at K_{yz} = ½,  and t_{D} = 0 on the off-step",
-        note=("SEVEN steps, deliberately, because this is the session\u2019s only "
+        note=("SEVEN steps, deliberately, because this is the session’s only "
               "derivation and the room has no common background. One knob at a "
-              "time, and do not skip 3 or 4 to save time \u2014 skip step 7 "
+              "time, and do not skip 3 or 4 to save time — skip step 7 "
               "instead if you must.\n"
               "Step 1: only the slow arm matters. Say the direct arm is fast "
               "and set it aside.\n"
@@ -334,7 +337,7 @@ def build():
               "it is slow but because its gate is not satisfied until Y "
               "arrives. SAY THE WORD PRETEND out loud. A student watching the "
               "panel can see Z is already climbing when the dotted line is "
-              "drawn, and if you assert \u2018Z stays off\u2019 flatly you lose them. "
+              "drawn, and if you assert ‘Z stays off’ flatly you lose them. "
               "Promise to collect on it in three steps.\n"
               "Step 3 IS THE ALGEBRA and it goes on the board, not just the "
               "screen. Solve Y_max(1 - e^{-t}) = K_yz for t. Rearrange, take "
@@ -344,22 +347,22 @@ def build():
               "Step 4 is the fairness step and it is the one people skip. "
               "t_cross is the time the GATE opens; t_D is a difference of "
               "HALF-TIMES. Those are different quantities. They are equal only "
-              "because we matched beta_z so that Z\u2019s rise after the gate "
-              "opens is the same curve in both designs \u2014 so it appears in "
+              "because we matched beta_z so that Z’s rise after the gate "
+              "opens is the same curve in both designs — so it appears in "
               "both half-times and subtracts away. Point at the board "
               "convention while you say it.\n"
               "Step 5 is the collection. ln 2 = 0.693, measured 0.754. The gap "
               "is NOT numerical error: at H = 2 the gate leaks, and Z has "
               "reached 18% of its final value at the instant Y crosses K_yz. "
-              "Do not resolve which direction that pushes in general \u2014 that "
+              "Do not resolve which direction that pushes in general — that "
               "is handout item 2 and PS5 Q2c, and the answer is that it pushes "
               "BOTH ways depending on K_yz.\n"
               "Step 6 is sign sensitivity, and it is the whole reason the "
               "circuit is interesting: the two curves lie on top of each other "
               "going down. The delay has a direction.\n"
               "Step 7: a pulse of X too short to build Y is rejected. Z gets to "
-              "13% of full and decays \u2014 quote the number, because \u2018never "
-              "fires\u2019 is visibly false on the panel. Persistence detection, "
+              "13% of full and decays — quote the number, because ‘never "
+              "fires’ is visibly false on the panel. Persistence detection, "
               "and it is the engineering use.\n"
               "LEDGER: t_D and the convention."))
 
@@ -369,16 +372,16 @@ def build():
     d.title(s, "Incoherent type 1: overshoot, then adapt")
     d.image(s, FIG + "s10_iffl_adaptation.png", M, 1.80, 6.2, 4.4)
     d.text(s, "X turns on Z fast, and turns on Z's repressor slowly.",
-           7.1, 1.9, 5.5, 0.4, size=17, font=HEAD, bold=True, color=INK)
+           7.1, 1.86, 5.5, 0.4, size=17, font=HEAD, bold=True, color=INK)
     for i, (k, txt) in enumerate([
             ("The output runs first", "Z is driven directly by X, and Y is not there yet. Z overshoots."),
             ("The brake arrives", "Y builds, represses Z, and pulls it back down while X is still on."),
             ("It settles above zero", "Y represses by a factor, not absolutely — so Z lands on a new, lower plateau.")]):
-        y = 2.5 + i * 1.15
+        y = 2.66 + i * 1.15
         d.text(s, k, 7.1, y, 5.5, 0.4, size=16, font=HEAD, bold=True, color=INK)
         d.text(s, txt, 7.1, y + 0.38, 5.5, 0.75, size=14, color=BODY)
     d.text(s, "Same wiring as Basu's — the only difference is that Y has a basal level here, so the brake never fully lets go.",
-           M, 6.35, W - 2 * M, 0.4, size=15, color=BODY)
+           M, 6.30, W - 2 * M + 0.5, 0.70, size=15, color=BODY)
     d.notes(s, "The mechanism surface. The NUMBER is the next one — do not do "
                "both here. The distinction from Basu: with no basal Y the pulse "
                "is strong and returns near zero; with basal Y it lands on a "
@@ -424,7 +427,7 @@ def build():
         ("paths", "agree: activate, activate", "fight: activate, then repress"),
         ("ON step", "delayed rise (persistence filter)", "overshoot then adapt (a pulse)"),
         ("OFF step", "immediate — sign-sensitive", "immediate — sign-sensitive"),
-        ("speed", "\u2014 (it is a delay, by construction)", "6.3\u00d7 faster to the same steady state"),
+        ("speed", "— (it is a delay, by construction)", "6.3× faster to the same steady state"),
         ("the job", "reject a flicker, act on a steady signal", "respond to a change, not a level"),
         ("who has it", "CRP, RpoN in E. coli sugar/N systems", "Basu's pulse generator; the gal system in E. coli (CRP → GalS ⊣ galETK)")]
     ws = [2.0, 5.2, 5.3]
@@ -439,8 +442,8 @@ def build():
                    size=15 if head else 14,
                    bold=head or c_ == 0,
                    color=WHITE if head else (INK if c_ == 0 else BODY))
-    d.text(s, "OR logic at the Z promoter flips the sign sensitivity — delay on the OFF step instead of the ON. Same machine, mirror image.   \u00b7   And read Table 2\u2019s pulse row: type 1 with AND is marked WEAK; the strong pulsers are types 3 and 4. Basu got a tall pulse from a type 1 by driving the Z promoter hard \u2014 pulse height is a parameter, the sign structure is not.",
-           M, 6.28, W - 2 * M, 0.62, size=13.5, italic=True, color=MUTED)
+    d.text(s, "OR logic flips the sign sensitivity — delay on the OFF step, not the ON. And Table 2 marks type 1 with AND a WEAK pulser: the strong ones are types 3 and 4.",
+           M, 6.414, W - 2 * M - 0.72, 0.62, size=13.5, italic=True, color=MUTED)
     d.notes(s, "This is the T24 classification row, stated as a rule they can "
                "apply: read the three signs, compute coherent/incoherent, and "
                "the job follows. The OR-gate line is one sentence — Mangan's "
@@ -449,38 +452,35 @@ def build():
 
     # 10b RESPONSE ACCELERATION -----------------------------------------------
     s = d.light()
-    d.header(s, "52 \u2013 58 min", "Design  \u00b7  which of these can you turn?")
+    d.header(s, "52 – 58 min", "Design  ·  which of these can you turn?")
     d.title(s, "The same circuit is also six times faster")
-    d.image(s, FIG + "s10_iffl_acceleration.png", M, 1.78, 6.35, 4.23)
+    d.image(s, FIG + "s10_iffl_acceleration.png", M, 1.95, 5.30, 3.53)
     for i, (k, txt, c) in enumerate([
-            ("The comparison is matched",
-             "Same input, same final Z \u2014 \u03b2_z on the one-gene design is set so both land in the same place. The only difference is the repressor arm.",
+            ("Matched by construction",
+             "Same input, same final Z. The only difference is the repressor arm.",
              TEAL),
             ("0.11 against 0.69 lifetimes",
-             "Half-way to steady state 6.3\u00d7 sooner. And it is the SAME circuit, the same parameters, whose adaptation error you measured four minutes ago.",
+             "Half-way there 6.3× sooner — the circuit whose adaptation error you just measured.",
              TEAL),
-            ("Why it is faster",
-             "Z is driven at full strength at the start, because Y has not arrived yet. The brake lands only once Z is most of the way up. You overshoot on purpose, then settle back.",
+            ("Why",
+             "Z runs at full β_z until Y arrives. The brake lands once Z is nearly up.",
              AMBER),
-            ("What it buys you",
-             "Simple regulation has ONE response time: ln2/\u03b1, about 0.7 lifetimes, whatever \u03b2 is. The only way to speed it up is to shorten the lifetime \u2014 and that costs you the steady state. The FFL buys speed without touching either.",
-             GREEN),
-            ("And it was measured",
-             "Alon 2007, Fig. 4c: the gal system in E. coli responds about threefold faster than lac, which is simple regulation on the same kind of signal.",
+            ("What it buys",
+             "One gene has ONE response time, ln2/α. Speeding it up costs steady state. This does not.",
              GREEN)]):
-        y = 1.82 + i * 0.94
-        d.shape(s, S.ROUNDED_RECTANGLE, 7.35, y, 0.14, 0.86, fill=c, line=None)
-        d.text(s, k, 7.65, y, 4.95, 0.4, size=14.5, font=HEAD, bold=True, color=INK)
-        d.text(s, txt, 7.65, y + 0.38, 4.95, 0.56, size=13, color=BODY)
-    d.foot(s, "One wiring, three jobs: it pulses, it adapts, and it accelerates. Mangan & Alon call the incoherent family sign-sensitive ACCELERATORS \u2014 the mirror of the coherent family\u2019s delay.")
-    d.notes(s, "This closes the goals slide\u2019s third question, and it is graded "
+        y = 1.88 + i * 1.22
+        d.shape(s, S.ROUNDED_RECTANGLE, 6.02, y, 0.14, 1.12, fill=c, line=None)
+        d.text(s, k, 6.34, y, 6.24, 0.40, size=16, font=HEAD, bold=True, color=INK)
+        d.text(s, txt, 6.34, y + 0.40, 6.24, 0.76, size=14, color=BODY)
+    d.foot(s, "One wiring, three jobs: it pulses, it adapts, it accelerates. Measured in E. coli — Alon 2007 Fig. 4c, the gal system is ~3× faster than lac.")
+    d.notes(s, "This closes the goals slide’s third question, and it is graded "
                "on PS5, so it has to be DEMONSTRATED here and not just "
                "mentioned.\n"
                "WALK THE FIGURE, slowly, because it is the one place a "
                "biologist and a physicist read the same picture and take away "
                "different things. Grey is one gene driven by X. Teal is the "
                "FFL. The dotted line is the steady state they share BY "
-               "CONSTRUCTION \u2014 say that twice, because the comparison is "
+               "CONSTRUCTION — say that twice, because the comparison is "
                "worthless otherwise, and it is the same matching rule that "
                "made t_D well defined this morning.\n"
                "THE MECHANISM in one sentence, and let them supply it: why is "
@@ -492,12 +492,12 @@ def build():
                "paper in front of them: we call 1/alpha the lifetime, so "
                "simple regulation takes 0.69 lifetimes to reach half. Mangan "
                "and Alon call ln2/alpha the lifetime, so the SAME fact reads "
-               "as \u2018a response time of one lifetime\u2019 in their paper. Same "
+               "as ‘a response time of one lifetime’ in their paper. Same "
                "circuit, same physics, two conventions. Point at the axis.\n"
                "THE HONEST CAVEAT if someone raises it: this acceleration "
                "needs a BASAL level of Y, which this circuit has (B_y = 0.4). "
-               "Basu\u2019s pulse generator has none, and it pulses instead. Same "
-               "wiring, one parameter apart \u2014 Mangan\u2019s Table 3 splits the "
+               "Basu’s pulse generator has none, and it pulses instead. Same "
+               "wiring, one parameter apart — Mangan’s Table 3 splits the "
                "family on exactly that.")
 
     # 11 ENGINEERABILITY ------------------------------------------------------
@@ -507,7 +507,7 @@ def build():
     for i, (p, verd, txt, c) in enumerate([
             ("Y's lifetime", "MODERATE", "sets how fast the delayed arm builds — an ssrA tag on Y shortens the delay and the pulse together.", AMBER),
             ("K_yz", "EASY", "the operator/RBS on the Y→Z arm. Raise it and Y must build higher, so the delay grows. The knob Basu turned.", GREEN),
-            ("β_z vs the repression", "EASY", "how hard the output runs before the brake — a stronger GFP RBS raises the peak and worsens the adaptation error.", GREEN),
+            ("β_z vs repression", "EASY", "how hard the output runs before the brake — a stronger GFP RBS raises the peak and worsens the adaptation error.", GREEN),
             ("the three signs", "HARD", "the wiring itself. Changing a sign means swapping an activator for a repressor — a different protein, a different job.", RED)]):
         y = 1.9 + i * 1.08
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 2.5, 0.9, fill=CARD, line=c, lw=2)
@@ -542,20 +542,20 @@ def build():
     d.notes(s, "Answer: A, and every number below is measured on the "
                "Basu-parameter circuit (K_yz = 0.15, beta_z = 8), baseline "
                "peak 1.22 at t = 0.44, adaptation error 0.15.\n"
-               "A: stronger GFP RBS AND weaker CI RBS \u2014 output faster, brake "
+               "A: stronger GFP RBS AND weaker CI RBS — output faster, brake "
                "later. Peak 4.19 at t = 0.70. Uniquely taller AND later.\n"
                "B raises both, so the brake keeps pace: peak 1.36 but EARLIER, "
-               "t = 0.29. And be careful here \u2014 the adaptation error does not "
+               "t = 0.29. And be careful here — the adaptation error does not "
                "stay put, it IMPROVES, 0.15 to 0.07. Taller is not the same as "
                "slower, and a better-adapting circuit is not the one asked "
                "for.\n"
                "C speeds removal of both: peak 0.94, earlier, error 0.48. The "
                "opposite on every count. Worth knowing before you pose it: "
-               "Basu\u2019s CI and GFP ALREADY carry LVA ssrA tags, so C is really "
-               "\u2018tag them harder\u2019. Say so if someone asks what is left to "
+               "Basu’s CI and GFP ALREADY carry LVA ssrA tags, so C is really "
+               "‘tag them harder’. Say so if someone asks what is left to "
                "tag.\n"
                "D saturates: peak 1.22, unchanged to within 0.2%. That is "
-               "Basu\u2019s own observation \u2014 above about 47 nM the pulses have "
+               "Basu’s own observation — above about 47 nM the pulses have "
                "the same rising slope and about the same maximum.\n"
                "FOLLOW-UP worth drawing out: A also worsens the adaptation "
                "error, 0.15 to 0.32. Taller pulse, less complete forgetting. "
@@ -579,10 +579,10 @@ def build():
         d.text(s, k, x + 0.15, 3.05, 2.5, 0.4, size=16, font=HEAD, bold=True,
                color=INK, align="c")
         d.text(s, txt, x + 0.15, 3.48, 2.5, 0.95, size=14, color=MUTED, align="c")
-    d.text(s, "Start wherever the scaffolding stops helping you. Nobody needs to announce where that is.",
-           M, 4.95, W - 2 * M, 0.4, size=18, bold=True, color=INK)
-    d.text(s, "The delay table asks you to state your convention before you fill it. That is not bookkeeping — it is what makes two people's tables comparable.",
-           M, 5.45, W - 2 * M, 0.5, size=15, color=BODY)
+    d.text(s, "Start wherever the scaffolding stops helping you.",
+           M, 4.90, W - 2 * M, 0.48, size=18, bold=True, color=INK)
+    d.text(s, "The delay table asks for your convention before you fill it. That is what makes two tables comparable.",
+           M, 5.48, W - 2 * M, 0.72, size=15, color=BODY)
     d.notes(s, "Six minutes, then take the numbers, then the second half. "
                "Circulate. Do NOT work item 1 at the board — that collapses the "
                "fading. Item 2's convention line is the T25 spec; a table with "
@@ -638,11 +638,11 @@ def build():
     d.title(s, "A toggle holds. An FFL times one event. What keeps time?")
     d.text(s, "Thursday: three repressors in a ring.",
            M, 2.05, 11, 0.45, size=23, font=HEAD, bold=True, color=MINT)
-    d.text(s, "The toggle was two genes repressing each other, and it had two stable states.\n\nPut three repressors in a ring, each shutting off the next, and there is no state the system can rest in — chase the logic around the loop and it never closes.",
-           M, 2.72, 11.3, 1.6, size=16, color=WHITE, spacing=1.4)
+    d.text(s, "The toggle was two genes repressing each other, and it had two stable states. Put three repressors in a ring, each shutting off the next, and there is no state the system can rest in — chase the logic around the loop and it never closes.",
+           M, 2.66, 11.3, 1.6, size=16, color=WHITE, spacing=1.25)
     d.text(s, "So what does it do instead, and what decides whether it keeps time or merely wobbles? Session 11.",
-           M, 4.52, 11.3, 0.34, size=14, italic=True, color=CYAN)
-    d.assignment(s, y=5.12)
+           M, 4.44, 11.3, 0.34, size=14, italic=True, color=CYAN)
+    d.assignment(s, y=5.02)
     d.notes(s, "Pose it as the next constraint, not a summary. The reading for "
                "Thursday (Potvin-Trottier 2016) goes out now — it is the "
                "repressilator with its noise sources removed one at a time, so "

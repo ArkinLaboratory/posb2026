@@ -169,9 +169,10 @@ def fig_c1_delay():
                 arrowprops=dict(arrowstyle="<|-|>", color=RED, lw=2.2))
     ax.text((tF + tS) / 2, y + 0.04, f"delay $t_D$\n≈ {tF - tS:.2f}",
             color=RED, fontsize=14, ha="center")
-    ax.text(0.1, 0.92 * tr["Z"][-1],
-            f"formula: $t_D = \\ln\\frac{{Y_{{max}}}}{{Y_{{max}}-K_{{yz}}}}$ = {tD:.2f}",
-            color=INK, fontsize=13)
+    ax.text(0.97, 0.06, f"sharp-gate formula:  $t_D$ = {tD:.2f}",
+            transform=ax.transAxes, ha="right", va="bottom",
+            color=INK, fontsize=13,
+            bbox=dict(facecolor="white", edgecolor=RULE, pad=3.0))
     _save(fig, "s10_c1_p3")
 
     # p4: off-step — Z falls at once, no delay
