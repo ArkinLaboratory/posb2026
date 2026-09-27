@@ -285,6 +285,29 @@ def check_ps(num, rep):
                              ("colab.research.google.com", "Colab link")]:
             rep.add(OK if needle in body else FAIL, f"{tag} README carries the {what}")
 
+    # The artifact that makes "confirm full marks" a step you can actually run.
+    # Without it the only submittable notebook is the student one, which scores
+    # zero by construction, and the master, which otter rejects outright with
+    # "Received submission for assignment 'None'".
+    solved = ROOT / "private" / "build" / tag / f"{tag}-solved.ipynb"
+    if not solved.exists():
+        rep.add(WARN, f"{tag} solved notebook not built",
+                f"run: python tools/build_problem_sets.py {tag}  "
+                f"(needed to test the autograder)")
+    else:
+        meta = json.loads(solved.read_text()).get("metadata", {}).get("otter", {})
+        got = meta.get("assignment_name")
+        if got != tag:
+            rep.add(FAIL, f"{tag} solved notebook has the wrong identity",
+                    f"assignment_name={got!r}, expected {tag!r} -- "
+                    f"Gradescope will reject it")
+        elif solved.stat().st_mtime < master.stat().st_mtime:
+            rep.add(FAIL, f"{tag} solved notebook is STALE",
+                    f"run: python tools/build_problem_sets.py {tag}")
+        else:
+            rep.add(OK, f"{tag} solved notebook (submit to test the autograder)",
+                    solved.relative_to(ROOT))
+
     dist = ROOT / "private" / "build" / tag / "dist" / "autograder"
     zips = sorted(dist.glob("*.zip")) if dist.is_dir() else []
     rep.add(OK if zips else FAIL, f"{tag} autograder zip",

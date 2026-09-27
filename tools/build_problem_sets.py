@@ -22,6 +22,7 @@ Usage:
     python tools/build_problem_sets.py ps01      # one
 """
 import importlib.util
+import copy
 import shutil
 import shutil as _shutil
 import subprocess
@@ -192,6 +193,8 @@ def build_one(name):
     dest.write_text(nbf.writes(student_nb))
     print(f"student {dest.relative_to(ROOT)}   [COMMITTED]")
 
+    write_solved(name, dist, student_nb, workdir)
+
     verify_solutions(dist / "autograder" / f"{name}.ipynb",
                      html_out=workdir / f"{name}-SOLUTIONS.html")
 
@@ -199,6 +202,47 @@ def build_one(name):
     for z in zips:
         print(f"gradescope bundle  {z.relative_to(ROOT)}   [upload this]")
     return True
+
+
+def write_solved(name, dist, student_nb, workdir):
+    """Emit the one artifact that can actually test the Gradescope autograder.
+
+    WHY THIS EXISTS (26 September 2026). The release ritual says "submit the
+    solution notebook and confirm full marks", and until tonight there was
+    nothing in the repo you could submit. Neither notebook works alone:
+
+      * the MASTER (private/sources/psNN.py -> the built master .ipynb) has the
+        answers but no `metadata.otter`, so otter rejects it before running a
+        single test --
+            OtterRuntimeError: Received submission for assignment 'None'
+        which reads like a broken autograder and is not one.
+      * the STUDENT notebook has `otter.assignment_name` and the whole test
+        block, and no answers, so it cannot score full marks.
+
+    otter's own solutions notebook, dist/autograder/<name>.ipynb, has the
+    answers and is deleted as soon as the zip is built -- so it has to be
+    captured here, mid-build, and stamped with the student notebook's identity.
+
+    The result is private (it is an answer key) and is what a human uploads to
+    Gradescope to prove the autograder scores what the coverage matrix claims.
+    """
+    src = dist / "autograder" / f"{name}.ipynb"
+    solved = nbf.read(str(src), as_version=4)
+    # Identity from the student copy, answers from otter's. Taking the whole
+    # `otter` block, not just assignment_name, keeps the test metadata in step
+    # with whatever the student actually receives.
+    solved["metadata"]["otter"] = copy.deepcopy(student_nb["metadata"]["otter"])
+    for i, cell in enumerate(solved.cells):
+        cell["id"] = f"c{i:03d}"
+    out = workdir / f"{name}-solved.ipynb"
+    out.write_text(nbf.writes(solved))
+    got = solved["metadata"]["otter"].get("assignment_name")
+    if got != name:
+        sys.exit(f"{name}: solved notebook carries assignment_name {got!r}, "
+                 f"expected {name!r} -- Gradescope would reject it")
+    print(f"solved  {out.relative_to(ROOT)}   [PRIVATE -- submit this to test "
+          f"the autograder]")
+    return out
 
 
 def verify_solutions(nb_path, html_out=None):
