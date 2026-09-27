@@ -147,9 +147,9 @@ and only then is $Z$ released. So
 $$t_D = \alpha_y^{-1}\ln\!\left[\frac{Y_{\max}}{K_{yz}}\right],$$
 
 which runs to infinity as $K_{yz} \to 0$ instead of hitting a wall at
-$Y_{\max}$. There is no ceiling to saturate against, and the soft gate no longer
-fights you — it is working on a decaying exponential, not on the approach to a
-plateau. Simulated at $H = 2$ with the same parts:
+$Y_{\max}$. There is no ceiling, and the soft gate no longer fights you — it is
+working on a decaying exponential rather than on the approach to a plateau.
+At $H = 2$ with the same parts:
 
 | $K_{yz}$ | 0.5 | 0.2 | **0.168** | 0.1 | 0.05 |
 |---|---|---|---|---|---|
@@ -159,8 +159,8 @@ plateau. Simulated at $H = 2$ with the same parts:
 $K_{yz} \approx 0.17$ gives exactly one hour at 30-minute lifetimes, with the
 shut-off still immediate. No cooperative activator required.
 
-**The design reading, and it is the point of the item.** Both circuits delay.
-What separates them is *which side of the threshold the delay is built on*:
+**The design reading, and the point of the item.** Both delay. What separates
+them is *which side of the threshold the delay is built on*:
 
 - Type 1 waits for $Y$ to **climb** to $K_{yz}$. The climb is bounded by
   $Y_{\max}$, so the threshold you can usefully set is bounded too, and a soft
@@ -169,24 +169,19 @@ What separates them is *which side of the threshold the delay is built on*:
   floor, so the threshold can go as low as you can build it. **Cooperativity is
   a luxury.**
 
-That is a sharper statement than "you need a cooperative repressor," and it
-generalizes: whenever a timer is built out of a concentration crossing a
-threshold, ask whether it is approaching a ceiling or leaving one. Thursday's
-engineerability conclusion still stands for type 1 — the parameter the design
-most depends on is the one you buy by choosing a protein — but the right
-first move is to check whether you have to be in that regime at all.
+That generalizes: whenever a timer is a concentration crossing a threshold, ask
+whether it is approaching a ceiling or leaving one. Thursday's engineerability
+conclusion still stands for type 1, but the first move is to check whether you
+have to be in that regime at all.
 
-*Marking:* full credit for either answer, argued. A student who reaches type 4
-and sees why it escapes the ceiling has done something this session did not do
-from the front, and should be told so. A student who answers type 1 and reports
-the ceiling honestly has done exactly what item 2 trained them to do.
+*Marking:* full credit for either answer, argued — type 1 with the ceiling
+reported honestly is exactly what item 2 trained them to do, and type 4 is
+something this session never did from the front.
 
-**Why you rarely see type 4 in the wild.** Mangan & Alon count 1 in *E. coli*
-and 0 in yeast, against 28 and 26 for type 1. Their argument is evolutionary,
-not engineering (p. 11984): types 3 and 4 need $X$ to act with opposite signs on
-$Y$ and $Z$, which is "well established" as biologically feasible but leaves the
-circuit with less steady-state function. Rare is not the same as unbuildable,
-and this is a course about building.
+**Why type 4 is rare in the wild.** Mangan & Alon count 1 in *E. coli* and 0 in
+yeast, against 28 and 26 for type 1. Their argument is evolutionary, not
+engineering (p. 11984): types 3 and 4 leave the circuit with less steady-state
+function. Rare is not unbuildable, and this is a course about building.
 
 One part of the specification is free in both answers: with an AND gate the
 shut-off is immediate, which is what was asked. An OR gate would have given you a
