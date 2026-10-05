@@ -338,6 +338,7 @@ readings:
       url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC552778/"
       pages: 6
       required: true
+      slide_focus: "Fig. 2A and 2B: each added stage sharpens the switch, and what it costs."
       focus: >-
         Figure 2A -- the transfer curves for one-, two- and three-stage cascades
         and their fitted Hill coefficients of 2.3, 7.0 and 7.5. Come able to say
@@ -356,6 +357,7 @@ readings:
       url: "https://doi.org/10.1038/nature12148"
       pages: 5
       required: false
+      slide_focus: "Fig. 1d: a Hill curve against a circuit that stays logarithmic for three decades."
       focus: >-
         Figure 1d, two curves on the same axes. The open-loop circuit is a Hill
         function, and on a log axis a Hill function is a straight line for only

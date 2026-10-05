@@ -434,3 +434,41 @@ potvintrottier2016_fig3a:
     2x range of division times. Division times are 27, 40 and 59 min at the
     three temperatures and 44 min in conditioned media, so the period tracks
     the generation, not the clock on the wall.
+
+# --- Elowitz, Levine, Siggia & Swain, Science 297:1183-1186 (2002) -----------
+# "Stochastic gene expression in a single cell"   doi:10.1126/science.1070919
+
+elowitz2002_fig3a:
+  figure: "Fig. 3A"
+  shows: "normalized YFP against CFP per cell for a quiet strain (M22) and a noisy one (D22); spread across the diagonal is intrinsic noise, spread along it extrinsic"
+  used_in: ["s12"]
+  provenance: "cropped from page 3 of private/readings/Session 12 - elowitz-2002-stochastic-gene-expression-in-a-single-cell.pdf at 220 dpi, box (0.060,0.228)-(0.512,0.472) in page fractions."
+  note: >-
+    The decomposition picture. The reading focus originally pointed students at
+    Fig. 2, which is micrographs; corrected 4 Oct 2026. The estimator algebra is
+    in their SOM and in Swain, Elowitz & Siggia, PNAS 2002 -- not in this paper.
+
+# --- Becskei & Serrano, Nature 405:590-593 (2000) ---------------------------
+# "Engineering stability in gene networks by autoregulation"   doi:10.1038/35014651
+
+becskei2000_fig3a:
+  figure: "Fig. 3a"
+  shows: "coefficient of variation Vc (%) for the autoregulated TetR-EGFP circuit (A, about 6%) against three unregulated controls (B chromosomal TetR, C operator-replaced + IPTG, D Y42A mutant repressor, about 21-24%)"
+  used_in: ["s12"]
+  provenance: "cropped from page 3 of private/readings/Session 12 - becskei-serrano-2000-engineering-stability-by-autoregulation.pdf at 220 dpi, box (0.515,0.052)-(0.672,0.198) in page fractions."
+  note: >-
+    Read the bars against the text on p. 592: at MATCHED mean the operator-
+    replaced control is ~20% against ~6%, but that matched sample was taken
+    shortly after induction, i.e. during a transient, which inflates the
+    unregulated system's noise. The mutant (D) is not at matched mean: its
+    relative mean is 38 (Fig. 2b).
+
+elowitz2002_fig2ab:
+  figure: "Fig. 2A-B"
+  shows: "CFP (green) and YFP (red) merged: RP22 repressed by LacI, cells red, green and yellow; the same strain with 2 mM IPTG, nearly all yellow"
+  used_in: ["s12"]
+  provenance: "cropped from page 2 of private/readings/Session 12 - elowitz-2002-stochastic-gene-expression-in-a-single-cell.pdf at 220 dpi, box (0.362,0.586)-(0.703,0.720) in page fractions."
+  note: >-
+    The artifact surface uses this rather than Fig. 3A, because Fig. 3A carries
+    the paper's own 'Intrinsic' and 'Extrinsic' arrows, which answer the room's
+    argue questions before they are asked. Fig. 3A belongs on the sorted surface.

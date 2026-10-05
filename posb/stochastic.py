@@ -175,8 +175,9 @@ def nar_fano_lna(n, x_over_K):
     Fano = 1 / (1 + g), with g = n u^n / (1 + u^n) and u = x/K at the steady
     state — the logarithmic sensitivity of the production rate, which is the
     same loop gain that set the repressilator's boundary in session 11.
-    Protein-only: bursting reduces the benefit, and no feedback on X touches
-    extrinsic noise.
+    Protein-only, and intrinsic noise only: bursting reduces the benefit. Slow
+    extrinsic changes in the gene's own rates are buffered more strongly,
+    d ln x*/d ln beta = 1/(1 + g), i.e. by 1 + g in CV rather than sqrt(1 + g).
     """
     u = np.asarray(x_over_K, dtype=float)
     g = n * u ** n / (1.0 + u ** n)

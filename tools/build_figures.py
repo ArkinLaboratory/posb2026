@@ -56,7 +56,8 @@ MODULES = ["figures.s01_specification", "figures.s02_substrate",
            "figures.s05_expression", "figures.s06_promoter_occupancy",
            "figures.s07_autoregulation", "figures.s08_phase_plane",
            "figures.s09_bistability",
-           "figures.s10_feedforward", "figures.s11_oscillators"]
+           "figures.s10_feedforward", "figures.s11_oscillators",
+           "figures.s12_noise"]
 
 # Slow to render (video encoding), so not built unless asked for by name.
 SLOW = ["figures.s02_movie"]

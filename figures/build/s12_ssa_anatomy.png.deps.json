@@ -1,0 +1,11 @@
+{
+  "artifact": "s12_ssa_anatomy.png",
+  "artifact_sha256": "c350edd4163f41d1878105d32ed76bd55648b4bb2be1246cd8182bf9ecdde253",
+  "artifact_content": "1410026aa125c33ecd94c2a083f0b0d47feaa258867503ee7204a50869dc9aab",
+  "artifact_bytes": 79156,
+  "deps": {
+    "figures/s12_noise.py": "a72630277ea68c49921ff053faba5a5037ccf20aafc8eeb0c3a1f4f903bbe283",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s12_noise.fig_ssa_anatomy"
+}

@@ -48,7 +48,7 @@ fix is a decision, not an edit. **There are none open.**
 | T14 | **Derive** activator, repressor, and AND-like regulation functions | S6 | PS3, Mid | HAND |
 | T15 | **Derive** the negative-autoregulation speed-up | S7 (Sep 17) | PS3, Mid | HAND |
 | T16 | Positive autoregulation → graphical bistability condition | S7 | PS3 | MIX |
-| T17 | Variance reduction under NAR (measured, not asserted) | S7 (stated); **S12 owes the worked comparison** | **PS6** | MIX |
+| T17 | Variance reduction under NAR (measured, not asserted) | S7 (stated); **S12 (worked comparison, 6 Oct)** | **PS6** | MIX |
 | T18 | Compute and plot nullclines for a 2-D system | S8 (Sep 22) | PS4, Mid | MIX |
 | T19 | Find fixed points — analytically and by numerical root-finding | S8 | PS4, Mid | AUTO |
 | T20 | Jacobian, eigenvalues, linear stability classification | S8 | PS4, Mid | AUTO |
@@ -153,7 +153,7 @@ With T32 (Gillespie) and T33 (CV and Fano) in hand, PS6 can assess T17 properly:
 
 **The cost, stated:** five weeks between demonstration and assessment, so the session-7 statement must be recoverable from the deck and notes alone in late October.
 
-**The obligation this creates, and it is binding.** Session 12 is not yet authored. When it is, it **must** carry a worked NAR-versus-constitutive variance comparison — matched mean, two CVs, Becskei & Serrano as the measurement — or T17's PS6 item has no demonstration within reach of it and this move has made the contract worse, not better. Written here because this is the document that gets audited before a set is released. *(Status: owed. S12 deck does not exist as of 14 September.)*
+**The obligation this creates, and it is binding.** Session 12 is not yet authored. When it is, it **must** carry a worked NAR-versus-constitutive variance comparison — matched mean, two CVs, Becskei & Serrano as the measurement — or T17's PS6 item has no demonstration within reach of it and this move has made the contract worse, not better. Written here because this is the document that gets audited before a set is released. *(Status: demonstrated in S12, 6 October: matched mean of 100, Fano 0.98 → 0.33 and CV 0.100 → 0.058 at n = 4, Becskei & Serrano Fig. 3a as the measurement. `decks/s12_noise.py`, NAR run.)*
 
 ### 3. Sessions 27–28 are assessed only on the final
 
