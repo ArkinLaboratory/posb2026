@@ -438,11 +438,19 @@ potvintrottier2016_fig3a:
 # --- Elowitz, Levine, Siggia & Swain, Science 297:1183-1186 (2002) -----------
 # "Stochastic gene expression in a single cell"   doi:10.1126/science.1070919
 
+elowitz2002_fig3:
+  figure: "Fig. 3"
+  shows: "the whole of Fig. 3: (A) YFP against CFP per cell for M22 and D22; (B, C) noise against transcription rate with the eta_int^2 = c1/m + c2 fit"
+  used_in: ["s12"]
+  provenance: "cut from page 3 of private/readings/Session 12 - elowitz-2002-stochastic-gene-expression-in-a-single-cell.pdf at 220 dpi, box (0.060,0.228)-(0.960,0.700) in page fractions. Tracked; panels are derived from it."
+
 elowitz2002_fig3a:
   figure: "Fig. 3A"
+  derived_from: elowitz2002_fig3
+  crop: [0, 0, 845, 591]
   shows: "normalized YFP against CFP per cell for a quiet strain (M22) and a noisy one (D22); spread across the diagonal is intrinsic noise, spread along it extrinsic"
   used_in: ["s12"]
-  provenance: "cropped from page 3 of private/readings/Session 12 - elowitz-2002-stochastic-gene-expression-in-a-single-cell.pdf at 220 dpi, box (0.060,0.228)-(0.512,0.472) in page fractions."
+  provenance: "panel A of elowitz2002_fig3, pixel box [0, 0, 845, 591]; equivalently page 3 at 220 dpi, (0.060,0.228)-(0.512,0.472)."
   note: >-
     The decomposition picture. The reading focus originally pointed students at
     Fig. 2, which is micrographs; corrected 4 Oct 2026. The estimator algebra is
@@ -451,11 +459,19 @@ elowitz2002_fig3a:
 # --- Becskei & Serrano, Nature 405:590-593 (2000) ---------------------------
 # "Engineering stability in gene networks by autoregulation"   doi:10.1038/35014651
 
+becskei2000_fig3:
+  figure: "Fig. 3"
+  shows: "(a) Vc for the autoregulated circuit and three controls; (b) Vc over four hours after induction"
+  used_in: ["s12"]
+  provenance: "cut from page 3 of private/readings/Session 12 - becskei-serrano-2000-engineering-stability-by-autoregulation.pdf at 220 dpi, box (0.515,0.045)-(0.905,0.207) in page fractions. Tracked; panels are derived from it."
+
 becskei2000_fig3a:
   figure: "Fig. 3a"
+  derived_from: becskei2000_fig3
+  crop: [0, 17, 286, 366]
   shows: "coefficient of variation Vc (%) for the autoregulated TetR-EGFP circuit (A, about 6%) against three unregulated controls (B chromosomal TetR, C operator-replaced + IPTG, D Y42A mutant repressor, about 21-24%)"
   used_in: ["s12"]
-  provenance: "cropped from page 3 of private/readings/Session 12 - becskei-serrano-2000-engineering-stability-by-autoregulation.pdf at 220 dpi, box (0.515,0.052)-(0.672,0.198) in page fractions."
+  provenance: "panel a of becskei2000_fig3, pixel box [0, 17, 286, 366]."
   note: >-
     Read the bars against the text on p. 592: at MATCHED mean the operator-
     replaced control is ~20% against ~6%, but that matched sample was taken
