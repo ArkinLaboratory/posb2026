@@ -125,9 +125,13 @@ def _levels(ax, sender, receiver, title):
 
 
 def fig_self_match():
-    """The n = 2 gate driving an identical gate: as built, then retuned."""
+    """The n = 2 gate driving an identical gate: as built, then retuned.
+
+Both panels on one surface: as built it fails, retuned it works.
+    """
     lo, hi = rbs_window(GATE, GATE)
     mid = GATE.scaled(np.sqrt(lo * hi))
+
     fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.8))
     _levels(axes[0], GATE, GATE, "as built: y_max = 10 K")
     _levels(axes[1], mid, mid, f"RBS x{np.sqrt(lo * hi):.2f}: y_max = {mid.y_max:.1f} K")
@@ -167,7 +171,7 @@ def fig_cascade():
     fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.4))
     a = Repressor(0.1, 10.0, 1.0, 2.0)
     for ax, (b, title) in zip(axes, [
-            (Repressor(0.1, 10.0, 1.0, 2.0), "second stage centred on the first's swing"),
+            (Repressor(0.1, 10.0, 1.0, 2.0), "second stage centered on the first's swing"),
             (Repressor(0.1, 10.0, 30.0, 2.0), "second stage's K 30x too high")]):
         y1 = a(XS)
         z = b(y1)
@@ -187,43 +191,11 @@ def fig_cascade():
 # ---------------------------------------------------------------------------
 # 4. The analog half: how wide is a logarithm?
 # ---------------------------------------------------------------------------
-def fig_loglinear():
-    """Slope on a log axis, d y/d ln x, for Hill curves and for ln(1 + x)."""
-    xs = np.logspace(-3, 4, 800)
-    fig, axes = plt.subplots(1, 2, figsize=(10.8, 4.4))
-    ax = axes[0]
-    for n, c in [(1, TEAL), (2, CYAN), (4, AMBER)]:
-        y = xs ** n / (1 + xs ** n)
-        ax.semilogx(xs, y, color=c, lw=2.8, label=f"Hill, n = {n}")
-    ax.semilogx(xs, np.log1p(xs) / np.log1p(xs[-1]), color=RED, lw=2.8,
-                ls="--", label="ln(1 + x), scaled")
-    ax.set_xlabel("input  x")
-    ax.set_ylabel("output (scaled to 1)")
-    ax.set_title("on a log axis")
-    ax.legend(loc="upper left", fontsize=12)
-    ax = axes[1]
-    for n, c in [(1, TEAL), (2, CYAN), (4, AMBER)]:
-        y = xs ** n / (1 + xs ** n)
-        s = n * y * (1 - y)
-        ax.semilogx(xs, s / s.max(), color=c, lw=2.8,
-                    label=f"n = {n}: {loglinear_range_hill(n):.1f}-fold")
-    s = xs / (1 + xs)
-    ax.semilogx(xs, s, color=RED, lw=2.8, ls="--", label="ln(1 + x): no ceiling")
-    ax.axhline(0.75, color=MUTED, lw=1.2, ls=":")
-    ax.set_ylim(0, 1.1)
-    ax.set_xlabel("input  x")
-    ax.set_ylabel("slope on a log axis, scaled")
-    ax.set_title("where it is a straight line")
-    ax.legend(loc="upper left", fontsize=12)
-    ax.set_ylim(0, 1.6)
-    _save(fig, "s13_loglinear")
-
-
 def fig_loglinear_panels():
-    """The two halves of fig_loglinear sized for the split surface."""
+    """Hill curves against ln(1 + x), and where each is a straight line."""
     xs = np.logspace(-3, 4, 800)
     fig, ax = plt.subplots(figsize=(5.4, 4.6))
-    for n, c in [(1, TEAL), (2, CYAN)]:
+    for n, c in [(1, TEAL), (2, CYAN), (4, AMBER)]:
         y = xs ** n / (1 + xs ** n)
         ax.semilogx(xs, y, color=c, lw=2.8, label=f"Hill, n = {n}")
     ax.semilogx(xs, np.log1p(xs) / np.log1p(xs[-1]), color=RED, lw=2.8,
@@ -235,11 +207,11 @@ def fig_loglinear_panels():
     _save(fig, "s13_loglin_p1")
 
     fig, ax = plt.subplots(figsize=(5.4, 4.6))
-    for n, c in [(1, TEAL), (2, CYAN)]:
+    for n, c in [(1, TEAL), (2, CYAN), (4, AMBER)]:
         y = xs ** n / (1 + xs ** n)
         sl = n * y * (1 - y)
         ax.semilogx(xs, sl / sl.max(), color=c, lw=2.8,
-                    label=f"n = {n}: {loglinear_range_hill(n):.0f}-fold")
+                    label=f"n = {n}: {loglinear_range_hill(n):.1f}-fold")
     ax.semilogx(xs, xs / (1 + xs), color=RED, lw=2.8, ls="--",
                 label="ln(1 + x): no ceiling")
     ax.axhline(0.75, color=MUTED, lw=1.4, ls=":")
@@ -252,7 +224,7 @@ def fig_loglinear_panels():
 
 
 FIGURES = [fig_gain_steps, fig_self_match, fig_rbs_window, fig_cascade,
-           fig_loglinear, fig_loglinear_panels]
+           fig_loglinear_panels]
 
 
 if __name__ == "__main__":

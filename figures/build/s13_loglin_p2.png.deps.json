@@ -1,10 +1,10 @@
 {
   "artifact": "s13_loglin_p2.png",
-  "artifact_sha256": "eed429c2c5ac6cf7d6fe1084387854568c187aa4e1551766769593a47275776c",
-  "artifact_content": "161add7de3166f49358414fba23939dd3559abd887377cac372ac8e8b4333bac",
-  "artifact_bytes": 87119,
+  "artifact_sha256": "c5eade78790d18e9625b54b3d69d80e76deefaf522cfd6cfef67d408e5f8790d",
+  "artifact_content": "2e7a5bb9bec5e3e6a8b1fdcb18858e437396fb0d186fb1c1ad0ed8a1761d01af",
+  "artifact_bytes": 97048,
   "deps": {
-    "figures/s13_digital.py": "496f6c4dd87c3a298cffa27e92f3a6454550cc4b937133a5ae2748e00bffcbe0",
+    "figures/s13_digital.py": "f20b2b66a1c45a3ec256c23d7c7be7c612c9c0022d8265cc85702bfc63206b7f",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s13_digital.fig_loglinear_panels"

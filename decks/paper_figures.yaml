@@ -574,6 +574,6 @@ nielsen2016_fig2:
 nielsen2016_fig2b:
   figure: "Fig. 2B"
   derived_from: nielsen2016_fig2
-  crop: [0, 430, 830, 712]
+  crop: [0, 430, 772, 712]
   shows: "the orange gate (PhlF) has a large dynamic range that spans the threshold of the purple gate (BetI); in the reverse order the gates do not functionally connect"
   used_in: ["s13"]

@@ -24,7 +24,13 @@ expect. **POINT**: turn and point at the board rather than the screen.
 Leave these up from the start. The first six surfaces finish Thursday and lean
 on them.
 
-$$g = \frac{n\,x^{n}}{1+x^{n}} = 2 \qquad\qquad \alpha_c = \left(\frac{2}{n-2}\right)^{1/n}\frac{n}{n-2}$$
+$$g = \frac{n\,u^{n}}{1+u^{n}} = 2, \quad u = \frac{x}{K}
+\qquad\qquad \alpha_c = \left(\frac{2}{n-2}\right)^{1/n}\frac{n}{n-2}$$
+
+Session 11 wrote this with $x$, because its $x$ was already in units of $K$.
+Today's $x$ is a molecule count, so the $u$ is not decoration: at a mean of 100
+with $K = 100$, $u = 1$ and $g = 1.5$ at $n = 3$, where reading $x$ literally
+would give 3.
 
 Underneath, smaller: **a clock needs gain and delay.**
 
@@ -38,10 +44,13 @@ diagonal; private causes (which polymerase arrived, when an mRNA decayed) across
 it.
 
 **ASK at 31, before the sorted surface:** *which of these would still be there
-with a perfect microscope?* All of them. Uncorrelated measurement error would
-also spread points across the diagonal and pass for intrinsic noise, which is
-why Elowitz checked that the two colours had equivalent intensity
-distributions before measuring anything (p. 1184).
+with a perfect microscope?* All of them — but note what the plot cannot do:
+uncorrelated read noise in the two channels also spreads points across the
+diagonal and is counted as intrinsic. Nothing on this scatter separates the
+two, which is why the noise floor has to be measured separately (their
+supplement). What the main text does report is the prerequisite for the
+estimator at all: the two reporters gave statistically equivalent intensity
+distributions (p. 1184).
 
 <div class="rule"></div>
 
@@ -93,11 +102,11 @@ should see it built.
 ```python
 import numpy as np
 rng = np.random.default_rng(0)
-k, g, T = 10.0, 1.0, 5000.0
+k, gam, T = 10.0, 1.0, 5000.0
 t, n = 0.0, 0
 ts, ns = [0.0], [0]
 while True:
-    a = np.array([k, g * n])
+    a = np.array([k, gam * n])
     a0 = a.sum()
     tau = -np.log(rng.random()) / a0
     if t + tau > T:
@@ -145,10 +154,13 @@ $$\frac{2\gamma x}{2\gamma(1+g)} \quad\Longrightarrow\quad \text{Fano} = \frac{1
 
 In this order, last first:
 
-1. The Becskei slide's fine print. Keep the number, say "measured during a
-   transient" in one breath.
+1. The Becskei slide's fine print. Keep the threefold — it is the chromosomal
+   control, which is not the transient one — and drop the comparison with our
+   1.7-fold.
 2. The event-average half of the live code.
-3. Item 4 on the handout. Items 1–3 cover T31, T35 and T17.
+3. Item 4 on the handout. Items 1–3 cover T31, T35 and T17 — but item 4 is the
+   only student practice on the sum of squares before PS6, so say the identity
+   out of the deck rather than leaving it stated and unused.
 
 **Never cut** the sweep surface (PS5 Q5a–b is due Thursday), the ladder, or the
 NAR run (T17 is owed to PS6 and has no other demonstration).

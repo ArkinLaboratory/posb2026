@@ -6,7 +6,7 @@ Thursday), the n <= 2 wall, and delay (T30, also owed to the midterm).
 Potvin-Trottier is the bridge -- a paper about removing noise sources one at a
 time from a circuit our deterministic model says is fine.
 
-Then the session proper, artifact first: Elowitz 2002's two colours in one
+Then the session proper, artifact first: Elowitz 2002's two colors in one
 cell; the master equation for birth-death, derived to the Poisson; bursting as
 one surface; Gillespie derived on the board and live-coded; and T17 -- negative
 autoregulation against a constitutive gene at matched mean, with Becskei &
@@ -171,7 +171,7 @@ def build():
     d.notes(s, "One surface where Thursday had two. The detective story in one "
                "breath: change 1 was the obvious one and worked; change 2 was "
                "predicted to fix the period noise and did not; change 3 came from "
-               "measuring where the noise was, with three colours, and found it "
+               "measuring where the noise was, with three colors, and found it "
                "in the interval where TetR was low.\n"
                "The sponge is an addition, and a re-introduction -- the removed "
                "reporter plasmid already carried TetR sites. Their abstract's "
@@ -184,11 +184,11 @@ def build():
     # 8 THE ARTIFACT — ELOWITZ 2002 -------------------------------------------
     s = d.light()
     d.header(s, "21 – 25 min", "The artifact")
-    d.title(s, "Elowitz et al., Science 2002 — two colours, one cell")
+    d.title(s, "Elowitz et al., Science 2002 — two colors, one cell")
     d.rows(s, [
         ("The construct", "One promoter, two copies in the chromosome: one drives CFP, one YFP."),
         ("Held equal", "Same cell; loci equidistant from, and on opposite sides of, the origin."),
-        ("Measured", "Both colours in every cell. Green CFP and red YFP, merged."),
+        ("Measured", "Both colors in every cell. Green CFP and red YFP, merged."),
         ("What you see", "Repressed: red, green and yellow. Induced: almost all yellow.")],
         top=1.90, bottom=6.30, label_w=2.30, right=6.70)
     d.paper_figure(s, "elowitz2002_fig2ab", 6.95, 1.85, 5.65, 3.40,
@@ -212,9 +212,9 @@ def build():
     # 9 ARGUE -----------------------------------------------------------------
     s = d.dark()
     d.header(s, "25 – 31 min", "Argue it out  ·  groups of 3–4")
-    d.title(s, "Same promoter, same cell. Why are the colours different?")
+    d.title(s, "Same promoter, same cell. Why are the colors different?")
     d.rows(s, [
-        ("Name two things that would make BOTH colours brighter in one cell than its neighbour. Then one thing that would make one brighter and not the other.", None),
+        ("Name two things that would make BOTH colors brighter in one cell than its neighbour. Then one thing that would make one brighter and not the other.", None),
         ("On the plot, which direction does each of your answers move a point — along the diagonal, or across it?", None),
         ("Repress both promoters until the cells make 3% as much protein. Which kind of spread grows, and why?", None)],
         top=2.05, bottom=6.35, side=False, numbered=True,
@@ -254,8 +254,8 @@ def build():
                "12 at intensity 0.18, against about 8 that their own Fig. 3B fit "
                "(c1/m + c2) predicts at that mean -- about 1.5x higher, which is "
                "their point that noise is larger on the approach to a steady "
-               "state than at one (p. 1186). Do not compare it to M22: M22 is at "
-               "intensity 1.\n"
+               "state than at one (p. 1186). M22 is at intensity 1, so it is not "
+               "the comparison to make here.\n"
                "The estimators, if asked (Swain et al. 2002): eta_int^2 = "
                "<(c1-c2)^2>/(2<c1><c2>), eta_ext^2 = (<c1 c2> - <c1><c2>)/"
                "(<c1><c2>). They are what produced the numbers on our plot.\n"
@@ -473,7 +473,7 @@ def build():
     d.rows(s, [
         ("The circuit", "TetR–EGFP from a promoter carrying tet operators: it represses itself. Controls break the loop three ways.", TEAL),
         ("Their argument", "Deterministic: the self-repressed gene relaxes about twice as fast. Today’s step 3.", TEAL),
-        ("The number", "Vc 6–9% with feedback; at equal mean, about threefold higher without (p. 592).", AMBER),
+        ("The number", "Vc 6–9% with feedback (p. 591); at equal mean, about threefold higher without (p. 592).", AMBER),
         ("⚠ More than our model allows", "Intrinsic noise alone, at g ≈ 2, cuts CV by √3 ≈ 1.7. Buffering slow extrinsic change cuts it by 1 + g.", RED)],
         top=1.70, bottom=6.45, side=False, pad=0.02, gap=0.08,
         left=4.90, right=12.63, label_color=INK)
@@ -493,7 +493,7 @@ def build():
                "polymerase, ribosomes and plasmid copy -- extrinsic -- and "
                "feedback buffers slow changes in its own rates by the full "
                "1 + g in CV (d ln x*/d ln beta = 1/(1 + g)). That last step is "
-               "ours, not theirs; say so.\n"
+               "ours, not theirs, and the slide says so.\n"
                "Their mutant D is not at matched mean -- its relative mean is 38 "
                "(Fig. 2b).")
 

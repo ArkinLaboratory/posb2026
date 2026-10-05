@@ -67,9 +67,9 @@ fix is a decision, not an edit. **There are none open.**
 | T33 | Compute CV and Fano factor from trajectories | S12 | PS6, Final | AUTO |
 | T34 | Intrinsic vs. extrinsic noise decomposition (two-colour logic) | S12 | PS6 | HAND |
 | T35 | Bursting: burst size and frequency from parameters | S12 | PS6 | AUTO |
-| T36 | Transfer curve and gain, d*out*/d*in* | S13 (Oct 8) | PS6, Mid | AUTO |
-| T37 | Threshold and noise-margin computation | S13 | PS6, Mid | AUTO |
-| T38 | **Numeric signal matching between two measured gates** | S13 | PS6, Mid | AUTO |
+| T36 | Transfer curve and gain, **d ln out / d ln in** | S13 (Oct 8) | PS6 | AUTO |
+| T37 | Threshold and noise-margin computation | S13 | PS6 | AUTO |
+| T38 | **Numeric signal matching between two measured gates** | S13 | PS6 | AUTO |
 
 ## Part II — Engineering Design
 
@@ -135,6 +135,14 @@ demonstrated in **S13 (Oct 8)** and all assessed on **"PS6, Mid"**. Identical
 calendar, identical failure: demonstrated Oct 8, examined Oct 15, practised
 Oct 29. §1 did not catch it, and S13 is also the session that grew a second half
 on 20 September and the last content session before review and exam.
+
+**T36's wording, settled 4 October.** The row said *d out/d in*. Session 13
+teaches the **log slope**, d ln y/d ln x, because input and output are different
+molecules and a linear slope changes with the units chosen; Daniel et al. (2013,
+p. 623) call the same quantity sensitivity. The row is reworded, and the
+midterm is dropped from T36–T38's assessment column: §1b already resolved that
+no numeric signal matching is examinable, so "PS6, Mid" licensed an exam item
+the scope document forbids.
 
 **The fix is §1's, applied twice.** The S13 notebook ships the same
 self-checking, ungraded exercise — signal matching between two measured gates,

@@ -40,8 +40,8 @@ Fig. 3A and Table 1 on 4 October. The estimator algebra is in their supplement
 and in Swain, Elowitz & Siggia, PNAS 2002, not in this paper.
 
 **The measurement for T17: Becskei & Serrano, *Nature* 2000.** Not assigned.
-TetR–EGFP repressing itself: Vc 6–9% with feedback, about threefold higher
-without at equal mean (p. 592). One of their two equal-mean controls was sampled
+TetR–EGFP repressing itself: Vc 6–9% with feedback (p. 591), about threefold
+higher without at equal mean (p. 592). One of their two equal-mean controls was sampled
 during a transient; the other (chromosomal TetR) was not, and it still shows the
 threefold. That is more than our protein-only result allows (√(1+g) in CV,
 about 1.7 at g ≈ 2). Buffering of slow extrinsic change, which feedback cuts by
@@ -56,7 +56,7 @@ about 1.7 at g ≈ 2). Buffering of slow extrinsic change, which feedback cuts b
 | 8–17 | **Thursday, finished** | the sweep (PS5 Q5a); the n ≤ 2 wall; delay (T30) |
 | 17–21 | The bridge | Potvin-Trottier: every fix acted on the last few molecules |
 | 21–25 | **The artifact** | Elowitz 2002, Fig. 3A |
-| 25–31 | **Argue**, groups | what moves both colours; which way on the plot; repress 30-fold |
+| 25–31 | **Argue**, groups | what moves both colors; which way on the plot; repress 30-fold |
 | 31–34 | Sorted, T34 | intrinsic and extrinsic; Table 1; they add as squares |
 | 34–36 | The object | a count, a rate as a chance, no schedule |
 | 36–46 | **Run**, T31 | master equation → flux → J₀ = 0 → Poisson → η² = 1/⟨n⟩ |

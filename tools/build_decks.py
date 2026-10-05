@@ -48,7 +48,7 @@ DECKS = ["s01_specification", "s02_substrate", "s03_modeling_i",
          "s04_modeling_ii", "s05_expression", "s08_phase_plane",
          "s06_promoter_occupancy", "s07_autoregulation",
          "s09_bistability", "s10_feedforward",
-         "s11_oscillators", "s12_noise"]
+         "s11_oscillators", "s12_noise", "s13_digital"]
 OUT = ROOT / "private" / "build" / "decks"
 
 # Inputs every deck depends on regardless of what it happens to draw. The

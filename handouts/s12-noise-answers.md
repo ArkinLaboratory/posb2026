@@ -6,6 +6,8 @@ session: 12
 
 # Four problems — answers
 
+Item 1 is worked in full on the handout.
+
 ## 2 — The same mean, made in bursts
 
 $$\text{Fano} \approx 1 + b = \mathbf{5}, \qquad
@@ -28,8 +30,12 @@ Poisson's 0.20. Going lower than that takes feedback, which is item 3.
 
 The exact two-stage result is $\text{Fano} = 1 + k_p/(\gamma_m + \gamma_p)$,
 which is $1 + b$ only when the mRNA lifetime is much shorter than the protein's.
-In session 12's simulation, $b = 10$ with mRNA ten times shorter-lived gave an
-exact Fano factor of 10.09, against $1 + b = 11$.
+For the $b = 10$ pair on the slides, with mRNA ten times shorter-lived, that
+formula gives **10.09** against $1 + b = 11$, and the simulation gave **10.3**.
+The same correction applies here: at $b = 4$ with the same lifetime ratio the
+exact value is 4.64, not 5, so $\eta$ is nearer 0.43 than 0.45. Either is a
+full answer — the handout says the mRNA is short-lived, which is the regime
+where $1 + b$ is meant to hold.
 
 ## 3 — The same gene, repressing itself
 
@@ -50,7 +56,7 @@ instead of $\gamma$. Each fluctuation lasts a shorter time, and the variance is
 the noise going in divided by twice that return rate. It is the same mechanism
 that made the self-repressed gene respond faster in session 7.
 
-Two limits, both worth saying. The result is for proteins made one at a time;
+Two limits. The result is for proteins made one at a time;
 with bursts the benefit is smaller. And the result is about intrinsic noise
 only. Slow extrinsic changes in the gene's own rates are buffered too, and more
 strongly: at steady state $\gamma x = f(x)$, so
@@ -70,14 +76,27 @@ something:
   explanation, note 13, p. 1186).
 - **M22 against M22 + repressilator.** Extrinsic noise jumps from 5.4 to 42.
   The clock moves LacI up and down in every cell, out of phase between cells, so
-  both promoters swing together — exactly what extrinsic means. Intrinsic noise
-  is 12, but the mean is lower too (intensity 0.18), so compare it with the
-  paper's own fit $\eta_{\text{int}}^2 \approx c_1/m + c_2$, which predicts
-  about 8 at that mean. About 1.5 times higher: noise is larger while a gene is
-  being switched than at a steady state (p. 1186).
-- **M22 against RP22.** The constitutive strain is the quiet baseline the paper
-  starts from: about 5% each way.
+  both promoters swing together, which is what extrinsic means. Be careful how
+  much of that jump you credit to the clock: partial repression alone puts
+  $\eta_{\text{ext}}$ in the thirties (RP22 at intensity 0.030 reads 33, MG22 at
+  0.057 reads 32), and note 13 on p. 1186 says $\eta_{\text{ext}}$ peaks at
+  intermediate induction. The repressilator strain sits at intensity 0.18,
+  which is in that range. Intrinsic noise
+  is 12, but the mean is lower too (intensity 0.18), so compare it against the
+  paper's own fit to strain M22, $\eta_{\text{int}}^2 \approx c_1/m + c_2$ with
+  $c_1 = 7\times10^{-4}$ and $c_2 = 3\times10^{-3}$ (Fig. 3B caption, p. 1185).
+  At $m = 0.18$ that predicts $\eta_{\text{int}} = 8.3\times10^{-2}$, so the
+  measured 12 is about 1.5 times higher: noise is larger while a gene is being
+  switched than at a steady state (p. 1186). Use the Fig. 3B constants, not
+  Fig. 3C's — that fit is for the noisier strain D22.
+- **M22 against RP22.** Repressing the promoter about thirtyfold raises
+  intrinsic noise from 5.5 to 25 and extrinsic from 5.4 to 33. The intrinsic
+  rise is the count law again; the extrinsic rise is LacI, which varies from
+  cell to cell and which the constitutive strain does not have at all.
 
-**The check.** RP22: $25^2 + 33^2 = 1714$, and $\sqrt{1714} = 41.4$, against
-41 in the table. RP22 + IPTG: $6.3^2 + 9.8^2 = 135.7$, $\sqrt{135.7} = 11.65$,
-against 11.7. The table rounds; the identity holds.
+**The check**, on all four rows. M22: $5.5^2 + 5.4^2 = 59.4$, $\sqrt{} = 7.71$
+against 7.7. RP22: $25^2 + 33^2 = 1714$, $\sqrt{} = 41.4$ against 41.
+RP22 + IPTG: $6.3^2 + 9.8^2 = 135.7$, $\sqrt{} = 11.65$ against 11.7.
+Repressilator: $12^2 + 42^2 = 1908$, $\sqrt{} = 43.7$ against 43 — the worst of
+the four at 1.6%, and still inside the 39–47 confidence interval the table
+prints for it. The table rounds; the identity holds.

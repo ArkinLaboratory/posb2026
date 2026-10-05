@@ -35,17 +35,24 @@ you go on.
 Take $k = 25$ per lifetime and $\gamma = 1$ per lifetime. The stationary
 distribution is Poisson, so
 
-$$\langle n\rangle = \sigma^2 = 25, \qquad \text{Fano} = 1, \qquad
-\eta = \frac{\sigma}{\langle n\rangle} = \frac{5}{25} = \mathbf{0.20}.$$
+$$\langle n\rangle = \sigma^2 = 25, \qquad
+\text{Fano} = \frac{\sigma^2}{\langle n\rangle} = 1,$$
+
+$$\eta^2 = \frac{\text{Fano}}{\langle n\rangle} = \frac{1}{25}, \qquad
+\eta = \mathbf{0.20}.$$
+
+Going through the Fano factor looks like a detour here, because it is 1. It is
+the route every other item takes, so it is worth walking once while the answer
+is known.
 
 Now double the promoter, $k = 50$. The mean doubles, $\eta^2 = 1/50$, and
-$\eta = 0.141$ — the noise falls by $\sqrt2$, not by 2. *Why does that step
+$\eta = 0.141$: the noise falls by a factor of 1.41, not 2. *Why does that step
 follow?* — because the spread of a count grows as the square root of the count,
 so the *relative* spread shrinks only as one over its square root.
 
 </div>
 
-## 2 — Last step blank: the same mean, made in bursts
+## 2 — One step given: the same mean, made in bursts
 
 <div class="q" markdown="1">
 
@@ -53,9 +60,9 @@ Keep the mean at 25 proteins, but make them from a weak promoter and a strong
 RBS: each mRNA now makes $b = 4$ proteins on average before it decays, and the
 mRNA is short-lived compared with the protein.
 
-$$\text{Fano} \approx 1 + b = \underline{\phantom{00}}, \qquad
-\eta^2 = \frac{\text{Fano}}{\langle n\rangle} = \underline{\phantom{0.000}},
-\qquad \eta = \underline{\phantom{0.000}}$$
+$$\text{Fano} \approx 1 + b = \underline{\phantom{00000}}, \qquad
+\eta^2 = \frac{\text{Fano}}{\langle n\rangle} = \underline{\phantom{000000}},
+\qquad \eta = \underline{\phantom{000000}}$$
 
 <div class="rule"></div>
 
@@ -77,29 +84,31 @@ cell-to-cell variation as possible, and what would you change to get there?
 
 <div class="pagebreak"></div>
 
-## 3 — Last two blank: the same gene, repressing itself
+## 3 — Nothing given: the same gene, repressing itself
 
 <div class="q" markdown="1">
 
 Back to one protein at a time (no bursts), now at a mean of 100. Make the gene
 repress itself with cooperativity $n = 3$, and tune the promoter so the steady
-state sits at $x = K$, i.e. $u = 1$ — the same mean as before.
+state sits at $x = K$, i.e. $u = 1$ — the same mean as the constitutive gene you
+are about to compare it with.
 
-$$g = \frac{n\,u^{n}}{1+u^{n}} = \underline{\phantom{0.0}}, \qquad
-\text{Fano} = \frac{1}{1+g} = \underline{\phantom{0.00}}$$
+$$g = \frac{n\,u^{n}}{1+u^{n}} = \underline{\phantom{00000}}, \qquad
+\text{Fano} = \frac{1}{1+g} = \underline{\phantom{00000}}$$
 
 <div class="rule"></div>
 
 Compare $\eta$ with the constitutive gene at the same mean of 100:
 
-$$\eta_{\text{constitutive}} = \underline{\phantom{0.000}}, \qquad
-\eta_{\text{self-repressed}} = \underline{\phantom{0.000}}$$
+$$\eta_{\text{constitutive}} = \underline{\phantom{000000}}, \qquad
+\eta_{\text{self-repressed}} = \underline{\phantom{000000}}$$
 
 <div class="rule"></div>
 
 *Why does that step follow?* — the feedback did not change how often molecules
 are made or destroyed. What did it change?
 
+<div class="rule"></div>
 <div class="rule"></div>
 <div class="rule"></div>
 

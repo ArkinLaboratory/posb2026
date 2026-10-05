@@ -43,7 +43,7 @@ def test_rbs_moves_outputs_not_thresholds():
 
 def test_self_matching_window_n2():
     # n = 2, 100-fold leak ratio, K = 1: an identical-gate chain matches only for
-    # y_max between about 19.8 and 50.5 (K units) -- a 2.5-fold RBS window.
+    # y_max between about 19.8 and 50.5 (K units) -- a 2.55-fold RBS window.
     g = Repressor(0.1, 10.0, 1.0, 2.0)
     lo, hi = rbs_window(g, g)
     assert np.isclose(lo * 10, 19.80, atol=0.05) and np.isclose(hi * 10, 50.5, atol=0.2)
