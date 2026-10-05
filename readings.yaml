@@ -319,9 +319,11 @@ readings:
       pages: 4
       required: true
       focus: >-
-        Figure 2 and the algebra that turns the difference between two colours in
-        one cell into intrinsic noise. Come able to say what is being held equal
-        between the two reporters, because the whole decomposition rests on it.
+        Figure 3A, where the spread across the diagonal is intrinsic noise and
+        the spread along it is extrinsic, and Table 1. Come able to say what is
+        being held equal between the two reporters, because the whole
+        decomposition rests on it. The algebra is not in the paper (it is in
+        their supplement); we do it in class.
       why: >-
         The two-colour decomposition is the session's whole apparatus and it is
         four pages -- a strain designed and built for the purpose. No free copy

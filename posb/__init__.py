@@ -16,17 +16,19 @@ analysis   Session 8.  Nullclines, fixed points, Jacobian, linear stability,
                        and the toggle bifurcation condition.
            Session 11. The repressilator, the loop gain, parameter sweeps and
                        the Hopf boundary.
+stochastic Session 12. Gillespie SSA, time-weighted averages, Fano and CV,
+                       and the birth-death, bursting and autoregulation
+                       models. You write your own SSA first.
 
 Coming later in the term
 ------------------------
-stochastic Session 12. Gillespie SSA — you write your own first.
 fba        Session 20. Flux balance analysis as a linear program.
 
 Everything here is plain NumPy and SciPy. There is no hidden solver, no
 symbolic engine, and no simulation framework. Read the source.
 """
 
-from . import data
+from . import data, stochastic
 from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,
