@@ -19,6 +19,8 @@ analysis   Session 8.  Nullclines, fixed points, Jacobian, linear stability,
 stochastic Session 12. Gillespie SSA, time-weighted averages, Fano and CV,
                        and the birth-death, bursting and autoregulation
                        models. You write your own SSA first.
+digital    Session 13. Transfer curves, log gain, unity-gain thresholds,
+                       noise margins and the RBS window for signal matching.
 
 Coming later in the term
 ------------------------
@@ -28,7 +30,7 @@ Everything here is plain NumPy and SciPy. There is no hidden solver, no
 symbolic engine, and no simulation framework. Read the source.
 """
 
-from . import data, stochastic
+from . import data, stochastic, digital
 from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,
