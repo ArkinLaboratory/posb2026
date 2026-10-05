@@ -357,10 +357,11 @@ readings:
       pages: 5
       required: false
       focus: >-
-        Figure 1 and the range over which the response is logarithmic. The Hill
-        function you derived in session 4 is a logarithm over the right range,
-        which is why a ratio needs three transcription factors and not a gate
-        array.
+        Figure 1d, two curves on the same axes. The open-loop circuit is a Hill
+        function, and on a log axis a Hill function is a straight line for only
+        about a decade. Positive feedback plus a shunt plasmid stretches that
+        straight stretch past three decades, fitted by ln(1 + x). Come able to
+        say what each of the two plasmids is for.
       why: >-
         The analog half. Required for 247, optional depth for 147: the session
         makes the argument in the room either way, and the week before the
