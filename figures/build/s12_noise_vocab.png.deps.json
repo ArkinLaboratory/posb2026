@@ -1,0 +1,11 @@
+{
+  "artifact": "s12_noise_vocab.png",
+  "artifact_sha256": "0a64c78ceff0f1b41a807ad1684bba4eca7897835b7520b6c77f59c002d11489",
+  "artifact_content": "392c01c236714abf1a4a56638f4348a2517ac65a4b652bc7d4c746fb54c3a637",
+  "artifact_bytes": 47665,
+  "deps": {
+    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s12_noise.fig_noise_vocab"
+}

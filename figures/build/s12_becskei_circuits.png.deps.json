@@ -1,0 +1,11 @@
+{
+  "artifact": "s12_becskei_circuits.png",
+  "artifact_sha256": "eb21c28174cd01530a95ad038fb282ffa40dc9f928e8932798125365e47bfcf2",
+  "artifact_content": "9e2cfa606ba34644ae8b99a5f35dde98749c4344e52735535c216022ab8c3917",
+  "artifact_bytes": 97157,
+  "deps": {
+    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s12_noise.fig_becskei_circuits"
+}

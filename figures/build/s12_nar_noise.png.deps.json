@@ -4,7 +4,7 @@
   "artifact_content": "59a5f9ca11865d3054fc1b0688f41d7fa7ab8eddbfa180eb2a55d225157bb0bf",
   "artifact_bytes": 154243,
   "deps": {
-    "figures/s12_noise.py": "a72630277ea68c49921ff053faba5a5037ccf20aafc8eeb0c3a1f4f903bbe283",
+    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s12_noise.fig_nar_noise"

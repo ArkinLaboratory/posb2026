@@ -103,3 +103,140 @@ valverde2025_s4:
     the model that produces the paper's central result, so showing it here pays
     for itself two slides later when the anomalous exponent turns out to be
     geometry.
+
+# --- Potvin-Trottier et al., Nature 538, 514-517 (2016) ---------------------
+# "Synchronous long-term oscillations in a synthetic gene circuit"
+# doi:10.1038/nature19841
+#
+# LICENCE: Nature, all rights reserved. Projecting a supplementary movie in a
+# class is ordinary educational use. Redistributing it is not, so the files
+# stay in private/paper-movies/ and out of this repository.
+#
+# ==========================================================================
+# THE MANUSCRIPT IN private/readings/ DOES NOT LIST THESE. That PDF is the PMC
+# author manuscript, and it cites exactly one video ("S Video 1", the flask
+# culture, p. 261 of the extracted text). The seven movies below are on the
+# PUBLISHED Nature page only. An agent or instructor who reads the reading
+# folder and concludes there is one movie has read a different document.
+#
+# Download (checked live 5 October 2026; each returns 200, type
+# application/octet-stream, and lands as .mov):
+#
+#   https://media.springernature.com/original/springer-static/esm/
+#     art%3A10.1038%2Fnature19841/MediaObjects/
+#     41586_2016_BFnature19841_MOESM<NN>_ESM.mov
+#
+# with <NN> = 71, 72, 73, 74, 75, 76, 77 for Movies 1-7 in order.
+#
+# EASIER ROUTE, and the one actually used: the same files are in the PMC
+# supplement for PMC5637407, named NIHMS816655-supplement-vid<N>.mov with <N>
+# the movie number, already h264 in a .mov container. Those need no re-encode,
+# only a remux:
+#
+#   ffmpeg -i NIHMS816655-supplement-vid2.mov -c:v copy -an \
+#          -movflags +faststart potvintrottier2016_s2.mp4
+#
+# From the Springer .mov, if that is what you have:
+#
+#   ffmpeg -i 41586_2016_BFnature19841_MOESM72_ESM.mov \
+#          -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" \
+#          -c:v libx264 -crf 22 -pix_fmt yuv420p -movflags +faststart \
+#          potvintrottier2016_s2.mp4
+#
+# Only s2 and s6 are placed on a slide. The other five are recorded because
+# knowing they exist is most of the work, and because s5 and s7 are the two
+# that would be reached for if the bridge surface ever grows.
+# ==========================================================================
+
+potvintrottier2016_s1:
+  movie: "Nature 2016, Supplementary Movie 1"
+  file: "41586_2016_BFnature19841_MOESM71_ESM.mov"
+  shows: >-
+    Whole flasks of liquid culture oscillating autonomously, 25 mL each, with
+    no cell-to-cell communication of any kind. The multi-reporter repressilator
+    without repressor degradation, carrying the PLtet peptide sponge (strain
+    LPT117).
+  used_in: []
+  note: >-
+    The macroscopic payoff, and the only movie the author manuscript cites
+    (as "S Video 1", with Fig. 3b). It belongs to the robustness argument at
+    the end of the paper rather than to the noise argument this session needs,
+    so it is held for a session about population-scale design.
+
+potvintrottier2016_s2:
+  movie: "Nature 2016, Supplementary Movie 2"
+  file: "41586_2016_BFnature19841_MOESM72_ESM.mov"
+  shows: >-
+    The ORIGINAL repressilator (Elowitz & Leibler's, strain NDL332) in the
+    mother machine: GFP production rate, cell by cell, over many generations.
+    It oscillates, and it loses the beat -- amplitude varies wildly, cells fall
+    out of phase with their own past, and some stop oscillating.
+  used_in: ["s12"]
+  note: >-
+    This is the BEFORE of the session's bridge, and the reason the session
+    exists. A deterministic model of this circuit, run twice, gives the same
+    trajectory forever; this movie shows what the cells actually do. Show it
+    next to s6 and say nothing for ten seconds.
+
+potvintrottier2016_s3:
+  movie: "Nature 2016, Supplementary Movie 3"
+  file: "41586_2016_BFnature19841_MOESM73_ESM.mov"
+  shows: >-
+    The chromosomally integrated repressilator with PLtet-mCherry-ASV
+    (strain LPT54). YFP oscillation in green, CFP segmentation marker in blue,
+    imaged every five minutes.
+  used_in: []
+  note: >-
+    An intermediate build: the reporter is off the plasmid but the repressors
+    still carry degradation tags. Useful only if the three fixes are taught one
+    movie at a time, which is four minutes this session does not have.
+
+potvintrottier2016_s4:
+  movie: "Nature 2016, Supplementary Movie 4"
+  file: "41586_2016_BFnature19841_MOESM74_ESM.mov"
+  shows: >-
+    The integrated repressilator with the degradation tags removed
+    (strain LPT25), oscillating steadily, with IPTG added part-way through the
+    clip.
+  used_in: []
+  note: >-
+    The IPTG perturbation mid-clip is a nice demonstration that the phase can
+    be reset, and a distraction from the noise argument.
+
+potvintrottier2016_s5:
+  movie: "Nature 2016, Supplementary Movie 5"
+  file: "41586_2016_BFnature19841_MOESM75_ESM.mov"
+  shows: >-
+    Degradation tags removed AND no titration sponge (strain LPT61). Erratic:
+    the period wanders even though every cell oscillates.
+  used_in: []
+  note: >-
+    The cleanest isolation of what the sponge buys, because it differs from
+    LPT117 in the sponge alone. The second choice for the bridge surface if
+    the point to make is specifically about the last few TetR molecules rather
+    than about the whole repair job.
+
+potvintrottier2016_s6:
+  movie: "Nature 2016, Supplementary Movie 6"
+  file: "41586_2016_BFnature19841_MOESM76_ESM.mov"
+  shows: >-
+    The finished circuit (strain LPT117): the triple-reporter repressilator,
+    tags removed, sponge present. Cells cycle red (RFP) to green (YFP) to blue
+    (CFP) and back, in order, for generation after generation.
+  used_in: ["s12"]
+  note: >-
+    The AFTER. Three colours in sequence is the one presentation of this result
+    that needs no axis explained -- the room reads it instantly, and it makes
+    the period's regularity visible as a rhythm rather than as a number. Run it
+    beside s2.
+
+potvintrottier2016_s7:
+  movie: "Nature 2016, Supplementary Movie 7"
+  file: "41586_2016_BFnature19841_MOESM77_ESM.mov"
+  shows: >-
+    The repaired circuit (strain LPT64) held in poor growth conditions at high
+    cell density. It keeps oscillating.
+  used_in: []
+  note: >-
+    The robustness claim, visually. Pairs with Fig. 3a rather than with
+    anything in this session.

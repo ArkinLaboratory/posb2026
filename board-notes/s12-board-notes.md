@@ -1,6 +1,6 @@
 <!--
 title: Session 12 — Board notes
-subtitle: Thursday's leftovers on the slides; the ladder, the exponential and the live code are the board's.
+subtitle: Thursday's leftovers on the slides; the ladder, the exponential, the live code and the return rate are the board's.
 session: 12
 -->
 
@@ -9,9 +9,10 @@ session: 12
 Print this and carry it. The deck records what is *projected*; this records what
 gets *written*, and what gets *typed*.
 
-**Three board moments.** The ladder at step 6 of the master equation, which is
-where something disappears. The exponential at step 2 of Gillespie. And the
-live code, which is the board for five minutes.
+**Four board moments.** The ladder, drawn beside the master-equation run — the
+picture the slide has only as symbols. The exponential, at step 3 of Gillespie.
+The live code. And the one-line calibration of the variance rule, before the
+feedback run spends it.
 
 **Conventions.** **ASK**: put it to the room before writing, and the answer to
 expect. **POINT**: turn and point at the board rather than the screen.
@@ -36,14 +37,18 @@ Underneath, smaller: **a clock needs gain and delay.**
 
 <div class="rule"></div>
 
-## Right wing, minutes 25–31: the group answers
+## Right wing, minutes 23–29: the group answers
 
 Draw a square with its diagonal. Write each group's answer **where it moves a
 point**: shared causes (polymerase, ribosomes, cell size, LacI) along the
 diagonal; private causes (which polymerase arrived, when an mRNA decayed) across
 it.
 
-**ASK at 31, before the sorted surface:** *which of these would still be there
+The scatter is on the screen this time, with its two directions marked **A**
+(along the diagonal) and **B** (across it) and deliberately not named. Write
+their names when the room supplies them, not before.
+
+**ASK at 29, before the sorted surface:** *which of these would still be there
 with a perfect microscope?* All of them — but note what the plot cannot do:
 uncorrelated read noise in the two channels also spreads points across the
 diagonal and is counted as intrinsic. Nothing on this scatter separates the
@@ -54,21 +59,30 @@ distributions (p. 1184).
 
 <div class="rule"></div>
 
-## Centre, at 36: the ladder
+## Centre, 37–47: the ladder
 
-The run is projected. **Draw the ladder** beside it, because it is a picture and
-the slide has it as symbols.
+The run is projected, in two parts: **37–42 builds** the equation and **42–47
+solves** it. **Draw the ladder** beside it at the start, because it is a picture
+and the slide has it as symbols, and leave it up across both parts.
 
 Rungs $0, 1, 2, 3, \ldots$ stacked vertically. Between each pair, an up-arrow
 labelled $k$ and a down-arrow labelled $\gamma n$ (with the $n$ of the upper
-rung). Then write, at step 5:
+rung). Then write, at part one's step 5:
 
 $$J_n = k\,P_{n-1} - \gamma n\,P_n$$
 
-**At step 6, POINT at the bottom rung.** Say: there is nothing below zero, so no
-traffic can cross the floor. $J_0 = 0$. Steady state makes every $J$ equal, so
-every $J$ is zero. **ASK:** *what does $J_n = 0$ let you do with $P_n$?* Solve for
-it from the rung below. Then climb:
+**Part one's step 6 is the half-minute that buys the rest.** Expand
+$J_n - J_{n+1}$ on the board and show it reproduces the master equation term for
+term. The biologists need to see it is the same equation rewritten, not a new
+one.
+
+**Part one ends with $J$ unknown.** Before turning the surface, **ASK:** *what
+could possibly pin that constant down?* Fish for the end of the ladder.
+
+**At part two's step 1, POINT at the bottom rung.** Nothing below zero, so no
+traffic can cross the floor: $J_0 = 0$, and steady state has already made every
+$J$ equal, so every $J$ is zero. **ASK:** *what does $J_n = 0$ let you do with
+$P_n$?* Solve for it from the rung below. Then climb:
 
 $$P_1 = \frac{k}{\gamma}P_0, \quad P_2 = \frac{k}{2\gamma}P_1, \quad
 P_3 = \frac{k}{3\gamma}P_2 \quad\Longrightarrow\quad
@@ -78,23 +92,43 @@ Let the factorial appear on its own. **IF ASKED** why $P_0 = e^{-k/\gamma}$: the
 probabilities sum to one, and $\sum (k/\gamma)^n/n!$ is the series for
 $e^{k/\gamma}$.
 
+**IF ASKED where the variance comes from without quoting the Poisson** — and it
+is the best question in the hour — multiply the master equation by $n$ and sum
+over all $n$. The $\langle n^2\rangle$ terms cancel between the birth and death
+sums:
+
+$$\frac{d\langle n\rangle}{dt} = k - \gamma\langle n\rangle$$
+
+which is session 5's ODE, recovered as a statement about an average. Do it again
+with $n^2$ and the $\langle n^3\rangle$ terms cancel, leaving
+$2\gamma\langle n^2\rangle = 2k\langle n\rangle + k + \gamma\langle n\rangle$,
+so $\sigma^2 = k/\gamma$. **Say that the hierarchy closing is special to a
+LINEAR birth–death** — it is the honest reason the feedback run later has to
+borrow an approximation. It is worked on the answer sheet.
+
 <div class="rule"></div>
 
-## Centre, at 49: the exponential
+## Centre, at 50: the exponential
 
-At Gillespie step 2, write:
+At Gillespie step 3, write:
 
 $$\Pr(\text{no event in } \tau) = (1 - a_0\,dt)^{\tau/dt} \;\longrightarrow\; e^{-a_0\tau}$$
 
 **ASK:** *who has seen this before?* Radioactive decay, a Poisson process, a
-memoryless wait. Then invert it: $u = e^{-a_0\tau}$, so $\tau = -\ln u / a_0$.
+memoryless wait. **Then say the sentence that is the whole explanation:** between
+events nothing about the system changes, so the chance of something happening in
+the next instant is the same instant after instant. A process that forgets how
+long it has already waited can only have an exponential wait. The exponential is
+not a modelling choice here; it is forced.
+
+Then invert it: $u = e^{-a_0\tau}$, so $\tau = -\ln u / a_0$.
 
 **CHECK out loud:** a bigger $a_0$ gives a shorter wait. If the code divides by
 $a_0$ where it should, that is what it does.
 
 <div class="rule"></div>
 
-## Live code, at 53: type this
+## Live code, at 54: type this
 
 Into a fresh notebook cell, projected. Type it, do not paste it. The room
 should see it built.
@@ -134,10 +168,16 @@ not skip the time weighting.
 
 <div class="rule"></div>
 
-## Centre, at 58: the rule, calibrated
+## Centre, at 57: the rule, calibrated
 
-Write the rule before the NAR run uses it, and check it on the case already
-solved:
+Write the rule before the feedback run spends it, and check it on the case
+already solved. Define the return rate **first**, in one line, because it is the
+only new object in the run:
+
+$$\text{kick it by } \Delta: \quad \frac{d\Delta}{dt} = -r\,\Delta
+\quad\Longrightarrow\quad \Delta \sim e^{-rt}$$
+
+so $1/r$ is how long a fluctuation *lasts*. Then:
 
 $$\sigma^2 = \frac{\text{noise in}}{2 \times \text{return rate}}
 \qquad\text{constitutive:}\quad \frac{k + \gamma n}{2\gamma} = \frac{2k}{2\gamma} = \frac{k}{\gamma}\;\checkmark$$
@@ -154,9 +194,9 @@ $$\frac{2\gamma x}{2\gamma(1+g)} \quad\Longrightarrow\quad \text{Fano} = \frac{1
 
 In this order, last first:
 
-1. The Becskei slide's fine print. Keep the threefold — it is the chromosomal
-   control, which is not the transient one — and drop the comparison with our
-   1.7-fold.
+1. The second Becskei surface's arithmetic. Keep the threefold — it is the
+   chromosomal control, which is not the transient one — and keep the sentence
+   that their "stability" is our return rate. Drop the $\sqrt{2}$ comparison.
 2. The event-average half of the live code.
 3. Item 4 on the handout. Items 1–3 cover T31, T35 and T17 — but item 4 is the
    only student practice on the sum of squares before PS6, so say the identity

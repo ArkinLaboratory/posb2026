@@ -22,10 +22,26 @@ Session 11 stopped at its slide 18. Carried here, by Adam's decision of 4 Octobe
 | 19 · the sweep, step by step | the demonstration of T29; PS5 Q5a–b is due Thursday 8 Oct |
 | 20 · the wall at n ≤ 2 | with one sentence from 21: Elowitz & Leibler's n = 2 oscillates because they kept mRNA |
 | 25 · delay | T30; PS5 Q6, and the midterm item committed on 26 September |
-| 22–23 · Potvin-Trottier | compressed to one surface, and it becomes this session's bridge |
+| 22–23 · Potvin-Trottier | rebuilt as this session's bridge, in three surfaces |
 
 Dropped: S11's slide 21 (their Fig. 1b, beyond the one sentence) and the
 ConcepTest.
+
+## The movies
+
+The bridge opens with two of the seven supplementary movies from the published
+Nature paper, side by side: **Movie 2**, Elowitz & Leibler's original
+repressilator (NDL332), oscillating and losing the beat; and **Movie 6**, the
+finished triple-reporter circuit (LPT117), cycling red → green → blue for
+generation after generation. Ten seconds of each, with nothing said over them,
+is the session's thesis.
+
+⚠ The PDF in `private/readings/` is the PMC author manuscript and cites exactly
+one video ("S Video 1", the flask culture). The other six exist only on the
+published Nature page. All seven are catalogued, with download URLs, in
+`decks/paper_movies.yaml`; the two in use are in `private/paper-movies/`
+(gitignored). Absent, the build draws a labelled slot and Fig. 1d on the next
+surface still carries the contrast.
 
 ## The artifact
 
@@ -41,38 +57,54 @@ and in Swain, Elowitz & Siggia, PNAS 2002, not in this paper.
 
 **The measurement for T17: Becskei & Serrano, *Nature* 2000.** Not assigned.
 TetR–EGFP repressing itself: Vc 6–9% with feedback (p. 591), about threefold
-higher without at equal mean (p. 592). One of their two equal-mean controls was sampled
-during a transient; the other (chromosomal TetR) was not, and it still shows the
-threefold. That is more than our protein-only result allows (√(1+g) in CV,
-about 1.7 at g ≈ 2). Buffering of slow extrinsic change, which feedback cuts by
-1 + g in CV, is the likeliest reason, and the deck says that inference is ours.
+higher without at equal mean (p. 592). One of their two equal-mean controls was
+sampled during a transient; the other (chromosomal TetR) was not, and it still
+shows the threefold.
+
+Their **Vc is σ/mean** — our η, in percent (Methods, p. 594) — and their
+**"stability" S is the linearisation about the steady state** (p. 590), which
+is our return rate r. So their "twofold increase in stability" is
+γ(1 + g) = 2γ, i.e. **g = 1 for their circuit**, and our result predicts the CV
+falling by √2 = 1.41, with slow extrinsic buffering worth at most another factor
+making 1 + g = 2. The measured gap is about 3. **Our model does not account for
+it**, and the deck says so rather than reaching for a factor; bursts, plasmid
+copy-number compensation and imperfectly matched controls are the candidates.
+
+⚠ Corrected 5 October: an earlier build assumed g ≈ 2 here and quoted √3 ≈ 1.7.
+Their own stated twofold fixes g at 1, and 1.7 was never consistent with it.
 
 ## What happens
 
 | | | |
 |---|---|---|
 | 0–5 | **Retrieval** | g and why α drops out; the odd ring; why NAR is faster (S7) |
-| 5–8 | Goals as questions | two copies disagree; the smallest noise; a quieter reporter |
-| 8–17 | **Thursday, finished** | the sweep (PS5 Q5a); the n ≤ 2 wall; delay (T30) |
-| 17–21 | The bridge | Potvin-Trottier: every fix acted on the last few molecules |
-| 21–25 | **The artifact** | Elowitz 2002, Fig. 3A |
-| 25–31 | **Argue**, groups | what moves both colors; which way on the plot; repress 30-fold |
-| 31–34 | Sorted, T34 | intrinsic and extrinsic; Table 1; they add as squares |
-| 34–36 | The object | a count, a rate as a chance, no schedule |
-| 36–46 | **Run**, T31 | master equation → flux → J₀ = 0 → Poisson → η² = 1/⟨n⟩ |
-| 46–49 | Bursting, T35 | same mean, two RBSs; Fano ≈ 1 + b (stated, checked) |
-| 49–53 | **Run**, T32 | the two draws: when, then which |
-| 53–58 | **Live code** | fifteen lines; the time-weighting trap |
-| 58–66 | **Run**, T17 | calibrate the rule; same noise in; faster return; Fano = 1/(1+g) |
-| 66–69 | The measurement | Becskei & Serrano Fig. 3a, and its fine print |
+| 5–7 | Goals as questions | two copies disagree; the smallest noise; a quieter reporter |
+| 7–14 | **Thursday, finished** | the sweep (PS5 Q5a); the n ≤ 2 wall; delay (T30) |
+| 14–17 | The bridge, 1 | the two movies: the original circuit, then the repaired one |
+| | | the four repairs, each with its mechanism |
+| 17–20 | The bridge, 2 | **why** the fourth worked: a relaxation oscillator's period is a decay time |
+| 20–23 | **The artifact** | Elowitz 2002: the construct, and what Fig. 3A plots |
+| 23–29 | **Argue**, groups | what moves both colors; along A or across B; repress 30-fold |
+| 29–31 | The vocabulary, T33 | σ, η and Fano off one histogram, before any of them is used |
+| 31–33 | Sorted, T34 | their A and B are extrinsic and intrinsic; Table 1 |
+| 33–35 | **Run** | why the two add as squares, and why the larger one wins |
+| 35–37 | The object | a count, a rate as a chance, no schedule |
+| 37–42 | **Run**, T31a | build it: master equation → flux J → steady state makes every J equal |
+| 42–47 | **Run**, T31b | solve it: J₀ = 0 → recursion → climb → normalise → η² = 1/⟨n⟩ |
+| 47–50 | **Run**, T35 | two stages; where b comes from; the mean is blind, the variance is not |
+| 50–54 | **Run**, T32 | why the wait is exponential, then the two draws |
+| 54–57 | **Live code** | twenty lines; the time-weighting trap |
+| 57–65 | **Run**, T17 | why we must borrow; what a return rate is; calibrate; Fano = 1/(1+g) |
+| 65–69 | The measurement | the four Becskei constructs drawn, then their S = our r |
 | 69–74 | **ConcepTest** | right mean, too noisy *(A and D)* |
 | 74–79 | **Faded set** | [four problems](../../handouts/s12-noise.md) |
 | 79–80 | Forward link | Hooshangi for Thursday; Daniel optional / 247 |
 
 ## The results this session exists to produce
 
-**Birth–death (T31).** The flux across rung *n* is J_n = kP_{n−1} − γnP_n. At
-steady state every J is equal and J₀ = 0, so every J is zero, which gives
+**Birth–death (T31), in two runs of seven and five steps.** The flux across rung
+*n* is J_n = kP_{n−1} − γnP_n, and dP_n/dt = J_n − J_{n+1}. At steady state every
+J is equal and J₀ = 0, so every J is zero, which gives
 P_n = P₀(k/γ)ⁿ/n!, a Poisson: ⟨n⟩ = σ² = k/γ, Fano = 1, η² = 1/⟨n⟩. Simulated
 at k = 10: mean 9.96, variance 9.92.
 
@@ -107,8 +139,8 @@ import ours.
 
 | | |
 |---|---|
-| Figures | `s12_ssa_anatomy(_col)`, `s12_birth_death`, `s12_bd_traj`, `s12_bd_hist`, `s12_bursting`, `s12_nar_noise`, `s12_nar_hist`, `s12_nar_fano`, `s12_two_color` |
-| Deck | `decks/s12_noise.py`, 35 slides incl. three derivation runs |
+| Figures | `s12_ssa_anatomy(_col)`, `s12_birth_death`, `s12_bd_traj`, `s12_bd_hist`, `s12_bursting`, `s12_burst_traj`, `s12_burst_hist`, `s12_nar_noise`, `s12_nar_hist`, `s12_nar_fano`, `s12_two_color`, `s12_scatter_axes`, `s12_noise_vocab`, `s12_squares_ext/int/both`, `s12_becskei_circuits` |
+| Deck | `decks/s12_noise.py`, 57 slides incl. six derivation runs |
 | Handout | [s12-noise](../../handouts/s12-noise.md) + [answers](../../handouts/s12-noise-answers.md) |
 | Board notes | [s12](../../board-notes/s12-board-notes.md), with the live code |
 
@@ -122,5 +154,7 @@ import ours.
 
 - The pacing report puts student working time at 24%, below the course's usual
   28–46%. The carried S11 material is the cause; nothing has been relabelled to
-  move the number.
+  move the number. The 5 October rebuild paid for its two new surfaces out of
+  exposition (one minute each off goals, delay and live code), so this number is
+  unchanged by it.
 - The notebook and its ungraded self-checking exercise ship Thursday 8 Oct.

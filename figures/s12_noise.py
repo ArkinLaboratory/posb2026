@@ -351,8 +351,257 @@ def fig_derivation_panels():
     _save(fig, "s12_nar_fano")
 
 
+# ---------------------------------------------------------------------------
+# 7. The scatter frame, before anyone is told what the directions mean
+# ---------------------------------------------------------------------------
+def fig_scatter_axes():
+    """An EMPTY two-colour frame for the argue slide (5 October 2026).
+
+    Adam's review of the built deck: the argue surface asks which direction an
+    answer moves a point, and the plot it refers to does not appear until the
+    following surface. So the room was being asked to reason about an object it
+    had not seen. This is that object with the answer withheld: real axes, a
+    real cloud, the diagonal, and the two directions labelled A and B instead
+    of `intrinsic` and `extrinsic`. Naming them is the next surface's job, and
+    it should be the room that does it.
+    """
+    rng = np.random.default_rng(7)
+    c1, c2 = _two_color(120, 0.18, 700, rng)
+    fig, ax = plt.subplots(figsize=(5.0, 4.5))
+    hi = max(c1.max(), c2.max()) * 1.08
+    ax.plot([0, hi], [0, hi], color=MUTED, lw=1.4, ls="--")
+    ax.plot(c1, c2, "o", ms=3.4, color=TEAL, alpha=0.35)
+
+    # Two double-headed arrows through the middle of the cloud: one along the
+    # diagonal, one across it. Deliberately unlabelled beyond A and B.
+    m, L = 120.0, 56.0
+    for lab, (dx, dy), col in [("A", (1, 1), AMBER), ("B", (1, -1), RED)]:
+        n = np.hypot(dx, dy)
+        dx, dy = dx / n * L, dy / n * L
+        ax.annotate("", xy=(m + dx, m + dy), xytext=(m - dx, m - dy),
+                    arrowprops=dict(arrowstyle="<->", lw=3.0, color=col))
+        ax.text(m + dx * 1.22, m + dy * 1.22, lab, color=col, fontsize=22,
+                fontweight="bold", ha="center", va="center")
+
+    ax.set_xlim(0, hi)
+    ax.set_ylim(0, hi)
+    ax.set_aspect("equal")
+    ax.set_xlabel("copy 1  (CFP)")
+    ax.set_ylabel("copy 2  (YFP)")
+    ax.set_title("one point per cell, both colors measured")
+    _save(fig, "s12_scatter_axes")
+
+
+# ---------------------------------------------------------------------------
+# 8. Three numbers off one histogram -- the vocabulary surface
+# ---------------------------------------------------------------------------
+def fig_noise_vocab():
+    """sigma, eta and Fano read off a single simulated distribution.
+
+    Adam's review, 5 October 2026: "the difference between sigma, and eta --
+    std dev and Fano likely need to be explained to them." Three symbols were
+    being used interchangeably across four surfaces. This draws all three off
+    one picture, with their units, so the distinction is visual before it is
+    algebraic.
+    """
+    k, gamma, T = 40.0, 1.0, 6000.0
+    stoich, a = birth_death(k, gamma)
+    t, X = gillespie(stoich, a, [0], t_max=T, rng=3)
+    x = X[:, 0]
+    m, v = time_average(t, X, T, t_burn=20.0)
+    m, v = float(m[0]), float(v[0])
+    sd = np.sqrt(v)
+
+    bins = np.arange(0, int(m + 5 * sd) + 1)
+    h = _occupancy(t, x, T, 20.0, bins)
+
+    fig, ax = plt.subplots(figsize=(6.4, 4.3))
+    ax.bar(bins, h, width=1.0, color=TEAL, alpha=0.55, linewidth=0)
+    ax.axvline(m, color=RED, lw=2.0)
+    ax.annotate("", xy=(m + sd, 0.45 * h.max()), xytext=(m, 0.45 * h.max()),
+                arrowprops=dict(arrowstyle="<->", lw=2.4, color=AMBER))
+    ax.text(m + sd + 1.2, 0.45 * h.max(), "$\\sigma$", color=AMBER, fontsize=24,
+            ha="left", va="center", fontweight="bold")
+    ax.text(m - 1.5, 0.80 * h.max(), "$\\langle n\\rangle$", color=RED,
+            fontsize=22, ha="right", va="center", fontweight="bold")
+    ax.set_xlabel("molecules  n")
+    ax.set_ylabel("fraction of TIME at n")
+    ax.set_ylim(0, h.max() * 1.12)
+    ax.set_xlim(0, bins[-1])
+    ax.set_title(f"⟨n⟩ = {m:.1f}   σ = {sd:.1f}   "
+                 f"η = {sd/m:.3f}   Fano = {v/m:.2f}")
+    _save(fig, "s12_noise_vocab")
+    return {"mean": m, "sd": sd, "eta": sd / m, "fano": v / m}
+
+
+# ---------------------------------------------------------------------------
+# 9. Panels for the "why they add as squares" run
+# ---------------------------------------------------------------------------
+def fig_squares_panels():
+    """Three frames: shared causes only, private causes only, and both.
+
+    Adam's review, 5 October 2026: slide 10 asserted eta_int^2 + eta_ext^2 =
+    eta_tot^2 and he asked why noise adds as squares and why that matters. The
+    algebra is one line of independence; what makes it land is seeing that the
+    two causes make clouds of DIFFERENT SHAPE, and that the shapes are what the
+    cross term being zero looks like.
+    """
+    rng = np.random.default_rng(19)
+    mean, cells = 120, 700
+
+    # extrinsic only: one rate per cell, both copies read it exactly
+    sig = np.sqrt(np.log(1 + 0.25 ** 2))
+    kk = mean * rng.lognormal(-sig ** 2 / 2, sig, cells)
+    ext = (kk, kk.copy())
+    # intrinsic only: one rate for every cell, independent counting at each copy
+    ins = (rng.poisson(mean, cells).astype(float),
+           rng.poisson(mean, cells).astype(float))
+    # both
+    both = _two_color(mean, 0.25, cells, rng)
+
+    hi = max(max(p.max() for p in pair) for pair in (ext, ins, both)) * 1.08
+    for name, (c1, c2), title in [
+            ("s12_squares_ext", ext, "shared cause only: both copies move together"),
+            ("s12_squares_int", ins, "private cause only: each copy counts for itself"),
+            ("s12_squares_both", both, "a real strain: both at once")]:
+        fig, ax = plt.subplots(figsize=(5.0, 4.4))
+        ax.plot([0, hi], [0, hi], color=MUTED, lw=1.4, ls="--")
+        ax.plot(c1, c2, "o", ms=3.4, color=TEAL, alpha=0.38)
+        ei, ee, et = two_color_noise(c1, c2)
+        ax.text(0.04, 0.96,
+                f"$\\eta_{{int}}$ = {ei:.3f}\n$\\eta_{{ext}}$ = {ee:.3f}\n"
+                f"$\\eta_{{tot}}$ = {et:.3f}",
+                transform=ax.transAxes, va="top", fontsize=17, color=INK)
+        ax.set_xlim(0, hi)
+        ax.set_ylim(0, hi)
+        ax.set_aspect("equal")
+        ax.set_xlabel("copy 1")
+        ax.set_ylabel("copy 2")
+        ax.set_title(title, fontsize=14)
+        _save(fig, name)
+
+
+# ---------------------------------------------------------------------------
+# 10. Narrow panels for the bursting run (5.4in figure column)
+# ---------------------------------------------------------------------------
+def fig_burst_panels():
+    """The same two runs as fig_bursting, split into column-width panels.
+
+    The wide two-panel version is for a full surface. A derivation run gets
+    5.4 inches, and the traces are the whole argument there -- the room has to
+    SEE that one of them arrives in lumps.
+    """
+    T = 3000.0
+    fig1, ax1 = plt.subplots(figsize=(5.4, 4.3))
+    fig2, ax2 = plt.subplots(figsize=(5.4, 4.3))
+    out = []
+    for (lab, km, gm, kp, gp), c, seed in zip(BURST, (TEAL, AMBER), (5, 6)):
+        stoich, a = two_stage(km, gm, kp, gp)
+        t, X = gillespie(stoich, a, [0, 50], t_max=T, rng=seed)
+        m, v = time_average(t, X, T, t_burn=20.0)
+        F = fano(m, v)[1]
+        out.append((lab, float(m[1]), float(F), two_stage_fano(kp, gm, gp),
+                    kp / gm))
+        keep = t <= 25.0
+        ax1.step(t[keep], X[keep, 1], where="post", color=c, lw=1.8,
+                 label=f"b = {kp / gm:.0f}")
+        occ = _occupancy(t, X[:, 1], T, 20.0, np.arange(0, 400))
+        ns = np.arange(0, 181, 4)
+        coarse = np.add.reduceat(occ[:181], np.arange(0, 181, 4))
+        ax2.plot(ns + 2, coarse[:len(ns)], color=c, lw=2.6,
+                 label=f"b = {kp / gm:.0f}: Fano {F:.1f}")
+    ax1.axhline(50, color=MUTED, lw=1.2, ls="--")
+    ax1.set_xlim(0, 25)
+    ax1.set_ylim(0, 165)
+    ax1.set_xlabel("time  (protein lifetimes)")
+    ax1.set_ylabel("proteins")
+    ax1.set_title("both means are 50")
+    ax1.legend(loc="upper left", fontsize=15)
+    _save(fig1, "s12_burst_traj")
+
+    ax2.set_xlabel("proteins")
+    ax2.set_ylabel("fraction of time")
+    ax2.set_title("same mean, different spread")
+    ax2.legend(loc="upper right", fontsize=14)
+    _save(fig2, "s12_burst_hist")
+    return out
+
+
+# ---------------------------------------------------------------------------
+# 11. What Becskei & Serrano actually built -- the four bars, as circuits
+# ---------------------------------------------------------------------------
+def fig_becskei_circuits():
+    """The autoregulated construct and the three controls, drawn.
+
+    Adam's review, 5 October 2026: "We need the 'circuit'." The slide carried
+    their Fig. 3a -- four bars labelled A to D -- and the four constructs those
+    bars stand for lived only in the speaker notes. A bar chart whose categories
+    are undefined is not evidence of anything.
+
+    Identities from their Fig. 3 caption (p. 592) and Fig. 2 caption (p. 591):
+    A autoregulatory; B EGFP under CHROMOSOMAL TetR; C the operator-replaced
+    system of Fig. 2c, after 1 mM IPTG; D the mutant-repressor system of
+    Fig. 2b, TetR carrying Y42A in the DNA-binding domain.
+    """
+    from matplotlib.patches import Rectangle
+
+    panels = [
+        ("A  autoregulated", "P$_L$ + 2 tetO", "TetR–EGFP", "loop", TEAL,
+         "it represses its own promoter"),
+        ("B  chromosomal TetR", "P$_L$ + 2 tetO", "EGFP", "open", AMBER,
+         "repressor made elsewhere: no loop"),
+        ("C  operator replaced", "P$_L$ + lacO", "TetR–EGFP", "none", AMBER,
+         "tetO swapped for lacO: nothing to bind"),
+        ("D  mutant repressor", "P$_L$ + 2 tetO", "TetR(Y42A)–EGFP", "broken",
+         RED, "Y42A cannot hold the operator"),
+    ]
+    fig, axes = plt.subplots(2, 2, figsize=(7.0, 5.0))
+    for ax, (title, prom, gene, loop, col, sub) in zip(axes.ravel(), panels):
+        ax.set_xlim(0, 10)
+        ax.set_ylim(0, 6)
+        ax.axis("off")
+        ax.set_title(title, fontsize=14, color=col, fontweight="bold", pad=1)
+
+        ax.add_patch(Rectangle((0.3, 2.00), 3.2, 1.05, facecolor="none",
+                               edgecolor=MUTED, lw=1.6))
+        ax.text(1.90, 2.52, prom, ha="center", va="center", fontsize=10.5,
+                color=MUTED)
+        ax.add_patch(Rectangle((4.05, 2.00), 5.6, 1.05, facecolor=col,
+                               edgecolor="none", alpha=0.9))
+        ax.text(6.85, 2.52, gene, ha="center", va="center", fontsize=10.5,
+                color="white", fontweight="bold")
+        ax.annotate("", xy=(4.00, 2.52), xytext=(3.60, 2.52),
+                    arrowprops=dict(arrowstyle="-|>", lw=1.8, color=MUTED))
+
+        if loop in ("loop", "broken"):
+            solid = loop == "loop"
+            c = col if solid else RULE
+            ls = "-" if solid else (0, (3, 2))
+            ax.plot([6.85, 6.85, 1.80, 1.80], [3.05, 4.55, 4.55, 3.55],
+                    lw=2.2, color=c, ls=ls, solid_capstyle="round")
+            ax.plot([1.15, 2.45], [3.50, 3.50], lw=3.2, color=c,
+                    solid_capstyle="butt")
+            if not solid:
+                ax.plot([3.9, 4.9], [5.00, 4.10], lw=2.6, color=RED)
+                ax.plot([3.9, 4.9], [4.10, 5.00], lw=2.6, color=RED)
+        elif loop == "open":
+            ax.annotate("", xy=(1.80, 3.10), xytext=(1.80, 4.35),
+                        arrowprops=dict(arrowstyle="-", lw=2.2, color=MUTED))
+            ax.plot([1.15, 2.45], [3.15, 3.15], lw=3.2, color=MUTED,
+                    solid_capstyle="butt")
+            ax.text(1.80, 4.70, "TetR from the chromosome", ha="center",
+                    va="center", fontsize=10, color=MUTED, style="italic")
+        ax.text(5.0, 0.85, sub, ha="center", va="center", fontsize=10.5,
+                color=INK, style="italic")
+    fig.subplots_adjust(hspace=0.30, wspace=0.10)
+    fig.savefig(f"{OUT}/s12_becskei_circuits.png")
+    plt.close(fig)
+
+
 FIGURES = [fig_ssa_anatomy, fig_birth_death, fig_bursting, fig_nar_noise,
-           fig_two_color, fig_derivation_panels]
+           fig_two_color, fig_derivation_panels, fig_scatter_axes,
+           fig_noise_vocab, fig_squares_panels, fig_burst_panels,
+           fig_becskei_circuits]
 
 
 if __name__ == "__main__":

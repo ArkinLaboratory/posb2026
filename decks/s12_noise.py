@@ -7,10 +7,37 @@ Potvin-Trottier is the bridge -- a paper about removing noise sources one at a
 time from a circuit our deterministic model says is fine.
 
 Then the session proper, artifact first: Elowitz 2002's two colors in one
-cell; the master equation for birth-death, derived to the Poisson; bursting as
-one surface; Gillespie derived on the board and live-coded; and T17 -- negative
-autoregulation against a constitutive gene at matched mean, with Becskei &
-Serrano 2000 as the measurement.
+cell; the master equation for birth-death, derived to the Poisson; bursting;
+Gillespie derived and live-coded; and T17 -- negative autoregulation against a
+constitutive gene at matched mean, with Becskei & Serrano 2000 as the
+measurement.
+
+REBUILT 5 OCTOBER 2026 against Adam's slide-by-slide review of the first
+build. His summary was the governing instruction: "this derivation is a bit
+opaque for this class. We need to be VERY tutorial here." What changed:
+
+  - the bridge is three surfaces, not one: the two Potvin-Trottier movies
+    (original against repaired), the four repairs with the mechanism of each,
+    and WHY the fourth one worked -- a relaxation oscillator whose period is a
+    decay time, so the clock waits on the last few molecules. That last surface
+    is the paper's actual argument and it was missing.
+  - the two-colour scatter is now SHOWN, with its two directions unlabelled,
+    BEFORE the room is asked which direction their answers move a point in.
+  - sigma, eta and Fano get a surface of their own before any of them is used.
+  - the decomposition is derived (why the cross term dies) rather than asserted.
+  - the master equation is two runs, seven steps and five, with the step from
+    J_0 = 0 to the Poisson expanded from one line into four.
+  - bursting and Gillespie are runs: where b comes from, and why the waiting
+    time is exponential rather than anything else.
+  - the linear-noise rule is named, sourced and checked, and "return rate" is
+    defined before it is used.
+  - Becskei is two surfaces: the four constructs drawn, then the fact that
+    their "stability" IS our return rate -- so their twofold is g = 1, which
+    predicts sqrt(2) against a measured threefold. The gap is stated, not
+    papered over.
+
+Paid for inside 80 minutes by one minute each off the goals, delay and
+live-code segments. Student working time is unchanged at 21 minutes.
 
 The results, derived in class and verified in tests/test_stochastic.py:
 
@@ -70,7 +97,7 @@ def build():
 
     # 3 GOALS -----------------------------------------------------------------
     s = d.light()
-    d.header(s, "5 – 8 min", "Where we are  ·  what you'll be able to answer")
+    d.header(s, "5 – 7 min", "Where we are  ·  what you'll be able to answer")
     d.title(s, "By 9:30 you should be able to answer")
     for i, (n, lab) in enumerate([("11", "Oscillation"), ("12", "Noise"),
                                   ("13", "Digital"), ("14", "Review"),
@@ -92,7 +119,7 @@ def build():
 
     # 4 CARRY — THE SWEEP, STEP BY STEP (S11 9b) ------------------------------
     s = d.light()
-    d.header(s, "8 – 14 min", "Finishing Thursday  ·  T29")
+    d.header(s, "7 – 12 min", "Finishing Thursday  ·  T29")
     d.title(s, "The sweep, one step at a time — this is PS5 Q5a")
     d.rows(s, [
         ("Fix n. Pick one α.", "One point in design space, one yes/no question: is the symmetric state stable?"),
@@ -117,7 +144,7 @@ def build():
 
     # 5 CARRY — THE WALL AT n = 2 (S11 10) ------------------------------------
     s = d.light()
-    d.header(s, "8 – 14 min", "Finishing Thursday  ·  the design space")
+    d.header(s, "7 – 12 min", "Finishing Thursday  ·  the design space")
     d.title(s, "You cannot buy oscillation with strong promoters")
     d.image(s, FIG + "s11_alpha_critical.png", M, 1.90, 5.00, 3.50)
     d.rows(s, [
@@ -136,7 +163,7 @@ def build():
 
     # 6 CARRY — DELAY, T30 (S11 13) -------------------------------------------
     s = d.light()
-    d.header(s, "14 – 17 min", "Finishing Thursday  ·  T30")
+    d.header(s, "12 – 14 min", "Finishing Thursday  ·  T30")
     d.title(s, "You do not need three genes. You need a delay.")
     d.rows(s, [
         ("What the ring was doing", "Each stage took time. Three stages of build-up is a delay, dressed up as topology."),
@@ -151,39 +178,123 @@ def build():
                "a delay-differential calculation. No algebra here: name the "
                "principle and move on.")
 
-    # 7 BRIDGE — POTVIN-TROTTIER ----------------------------------------------
+    # 7 BRIDGE A — THE TWO MOVIES ---------------------------------------------
     s = d.light()
-    d.header(s, "17 – 21 min", "Thursday’s reading  ·  the bridge to today")
-    d.title(s, "It ticks, badly — and our model cannot say why")
-    d.paper_figure(s, "potvintrottier2016_fig1d", M, 1.70, 5.2, 2.80,
-                   "Potvin-Trottier 2016, Fig. 1d",
-                   "one cell loses the reporter plasmid, and starts keeping time")
-    d.rows(s, [
-        ("Reporter off its plasmid", "Its ssrA tag competed for the repressors’ proteases. Amplitude scatter 78% → 36%.", TEAL),
-        ("Tags off the repressors", "Removal by dilution only. Every cell oscillated, but period noise barely moved.", TEAL),
-        ("A TetR sponge", "Soaks up the last few molecules. Period 14 generations, drift 14% per period.", AMBER)],
-        top=1.70, bottom=5.30, side=False, pad=0.02, gap=0.08,
-        left=6.20, right=12.63, label_color=INK)
-    d.shape(s, S.ROUNDED_RECTANGLE, M, 5.48, W - 2 * M, 0.98, fill=WASH, line=RED)
-    d.text(s, "The fix that steadied the period acted on the last few TetR molecules. Our ODE has no ‘few’ in it — run it twice, same trajectory forever. Today we build the model that does.",
-           M + 0.18, 5.56, W - 2 * M - 0.36, 0.8, size=16, bold=True, color=INK)
-    d.assigned_on(M, 6.80, 8.0, s, prefix="Potvin-Trottier was assigned for Thursday")
-    d.notes(s, "One surface where Thursday had two. The detective story in one "
-               "breath: change 1 was the obvious one and worked; change 2 was "
-               "predicted to fix the period noise and did not; change 3 came from "
-               "measuring where the noise was, with three colors, and found it "
-               "in the interval where TetR was low.\n"
-               "The sponge is an addition, and a re-introduction -- the removed "
-               "reporter plasmid already carried TetR sites. Their abstract's "
-               "'not by adding control loops' is true (a sponge is not a loop) "
-               "but not the whole story.\n"
-               "The red box is the hand-off: the noise lives where copy numbers "
-               "are small, and a continuous concentration cannot see that. Today "
-               "is the tool that can.")
+    d.header(s, "14 – 17 min", "Thursday’s reading  ·  the bridge to today")
+    d.title(s, "The same circuit, before and after")
+    # The two clips have different aspect ratios (468x146 and 932x364), and
+    # `movie` letterboxes inside the box it is given, so the boxes are sized to
+    # put BOTH video bottoms on y = 4.30 and both captions on the same line.
+    d.text(s, "BEFORE  —  the original repressilator", M, 1.60, 5.90, 0.32,
+           size=17, font=HEAD, bold=True, color=RED, align="c")
+    d.text(s, "AFTER  —  four repairs later", 6.75, 1.60, 5.90, 0.32,
+           size=17, font=HEAD, bold=True, color=TEAL, align="c")
+    d.paper_movie(s, "potvintrottier2016_s2", M, 2.46, 5.90, 1.84,
+                  "Nature 2016, Supplementary Movie 2",
+                  "NDL332: it oscillates, and it loses the beat")
+    d.paper_movie(s, "potvintrottier2016_s6", 6.75, 2.00, 5.90, 2.30,
+                  "Nature 2016, Supplementary Movie 6",
+                  "LPT117: red → green → blue, generation after generation")
+    d.shape(s, S.ROUNDED_RECTANGLE, M, 5.20, W - 2 * M, 1.12, fill=WASH, line=RED)
+    d.text(s, "Same topology. Same three repressors. Same ODE — and our ODE gives one trajectory, run it a thousand times. Everything that separates these two movies is invisible to the model you have.",
+           M + 0.18, 5.30, W - 2 * M - 0.36, 0.94, size=16, bold=True, color=INK)
+    d.assigned_on(M, 6.78, 9.0, s, key="potvintrottier2016",
+                  prefix="Potvin-Trottier — you were to read it for Thursday, and we did not reach it")
+    d.notes(s, "Play both, left then right, and say nothing over them. Ten "
+               "seconds each is enough: the left one wanders, the right one "
+               "keeps a rhythm you can count out loud.\n"
+               "The left movie is Elowitz & Leibler's original circuit, which "
+               "is session 11's circuit -- the one whose stability boundary the "
+               "room swept on Thursday. Our analysis said it oscillates, and it "
+               "does. It says nothing at all about the difference on the screen.\n"
+               "If the movies are not on this machine: Fig. 1d is on the next "
+               "surface and carries the same contrast in traces. The download "
+               "URLs and the ffmpeg line are in decks/paper_movies.yaml.\n"
+               "The red box is the hand-off, and it is the honest version of "
+               "it: this is not a model that is slightly wrong. It is a model "
+               "with no variable in which the difference could be expressed.")
 
-    # 8 THE ARTIFACT — ELOWITZ 2002 -------------------------------------------
+    # 8 BRIDGE B — THE FOUR REPAIRS -------------------------------------------
     s = d.light()
-    d.header(s, "21 – 25 min", "The artifact")
+    d.header(s, "14 – 17 min", "Thursday’s reading  ·  the bridge to today")
+    d.title(s, "Four repairs, and only the fourth fixed the clock")
+    d.paper_figure(s, "potvintrottier2016_fig1d", M, 1.68, 4.55, 3.05,
+                   "Potvin-Trottier 2016, Fig. 1d",
+                   "traces, before and after the reporter repairs")
+    d.rows(s, [
+        ("Reporter to the low-copy plasmid", "A high-copy ColE1 vector replicates sloppily and its copy number wanders. Scatter 78% → 36%.", TEAL),
+        ("Tag off the reporter", "Reporter and repressors shared one protease: it was changing what it measured. Period 2.4 → 5.7 gen.", TEAL),
+        ("Tags off the repressors", "They now leave only by dilution. Period ~10 gen — and the period noise barely moved.", AMBER),
+        ("The TetR sponge, put back", "Sites that soak up the last few TetR. Period ~14 generations, drift 14% per period.", RED)],
+        top=1.70, bottom=6.40, side=False, pad=0.02, gap=0.07,
+        left=5.55, right=12.63, label_color=INK, numbered=True)
+    d.notes(s, "The detective story, and the shape of it is the lesson: the two "
+               "obvious repairs worked on the AMPLITUDE, the third was predicted "
+               "to fix the PERIOD and did not, and the fourth came from measuring "
+               "where in the cycle the noise actually was.\n"
+               "Repairs 1 and 2 are two different mechanisms and the numbers "
+               "belong to them separately. 78% -> 36% is the plasmid move, and "
+               "its cause is slow copy-number drift of a ColE1 vector (p. 2, "
+               "ref. 24). The protease story is the SECOND repair, and its "
+               "number is the period going from ~2.4 to ~5.7 generations. "
+               "Their own surprise is worth one sentence: competition was "
+               "predicted to slow ssrA degradation and instead ACCELERATED it "
+               "(Extended Data Fig. 3).\n"
+               "Repair 3 is the one that should unsettle the room. Removing "
+               "degradation is the textbook move -- it is what makes the protein "
+               "half-life long and the circuit slow -- and the period noise did "
+               "not care.\n"
+               "The sponge is a re-introduction, not an invention: the high-copy "
+               "reporter plasmid they removed in repair 1 already carried TetR "
+               "sites. Sponges for CI and LacI did almost nothing (Extended Data "
+               "Fig. 7d), which is the control that makes the TetR result mean "
+               "something. Their abstract's 'not by adding control loops' is "
+               "true -- a sponge is not a loop -- but not the whole story.\n"
+               "WHY the sponge works is the next surface, and it is the reason "
+               "this paper is the bridge rather than an anecdote.")
+
+    # 9 BRIDGE C — WHY THE LAST FEW MOLECULES SET THE CLOCK -------------------
+    s = d.light()
+    d.header(s, "17 – 20 min", "Thursday’s reading  ·  why the fourth repair worked")
+    d.title(s, "The clock is a stopwatch on a decaying protein")
+    d.rows(s, [
+        ("Not a harmonic oscillator", "In single cells the traces are sawteeth: a build-up, then almost pure dilution (their Box 1)."),
+        ("So the period is a decay time", "How long TetR takes to fall from its peak N to the threshold S. About ln(N/S) half-lives."),
+        ("Amplitude noise barely matters", "Double N and you add ONE half-life — which is why repairs 1 and 2 left the period alone."),
+        ("The last few molecules do", "Near S the count is a handful, and a handful of random departures takes a wildly variable time."),
+        ("Raise S, and it stops waiting", "That is all a sponge does. There is an optimal S (Box 1).")],
+        top=1.82, bottom=5.96, label_w=3.95, gap=0.07)
+    d.shape(s, S.ROUNDED_RECTANGLE, M, 6.08, W - 2 * M, 0.82, fill=WASH, line=RED)
+    d.text(s, "“The last few molecules” is a count, not a concentration. x(t) cannot be a handful. For the next hour, n can.",
+           M + 0.18, 6.16, W - 2 * M - 0.36, 0.66, size=17, bold=True, color=INK)
+    d.notes(s, "This is the surface Potvin-Trottier is assigned FOR, and the one "
+               "that was missing. Without it the paper is a list of four fixes "
+               "and the sponge is a trick; with it the paper is an argument about "
+               "where variance lives in a first-order decay, which is today's "
+               "subject arriving a half-hour early.\n"
+               "Row 3 is the one to dwell on, because it explains a NEGATIVE "
+               "result. Their Box 1: the decay time depends on ln(N/S), so a "
+               "twofold error in the peak costs one half-life out of the ten or "
+               "so in a period. Amplitude noise is logarithmically damped. That "
+               "is why two successful repairs moved the amplitude scatter from "
+               "78% to 36% and the period noise hardly at all.\n"
+               "Row 4, if asked for the mechanism now: a first-order decay from "
+               "N to S is a sum of waiting times, and the waits get longer as "
+               "the count falls, because the departure rate is proportional to "
+               "the count. The last few terms are the longest AND the most "
+               "variable, so they dominate the variance of the total (Box 1, "
+               "SI 4.2.2). Promise the room the tool for that today and move; "
+               "the master equation is the honest version of this sentence.\n"
+               "Row 5: they measured S from partitioning errors at cell division "
+               "and found derepression happening at an extremely low threshold "
+               "(SI 3.5). The optimum S_opt minimises the CV of the decay time; "
+               "raising N helps only if S is already above it (Extended Data "
+               "Fig. 4e). Do not derive this -- name it as a design variable and "
+               "say the paper does the calculation.")
+
+    # 10 THE ARTIFACT — ELOWITZ 2002 ------------------------------------------
+    s = d.light()
+    d.header(s, "20 – 23 min", "The artifact")
     d.title(s, "Elowitz et al., Science 2002 — two colors, one cell")
     d.rows(s, [
         ("The construct", "One promoter, two copies in the chromosome: one drives CFP, one YFP."),
@@ -209,40 +320,78 @@ def build():
                "Do not explain the arrows on the figure yet. That is the next "
                "ten minutes.")
 
-    # 9 ARGUE -----------------------------------------------------------------
+    # 11 ARGUE ----------------------------------------------------------------
     s = d.dark()
-    d.header(s, "25 – 31 min", "Argue it out  ·  groups of 3–4")
+    d.header(s, "23 – 29 min", "Argue it out  ·  groups of 3–4")
     d.title(s, "Same promoter, same cell. Why are the colors different?")
+    d.image(s, FIG + "s12_scatter_axes.png", 8.05, 1.74, 4.55, 3.95)
+    d.text(s, "One point per cell: its CFP across, its YFP up. The dashed line is where the two agree.",
+           8.05, 5.78, 4.55, 0.56, size=13, italic=True, color=MINT)
     d.rows(s, [
         ("Name two things that would make BOTH colors brighter in one cell than its neighbour. Then one thing that would make one brighter and not the other.", None),
-        ("On the plot, which direction does each of your answers move a point — along the diagonal, or across it?", None),
-        ("Repress both promoters until the cells make 3% as much protein. Which kind of spread grows, and why?", None)],
-        top=2.05, bottom=6.35, side=False, numbered=True,
+        ("Which of your answers moves a point along A, and which along B? Then say what A and B deserve to be called.", None),
+        ("Repress both promoters until the cells make 3% as much protein. Which spread grows, and why?", None)],
+        top=2.00, bottom=6.40, side=False, numbered=True, right=7.75,
         label_role="emphasis", label_color=WHITE)
     d.foot(s, "Question 3 is a prediction. Table 1 has the answer, and we read it in four minutes.")
     d.notes(s, "Q1, both brighter: more polymerase or ribosomes, a bigger cell, a "
                "different point in the cell cycle, more of a shared regulator. "
                "One and not the other: which polymerase happened to arrive, when "
                "an mRNA happened to decay -- events at that gene.\n"
-               "Q2: shared causes move a point along the diagonal; private "
-               "causes across it. That is the whole decomposition.\n"
+               "Q2: A is the diagonal and it is the SHARED causes; B is across "
+               "it and it is the PRIVATE ones. The figure is deliberately "
+               "unlabelled -- the room names A and B, and then the paper's own "
+               "words arrive two surfaces later and agree with them.\n"
                "Q3: the intrinsic part grows because the counts are smaller. "
                "Most of the room will not have the reason yet; the master "
                "equation gives it fifteen minutes later. Extrinsic also grows, about 5-fold, and the "
                "paper's reason is cell-to-cell variation in LacI (p. 1184).")
 
-    # 10 SORTED ---------------------------------------------------------------
+    # 12 THE VOCABULARY — σ, η, FANO ------------------------------------------
     s = d.light()
-    d.header(s, "31 – 34 min", "Your answers, sorted  ·  T34")
+    d.header(s, "29 – 31 min", "Before any of them is used  ·  T33")
+    d.title(s, "Three numbers off one histogram")
+    d.image(s, FIG + "s12_noise_vocab.png", M, 1.70, 5.30, 3.90)
+    d.rows(s, [
+        ("σ — the spread", "Units of n: here 6.3. Alone it says nothing — 6 is catastrophic at a mean of 10, invisible at 10,000.", TEAL),
+        ("η = σ/⟨n⟩ — the CV", "Dimensionless, here 0.159. What you compare across genes and papers. Becskei calls it V_{c}.", AMBER),
+        ("Fano = σ^{2}/⟨n⟩", "A ratio to a standard: pure chance gives exactly 1. Below 1 something controls the count, above 1 something worsens it.", RED),
+        ("One relation, not three", "η^{2} = Fano/⟨n⟩. Say which one you mean.", INK)],
+        top=1.64, bottom=6.46, side=False, pad=0.02, gap=0.07,
+        left=6.15, right=12.63, label_color=INK)
+    d.notes(s, "Adam's review of the built deck, 5 October: sigma, eta and Fano "
+               "were being used across four surfaces without ever being "
+               "separated. This surface exists to separate them, and it comes "
+               "BEFORE the first one is used rather than after.\n"
+               "The picture is one simulated gene, k = 40, gamma = 1, seed 3: "
+               "mean 40.0, sigma 6.3, eta 0.159, Fano 1.01. Check 1/sqrt(40) = "
+               "0.158 against the eta on the title out loud -- that is the law "
+               "they will derive in eight minutes, already true on the screen.\n"
+               "The question that separates them, and it is worth asking: WHICH "
+               "ONE tells you whether a gene is well controlled? Fano, because "
+               "it has a standard to compare against. Eta tells you whether the "
+               "noise matters for the job, which is a different question with a "
+               "different answer. A gene with Fano 0.3 and eta 0.5 is tightly "
+               "controlled AND far too noisy to use.\n"
+               "Fano's units bother careful students and they are right to be "
+               "bothered: sigma^2/<n> is a count, not a pure number. It is a "
+               "ratio to the Poisson variance, which happens to equal the mean. "
+               "Say that rather than waving it away.\n"
+               "V_c appears again at the Becskei surface, where it is the only "
+               "quantity on their axis.")
+
+    # 13 SORTED ---------------------------------------------------------------
+    s = d.light()
+    d.header(s, "31 – 33 min", "Your answers, sorted  ·  T34")
     d.title(s, "Across the diagonal: the gene. Along it: the cell.")
-    d.paper_figure(s, "elowitz2002_fig3a", M, 1.62, 5.60, 3.30,
+    d.paper_figure(s, "elowitz2002_fig3a", M, 1.62, 5.15, 3.30,
                    "Elowitz et al. 2002, Fig. 3A", "M22 (quiet) and D22 (noisy), one point per cell")
     d.rows(s, [
-        ("Intrinsic, η_{int}", "How much two copies in one cell differ. η = σ/mean.", TEAL),
-        ("Extrinsic, η_{ext}", "How much cells differ in what both copies share.", AMBER),
-        ("They add as squares", "η_{int}^{2} + η_{ext}^{2} = η_{tot}^{2}.  M22: 5.5² + 5.4² = 7.7² (×10^{-2}).", INK)],
-        top=1.70, bottom=5.00, side=False, pad=0.02, gap=0.08,
-        left=6.55, right=12.63, label_color=INK)
+        ("Your B — intrinsic, η_{int}", "How much two copies in ONE cell differ: private events move a point across the diagonal.", TEAL),
+        ("Your A — extrinsic, η_{ext}", "How much cells differ in what both share: shared causes slide a point along it.", AMBER),
+        ("Both are an η", "Each is a σ over a mean.", INK)],
+        top=1.70, bottom=5.02, side=False, pad=0.02, gap=0.08,
+        left=6.10, right=12.63, label_color=INK)
     d.text(s, "Table 1, ×10^{-2}:  constitutive M22  5.5 / 5.4 / 7.7  ·  LacI-repressed RP22  25 / 33 / 41  ·  RP22 + IPTG  6.3 / 9.8 / 11.7  ·  repressilator  12 / 42 / 43",
            M, 5.55, W - 2 * M, 0.7, size=15, color=BODY)
     d.foot(s, "Elowitz et al. 2002, Table 1, p. 1185. Their arrows on Fig. 3A are the answer to your question 2.")
@@ -264,9 +413,60 @@ def build():
                "estimators printed on it); it goes in the notebook rather than "
                "on this surface, where it was too small to read.")
 
-    # 11 THE OBJECT — COUNTS, EVENTS, RATES ----------------------------------
+    # 14 RUN — WHY THEY ADD AS SQUARES ----------------------------------------
+    d.derivation_fig(
+        "33 – 35 min", "Built one line at a time",
+        "Why do the two add as squares?",
+        [("Split one cell’s deviation in two",
+          "c_{1} = m(1 + ε + δ_{1}) ,   c_{2} = m(1 + ε + δ_{2})",
+          "ε is what the CELL did — both colors feel it. δ_{i} is what happened at copy i, and only copy i"),
+         ("The cross term averages away",
+          "⟨ε δ_{i}⟩ = 0",
+          "fix the cell, and δ_{i} is still as likely up as down: ⟨δ_{i} | ε⟩ = 0. Multiply by ε and average again"),
+         ("So the cross term dies",
+          "Var(ε + δ) = Var(ε) + Var(δ) + 2⟨εδ⟩",
+          "the last term is zero. That — and only that — is why it is squares and not a plain sum"),
+         ("Divide by the mean squared",
+          "η_{tot}^{2} = η_{ext}^{2} + η_{int}^{2}",
+          "M22: 5.5² + 5.4² = 59.4, and √59.4 = 7.7, which is the third column of Table 1")],
+        [FIG + "s12_squares_ext.png", FIG + "s12_squares_int.png", None,
+         FIG + "s12_squares_both.png"],
+        closing="Squares mean the larger one wins. Halve the smaller and almost nothing moves.",
+        board="η_{tot}^{2} = η_{int}^{2} + η_{ext}^{2}   ⇐   ⟨εδ⟩ = 0",
+        note=("Adam's review, 5 October: the decomposition was asserted. Why "
+              "squares, and why does it matter.\n"
+              "WHY SQUARES is step 2 and it is the only real content: "
+              "independent contributions add in variance, not in standard "
+              "deviation, because the cross term vanishes. Everything else is "
+              "bookkeeping. If anyone has met error propagation in a lab "
+              "course, this is the same theorem and worth saying so.\n"
+              "DO NOT SAY the two are independent, because they are not: a cell "
+              "running hot has a larger delta in absolute molecules, so the "
+              "SIZE of the private deviation depends on the shared one. What is "
+              "needed is weaker and is all step 2 claims -- that with the cell "
+              "held fixed the private deviation is still as likely up as down. "
+              "Uncorrelated is enough to kill the cross term; independence is "
+              "not available and is not required. A sharp student will push on "
+              "this and should be told they are right.\n"
+              "WHY IT MATTERS is the closing line, and it deserves a number. "
+              "RP22 reads 25 intrinsic, 33 extrinsic, 41 total. Remove the "
+              "intrinsic noise ENTIRELY -- perfect transcription, infinite "
+              "copies -- and the total goes 41 -> 33, an 18% improvement for a "
+              "biologically impossible intervention. Chasing the smaller term "
+              "is the commonest way to waste a year, and the decomposition is "
+              "what tells you which term is smaller BEFORE you start.\n"
+              "The two left panels are the extreme cases, simulated: shared "
+              "cause only puts every point exactly on the diagonal (eta_int "
+              "0.000); private cause only gives a round blob (eta_int 0.090 at "
+              "mean 120, against 1/sqrt(120) = 0.091). The third panel is both "
+              "at once and looks like the paper's.\n"
+              "The step-1 notation is Elowitz's, and the estimators that turn "
+              "it into the numbers are in Swain, Elowitz & Siggia (PNAS 2002) "
+              "rather than in the assigned paper."))
+
+    # 15 THE OBJECT — COUNTS, EVENTS, RATES -----------------------------------
     s = d.light()
-    d.header(s, "34 – 36 min", "Before the model  ·  what a count does")
+    d.header(s, "35 – 37 min", "Before the model  ·  what a count does")
     d.title(s, "At tens of molecules, a concentration is the wrong variable")
     d.image(s, FIG + "s12_ssa_anatomy.png", M, 1.62, W - 2 * M, 2.90)
     d.rows(s, [
@@ -282,9 +482,9 @@ def build():
                "This picture is twelve events from the simulator we will write "
                "in twenty minutes.")
 
-    # 12 RUN — THE MASTER EQUATION --------------------------------------------
+    # 16 RUN — THE MASTER EQUATION, BUILT -------------------------------------
     d.derivation_fig(
-        "36 – 46 min", "Built one line at a time",
+        "37 – 42 min", "Built one line at a time",
         "What is the distribution of n?",
         [("Ask for a list, not a number",
           "P_{n}(t) = Prob(n molecules at time t)",
@@ -300,31 +500,94 @@ def build():
           "T31. One equation per n — an infinite ladder of them"),
          ("Name the flow across one rung",
           "J_{n} = k P_{n-1} - γn P_{n}",
-          "net traffic up from n-1 to n. Then dP_{n}/dt = J_{n} - J_{n+1}: expand it and step 4 comes back"),
-         ("The bottom rung carries nothing",
-          "steady: all J_{n} equal, and J_{0} = 0",
-          "there is no n = -1 to arrive from. One zero at the bottom makes every rung zero"),
-         ("Climb the ladder",
-          "kP_{n-1} = γnP_{n}  ⇒  P_{n} = P_{0}(k/γ)^{n}/n!",
-          "each rung multiplies by (k/γ)/n. Normalise: P_{0} = e^{-k/γ}. That is a Poisson"),
-         ("Read off the noise",
-          "⟨n⟩ = σ^{2} = k/γ ,   η^{2} = 1/⟨n⟩",
-          "η = σ/⟨n⟩, the CV. Fano = σ^{2}/⟨n⟩ = 1: the floor for an unregulated gene, set by the count alone")],
-        [FIG + "s12_bd_traj.png", None, None, None, None, None,
-         FIG + "s12_bd_hist.png", None],
+          "births arriving INTO n from below, minus deaths leaving back down. Net traffic up across the gap"),
+         ("The master equation, rewritten",
+          "dP_{n}/dt = J_{n} - J_{n+1}",
+          "what flows into rung n from below, minus what flows out of it above. Expand it: step 4, term for term"),
+         ("Steady state makes every J equal",
+          "dP_{n}/dt = 0  ⇒  J_{n} = J_{n+1} = … = J",
+          "one common value for the whole infinite ladder. We do not yet know what J is — but one rung will tell us")],
+        [FIG + "s12_bd_traj.png", None, None, None, None, None, None],
+        closing="An infinite ladder of equations — and one rung will collapse it.",
+        board="dP_{n}/dt = J_{n} − J_{n+1},   J_{n} = k P_{n-1} − γn P_{n}",
+        note=("T31, part one of two: BUILDING the equation. Adam's review, "
+              "5 October -- the old run put fourteen moves on one surface and "
+              "the jump from J_0 = 0 to the Poisson happened in a single line. "
+              "It is now two runs with a breath between them, and the break is "
+              "deliberate: everything up to here is setting the problem up, and "
+              "everything after it is solving it.\n"
+              "THE SPINE, if the room loses the thread: an infinite set of "
+              "equations is about to be turned into ONE small one, and the thing "
+              "that does it is a boundary. Say that before step 5 and again at "
+              "the start of part two.\n"
+              "Step 6 is worth doing on the board rather than reading: expand "
+              "J_n - J_{n+1} and show it reproduces step 4 term for term. The "
+              "biologists need to see it is the same equation rewritten, not a "
+              "new one. Thirty seconds, and it buys the whole of part two.\n"
+              "Step 7 leaves them with an unknown constant J on purpose. Ask "
+              "the room what could possibly pin it down before turning the "
+              "surface; someone will say 'the end of the ladder'.\n"
+              "The left panel is our simulator: one cell's count wandering, "
+              "k = 10, gamma = 1. It is the thing the equation is about."))
+
+    # 17 RUN — THE MASTER EQUATION, SOLVED ------------------------------------
+    d.derivation_fig(
+        "42 – 47 min", "Built one line at a time",
+        "Now solve it: climb down the ladder",
+        [("The bottom rung carries nothing",
+          "J_{0} = k P_{-1} - 0 = 0 ,   so  J = 0",
+          "there is no n = -1 to be born from, and no molecule at n = 0 to die. One zero at the bottom zeroes every rung"),
+         ("Which leaves one small equation",
+          "k P_{n-1} = γ n P_{n}",
+          "births up across the gap exactly balance deaths back down, rung by rung. The infinite ladder is now a recursion"),
+         ("Walk it down to the bottom",
+          "P_{n} = (k/γn) P_{n-1} = P_{0}(k/γ)^{n}/n!",
+          "P_{1} = (k/γ)P_{0}; P_{2} = (k/γ)/2 · P_{1}; the n! is the 1, 2, 3, … you divide by on the way"),
+         ("Fix P_{0} by making them sum to 1",
+          "Σ(k/γ)^{n}/n! = e^{k/γ}  ⇒  P_{0} = e^{-k/γ}",
+          "that sum is the series for e. The answer is a Poisson with mean k/γ — T31, solved"),
+         ("Read the noise off it",
+          "⟨n⟩ = σ^{2} = k/γ  ⇒  Fano = 1 ,  η^{2} = 1/⟨n⟩",
+          "a Poisson’s variance equals its mean. The floor for an unregulated gene")],
+        [None, None, None, FIG + "s12_bd_hist.png", None],
         closing="Halve the count and η² doubles. Only more molecules, or feedback, fixes that.",
         board="J_{n} = k P_{n-1} − γn P_{n} = 0   ⇒   Poisson,  η^{2} = 1/⟨n⟩",
-        note=("T31, eight steps. The one where something disappears is step 6: "
-              "the flux at the bottom of the ladder is zero because there is "
-              "nowhere below n = 0 to come from, and steady state forces every "
-              "flux to equal it. Say that slowly; it is why a birth-death chain "
-              "can be solved by hand and most networks cannot.\n"
-              "Step 5: expand J_n - J_{n+1} on the board and show it reproduces "
-              "step 4 term by term. The biologists need to see it is the same "
-              "equation rewritten, not a new one.\n"
-              "Step 7: write P_1 = (k/gamma) P_0, P_2 = (k/gamma)/2 P_1, and let "
-              "the factorial appear. The normalisation sum is the series for e.\n"
-              "Step 8 against the reading: Elowitz fit eta_int^2 ~ c1/m + c2 "
+        note=("T31, twelve steps. Adam's review, 5 October: the old version "
+              "went from 'J_0 = 0' straight to the Poisson in one surface, and "
+              "that jump is now steps 7 to 11.\n"
+              "THE SPINE OF THE ARGUMENT, if the room loses the thread: an "
+              "infinite set of equations is turned into ONE small one, and the "
+              "thing that does it is a boundary. Steady state makes all the "
+              "fluxes equal; the bottom of the ladder says what that common "
+              "value is; it is zero. Say it that way before step 5 and again "
+              "after step 9.\n"
+              "Step 6 is worth doing on the board rather than reading: expand "
+              "J_n - J_{n+1} and show it reproduces step 4 term for term. The "
+              "biologists need to see it is the same equation rewritten, not a "
+              "new one. Thirty seconds, and it buys steps 7 and 8.\n"
+              "Step 8: both halves of J_0 vanish for different reasons and it is "
+              "worth naming both. There is no state n = -1 to be born from, so "
+              "the birth term has nothing to act on; and at n = 0 there is no "
+              "molecule to die, so gamma times zero. Either alone is enough.\n"
+              "Step 9 is where the room should relax: the infinite ladder is "
+              "gone and what is left is a recursion a first-year could solve. "
+              "This is also the one line that stops working for almost any other "
+              "network, which is why Gillespie exists and is next.\n"
+              "Step 10: write P_1, P_2, P_3 out longhand and let the factorial "
+              "appear rather than announcing it.\n"
+              "IF ASKED where the variance comes from without quoting the "
+              "Poisson -- and it is the best question in the hour -- the moment "
+              "method answers it. Multiply the master equation by n and sum over "
+              "all n: the <n^2> terms cancel between the birth and death sums "
+              "and you are left with d<n>/dt = k - gamma<n>, which is the ODE "
+              "from session 5, recovered as a statement about an average. Do the "
+              "same with n^2 and the <n^3> terms cancel; at steady state "
+              "2 gamma <n^2> = 2k<n> + k + gamma<n>, so <n^2> = (k/gamma)^2 + "
+              "k/gamma and sigma^2 = k/gamma. That the hierarchy CLOSES is "
+              "special to a LINEAR birth-death; for anything nonlinear it does "
+              "not, which is the honest reason the feedback result later has to "
+              "borrow an approximation. It is on the answer sheet.\n"
+              "Step 14 against the reading: Elowitz fit eta_int^2 ~ c1/m + c2 "
               "(Fig. 3B caption). The c1/m term is this 1/<n>. The floor c2 is "
               "not, and that is a fair question to leave open. Their recA result "
               "points at transient copy-number differences (p. 1186); that this "
@@ -334,66 +597,119 @@ def build():
               "variance 9.92.\n"
               "LEDGER: eta^2 = 1/<n> for an unregulated gene."))
 
-    # 13 BURSTING (one surface) -----------------------------------------------
-    s = d.light()
-    d.header(s, "46 – 49 min", "The same count, made in bursts  ·  T35")
-    d.title(s, "Same mean, two designs, five times the variance")
-    d.image(s, FIG + "s12_bursting.png", M, 1.62, W - 2 * M, 2.90)
-    d.rows(s, [
-        ("Bursts", "k_{m} per lifetime, each of b = k_{p}/γ_{m} proteins: mean = (k_{m}/γ_{p})·b.", TEAL),
-        ("Fano ≈ 1 + b", "exactly 1 + k_{p}/(γ_{m} + γ_{p}): 1.91 and 10.09 here, simulated 1.9 and 10.3.", AMBER),
-        ("Design rule", "at a given mean, strong promoter plus weak RBS is quieter.", RED)],
-        top=4.62, bottom=6.72, label_w=2.60, gap=0.05)
-    d.notes(s, "T35, and by decision this is one surface. The formula is STATED, "
-               "not derived here: it is the stationary result for the two-stage "
-               "model (Thattai & van Oudenaarden 2001, ref. 17 of Elowitz). What "
-               "the slide does instead is check it: the simulated Fano factors "
-               "in the legend are 1.9 and 10.3 against exact 1.91 and 10.09.\n"
-               "The intuition to give: the master-equation result assumed "
-               "proteins arrive one at a time. If they arrive ten at a time, the "
-               "count jumps by ten and the variance per molecule of mean goes up "
-               "by about ten.\n"
-               "Both runs have mean 50: k_m = 50, b = 1 against k_m = 5, b = 10. "
-               "The design rule is the reason a promoter library and an RBS "
-               "library are not interchangeable even when they reach the same "
-               "mean.")
-
-    # 14 RUN — GILLESPIE, THE TWO DRAWS ---------------------------------------
+    # 18 RUN — BURSTING, T35 --------------------------------------------------
     d.derivation_fig(
-        "49 – 53 min", "Built one line at a time",
+        "47 – 50 min", "Built one line at a time",
+        "Where does the Poisson floor break?",
+        [("Proteins do not come from DNA",
+          "two stages:  DNA → mRNA → protein",
+          "each with its own rate and its own decay: k_{m}, γ_{m}, k_{p}, γ_{p}. The last derivation assumed ONE stage — that is the assumption to break"),
+         ("One mRNA delivers a lump",
+          "b = k_{p}/γ_{m}  proteins before it dies",
+          "it lives about 1/γ_{m} and makes protein at k_{p}. The BURST SIZE — and it is a design parameter, set by the RBS"),
+         ("The mean cannot see the lump",
+          "⟨p⟩ = (k_{m}/γ_{m})(k_{p}/γ_{p}) = (k_{m}/γ_{p})·b",
+          "only the product appears. Halve k_{m} and double b: identical mean, and two different circuits"),
+         ("The variance can",
+          "Fano ≈ 1 + b",
+          "proteins now arrive b at a time. One lump of b moves the count b times as far as one molecule would, and the variance follows the jump"),
+         ("Exactly, and checked",
+          "Fano = 1 + k_{p}/(γ_{m} + γ_{p})",
+          "T35, stated not derived. b = 1 and b = 10 at mean 50: 1.91 and 10.09 exact, 1.86 and 10.32 simulated")],
+        [None, FIG + "s12_burst_traj.png", None, None,
+         FIG + "s12_burst_hist.png"],
+        closing="At a fixed mean, a strong promoter with a weak RBS is quieter.",
+        board="b = k_{p}/γ_{m} ,   Fano ≈ 1 + b",
+        note=("T35. Adam's review, 5 October: the old single surface produced "
+              "four parameters and a formula with nothing between them. The "
+              "model is now built before it is used, and where the stated "
+              "result sits is marked.\n"
+              "Step 1 is the honest framing and it matters: this is not a new "
+              "subject, it is the last derivation with its first assumption "
+              "removed. Proteins arriving one at a time was never stated as an "
+              "assumption, which is exactly why it is worth naming now.\n"
+              "Step 2: b is the number of proteins per transcript, and the room "
+              "should recognise it as the RBS. Strictly each mRNA emits a "
+              "protein with probability k_p/(k_p + gamma_m) at each step and "
+              "dies otherwise, so the burst size is geometric with mean "
+              "k_p/gamma_m, not a fixed lump. The mean is what step 2 needs; "
+              "the geometric tail is what makes the exact answer 1 + b rather "
+              "than something smaller.\n"
+              "Step 4 is the intuition and step 5 is the provenance. The full "
+              "result: for production in Poisson-timed bursts of size B with "
+              "first-order decay, Fano = 1 + (<B^2> - <B>)/(2<B>); for B "
+              "geometric with mean b that is exactly 1 + b. The two-stage "
+              "version with a finite mRNA lifetime gives 1 + k_p/(gamma_m + "
+              "gamma_p), which is Thattai & van Oudenaarden 2001 (ref. 17 of "
+              "Elowitz). We state it and check it rather than deriving it; "
+              "deriving it needs the moment method on a two-species master "
+              "equation, which is a problem set, not a surface.\n"
+              "The correction is not cosmetic at these parameters: 1 + b would "
+              "say 11 and the exact answer is 10.09, because the mRNA does not "
+              "die the instant it is made. It is on the answer sheet.\n"
+              "Both runs have mean 50: k_m = 50, gamma_m = 10, k_p = 10 against "
+              "k_m = 5, gamma_m = 10, k_p = 100, both with gamma_p = 1. The "
+              "design rule is why a promoter library and an RBS library that "
+              "reach the same expression level are not interchangeable."))
+
+    # 19 RUN — GILLESPIE, THE TWO DRAWS ---------------------------------------
+    d.derivation_fig(
+        "50 – 54 min", "Built one line at a time",
         "How do you simulate one cell exactly?",
         [("Add up every rate",
           "a_{0} = Σ a_{j} ;   birth–death: a_{0} = k + γn",
-          "the chance per unit time that SOMETHING happens"),
-         ("Nothing happens for τ",
-          "Prob(no event in τ) = exp(-a_{0}τ)",
-          "each short dt survives with probability 1 - a_{0}dt; multiply τ/dt of them"),
-         ("So draw the wait",
-          "τ = -ln(u_{1})/a_{0} ,   u_{1} uniform on (0, 1)",
-          "WHEN. An exponential with rate a_{0}"),
+          "the chance per unit time that SOMETHING happens. While nothing does, the counts do not change — so a_{0} does not either"),
+         ("Chop the wait into slivers",
+          "P(nothing in one dt) = 1 - a_{0}dt",
+          "and every sliver is the SAME lottery, whatever has gone before. Waiting does not make the next event more likely"),
+         ("Multiply the slivers",
+          "P(none in τ) = (1 - a_{0}dt)^{τ/dt} → e^{-a_{0}τ}",
+          "the same limit as compound interest, and the reason the wait is exponential rather than anything else"),
+         ("Turn that into a distribution",
+          "P(τ ≤ T) = 1 - e^{-a_{0}T}",
+          "if it has not happened by τ with probability e^{-a_{0}τ}, it HAS happened with one minus that. A CDF, rising from 0 to 1"),
+         ("Draw a uniform, and invert",
+          "u_{1} = 1 - e^{-a_{0}τ}  ⇒  τ = -ln(u_{1})/a_{0}",
+          "WHEN. Solve for τ; 1 - u is uniform if u is, so either sign of the name works. Divide by a_{0} — never multiply"),
          ("Then draw which",
           "pick reaction j with probability a_{j}/a_{0}",
           "WHICH. Line up the a_{j} end to end and drop u_{2}·a_{0} on the line"),
          ("Fire it, and go again",
           "t ← t + τ ,   x ← x + stoich_{j}",
           "then recompute every a: the rates changed because the count did")],
-        [FIG + "s12_ssa_anatomy_col.png", None, None, None, None],
+        [FIG + "s12_ssa_anatomy_col.png", None, None, None, None, None, None],
         closing="Two random numbers per event, and no approximation anywhere.",
         board="τ = −ln u_{1} / a_{0}   ·   j: a_{j}/a_{0}",
-        note=("T32, derived before it is coded. Step 2 is the one to do at the "
-              "board: (1 - a0 dt)^(tau/dt) -> e^{-a0 tau}. Anyone who has met "
-              "radioactive decay has met it.\n"
-              "Step 3: inverting the exponential's CDF. If u is uniform, "
-              "-ln(u)/a0 has the right distribution. Say that this is the one "
-              "line students most often get wrong in code: dividing by a0 "
-              "versus multiplying.\n"
-              "Step 5: the rates are recomputed every event. That is why it is "
+        note=("T32, derived before it is coded. Adam's review, 5 October: the "
+              "exponential arrived with no explanation. Steps 2 to 4 are that "
+              "explanation.\n"
+              "THE SENTENCE THAT CARRIES IT, at step 2: between events nothing "
+              "about the system changes, so the chance of an event in the next "
+              "instant is the same instant after instant. A process that forgets "
+              "how long it has already waited can only have an exponential "
+              "waiting time -- that is the whole content, and it is why the "
+              "exponential is not a modelling choice here but a consequence. "
+              "Anyone who has met radioactive decay has met it; a nucleus does "
+              "not age.\n"
+              "Step 3 at the board: (1 - a0 dt)^(tau/dt) as dt -> 0. Write it "
+              "next to (1 + 1/m)^m -> e and let them see it is one limit.\n"
+              "Step 4 is the step that was missing and it is pure bookkeeping: "
+              "survival to a CDF. Worth doing because step 5 is meaningless "
+              "without it -- you cannot invert something you have not written "
+              "as a CDF.\n"
+              "Step 5: inverse-transform sampling, and this is the line students "
+              "most often get wrong in code. Dividing by a0 versus multiplying "
+              "gives a plausible-looking trajectory with every timescale "
+              "inverted. The sign convention also confuses: -ln(u)/a0 and "
+              "-ln(1-u)/a0 are both correct because u and 1-u are both uniform "
+              "on (0,1), and our code uses the first.\n"
+              "Step 7: the rates are recomputed every event. That is why it is "
               "exact and why it is slow -- millions of events for a mean of a "
               "few hundred over a long run."))
 
-    # 15 LIVE CODE ------------------------------------------------------------
+    # 20 LIVE CODE ------------------------------------------------------------
     s = d.dark()
-    d.header(s, "53 – 58 min", "Live code  ·  the editor is the board")
+    d.header(s, "54 – 57 min", "Live code  ·  the editor is the board")
     d.title(s, "Twenty lines, written now")
     d.rows(s, [
         ("Set up", "k, γ, n = 0, t = 0, and two lists to record t and n.", None),
@@ -421,38 +737,81 @@ def build():
                "Students write their own in Thursday's notebook before they "
                "import posb.stochastic.gillespie.")
 
-    # 16 RUN — T17: NAR AT MATCHED MEAN ---------------------------------------
+    # 21 RUN — T17: NAR AT MATCHED MEAN ---------------------------------------
     d.derivation_fig(
-        "58 – 66 min", "Built one line at a time",
+        "57 – 65 min", "Built one line at a time",
         "Does negative feedback make a gene quieter?",
-        [("Borrow a rule, and check it once",
-          "variance = noise in / (2 × return rate)",
-          "imported from the linear-noise theory, not derived here. Constitutive: 2k/2γ = k/γ, the Poisson"),
-         ("Self-repression, same mean",
+        [("State it so it can be answered",
+          "same ⟨x⟩ — which circuit spreads less?",
+          "matching the mean is the whole discipline here: otherwise you are comparing a quiet weak gene with a loud strong one"),
+         ("Why we have to borrow something",
+          "⟨f(x)⟩ ≠ f(⟨x⟩)  for a Hill function",
+          "the last derivation closed because birth and death were LINEAR in n. A Hill function is not, and the moment hierarchy never closes"),
+         ("Linearise, and borrow a standard result",
+          "var = (noise in) / (2 × return rate)",
+          "for a count held near x* and kicked about: the Ornstein–Uhlenbeck result, got from van Kampen’s expansion. Imported, not proved"),
+         ("What a return rate is",
+          "kick it by Δ:  dΔ/dt = -rΔ  ⇒  Δ ~ e^{-rt}",
+          "r is that restoring rate. 1/r is how long a fluctuation LASTS before it is pulled back. For a plain gene, r = γ"),
+         ("Check the rule where we know the answer",
+          "var = 2k/(2γ) = k/γ",
+          "constitutive: births and deaths each fire at k per unit time, so noise in = 2k, and r = γ. It returns the Poisson"),
+         ("Self-repression: the top line is unchanged",
           "noise in = births + deaths = 2γx",
-          "at steady state births = deaths = γx. Matched mean, same event rate: feedback cannot touch this line"),
+          "at steady state births = deaths, whatever sets them. Same mean ⇒ same γx ⇒ the SAME event rate. Feedback cannot touch this line"),
          ("What feedback changes is the return",
-          "return rate = γ - f′(x)",
-          "f′ < 0: a cell that drifts high makes less, and comes back faster"),
+          "r = γ - f′(x)",
+          "f′ < 0: a cell that drifts high makes less, so the pull back is stronger than dilution alone"),
          ("Write it with Thursday’s g",
           "γ - f′ = γ(1 + g),  g = n u^{n}/(1 + u^{n})",
           "g = -x f′/f, using f = γx at steady state; u = x/K. Here n is the cooperativity again, not the count"),
          ("Divide",
           "var = 2γx / 2γ(1+g)  ⇒  Fano = 1/(1+g)",
           "T17. At n = 4, x = K: g = 2, Fano 1/3. At mean 100 the CV falls from 0.100 to 0.058")],
-        [FIG + "s12_nar_hist.png", None, None, None, FIG + "s12_nar_fano.png"],
+        [FIG + "s12_nar_hist.png", None, None, None, None, None, None, None,
+         FIG + "s12_nar_fano.png"],
         closing="Feedback did not remove noise at its source. It shortened each fluctuation.",
         board="Fano = 1/(1 + g),   g = n u^{n}/(1+u^{n})",
         note=("The T17 obligation, recorded in the coverage matrix since 14 "
-              "September: a worked comparison at matched mean. This is it.\n"
-              "Step 1 is the move to be honest about. The rule is the "
-              "linear-noise (Ornstein-Uhlenbeck) result and it is imported, not "
-              "proved. Returning the Poisson checks only its constant; it cannot "
-              "check the 1/(return rate) dependence, which is the part feedback "
-              "uses. The independent test is the Gillespie panel at step 5.\n"
-              "Step 3 connects to retrieval question 3: faster return is "
+              "September: a worked comparison at matched mean. This is it. "
+              "Adam's review, 5 October: where the rule is borrowed from, what a "
+              "return rate is, and why the self-repression step follows. Steps "
+              "2 to 6 are those three answers.\n"
+              "STEP 2 IS THE ONE THAT EARNS THE BORROWING, and it is worth being "
+              "blunt: we did not stop deriving because it got tedious. The "
+              "birth-death chain closed because kP_{n-1} and gamma n P_n are "
+              "linear in n, so the equation for <n> involved only <n>. Put a "
+              "Hill function in and the equation for <x> involves <f(x)>, which "
+              "is not f(<x>), and the equation for that involves something "
+              "worse. There is no exact answer to read off, for this or for "
+              "almost any real circuit.\n"
+              "STEP 3's provenance, if asked for a name: the linear noise "
+              "approximation, van Kampen's system-size expansion. Expand the "
+              "master equation about the deterministic trajectory in powers of "
+              "1/sqrt(volume) and the leading term is an Ornstein-Uhlenbeck "
+              "process -- a linear restoring force with white noise -- whose "
+              "stationary variance is injection over twice the restoring rate. "
+              "It is exact for a linear system and an approximation for anything "
+              "else, which is why step 5 checks it and the simulation at step 9 "
+              "checks it again where it is not exact.\n"
+              "STEP 4 is the definition that was missing. Draw it: a fluctuation "
+              "is a displacement, the circuit pulls it back, and r is how hard. "
+              "1/r is the lifetime of a fluctuation. Two things set the "
+              "variance -- how often you are kicked, and how long each kick "
+              "survives -- and feedback only touches the second.\n"
+              "STEP 5 checks only the constant, not the 1/r dependence, which is "
+              "the part feedback actually uses. Say so. The independent test of "
+              "the dependence is the Gillespie panel at step 9.\n"
+              "STEP 6 is the hinge, and it is where the room usually assumes "
+              "something false. The claim is NOT that feedback leaves the event "
+              "rate alone in general -- it is that if you retune the promoter so "
+              "the two circuits sit at the same mean, then at steady state both "
+              "have births = deaths = gamma<x>, so both are being kicked equally "
+              "often. The matched mean from step 1 is doing the work. Without "
+              "it, the comparison is meaningless.\n"
+              "Step 7 connects to retrieval question 3: faster return is "
               "Rosenfeld's faster response. One mechanism, two benefits.\n"
-              "The right panel at step 5: Gillespie at x = K for n = 1, 2, 4, 8 "
+              "The right panel at step 9: Gillespie at x = K for n = 1, 2, 4, 8 "
               "gives 0.666, 0.494, 0.334, 0.204 against 0.667, 0.5, 0.333, 0.2.\n"
               "Limits for the board: protein-only model, no bursts; with bursts "
               "the benefit is smaller (the ConcepTest's numbers). And it is the "
@@ -463,41 +822,86 @@ def build():
               "noise-suppressing mechanisms 'need to respond to both sources'.\n"
               "LEDGER: Fano = 1/(1 + g) at matched mean."))
 
-    # 17 THE MEASUREMENT — BECSKEI & SERRANO ----------------------------------
+    # 22 THE MEASUREMENT A — WHAT THEY BUILT ----------------------------------
     s = d.light()
-    d.header(s, "66 – 69 min", "The measurement")
-    d.title(s, "Becskei & Serrano 2000: TetR repressing itself")
-    d.paper_figure(s, "becskei2000_fig3a", M, 1.70, 3.90, 4.30,
-                   "Becskei & Serrano 2000, Fig. 3a",
-                   "Vc, autoregulated (A) against three controls")
+    d.header(s, "65 – 69 min", "The measurement")
+    d.title(s, "Becskei & Serrano 2000: one loop, three controls")
+    d.image(s, FIG + "s12_becskei_circuits.png", M, 1.62, 6.10, 4.85)
     d.rows(s, [
-        ("The circuit", "TetR–EGFP from a promoter carrying tet operators: it represses itself. Controls break the loop three ways.", TEAL),
-        ("Their argument", "Deterministic: the self-repressed gene relaxes about twice as fast. Today’s step 3.", TEAL),
-        ("The number", "Vc 6–9% with feedback (p. 591); at equal mean, about threefold higher without (p. 592).", AMBER),
-        ("⚠ More than our model allows", "Intrinsic noise alone, at g ≈ 2, cuts CV by √3 ≈ 1.7. Buffering slow extrinsic change cuts it by 1 + g.", RED)],
-        top=1.70, bottom=6.45, side=False, pad=0.02, gap=0.08,
-        left=4.90, right=12.63, label_color=INK)
+        ("A is the loop", "TetR–EGFP from a promoter with two tet operators: it represses what makes it.", TEAL),
+        ("Three ways to break it", "Repressor off the loop (B). Operator swapped (C). DNA-binding domain crippled (D)."),
+        ("Why three", "Each changes one thing. Any one alone could be explained away.", AMBER),
+        ("V_{c} = σ / mean", "Their read-out (p. 594): our η, in percent.", RED)],
+        top=1.66, bottom=6.46, side=False, pad=0.02, gap=0.07,
+        left=6.95, right=12.63, label_color=INK)
     d.notes(s, "Not an assigned reading; it is the measurement T17 asks you to "
-               "connect to.\n"
-               "Their Vc is the CV, sigma/mean. Bars: A autoregulated about 6%; "
-               "B EGFP under chromosomal TetR; C operator-replaced, after IPTG; "
-               "D the Y42A mutant repressor, about 21-24%.\n"
-               "Two equal-mean comparisons on p. 592. Control C (operator "
-               "replaced) was sampled 'shortly after induction', a transient. "
-               "Control B (EGFP under chromosomal TetR, 3-5 ng/ml atc) is not, "
-               "and it shows 'about threefold higher variability'. So the "
-               "threefold stands.\n"
-               "Our protein-only result is 1/(1 + g) in Fano, 1/sqrt(1 + g) in "
-               "CV: at g near 2, 1.7-fold. The measured gap is bigger. The "
-               "likeliest reason is that their cells also differ in "
-               "polymerase, ribosomes and plasmid copy -- extrinsic -- and "
-               "feedback buffers slow changes in its own rates by the full "
-               "1 + g in CV (d ln x*/d ln beta = 1/(1 + g)). That last step is "
-               "ours, not theirs, and the slide says so.\n"
-               "Their mutant D is not at matched mean -- its relative mean is 38 "
-               "(Fig. 2b).")
+               "connect to. Adam's review, 5 October: the circuit was in the "
+               "speaker notes and the bar chart's four categories were "
+               "undefined on the screen. This surface is the categories.\n"
+               "Identities, from their Fig. 3 caption (p. 592): column A the "
+               "autoregulatory system; B an EGFP vector under CHROMOSOMAL TetR; "
+               "C the operator-replaced system of their Fig. 2c after 1 mM "
+               "IPTG -- the tet operator swapped for a lac operator; D the "
+               "mutant-repressor system of Fig. 2b, TetR carrying Y42A in the "
+               "DNA-binding domain.\n"
+               "V_c is worth half a minute because it is the only quantity on "
+               "their axis and the room met it twenty minutes ago under another "
+               "name. Their Methods: 'V_c is the simple ratio of standard "
+               "deviation to mean'. It is eta. They report it as a percentage "
+               "and we report it as a fraction, and that is the entire "
+               "difference.\n"
+               "A fair objection to invite: in B the repressor is still TetR and "
+               "still represses the promoter -- what is broken is only the LOOP, "
+               "because the repressor's level no longer depends on the "
+               "promoter's output. That is the cleanest of the three controls "
+               "and it is the one the threefold number comes from.")
 
-    # 18 CONCEPTEST -----------------------------------------------------------
+    # 23 THE MEASUREMENT B — THEIR STABILITY IS OUR RETURN RATE ---------------
+    s = d.light()
+    d.header(s, "65 – 69 min", "The measurement")
+    d.title(s, "Their “stability” is our return rate")
+    d.paper_figure(s, "becskei2000_fig3a", M, 1.66, 4.30, 4.55,
+                   "Becskei & Serrano 2000, Fig. 3a",
+                   "V_c for A, B, C, D — the four circuits on the last surface")
+    d.rows(s, [
+        ("Their argument is step 7", "They linearise about the steady state and call it S — the same γ − f′(x). Their S is our return rate r.", TEAL),
+        ("“Twofold increase in stability”", "S doubles, so r = 2γ. In step 8, γ(1 + g) = 2γ means g = 1 for their circuit (p. 590).", TEAL),
+        ("So we predict √2", "Fano falls by 1 + g = 2, V_{c} by √2 = 1.41. Extrinsic buffering would buy at most 1 + g = 2.", AMBER),
+        ("They measured threefold", "V_{c} 6–9% with the loop, about 3× higher at equal mean without it (p. 592). More than our model allows.", RED)],
+        top=1.70, bottom=6.48, side=False, pad=0.02, gap=0.07,
+        left=5.30, right=12.63, label_color=INK)
+    d.notes(s, "THE CROSS-REFERENCE, because it is the point of the surface: "
+               "their 'stability' S is not a vague word. Their Methods, p. 590: "
+               "'The value of the stability (S) is obtained by the linearization "
+               "of the equations around the steady state.' That is the "
+               "eigenvalue, which is the return rate, which is step 7 of the "
+               "derivation twenty minutes ago. Point at the board line.\n"
+               "WHY TWOFOLD IMPLIES TWICE AS FAST: r is defined so a "
+               "displacement decays as e^{-rt}. Double r and every fluctuation "
+               "-- and every response to a step change -- takes half as long. "
+               "Their claim is about the deterministic relaxation; Rosenfeld "
+               "2002, which the room read for session 7, measured exactly that "
+               "and is the same statement.\n"
+               "THE NUMBER THAT FOLLOWS, and it is a correction to an earlier "
+               "version of this slide: their twofold is 1 + g = 2, so g = 1, not "
+               "2. Our intrinsic result then predicts the CV falling by "
+               "sqrt(2) = 1.41, and the extrinsic-buffering bound is 2. The "
+               "measured gap is about 3. OUR MODEL DOES NOT ACCOUNT FOR IT, and "
+               "that is the honest thing to say rather than reaching for a "
+               "factor.\n"
+               "What could close it, if asked: bursts (our result assumes "
+               "proteins arrive one at a time, and real expression is bursty, "
+               "which feedback also damps); plasmid copy number varying between "
+               "cells, which feedback compensates -- they measured that "
+               "separately, and expression rose only 2.6- and 4.8-fold across a "
+               "copy-number range of 3-4, 20-30 and 50-70 (p. 592); and the fact "
+               "that their controls are not perfectly matched circuits.\n"
+               "Control C was sampled shortly after induction, a transient, so "
+               "it is the weaker comparison. Control B is not a transient and is "
+               "where the threefold comes from. Their mutant D is not at matched "
+               "mean at all -- its relative mean is 38 (Fig. 2b).")
+
+    # 24 CONCEPTEST -----------------------------------------------------------
     s = d.light()
     d.header(s, "69 – 74 min", "Pose  ·  silent vote  ·  argue  ·  vote again")
     d.title(s, "Right mean, too noisy. Which changes help?")
@@ -527,7 +931,7 @@ def build():
                "lump and how fast deviations are corrected, not how many places "
                "the lumps come from.")
 
-    # 19 FADED SET ------------------------------------------------------------
+    # 25 FADED SET ------------------------------------------------------------
     s = d.light()
     d.header(s, "74 – 79 min", "Worked set  ·  handout  ·  start where you like")
     d.title(s, "Four problems. The scaffolding falls away.")
@@ -555,7 +959,7 @@ def build():
                "Thursday's S11 handout items are still yours and their answer "
                "sheet is posted.")
 
-    # 20 FORWARD LINK ---------------------------------------------------------
+    # 26 FORWARD LINK ---------------------------------------------------------
     s = d.dark()
     d.header(s, "79 – 80 min", "Next")
     d.title(s, "A circuit that has to decide cannot afford a wobbly middle.")

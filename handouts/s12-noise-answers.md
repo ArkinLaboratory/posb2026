@@ -100,3 +100,48 @@ RP22 + IPTG: $6.3^2 + 9.8^2 = 135.7$, $\sqrt{} = 11.65$ against 11.7.
 Repressilator: $12^2 + 42^2 = 1908$, $\sqrt{} = 43.7$ against 43 — the worst of
 the four at 1.6%, and still inside the 39–47 confidence interval the table
 prints for it. The table rounds; the identity holds.
+
+## Appendix — the mean and the variance, without solving for $P_n$
+
+This is the question the room asks every year, and it has a clean answer that
+needs none of the ladder. Start from the master equation,
+
+$$\frac{dP_n}{dt} = kP_{n-1} + \gamma(n+1)P_{n+1} - (k + \gamma n)P_n,$$
+
+multiply by $n$, and sum over all $n$. Shift the index in each sum so that
+$P_m$ appears throughout:
+
+$$\sum_n n\,kP_{n-1} = k(\langle n\rangle + 1), \qquad
+\sum_n n\,\gamma(n+1)P_{n+1} = \gamma(\langle n^2\rangle - \langle n\rangle).$$
+
+Subtract the two loss terms, $k\langle n\rangle$ and $\gamma\langle n^2\rangle$,
+and everything with an $\langle n^2\rangle$ in it cancels:
+
+$$\frac{d\langle n\rangle}{dt} = k - \gamma\langle n\rangle
+\qquad\Longrightarrow\qquad \langle n\rangle = \frac{k}{\gamma}.$$
+
+That is session 5's deterministic equation, recovered as a statement about an
+average rather than assumed.
+
+Do the same with $n^2$. The $\langle n^3\rangle$ terms cancel for the same
+reason, leaving
+
+$$\frac{d\langle n^2\rangle}{dt}
+= 2k\langle n\rangle + k - 2\gamma\langle n^2\rangle + \gamma\langle n\rangle,$$
+
+and at steady state, with $\langle n\rangle = k/\gamma$,
+
+$$\langle n^2\rangle = \left(\frac{k}{\gamma}\right)^{2} + \frac{k}{\gamma},
+\qquad \sigma^{2} = \langle n^2\rangle - \langle n\rangle^{2} = \frac{k}{\gamma}
+= \langle n\rangle.$$
+
+**Why this matters more than the arithmetic.** The equation for $\langle n\rangle$
+involved only $\langle n\rangle$, and the equation for $\langle n^2\rangle$
+involved only $\langle n\rangle$ and $\langle n^2\rangle$. The hierarchy
+*closed*. That happens because birth and death are **linear** in $n$. Put a Hill
+function in — which is what item 3 does — and the equation for $\langle x\rangle$
+contains $\langle f(x)\rangle$, which is not $f(\langle x\rangle)$, and the
+equation for that contains something worse. There is no exact answer to read
+off, for item 3 or for almost any real circuit. That is the honest reason the
+feedback result is obtained from the linear-noise approximation and then checked
+against simulation, rather than derived.

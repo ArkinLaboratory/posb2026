@@ -1,0 +1,11 @@
+{
+  "artifact": "s12_scatter_axes.png",
+  "artifact_sha256": "84910d7627fae63b0b7aa0bbf4d6a96ee1f30108e62423f98b95f9ec4169ee5c",
+  "artifact_content": "0bd8865a9fcfc17ed5ab14ce47e0acf5df2fe3f25cbef3e78604060f713740ac",
+  "artifact_bytes": 101224,
+  "deps": {
+    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s12_noise.fig_scatter_axes"
+}

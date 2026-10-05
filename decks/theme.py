@@ -1116,14 +1116,32 @@ class Deck:
                 if r["discuss"] == self.session
                 or self.session in (r.get("again") or [])]
 
-    def assigned_on(self, x, y, w, s, prefix="You read this for today"):
+    def assigned_on(self, x, y, w, s, prefix="You read this for today",
+                    key=None):
         """A one-line reminder of when the reading for this session went out.
 
         Small, and it earns its place: it is the visible half of the contract.
         Students who see the date on the slide learn that the assignment is
         real, which is most of why they do it the following week.
+
+        `key` exists because of a date that was wrong for three weeks without
+        looking wrong (5 October 2026). A slide about a paper carried over from
+        the PREVIOUS session still called `assigned_on`, which reads the FIRST
+        paper this session discusses and prints ITS assignment date -- under a
+        prefix naming the carried paper. The two dates were a single meeting
+        apart, so the sentence scanned perfectly and said the wrong thing. Name
+        the paper when the slide is not about this session's own reading, and a
+        key that this session does not carry raises rather than printing
+        something plausible.
         """
         rows = self.discussed_here()
+        if key is not None:
+            from tools.build_readings import resolve
+            allrows, _ = resolve(readings_spec(), sessions())
+            rows = [r for r in allrows if r["key"] == key]
+            if not rows:
+                raise ValueError(
+                    f"assigned_on: no reading keyed {key!r} in readings.yaml")
         if not rows:
             return 0
         when = sessions()[rows[0]["assign"]]["date"].strftime("%A %d %B").replace(" 0", " ")
