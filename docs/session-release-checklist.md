@@ -270,6 +270,39 @@ Publish the **items**, then publish the **module**. Both have their own state
 and a published set of items inside an unpublished module is invisible to
 students with no warning ([runbook §5.3](course-site-runbook.md)).
 
+**Rename every File item.** The Add Item dialog has no name box for a File, so
+Canvas uses the raw filename and the module reads
+`PoSB_Session04_Modeling_II.pdf` instead of a title. Weeks 3 and 4 shipped that
+way and were only caught on 5 October, three weeks later, because nothing in the
+build can see the LMS. The formats in use, matched across every module:
+
+| item | title |
+|---|---|
+| deck PDF | `Session N slides — <Mon D> — <session title from course.yaml> (PDF)` |
+| deck PPTX | `Session N slides — <Mon D> (PowerPoint)` |
+| handout | `sNN handout — <handout title, minus the "Session N — " prefix>` |
+| required reading | `Read before Session N — <short cite>, "<paper title>"` |
+| optional reading | `Optional for Session N — <short cite>, "<paper title>"` |
+| supplement | the same, plus ` — supplementary information`, placed directly after its paper |
+
+**Order within a module.** The two sessions in session order, each as deck PDF,
+deck PPTX, handout; then the readings assigned here for the *next* session; then
+the assignment block **last**. Three modules had the problem set buried in the
+middle until 5 October.
+
+**The assignment block is every graded item due that week**, not only the
+Gradescope ones. The problem set pair (147 then 247) and any project milestone.
+Milestones are `online_upload`, not Gradescope, which is exactly why they were
+missed: all five lived only in the Assignments list until 5 October, when M1 was
+placed in Week 7.
+
+> **Still to place, when each module is built:** M2 in Week 9 (due Thu 22 Oct),
+> M3 in Week 12 (due Thu 12 Nov), M4 in Week 15 (due Tue 1 Dec). The Final
+> Proposal is due Mon 14 Dec, after the last meeting, so it has no week module —
+> put it at the end of Week 15 or leave it in *Start here*, but decide rather
+> than forget. The Academic Integrity assignment is course admin, not session
+> content, and lives in *Start here*.
+
 ---
 
 ## Phase 6 — the morning of
