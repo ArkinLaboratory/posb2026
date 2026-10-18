@@ -185,6 +185,25 @@ or it pollutes the queue and the statistics.
 > clicking Upload**, and confirm the submission row exists afterwards. This
 > cost a silent no-op on 18 October that read as "the page did nothing".
 
+> **18 October — the step ran clean for the first time, and the file named
+> above is right.** `dist/autograder/psNN.ipynb` carries
+> `metadata.otter.assignment_name` *and* every solution; so does
+> `private/build/psNN/psNN-solved.ipynb`, which otter emits beside it. Either
+> submits and grades. PS6-247 scored **38.000 / 38.000**, all ten autograded
+> questions passing, on the 3.0GB container. A claim was made in session that
+> "no artifact carries both the identity cell and the answers" — it was false,
+> written from an older build, and this step had been correct since 14
+> September. **Check the artifact before concluding the artifact is missing:**
+>
+> ```bash
+> python3 -c 'import json,sys;nb=json.load(open(sys.argv[1]));\
+> print(nb["metadata"]["otter"]["assignment_name"],\
+> sum("..." == l.strip() for c in nb["cells"] for l in c["source"]))' \
+>   private/build/psNN/dist/autograder/psNN.ipynb
+> ```
+>
+> — the name must print, and the placeholder count must be **0**.
+
 ### 4.3 The extra-credit question
 
 Every set carries one question that is **required for 247, extra credit for
@@ -228,17 +247,67 @@ previous set:
 | autograder timeout | **10 minutes** | **20 minutes** |
 | GitHub submission | **on** | off |
 | Bitbucket submission | **on** | off |
-| container | 0.5 CPU / 0.75GB | 0.5 CPU / 0.75GB — correct as-is |
+| container | **0.5 CPU / 0.75GB** | **2.0 CPU / 3.0GB** (`memory_limit` 3072) |
 
-Section visibility and the timeout are the two that hurt. All-sections-on
-shows each assignment to the wrong cohort. The 10-minute timeout is under what
-a set with real simulation in it needs: PS6's solution notebook takes most of
-ten minutes, and a student who hits that limit on correct code sees a failure
-that looks exactly like their own bug.
+All four hurt. All-sections-on shows each assignment to the wrong cohort. The
+10-minute timeout is under what a set with real simulation in it needs: PS6's
+solution notebook takes most of ten minutes. The smallest container is worse,
+because it fails *late* and *partially* — and a student who hits either limit
+on correct code sees a failure that looks exactly like their own bug.
 
-> **18 October.** PS6 was created with all four at their defaults because the
-> creation wizard shows only the first two and the rest live on a page you
-> have no reason to open. Read the sibling's Edit page and diff, every time.
+> **18 October, twice in one evening.** PS6 was created with all four at their
+> defaults, because the wizard shows only the first two and the rest live on a
+> page you have no reason to open. Then this table was written the same
+> afternoon with the container row reading *"0.5 CPU / 0.75GB — correct
+> as-is"*, which was never checked against PS5 and was simply false: PS5 ran
+> on 3072. Both PS6 assignments shipped on 768 and were caught only by
+> diffing the sibling field by field a few hours before release. **A row in
+> this table asserting that a default is already right is the one row to
+> distrust** — the table exists because these fields are invisible, which is
+> exactly why a claim about one of them cannot be made from memory.
+
+**Do the diff mechanically, not by eye.** From a logged-in Gradescope tab,
+fetch each `/edit` page and compare the fields rather than reading the forms:
+
+```js
+const F = async id => {
+  const d = new DOMParser().parseFromString(
+    await fetch(`/courses/<course>/assignments/${id}/edit`,
+                {credentials:'same-origin',cache:'no-store'}).then(r=>r.text()),
+    'text/html');
+  const pick = n => [...d.querySelectorAll(`[name="assignment[${n}]"]`)]
+      .filter(e=>e.type==='checkbox'||e.type==='radio').find(e=>e.checked)?.value
+      ?? d.querySelector(`[name="assignment[${n}]"]`)?.value;
+  return ['memory_limit','autograder_timeout','manual_grading',
+          'enable_grading_by_course_section','rubric_locking_setting',
+          'rubric_visibility_setting','when_to_create_rubric']
+         .map(k => `${k}=${pick(k)}`).join('  ');
+};
+[await F(<new id>), await F(<previous set's id>)].join('\n')
+```
+
+Dates and section visibility are React-rendered and absent from that HTML —
+read those from the live `input[type=datetime-local]` values and from the
+**Section Management** tab.
+
+### 4.3c When to release
+
+> **Adam, 18 October: "We should release the PS as soon as possible. There is
+> no damage for a student starting early."**
+
+So the Release Date is **the moment the set is verified**, not the hour the
+session plan happens to name. PS6 was planned for Mon 20 Oct 08:00 and went
+out Sat 18 Oct 17:00, the evening the autograder passed. Do not hold a
+finished set to a date, and do not treat a release hour in a design document
+as a constraint — it is a placeholder for *when it is ready*.
+
+The due date and the late window are **not** elastic in the same way: those
+are in the syllabus and students plan around them.
+
+Two clocks gate a problem set and they are independent. Publishing the Canvas
+assignment without moving the Gradescope **Release Date** is cosmetic — the
+student sees the assignment, clicks through, and Gradescope refuses them. Move
+both, in the same sitting, and check both afterwards.
 
 ### 4.4 Duplicate for 247
 
@@ -322,6 +391,32 @@ That happened on PS1 and a student reported it within the hour
 
 Check **Available from** while you are there. PS1 carried a date nobody chose.
 
+> **If the External Tool picker freezes the session, build the assignment from
+> the API instead.** *Find* → *Link Resource from External Tool* raises a
+> native dialog that halts an automated browser until a human dismisses it.
+> The REST route does the same job with no dialog, and it is how PS6-247 was
+> made on 18 October. From a logged-in bCourses tab:
+>
+> 1. `GET /api/v1/courses/<c>/assignments/<the 147 id>` — this is the
+>    specification, not a template to improvise from.
+> 2. `POST /api/v1/courses/<c>/assignments` with the **same** `description`
+>    (the pair shares one — it already says *"48 points (BioE 247: 56)"*),
+>    `assignment_group_id`, `submission_types:['external_tool']`,
+>    `external_tool_tag_attributes` with the **same** `content_id` and a
+>    `custom_params.custom_gradescope_resource_id` of
+>    `assignment-<the 247 Gradescope id>`, `only_visible_to_overrides:true`,
+>    `published:false`, and an `assignment_overrides` entry per 247 section.
+>    Omit `resource_link_id`; Canvas mints its own.
+> 3. Re-`GET` it and diff against the 147 before going further.
+>
+> CSRF: the `_csrf_token` cookie, URL-decoded, as the `X-CSRF-Token` header.
+>
+> **A blocked tool result is not a failed call.** The Chrome tool refuses any
+> *result string* that looks like query-string data, which a module name
+> containing `&` next to a `published=` will trigger. The write already
+> happened. **Re-read the object before retrying anything** — retrying a
+> create here means two assignments and a split gradebook.
+
 ### 5.4 Modules
 
 Publish the **items**, then publish the **module**. Both have their own state
@@ -354,8 +449,8 @@ Milestones are `online_upload`, not Gradescope, which is exactly why they were
 missed: all five lived only in the Assignments list until 5 October, when M1 was
 placed in Week 7.
 
-> **Still to place, when each module is built:** M2 in Week 9 (due Thu 22 Oct),
-> M3 in Week 12 (due Thu 12 Nov), M4 in Week 15 (due Tue 1 Dec). The Final
+> **Still to place, when each module is built:** ~~M2 in Week 9~~ (placed 18
+> Oct), M3 in Week 12 (due Thu 12 Nov), M4 in Week 15 (due Tue 1 Dec). The Final
 > Proposal is due Mon 14 Dec, after the last meeting, so it has no week module —
 > put it at the end of Week 15 or leave it in *Start here*, but decide rather
 > than forget. The Academic Integrity assignment is course admin, not session
