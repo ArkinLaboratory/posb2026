@@ -21,6 +21,8 @@ stochastic Session 12. Gillespie SSA, time-weighted averages, Fano and CV,
                        models. You write your own SSA first.
 digital    Session 13. Transfer curves, log gain, unity-gain thresholds,
                        noise margins and the RBS window for signal matching.
+logic      Session 16. Truth tables, NOR networks, synchronous timing
+                       tables, hazards, and cascade delay in lifetimes.
 
 Coming later in the term
 ------------------------
@@ -30,7 +32,7 @@ Everything here is plain NumPy and SciPy. There is no hidden solver, no
 symbolic engine, and no simulation framework. Read the source.
 """
 
-from . import data, stochastic, digital
+from . import data, stochastic, digital, logic
 from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,
