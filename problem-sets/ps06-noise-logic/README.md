@@ -25,15 +25,17 @@ on the way.
 | **Q3** | Does negative autoregulation actually reduce noise? At **matched mean**, measured — the claim session 7 made and could not check. |
 | **Q4** | Bursting: burst size and frequency from the rate constants alone, and the Fano factor they imply. |
 | **Q5** | The gate datasheet, whether two measured gates connect, and the RBS window that rescues them. |
-| **Q6** | A truth table compiled to a circuit, the timing table it does not specify, and the two conditions a safe output needs. |
+| **Q6** | A truth table compiled to a circuit, the timing table it does not specify, and what actually decides whether an output is safe — which is not what the first two guesses say. |
 | **Q7** | How late a deep circuit is, and the rule of thumb for any depth. |
 | **Q8** | *Required for BioE 247, extra credit for BioE 147* — intrinsic against extrinsic noise, and what your own Q3 could not see. |
 
 ### Before you start
 
 **Two of these are items your handouts promised.** The RBS window is session
-13's item 4; the fail-safe circuit that still glitches is session 16's item 5,
-which says in so many words that it is on the problem set. This is it.
+13's item 4, and it is Q5c here. Session 16's item 5 has you *discover* the
+rule from three given circuits in class; Q6c has you *build* both of them and
+check the property with `cold_start_safe`. Deliberately not the same item —
+the session 16 answer sheet is public and goes up before this set is due.
 
 **The tick convention for Q6 and Q7** is printed at the top of the notebook
 and on the session 16 handout:

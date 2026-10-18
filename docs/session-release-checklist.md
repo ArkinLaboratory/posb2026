@@ -98,6 +98,13 @@ git push
 
 ---
 
+> **If a session is driving the browser for you:** two controls in this phase
+> raise a **native browser dialog**, which freezes the tab and the automation
+> with it until a human dismisses it — the **delete-submission** button in
+> Manage Submissions, and the **external tool picker** in Canvas §5.3. Those
+> two steps are a person's job. Everything else in Phases 4 and 5 automates
+> cleanly. (Both froze on 18 October.)
+
 ## Phase 4 — Gradescope
 
 Only on a problem-set release day. **Start this two days early**: the Docker
@@ -170,6 +177,14 @@ or it pollutes the queue and the statistics.
 > the solutions stripped, so it scores near zero — right mechanism, wrong
 > file.)
 
+> **A submission can silently not happen.** The upload dialog takes the file
+> into its own state, and if that did not register, *Upload* submits an empty
+> form, returns you to Manage Submissions with no error, and the table looks
+> exactly as it did before you started — identical to not having submitted
+> yet. **Confirm the filename and size are listed in the dialog before
+> clicking Upload**, and confirm the submission row exists afterwards. This
+> cost a silent no-op on 18 October that read as "the page did nothing".
+
 ### 4.3 The extra-credit question
 
 Every set carries one question that is **required for 247, extra credit for
@@ -201,6 +216,30 @@ discover it when a student asks where their extra credit went.
 > Settings*) does also work, and is the one to use if you are already mid-grade.
 > Both edit the same per-question state.
 
+### 4.3b The settings the create form never shows you
+
+**Four defaults are wrong and only two are visible while you create the
+assignment.** Check all four on the **Edit** page afterwards, against the
+previous set:
+
+| | default | what PS1-PS6 use |
+|---|---|---|
+| section visibility | **all sections on** | the matching cohort only |
+| autograder timeout | **10 minutes** | **20 minutes** |
+| GitHub submission | **on** | off |
+| Bitbucket submission | **on** | off |
+| container | 0.5 CPU / 0.75GB | 0.5 CPU / 0.75GB — correct as-is |
+
+Section visibility and the timeout are the two that hurt. All-sections-on
+shows each assignment to the wrong cohort. The 10-minute timeout is under what
+a set with real simulation in it needs: PS6's solution notebook takes most of
+ten minutes, and a student who hits that limit on correct code sees a failure
+that looks exactly like their own bug.
+
+> **18 October.** PS6 was created with all four at their defaults because the
+> creation wizard shows only the first two and the rest live on a page you
+> have no reason to open. Read the sibling's Edit page and diff, every time.
+
 ### 4.4 Duplicate for 247
 
 **Duplicate is at the foot of the Assignments page**, beside *Create
@@ -227,17 +266,36 @@ assignments pointing at one Canvas assignment would fight over grade passback.
 
 ### 5.1 Lecture slides
 
-**Files → upload the PDF** from `private/build/decks/`. Then **⋮ → Edit** on the
-module item and give it a title — the Add Item dialog has no name box for File
-items, so it uses the raw filename ([runbook §5.2](course-site-runbook.md)).
+**Files → upload the PDF and the PPTX from `private/taught/`**, never from
+`private/build/decks/`. Then **⋮ → Edit** on the module item and give it a
+title — the Add Item dialog has no name box for File items, so it uses the raw
+filename ([runbook §5.2](course-site-runbook.md)).
+
+> **Corrected 18 October.** This section used to say `private/build/decks/`,
+> which contradicts `weekly-ritual.md` and is wrong for the reason that file
+> gives: the build is overwritten without asking, so a module built from it is
+> correct on Sunday and wrong the moment you fix a typo at the lectern, with
+> nothing to say so. `private/taught/` is the copy you teach from and hand-edit.
+> Both documents now say the same thing.
 
 Never link to GitHub for a deck: assembled decks are gitignored and may embed
 figures from published papers, which is why they live behind CalNet.
 
 ### 5.2 The reading
 
-**External URL** to the DOI through the UC Library proxy. Tick **Load in a new
-tab**. Do not upload the PDF.
+**Files → upload the PDF**, then add it to the module and retitle it with the
+formats in §5.4.
+
+> **Corrected 18 October, by Adam: "It is ok to upload the PDFs."** This
+> section used to say *External URL to the DOI through the UC Library proxy …
+> do not upload the PDF*, and every module from week 3 onward ignored it:
+> readings are uploaded PDFs in weeks 3, 4, 5, 6, 7 and 9. The written rule had
+> been wrong for six weeks and the practice was right, which is the worse way
+> round — a checklist nobody follows stops being read at all.
+>
+> A proxy link is still the correct choice for anything that cannot be
+> redistributed. Uploading is behind CalNet, which is what makes it acceptable
+> for the papers in use here.
 
 ### 5.3 The problem set — two assignments, one per section
 
