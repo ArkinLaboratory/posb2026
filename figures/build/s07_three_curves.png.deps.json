@@ -1,10 +1,11 @@
 {
   "artifact": "s07_three_curves.png",
   "artifact_sha256": "f4950f85d1b6f3a0392fc80a17b9dc4ec80cf5b8a81afc0d26d4611e65c1a69d",
+  "artifact_content": "9b10d5480193220c0eb5f8f8698827883559668f22009567a213e668346d30d3",
   "artifact_bytes": 145912,
   "deps": {
-    "figures/s07_autoregulation.py": "f57db379f1aa895ea33d8cf2a594a807c5cb2cae09d060a20aa9ca857d69bd46",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s07_autoregulation.py": "d6ca6cb03fbb5227e74ac847b0016383dbcd3af815462a637379dad1cc506ccd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s07_autoregulation.fig_three_curves"
 }

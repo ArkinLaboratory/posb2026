@@ -22,7 +22,7 @@ from scipy.integrate import solve_ivp
 from posb import Model, Reaction
 from figures.style import use, AMBER, CYAN, GREEN, INK, MUTED, RED, RULE, TEAL
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 # The binding example, identical to sections 1-3 of the notebook.

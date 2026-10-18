@@ -1,10 +1,11 @@
 {
   "artifact": "s08_tangent.png",
   "artifact_sha256": "74e748691bb81d06a878a2a2d1c25222996fe77ef02258133a072b4ab8ec63a7",
+  "artifact_content": "32fb9a4be91ae8fb3c2e27672ba9a59784debcdf9800e0a5fe97bc5ee96d2a7f",
   "artifact_bytes": 94317,
   "deps": {
-    "figures/s08_phase_plane.py": "603054626f2477ee3a44178a0a64eaafdb5c1b9cebe3410766c6326e6bc64fec",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s08_phase_plane.py": "0827c3ed271173928ea0942d802050903a330db2deca9c1e05b1a495b1555628",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s08_phase_plane.fig_tangent"
 }

@@ -1,11 +1,11 @@
 {
   "artifact": "s14_even_latch.png",
-  "artifact_sha256": "fed8b36e86ec0e02fb747a14b82c5170c838024f2fe7ab87e08718bcbd6375e6",
-  "artifact_content": "b1b332bea5129673859a923fb4df678428cd62562df7cfbc7142ea64faa39c89",
-  "artifact_bytes": 50003,
+  "artifact_sha256": "040d6f3ab64d8a6ba2e8fce3d184aa4c6e2b906212b5df541914b674756c7827",
+  "artifact_content": "9cbfec135bae5b5831b66ea2db2909a6065801ab8f214891c2cad8af3148c1e2",
+  "artifact_bytes": 49499,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_even_latch"
 }

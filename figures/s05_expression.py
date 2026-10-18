@@ -16,7 +16,7 @@ import numpy as np
 
 from figures.style import use, AMBER, CYAN, INK, MUTED, RED, RULE, TEAL
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 T_D = 30.0                      # doubling time, minutes

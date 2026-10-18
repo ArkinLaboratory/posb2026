@@ -32,7 +32,7 @@ import numpy as np
 from figures.style import use, TEAL, CYAN, AMBER, MUTED, INK, RED, GREEN, RULE
 from posb.core import Reaction, Model
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 H = 2                       # Hill coefficient at each regulated promoter

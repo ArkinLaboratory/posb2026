@@ -186,6 +186,21 @@ def main():
             total += 1
     print(f"\n{total} figure(s) written to figures/build/")
 
+    # Report the modules still rendering below the content floor. They are not
+    # a build failure -- they are taught, or not yet re-checked at 20pt -- but
+    # an unreported exemption becomes a permanent one. The list only shrinks.
+    from figures.style import LEGACY_SCALE
+    stale = sorted(m.split(".")[-1] for m in mods
+                   if m.split(".")[-1] in LEGACY_SCALE)
+    if stale:
+        print(f"\n{len(stale)} module(s) still on the pre-20pt figure scale "
+              f"(figures.style.LEGACY_SCALE):")
+        for m in stale:
+            print(f"  {m}")
+        print("  Their axis labels, ticks and legends sit at 14-16, under the "
+              "20pt content floor.\n  Re-author one at a time: drop "
+              "legacy=True, rebuild, and look at the pixels.")
+
 
 if __name__ == "__main__":
     main()

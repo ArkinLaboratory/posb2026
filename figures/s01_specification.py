@@ -11,7 +11,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 from figures.style import use, AMBER, INK, MUTED, RED, RULE, TEAL
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 # Each stage: label, the question it answers, and whether the field can do it.

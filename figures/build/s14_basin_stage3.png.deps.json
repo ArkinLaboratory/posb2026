@@ -1,11 +1,11 @@
 {
   "artifact": "s14_basin_stage3.png",
-  "artifact_sha256": "eff065a66735bea61e48fe339745c2db94588bc3158fe8bf167f89b9bd3fddef",
-  "artifact_content": "abcee3d172652954ad42a13e2bf376b8acbefe68890251968bec9ce9aadc9382",
-  "artifact_bytes": 64539,
+  "artifact_sha256": "06907a1b80e8f3a7636f48992b5f2de8398eb7d9014f629c0240264e715ec0a4",
+  "artifact_content": "095eae865db333b5efe4ebdfa1bcb0575373208f0e8822fdfb48f94771ca7f70",
+  "artifact_bytes": 63918,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_basin_stages"
 }

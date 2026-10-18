@@ -11,7 +11,7 @@ from matplotlib.patches import FancyBboxPatch
 
 from figures.style import use, AMBER, CYAN, GREEN, INK, MUTED, RED, RULE, TEAL
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 # --- the constants, with provenance -----------------------------------------

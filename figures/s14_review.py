@@ -24,7 +24,7 @@ from scipy.optimize import brentq
 
 from figures.style import use, TEAL, CYAN, AMBER, MUTED, INK, RED, GREEN, RULE
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 # Mutual activation, for the basin panel. Two stable states (both off, both on)

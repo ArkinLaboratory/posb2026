@@ -1,11 +1,11 @@
 {
   "artifact": "s16_hazard_types.png",
-  "artifact_sha256": "9c12cb8126b7a3e4ff268534d6057e778d57b6f3e9c8d139495c7deb38f477be",
-  "artifact_content": "f90404ea0ed4ce9fa36a31fc2ae0d073cd46ce80572fe9d856eb0e9f55d872fa",
-  "artifact_bytes": 33285,
+  "artifact_sha256": "51360c11f60bb249e034591b77814e6ef0ecbb10288a5e001998b823c040edd7",
+  "artifact_content": "a6a13fb097190a82cabbab407edaa01d43df5bc913bcd0ffb0c95356f2d5f6a7",
+  "artifact_bytes": 44952,
   "deps": {
-    "figures/s16_logic.py": "fbefade02de5819fd969b980d003af232e33f1e640415d4876d967074a54b7c8",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s16_logic.py": "70212f1b8277b3613120d395a11ab2e662a5c5b1e1d0f57328947d3411bab8f9",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s16_logic.fig_hazard_types"
 }

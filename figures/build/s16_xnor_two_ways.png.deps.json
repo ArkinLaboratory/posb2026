@@ -1,11 +1,11 @@
 {
   "artifact": "s16_xnor_two_ways.png",
-  "artifact_sha256": "63265f1a882970102bc277bf3ed47ddc92129935add3b162e23200d6787fe6e3",
-  "artifact_content": "3f028a391b89b6088fbf7d18b4eae67728cead311706736677f2746d85dfebef",
-  "artifact_bytes": 97977,
+  "artifact_sha256": "9e53469e80fe76286d1fc8a0c23a866e5bc364b514e7bdc000fbe31e603f9ae7",
+  "artifact_content": "ecc44e53daaa9affe97c49f6405f45213d3982fef2c03933527f56afa32fe0f1",
+  "artifact_bytes": 104533,
   "deps": {
-    "figures/s16_logic.py": "fbefade02de5819fd969b980d003af232e33f1e640415d4876d967074a54b7c8",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s16_logic.py": "70212f1b8277b3613120d395a11ab2e662a5c5b1e1d0f57328947d3411bab8f9",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s16_logic.fig_xnor_two_ways"
 }

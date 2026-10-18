@@ -37,6 +37,14 @@ Two things, and they stay up the whole period.
 > **static-1** — should have stayed 1, went down and came back
 > **dynamic** — should have changed once, changed more than once
 
+**Say once, and do not belabour it:** only two of those can happen in a cell
+that has just been made. From an empty cell every gene starts at 0, so the
+output's first move is always upward — a **static-1 needs a circuit that is
+already running**, which is what handout item 3(d) has them do. It is also
+why, in a cold start, the kind carries no information the settled value did
+not already give you: settles to 0 and it is static-0, settles to 1 and it
+is dynamic, every time.
+
 The rest of the board stays empty. It fills at **nor-build**.
 
 <div class="rule"></div>
@@ -117,31 +125,55 @@ the numbers themselves.
 
 <div class="rule"></div>
 
-## Centre, at fix-separate — the two conditions
+## Centre, at fix-separate — what actually decides it
 
-The slide has the computed table. The board has the logic, as four boxes:
+The slide has the computed table. The board has the one line it comes down
+to. Write the line **before** the table goes up, and leave it:
 
-|  | OFF when empty | ON when empty |
-|---|---|---|
-| **paths equal** | clean | glitches |
-| **paths unequal** | glitches | glitches |
+> **an absent activator holds a gene off — an absent repressor lets it fire**
 
-**ASK before filling it in:** *we have refuted "balance is enough". Is "OFF
+**ASK before showing the slide:** *we refuted "balance is enough". Is "OFF
 when empty" enough?* Most of the room will say yes, because it is the answer
-the previous two slides set up. It is wrong, and the deck's own first repair
-is the counterexample.
+the previous two slides set up. It is not, and the slide has the
+counterexample: take $Z = \mathrm{NOR}(\lnot A, \lnot B)$ — already balanced
+— and bolt an activator-driven output onto it. Now it is OFF when empty
+**and** balanced, and it still glitches three times in four.
 
-Write the padded repair beside the table:
+Then the row that does the other half of the work, and it is worth slowing
+down for:
 
-> $\mathrm{Act} = \mathrm{NOT}\ R_2$, $R_3 = \mathrm{BUF}(\mathrm{Act})$
-> — OFF when empty, unbalanced, and static-0 in **all four** cases
+> $g = \mathrm{BUF}(A)$, out $=$ a promoter needing $g$, blocked by $B$
+> — two genes, **unbalanced** (A in two, B in one), **clean in all four**,
+> and it computes $A \wedge \lnot B$, the classifier we have failed to build
+> all hour
 
-**CHECK:** which cell of the table is still empty of evidence? None — every
-glitching cell has a named circuit from this hour behind it.
+**ASK:** *why does this one get away with unequal legs?* Because the late
+signal is the **activator**. Write the condition as the inequality it is:
 
-**IF ASKED** *so is the top-left cell a theorem?* No. It is true of these
-circuits under a model that gives every gate the same unit delay. Say so.
-That caveat is the honest end of the segment and it is worth ten seconds.
+$$\text{depth(repressors)} \;\le\; \text{depth(activators)}$$
+
+**CHECK out loud:** a repressor arriving *early* is harmless — the gate is
+held off either way. Equal depth is the special case, not the condition.
+That is the whole reason balance looked like the answer for two slides.
+
+**IF ASKED** *so can I just put an activator on the output of anything?* No,
+and (ii) is why: $Z$ is a NOR, so $Z$ is already **wrong**, and the
+$\mathrm{BUF}$ relays the wrong value one tick later. The condition has to
+hold at every gene on the route, not only the last. You cannot repair a
+circuit at its output.
+
+**IF ASKED** *is the last column a theorem?* It is a **sufficient**
+condition — it refuses some circuits that are in fact clean — checked by
+exhaustion over every two- and three-gate network in this model
+(`cold_start_safe`, `tests/test_logic.py`). Every gate here has one unit of
+delay and real promoters do not. Say that; it is ten seconds and it is the
+honest end of the segment.
+
+> **This surface has been wrong twice.** First "unequal paths cause it",
+> refuted by $Z$. Then "fix the promoter, not the wiring", refuted by the
+> padded repair. Then "you need both", refuted by the two rows above. If you
+> find yourself about to state a *new* sufficient condition at the board,
+> don't — point at the computed column instead.
 
 <div class="rule"></div>
 
@@ -185,8 +217,10 @@ a slide.
 1. **dna-count** at the board — quote $S(n)$ from the slide and keep only the
    $n=2$ check against Ham's five-state graph.
 2. The **IF ASKED** on overlapping operator sites at nor-build.
-3. The four-box table at **fix-separate** — the computed slide carries it;
-   the board version is for the room that wants to see the quantifier.
+3. The inequality at **fix-separate** — the computed slide carries the
+   verdict column; the board version is for the room that wants to see why
+   a late activator is safe and a late repressor is not. Keep the one-line
+   rule even if you cut the derivation of it.
 
 Do **not** cut the counting at nor-debrief. The wrong number is the one thing
 on this sheet that the room will otherwise carry out of the building.

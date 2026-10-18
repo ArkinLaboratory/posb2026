@@ -1,11 +1,11 @@
 {
   "artifact": "s14_basins.png",
-  "artifact_sha256": "1b8f9b69108aa83eb4e4befbfd6c7201ccb8373312ab52f9e81ff9344d38028d",
-  "artifact_content": "85bd163bcac16c2fea288bddf280ee72fd36f68478de6aa2e29f8d2a78b725c7",
-  "artifact_bytes": 96976,
+  "artifact_sha256": "95b26d61cbc1ca28904666fa4402eb33c9ae289e70cb6b6ba805bd3b9e14f283",
+  "artifact_content": "545782c043c1fe5c5c72241dfbb7ea83b6c3272ae07578978d0e2c7f0122b649",
+  "artifact_bytes": 97240,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_basins"
 }

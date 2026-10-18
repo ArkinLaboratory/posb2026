@@ -38,7 +38,7 @@ from figures.style import (use, AMBER, CYAN, GREEN, INK, MUTED, RED, RULE,
                            TEAL)
 
 BODY = "#23423F"
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 T_D = 30.0

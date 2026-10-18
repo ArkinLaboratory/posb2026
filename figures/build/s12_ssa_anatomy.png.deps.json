@@ -1,11 +1,11 @@
 {
   "artifact": "s12_ssa_anatomy.png",
-  "artifact_sha256": "c350edd4163f41d1878105d32ed76bd55648b4bb2be1246cd8182bf9ecdde253",
-  "artifact_content": "1410026aa125c33ecd94c2a083f0b0d47feaa258867503ee7204a50869dc9aab",
-  "artifact_bytes": 79156,
+  "artifact_sha256": "8a53558c28dac7f43a57808f9c78dd6d44b5f7c64b7660d4fcddd72fe4f2b444",
+  "artifact_content": "9b86aa6daa74845bc607127a3d4a8c0c4ca6c713ec344f962cf05847bcf83bdb",
+  "artifact_bytes": 64058,
   "deps": {
-    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s12_noise.py": "50c86b15c141d0148a2aa86c6cf6713988cd429408046e1fe8977e2704472e4b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s12_noise.fig_ssa_anatomy"
 }

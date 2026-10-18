@@ -15,7 +15,7 @@ import numpy as np
 from figures.style import use, TEAL, CYAN, AMBER, MUTED, INK, RED, GREEN, RULE
 from posb.digital import Repressor, noise_margins, rbs_window, loglinear_range_hill
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 XS = np.logspace(-2, 2.5, 600)
 GATE = Repressor(0.1, 10.0, 1.0, 2.0, "n = 2")

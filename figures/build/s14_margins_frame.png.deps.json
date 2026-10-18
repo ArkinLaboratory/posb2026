@@ -1,11 +1,11 @@
 {
   "artifact": "s14_margins_frame.png",
-  "artifact_sha256": "24ced08ebde120b27a53a92f5dae49e904fee88fa6e9d9b590a4931d9d13f0cc",
-  "artifact_content": "ee420ddfb6fde41601a56b7054585ef42960df312deb5ef7b4f40c4f77fa984a",
-  "artifact_bytes": 98139,
+  "artifact_sha256": "2f363ea2e6a047d2b662c18a6e46fae3d760be78ee477cce7c709a78d87dc17a",
+  "artifact_content": "e471feb513a8817763d22229bba0d153990670766492568f68b14e4f03ce51ea",
+  "artifact_bytes": 98169,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_margins_frame"
 }

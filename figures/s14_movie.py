@@ -24,7 +24,7 @@ from scipy.integrate import solve_ivp
 from figures.style import use, TEAL, AMBER, MUTED, INK, RED, RULE
 from figures.s14_review import MA_A, MA_N, _ma_model, _basin_cases
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 FPS = 24

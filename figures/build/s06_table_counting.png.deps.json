@@ -1,10 +1,11 @@
 {
   "artifact": "s06_table_counting.png",
   "artifact_sha256": "1abdcfb58d4615f915847fa2905234efe7d397ecdfa49b1ada252840b4527888",
+  "artifact_content": "8c41c177c31ef6bb8ad77b4ee2f76970feda9b24274598f634d3c957f1cf50ea",
   "artifact_bytes": 98680,
   "deps": {
-    "figures/s06_promoter_occupancy.py": "50f040443d3d0a51907dac3682f6955158b60c81443226c590d81c45509cafd3",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s06_promoter_occupancy.py": "a469b6b1f488b8af6917aa5ba103c22bf2eba9a5ab34bb93f1f8bb9088a51ee6",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s06_promoter_occupancy.fig_table_counting"
 }

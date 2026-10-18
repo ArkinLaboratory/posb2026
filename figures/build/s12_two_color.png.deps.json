@@ -1,11 +1,11 @@
 {
   "artifact": "s12_two_color.png",
-  "artifact_sha256": "41cea495c0fe6b51f763e2dc7bf8b4c0ba5eb197086b6c1b3bbae69664a86d92",
-  "artifact_content": "cb4765bb0fca3cd3cc3d7e248557748125fbe29b14359271e4681135e5e3a75a",
-  "artifact_bytes": 205490,
+  "artifact_sha256": "f0f2716f00eb15a582e099081e886e7ffa16bc71d18ffe4671a983cbe43f1bee",
+  "artifact_content": "6432e955c636361c1cdb090660927e514a1e637847d853dd343ad1ab7341e587",
+  "artifact_bytes": 181564,
   "deps": {
-    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s12_noise.py": "50c86b15c141d0148a2aa86c6cf6713988cd429408046e1fe8977e2704472e4b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s12_noise.fig_two_color"
 }

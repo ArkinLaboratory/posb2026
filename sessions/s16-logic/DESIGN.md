@@ -854,3 +854,122 @@ Nothing in the repo. The manual half is
 `private/build/ps06/dist/autograder/`, and the bCourses module. The solved
 notebook for testing the autograder is at
 `private/build/ps06/ps06-solved.ipynb`.
+
+---
+
+## §13 — Third adversarial review: handout, answers, problem set (18 October)
+
+Two independent reviewers, each recomputing from scratch rather than importing
+`posb`, plus my own pass. Twenty-four findings. Every one re-verified before
+acting; one was overturned.
+
+### The headline: the engineering result was false in both directions
+
+§10 refuted "unequal paths cause the glitch" and installed "fix the promoter".
+§11's review refuted that and installed "you need both". **That is also
+false.**
+
+    fail-safe AND balanced, glitches 3/4:
+        NOT na A;  NOT nb B;  NOR Z na nb;  BUF out Z
+    fail-safe, UNBALANCED, CLEAN 4/4, computing A AND NOT B:
+        BUF g1 A;  HYBRID out activators=(g1,) repressors=(B,)
+
+Over 235,152 networks of two to four gates on {NOT, NOR, NAND, BUF, HYBRID}:
+**350** are fail-safe and balanced and glitch; **39,739** are fail-safe,
+unbalanced and clean.
+
+The replacement, which is sharper and more biological:
+
+> **An absent activator holds a gene off. An absent repressor lets it fire.**
+> A gene is safe if it sits one step from the inputs, so it is never wrong —
+> or if its promoter requires an activator and no repressor it depends on
+> arrives later than that activator.
+
+Two things that rule makes obvious and the old one hid. It is an
+**inequality**, and it points one way: a repressor arriving *early* is
+harmless, which is exactly how the unbalanced two-gene circuit stays clean.
+And it must hold at **every** gene on the route — `Z + BUF` fails because `Z`
+is a NOR and is therefore already wrong, and the BUF relays a wrong value
+faithfully. You cannot repair a circuit at its output.
+
+### Why it drifted three times, and what was done about it
+
+The claim lived only in prose, in five documents, and **106 tests could not
+see it**: `tests/test_logic.py` checked `is_fail_safe` and `is_balanced` on
+the named circuits, which is checking the *inputs* to the claim.
+
+So the rule is code now. `GateNetwork.cold_start_safe()` implements it;
+`test_cold_start_rule_is_sound` sweeps every two- and three-gate network —
+2,088 certified, 0 glitching, 0.44 s — and `test_neither_fail_safe_nor_
+balanced_is_the_rule` pins both counterexamples. `fig_two_conditions` renders
+its verdict column from the predicate and asserts that the first two columns
+each still get rows wrong, so a future edit that makes them agree fails the
+build. The next overclaim has to survive a test rather than a proofread.
+
+Same lesson one level down: the two numeric errors in `ps06.py` were both in
+the header block, the only place in that file where numbers were typed.
+`tools/verify_ps06.py` prints that block now.
+
+### Other blocking findings
+
+- **"static-0 in all four"** for the padded repair, in the answer sheet, the
+  board notes and twice in `ps06.py`. (1,0) is **dynamic**. Self-refuting: a
+  circuit that settles to 0 everywhere computes the constant 0, and the Q6c
+  test asserting it computes `A AND NOT B` was passing.
+- **PS6 Q4's scaffold was destroyed.** `# BEGIN SOLUTION` sat above the
+  `def`s, so the student notebook shipped as `...` plus three prints calling
+  six names defined nowhere. `NameError` on first run, 5 points.
+- **Q6c's premise was false** and the autograder enforced it: the best answer
+  passed the first test and was failed by the second, told that fail-safety
+  does not remove the glitch — by a circuit that disproves it.
+- **18 of 48 points were obtainable by aliasing** the library function the
+  question forbids. Those five names are out of the shared setup cell and the
+  tests import them locally, with `is not` identity checks.
+- **"Fail-safe" was vacuously defined** on the handout — every gene is 0 at
+  t=0 by stipulation, so every circuit qualified, and item 1's classifier was
+  a legal answer to item 5 four lines after the handout said it was not.
+- **Handout 3(c) asked for the answer its key rejects** ("what in the
+  *wiring*…" against "the fix is not in the wiring").
+- **Item 4 was a trap**: "use the rule of thumb" against a key marking the
+  exact value. The rule of thumb gives exactly 1 τ.
+- **`fig_hazard_types` drew an impossible trace.** Its static-1 panel started
+  at 1, which the tick rule beside it forbids. No cold start can produce a
+  static-1 — verified over 2,902 glitching cold starts — so the kind carries
+  no information the settled value did not. The panel is now a real input
+  flip on the handout's own item-3 circuit, and item 3(d) has them do one.
+- **The answer sheet published Q6c's solution**, against the release
+  checklist. Resolved by making them different items: the handout has them
+  *discover* the rule from three given circuits; Q6c has them *build* both.
+
+### Overturned
+
+The Hooshangi sentence. A reviewer wanted "a repressor must clear a
+threshold" replaced with ultrasensitivity and flagged that it could not open
+the paper. p. 3585: *"This response delay is determined by a variety of
+factors that include protein decay, protein production, and repression
+thresholds."* The original was closer to the paper than the proposed fix. It
+now names both mechanisms and the overexpression the paper verifies, and says
+plainly that a τ-normalised floor cannot bound absolute minutes.
+
+### S8 resolved — figure legibility, and it was one knob
+
+`figures/style.py` set `font.size 15, labels 15, ticks 14, legend 14` under a
+comment saying a figure is "scaled into a 13in slide". That stopped being true
+when `_fig()` began placing figures at pixels/dpi with savefig.dpi = 160: the
+scale is exactly **1.000**, so the rcParams were a course-wide content floor
+of 14 against a stated floor of 20.
+
+`style.TYPE` now mirrors `theme.TYPE` and `use()` applies it. The sixteen
+modules authored against the old floor pass `use(legacy=True)` and are listed
+in `style.LEGACY_SCALE`, reported by every figure build — the same contract as
+`GRANDFATHERED`, and the list only shrinks. s16's fifteen hard-coded sizes
+went to 20 and its three affected figures were re-laid out.
+
+**Two things that rebuild exposed.** Touching `style.py` invalidates every
+module's dependency hash, so everything rebuilt — and 82 committed PNGs turned
+out not to match what the code draws today, by one to fourteen pixels. They
+are deterministic (two consecutive builds are identical), so this is drift
+between the committed images and the current matplotlib, invisible to
+`build_figures.py --verify` because it hashes **sources, not pixels**. The
+regenerated figures are committed. A pixel check in `--verify` would have
+caught this years earlier and is worth adding.

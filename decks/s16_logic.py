@@ -406,12 +406,18 @@ def _glitch(d):
     d.title(s, "Three ways to be transiently wrong")
     _fig(d, s, "s16_hazard_types", 1.74)
     d.rows(s, [
-        ("named by what the output was SUPPOSED to do", "hold 0 and it blipped high — static-0. Hold 1 and it dropped — static-1. Change once and it changed three times — dynamic."),
-        ("what they share", "a value the settled circuit never takes."),
-    ], top=4.84)
-    d.foot(s, "The names are borrowed from electronics. The consequence is not — a transistor that glitches does not kill anything.")
-    d.notes(s, "Keep this brief; it is vocabulary, and PS6 asks them to name "
-               "a kind. Do not dwell.")
+        ("named by what the output SHOULD have done", "hold 0 and it blipped — static-0. Hold 1 and it dipped — static-1. Change once, changed three times — dynamic."),
+        ("note where each came from", "the first two are a cell switching on. The third cannot be: from an empty cell the output only moves up first."),
+    ], top=4.82)
+    d.foot(s, "The names are borrowed from electronics, where they describe an input change. Ours mostly describe being born, which is worse.")
+    d.notes(s, "Brief — it is vocabulary, and PS6 asks them to name a kind.\n"
+               "The one thing worth saying: from a cold start the KIND is "
+               "not independent information. Settles to 0 and it is a "
+               "static-0; settles to 1 and it is dynamic; static-1 cannot "
+               "happen at all. That is why the third panel is an input "
+               "change, and why the handout has them do one.\n"
+               "All three traces are computed, the third from the circuit "
+               "on their own sheet.")
 
     s = d.light()
     d.header(s, "glitch-release", "Your turn  ·  groups of 2–3")
@@ -489,29 +495,36 @@ def _wrong_then_right(d):
     s = d.light()
     d.header(s, "fix-separate", "Debrief  ·  what actually changed")
     d.title(s, "Two things changed, so test them one at a time")
-    _fig(d, s, "s16_two_conditions", 1.70)
-    d.foot(s, "Every cell in that table is computed from the gate list, not asserted. The middle two rows are the counterexamples.")
-    d.notes(s, "This slide exists because an earlier build of this session "
-               "said 'fix the promoter, not the wiring', which is as wrong "
-               "as the path-length diagnosis it was correcting. The hybrid "
-               "repair changed BOTH: the output stopped being ON when empty, "
-               "AND both legs became two gates deep.\n"
-               "Row 2 is the cold-start circuit from earlier: balanced, and "
-               "it glitches in three of four cases. Row 3 is the padded "
-               "repair: OFF when empty, and it glitches in all four. Each "
-               "condition alone is demonstrably not enough.\n"
-               "Say plainly what this does and does not establish: the two "
-               "together are enough HERE. The model has one gate delay "
-               "everywhere, and that is doing work.")
+    _fig(d, s, "s16_two_conditions", 1.52)
+    d.foot(s, "Every cell is computed from the gate list. Read down the first two columns: each says yes to a circuit that glitches.")
+    d.notes(s, "Work down the table a row at a time, and let the room "
+               "predict each verdict before you show it.\n"
+               "Rows 2 and 3 are the SAME circuit, the second with an "
+               "activator bolted onto the output. It is now OFF when empty "
+               "AND balanced, and it still glitches three times in four. "
+               "That kills 'fail-safe plus balanced' on its own.\n"
+               "Row 6 kills the other half: two genes, UNBALANCED, clean in "
+               "all four, and it computes the same classifier we have spent "
+               "the hour failing to build. It is the simplest circuit on the "
+               "slide. Let that land before you explain it.\n"
+               "Then the explanation, which is the next surface: in row 6 "
+               "the late signal is the ACTIVATOR, and an activator that has "
+               "not arrived holds the gene off. In row 3 the late signal is "
+               "a repressor, and a repressor that has not arrived lets the "
+               "gene fire. Same depth difference, opposite consequence.\n"
+               "The third column is computed by cold_start_safe(), swept "
+               "over every two- and three-gate network in tests/test_logic. "
+               "If asked whether it is a theorem: it is a sufficient "
+               "condition checked by exhaustion in this model, not a proof.")
 
     s = d.light()
     d.header(s, "fix-consequence", "Debrief  ·  what this is actually a rule about")
-    d.title(s, "Fail-safe when empty, and arriving together")
+    d.title(s, "An absent activator holds a gene off. An absent repressor lets it fire.")
     d.rows(s, [
-        ("the engineering result", "when the output does something irreversible, two things must hold: the output must be OFF in a cell that has only just been made, and the signals that drive it must arrive at the same depth."),
-        ("one is a promoter decision", "OFF when empty means the output needs an activator, not just the absence of a repressor. You cannot wire your way to it."),
-        ("the other is a wiring decision", "equal path lengths. Necessary, and on its own worth nothing, which is the cold-start circuit two slides back."),
-        ("and the honest limit", "this model gives every gate the same unit delay. Real promoters do not, and nothing in the model tells you which way unequal delays push the answer."),
+        ("the engineering result", "a gene is safe if it sits one step from the inputs, so it is never wrong \u2014 or if its promoter needs an activator and no repressor arrives later than that activator."),
+        ("why you cannot fix it at the output", "a NOT or a NOR has no activator at all, so it fires the instant the cell exists. That gene is not silent, it is WRONG \u2014 and a wrong value walks downstream whatever you do at the output."),
+        ("why equal depth was the wrong target", "the condition is an inequality and it points one way: a repressor arriving EARLY is harmless. Matching the legs satisfies it; it is not what matters."),
+        ("and the honest limit", "a sufficient condition, checked by exhaustion over every small network in this model. Every gate here has one unit of delay; real ones do not."),
     ])
     d.foot(s, "A classifier that fires while it is still booting has already killed the cell it was deciding about.")
     d.notes(s, "Land the therapeutic framing here, having set it up on the "

@@ -19,7 +19,7 @@ from figures.style import use, TEAL, CYAN, AMBER, MUTED, INK, RED, GREEN, RULE
 from posb import (toggle_model, stability_report, nullcline,
                   toggle_alpha_critical)
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 PANEL = (5.4, 4.9)
 U_COL, V_COL = TEAL, AMBER          # du/dt = 0 and dv/dt = 0, as in session 8

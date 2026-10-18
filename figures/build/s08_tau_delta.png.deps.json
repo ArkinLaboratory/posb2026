@@ -1,10 +1,11 @@
 {
   "artifact": "s08_tau_delta.png",
   "artifact_sha256": "ab25b2afe3f5ffc69a0e97d3e21e624c6f02c165e9206611aaecf0d463b0c9e5",
+  "artifact_content": "e9cef911f3e0baf690e8213767ba09adf442a89790c42120364cecfe499da8b2",
   "artifact_bytes": 105739,
   "deps": {
-    "figures/s08_phase_plane.py": "603054626f2477ee3a44178a0a64eaafdb5c1b9cebe3410766c6326e6bc64fec",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s08_phase_plane.py": "0827c3ed271173928ea0942d802050903a330db2deca9c1e05b1a495b1555628",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s08_phase_plane.fig_tau_delta"
 }

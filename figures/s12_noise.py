@@ -21,7 +21,7 @@ from posb.stochastic import (gillespie, time_average, fano, birth_death,
                              two_stage, negative_autoregulation,
                              two_stage_fano, nar_fano_lna)
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 

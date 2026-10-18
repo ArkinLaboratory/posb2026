@@ -39,7 +39,7 @@ from figures.style import use, AMBER, CYAN, INK, MUTED, RED, RULE, TEAL
 # one, so alias it here rather than inventing a second grey.
 BODY = "#23423F"
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 # Bintu et al. 2005 (applications), Figure 2 legend, verbatim: "These plots are

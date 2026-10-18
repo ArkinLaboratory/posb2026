@@ -1,11 +1,11 @@
 {
   "artifact": "s11_period.png",
-  "artifact_sha256": "430714259dba23edcce7c4c701ec9bb1738da1173b9b5be9f079412a09c5b95f",
-  "artifact_content": "44d8aea84a6f782d80bccd3aef2b843424725e0805b42202328754f905497348",
-  "artifact_bytes": 78694,
+  "artifact_sha256": "21c81c406800c8abe4a2e859165fe03919544e7964cfac0d8ea6ec9806143306",
+  "artifact_content": "4d546c3a9bdd840228fc2ea24db92eee75ccab8b6933e2036d9b3bb6a48ea840",
+  "artifact_bytes": 78683,
   "deps": {
-    "figures/s11_oscillators.py": "87d78b886c4b5bf6f27ccfbda246f5259a5a72b2e7b400890bf90b0b31b78ea3",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s11_oscillators.py": "3fd50e25f1a2fb77d2c41552fbc86e1d64c4f89812d72b48671160f6956efa8a",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s11_oscillators.fig_period"
 }

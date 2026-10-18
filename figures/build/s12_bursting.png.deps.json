@@ -1,11 +1,11 @@
 {
   "artifact": "s12_bursting.png",
-  "artifact_sha256": "d5c6e016c83377baf331b684feeae214b679491455207b01f851abcd0660a76b",
-  "artifact_content": "5f76a3d294660b5912b5cf95db96c561cede02e7ecd0a04b321e0d560ce7e466",
-  "artifact_bytes": 175657,
+  "artifact_sha256": "20c99dde94e7f287a48c579326d57141da721f641c09aa60ac0095ff636d0e7f",
+  "artifact_content": "a5cf48af121f5c639e49eccc0b6ee9b758b1ea18a2e08ad58e1a44dee2183c77",
+  "artifact_bytes": 160247,
   "deps": {
-    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s12_noise.py": "50c86b15c141d0148a2aa86c6cf6713988cd429408046e1fe8977e2704472e4b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s12_noise.fig_bursting"
 }

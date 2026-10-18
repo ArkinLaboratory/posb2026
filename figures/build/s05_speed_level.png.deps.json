@@ -1,10 +1,11 @@
 {
   "artifact": "s05_speed_level.png",
   "artifact_sha256": "b6a43d3958326baeb00ea6b795462dae6f5f55d114b9797a1886cdc75161786f",
+  "artifact_content": "7946ab80887b67570bc03585a90c64aace8a5943cac8fddd27bdf9e081f14a22",
   "artifact_bytes": 92504,
   "deps": {
-    "figures/s05_expression.py": "1fedc526aee124693bae0a781ac1aeee1cb3ed075e5a1153f5423b71a7e35f88",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s05_expression.py": "ff95299d084766e5068baf74280cdaaec6fd2d9bf6d609f3d040f1a9f756b571",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s05_expression.fig_speed_level"
 }

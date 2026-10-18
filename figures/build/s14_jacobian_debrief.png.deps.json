@@ -1,11 +1,11 @@
 {
   "artifact": "s14_jacobian_debrief.png",
-  "artifact_sha256": "adb7168293fd6cfc8ad49b0f329f5987ef52b510e909ba0c4d8aaafd888bb5cc",
-  "artifact_content": "77048015e8903ee2d84360fdf19fe0e249ac5e85cb2e0d4010042382a747dcba",
-  "artifact_bytes": 74563,
+  "artifact_sha256": "3834c326b7231474be43971eae27556a28f2fd754329bedfc50afb2066d2edac",
+  "artifact_content": "36104a07b48378e8f9da9049c380dbf88272903ca0e08fafc824a334641b90b1",
+  "artifact_bytes": 74097,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_jacobian_debrief"
 }

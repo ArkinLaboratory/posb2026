@@ -318,3 +318,158 @@ def test_bad_inputs_are_refused():
         cascade_step_response(2, -1.0)
     with pytest.raises(ValueError):
         cascade_half_time(2, level=1.0)
+
+
+# ---------------------------------------------------------------------------
+# the cold-start rule, and why it is tested exhaustively
+#
+# Session 16's engineering result drifted twice. The first version said the
+# glitch came from unequal path lengths; a balanced circuit refuted it. The
+# repair said "fix the promoter, not the wiring"; the padded circuit refuted
+# that. The third version said BOTH conditions are needed -- and that is false
+# in both directions, which nothing in this file could see, because the claim
+# was prose in a deck and a handout rather than code.
+#
+# It is code now. These tests fail if anyone restates either overclaim.
+# ---------------------------------------------------------------------------
+
+def _all_small_networks(max_gates=3):
+    """Every network of up to `max_gates` gates over two free inputs."""
+    import itertools
+    names = ["g1", "g2", "g3", "g4"][:max_gates]
+    ctor = {"not": lambda n, s: NOT(n, s[0]), "buf": lambda n, s: BUF(n, s[0]),
+            "nor": lambda n, s: NOR(n, *s), "nand": lambda n, s: NAND(n, *s),
+            "hyb": lambda n, s: HYBRID(n, (s[0],), (s[1],))}
+    for k in range(2, max_gates + 1):
+        gn = names[:k]
+        for kinds in itertools.product(ctor, repeat=k):
+            pools = [list(("A", "B")) + gn[:i] for i in range(k)]
+            choices = []
+            for i, kind in enumerate(kinds):
+                p = pools[i]
+                if kind in ("not", "buf"):
+                    choices.append([(s,) for s in p])
+                elif kind in ("nor", "nand"):
+                    choices.append([tuple(c) for c in itertools.combinations(p, 2)])
+                else:
+                    choices.append([(x, y) for x in p for y in p if x != y])
+            for combo in itertools.product(*choices):
+                try:
+                    yield GateNetwork(
+                        [ctor[kind](gn[i], src)
+                         for i, (kind, src) in enumerate(zip(kinds, combo))],
+                        inputs=("A", "B"), output=gn[-1])
+                except ValueError:
+                    continue
+
+
+def _glitch_count(net, ticks=10):
+    return sum(bool(hazards(net.timing_table({"A": a, "B": b},
+                                             initial=0, ticks=ticks), net.output))
+               for a in (0, 1) for b in (0, 1))
+
+
+def test_cold_start_rule_is_sound():
+    """Nothing cold_start_safe() certifies may glitch. No exceptions allowed.
+
+    This is the whole point: the predicate is permitted to be conservative
+    and refuse a circuit that is in fact clean, but a single false positive
+    means the rule taught in session 16 is wrong again.
+    """
+    certified = bad = 0
+    for net in _all_small_networks(3):
+        if not net.cold_start_safe():
+            continue
+        certified += 1
+        if _glitch_count(net):
+            bad += 1
+            raise AssertionError(
+                f"cold_start_safe() certified a circuit that glitches: "
+                f"{[repr(g) for g in net.gates]}")
+    assert certified > 1500, f"only {certified} networks certified; sweep broke"
+    assert bad == 0
+
+
+def test_neither_fail_safe_nor_balanced_is_the_rule():
+    """The two overclaims the session made, each with its counterexample.
+
+    If someone restores "fail-safe AND balanced is the rule" to the deck, the
+    handout, the board notes or PS6, these two circuits are why it is wrong.
+    """
+    # Fail-safe AND balanced, and it still glitches: the session's own
+    # balanced counterexample with the session's own fail-safe repair on it.
+    z_buf = GateNetwork([NOT("na", "A"), NOT("nb", "B"), NOR("Z", "na", "nb"),
+                         BUF("out", "Z")], inputs=("A", "B"), output="out")
+    assert z_buf.is_fail_safe() and z_buf.is_balanced()
+    assert _glitch_count(z_buf) == 3, "sufficiency: both conditions hold, 3/4 glitch"
+    assert not z_buf.cold_start_safe()
+
+    # Fail-safe, NOT balanced, and clean -- computing the session's own spec.
+    two_gene = GateNetwork([BUF("g1", "A"), HYBRID("out", ("g1",), ("B",))],
+                           inputs=("A", "B"), output="out")
+    assert two_gene.is_fail_safe() and not two_gene.is_balanced()
+    assert _glitch_count(two_gene) == 0, "necessity: unbalanced and still clean"
+    assert two_gene.cold_start_safe()
+    assert (two_gene.realised_truth_table().rows
+            == classifier_2025().realised_truth_table().rows)
+
+
+def test_the_four_session_circuits_agree_with_the_predicate():
+    """The table on the slide, as an assertion."""
+    z = GateNetwork([NOT("na", "A"), NOT("nb", "B"), NOR("Z", "na", "nb")],
+                    inputs=("A", "B"), output="Z")
+    padded = GateNetwork([NOT("R1", "B"), NAND("R2", "A", "R1"),
+                          NOT("Act", "R2"), BUF("R3", "Act")],
+                         inputs=("A", "B"), output="R3")
+    for net, safe, n_bad in [(classifier_2025(), False, 4), (z, False, 3),
+                             (padded, False, 4), (classifier_fixed(), True, 0)]:
+        assert net.cold_start_safe() is safe, repr(net.gates)
+        assert _glitch_count(net) == n_bad, repr(net.gates)
+
+
+def test_the_padded_repair_is_not_static_0_in_all_four():
+    """The claim four documents made. (1,0) is dynamic, and has to be.
+
+    If the padded circuit were static-0 in all four cases it would settle to 0
+    everywhere and compute the constant 0, not A AND NOT B.
+    """
+    padded = GateNetwork([NOT("R1", "B"), NAND("R2", "A", "R1"),
+                          NOT("Act", "R2"), BUF("R3", "Act")],
+                         inputs=("A", "B"), output="R3")
+    kinds = {}
+    for a in (0, 1):
+        for b in (0, 1):
+            tbl = padded.timing_table({"A": a, "B": b}, initial=0, ticks=6)
+            hz = hazards(tbl, padded.output)
+            kinds[(a, b)] = hz[0].kind if hz else "clean"
+    assert kinds == {(0, 0): "static-0", (0, 1): "static-0",
+                     (1, 0): "dynamic", (1, 1): "static-0"}
+    assert (padded.realised_truth_table().rows
+            == classifier_2025().realised_truth_table().rows)
+
+
+def test_static_1_needs_an_input_change_not_a_cold_start():
+    """No cold start can produce a static-1, so the taxonomy needs a flip.
+
+    From an all-zero start the output's first move is upward, so it can only
+    hold 0 and blip (static-0) or end at 1 having wobbled (dynamic). A
+    static-1 requires starting from a settled state and changing an input --
+    which is what a digital-design textbook means by a hazard in the first
+    place. fig_hazard_types drew one by hand with a trace that starts at 1;
+    this is where a real one comes from.
+    """
+    item3 = GateNetwork([NOT("R1", "A"), NOR("R2", "B", "R1"),
+                         NOT("out", "R2")], inputs=("A", "B"), output="out")
+    for net in _all_small_networks(3):
+        for a in (0, 1):
+            for b in (0, 1):
+                tbl = net.timing_table({"A": a, "B": b}, initial=0, ticks=10)
+                hz = hazards(tbl, net.output)
+                assert not hz or hz[0].kind != "static-1", repr(net.gates)
+
+    settled = item3.steady_state({"A": 1, "B": 1}, initial=0)
+    start = dict(settled, A=False, B=False)
+    tbl = item3.timing_table({"A": 0, "B": 0}, initial=start, ticks=8)
+    hz = hazards(tbl, "out", settle=1)
+    assert hz and hz[0].kind == "static-1"
+    assert [int(r["out"]) for r in tbl][:5] == [1, 1, 0, 1, 1]

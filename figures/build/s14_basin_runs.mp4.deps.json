@@ -1,11 +1,11 @@
 {
   "artifact": "s14_basin_runs.mp4",
-  "artifact_sha256": "e89d69b1a424389cc44fa5f55d70a91dc693c68d3a86688b4244045ab13eb337",
-  "artifact_content": "e89d69b1a424389cc44fa5f55d70a91dc693c68d3a86688b4244045ab13eb337",
-  "artifact_bytes": 289390,
+  "artifact_sha256": "54ee89d2e72dea7fcc3b2b535280e6a3684f5d345550ee1fd05449f86610c7fd",
+  "artifact_content": "54ee89d2e72dea7fcc3b2b535280e6a3684f5d345550ee1fd05449f86610c7fd",
+  "artifact_bytes": 336716,
   "deps": {
-    "figures/s14_movie.py": "3bb60267338d33d0db4aee761229f09802a438da3975758ebedc4beb5ad67783",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_movie.py": "9d0aa611dc1ca310278029f05b87346f04b7c485f0afd5d783fca371cb852152",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_movie.fig_basin_movie"
 }

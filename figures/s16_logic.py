@@ -26,7 +26,7 @@ import numpy as np
 from figures.style import use, TEAL, CYAN, AMBER, MUTED, INK, RED, GREEN, RULE
 from posb.logic import (
     classifier_2025, classifier_fixed, GateNetwork, NOT, NOR, NAND,
-    BUF, hazards, TruthTable, cascade_half_time,
+    BUF, HYBRID, hazards, TruthTable, cascade_half_time,
     cascade_step_response,
 )
 
@@ -184,23 +184,23 @@ def fig_timing_steps():
     # p1 -- cold start. Every gate reads 0 because no protein exists yet.
     fig, ax = plt.subplots(figsize=(5.2, 2.30))
     rows, _ = _rows_from(net, {"A": 0, "B": 0}, 1, wires)
-    y, p = _table(ax, fig, hdr, rows, fontsize=16,
+    y, p = _table(ax, fig, hdr, rows, fontsize=20,
                   title="A=0, B=0   ·   t = 0")
     ax.text(0.0, y - p, "No protein yet, so every\n"
                         "gate reads 0. Not a steady\n"
                         "state — an empty cell.",
-            fontsize=16, color=MUTED, va="top")
+            fontsize=20, color=MUTED, va="top")
     _save(fig, "s16_timing_p1")
 
     # p2 -- one tick. R3 goes high while R2 is still absent.
     fig, ax = plt.subplots(figsize=(5.2, 2.55))
     rows, _ = _rows_from(net, {"A": 0, "B": 0}, 2, wires)
-    y, p = _table(ax, fig, hdr, rows, fontsize=16,
+    y, p = _table(ax, fig, hdr, rows, fontsize=20,
                   title="t = 1   ·   one gate delay", mark={(1, 3)})
     ax.text(0.0, y - p, "R3 = NOT R2, and R2 was 0,\n"
                         "so R3 switches ON. But\n"
                         "A = 0: it should be 0.",
-            fontsize=16, color=MUTED, va="top")
+            fontsize=20, color=MUTED, va="top")
     _save(fig, "s16_timing_p2")
 
     # p3 -- settled, glitch named from posb.logic rather than from the slide
@@ -208,11 +208,11 @@ def fig_timing_steps():
     rows, tbl = _rows_from(net, {"A": 0, "B": 0}, 4, wires)
     hz = hazards(tbl, "R3")
     assert len(hz) == 1 and hz[0].kind == "static-0", hz
-    y, p = _table(ax, fig, hdr, rows, fontsize=16,
+    y, p = _table(ax, fig, hdr, rows, fontsize=20,
                   title="settled, and wrong on the way", mark={(1, 3)})
     ax.text(0.0, y - p, "R3 holds 0 at both ends and\n"
                         f"visits 1 between: a\n{hz[0].kind} hazard.",
-            fontsize=16, color=RED, va="top")
+            fontsize=20, color=RED, va="top")
     _save(fig, "s16_timing_p3")
 
     # p4 -- all four input cases, kinds computed
@@ -313,22 +313,62 @@ def fig_timing_fixed():
 
 
 def fig_hazard_types():
-    """The three kinds, named by what the output was supposed to do."""
-    traces = {
-        "static-0\nshould hold 0": [0, 1, 0, 0, 0],
-        "static-1\nshould hold 1": [1, 0, 1, 1, 1],
-        "dynamic\nshould change once": [0, 1, 0, 1, 1],
-    }
-    fig, axes = plt.subplots(1, 3, figsize=(12.0, 3.30))
-    fig.subplots_adjust(top=0.72, bottom=0.22)
-    for ax, (name, tr) in zip(axes, traces.items()):
+    """The three kinds, every trace computed, and where a static-1 comes from.
+
+    The first version of this figure hand-typed the static-1 panel as
+    [1, 0, 1, 1, 1] -- a trace that STARTS AT 1, which the tick rule printed
+    beside it forbids. No cold start can produce a static-1: from an all-zero
+    start the output's first move is upward, so it either holds 0 and blips
+    (static-0) or ends at 1 having wobbled (dynamic). Swept over every two-
+    and three-gate network, static-1 never occurs; the test is in
+    tests/test_logic.py.
+
+    A static-1 is what a digital-design textbook actually means by a hazard:
+    a settled circuit, one input changed. So the third panel is that, drawn
+    from the handout's own item-3 circuit, and labelled as a different
+    regime rather than quietly mixed in with the other two.
+    """
+    cold = classifier_2025()
+    item3 = GateNetwork([NOT("R1", "A"), NOR("R2", "B", "R1"),
+                         NOT("out", "R2")], inputs=("A", "B"), output="out")
+
+    def cold_trace(net, a, b, n=5):
+        tbl = net.timing_table({"A": a, "B": b}, initial=0, ticks=n)
+        return [int(r[net.output]) for r in tbl], hazards(tbl, net.output)
+
+    def flip_trace(net, before, after, n=5):
+        settled = net.steady_state({"A": before[0], "B": before[1]}, initial=0)
+        start = dict(settled, A=bool(after[0]), B=bool(after[1]))
+        tbl = net.timing_table({"A": after[0], "B": after[1]},
+                               initial=start, ticks=n)
+        return [int(r[net.output]) for r in tbl], hazards(tbl, net.output, settle=1)
+
+    t0, h0 = cold_trace(cold, 0, 0)
+    t1, h1 = cold_trace(cold, 1, 0)
+    t2, h2 = flip_trace(item3, (1, 1), (0, 0))
+    assert h0 and h0[0].kind == "static-0", t0
+    assert h1 and h1[0].kind == "dynamic", t1
+    assert h2 and h2[0].kind == "static-1", t2
+
+    panels = [
+        ("static-0", "should hold 0", "cold start", t0, RED),
+        ("dynamic", "should change once", "cold start", t1, RED),
+        ("static-1", "should hold 1", "input change", t2, AMBER),
+    ]
+    fig, axes = plt.subplots(1, 3, figsize=(12.0, 3.40))
+    fig.subplots_adjust(top=0.70, bottom=0.26, wspace=0.36)
+    for ax, (kind, want, regime, tr, col) in zip(axes, panels):
         t = np.arange(len(tr))
-        ax.step(t, tr, where="post", color=TEAL, lw=3.0)
-        ax.plot(t, tr, "o", color=TEAL, ms=6)
+        ax.step(t, tr, where="post", color=col, lw=3.0)
+        ax.plot(t, tr, "o", color=col, ms=7)
         ax.set_ylim(-0.35, 1.35)
         ax.set_yticks([0, 1])
-        ax.set_xlabel("tick")
-        ax.set_title(name, fontsize=20)
+        # The regime goes on the axis line, not above the title: a second
+        # text at y>1 collides with a two-line title at 20pt, which is how
+        # the first build of this figure ended up unreadable.
+        ax.set_xlabel(f"tick  \u00b7  {regime}")
+        ax.set_title(f"{kind}\n{want}", fontsize=20, color=INK,
+                     fontweight="bold", linespacing=1.2)
         ax.grid(axis="y", lw=1.0)
     _save(fig, "s16_hazard_types")
 
@@ -353,7 +393,7 @@ def fig_cascade_delay():
     ax1.set_xlabel("time  (lifetimes)")
     ax1.set_ylabel("output, scaled")
     ax1.set_title("the same step, more stages")
-    ax1.legend(loc="lower right", fontsize=16)
+    ax1.legend(loc="lower right", fontsize=20)
 
     ax2.plot(ns, th, "o-", color=TEAL, lw=2.8, ms=7, label=r"$t_{1/2}$")
     ax2.plot(ns, ns - 1 / 3, "--", color=AMBER, lw=2.4,
@@ -361,11 +401,11 @@ def fig_cascade_delay():
     ax2.set_xlabel("stages  n")
     ax2.set_ylabel(r"$t_{1/2}$  (lifetimes)")
     ax2.set_title("one stage, one lifetime")
-    ax2.legend(loc="upper left", fontsize=16)
+    ax2.legend(loc="upper left", fontsize=20)
     gaps = np.diff(th)
     ax2.text(0.98, 0.04,
              f"per stage: {gaps[0]:.3f} → {gaps[-1]:.3f} τ",
-             transform=ax2.transAxes, ha="right", fontsize=16, color=MUTED)
+             transform=ax2.transAxes, ha="right", fontsize=20, color=MUTED)
     _save(fig, "s16_cascade_delay")
 
 
@@ -413,7 +453,7 @@ def fig_dirs_states():
             "Dashed: state 3 was predicted and never observed \u2014 the\n"
             "fim arm barely inverted, and of 50 isolates sequenced\n"
             "none carried it. A proof of principle that says so.",
-            fontsize=16, color=MUTED, va="top")
+            fontsize=20, color=MUTED, va="top")
     _save(fig, "s16_dirs_states")
 
 
@@ -514,7 +554,7 @@ def _arch(name, title, strands, P, corners, caption):
     axp.set_xscale("log"); axp.set_yscale("log")
     axp.set_xlabel("repressor A  (units of K)", fontsize=20)
     axp.set_ylabel("repressor B  (units of K)", fontsize=20)
-    axp.tick_params(labelsize=18)
+    axp.tick_params(labelsize=20)
     # The badge is READ OFF the rate law at the marker, not typed: the NAND's
     # two single-repressor corners sit at half amplitude, and badging them
     # "1" asserted something the colour underneath contradicts.
@@ -566,9 +606,9 @@ def fig_universal():
     def block(x, head, body, col, w=0.30):
         ax.add_patch(plt.Rectangle((x, 0.28), w, 0.50, facecolor="white",
                                    edgecolor=col, lw=2.4))
-        ax.text(x + w / 2, 0.685, head, ha="center", va="center", fontsize=19,
+        ax.text(x + w / 2, 0.685, head, ha="center", va="center", fontsize=20,
                 color=col, fontweight="bold")
-        ax.text(x + w / 2, 0.435, body, ha="center", va="center", fontsize=16,
+        ax.text(x + w / 2, 0.435, body, ha="center", va="center", fontsize=20,
                 color=MUTED)
 
     block(0.010, "a COMPLEMENT", "turn it over\nNOT", AMBER, w=0.26)
@@ -584,7 +624,7 @@ def fig_universal():
             "NOR is NOT(OR).   NAND is NOT(AND).\nEach packs both "
             "ingredients into one piece of DNA,\nso either one, alone, can "
             "build anything.",
-            ha="center", va="center", fontsize=18, color=INK)
+            ha="center", va="center", fontsize=20, color=INK)
     _save(fig, "s16_universal")
 
 
@@ -652,7 +692,7 @@ def _xpanel(ax, nodes, edges, title, gloss, stats):
     for src, dst, chan, dy in edges:
         _xwire(ax, nodes[src][:2], nodes[dst][:2], chan, dy)
     ax.set_title(title, fontsize=20, color=INK, loc="left", fontweight="bold")
-    ax.text(0.0, 0.03, gloss, fontsize=16, color=MUTED, ha="left", va="top")
+    ax.text(0.0, 0.03, gloss, fontsize=20, color=MUTED, ha="left", va="top")
     ax.text(0.0, -0.21, stats, fontsize=20, color=INK, ha="left", va="top",
             fontweight="bold")
 
@@ -711,79 +751,99 @@ def fig_xnor_two_ways():
 
 
 # ---------------------------------------------------------------------------
-# 8. the engineering result, stated as the conjunction it actually is
+# 8. the engineering result, stated as something a test can falsify
 #
-# Added 18 October after an adversarial review found that the deck refuted
-# "balance is enough" with fig_cold_start and then asserted the mirror-image
-# overclaim -- "fix the promoter, not the wiring" -- without testing it. It
-# is false: the deck's OWN first repair (pad the short path with an
-# activator) is fail-safe and still glitches in all four cases. Both
-# conditions are needed, each has a counterexample in this session, and the
-# four rows below are computed rather than asserted.
+# This surface has now been wrong twice. The first version said the glitch
+# came from unequal path lengths, and fig_cold_start refuted it. The repair
+# said "fix the promoter, not the wiring", and the padded circuit refuted
+# that. The third version said BOTH conditions are needed -- and that is
+# false in both directions:
+#
+#   fail-safe AND balanced, glitches 3/4:
+#       NOT na A; NOT nb B; NOR Z na nb; BUF out Z
+#   fail-safe, UNBALANCED, clean 4/4, computing A AND NOT B:
+#       BUF g1 A; HYBRID out activators=(g1,) repressors=(B,)
+#
+# Both are rows on the table below now. The verdict column is computed by
+# GateNetwork.cold_start_safe(), whose soundness is swept exhaustively in
+# tests/test_logic.py -- so the next overclaim cannot be typed in here, it
+# has to survive a test.
 # ---------------------------------------------------------------------------
 def fig_two_conditions():
-    """Fail-safe or balanced alone is not enough; the counterexample is computed."""
+    """What decides a clean cold start: no late repressor, not equal paths."""
+    z = GateNetwork([NOT("na", "A"), NOT("nb", "B"), NOR("Z", "na", "nb")],
+                    inputs=("A", "B"), output="Z")
+    z_act = GateNetwork([NOT("na", "A"), NOT("nb", "B"), NOR("Z", "na", "nb"),
+                         BUF("out", "Z")], inputs=("A", "B"), output="out")
     padded = GateNetwork(
         [NOT("R1", "B"), NAND("R2", "A", "R1"), NOT("Act", "R2"),
-         BUF("R3", "Act")],
-        inputs=("A", "B"), output="R3")
-    balanced = GateNetwork(
-        [NOT("na", "A"), NOT("nb", "B"), NOR("Z", "na", "nb")],
-        inputs=("A", "B"), output="Z")
+         BUF("R3", "Act")], inputs=("A", "B"), output="R3")
+    two_gene = GateNetwork([BUF("g1", "A"), HYBRID("out", ("g1",), ("B",))],
+                           inputs=("A", "B"), output="out")
 
     cases = [
         ("the 2025 classifier", classifier_2025()),
-        ("Z = NOR(¬A, ¬B)", balanced),
-        ("pad the short path", padded),
-        ("require an activator", classifier_fixed()),
+        ("Z = NOR(\u00acA, \u00acB)", z),
+        ("...with an activator output", z_act),
+        ("pad the output stage", padded),
+        ("activator, both legs at 1", classifier_fixed()),
+        ("activator, B straight in", two_gene),
     ]
-    rows, bad = [], []
-    for i, (name, net) in enumerate(cases):
+    rows = []
+    for name, net in cases:
         n_bad = sum(bool(hazards(_rows_from(net, {"A": a, "B": b}, 4,
                                             [net.output])[1], net.output))
                     for a in (0, 1) for b in (0, 1))
-        if n_bad:
-            bad.append(i)
         rows.append((name,
                      "yes" if net.is_fail_safe() else "no",
                      "yes" if net.is_balanced() else "no",
-                     "clean" if n_bad == 0 else f"glitches {n_bad}/4"))
-    # The lesson exists only if exactly the last row is clean.
-    assert bad == [0, 1, 2], bad
+                     "yes" if net.cold_start_safe() else "no",
+                     "clean" if n_bad == 0 else f"glitches {n_bad}/4",
+                     n_bad == 0))
 
-    # Not _table: that centres every column on an equal share of the width,
-    # and the first column here is a circuit name rather than a digit. The
-    # pitch is still measured.
-    fig, ax = plt.subplots(figsize=(11.6, 3.30))
-    fig.subplots_adjust(left=0.015, right=0.985, top=0.97, bottom=0.03)
+    # The lesson, as an assertion: "OFF when empty" misses two of the six
+    # rows and "paths equal" misses three, while cold_start_safe() gets every
+    # one. If a future edit makes either of the first two columns agree
+    # everywhere, the table has stopped carrying its argument and this fails.
+    agree = lambda i: sum(r[i] == ("yes" if r[5] else "no") for r in rows)
+    assert agree(1) == 4, f"OFF-when-empty should miss 2 rows: {rows}"
+    assert agree(2) == 3, f"paths-equal should miss 3 rows: {rows}"
+    assert agree(3) == len(rows), f"the predicate must miss none: {rows}"
+
+    fig, ax = plt.subplots(figsize=(11.40, 4.45))
+    fig.subplots_adjust(left=0.012, right=0.988, top=0.97, bottom=0.03)
     ax.set_axis_off(); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
     pitch = _row_pitch(fig, ax, 20)
-    xs = (0.00, 0.41, 0.67, 0.89)
-    heads = ("circuit", "OFF when empty?", "paths equal?", "result")
+    xs = (0.00, 0.470, 0.605, 0.780, 1.000)
+    heads = ("circuit", "OFF when\nempty?", "paths\nequal?",
+             "no late\nrepressor?", "result")
 
-    y = 1.0 - pitch * 0.7
-    ax.text(0.0, y, "Two conditions, and neither is enough on its own",
+    y = 1.0 - pitch * 0.6
+    ax.text(0.0, y, "What decides it is the late repressor, not the path length",
             fontsize=21, color=INK, fontweight="bold", va="top")
     y -= pitch * 1.5
     for x, h in zip(xs, heads):
+        ha = "left" if x == 0.0 else ("right" if x == 1.0 else "center")
         ax.text(x, y, h, fontsize=20, color=MUTED, va="center",
-                ha="left" if x == 0.0 else "center", fontweight="bold")
-    y -= pitch * 0.55
+                ha=ha, fontweight="bold", linespacing=1.15)
+    y -= pitch * 0.75
     ax.plot([0.0, 1.0], [y, y], color=RULE, lw=1.4)
-    y -= pitch * 0.8
-    for name, fs, bal, verdict in rows:
-        colour = GREEN if verdict == "clean" else RED
+    y -= pitch * 0.85
+    for name, fs, bal, safe, verdict, clean in rows:
+        colour = GREEN if clean else RED
         ax.text(xs[0], y, name, fontsize=20, color=INK, va="center")
-        for x, v in zip(xs[1:3], (fs, bal)):
-            ax.text(x, y, v, fontsize=20, color=INK, va="center",
-                    ha="center", fontfamily="DejaVu Sans Mono")
-        ax.text(xs[3], y, verdict, fontsize=20, color=colour, va="center",
-                ha="center", fontweight="bold")
+        for x, v, is_pred in zip(xs[1:4], (fs, bal, safe), (0, 0, 1)):
+            ax.text(x, y, v, fontsize=20, va="center", ha="center",
+                    fontfamily="DejaVu Sans Mono",
+                    color=colour if is_pred else INK,
+                    fontweight="bold" if is_pred else "normal")
+        ax.text(xs[4], y, verdict, fontsize=20, color=colour, va="center",
+                ha="right", fontweight="bold")
         y -= pitch
-    ax.text(0.0, y - pitch * 0.2,
-            "The middle two rows are the counterexamples: one for each "
-            "condition on its own.",
-            fontsize=20, color=MUTED, va="top")
+    ax.text(0.0, y - pitch * 0.15,
+            "Column 1 misses two rows, column 2 misses three, column 3 "
+            "misses none.",
+            fontsize=20, color=MUTED, va="top", linespacing=1.25)
     _save(fig, "s16_two_conditions")
 
 

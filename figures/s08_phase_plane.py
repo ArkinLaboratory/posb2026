@@ -24,7 +24,7 @@ from figures.style import use, TEAL, AMBER, MUTED, INK, RED, GREEN, RULE, CYAN
 from posb import (toggle_model, stability_report, nullcline,
                   toggle_alpha_critical)
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 PANEL = (5.4, 4.9)          # the left column of a split derivation surface
 N, A = 2, 3.0               # the running example

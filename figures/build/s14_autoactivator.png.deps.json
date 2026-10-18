@@ -1,11 +1,11 @@
 {
   "artifact": "s14_autoactivator.png",
-  "artifact_sha256": "f7fad2e068b49343b137879f6ba75ad6b05ef41f0b864b1fabe4e76f4572ceaa",
-  "artifact_content": "3eca89b75ed1a5983ad24806dd460d4d090d14207a9fa7bf50e99c118bcdd167",
-  "artifact_bytes": 76444,
+  "artifact_sha256": "89b51ecdea3b9c299bd490192d491d19d8d2d0d9b9b36f8642bce5b26ed470ab",
+  "artifact_content": "73a77a044b5aeb18834a6f0d305148c2fed039dc545fb65d1bf6c28ba1c7375f",
+  "artifact_bytes": 76772,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_autoactivator"
 }

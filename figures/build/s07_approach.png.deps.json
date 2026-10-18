@@ -1,10 +1,11 @@
 {
   "artifact": "s07_approach.png",
   "artifact_sha256": "cf74e3c4eed98045cf61be4850660e1483806b8749af2680de77e3296704db43",
+  "artifact_content": "c084c80fa540ce896d9d3c926d2409a721f5fd1be8a07ba137238e69569f4051",
   "artifact_bytes": 118066,
   "deps": {
-    "figures/s07_autoregulation.py": "f57db379f1aa895ea33d8cf2a594a807c5cb2cae09d060a20aa9ca857d69bd46",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s07_autoregulation.py": "d6ca6cb03fbb5227e74ac847b0016383dbcd3af815462a637379dad1cc506ccd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s07_autoregulation.fig_approach"
 }

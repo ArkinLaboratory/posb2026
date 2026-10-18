@@ -1,11 +1,11 @@
 {
   "artifact": "s14_curve_anatomy.png",
-  "artifact_sha256": "69bd327ea8ab3e32e61bb8450f8b7bddb64a2f05cb5f3adba90d66b9622b31bd",
-  "artifact_content": "bed7e3fdb863d76f1d6b502d3170e0348c9675700f0e133389a25e1a099731c0",
-  "artifact_bytes": 107946,
+  "artifact_sha256": "38bc5c15111e810a45a98c64d80d7cb621496cc38bc1c80c1bf956cba4dfdde4",
+  "artifact_content": "37e1d2e21d6949231f060f9383a629c40dd0e2755c0fb7bb141d536e2555d87e",
+  "artifact_bytes": 106661,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_curve_anatomy"
 }

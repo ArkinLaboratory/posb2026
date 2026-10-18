@@ -1,10 +1,11 @@
 {
   "artifact": "s02_confinement.png",
-  "artifact_sha256": "f5605d9e69698f783f07f2e0007c292f2b797c070f78f8e4343c17eeabc7084f",
-  "artifact_bytes": 136197,
+  "artifact_sha256": "b80005b24145c3e8e6a698c190aea984e75a8de76632dc8dede12509284dab41",
+  "artifact_content": "c538e46a8ef5ba3d914a4a13c4719e5aa96f7a1f361c3d6466380949b8e91f3b",
+  "artifact_bytes": 135165,
   "deps": {
-    "figures/s02_substrate.py": "0d499f945ffd02d93ebb538ef89dd2e38b64dd7d73e0c15d27b0d96567e72778",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s02_substrate.py": "3c7088f57168df12b1f2a11430b17f40465b1e924b4e9bdcb92b01790e43e12d",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s02_substrate.fig_confinement"
 }

@@ -1,11 +1,11 @@
 {
   "artifact": "s12_nar_hist.png",
-  "artifact_sha256": "79a441aa87b1003d414fe7d8a53217ecea4f6fa0d8239c48c6448ded72a00081",
-  "artifact_content": "b1a52d4a5545a709bed201f7e93188c4e963a90e6ea02e0ddfcb57fa354f086d",
-  "artifact_bytes": 70848,
+  "artifact_sha256": "11439308e504c1eb715dee01143ef7df0556c6c876347455648e07c2b10270bb",
+  "artifact_content": "627008fe87c0429eb5d461395b1823b10e163195d96b017c4a99bfc9237f1605",
+  "artifact_bytes": 68047,
   "deps": {
-    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s12_noise.py": "50c86b15c141d0148a2aa86c6cf6713988cd429408046e1fe8977e2704472e4b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s12_noise.fig_derivation_panels"
 }

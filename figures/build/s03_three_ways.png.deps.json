@@ -1,10 +1,11 @@
 {
   "artifact": "s03_three_ways.png",
-  "artifact_sha256": "3ac2a522c7949b814603b33938c51b0e1cf06373d50f1627294ae912e67d304f",
-  "artifact_bytes": 176545,
+  "artifact_sha256": "6486820d09cd381766ee6feef0033b9d9ac7adb570e7d585a6e09bebc63f834f",
+  "artifact_content": "eccb9806ed5cb726f4a0f4cfcd92045a5a020efb99119d0080ed12613caf3869",
+  "artifact_bytes": 174904,
   "deps": {
-    "figures/s03_modeling_i.py": "ab2f123a42097816f883d4f44e99a13b2d9b7908f30790e29c798c3bb634366d",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s03_modeling_i.py": "bf956f2066e1b31ee99d742af9d233e9b5f32b73c8f5102a60ace7d5df28f5bd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s03_modeling_i.fig_three_ways"
 }

@@ -1,10 +1,11 @@
 {
   "artifact": "s02_confinement_poster.png",
   "artifact_sha256": "d49b9b67770e0ca88879421bfc736a4131a3043d9a89370d4b64dc8c4b5ce94a",
+  "artifact_content": "5c5c1ee3d4cddaaaffba6e677046601263e66e7782d2f88c13630ec808b91915",
   "artifact_bytes": 125872,
   "deps": {
-    "figures/s02_movie.py": "4d95293af4a7f49d063fa628ae573e7ae1a1eed88334b42304ae602a342ba3ae",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s02_movie.py": "084d60269cc5619c97fcc5b66050655d16f4fd05cf07e8de68295feecc43f696",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s02_movie.fig_confinement_movie"
 }

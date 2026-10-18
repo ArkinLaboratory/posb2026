@@ -25,7 +25,7 @@ from matplotlib.patches import FancyBboxPatch
 
 from figures.style import use, AMBER, INK, MUTED, RULE, TEAL
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 D = 7.7                 # um^2/s, GFP in E. coli cytoplasm

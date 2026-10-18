@@ -1,10 +1,11 @@
 {
   "artifact": "s04_independent_sites.png",
-  "artifact_sha256": "5252b4267e839bb7aefa1c27dfc20e42b055a915437d1b38e8db954911828d1e",
-  "artifact_bytes": 102925,
+  "artifact_sha256": "f7d22ea95071d23c7112ce18c1f956a0ad8d5a691cc54822c4492a777cdab6da",
+  "artifact_content": "edf04b1e25656ea81909808aaf6dc787d2309460e7ccd18702a3320e79ced715",
+  "artifact_bytes": 101269,
   "deps": {
-    "figures/s04_modeling_ii.py": "c43f0284621a620d5ece88b24d65c534c79eadf8005a8fd57ddd1cc9e33d9847",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s04_modeling_ii.py": "4d03c08f92cd118818f506c61ddbf62cdca66550da5a8d978bd8730469fc251d",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s04_modeling_ii.fig_independent_sites"
 }

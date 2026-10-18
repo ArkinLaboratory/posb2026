@@ -1,10 +1,11 @@
 {
   "artifact": "s03_cascade.png",
-  "artifact_sha256": "420d469316291b7c9a687fc5c1de26613e51389e6ee5a36de82e3da5f0472b36",
-  "artifact_bytes": 101617,
+  "artifact_sha256": "132b1fc6d42c133effec7f7aa82fae5d5a7c0d8d6a446cdd2aa8afd7cfcd0cd7",
+  "artifact_content": "cd2b67bd04f623d3dfcfbac5a4ca24d290d7533c08c877b85e83a0100c139bb6",
+  "artifact_bytes": 99166,
   "deps": {
-    "figures/s03_modeling_i.py": "ab2f123a42097816f883d4f44e99a13b2d9b7908f30790e29c798c3bb634366d",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s03_modeling_i.py": "bf956f2066e1b31ee99d742af9d233e9b5f32b73c8f5102a60ace7d5df28f5bd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s03_modeling_i.fig_cascade"
 }

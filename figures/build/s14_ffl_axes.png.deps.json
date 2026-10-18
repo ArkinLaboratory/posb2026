@@ -1,11 +1,11 @@
 {
   "artifact": "s14_ffl_axes.png",
-  "artifact_sha256": "4327e9d79fb5111757fc11d33c75e99437e82c4066c409df69e784da494614f6",
-  "artifact_content": "e79fd6fae3d6fdf2a26b051affa676cc366309252e1ad78ee90c0192b0a8044b",
-  "artifact_bytes": 91164,
+  "artifact_sha256": "1134c3ad58ed0af8a5eacffed009dd2ee6c71f33135461588b15991b8fd006d8",
+  "artifact_content": "f4ea0499913949ee1c741dbdb510d181c5fd0060c397473e998b5da5bb55d033",
+  "artifact_bytes": 91135,
   "deps": {
-    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s14_review.py": "7c8b41b522eaea27ea92150ec8b7e6eff6d7cba293234f7b67e7238e2295af69",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s14_review.fig_ffl_axes"
 }

@@ -1,11 +1,11 @@
 {
   "artifact": "s12_squares_int.png",
-  "artifact_sha256": "ecfd29b851b55516bae7dc09f2095969485f6ec2978f645f3610ecf1c9608dfd",
-  "artifact_content": "9656ef81773d0b98eae972130b7c80cf72f08707d60c1ff9aa5417934537f4bf",
-  "artifact_bytes": 76786,
+  "artifact_sha256": "738ad679af7e690329efc399d1dc18e2391c5088179de0313452aa10b8bc2fde",
+  "artifact_content": "201b2a7f22b3872d7bdba348465fadf05daf4c155f07372a95eab55f13312711",
+  "artifact_bytes": 66980,
   "deps": {
-    "figures/s12_noise.py": "efeb56bc69bdd5a9a2d29d202628106c19a5ff326a382deac30635aed2f2bf33",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s12_noise.py": "50c86b15c141d0148a2aa86c6cf6713988cd429408046e1fe8977e2704472e4b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s12_noise.fig_squares_panels"
 }

@@ -24,7 +24,7 @@ from posb import (repressilator_model, repressilator_alpha_critical, loop_gain,
                   sweep, leading_real_part, hopf_boundary, fixed_points,
                   jacobian)
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 N = 3                                  # cooperativity used throughout
 AC = repressilator_alpha_critical(N)   # 3.7798 at n = 3

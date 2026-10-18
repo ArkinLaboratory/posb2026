@@ -1,10 +1,11 @@
 {
   "artifact": "s08_plane_p3.png",
   "artifact_sha256": "644f918355d7ab826ed6b69792c3372c1a3083bc9b7a2634245cf5e7cf0eb463",
+  "artifact_content": "5a44aaa310c525a3a46c5793b112762435cc4681a8169e50c9f04bed4cc88d22",
   "artifact_bytes": 60188,
   "deps": {
-    "figures/s08_phase_plane.py": "603054626f2477ee3a44178a0a64eaafdb5c1b9cebe3410766c6326e6bc64fec",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s08_phase_plane.py": "0827c3ed271173928ea0942d802050903a330db2deca9c1e05b1a495b1555628",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s08_phase_plane.fig_plane"
 }

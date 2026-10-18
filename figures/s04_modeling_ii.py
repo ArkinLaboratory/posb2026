@@ -26,7 +26,7 @@ from scipy.integrate import solve_ivp
 
 from figures.style import use, AMBER, CYAN, INK, MUTED, RED, RULE, TEAL
 
-plt = use()
+plt = use(legacy=True)   # see figures.style.LEGACY_SCALE
 OUT = "figures/build"
 
 # PS1 Q3's parameters, exactly.

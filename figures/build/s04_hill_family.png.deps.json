@@ -1,10 +1,11 @@
 {
   "artifact": "s04_hill_family.png",
-  "artifact_sha256": "e1e813715cce4a01be3c9c1cef2f1ac090589912bcbcddcd0b546b33e14654a8",
-  "artifact_bytes": 103760,
+  "artifact_sha256": "cf37ffd45826e346f7616ff31a03b4543adf1d49a99073806b01e0ffe7700cbc",
+  "artifact_content": "db2e6aadabd745c11c797a83d462e19e64ce9cd0ecf51e55808356d51fbfab1c",
+  "artifact_bytes": 102810,
   "deps": {
-    "figures/s04_modeling_ii.py": "c43f0284621a620d5ece88b24d65c534c79eadf8005a8fd57ddd1cc9e33d9847",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s04_modeling_ii.py": "4d03c08f92cd118818f506c61ddbf62cdca66550da5a8d978bd8730469fc251d",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s04_modeling_ii.fig_hill_family"
 }

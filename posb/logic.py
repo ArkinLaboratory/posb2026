@@ -78,7 +78,12 @@ saying out loud because the sum of two repressions is the one place in this
 course where the biology picks the gate for you.
 
 Path lengths to R3:  A -> R2 -> R3 is 2;  B -> R1 -> R2 -> R3 is 3.
-They differ by one, so the circuit glitches for one tick in every input case.
+They differ by one, and the circuit glitches in every input case -- but the
+first is not the cause of the second, which this file said until 18 October.
+Start this network from a SETTLED state and toggle either input and there is
+no hazard at all, in any of the six transitions. The glitch is entirely a
+cold start: R3 is a NOT, so it is transcribing in an empty cell, before
+anything has told it not to. See GateNetwork.cold_start_safe.
 
 The 2025 lecture's first repair inserts an activator between R2 and R3, and
 its own next slide admits the hazard is only *delayed* -- correctly, because
@@ -258,6 +263,92 @@ class GateNetwork:
         dst = self.output if dst is None else dst
         empty = {w: False for w in self.wires}
         return self.by_name[dst](empty)
+
+    # -- what actually decides a clean cold start ---------------------------
+    def _settle_depth(self, w, memo=None):
+        """The tick from which `w` holds its settled value, inputs at depth 0."""
+        memo = {} if memo is None else memo
+        if w in self.inputs:
+            return 0
+        if w in memo:
+            return memo[w]
+        g = self.by_name[w]
+        memo[w] = 1 + max(self._settle_depth(s, memo) for s in g.inputs)
+        return memo[w]
+
+    def _sites(self, g):
+        """(activating sites, repressing sites) for any gate kind.
+
+        A buf or and gate is activation-only; a not, nor or nand gate is
+        repression-only -- that is what makes it fire in an empty cell. An or
+        gate is activation-only but fires on ANY activator, so a single late
+        activator cannot hold it off; it is treated as repressing for safety.
+        """
+        if g.kind == "hybrid":
+            return list(g.activators), list(g.repressors)
+        if g.kind in ("buf", "and"):
+            return list(g.inputs), []
+        return [], list(g.inputs)
+
+    def cold_start_safe(self, dst=None, _memo=None, _depth=None):
+        """True if `dst` provably never shows a wrong value from a cold start.
+
+        SUFFICIENT, not necessary, and deliberately so -- a conservative
+        certificate you can read off the gate list beats a rule you have to
+        simulate to trust.
+
+        A wire is safe if it is a free input, or if every wire feeding it is
+        safe AND either
+
+          (a) every one of its sources is a free input -- it settles on tick 1
+              and is therefore never wrong, or
+          (b) it has an activating site, and no repressing site settles LATER
+              than its latest activating site.
+
+        The mechanism, which is the whole of session 16: an ABSENT ACTIVATOR
+        HOLDS A GENE OFF; AN ABSENT REPRESSOR LETS IT FIRE. A NOT or a NOR has
+        no activating site at all, so it fires the instant the cell exists,
+        and a gene that is wrong stays wrong all the way downstream no matter
+        what promoter you give the output.
+
+        Note the shape of (b). It is an INEQUALITY, and it points one way: a
+        repressor that arrives EARLY is harmless. Equal path lengths are the
+        special case, not the condition, which is why `is_balanced` is neither
+        necessary nor sufficient here and why this method exists.
+
+        Added 18 October, after a review found the deck, the handout, the
+        answer sheet, the board notes and PS6 all asserting that fail-safe AND
+        balanced is the rule. It is false in both directions:
+
+            NOT a;  NOT b;  NOR(Z, na, nb);  BUF(out, Z)
+                fail-safe, balanced, glitches 3 of 4
+            BUF(g, A);  HYBRID(out, activators=(g,), repressors=("B",))
+                fail-safe, UNBALANCED, clean 4 of 4, and it computes the
+                session's own specification A AND NOT B
+
+        The claim lived only in prose in five documents and survived two
+        adversarial passes because no test could see it. It is a method now so
+        that `test_cold_start_rule_is_sound` can.
+        """
+        dst = self.output if dst is None else dst
+        memo = {} if _memo is None else _memo
+        depth = {} if _depth is None else _depth
+        if dst in self.inputs:
+            return True
+        if dst in memo:
+            return memo[dst]
+        g = self.by_name[dst]
+        acts, reps = self._sites(g)
+        memo[dst] = False                      # cycles are never certified
+        if not all(self.cold_start_safe(s, memo, depth) for s in acts + reps):
+            return False
+        if all(s in self.inputs for s in acts + reps):
+            memo[dst] = True
+        elif acts and (not reps or
+                       max(self._settle_depth(r, depth) for r in reps)
+                       <= max(self._settle_depth(a, depth) for a in acts)):
+            memo[dst] = True
+        return memo[dst]
 
     def is_fail_safe(self, dst=None):
         """True if the empty circuit presents 0 -- the actuator is OFF at start.

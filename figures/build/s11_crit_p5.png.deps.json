@@ -4,8 +4,8 @@
   "artifact_content": "9cce8c4a83f5652788304886e699a1cfce369b22b7d586ecf2696fa51ee77a09",
   "artifact_bytes": 109352,
   "deps": {
-    "figures/s11_oscillators.py": "87d78b886c4b5bf6f27ccfbda246f5259a5a72b2e7b400890bf90b0b31b78ea3",
-    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+    "figures/s11_oscillators.py": "3fd50e25f1a2fb77d2c41552fbc86e1d64c4f89812d72b48671160f6956efa8a",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s11_oscillators.fig_criterion"
 }
