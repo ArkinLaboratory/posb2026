@@ -318,6 +318,14 @@ class Deck:
         # badge -> number of steps, for the minutes-per-STEP check
         self.step_runs = {}
         self.missing_movies = []
+        # Printed time ranges, on/off. The badge is structural -- `pacing()`
+        # uses it to tell one segment from the next, and an empty badge would
+        # merge every segment into one -- so this suppresses the DRAWING only
+        # and leaves the record intact. Set False on a deck whose running
+        # order is still moving, so nothing on screen claims a schedule the
+        # deck cannot keep. Adam, 11 October 2026, on the session 14 rebuild:
+        # two adjacent surfaces were printing 67-73 and 66-71.
+        self.show_badges = True
         # Every file this deck actually read while building. Not a guess from
         # the source: the build records what it touched, so tools/manifest.py
         # can later tell whether the .pptx on the teaching machine is older
@@ -592,9 +600,12 @@ class Deck:
                   9.5 - (0.5 if board else 0), 0.44, role="header", bold=True,
                   color=MINT if dark else MUTED)
         # The run sheet, small and out of the reading path. Nobody in row 8
-        # needs to know the segment is four minutes long.
-        self.text(s, badge, W - M - 2.4, 0.44, 2.4, 0.34, role="badge",
-                  color=MINT if dark else MUTED, align="r")
+        # needs to know the segment is four minutes long -- and when the
+        # running order is still moving, printing a range is worse than
+        # printing nothing, because it is read as a commitment.
+        if self.show_badges:
+            self.text(s, badge, W - M - 2.4, 0.44, 2.4, 0.34, role="badge",
+                      color=MINT if dark else MUTED, align="r")
         self.text(s, str(len(self.prs.slides._sldIdLst)),
                   W - M - 0.6, H - 0.40, 0.6, 0.28, role="micro",
                   color=MINT if dark else MUTED, align="r")

@@ -291,6 +291,37 @@ no slide can hold that while other slides are showing. So the board keeps:
 Board notes stay, and stay instructor-facing, but they now script the ledger and
 the responses rather than a derivation the slides do not carry.
 
+### The rule caught something on 11 October — basins and the separatrix
+
+**T23a is the first row added to the coverage matrix whose demonstration the rule
+forbids.** The midterm's B1.3 asks what decides whether a brief pulse returns the
+cell to its starting state or carries it to the other, with α and *n* held fixed.
+Basins and the separatrix were covered at the board in session 9 and again across
+the four sessions since. They are in no slide, no handout and no problem set. The
+`s09_separatrix` figure is built and the session 9 README lists it as retained, but
+`decks/s09_bistability.py` places it nowhere — which is how a figure that *exists*
+still leaves nothing for a student to read.
+
+This is not a reason to carve an exception. It is the rule working: the exam item
+made an ephemeral demonstration load-bearing, and the audit caught it. **The remedy
+is the artifact, not the exception** — a written treatment a student who missed the
+session can read, with the figure on it.
+
+Two things follow, and the second is a release condition rather than a note:
+
+- **The permanent fix belongs in session 9**, where the idea is taught: place
+  `s09_separatrix` on a slide and give it the step treatment this section describes,
+  so next year's cohort meets it in writing at the point of teaching. Session 9 has
+  already run, so this is a next-revision item, not a this-week one.
+- **For this term, the stopgap is session 14's written materials**, which is why the
+  practice sheet and not the board notes is the thing that has to carry it. Board
+  notes are instructor-facing by design and satisfy nothing here.
+
+**B1.3's legitimacy on Thursday's paper depends on that stopgap existing.** If
+session 14 ships without a written, student-readable treatment of basins, the item
+is assessing a board moment and should come off the paper rather than be defended.
+That dependency is tracked in `private/midterm/DECISIONS-OPEN.md` §10.
+
 ---
 
 ## 5c. One in-class rhythm, not four
@@ -389,6 +420,95 @@ Not a "real world" aside, not a company logo, not a list of products. If it does
 not use the symbols that were on the board that day, it is decoration.
 
 ---
+
+## 5e. Four moves per segment: frame, build, release, debrief
+
+**11 October 2026, out of the session 14 rebuild.** Session 14 was built as
+five teaching motions, each one competently made, and Adam's reading of it was
+that every segment "starts in the middle and stops before the end". He was
+right, and it was a single defect repeated six times rather than six faults.
+
+### What the broken unit looked like
+
+    derivation run  →  worked example  →  your turn  →  [cut to a new topic]
+
+Three things follow from that shape, and all three were in the built deck:
+
+- **No segment said what it was about before the algebra started.** One
+  surface read "Two states is not the whole story" above a first equation, to
+  a room that had not been shown the circuit, the axes, or the question.
+- **None of the five student releases was followed by the answer.** Students
+  worked a problem and then watched an unrelated topic begin. Zero debriefs in
+  five opportunities — on a review day, two days before a midterm, where the
+  debrief is the highest-value surface in the segment.
+- **The outcome went unstated, so vague words filled the gap.** A row headed
+  "what that buys" was standing in for *given a wiring diagram and nothing
+  else, say what the circuit does — oscillate, latch, or settle — without
+  solving anything.* The vagueness was not a writing problem; it was the
+  symptom of never having written the outcome down.
+
+Two more symptoms had the same cause. A four-surface run about a Jacobian
+**never drew a matrix**, in a segment whose exam item asks the student to write
+one. And a panel about drawing a time course had been made abstract — a decaying
+exponential with no gene attached — which drew the question *a trace of what?*
+
+### The rule
+
+**Every teaching segment is four moves, in this order. None is optional.**
+
+| | |
+|---|---|
+| **FRAME** | The object, **drawn**. The question in the shape it actually gets asked. And what a finished answer looks like. Before any algebra. |
+| **BUILD** | The derivation, with the **picture advancing beside it** — `derivation_fig`, not a finished figure underneath a run of symbols. |
+| **RELEASE** | Their turn, on a **different** object from the worked one. |
+| **DEBRIEF** | The answer to what they just worked, **illustrated**, on the item's own object, **immediately** — not folded into a summary slide later. |
+
+### Why each one, specifically
+
+**FRAME** is the fix for expertise reversal in a different register. §1 is about
+how much working to show; this is about whether the room knows what it is
+looking at. A student who has met the object before loses nothing from fifteen
+seconds of orientation. A student who has not cannot recover without it, and
+will spend the build slides reconstructing what the picture is instead of
+following the argument.
+
+**BUILD with the picture attached** is §5b's rule taken one step further. 5b
+moved derivations off the board because the board is unreadable later; this says
+the slide has to carry the *drawing* as well as the symbols, because the thing
+that made chalk work was a figure growing next to an argument, and a run of pure
+notation reproduces only half of it.
+
+**DEBRIEF is the move most often skipped and the one with the clearest
+evidence behind it.** Generation (§2) only pays if the correct answer arrives
+afterwards; a wrong answer generated and never corrected is worse than no
+generation, because it has been rehearsed. A release with no debrief is not
+productive failure, it is unproductive failure with extra steps.
+
+### What a debrief is not
+
+- Not the summary slide at the end of the hour. The gap between working a
+  problem and seeing it answered is where the correction has to land.
+- Not the posted answer sheet. That goes up after class and serves a different
+  purpose; a student who got it wrong needs to know *during the hour*, while
+  the reasoning is still loaded.
+- Not "take answers from the room" with nothing on screen. Take them from the
+  room first, then **put the answer up**, so the eight people who did not speak
+  also find out.
+
+### What this costs
+
+Roughly two extra surfaces per segment. Session 14 went from 37 slides to 51
+for the same content and the same five releases. That is the right trade: the
+added slides are the two that make the other five land.
+
+### Where this is weakest
+
+Whether a frame slide earns its time for a segment the room has genuinely
+already mastered is untested — it is plausible that for the most familiar
+material the frame is pure overhead and the build should start cold. The rule
+is written as unconditional because the failure mode it prevents is invisible
+from the front of the room, and the cost of an unnecessary frame is fifteen
+seconds.
 
 ## 6. The template
 

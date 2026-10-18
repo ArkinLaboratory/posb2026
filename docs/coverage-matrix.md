@@ -11,6 +11,21 @@
 **⚠ Open gaps.** A row marked ⚠ is one where the audit currently fails and the
 fix is a decision, not an edit. **There are none open.**
 
+- **T23a — ADDED 11 October 2026, and it is the one row whose demonstration is not
+  checkable from the repo.** B1.3 on the midterm asks what decides whether a brief
+  pulse returns the cell to its starting state or carries it to the other one, with
+  α and *n* held fixed. That is not T20 (classification), and it is not T23, whose
+  mechanism is a *parameter* change — the one B1.3's stem rules out. So it needed a
+  row of its own. Adam's record is that basins and the separatrix were covered at the
+  board in session 9 and again across the four sessions since — but no slide in
+  `decks/s09_bistability.py` places `s09_separatrix`, so until 11 October this row's
+  *Demonstrated* column rested on a board moment the audit could not verify.
+  **RESOLVED 11 October:** session 14 carries the technique on slides
+  (`s14_basins`, a four-step derivation run), in a written practice item on a third
+  circuit, and in a posted answer sheet. The row is now demonstrated the way every
+  other row is. The permanent fix — putting the figure on a session 9 slide — remains
+  a next-revision item, recorded in `docs/lecture-design.md` 5b.
+
 - **T30 — RESOLVED 26 September 2026: it goes on the midterm (Thu 15 Oct).**
   T30 is demonstrated in session 11 for everyone (the 67–71 min segment and
   handout item 3), but its only problem-set assessment is PS5 Q6, which is
@@ -55,6 +70,7 @@ fix is a decision, not an edit. **There are none open.**
 | T21 | Toggle-switch fixed points for *n* = 4 and *n* = 1 | S9 (Sep 24) | PS4, Mid | AUTO |
 | T22 | Bifurcation diagram; hysteresis loop | S9 | PS4, Mid | AUTO |
 | T23 | Identify a saddle-node bifurcation and say what destroys bistability | S9 | PS4 | HAND |
+| T23a | Read basins from a phase plane: which stable state a perturbation reaches **at fixed parameters** | S9 and at the board since; **demonstrated on slides in S14** (`s14_basins`, four-step run) with written practice and answers | Mid | HAND |
 | T24 | FFL sign logic: coherent vs. incoherent classification | S10 (Sep 29) | PS5, Mid | MIX |
 | T25 | FFL timing/delay table **with a stated delay convention** | S10 | PS5, Mid | MIX |
 | T26 | IFFL adaptation: compute pulse amplitude and adaptation error numerically | S10 | PS5 | AUTO |
@@ -143,6 +159,17 @@ p. 623) call the same quantity sensitivity. The row is reworded, and the
 midterm is dropped from T36–T38's assessment column: §1b already resolved that
 no numeric signal matching is examinable, so "PS6, Mid" licensed an exam item
 the scope document forbids.
+
+**Reopened and settled, 11 October.** A6 does assess T36 and T37, and it now does
+so **in the log convention this row describes** — the gain as the log slope, the
+thresholds at |G| = 1, the margins as log₁₀ ratios. It asks the student to *mark*
+two margins on a supplied curve and to *name* what equals 1 at the thresholds. That
+is recognition depth, not numeric signal matching between two measured gates, which
+remains PS6's and is still not examinable. **T36 and T37 carry "Mid" again; T38
+does not.** The earlier draft of A6 used the linear electronics convention, and on
+its own figure the taught convention gave a negative high margin — a student
+applying session 13 correctly would have scored zero. That is what prompted the
+reopening.
 
 **The fix is §1's, applied twice.** The S13 notebook ships the same
 self-checking, ungraded exercise — signal matching between two measured gates,

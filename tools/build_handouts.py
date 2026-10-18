@@ -240,7 +240,10 @@ def mathjax():
     return data.decode("utf-8")
 
 
-def build_pdf(html, dst):
+def build_pdf(html, dst, footer_html=None):
+    """footer_html, when given, prints a running footer (Chromium template
+    syntax: spans with class pageNumber / totalPages). Default None keeps the
+    behaviour every other handout in this course already has."""
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
@@ -255,9 +258,16 @@ def build_pdf(html, dst):
         # version-fragile and silently times out when it changes.
         page.wait_for_function("() => window.__posbMathDone === true",
                                timeout=60000)
-        page.pdf(path=str(dst), format="Letter", print_background=True,
-                 margin={"top": "0.7in", "bottom": "0.6in",
-                         "left": "0.75in", "right": "0.75in"})
+        opts = dict(path=str(dst), format="Letter", print_background=True,
+                    margin={"top": "0.7in", "bottom": "0.6in",
+                            "left": "0.75in", "right": "0.75in"})
+        if footer_html:
+            opts["display_header_footer"] = True
+            opts["header_template"] = "<span></span>"
+            opts["footer_template"] = footer_html
+            opts["margin"] = {"top": "0.7in", "bottom": "0.8in",
+                              "left": "0.75in", "right": "0.75in"}
+        page.pdf(**opts)
         b.close()
 
 

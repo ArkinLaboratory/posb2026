@@ -2,9 +2,13 @@
 
 **BioE 147 / BioE 247 · Midterm Thursday 15 October, in class, Dwinelle 219**
 
-60 points, the full period. **One page of notes, both sides, prepared by you.** No
-calculator — every numeric answer is one significant figure, and a bracketing
+**100 points**, the full period. **One page of notes, both sides, prepared by you.**
+No calculator — every numeric answer is one significant figure, and a bracketing
 argument is a complete answer.
+
+**You write on the exam paper itself**, in the box under each item; the figures are
+printed with the items that use them. Scratch paper is handed out — put your name,
+SID and the item label on any sheet you want read.
 
 ---
 
@@ -13,10 +17,17 @@ argument is a complete answer.
 **Sessions 1 through 11 at working depth.** You should be able to use this material,
 not just recognize it.
 
-**Sessions 12 and 13 by recognition only.** One item reads a quantity off a supplied
-transfer curve, and nothing from those two sessions requires a calculation. You have
-had one week and no graded practice there, and an exam that tested it at depth would
-be measuring how fast you read.
+**Session 12 is in scope, lightly.** One short item asks you to compare the
+cell-to-cell variability of two unregulated proteins at different abundances. It
+needs the scaling, not a derivation.
+
+**Session 13 by recognition only.** One item marks two noise margins on a supplied
+transfer curve and asks what quantity equals 1 at the thresholds. It uses **the
+convention session 13 taught** — the gain as the log slope, thresholds where its
+magnitude is 1, margins as ratios — and the figure is drawn on log axes so each
+margin is a distance you can point at. Nothing from that session requires a
+calculation. You have had one week and no graded practice there, and an exam that
+tested it at depth would be measuring how fast you read.
 
 Within sessions 1–11, the four things this exam asks you to do:
 
@@ -44,9 +55,23 @@ is needed you may bring it on your page, and the credit is in using it.
 
 ## How it is graded, which should change how you answer
 
-The paper is three parts: nine short items, three blocks built on one figure each,
-and one longer setup item worth 10 points that asks you to build a system of
-equations from a reaction list.
+The paper is three parts: **eight short items** worth 36 points, three blocks worth
+16 each built on figures, and one longer setup item worth 16 points that asks you to
+build a system of equations from a reaction list.
+
+**Almost every scored part is worth 4 points, and scores 4 / 2 / 0** — 4 for the
+answer with its reason, **2 for the right answer with no reason or a reason that
+does not bear on it**, 0 for wrong. That is the half-credit promise below, made
+concrete: a correct verdict is never worth nothing, and a reason is never worth
+nothing either.
+
+**Three items ask you to work on a figure rather than only in a box**, and one of
+the paper's two biggest items is among them — so leave time for them. Two give
+you blank axes with time marked and ask you to **sketch output traces** and then mark
+something on them: shape and relative timing, not numbers. The third asks you to mark
+two distances on a printed curve. Tuesday's session has you draw a time
+course yourself, on a different circuit — the drawing *motion* is what we practise,
+not the exam's particular traces.
 
 **On the short items and the blocks, the reason is where the points are.** A correct
 answer with no reason earns half. "Diffusion is faster" is half an answer; "the
@@ -65,7 +90,7 @@ recording what the result is.
 The highest-value preparation is the problem sets you have already done, reworked
 without looking at your solutions. PS1 through PS5 carry the computational fluency and
 most of this exam builds on it rather than re-testing it — the exception is the
-10-point setup item, where the mechanics are examined directly.
+16-point setup item, where the mechanics are examined directly.
 
 After that: for each of sessions 1–11, write down the one question that session
 answers, and the one assumption its answer depends on. That second thing is what most
