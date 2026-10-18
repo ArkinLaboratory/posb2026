@@ -314,6 +314,9 @@ class Deck:
         self.segments = []
         self.bad_glyphs = []
         self.step_slides = 0
+        # badges of slides marked hidden; reported by the build so a
+        # hidden surface cannot be forgotten about.
+        self.hidden = []
         self._in_step_run = False
         # badge -> number of steps, for the minutes-per-STEP check
         self.step_runs = {}
@@ -373,6 +376,23 @@ class Deck:
 
     def light(self):
         return self._slide(False)
+
+    def hide(self, s):
+        """Mark a slide hidden: in the file, out of the running order.
+
+        PowerPoint skips a hidden slide in presentation mode and greys it in
+        the sorter, but it is still there -- still exported to the PDF, still
+        carrying its speaker notes, still one keystroke from coming back.
+        That is what you want for a surface that is good and surplus. Cutting
+        one means rewriting it later from memory; a deck that is long on the
+        day is better trimmed by hiding.
+
+        Adam, 18 October, on five surfaces of session 16: "Don't cut. Hide
+        for now."
+        """
+        s._element.set("show", "0")
+        self.hidden.append(getattr(self, "_last_badge", "?"))
+        return s
 
     # -- text ----------------------------------------------------------------
     def text(self, s, txt, x, y, w, h, size=14, font=None, bold=False,
@@ -581,6 +601,7 @@ class Deck:
     BOARD_WORDS = ("board",)
 
     def header(self, s, badge, label):
+        self._last_badge = badge
         """Time badge + segment label. Same look every time: this is signalling,
         and signalling is one of the few interventions that helps novices and
         experts equally.

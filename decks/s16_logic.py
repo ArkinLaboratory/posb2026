@@ -163,6 +163,7 @@ def _reading(d):
     d.notes(s, "Resist answering. The answer arrives in the Cello segment "
                "with Fig. 5A in front of them, and it is worth more earned "
                "than given.")
+    d.hide(s)      # good surface, surplus on the day
 
 
 # ---------------------------------------------------------------------------
@@ -298,6 +299,7 @@ def _truth_to_nor(d):
     d.notes(s, "Keep this brisk. The point is that realisability is free and "
                "everything interesting sits downstream of it. AND you would "
                "have to engineer; NOR you can clone.")
+    d.hide(s)      # good surface, surplus on the day
 
     s = d.light()
     d.header(s, "nor-release", "Your turn  ·  groups of 2–3")
@@ -567,6 +569,7 @@ def _cascade_delay(d):
     d.foot(s, "You measured a delay in session 10 and graded one on PS5. This is the same measurement on a chain.")
     d.notes(s, "Point back at PS5 Q2 explicitly. They own the convention "
                "already; this is a new object, not a new method.")
+    d.hide(s)      # good surface, surplus on the day
 
     s = d.light()
     d.header(s, "delay-build", "Worked")
@@ -678,6 +681,7 @@ def _cello(d):
     d.foot(s, "Every one of the sixty was built. Three quarters of them were right in every state.")
     d.notes(s, "Do not re-walk Fig. 1A; it was on the screen at the top of "
                "the hour. Spend the time on the score and on 45/60.")
+    d.hide(s)      # good surface, surplus on the day
 
     s = d.light()
     d.header(s, "cello-score", "Their criterion, in your units")
@@ -975,6 +979,7 @@ def _dna_memory(d):
                "again after another has moved its sites, which Ham's count "
                "does not. It is an open question, not a result, and it is "
                "parked in DESIGN.md 8.5.")
+    d.hide(s)      # good surface, surplus on the day
 
     s = d.light()
     d.header(s, "dna-fork", "Debrief  ·  two roads, and the field took one")

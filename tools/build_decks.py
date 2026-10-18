@@ -168,6 +168,10 @@ def main():
                   f"tools/build_decks.py when it is fixed.")
         else:
             fit_total += bad
+        if deck.hidden:
+            print(f"  {len(deck.hidden)} slide(s) hidden "
+                  f"(in the file, skipped in the room): "
+                  + ", ".join(deck.hidden))
         if deck.missing_figures:
             missing_total += len(deck.missing_figures)
             print(f"  {len(deck.missing_figures)} paper figure(s) shown as slots:")

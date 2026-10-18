@@ -14,6 +14,7 @@ weekend-consuming exercise. The two lowest scores are dropped.
 | PS3 | Sep 24 | [Regulation functions and autoregulation](ps03-regulation/) | ✅ |
 | PS4 | Oct 1 | [The phase plane, bistability, and the toggle switch](ps04-phase-plane/) | ✅ |
 | PS5 | Oct 8 | [Feedforward loops and oscillation](ps05-feedforward/) | ✅ |
+| PS6 | Oct 29 | [Noise, gates and logic in time](ps06-noise-logic/) | ✅ |
 
 Remaining sets are in preparation — see the
 [Course Map](../docs/course-map.md) for the schedule.

@@ -796,3 +796,61 @@ cut them, all of them surfaces that now have a better neighbour:
 5. `reading-why` — the headline numbers, which fit in the Fig. 1A foot.
 
 That is five surfaces and none of them carries a figure.
+
+---
+
+## 12 · Tuesday closed out, 18 October
+
+**Five slides hidden, not cut.** `Deck.hide()` sets `show="0"` on the slide,
+which PowerPoint skips in presentation mode and greys in the sorter. The
+surface stays in the file, keeps its speaker notes, still exports to the PDF,
+and is one keystroke from coming back. The build prints which five, so a
+hidden slide cannot be quietly forgotten. 62 slides, 57 shown.
+
+**Handout and answers.** `handouts/s16-logic.md` and `-answers.md`. Four
+problems and a stretch: the classifier's tick table worked in full, compile
+XNOR and count the two depths, a second three-gene circuit to fill in and
+diagnose, the four-stage delay, and — the item the handout tells them is on
+the problem set — build a fail-safe circuit that is not balanced and show it
+still glitches. Every table in the answers is computed by `posb.logic`.
+
+**Board notes.** `board-notes/s16-board-notes.md`. Four board moments, named
+by the deck's segment rather than by the clock, because this deck prints no
+timings: the four-state count at **nor-build**, the two XNOR networks at
+**nor-debrief**, the two conditions at **fix-separate**, and $S(n)$ at
+**dna-count**. The counting at nor-debrief is marked do-not-cut, since the
+wrong depth is the one thing the room would otherwise carry out of the
+building.
+
+**PS6.** `private/sources/ps06.py` → `problem-sets/ps06-noise-logic/`. 48
+points, 56 for 247. Eight questions covering T17 and T31–T41; T42–T44 move to
+PS7, settled because session 17 is taught two days before this set is due and
+an item cannot be assessed the week it is first seen.
+
+Q6 is the one the set exists for. Session 16 refutes "the paths are different
+lengths" with a balanced circuit that glitches, and then comes within one
+sentence of asserting the mirror image. Q6c makes the students find the second
+counterexample themselves and Q6d asks them to state the rule as the
+conjunction it is — including what it does **not** establish. Q8, the 247
+item, then turns back on Q3 and asks which of the two noise components their
+own simulation could not see.
+
+`otter assign` runs the tests against the solution notebook, so the build is
+also a correctness check: **11 grader.check blocks pass**. The student
+notebook is solution-free (checked for every marker, and for three of the
+answer values directly).
+
+One repo defect found on the way: `PROBLEM_SETS` in
+`tools/build_problem_sets.py` still read `["ps01".."ps04"]`, so ps05 built
+when named and was silently skipped by the no-argument build. Same class of
+defect as `figures.s14_review` missing from `build_figures` MODULES. Both ps05
+and ps06 are in the list now.
+
+### Still owed before Tuesday
+
+Nothing in the repo. The manual half is
+`docs/session-release-checklist.md`: the Gradescope assignment pair for PS6
+(147 and 247 are two assignments, two denominators), the autograder zip at
+`private/build/ps06/dist/autograder/`, and the bCourses module. The solved
+notebook for testing the autograder is at
+`private/build/ps06/ps06-solved.ipynb`.
