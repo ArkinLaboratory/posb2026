@@ -103,7 +103,7 @@ def _retrieval(d):
         ("from session 13", "a gate has TWO input thresholds. What is true at each of them?"),
         ("from session 9", "the toggle has two stable states. What decides which one a cell lands in?"),
     ])
-    d.foot(s, "All three come back within the hour. The first one comes back in Boolean, about fifteen minutes from now.")
+    d.foot(s, "All three come back within the hour. The first one comes back in Boolean.")
     d.notes(s, "Take answers aloud. Do not resolve the first one. Loop Q is "
                "the analogue of today's hazard and it pays better if they "
                "meet it again rather than being told now.\n"
@@ -155,7 +155,7 @@ def _reading(d):
     d.header(s, "reading-why", "What that buys")
     d.title(s, "The numbers you should have brought with you")
     d.rows(s, [
-        ("what Cello did", "60 circuits designed from Verilog and all 60 built with no additional tuning, up to 10 regulators and 55 parts, 880 kb of DNA (p. 1)."),
+        ("what Cello did", "60 circuits designed from Verilog and all 60 built with no additional tuning, up to 10 regulators and 55 parts, 880 kb of DNA (p. aac7341-1)."),
         ("how well it worked", "45 of the 60 correct in EVERY output state; 92% of the 412 individual output states as predicted."),
         ("so the question for today", "the compiler ran on all sixty of them. What is the missing quarter made of?"),
     ])
@@ -178,7 +178,7 @@ def _truth_to_nor(d):
         ("what it says about time", "nothing. Not a word. That silence is the whole first half of today."),
         ("what we do with it", "build a circuit from the gates biology actually gives you, then find out what the table failed to specify."),
     ])
-    d.foot(s, "Say 'once everything has settled' out loud. We collect on that phrase in twenty minutes.")
+    d.foot(s, "Say 'once everything has settled' out loud. We collect on that phrase later in the hour.")
     d.notes(s, "This slide exists because the first build of this session "
                "opened on the contract line to a room that had never been "
                "told where a truth table comes from. It comes out of the "
@@ -261,7 +261,7 @@ def _truth_to_nor(d):
         ("one operator on a promoter", "out = NOT in. The complement, for the price of cloning an operator site."),
         ("two operators on a promoter", "out = NOT (in₁ OR in₂). Complement and aggregator in one piece of DNA, which is why NOR alone is universal."),
         ("compiling any table", "one term per row where the output is 1, then DeMorgan twice: every AND of literals becomes a NOR of their complements."),
-        ("what it costs", "depth. Each layer is another gene, and a gene is a delay. Hold that thought for fifteen minutes."),
+        ("what it costs", "depth. Each layer is another gene, and a gene is a delay. Hold that thought."),
     ])
     d.foot(s, "The compilation always succeeds. That is exactly why it is not where the difficulty lives.")
     d.notes(s, "Keep this brisk. The point is that realisability is free and "
@@ -282,17 +282,35 @@ def _truth_to_nor(d):
                "the unminimised network is the one that teaches depth.")
 
     s = d.light()
-    d.header(s, "nor-debrief", "Debrief")
-    d.title(s, "Three genes on one path, two on the other")
+    d.header(s, "nor-debrief", "Debrief  ·  two of your answers")
+    d.title(s, "One truth table, two circuits")
+    _fig(d, s, "s16_xnor_two_ways", 1.52)
+    d.foot(s, "Both compute XNOR. Neither is wrong. The table did not choose between them.")
+    d.notes(s, "Put up whichever networks the room actually produced and "
+               "sort them against these two. The left one is what the recipe "
+               "gives: one NOR term per agreeing row, then an inverter. The "
+               "right one is the smallest there is, and an exhaustive search "
+               "over two-input NOR networks says so.\n"
+               "Both numbers on each panel are computed from the gate list "
+               "by posb.logic at render time, which is how the first version "
+               "of this slide was caught claiming depths of 3 and 2.")
+
+    s = d.light()
+    d.header(s, "nor-choice", "Debrief  ·  what the choice costs")
+    d.title(s, "Choosing between them is the compiler's job, not the table's")
     d.rows(s, [
-        ("the network", "¬A and ¬B as inverters; NOR(A, B) and NOR(¬A, ¬B) as the two agreement terms; then a NOR of those two, then an inverter."),
-        ("the depths", "three gates on the longest path from an input to the output, two on the shortest."),
-        ("write that down", "the paths are not the same length. In twenty minutes that stops being a curiosity."),
+        ("what you save", "two genes and one stage. In a cell that is two fewer transcription units to clone, two fewer proteins to express, and one less protein lifetime before the output is right."),
+        ("why anyone would still ship the long one", "the recipe is mechanical and always works. The search is not: the number of NOR networks grows fast, and for a circuit of any size you stop at a good one rather than the best one."),
+        ("where you have seen this", "the Cello pipeline, box three. 'Logic synthesis' is exactly this choice, made by a machine."),
+        ("and in both of them", "the paths are not the same length. Longest four and shortest three on the left; three and two on the right."),
     ])
-    d.foot(s, "Unequal path lengths, on the board before anyone has said why they matter.")
-    d.notes(s, "PLANT THIS and do not explain it. The hazard segment collects "
-               "on this line, and the collection is much stronger if they "
-               "wrote the two numbers down themselves first.")
+    d.foot(s, "Unequal path lengths, in both circuits, written down before anyone has said why they matter.")
+    d.notes(s, "PLANT THE LAST ROW and do not explain it. The hazard segment "
+               "collects on it, and the collection is much stronger if they "
+               "wrote the numbers down themselves first.\n"
+               "If someone asks whether a balanced XNOR exists: yes, pad the "
+               "short path, and the second act of this session is that "
+               "padding it does not help.")
 
 
 # ---------------------------------------------------------------------------
@@ -303,7 +321,7 @@ def _classifier(d):
     d.header(s, "clf-frame", "Frame  ·  a real design problem")
     d.title(s, "Detect one cell type, and only that one")
     _fig(d, s, "s16_classifier", 1.58)
-    d.foot(s, "R2 is one gene read by two independently repressed promoters \u2014 NAND. In the therapy this is cloned from, the output kills the cell.")
+    d.foot(s, "R2 is one gene read by two independently repressed promoters \u2014 NAND. In a therapeutic version of this circuit, the output kills the cell.")
     d.notes(s, "Walk the circuit aloud. R2 is the one worth pausing on: ONE "
                "gene, TWO independently repressed promoters, so it is silenced "
                "by either repressor — the sum of two repressions is a NAND, "
@@ -344,7 +362,7 @@ def _glitch(d):
     d.header(s, "glitch-survey", "And it is not one unlucky case")
     d.title(s, "Every input combination glitches")
     _fig(d, s, "s16_timing_p4", 1.58)
-    d.foot(s, "Three hold 0 and blip to 1. The fourth \u2014 the case whose answer IS 1 \u2014 goes 0, 1, 0, 1: a dynamic hazard.")
+    d.foot(s, "Three hold 0 and blip to 1. The THIRD panel, A = 1 and B = 0, is the case whose answer IS 1. It goes 0, 1, 0, 1: a dynamic hazard.")
     d.notes(s, "Computed, not tabulated by hand. Ask which case is worst "
                "before saying it: the dynamic one, because an actuator that "
                "fires, stops and fires again is worse than one that fires "
@@ -385,7 +403,7 @@ def _wrong_then_right(d):
     d.header(s, "fix-wrong", "Debrief  ·  the obvious answer")
     d.title(s, "\"The two paths are different lengths\"")
     d.rows(s, [
-        ("and they are", "A reaches the output in two gates. B reaches it in three, through R1. You wrote down the same thing about XNOR twenty minutes ago."),
+        ("and they are", "A reaches the output in two gates. B reaches it in three, through R1. You wrote down the same thing about XNOR earlier."),
         ("so the fix is obvious", "pad the short path. Equalise them. Insert a gene."),
         ("let us check that", "take a circuit where the paths are already equal, and see whether it glitches."),
     ])
@@ -429,24 +447,62 @@ def _wrong_then_right(d):
     d.header(s, "fix-hybrid", "The repair that works  ·  after")
     d.title(s, "Make the output require an activator")
     _fig(d, s, "s16_timing_fixed", 1.52)
-    d.foot(s, "Clean in all four cases, and not because the wiring changed. Because the resting state did.")
+    d.foot(s, "Clean in all four cases. Two things changed at once, and the next slide separates them.")
     d.notes(s, "Both halves of the figure are computed. Point at the top row, "
                "then the bottom, and say the difference out loud: the broken "
                "output is a NOT, which is ON when empty; the fixed one needs "
                "an activator, so it is OFF when empty.")
 
     s = d.light()
+    d.header(s, "fix-separate", "Debrief  ·  what actually changed")
+    d.title(s, "Two things changed, so test them one at a time")
+    _fig(d, s, "s16_two_conditions", 1.70)
+    d.foot(s, "Every cell in that table is computed from the gate list, not asserted. The middle two rows are the counterexamples.")
+    d.notes(s, "This slide exists because an earlier build of this session "
+               "said 'fix the promoter, not the wiring', which is as wrong "
+               "as the path-length diagnosis it was correcting. The hybrid "
+               "repair changed BOTH: the output stopped being ON when empty, "
+               "AND both legs became two gates deep.\n"
+               "Row 2 is the cold-start circuit from earlier: balanced, and "
+               "it glitches in three of four cases. Row 3 is the padded "
+               "repair: OFF when empty, and it glitches in all four. Each "
+               "condition alone is demonstrably not enough.\n"
+               "Say plainly what this does and does not establish: the two "
+               "together are enough HERE. The model has one gate delay "
+               "everywhere, and that is doing work.")
+
+    s = d.light()
     d.header(s, "fix-consequence", "Debrief  ·  what this is actually a rule about")
-    d.title(s, "The fail-safe state must be the empty state")
+    d.title(s, "Fail-safe when empty, and arriving together")
     d.rows(s, [
-        ("the engineering result", "when the output does something irreversible, design it so the circuit cannot assert it while it is still filling. That is a promoter architecture decision, not a wiring decision."),
-        ("what would still break it", "if activation and repression have different dynamics, the hybrid promoter is only as good as the matching. Faster activation than repression and the glitch returns."),
-        ("and the honest limit", "this model gives every gate the same unit delay. Real promoters do not. Unequal delays make it worse, never better."),
+        ("the engineering result", "when the output does something irreversible, two things must hold: the output must be OFF in a cell that has only just been made, and the signals that drive it must arrive at the same depth."),
+        ("one is a promoter decision", "OFF when empty means the output needs an activator, not just the absence of a repressor. You cannot wire your way to it."),
+        ("the other is a wiring decision", "equal path lengths. Necessary, and on its own worth nothing, which is the cold-start circuit two slides back."),
+        ("and the honest limit", "this model gives every gate the same unit delay. Real promoters do not, and nothing in the model tells you which way unequal delays push the answer."),
     ])
     d.foot(s, "A classifier that fires while it is still booting has already killed the cell it was deciding about.")
     d.notes(s, "Land the therapeutic framing here, having set it up on the "
                "classifier slide. This is the surface that earns the segment "
                "and it is the one to protect if the hour runs short.")
+
+    s = d.light()
+    d.header(s, "hazard-regimes", "And where the path-length answer IS right")
+    d.title(s, "Cello's paper has one of these in it")
+    d.rows(s, [
+        ("what they saw", "\"0x8E shows a transient incorrect state, known as a 'fault' in electronics, when the inputs are changed from \u2212/\u2212/\u2212 to +/\u2212/+\" (p. aac7341-9)."),
+        ("their mechanism", "\"consistent with the last NOR gate transiently receiving ON/OFF inputs until one of the signals transits two layers.\" That is unequal path lengths, and here it is the right diagnosis."),
+        ("so why was it wrong for us", "two regimes. Theirs is a settled circuit whose INPUTS changed. Ours is a circuit that has just been made, with nothing in it yet."),
+        ("the rule, both halves", "for an input transition, equalise the paths. For a cold start, make the output require an activator. If the output is irreversible, you need both."),
+    ])
+    d.foot(s, "Same vocabulary, two different causes. Naming which regime you are in is most of the diagnosis.")
+    d.notes(s, "This slide is the honest close to the segment. The "
+               "electronics hazard taxonomy is defined for a transition in "
+               "a settled circuit; we applied it to a power-on transient, "
+               "which is a different regime and is why posb.logic's "
+               "hazards() takes a `settle` argument at all.\n"
+               "They read this paper. Ask whether anyone noticed that "
+               "sentence; almost nobody will have, and that is a useful "
+               "thing to notice about how one reads a paper.")
 
 
 # ---------------------------------------------------------------------------
@@ -454,12 +510,28 @@ def _wrong_then_right(d):
 # ---------------------------------------------------------------------------
 def _cascade_delay(d):
     s = d.light()
-    d.header(s, "delay-frame", "Frame")
+    d.header(s, "delay-frame", "Frame  ·  three cascades you have already met")
+    d.title(s, "One gene deep, two, three")
+    d.paper_figure(s, "hooshangi2005_fig1", 1.52, 1.56, 10.30, 5.29,
+                   "Hooshangi, Thiberge & Weiss, PNAS 102:3581 (2005), Fig. 1",
+                   "Circuit 1: aTc relieves TetR and EYFP rises. Circuit 2 "
+                   "adds LacI. Circuit 3 adds CI. Same input, same reporter, "
+                   "one more repressor each time.")
+    d.notes(s, "Session 13's paper, and the circuits are on the screen "
+               "rather than described. Walk the three boxes and have the "
+               "room count the repressors between aTc and EYFP: one, two, "
+               "three.\n"
+               "Then ask the question and leave it: if each stage costs the "
+               "same, how much later is circuit 3 than circuit 1? We predict "
+               "it first, then look at what they measured.")
+
+    s = d.light()
+    d.header(s, "delay-ask", "Frame  ·  the quantity")
     d.title(s, "How late is late? Put a number on it")
     d.rows(s, [
         ("the question", "a chain of n genes, each driving the next. A step at the input. How long until the output is halfway there?"),
-        ("the convention", "session 10's, unchanged — the time for the output to reach 50% of its final value. We are not inventing a second definition."),
-        ("the outcome", "a number, in protein lifetimes, that you can quote for any depth."),
+        ("the convention", "session 10's, unchanged: the time for the output to reach 50% of its final value. We are not inventing a second definition."),
+        ("the outcome", "a number, in protein lifetimes, that you can quote for any depth, and then compare against circuits 1, 2 and 3."),
     ])
     d.foot(s, "You measured a delay in session 10 and graded one on PS5. This is the same measurement on a chain.")
     d.notes(s, "Point back at PS5 Q2 explicitly. They own the convention "
@@ -468,28 +540,79 @@ def _cascade_delay(d):
     s = d.light()
     d.header(s, "delay-build", "Worked")
     d.title(s, "One stage, one lifetime")
-    _fig(d, s, "s16_cascade_delay", 1.7)
-    d.rows(s, [
-        ("the numbers", "0.693, 1.678, 2.674 lifetimes for one, two, three stages — nearly one lifetime each."),
-        ("the rule of thumb", "t½ ≈ (n − ⅓) τ, good to 0.008 by n = 3."),
-    ], top=5.06)
-    d.foot(s, "A three-gene cascade is about two and a half lifetimes late. For a protein diluted by division, that is hours.")
+    _fig(d, s, "s16_cascade_delay", 1.62)
+    d.foot(s, "Half-times of 0.693, 1.678 and 2.674 lifetimes for one, two and three stages. Each extra gene costs very nearly one τ.")
     d.notes(s, "The first number is ln2 and they should recognise it from "
-               "session 5. The rest is that result compounded.")
+               "session 5. The rest is that result compounded, and the right "
+               "panel is the per-stage cost converging on one lifetime.")
+
+    s = d.light()
+    d.header(s, "delay-release", "Your turn  ·  thirty seconds")
+    d.title(s, "Four stages, and a number")
+    d.rows(s, [
+        ("the circuit", "a four-gene chain, every protein with the same lifetime τ. A step at the input at t = 0."),
+        ("estimate", "the half-time of the output, in units of τ, without computing the sum."),
+        ("then say", "how much later that is than the three-gene chain, and whether you would have guessed that before this segment."),
+    ])
+    d.foot(s, "One number and one difference. Both are in your head already if you have the per-stage cost.")
+    d.notes(s, "Answer: (4 − 1/3) τ = 3.667, against the exact 3.672. The "
+               "difference from three stages is 0.998 τ, which is the point "
+               "of the whole segment: one more gene, one more lifetime.\n"
+               "Take the second half aloud. Most people underestimate depth "
+               "because the first stage is fast.")
+
+    s = d.light()
+    d.header(s, "delay-rule", "Debrief  ·  the number to carry")
+    d.title(s, "A cascade costs one protein lifetime per gene")
+    d.rows(s, [
+        ("the rule of thumb", "t½ ≈ (n − ⅓) τ, within 0.008 τ of the exact half-time from n = 3 on."),
+        ("so, three genes", "a half-time of about 2.7 τ, which is about 2.0 τ later than a single stage. For a protein diluted by division rather than degraded, τ is the doubling time, so that is hours."),
+        ("say which one you mean", "2.7 is the half-TIME and 2.0 is the DELAY against one stage. Two quantities, one segment, and the paper you are about to see uses a third definition again."),
+        ("what to do with it", "a deep circuit is a slow circuit, and depth is set by the network you chose back on the XNOR slide. Two implementations, two delays."),
+    ])
+    d.foot(s, "This is the floor. Now look at what three real cascades actually did.")
+    d.notes(s, "Close the loop to the XNOR comparison out loud: the "
+               "six-gene network is one τ slower than the four-gene one, and "
+               "that is what the extra stage buys you.\n"
+               "The half-time / delay distinction is worth the row. An "
+               "earlier build of this slide said 'about two and a half "
+               "lifetimes late', which is neither quantity.")
+
+    s = d.light()
+    d.header(s, "delay-data", "Debrief  ·  what the three circuits did")
+    d.title(s, "One more repressor each time")
+    d.paper_figure(s, "hooshangi2005_fig3a", 4.30, 1.52, 4.75, 4.24,
+                   "Hooshangi et al. (2005), Fig. 3A",
+                   "aTc added at t = 0. Circuit 1 (○) rises and settles; "
+                   "circuit 2 (+) falls, being one inversion further on; "
+                   "circuit 3 (◆) sits flat for over two hours, then climbs.")
+    d.foot(s, "Circuit 1 has settled by about 120 min. Circuit 3 does not settle until about 600 (p. 3583).")
+    d.notes(s, "Have them read the three curves before you say anything. "
+               "The + curve FALLING is worth a beat: circuit 2 has one more "
+               "inversion, so the same input drives the reporter the other "
+               "way. That is the complement from the first half of the hour, "
+               "in a real measurement.\n"
+               "Compare settling with settling, 120 against 600. Circuit 3 "
+               "also has not begun to move at 140 min, which is the more "
+               "vivid number, but it is a different event and saying so "
+               "matters.")
 
     s = d.light()
     d.header(s, "delay-debrief", "Debrief  ·  against the measurement")
-    d.title(s, "The real cascades are slower than that, and the paper says why")
+    d.title(s, "The real ones are slower, and the paper says why")
     d.rows(s, [
-        ("what we predicted", "about one lifetime per stage."),
-        ("what Hooshangi measured", "circuit 1 settles by about 120 min; circuit 3 — two stages deeper — does not START until about 140. Much more than two lifetimes of difference."),
-        ("their explanation", "the delay also carries \"protein decay, protein production, and repression thresholds\" (p. 3585). A repressor has to clear a THRESHOLD before the next stage moves at all, and our model has no threshold in it."),
-        ("and a convention trap", "their half-time is the geometric mean on a log scale (p. 3583), not ours. Two reasonable definitions, different numbers."),
+        ("what we predicted", "about one protein lifetime per stage, so two extra stages cost about two lifetimes."),
+        ("what they measured", "circuit 1 settled by about 120 min and circuit 3 by about 600, for two extra stages (p. 3583). Not two lifetimes; many."),
+        ("their explanation", "the delay carries \"protein decay, protein production, and repression thresholds\" (p. 3585). Circuit 3 moves only once enough LacI exists to shut off CI AND the CI already there has been diluted away."),
+        ("and a third convention", "their half-time is the crossing of the geometric mean on a log scale (p. 3583). Ours is 50% of the final value. Two reasonable definitions, two different numbers."),
     ])
-    d.foot(s, "The model is the floor, not the estimate. Everything real adds to it.")
-    d.notes(s, "This is a debrief about the gap between a clean result and a "
-               "measurement, which is the most useful thing in the segment. "
-               "Do not skip it to save time.")
+    d.foot(s, "Our model has no threshold in it. It is a floor on the delay, not an estimate of it.")
+    d.notes(s, "This is the gap between a clean result and a measurement, "
+               "which is the most useful thing in the segment. Do not skip "
+               "it.\n"
+               "If someone asks for delay against depth: that is Fig. 3C, "
+               "and it is the SIMULATED system rather than the measured one. "
+               "Say so if you put it up.")
 
 
 # ---------------------------------------------------------------------------
@@ -497,14 +620,31 @@ def _cascade_delay(d):
 # ---------------------------------------------------------------------------
 def _cello(d):
     s = d.light()
+    d.header(s, "cello-assign", "The step you have not done")
+    d.title(s, "Assignment: which repressor goes in which socket")
+    d.paper_figure(s, "nielsen2016_fig2a", 1.90, 1.60, 9.54, 4.30,
+                   "Nielsen et al. (2016), Fig. 2A",
+                   "Three circuits, each as a NOR/NOT diagram with its gates "
+                   "coloured by the repressor assigned to them, and as the "
+                   "DNA that assignment produces.")
+    d.foot(s, "Recolour the diagram and the logic is unchanged. The DNA is not, and neither is whether it works.")
+    d.notes(s, "One sentence: the shapes on the left are the logic, which "
+               "you can now derive; the colours are the assignment, which "
+               "you cannot, because it depends on measured properties of "
+               "real repressors.\n"
+               "Point at the purple boxes. A gate used twice in one circuit "
+               "is the same repressor twice, and that is a constraint rather "
+               "than a convenience.")
+
+    s = d.light()
     d.header(s, "cello-frame", "Back to the question we left open")
-    d.title(s, "45 of 60. Whose fault is the missing quarter?")
+    d.title(s, "45 of 60. Where did the missing quarter go?")
     d.rows(s, [
         ("what you have just built by hand", "a gate out of a promoter and two operators, and a network out of those gates. Cello does both steps for you."),
         ("what it does next, which you have not", "picks WHICH repressor goes in each NOR socket, out of a library, and predicts how well that assignment will work."),
-        ("so the candidates", "the compiler is wrong, the gate models are wrong, the DNA was built wrong, or the gates are not orthogonal enough."),
+        ("so the candidates", "the compiler is wrong, the gate models are wrong, the DNA was built wrong, or the gates interfere with one another."),
     ])
-    d.foot(s, "Every one of the sixty was built. Three quarters of them were right in every state. Where did the quarter go?")
+    d.foot(s, "Every one of the sixty was built. Three quarters of them were right in every state.")
     d.notes(s, "Do not re-walk Fig. 1A; it was on the screen at the top of "
                "the hour. Spend the time on the score and on 45/60.")
 
@@ -512,31 +652,53 @@ def _cello(d):
     d.header(s, "cello-score", "Their criterion, in your units")
     d.title(s, "The circuit score is a noise margin written as a ratio")
     d.rows(s, [
-        ("their definition", "the score S is “the ratio of the lowest predicted ON state to the highest predicted OFF state” (Fig. 2 caption, p. 4)."),
+        ("their definition", "the score S is \"the ratio of the lowest predicted ON state to the highest predicted OFF state\" (Fig. 2 caption, p. aac7341-3)."),
         ("yours, from session 13", "a margin is the gap between what the sender puts out and what the receiver needs. In logs a difference; in linear units a ratio."),
         ("so it is one quantity under two names", "S > 1 is your margin being positive. S >> 1 is a circuit you would trust in a patient."),
-        ("watch the paper here", "Fig. 5 scores the SAME letter from measured medians, not predictions (caption, p. 10). Quote whichever matches the context and say which."),
+        ("and watch the paper", "Fig. 5 scores the same letter from measured MEDIANS rather than predictions (caption, p. aac7341-9). Same symbol, two definitions."),
     ])
     d.foot(s, "You computed this in session 13 on two of their own gates, out of their Table S4.")
-    d.notes(s, "The point is that they already own Cello's scoring rule under "
-               "a different name. Ask which session 13 quantity it is before "
-               "revealing it.\n"
-               "The two definitions are a real feature of the paper, not a "
-               "typo. Worth one sentence: a predicted score is what the "
-               "compiler optimises, a measured one is what you grade it on.")
+    d.notes(s, "The point is that they already own Cello's scoring rule "
+               "under a different name. Ask which session 13 quantity it is "
+               "before revealing it.\n"
+               "The two definitions are a real feature of the paper. A "
+               "predicted score is what the compiler optimises; a measured "
+               "one is what you grade it on. Say which you mean each time "
+               "you say S.")
+
+    s = d.light()
+    d.header(s, "cello-search", "What the compiler spends its time on")
+    d.title(s, "Simulated annealing over assignments")
+    d.paper_figure(s, "nielsen2016_fig2e", 3.00, 1.58, 7.30, 3.79,
+                   "Nielsen et al. (2016), Fig. 2E",
+                   "Circuit score against iteration, climbing in steps from "
+                   "near zero to about 345 over roughly 11,000 tries. Both "
+                   "insets are the SAME topology under different "
+                   "assignments.")
+    d.foot(s, "The bars beside each inset are the predicted ON and OFF levels: jumbled on the left, separated on the right.")
+    d.notes(s, "This is the optimizer. Say what it searches over: not the "
+               "logic, which is fixed by now, but which repressor sits in "
+               "which socket.\n"
+               "The score climbing in steps is simulated annealing accepting "
+               "an improvement. About 11,000 iterations for this one, which "
+               "is the honest answer to 'why is there a search algorithm "
+               "inside a compiler at all'.")
 
     s = d.light()
     d.header(s, "cello-release", "Your turn  ·  thirty seconds, no paper")
     d.title(s, "Commit to one of the four")
     d.rows(s, [
-        ("pick one", "compiler wrong / gate models wrong / DNA built wrong / gates not orthogonal enough."),
+        ("pick one", "compiler wrong / gate models wrong / DNA built wrong / gates interfere with one another."),
         ("defend it in a sentence", "you have the paper's own numbers. All 60 were built, and 92% of individual output states were right."),
     ])
-    d.foot(s, "There is a defensible answer and there is a best answer. The next slide is the data.")
-    d.notes(s, "Take three answers and write them on the board before "
+    d.foot(s, "There is a defensible answer, the paper's own answer, and an answer about the field. They are not the same answer.")
+    d.notes(s, "Take three answers and put them on the board before "
                "advancing. 92% of states right but only 75% of circuits "
                "right is the clue, and someone usually spots that a circuit "
-               "needs EVERY state to be right.")
+               "needs EVERY state to be right.\n"
+               "Be straight about the next two slides: the PAPER's own "
+               "failure analysis blames particular parts, and the argument "
+               "about the library is mine on top of it.")
 
     s = d.light()
     d.header(s, "cello-data", "The measurement behind 45 of 60")
@@ -544,30 +706,65 @@ def _cello(d):
     d.paper_figure(s, "nielsen2016_fig5a", 4.17, 1.58, 5.00, 4.27,
                    "Nielsen et al. (2016), Fig. 5A",
                    "Fraction correct against the number of repressors: "
-                   "output STATES stay near 0.85, whole CIRCUITS fall from "
-                   "1.0 to about 0.4 by seven repressors.")
+                   "output STATES fall only from about 0.97 to about 0.86, "
+                   "while whole CIRCUITS fall from about 1.0 to about 0.4.")
     d.foot(s, "States hold up. Circuits do not, because a circuit is correct only if every one of its states is.")
-    d.notes(s, "Read the two curves separately. The flat one says each "
-               "individual gate is roughly as reliable however big the "
-               "circuit is. The falling one is the product of those "
-               "probabilities over more and more states.\n"
-               "So the answer to the release is orthogonality: every gate "
-               "added has to not interfere with every gate already there. "
-               "Thursday's reading is where the library comes from.")
+    d.notes(s, "Read the two curves separately. The upper one says each "
+               "individual output state is almost as reliable however big "
+               "the circuit is. The lower one is that per-state reliability "
+               "raised to the number of states.\n"
+               "The paper's own words for it: 'As more gates were included "
+               "in a design, there was a higher probability of failure' "
+               "(p. aac7341-9).")
+
+    s = d.light()
+    d.header(s, "cello-why", "Whose fault, according to the authors")
+    d.title(s, "The paper blames particular parts, not the method")
+    d.rows(s, [
+        ("what they found", "\"most of the circuit failures point to unexpected behavior from the anhydrotetracycline (aTc) sensor (seven circuits) or AmtR gate (two circuits)\", plus two circuits that impaired growth (p. aac7341-9)."),
+        ("so, of your four", "the paper's own verdict is closest to 'the gate models are wrong': the parts did not behave in context the way they behaved in isolation."),
+        ("what that does NOT say", "nothing in the failure analysis blames crosstalk between repressors. If you picked interference, you picked an argument the paper does not make here."),
+        ("the honest shape", "nine of fifteen failures are two named parts. Fix those two and the method looks very good indeed."),
+    ])
+    d.foot(s, "Which is a better result for Cello than 45 of 60 sounds, and a worse one for anybody wanting a general rule.")
+    d.notes(s, "This slide exists because the first build of this segment "
+               "taught orthogonality as 'the best answer' to the release, "
+               "and the paper says something else. Give them the paper's "
+               "answer first and label the next one as mine.")
+
+    s = d.light()
+    d.header(s, "cello-matrix", "And the constraint behind all of it")
+    d.title(s, "Every gate has to not interfere with every other gate")
+    d.paper_figure(s, "nielsen2016_fig2c", 2.55, 1.54, 8.20, 5.30,
+                   "Nielsen et al. (2016), Fig. 2C",
+                   "For each ordered pair of gates, the fold-change gate A "
+                   "leaves for gate B, in position 1 (left) and position 2 "
+                   "(right). Black is a pair excluded by roadblocking.")
+    d.notes(s, "Read the left panel first: bright is a pair that connects, "
+               "dark is a pair that barely does. Then the right panel, which "
+               "is the same library in the SECOND position behind another "
+               "gate, and most of it is black.\n"
+               "This is not the paper's explanation of the 15 failures. It "
+               "is the reason the library cannot simply be made bigger, and "
+               "it is the bridge to Thursday. Adding a gate adds a row AND a "
+               "column, and both have to work.")
 
     s = d.light()
     d.header(s, "cello-debrief", "Debrief")
-    d.title(s, "The architecture is fine. The parts list runs out.")
+    d.title(s, "The architecture is fine. The parts list is the problem.")
     d.rows(s, [
         ("what Cello proves", "you can compile a specification to DNA and have it work most of the time, at a scale nobody reaches by hand: 60 circuits, 880 kb."),
-        ("what limits it", "the number of mutually orthogonal repressors. Each new gate must not interfere with any gate already there, and that constraint tightens quadratically."),
-        ("why design automation plateaued", "not because the compiler stopped improving. Because the library stopped growing."),
+        ("what the paper blames", "two misbehaving parts, an aTc sensor and the AmtR gate, for most of the failures. Part characterisation, not compilation."),
+        ("what limits the next circuit", "the size of the library. Each new gate must not interfere with any gate already in the circuit, in either position, and that constraint tightens as the set grows."),
         ("Thursday", "where a usable part actually comes from, and how many candidates die on the way."),
     ])
-    d.foot(s, "Hold that sentence. The memory half of today arrives at it again, from the other end.")
-    d.notes(s, "This is the hinge of the session. Say the sentence slowly. "
-               "The second half reaches the identical conclusion from "
-               "recombinases, and the rhyme is the point.")
+    d.foot(s, "Hold that. The memory half of today arrives at the same place from the other end.")
+    d.notes(s, "This is the hinge of the session. The second half reaches "
+               "the identical conclusion from recombinases, and the rhyme is "
+               "the point.\n"
+               "Keep the two claims separate out loud: the paper's failure "
+               "analysis is about particular parts, and the library-size "
+               "argument is the field-level claim built on Fig. 2C.")
 
 
 # ---------------------------------------------------------------------------
@@ -589,25 +786,34 @@ def _latch(d):
     d.header(s, "latch-rename", "Worked  ·  a renaming, not a derivation")
     d.title(s, "Session 9's toggle IS an SR latch")
     _fig(d, s, "s16_latch_state_table", 1.52)
-    d.foot(s, "SET and RESET are the inducer pulses you analysed on PS4. Both Q and Q̄ are briefly 0 mid-switch \u2014 that is real.")
+    d.foot(s, "SET and RESET are the inducer pulses you analysed on PS4. Both Q and Q̄ read 0 for one tick mid-switch. Ask whether that is the cell or the clock.")
     d.notes(s, "Say 'you built this five weeks ago' and mean it. This segment "
                "is deliberately cheap, and it is the slack in the hour.\n"
                "Worth pointing at: during SET and RESET both Q and Q-bar are "
-               "briefly 0. That is real, not an artifact of the model.")
+               "0 for one tick. Whether a cell ever "
+               "does that is a question about the clock: "
+               "this model updates both gates in the same "
+               "tick, and updating them one at a time "
+               "removes the zero. Worth asking the room "
+               "which they believe, and saying that the "
+               "model does not settle it.")
 
     s = d.light()
     d.header(s, "latch-scale", "What people have built with it")
     d.title(s, "Latches, registers, and the same attrition again")
     d.rows(s, [
         ("one bit", "an SR latch in cells, measured in RPU — the same units as session 13's transfer curves."),
-        ("how many worked", "31 of 41 designed latches were functional."),
+        ("how many worked", "most of the designed latches were functional, and the ones that were not failed for the same reason Cello's did."),
         ("more than one bit", "parallel latches and resettable registers; a gated D latch that only records when a clock line says to."),
         ("the cost", "every independent bit needs its own orthogonal pair. The same ceiling as Cello, reached from the other side."),
     ])
-    d.foot(s, "31 of 41, and 45 of 60. Different labs, different decades, same bottleneck.")
-    d.notes(s, "[unverified: the 31/41 figure is read off the 2025 deck and "
-               "its source paper is not named on the slide — check before "
-               "this is taught, or cut the number and keep the shape.]")
+    d.foot(s, "Different labs, different decades, the same bottleneck: how many parts you have that do not interfere.")
+    d.notes(s, "The 31-of-41 figure that used to be on this slide came "
+               "off the 2025 deck with no paper named, and nothing in "
+               "private/readings supports it. Cut rather than taught "
+               "unverified. If you can name the source — Andrews, Roehner "
+               "& Voigt, Science 2018 is the likely one — put the number "
+               "back, because it is a better slide with it.")
 
 
 # ---------------------------------------------------------------------------
@@ -643,29 +849,51 @@ def _dna_memory(d):
 
     s = d.light()
     d.header(s, "dna-theory", "The power, and where it comes from")
-    d.title(s, "Overlapping sites, not nested ones")
+    d.title(s, "Staggered sites, not nested ones")
     d.rows(s, [
-        ("independent segments", "n invertases, n bits, 2^{n} states. A register, and nothing more."),
-        ("NESTED segments", "also exactly 2^{n}. It looks as though one inversion carrying another's sites should create interaction. It does not."),
-        ("OVERLAPPING segments", "the inversions stop commuting, so the order they fire in is part of the answer — and the count explodes: 1 024 states from three invertases against 8, and nearly a million from six against 64."),
-        ("what nature does", "the R64 shufflon: ONE invertase, Rci, four DNA segments, seven recognition sites — combinatorial surface variants off a single enzyme."),
+        ("independent, or NESTED", "n invertases, n bits, 2^{n} states. Two invertases with one pair of sites fully inside the other give \"only four\" (Ham, Fig. 1B). A register, and nothing more."),
+        ("STAGGERED sites", "the inversions stop commuting, so the ORDER they fired in becomes part of the state. Two staggered invertases give five, \"and any input sequence results in a different output\" (Fig. 1C)."),
+        ("so predict", "nesting looks as though it must create interaction, since one inversion carries the other's sites bodily with it. It buys nothing. Overlap is what matters."),
+    ])
+    d.foot(s, "Ask for the prediction on nesting before you reveal it. Almost everyone gets it wrong, and it is the useful kind of wrong.")
+    d.notes(s, "Draw the two layouts on the board: sites ABba against sites "
+               "ABab. Then ask which one gives more states before showing "
+               "Ham's answer.")
+
+    s = d.light()
+    d.header(s, "dna-count", "How many states, exactly")
+    d.title(s, "Count the orders, not the bits")
+    d.rows(s, [
+        ("what a state records", "which invertases have fired, and in what order. So a state is an ordered sequence drawn from a subset of the n available."),
+        ("so count those", "S(n) = Σ k!·C(n,k) over the non-empty subsets, which is Ham's own formula. Two staggered give 4 beyond the start, so five in all: the graph you just saw."),
+        ("and it runs away", "15 at three invertases against 8 for a register. At ten, \"nearly 10⁷\" (Fig. 1E) against 1 024."),
+        ("what nature does with it", "the R64 shufflon: ONE invertase, Rci, four DNA segments, seven recognition sites. Combinatorial surface variants off a single enzyme."),
     ])
     d.foot(s, "A register pays one orthogonal enzyme per bit. A shufflon pays one enzyme, full stop.")
-    d.notes(s, "The nested result is the surprise and it is worth asking for "
-               "a prediction before revealing.\n"
-               "These counts are OUR enumeration, written for this session — "
-               "Ham's paper states nearly 10^7 for a ten-input device under "
-               "its own definition of a state. Present them as a model, not "
-               "as the paper's numbers.")
+    d.notes(s, "Derive S(n) at the board rather than quoting it; it is three "
+               "lines. Choose a non-empty subset of the invertases that have "
+               "fired, C(n,k) ways, then an order for them, k! ways, and sum "
+               "over k.\n"
+               "Ham's Fig. 1E plots TWO curves and they are different "
+               "quantities: the blue one is how many ways the sites can be "
+               "ARRANGED, past 10^10 at ten invertases, and the red one is "
+               "the state space of one arrangement, nearly 10^7. Do not "
+               "quote one for the other.\n"
+               "An earlier build of this slide carried our own orbit "
+               "enumeration instead, which gives 1 024 at three invertases "
+               "against the paper's 15. That model lets an invertase fire "
+               "again after another has moved its sites, which Ham's count "
+               "does not. It is an open question, not a result, and it is "
+               "parked in DESIGN.md 8.5.")
 
     s = d.light()
     d.header(s, "dna-fork", "Debrief  ·  two roads, and the field took one")
     d.title(s, "A bit you read, or a program you run")
     d.rows(s, [
-        ("the register road", "unidirectional integrases, which flip once and stay. 34 screened, 13 built, 11 mutually orthogonal, 1.375 bytes. Readout by sequencing. This is where the field went."),
+        ("the register road", "unidirectional integrases, which flip once and stay. 34 found in prophage genomes, 13 chosen to be at most 60% identical and built, 11 of those perfectly orthogonal: 2¹¹ states, 1.375 bytes. Readout by sequencing. This is where the field went."),
         ("the program road", "place promoters, terminators and genes so that each arrangement IS a working transcription unit. Then you do not read the state — you run it, and selection does the reading."),
         ("which is Ham's idea", "the second. And it is the one still open."),
-        ("34 to 11", "the same one-in-three attrition as Cello's gate library, arriving from the opposite direction."),
+        ("the same ceiling", "11 of the 13 they tested were orthogonal, so the parts were good. The limit is that you need EVERY pair to be orthogonal, which is Cello's constraint arriving from the opposite direction."),
     ])
     d.foot(s, "The compact state space is real, and it was never going to be read. It was going to be selected on.")
     d.notes(s, "Close the rhyme explicitly: both halves of this session end "
@@ -682,12 +910,14 @@ def _close(d):
     d.header(s, "close", "Where this leaves us")
     d.title(s, "Both halves ran out of the same thing")
     d.rows(s, [
-        ("combinational", "the compiler works. 45 of 60, and the missing quarter is orthogonality."),
-        ("sequential", "DNA memory works. 11 orthogonal integrases out of 34 screened."),
+        ("combinational", "the compiler works, on all 60. The paper's own failures are two misbehaving parts, and the ceiling beyond them is how many gates do not interfere."),
+        ("sequential", "DNA memory works. 11 integrases that are orthogonal to each other and to the two host invertases, and every new bit has to be orthogonal to all of them."),
         ("so Thursday", "what a part actually is, where one comes from, and why its number changes when you move it."),
     ])
-    d.foot(s, "The architecture has not been the limit in either half of this hour.")
-    d.notes(s, "One sentence, then the reading.")
+    d.foot(s, "Neither half of this hour was stopped by the architecture. Both were stopped by the parts list.")
+    d.notes(s, "One sentence, then the reading. The two halves rhyme on "
+               "parts, not on the design method, and that is the thing to "
+               "leave in the room.")
 
     s = d.light()
     d.header(s, "reading", "For Thursday")

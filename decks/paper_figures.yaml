@@ -497,7 +497,7 @@ elowitz2002_fig2ab:
 hooshangi2005_fig1:
   figure: "Fig. 1"
   shows: "the three circuits: TetR -> EYFP; TetR -| LacI -| EYFP; TetR -| LacI -| CI -| EYFP, input aTc"
-  used_in: ["s13"]
+  used_in: ["s13", "s16"]
   provenance: "page 2, box (0.130,0.055)-(0.900,0.355) in page fractions. Tracked."
 
 hooshangi2005_fig2:
@@ -531,7 +531,7 @@ hooshangi2005_fig3a:
   derived_from: hooshangi2005_fig3
   crop: [0, 0, 560, 500]
   shows: "after aTc is added: circuit 1 settles by about 120 min; circuit 3 starts about 140 min and settles about 600 min (p. 3583)"
-  used_in: ["s13"]
+  used_in: ["s13", "s16"]
 
 # --- Daniel, Rubens, Sarpeshkar & Lu, Nature 497:619-623 (2013) --------------
 # "Synthetic analog computation in living cells"   doi:10.1038/nature12148
@@ -570,6 +570,51 @@ nielsen2016_fig2:
   shows: "assignment of gates: (B) PhlF -> BetI connects, BetI -> PhlF does not; (C) connectivity matrix of the gate library"
   used_in: ["s13", "s16"]
   provenance: "page 4 of private/readings/Session 16 - nielsen-2016-...pdf at 220 dpi, box (0.065,0.055)-(0.945,0.475). Tracked."
+
+nielsen2016_fig2a:
+  figure: "Fig. 2A"
+  derived_from: nielsen2016_fig2
+  crop: [0, 20, 790, 376]
+  shows: >-
+    three circuits, each shown twice: as a NOR/NOT logic diagram with the
+    gates coloured by which repressor was assigned to them, and as the DNA
+    layout that assignment produces.
+  used_in: ["s16"]
+  note: >-
+    This is what "assign gates" means, as a picture. The logic diagram does
+    not change when you recolour it; the DNA does, and so does whether the
+    circuit works.
+
+nielsen2016_fig2c:
+  figure: "Fig. 2C"
+  derived_from: nielsen2016_fig2
+  crop: [810, 15, 1538, 536]
+  shows: >-
+    the connectivity matrix of the whole gate library: for every ordered pair
+    of gates, the normalised fold-change gate A leaves for gate B, in position
+    1 (left) and position 2 (right). Black in the right panel is a pair
+    excluded by roadblocking.
+  used_in: ["s16"]
+  note: >-
+    The orthogonality argument in one image, and the closing line of the Cello
+    segment -- "the parts list runs out" -- is the right-hand panel. Most of
+    the library cannot sit in position 2 behind most of the rest of it.
+
+nielsen2016_fig2e:
+  figure: "Fig. 2E"
+  derived_from: nielsen2016_fig2
+  crop: [1085, 520, 1598, 786]
+  shows: >-
+    simulated annealing over gate assignments: circuit score against
+    iterations, climbing in steps from near 0 to about 345 over roughly
+    11,000 iterations, with the circuit drawn at an early low-scoring
+    assignment and at the final one.
+  used_in: ["s16"]
+  note: >-
+    Adam asked for the Cello circuit optimizer specifically. Note that the two
+    insets are the SAME topology with different repressors assigned: the bar
+    charts beside them are the predicted ON and OFF levels, jagged in the bad
+    assignment and cleanly separated in the good one.
 
 nielsen2016_fig2b:
   figure: "Fig. 2B"

@@ -1,0 +1,11 @@
+{
+  "artifact": "s16_xnor_two_ways.png",
+  "artifact_sha256": "6c6160b95eedfd98061cb98afa1b4e379ece90780af15c4e39c54df851c8a4b5",
+  "artifact_content": "4a205ab16d2293cfe78ce050e93383d28a23b4a6b47767fd8ad7c5b9f33f95fb",
+  "artifact_bytes": 97967,
+  "deps": {
+    "figures/s16_logic.py": "7f989dd841bd43f25bd02ffd509b9d4c21dad608432704ddc282c4c60e863753",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s16_logic.fig_xnor_two_ways"
+}

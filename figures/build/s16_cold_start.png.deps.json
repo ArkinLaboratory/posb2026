@@ -1,10 +1,10 @@
 {
   "artifact": "s16_cold_start.png",
-  "artifact_sha256": "ece7e82252b7c2fc7073c79671c6393e6c1f8ac95c9a7bf8b251a504cb2ea2c1",
-  "artifact_content": "5f9a9536ea736d325e8bec819af9e079bdf32ad4e146c5e0dc1f013115b85343",
-  "artifact_bytes": 160790,
+  "artifact_sha256": "c2b393f38631dd3143e17543be350c3057cd7d5b55d8883ebe0e6fc57e65b4b7",
+  "artifact_content": "055b9c304852f352b5bf152ef30119afd46ab9e7764d370750f1e81378802660",
+  "artifact_bytes": 160620,
   "deps": {
-    "figures/s16_logic.py": "449b24c4bbe415840e4f3f1caa89dc29d995cb34c035cf4bd37c0d62ab12df93",
+    "figures/s16_logic.py": "7f989dd841bd43f25bd02ffd509b9d4c21dad608432704ddc282c4c60e863753",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_cold_start"

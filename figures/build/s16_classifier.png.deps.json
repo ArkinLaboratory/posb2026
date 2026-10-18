@@ -1,10 +1,10 @@
 {
   "artifact": "s16_classifier.png",
-  "artifact_sha256": "38e63576913d493cd168b24fbb8320c232c0e3217bb71c8e021f6c6946c714a1",
-  "artifact_content": "ef77f396633e42efa28446029ebcf8376e882ec22be522751a5d6600e9798b99",
-  "artifact_bytes": 99180,
+  "artifact_sha256": "abc728951aa6dd85bb5177c118d5c1fb117532613d40251b98602e98e8a6fbfb",
+  "artifact_content": "3fe03f8173c18ec11548e11193f1830f2503eba33932e394b1121eca93a63895",
+  "artifact_bytes": 110740,
   "deps": {
-    "figures/s16_logic.py": "449b24c4bbe415840e4f3f1caa89dc29d995cb34c035cf4bd37c0d62ab12df93",
+    "figures/s16_logic.py": "7f989dd841bd43f25bd02ffd509b9d4c21dad608432704ddc282c4c60e863753",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_classifier"

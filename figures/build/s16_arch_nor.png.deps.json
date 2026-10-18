@@ -1,10 +1,10 @@
 {
   "artifact": "s16_arch_nor.png",
-  "artifact_sha256": "b82591431390cf022645c1145861b2a56c2455bc8fb145485ebf6c1b35aa73ad",
-  "artifact_content": "0281fe21de60c2d9552cceed7ff5b6133e0026759421aa4195ca5c24093a44a7",
-  "artifact_bytes": 121465,
+  "artifact_sha256": "51e67a69d98d130a6c16aa91fd10373e7a6407c9d76060943e13d027e2422771",
+  "artifact_content": "56b31f24c1867f471e60b02aeb5d2b4f9628cf12d1aae66cf4794c2d34c5a80b",
+  "artifact_bytes": 131820,
   "deps": {
-    "figures/s16_logic.py": "449b24c4bbe415840e4f3f1caa89dc29d995cb34c035cf4bd37c0d62ab12df93",
+    "figures/s16_logic.py": "7f989dd841bd43f25bd02ffd509b9d4c21dad608432704ddc282c4c60e863753",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_arch_nor"

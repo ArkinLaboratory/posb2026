@@ -117,8 +117,12 @@ the two are put side by side.
 
 **Memory, and the fork.** Protein-state memory dies with the cell; DNA-
 orientation memory does not. The register road: unidirectional serine
-integrases, 34 screened → 11 orthogonal → 1.375 bytes — the same one-in-three
-attrition as Cello's gate library, reached from the other end. The program road:
+integrases: 34 found in prophage genomes, 13 selected to be at most 60%
+identical and built, 11 of those perfectly orthogonal — 1.375 bytes. The
+34 → 13 step is a selection, not a failure rate, so this is not the
+"one-in-three attrition" an earlier draft claimed; the shared limit with
+Cello is that EVERY pair has to be orthogonal, not that a third of parts
+survive. The program road:
 if the inversion reconstitutes a promoter–gene–terminator arrangement then the
 state *is* the expression program, there is no decoding step, and the natural
 precedent is R64's four segments and seven *sfx* sites making PilV variants.

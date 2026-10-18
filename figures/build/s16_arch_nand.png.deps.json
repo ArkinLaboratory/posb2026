@@ -1,10 +1,10 @@
 {
   "artifact": "s16_arch_nand.png",
-  "artifact_sha256": "b138e7d173480a040239941ac1d9c8593aeb2020e6e27ef93358ba3771966b9d",
-  "artifact_content": "4173a03f58211e5f037ee8c7940415469649589427cb152a346ee65a9a243bcc",
-  "artifact_bytes": 129741,
+  "artifact_sha256": "769b86c82d4a29b8e73af50b7b0492a03d1b0e020cd314f13a5db4dcc9929bbe",
+  "artifact_content": "1362a4f20c344119437cc4d3927d07db6301da0364254a28bb4e448e847e3553",
+  "artifact_bytes": 148741,
   "deps": {
-    "figures/s16_logic.py": "449b24c4bbe415840e4f3f1caa89dc29d995cb34c035cf4bd37c0d62ab12df93",
+    "figures/s16_logic.py": "7f989dd841bd43f25bd02ffd509b9d4c21dad608432704ddc282c4c60e863753",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_arch_nand"

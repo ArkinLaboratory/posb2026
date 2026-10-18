@@ -25,8 +25,9 @@ import numpy as np
 
 from figures.style import use, TEAL, CYAN, AMBER, MUTED, INK, RED, GREEN, RULE
 from posb.logic import (
-    classifier_2025, classifier_fixed, GateNetwork, NOT, NOR, hazards,
-    TruthTable, cascade_half_time, cascade_step_response,
+    classifier_2025, classifier_fixed, GateNetwork, NOT, NOR, NAND,
+    BUF, hazards, TruthTable, cascade_half_time,
+    cascade_step_response,
 )
 
 plt = use()
@@ -128,22 +129,35 @@ def fig_classifier():
     # The circuit lives in the upper band and every caption sits below it, so
     # no repression arm is ever drawn through text.
     _gene(axc, 0.09, 0.88, "B"); _gene(axc, 0.09, 0.46, "A")
-    _gene(axc, 0.38, 0.88, "R1"); _gene(axc, 0.61, 0.67, "R2")
-    _gene(axc, 0.85, 0.67, "R3", edge=AMBER)
+    _gene(axc, 0.38, 0.88, "R1"); _gene(axc, 0.61, 0.62, "R2")
+    _gene(axc, 0.85, 0.62, "R3", edge=AMBER)
+
+    # R2's TWO promoters, drawn. One box with two repression bars on it is
+    # exactly the picture the NOR slide uses, so reusing it here said the
+    # opposite of what the caption says -- four slides after teaching the
+    # room that the DNA layout is what picks the gate.
+    for dx in (-0.040, 0.040):
+        px = 0.61 + dx
+        axc.plot([px, px], [0.687, 0.748], color=GREEN, lw=2.2)
+        axc.annotate("", xy=(px + 0.038, 0.748), xytext=(px, 0.748),
+                     arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=2.2,
+                                     mutation_scale=13))
 
     _repress(axc, (0.175, 0.88), (0.292, 0.88))          # B -| R1
-    _repress(axc, (0.175, 0.49), (0.535, 0.620))         # A -| R2
-    _repress(axc, (0.448, 0.840), (0.580, 0.742))        # R1 -| R2
-    _repress(axc, (0.695, 0.67), (0.763, 0.67))          # R2 -| R3
+    _repress(axc, (0.175, 0.49), (0.540, 0.700))         # A -| promoter 1
+    _repress(axc, (0.448, 0.845), (0.636, 0.795))        # R1 -| promoter 2
+    _repress(axc, (0.695, 0.62), (0.763, 0.62))          # R2 -| R3
 
-    axc.text(0.935, 0.67, "out", fontsize=20, color=AMBER,
+    axc.text(0.935, 0.62, "out", fontsize=20, color=AMBER,
              ha="left", va="center")
-    axc.text(0.0, 0.25, "R1 = NOT B", fontsize=20, color=MUTED, ha="left")
-    axc.text(0.0, 0.15,
-             "R2 has two promoters, each independently repressed,\n"
-             "so either repressor silences it  →  NAND(A, R1)",
-             fontsize=16, color=MUTED, ha="left", va="top")
-    axc.set_title("A AND NOT B, built from repressors", loc="left")
+    axc.text(0.0, 0.30, "R1 = NOT B", fontsize=20, color=MUTED, ha="left")
+    axc.text(0.0, 0.22,
+             "R2 is ONE gene behind TWO promoters,\n"
+             "each with its own operator, so either\n"
+             "repressor silences it:  NAND(A, R1).",
+             fontsize=20, color=MUTED, ha="left", va="top")
+    axc.set_title("A AND NOT B, built from repressors", loc="left",
+                  fontsize=20, color=INK, fontweight="bold")
 
     spec = TruthTable.from_function(("A", "B"), lambda a, b: a and not b)
     assert classifier_2025().realised_truth_table().rows == spec.rows
@@ -250,8 +264,8 @@ def fig_cold_start():
              "while the circuit fills.",
              fontsize=20, color=MUTED, va="top")
     ax2.text(0.0, 0.19,
-             "Fix the promoter, not the wiring:\n"
-             "make the output REQUIRE an activator.",
+             "So balance is not the whole story.\n"
+             "The other half is the promoter.",
              fontsize=20, color=GREEN, va="top", fontweight="bold")
     _save(fig, "s16_cold_start")
 
@@ -427,29 +441,40 @@ def fig_latch_state_table():
 # ---------------------------------------------------------------------------
 # 6. where the gate comes from -- the DNA architecture, and the rate law drawn
 # ---------------------------------------------------------------------------
-def _dna(ax, x0, x1, y, *, operators, label, gene="output"):
-    """A stretch of DNA: operator boxes, a promoter arrow, and the gene."""
-    ax.plot([x0, x1], [y, y], color=INK, lw=2.6, solid_capstyle="butt")
-    n = len(operators)
-    for i, (name, col) in enumerate(operators):
-        bx = x0 + 0.08 + i * 0.13
-        ax.add_patch(plt.Rectangle((bx, y - 0.035), 0.11, 0.07,
-                                   facecolor=col, edgecolor=INK, lw=1.6,
-                                   zorder=3))
-        ax.text(bx + 0.055, y + 0.075, name, ha="center", va="bottom",
-                fontsize=16, color=col, fontweight="bold")
-    px = x0 + 0.10 + n * 0.13
-    ax.annotate("", xy=(px + 0.10, y + 0.085), xytext=(px, y + 0.085),
-                arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=2.2,
-                                mutation_scale=14))
-    ax.plot([px, px], [y, y + 0.085], color=GREEN, lw=2.2)
-    ax.add_patch(plt.Rectangle((px + 0.12, y - 0.045), 0.30, 0.09,
-                               facecolor="white", edgecolor=TEAL, lw=2.0,
+def _dna(ax, y, elements, *, gene="output"):
+    """One stretch of DNA, drawn left to right from a list of elements.
+
+    `elements` is a sequence of ("op", name, colour) and ("prom",). The gene
+    is drawn last, at the right-hand end, and every promoter on the strand
+    transcribes it -- which is the whole point of the NAND panel: two
+    promoters IN TANDEM upstream of one ORF, not two separate transcription
+    units. The first version of this figure drew two gene boxes under a title
+    that said one gene, in the figure whose entire job is that the DNA layout
+    picks the gate.
+    """
+    x = 0.03
+    ax.plot([0.01, 0.99], [y, y], color=INK, lw=2.8, solid_capstyle="butt")
+    for el in elements:
+        if el[0] == "op":
+            _, name, col = el
+            ax.add_patch(plt.Rectangle((x, y - 0.040), 0.115, 0.080,
+                                       facecolor=col, edgecolor=INK, lw=1.8,
+                                       zorder=3))
+            ax.text(x + 0.0575, y + 0.085, name, ha="center", va="bottom",
+                    fontsize=20, color=col, fontweight="bold")
+            x += 0.135
+        else:
+            ax.plot([x + 0.01, x + 0.01], [y, y + 0.105], color=GREEN, lw=2.6)
+            ax.annotate("", xy=(x + 0.105, y + 0.105),
+                        xytext=(x + 0.01, y + 0.105),
+                        arrowprops=dict(arrowstyle="-|>", color=GREEN, lw=2.6,
+                                        mutation_scale=16))
+            x += 0.135
+    ax.add_patch(plt.Rectangle((x + 0.02, y - 0.055), 0.34, 0.110,
+                               facecolor="white", edgecolor=TEAL, lw=2.2,
                                zorder=3))
-    ax.text(px + 0.27, y, gene, ha="center", va="center", fontsize=16,
+    ax.text(x + 0.19, y, gene, ha="center", va="center", fontsize=20,
             color=INK, zorder=4)
-    ax.text(x0, y - 0.11, label, ha="left", va="top", fontsize=16,
-            color=MUTED)
 
 
 def _occupancy_grid(n=260, lo=-2.0, hi=2.0):
@@ -475,24 +500,29 @@ def _arch(name, title, strands, P, corners, caption):
     fig.subplots_adjust(top=0.80, bottom=0.16, wspace=0.28)
 
     axd.set_axis_off(); axd.set_xlim(0, 1); axd.set_ylim(0, 1)
-    for y, ops, gene in strands:
-        _dna(axd, 0.02, 0.98, y, operators=ops, label="", gene=gene)
-    axd.text(0.02, 0.06, caption, ha="left", va="bottom", fontsize=16,
+    _dna(axd, 0.58, strands)
+    axd.text(0.01, 0.10, caption, ha="left", va="bottom", fontsize=20,
              color=MUTED)
     fig.suptitle(title, fontsize=20, color=INK, fontweight="bold", y=0.96)
 
     im = axp.pcolormesh(r, r, P(*np.meshgrid(r, r)), cmap=cmap,
                         shading="auto", vmin=0.0, vmax=1.0)
     axp.set_xscale("log"); axp.set_yscale("log")
-    axp.set_xlabel("repressor A  (units of K)", fontsize=18)
-    axp.set_ylabel("repressor B  (units of K)", fontsize=18)
-    axp.tick_params(labelsize=16)
-    for (i, j), v in corners.items():
-        axp.text(10 ** (-1.6 + 3.2 * i), 10 ** (-1.6 + 3.2 * j), v,
-                 ha="center", va="center", fontsize=22, fontweight="bold",
-                 color="white" if v == "1" else INK,
+    axp.set_xlabel("repressor A  (units of K)", fontsize=20)
+    axp.set_ylabel("repressor B  (units of K)", fontsize=20)
+    axp.tick_params(labelsize=18)
+    # The badge is READ OFF the rate law at the marker, not typed: the NAND's
+    # two single-repressor corners sit at half amplitude, and badging them
+    # "1" asserted something the colour underneath contradicts.
+    for (i, j) in [(0, 0), (1, 0), (0, 1), (1, 1)]:
+        x, y = 10 ** (-1.6 + 3.2 * i), 10 ** (-1.6 + 3.2 * j)
+        v = float(P(np.array([[x]]), np.array([[y]]))[0, 0])
+        lab = "1" if v > 0.75 else ("0" if v < 0.25 else "\u00bd")
+        dark = v > 0.75
+        axp.text(x, y, lab, ha="center", va="center", fontsize=22,
+                 fontweight="bold", color="white" if dark else INK,
                  bbox=dict(boxstyle="circle,pad=0.20",
-                           fc=INK if v == "1" else "white", ec=INK, lw=1.8))
+                           fc=INK if dark else "white", ec=INK, lw=1.8))
     fig.colorbar(im, ax=axp, fraction=0.045, pad=0.03)
     _save(fig, name)
 
@@ -501,20 +531,20 @@ def fig_arch_nor():
     """One promoter with two operators: either repressor silences it -- NOR."""
     _arch("s16_arch_nor",
           "ONE promoter, TWO operators   \u2192   P_on = 1 / (1+r_A)(1+r_B)",
-          [(0.55, [("A", AMBER), ("B", RED)], "output")],
+          [("op", "A", AMBER), ("op", "B", RED), ("prom",)],
           lambda A, B: 1.0 / ((1.0 + A) * (1.0 + B)),
-          {(0, 0): "1", (1, 0): "0", (0, 1): "0", (1, 1): "0"},
-          "Either repressor blocks it.")
+          None,
+          "Either repressor blocks\nthe one promoter.")
 
 
 def fig_arch_nand():
     """Two promoters driving one gene: both must be blocked -- NAND."""
     _arch("s16_arch_nand",
           "TWO promoters, ONE gene   \u2192   out \u221d 1/(1+r_A) + 1/(1+r_B)",
-          [(0.74, [("A", AMBER)], "out"), (0.34, [("B", RED)], "out")],
+          [("op", "A", AMBER), ("prom",), ("op", "B", RED), ("prom",)],
           lambda A, B: 0.5 * (1.0 / (1.0 + A) + 1.0 / (1.0 + B)),
-          {(0, 0): "1", (1, 0): "1", (0, 1): "1", (1, 1): "0"},
-          "Outputs add: silent only if\nboth are blocked.")
+          None,
+          "Tandem promoters, one gene.\nSilent only if BOTH\nare blocked.")
 
 
 def fig_universal():
@@ -542,19 +572,217 @@ def fig_universal():
           TEAL, w=0.32)
     block(0.680, "every logic function", "no third ingredient\nis needed",
           GREEN, w=0.32)
-    for x in (0.285, 0.675):
-        ax.annotate("", xy=(x + 0.040, 0.53), xytext=(x, 0.53),
+    for x in (0.283, 0.645):
+        ax.annotate("", xy=(x + 0.030, 0.53), xytext=(x, 0.53),
                     arrowprops=dict(arrowstyle="-|>", color=MUTED, lw=2.4,
                                     mutation_scale=16))
     ax.text(0.5, 0.10,
             "NOR is NOT(OR).   NAND is NOT(AND).\nEach packs both "
-            "ingredients into one promoter,\nso either one, alone, can "
+            "ingredients into one piece of DNA,\nso either one, alone, can "
             "build anything.",
             ha="center", va="center", fontsize=18, color=INK)
     _save(fig, "s16_universal")
 
 
+
+# ---------------------------------------------------------------------------
+# 7. one truth table, two NOR networks -- the choice the table does not make
+#
+# Added 18 October. The XNOR exercise had been debriefed with one network
+# presented as THE answer, and with its depths mis-stated. Both defects came
+# from the same omission: a truth table has many realisations, and choosing
+# between them is what the compiler actually does. So this figure shows two,
+# and -- following the rule at the top of this file -- the gene counts and the
+# path lengths on it are COMPUTED from the gate lists by posb.logic, never
+# typed. That is how the mis-stated depths were caught.
+# ---------------------------------------------------------------------------
+XGW, XGH = 0.105, 0.130
+NOT_A, NOT_B = "¬A", "¬B"
+
+
+def _xgene(ax, x, y, label, edge=TEAL):
+    ax.add_patch(plt.Rectangle((x - XGW / 2, y - XGH / 2), XGW, XGH,
+                               facecolor="white", edgecolor=edge, lw=2.2,
+                               zorder=4))
+    ax.text(x, y, label, ha="center", va="center", fontsize=20, color=INK,
+            zorder=5)
+
+
+def _xwire(ax, src, dst, chan, dy=0.0, color=RED):
+    """A repression arm routed at right angles, ending in a crossbar.
+
+    Right angles rather than diagonals: a diagonal across a crowded layer
+    lands on a neighbouring gene's label, and a schematic wire is read faster
+    than a vector. `dy` separates the two arms arriving at a two-operator
+    promoter so that both are visible where they land, and every fan-out gets
+    its own vertical channel -- sharing one put A's trunk and B's on the same
+    x, which reads as a wire from A to B.
+    """
+    gap, bar = 0.016, 0.034
+    x0, y0 = src
+    x1, y1 = dst[0], dst[1] + dy
+    x0e, x1e = x0 + XGW / 2, x1 - XGW / 2 - gap
+    ax.plot([x0e, chan], [y0, y0], color=color, lw=2.2, zorder=2)
+    ax.plot([chan, chan], [y0, y1], color=color, lw=2.2, zorder=2)
+    ax.plot([chan, x1e], [y1, y1], color=color, lw=2.2, zorder=2,
+            solid_capstyle="butt")
+    ax.plot([x1e, x1e], [y1 - bar, y1 + bar], color=color, lw=3.4, zorder=3,
+            solid_capstyle="butt")
+
+
+def _xstats(net):
+    """'<n> genes' and the longest and shortest input-to-output path, counted.
+
+    `path_lengths` is per source, so the extremes are taken over every input:
+    the quantity that matters is how far apart the arrivals at the output are,
+    whichever inputs they came from.
+    """
+    lens = [n for i in net.inputs for n in net.path_lengths(i)]
+    return f"{len(net.gates)} genes\nlongest path {max(lens)}, shortest {min(lens)}"
+
+
+def _xpanel(ax, nodes, edges, title, gloss, stats):
+    ax.set_axis_off(); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
+    for name, (x, y, edge) in nodes.items():
+        _xgene(ax, x, y, name, edge=edge)
+    for src, dst, chan, dy in edges:
+        _xwire(ax, nodes[src][:2], nodes[dst][:2], chan, dy)
+    ax.set_title(title, fontsize=20, color=INK, loc="left", fontweight="bold")
+    ax.text(0.0, 0.03, gloss, fontsize=16, color=MUTED, ha="left", va="top")
+    ax.text(0.0, -0.21, stats, fontsize=20, color=INK, ha="left", va="top",
+            fontweight="bold")
+
+
+def fig_xnor_two_ways():
+    """One truth table, two NOR networks: six genes deep four, or four deep three."""
+    recipe = GateNetwork(
+        [NOT("nA", "A"), NOT("nB", "B"),
+         NOR("P", "A", "B"), NOR("Q", "nA", "nB"),
+         NOR("R", "P", "Q"), NOT("out", "R")],
+        inputs=("A", "B"), output="out")
+    minimal = GateNetwork(
+        [NOR("P", "A", "B"), NOR("S", "A", "P"), NOR("T", "B", "P"),
+         NOR("out", "S", "T")],
+        inputs=("A", "B"), output="out")
+    xnor = TruthTable.from_function(("A", "B"), lambda a, b: a == b)
+    for net in (recipe, minimal):
+        assert net.realised_truth_table().rows == xnor.rows
+
+    fig, (axl, axr) = plt.subplots(1, 2, figsize=(12.0, 5.2))
+    fig.subplots_adjust(top=0.90, bottom=0.26, left=0.015, right=0.985,
+                        wspace=0.09)
+    U = 0.024
+
+    L = {"A": (0.050, 0.70, MUTED), "B": (0.050, 0.34, MUTED),
+         NOT_A: (0.240, 0.96, AMBER), NOT_B: (0.240, 0.14, AMBER),
+         "P": (0.240, 0.58, TEAL), "Q": (0.450, 0.32, TEAL),
+         "R": (0.650, 0.52, TEAL), "out": (0.870, 0.52, GREEN)}
+    LE = [("A", NOT_A, 0.172, 0.0), ("A", "P", 0.172, +U),
+          ("B", NOT_B, 0.112, 0.0), ("B", "P", 0.112, -U),
+          (NOT_A, "Q", 0.362, +U), (NOT_B, "Q", 0.330, -U),
+          ("P", "R", 0.578, +U), ("Q", "R", 0.540, -U),
+          ("R", "out", 0.775, 0.0)]
+    _xpanel(axl, L, LE, "what the recipe gives you",
+            "P = NOR(A, B)        Q = NOR(" + NOT_A + ", " + NOT_B + ")\n"
+            "R = NOR(P, Q)        out = NOT R",
+            _xstats(recipe))
+
+    R = {"A": (0.075, 0.82, MUTED), "B": (0.075, 0.22, MUTED),
+         "P": (0.330, 0.52, TEAL),
+         "S": (0.580, 0.90, TEAL), "T": (0.580, 0.14, TEAL),
+         "out": (0.860, 0.52, GREEN)}
+    RE = [("A", "P", 0.210, +U), ("A", "S", 0.502, +U),
+          ("B", "P", 0.172, -U), ("B", "T", 0.395, -U),
+          ("P", "S", 0.455, -U), ("P", "T", 0.432, +U),
+          ("S", "out", 0.752, +U), ("T", "out", 0.718, -U)]
+    _xpanel(axr, R, RE, "the minimum, found by search",
+            "P = NOR(A, B)        S = NOR(A, P)\n"
+            "T = NOR(B, P)        out = NOR(S, T)",
+            _xstats(minimal))
+
+    _save(fig, "s16_xnor_two_ways")
+
+
+
+# ---------------------------------------------------------------------------
+# 8. the engineering result, stated as the conjunction it actually is
+#
+# Added 18 October after an adversarial review found that the deck refuted
+# "balance is enough" with fig_cold_start and then asserted the mirror-image
+# overclaim -- "fix the promoter, not the wiring" -- without testing it. It
+# is false: the deck's OWN first repair (pad the short path with an
+# activator) is fail-safe and still glitches in all four cases. Both
+# conditions are needed, each has a counterexample in this session, and the
+# four rows below are computed rather than asserted.
+# ---------------------------------------------------------------------------
+def fig_two_conditions():
+    """Fail-safe or balanced alone is not enough; the counterexample is computed."""
+    padded = GateNetwork(
+        [NOT("R1", "B"), NAND("R2", "A", "R1"), NOT("Act", "R2"),
+         BUF("R3", "Act")],
+        inputs=("A", "B"), output="R3")
+    balanced = GateNetwork(
+        [NOT("na", "A"), NOT("nb", "B"), NOR("Z", "na", "nb")],
+        inputs=("A", "B"), output="Z")
+
+    cases = [
+        ("the 2025 classifier", classifier_2025()),
+        ("Z = NOR(¬A, ¬B)", balanced),
+        ("pad the short path", padded),
+        ("require an activator", classifier_fixed()),
+    ]
+    rows, bad = [], []
+    for i, (name, net) in enumerate(cases):
+        n_bad = sum(bool(hazards(_rows_from(net, {"A": a, "B": b}, 4,
+                                            [net.output])[1], net.output))
+                    for a in (0, 1) for b in (0, 1))
+        if n_bad:
+            bad.append(i)
+        rows.append((name,
+                     "yes" if net.is_fail_safe() else "no",
+                     "yes" if net.is_balanced() else "no",
+                     "clean" if n_bad == 0 else f"glitches {n_bad}/4"))
+    # The lesson exists only if exactly the last row is clean.
+    assert bad == [0, 1, 2], bad
+
+    # Not _table: that centres every column on an equal share of the width,
+    # and the first column here is a circuit name rather than a digit. The
+    # pitch is still measured.
+    fig, ax = plt.subplots(figsize=(11.6, 3.30))
+    fig.subplots_adjust(left=0.015, right=0.985, top=0.97, bottom=0.03)
+    ax.set_axis_off(); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
+    pitch = _row_pitch(fig, ax, 20)
+    xs = (0.00, 0.41, 0.67, 0.89)
+    heads = ("circuit", "OFF when empty?", "paths equal?", "result")
+
+    y = 1.0 - pitch * 0.7
+    ax.text(0.0, y, "Two conditions, and neither is enough on its own",
+            fontsize=21, color=INK, fontweight="bold", va="top")
+    y -= pitch * 1.5
+    for x, h in zip(xs, heads):
+        ax.text(x, y, h, fontsize=20, color=MUTED, va="center",
+                ha="left" if x == 0.0 else "center", fontweight="bold")
+    y -= pitch * 0.55
+    ax.plot([0.0, 1.0], [y, y], color=RULE, lw=1.4)
+    y -= pitch * 0.8
+    for name, fs, bal, verdict in rows:
+        colour = GREEN if verdict == "clean" else RED
+        ax.text(xs[0], y, name, fontsize=20, color=INK, va="center")
+        for x, v in zip(xs[1:3], (fs, bal)):
+            ax.text(x, y, v, fontsize=20, color=INK, va="center",
+                    ha="center", fontfamily="DejaVu Sans Mono")
+        ax.text(xs[3], y, verdict, fontsize=20, color=colour, va="center",
+                ha="center", fontweight="bold")
+        y -= pitch
+    ax.text(0.0, y - pitch * 0.2,
+            "The middle two rows are the counterexamples: one for each "
+            "condition on its own.",
+            fontsize=20, color=MUTED, va="top")
+    _save(fig, "s16_two_conditions")
+
+
 FIGURES = [fig_arch_nor, fig_arch_nand, fig_universal,
+           fig_xnor_two_ways, fig_two_conditions,
            fig_classifier, fig_timing_steps, fig_cold_start,
            fig_timing_broken, fig_timing_fixed,
            fig_hazard_types, fig_cascade_delay, fig_dirs_states,

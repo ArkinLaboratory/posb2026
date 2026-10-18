@@ -40,6 +40,17 @@ K = 0.5          # average glyph advance, in em
 LINE = 1.21      # line height, in em
 OVERFLOW_TOL = 0.10   # inches a box may be over before we care
 COLLIDE_TOL = 0.06    # inches of overlap before we care
+# Pictures get a looser tolerance than text-on-text: a figure saved with
+# bbox="tight" still carries a hairline of margin, and a caption tucked right
+# under one should not be reported.
+#
+# This one is ADVISORY and will over-report. The same conservative K that
+# makes the text estimate safe makes it predict two lines for a title that
+# renders on one, and a title predicted two lines deep reaches about a third
+# of an inch into a figure placed under it. Session 13 slide 18 is that case
+# and it is fine on the wall. Treat a hit as "go and look at that slide",
+# not as a defect -- which is what the whole tool is for.
+PIC_TOL = 0.25        # inches of text-on-picture overlap before we care
 
 
 def _paragraphs(tf):
@@ -80,11 +91,28 @@ def extent(paras, box_w):
 def analyze(path):
     from pptx import Presentation
     pres = Presentation(str(path))
-    overflow, collide, offslide = [], [], []
+    overflow, collide, offslide, onpic = [], [], [], []
     SW, SH = pres.slide_width / EMU, pres.slide_height / EMU
     for si, s in enumerate(pres.slides, 1):
         live = []
+        pics = []
         for sh in s.shapes:
+            # Pictures are collected too. A figure placed at its natural size
+            # under a two-line title, or a row stack started above where the
+            # figure actually ends, puts words on top of a picture -- which
+            # this tool was blind to until 18 October 2026, when an
+            # adversarial review found the cascade-delay slide printing its
+            # numbers across the x-axis of its own plot. Every text-only gate
+            # had passed it.
+            if getattr(sh, "shape_type", None) is not None and not sh.has_text_frame:
+                if str(sh.shape_type).startswith("PICTURE") and None not in (
+                        sh.left, sh.top, sh.width, sh.height):
+                    pw, ph = sh.width / EMU, sh.height / EMU
+                    # Every slide carries a full-bleed background image, and
+                    # all of its text sits on that by design. Only pictures
+                    # that are CONTENT can be collided with.
+                    if pw * ph < 0.5 * SW * SH:
+                        pics.append((sh.left / EMU, sh.top / EMU, pw, ph))
             if not sh.has_text_frame:
                 continue
             txt = re.sub(r"\s+", " ", sh.text_frame.text or "").strip()
@@ -101,7 +129,12 @@ def analyze(path):
             if need > h + OVERFLOW_TOL:
                 overflow.append((si, txt[:52], round(h, 2), round(need, 2),
                                  max(p[1] for p in paras)))
-            live.append((txt, l, t, uw, max(h, need)))
+            # `need` is the estimated height of the INK; `h` is the box,
+            # which for a title is generously padded. Text-on-text uses the
+            # box (a tall empty box still blocks the space), text-on-picture
+            # uses the ink, or every one-line title over a figure that starts
+            # just below it is reported.
+            live.append((txt, l, t, uw, max(h, need), need))
         for i in range(len(live)):
             for j in range(i + 1, len(live)):
                 a, b = live[i], live[j]
@@ -110,12 +143,18 @@ def analyze(path):
                 if ox > COLLIDE_TOL and oy > COLLIDE_TOL:
                     collide.append((si, round(ox, 2), round(oy, 2),
                                     a[0][:40], b[0][:40]))
-    return overflow, collide, offslide
+        for txt, l, t_, uw, _hbox, hink in live:
+            for pl, pt, pw, ph in pics:
+                ox = min(l + uw, pl + pw) - max(l, pl)
+                oy = min(t_ + hink, pt + ph) - max(t_, pt)
+                if ox > PIC_TOL and oy > PIC_TOL:
+                    onpic.append((si, round(ox, 2), round(oy, 2), txt[:48]))
+    return overflow, collide, offslide, onpic
 
 
 def report(path, indent="  "):
     """Print what does not fit. Returns the number of problems."""
-    over, coll, off = analyze(path)
+    over, coll, off, onpic = analyze(path)
     if off:
         print(f"{indent}!! {len(off)} shape(s) run off the slide:")
         for si, txt, r, b in off[:10]:
@@ -132,7 +171,13 @@ def report(path, indent="  "):
             print(f'{indent}   s{si:<3} {ox}"x{oy}"  "{a}"  vs  "{b}"')
         if len(coll) > 14:
             print(f"{indent}   ... and {len(coll) - 14} more")
-    return len(over) + len(coll) + len(off)
+    if onpic:
+        print(f"{indent}!! {len(onpic)} text box(es) sit on a picture:")
+        for si, ox, oy, txt in onpic[:14]:
+            print(f'{indent}   s{si:<3} {ox}"x{oy}"  | {txt}')
+        if len(onpic) > 14:
+            print(f"{indent}   ... and {len(onpic) - 14} more")
+    return len(over) + len(coll) + len(off) + len(onpic)
 
 
 if __name__ == "__main__":
