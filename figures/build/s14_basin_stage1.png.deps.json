@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_basin_stage1.png",
+  "artifact_sha256": "1c278ffeaa6b79361b35fd8d8727cd4ba05e7995a50e4e8e5a4194d85b8127fe",
+  "artifact_content": "489509fd7ef2ee8120cfcbd0c80da064543ecfe247dd5e2f985438f23f278223",
+  "artifact_bytes": 52893,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_basin_stages"
+}

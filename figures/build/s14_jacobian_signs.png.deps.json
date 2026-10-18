@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_jacobian_signs.png",
+  "artifact_sha256": "4988dfa1df55f745d6f8108ab20175a5ea2d8221a620de07ec7c419352efd228",
+  "artifact_content": "76f6b450edc579c442d8a42158ac007bd460062c4551db99969989167a137c63",
+  "artifact_bytes": 77964,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_jacobian_signs"
+}

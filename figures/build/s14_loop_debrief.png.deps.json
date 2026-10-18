@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_loop_debrief.png",
+  "artifact_sha256": "a36aefe82ef4f27181e7bfdb33ef06886439bb7a2e79a8219a29d52d4626d33c",
+  "artifact_content": "d2f1b5dc8e5566dd8fa100c27b81ef50ba0da74d3c23a4257f32e14538015ea4",
+  "artifact_bytes": 121543,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_loop_debrief"
+}

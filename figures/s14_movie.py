@@ -33,6 +33,7 @@ N_FRAME = 240
 
 
 def fig_basin_movie():
+    """Four pulses on the mutual-activation plane, as motion."""
     rhs, saddle_x, on_x, sep, xcross = _ma_model()
     a, n = MA_A, MA_N
     top = on_x * 1.28

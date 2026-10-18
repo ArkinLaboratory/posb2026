@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_curve_debrief.png",
+  "artifact_sha256": "6fa56861244a7e899c89bae53e2200b382f84fe74a3184980ff89e762bfcdc40",
+  "artifact_content": "7078cceaeefb4d67ce899f7b5a5b930c94aa220b64d57140faf41c3966475bcd",
+  "artifact_bytes": 125892,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_curve_debrief"
+}

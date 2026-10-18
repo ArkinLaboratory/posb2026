@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_basin_runs.mp4",
+  "artifact_sha256": "e89d69b1a424389cc44fa5f55d70a91dc693c68d3a86688b4244045ab13eb337",
+  "artifact_content": "e89d69b1a424389cc44fa5f55d70a91dc693c68d3a86688b4244045ab13eb337",
+  "artifact_bytes": 289390,
+  "deps": {
+    "figures/s14_movie.py": "3bb60267338d33d0db4aee761229f09802a438da3975758ebedc4beb5ad67783",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_movie.fig_basin_movie"
+}

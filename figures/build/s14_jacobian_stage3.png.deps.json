@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_jacobian_stage3.png",
+  "artifact_sha256": "83a263d3556686fddaee2f7eb13b8a80bb080ef7ccef3a3f66a11bc0898478a7",
+  "artifact_content": "097423b0a19bfc7312c284d240b4222587b897b924987cfcc9f2d3e57a6b6c5d",
+  "artifact_bytes": 27785,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_jacobian_stages"
+}

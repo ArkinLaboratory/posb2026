@@ -57,10 +57,11 @@ MODULES = ["figures.s01_specification", "figures.s02_substrate",
            "figures.s07_autoregulation", "figures.s08_phase_plane",
            "figures.s09_bistability",
            "figures.s10_feedforward", "figures.s11_oscillators",
-           "figures.s12_noise", "figures.s13_digital"]
+           "figures.s12_noise", "figures.s13_digital",
+           "figures.s14_review", "figures.s16_logic"]
 
 # Slow to render (video encoding), so not built unless asked for by name.
-SLOW = ["figures.s02_movie"]
+SLOW = ["figures.s02_movie", "figures.s14_movie"]
 
 
 def verify():
@@ -173,7 +174,14 @@ def main():
                        and before.get(f) != f.stat().st_mtime_ns]
             for f in written:
                 manifest.write(f, src, extra={"generator": f"{name}.{fn.__name__}"})
-            print(f"  {fn.__name__:<20} {fn.__doc__.splitlines()[0]}"
+            # Every figure function is supposed to document itself in one
+            # line, and the build prints that line. A function without one
+            # used to raise AttributeError on None HERE -- after fn() had
+            # run and after manifest.write() had recorded it -- so the build
+            # died having actually succeeded. Report the gap, do not crash.
+            doc = (fn.__doc__ or "").strip()
+            summary = doc.splitlines()[0] if doc else "** NO DOCSTRING **"
+            print(f"  {fn.__name__:<20} {summary}"
                   f"   [{', '.join(f.name for f in sorted(written))}]")
             total += 1
     print(f"\n{total} figure(s) written to figures/build/")

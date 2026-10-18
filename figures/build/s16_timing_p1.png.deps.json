@@ -1,0 +1,11 @@
+{
+  "artifact": "s16_timing_p1.png",
+  "artifact_sha256": "d4178d3f4b65ad813c0343600cb24f45c1dc4b3248fb8c710621c4221fda23fe",
+  "artifact_content": "5d011fbedae26da8e19267559dae10c3d8c054ea128849e1a8da4721d012353b",
+  "artifact_bytes": 47320,
+  "deps": {
+    "figures/s16_logic.py": "3bead65814769ff9aa04da45c69e7e35323e769d0412ab24b18ca8e9191cad4e",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s16_logic.fig_timing_steps"
+}

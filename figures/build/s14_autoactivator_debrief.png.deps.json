@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_autoactivator_debrief.png",
+  "artifact_sha256": "3c951938d689caf159ff680744ab68e0be00b439b1ce6531438957af9732deaf",
+  "artifact_content": "5f8452ae4b30ee9222f50dcf21740c23af2c5993a77464c7e05af43e1255445d",
+  "artifact_bytes": 145683,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_autoactivator_debrief"
+}

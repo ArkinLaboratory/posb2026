@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_basin_trajectories.png",
+  "artifact_sha256": "11c5268729c07370a9530b9bd0466a02b562e06e2d8254e3f79e304fdd8ef871",
+  "artifact_content": "c890e839f9ff2f47c939346db30287930cff68e038447ab12735e031edea64ad",
+  "artifact_bytes": 178138,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_basin_trajectories"
+}

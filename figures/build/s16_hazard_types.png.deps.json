@@ -1,0 +1,11 @@
+{
+  "artifact": "s16_hazard_types.png",
+  "artifact_sha256": "49289d61b6b4272d10853f2d94244f057f3a22fb76b70c46933f6662d380d74a",
+  "artifact_content": "4b1acdf11ef90d606f67176672a1e3b828e467aea91d33970043c6f20a091eca",
+  "artifact_bytes": 45496,
+  "deps": {
+    "figures/s16_logic.py": "3bead65814769ff9aa04da45c69e7e35323e769d0412ab24b18ca8e9191cad4e",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s16_logic.fig_hazard_types"
+}

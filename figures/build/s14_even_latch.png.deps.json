@@ -1,0 +1,11 @@
+{
+  "artifact": "s14_even_latch.png",
+  "artifact_sha256": "fed8b36e86ec0e02fb747a14b82c5170c838024f2fe7ab87e08718bcbd6375e6",
+  "artifact_content": "b1b332bea5129673859a923fb4df678428cd62562df7cfbc7142ea64faa39c89",
+  "artifact_bytes": 50003,
+  "deps": {
+    "figures/s14_review.py": "1a1cad568f06b3a0ab5cf77bc022943a3ac0121d87034f3107d86d7077ec8b2a",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s14_review.fig_even_latch"
+}
