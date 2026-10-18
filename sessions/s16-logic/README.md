@@ -148,9 +148,16 @@ and it is labelled as such.
 
 | | |
 |---|---|
-| Figures | *(pending)* |
+| Figures | `s16_classifier`, `s16_timing_p1..p4`, `s16_cold_start`, `s16_timing_fixed`, `s16_hazard_types`, `s16_cascade_delay`, `s16_dirs_states`, `s16_latch_state_table` — 11 PNGs, all verifying |
 | Deck | *(pending)* |
 | Handout + answers | *(pending)* |
 | Board notes | *(pending)* |
+
+Every table in those figures is computed by `posb.logic` at render time; none
+of the ticks is typed into the figure source. `fig_classifier` asserts the
+circuit really computes A AND NOT B, `fig_timing_steps` asserts the hazard is
+the kind the caption names, `fig_cold_start` asserts the balanced circuit is
+*not* fail-safe, and `fig_timing_fixed` asserts the repair is clean in all
+four input cases. A figure that stops being true stops building.
 
 Design and decisions: [DESIGN.md](DESIGN.md).

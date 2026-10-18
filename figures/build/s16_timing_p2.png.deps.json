@@ -1,10 +1,10 @@
 {
   "artifact": "s16_timing_p2.png",
-  "artifact_sha256": "305fd08803ee9e24f4f20374e180ac0cc5450edcf1de1b908b6669a9ccf08e2a",
-  "artifact_content": "67c3c0036652e4af0c50be4da4e0e319acabe02a25ac3f69c3f9fc7c2f6472f6",
-  "artifact_bytes": 46899,
+  "artifact_sha256": "d78c0cd7e8eba0a3062e9208179c5050666b864f09b63bb64ce482e2070ebc46",
+  "artifact_content": "25931351ee39bd1ec74823301d4538879030a14817ae0e3acfcd5185b82f1d65",
+  "artifact_bytes": 39923,
   "deps": {
-    "figures/s16_logic.py": "3bead65814769ff9aa04da45c69e7e35323e769d0412ab24b18ca8e9191cad4e",
+    "figures/s16_logic.py": "449b24c4bbe415840e4f3f1caa89dc29d995cb34c035cf4bd37c0d62ab12df93",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_timing_steps"

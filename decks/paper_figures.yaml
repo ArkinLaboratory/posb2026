@@ -577,3 +577,45 @@ nielsen2016_fig2b:
   crop: [0, 430, 772, 712]
   shows: "the orange gate (PhlF) has a large dynamic range that spans the threshold of the purple gate (BetI); in the reverse order the gates do not functionally connect"
   used_in: ["s13"]
+
+nielsen2016_fig1a:
+  figure: "Fig. 1A"
+  shows: >-
+    the whole Cello pipeline in one image: a Verilog module and a sensor
+    table in, then Verilog parsing to a truth table, logic synthesis to
+    AND-inverter and then to NOR/NOT, the final circuit diagram, the User
+    Constraint File and gate library feeding gate assignment, and
+    combinatorial design out to a genetic circuit DNA sequence.
+  used_in: ["s16"]
+  provenance: >-
+    page 3 of private/readings/Session 16 -
+    nielsen-2016-genetic-circuit-design-automation.pdf rendered at 220 dpi
+    with pdftoppm, cropped to the box (55,110)-(1712,815) on the 1815x2310
+    page. Tracked. Extracted 18 October 2026; the right edge was pulled in
+    from 1735 after the rendered slide showed a sliver of the journal's
+    sideways margin credit.
+  note: >-
+    Adam, 18 October: we tend not to show the actual work and the actual
+    papers we are discussing, and that is a bad habit. This is the figure
+    the Cello segment is about -- show it rather than describing it. The
+    room has read this paper.
+
+nielsen2016_fig5a:
+  figure: "Fig. 5A"
+  shows: >-
+    fraction correct against the number of repressors in the circuit, for
+    output STATES (black, stays near 0.85) and whole CIRCUITS (grey, falls
+    from 1.0 to 0.4 by seven repressors).
+  used_in: ["s16"]
+  provenance: >-
+    page 10 of the same PDF at 220 dpi, cropped to (108,188)-(368,410).
+    Tracked. Extracted 18 October 2026; recropped from (60,150)-(378,408)
+    after the rendered slide showed a sliver of panel B down the right
+    edge. The panel letter is cropped out too, since the slide titles it.
+  note: >-
+    This is the measurement behind "45 of 60", and it is the orthogonality
+    argument in one picture: a circuit with few repressors almost always
+    works, and the failure rate climbs with the size of the repressor set
+    it needs. Note the paper's two DIFFERENT definitions of the circuit
+    score -- Fig. 2's is the ratio of PREDICTED states, Fig. 5's the ratio
+    of measured MEDIANS. Quote whichever matches the context and say which.

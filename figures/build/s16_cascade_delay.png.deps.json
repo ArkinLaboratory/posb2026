@@ -1,10 +1,10 @@
 {
   "artifact": "s16_cascade_delay.png",
-  "artifact_sha256": "6e83cede0ea511330ecf4369969d09699b7cfa67a6fa6183242c8d3f269e6f81",
-  "artifact_content": "523d0db31827f010c90f2ab09f0de06678995a485dae762de2946725828ca1c9",
-  "artifact_bytes": 151742,
+  "artifact_sha256": "a8115ad1c8a9ed87d7c60de4dcc1c78ea3904d54b78d3beb599c9127ce10fac2",
+  "artifact_content": "9e47537a5fe20668cacd5aad09e64745421c1ae467ece457b23cc2dab11fce80",
+  "artifact_bytes": 147917,
   "deps": {
-    "figures/s16_logic.py": "3bead65814769ff9aa04da45c69e7e35323e769d0412ab24b18ca8e9191cad4e",
+    "figures/s16_logic.py": "449b24c4bbe415840e4f3f1caa89dc29d995cb34c035cf4bd37c0d62ab12df93",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_cascade_delay"

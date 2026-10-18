@@ -398,11 +398,12 @@ readings:
         numbers: 60 circuits designed, all 60 built with no additional tuning,
         45 correct in every output state, 92% of output states as predicted, up
         to 10 regulators and 55 parts. Come able to say what "signal separation"
-        means in the units of session 13's transfer curves. (13 pp in the PDF held in
-        private/readings, verified 18 Oct.)
+        means in the units of session 13's transfer curves.
       why: >-
         The paper the session is about -- the compiler, the gate library, and
-        the honest failure rate. 45 of 60 is the quantitative form of why design
+        the honest failure rate. Thirteen pages, verified against the PDF on
+        18 October; Crossref returns no range for an article-numbered paper,
+        which is how it was recorded as ten for a month. 45 of 60 is the quantitative form of why design
         automation plateaued, and it is the continuity that puts session 13
         before this one. Cello 2.0 (Jones et al., Nat Protoc 2022) is a
         seventeen-page protocol: right for the project list, wrong for a
@@ -483,10 +484,9 @@ readings:
       focus: >-
         The phospho-toggle network and its bifurcation analysis, and nothing
         else -- supplementary notes 1.5-1.6.7 if you want the algebra. Come able
-        to draw its phase plane on the session 8 axes. (14 pp, verified 18 Oct against the
-        publisher PDF in private/readings.)
+        to draw its phase plane on the session 8 axes.
       why: >-
-        A toggle with no promoter in it. Everything proved in sessions 8 and 9
+        Fourteen pages, verified 18 October. A toggle with no promoter in it. Everything proved in sessions 8 and 9
         transfers unchanged, but the timescale is seconds rather than hours and
         the parts are phosphorylation sites. That transfer is the best argument
         available that the room learned a method and not a special case. The

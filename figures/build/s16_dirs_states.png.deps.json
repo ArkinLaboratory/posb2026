@@ -1,10 +1,10 @@
 {
   "artifact": "s16_dirs_states.png",
-  "artifact_sha256": "ede23fb2c203af069e5bb8f7ddd9788f8810efbd81f120ae7a5ca66b265e6560",
-  "artifact_content": "02a343267d2ee55a03ebc6c9407f4ee7da60feb582b85db5e2fce7393dc89096",
-  "artifact_bytes": 155936,
+  "artifact_sha256": "69455ce83000c10008b1b66b64c1639f05dc13b1e3267e18d76f81a24327439d",
+  "artifact_content": "260fbecf1764fabd835b01b94921e82bd205118847a8347cb6e50d3119173a7c",
+  "artifact_bytes": 133172,
   "deps": {
-    "figures/s16_logic.py": "3bead65814769ff9aa04da45c69e7e35323e769d0412ab24b18ca8e9191cad4e",
+    "figures/s16_logic.py": "449b24c4bbe415840e4f3f1caa89dc29d995cb34c035cf4bd37c0d62ab12df93",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_dirs_states"
