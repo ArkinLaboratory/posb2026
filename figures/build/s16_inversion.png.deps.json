@@ -1,0 +1,11 @@
+{
+  "artifact": "s16_inversion.png",
+  "artifact_sha256": "339d1bd668bae1664830023fa5b597792fcaabf61e8cd83c7d7ccb459bf743b3",
+  "artifact_content": "be18a87c432ab033f31e8d2008803ffb9896c6ce1e04631f9041de99f137e03e",
+  "artifact_bytes": 123436,
+  "deps": {
+    "figures/s16_logic.py": "fbefade02de5819fd969b980d003af232e33f1e640415d4876d967074a54b7c8",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s16_logic.fig_inversion"
+}

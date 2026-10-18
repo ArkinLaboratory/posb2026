@@ -1,0 +1,11 @@
+{
+  "artifact": "s16_voigt_nor.png",
+  "artifact_sha256": "fcdcd1be763c09c7bd3ace08391d1014834d9ecae0ae33ddd9923e39344d794e",
+  "artifact_content": "75d57fa670e1453b190a2862afceef014fb34cd8ce248b7d520835f4d3bb8a83",
+  "artifact_bytes": 120798,
+  "deps": {
+    "figures/s16_logic.py": "fbefade02de5819fd969b980d003af232e33f1e640415d4876d967074a54b7c8",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s16_logic.fig_voigt_nor"
+}

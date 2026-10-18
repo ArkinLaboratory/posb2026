@@ -1,10 +1,10 @@
 {
   "artifact": "s16_latch_state_table.png",
-  "artifact_sha256": "d776272fe50d20db25da14dc508bedbfce1c171e3c68df2c82fd36fd9c6494b7",
-  "artifact_content": "500933bfca1b06c5b4505882b6e581cf2c57ea02643f8ce6295dfea044b62dfd",
-  "artifact_bytes": 60582,
+  "artifact_sha256": "dd1fb854da105aa2d6626d65525a2a7b0f3a08e6ea9a5b5812181d84aa0a3a28",
+  "artifact_content": "4ad9e244ee5f760798ecb705b9cf44243049ce0c1147b2c831f8dbeaa96ae3c8",
+  "artifact_bytes": 35519,
   "deps": {
-    "figures/s16_logic.py": "7f989dd841bd43f25bd02ffd509b9d4c21dad608432704ddc282c4c60e863753",
+    "figures/s16_logic.py": "fbefade02de5819fd969b980d003af232e33f1e640415d4876d967074a54b7c8",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_latch_state_table"

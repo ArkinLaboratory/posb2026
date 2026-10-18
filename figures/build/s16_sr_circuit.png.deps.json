@@ -1,0 +1,11 @@
+{
+  "artifact": "s16_sr_circuit.png",
+  "artifact_sha256": "64863c7ec0bf861a2dfca6412d882aae4128efc310694afda576f5bb2c0e1c82",
+  "artifact_content": "52444e083f640a48dcaa5f146aec01e6d70cdd6388954c05629375cb1ef11aa7",
+  "artifact_bytes": 128950,
+  "deps": {
+    "figures/s16_logic.py": "fbefade02de5819fd969b980d003af232e33f1e640415d4876d967074a54b7c8",
+    "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
+  },
+  "generator": "figures.s16_logic.fig_sr_circuit"
+}

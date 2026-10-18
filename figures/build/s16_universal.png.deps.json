@@ -4,7 +4,7 @@
   "artifact_content": "2242018a824c13138cbcfbcc60823a737f6fb787a899d29a8ee14e4f329338ce",
   "artifact_bytes": 100617,
   "deps": {
-    "figures/s16_logic.py": "7f989dd841bd43f25bd02ffd509b9d4c21dad608432704ddc282c4c60e863753",
+    "figures/s16_logic.py": "fbefade02de5819fd969b980d003af232e33f1e640415d4876d967074a54b7c8",
     "figures/style.py": "37eedc89d01c64bb23a431f53a5b898bbf1b6a35fe8eef8c7c67ceb06524c592"
   },
   "generator": "figures.s16_logic.fig_universal"

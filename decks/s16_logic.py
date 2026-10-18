@@ -255,6 +255,37 @@ def _truth_to_nor(d):
                "NAND.")
 
     s = d.light()
+    d.header(s, "voigt-nor", "The part Cello's library is made of")
+    d.title(s, "A gate whose input and output are both promoters")
+    _fig(d, s, "s16_voigt_nor", 1.52)
+    d.foot(s, "Same tandem-promoter DNA as the slide before. What changed is which quantity you call the input.")
+    d.notes(s, "Say this one slowly, because it is the piece the rest of the "
+               "hour leans on and the first build of this session never "
+               "showed it.\n"
+               "A Cello gate is three things in one part: two input "
+               "promoters in tandem, a repressor gene behind them, and an "
+               "output promoter carrying that repressor's operator. Either "
+               "input promoter firing makes the repressor, and the repressor "
+               "shuts the output. NOR.\n"
+               "Now the collision with the previous slide, out loud, because "
+               "they will feel it: that is the SAME DNA we just called a "
+               "NAND. It is. The difference is what you call the input. We "
+               "called the inputs the two REPRESSORS binding the promoters, "
+               "which inverts each input, and got NAND. Cello calls the "
+               "inputs the two PROMOTER ACTIVITIES, and puts the inversion at "
+               "the output instead. One architecture, two conventions, and "
+               "you have to say which you are using.\n"
+               "Then the universality slide pays off: the tandem promoters "
+               "are the aggregator and the repressor on the output promoter "
+               "is the complement. Both ingredients, one part. That is why a "
+               "library of these alone can build anything.\n"
+               "Last point, and it is the one that makes the paper make "
+               "sense: the gate's input and output are the same KIND of "
+               "quantity, a promoter activity in RPU. That is what lets you "
+               "plug one gate into the next without a converter, and it is "
+               "why the library can be characterised once and reused.")
+
+    s = d.light()
     d.header(s, "nor-library", "The free gate library")
     d.title(s, "One operator is an inverter, two is a NOR, and that is all you need")
     d.rows(s, [
@@ -685,6 +716,27 @@ def _cello(d):
                "inside a compiler at all'.")
 
     s = d.light()
+    d.header(s, "cello-search-live", "The same search, running")
+    d.title(s, "Watch an assignment get better")
+    d.paper_movie(s, "der2016_cello_hillclimb", 1.55, 1.42, 10.20, 4.92,
+                  "Bryan Der, Voigt lab; from PoSB 2025 Lecture 18",
+                  "Hill climbing over assignments for a three-input XOR: "
+                  "the repressor database, the circuit, the best score so "
+                  "far, and the predicted ON and OFF level of all eight "
+                  "states.")
+    d.notes(s, "Play it twice. First time, tell them to watch only the "
+               "bottom right: eight bars, one per input state, and at the "
+               "start they are all at much the same height, which is a "
+               "circuit that computes nothing.\n"
+               "Second time, watch the circuit. The colours are the "
+               "assignment changing, and the database on the left is what "
+               "they are being drawn from.\n"
+               "Then the score panel: it only ever goes up, because it keeps "
+               "the best so far. About 250 iterations here.\n"
+               "This is Bryan Der's animation from the Voigt lab, and it is "
+               "the same search that produced Fig. 2E on the slide before.")
+
+    s = d.light()
     d.header(s, "cello-release", "Your turn  ·  thirty seconds, no paper")
     d.title(s, "Commit to one of the four")
     d.rows(s, [
@@ -783,6 +835,25 @@ def _latch(d):
     d.notes(s, "Set up the reveal rather than stepping on it.")
 
     s = d.light()
+    d.header(s, "latch-circuit", "Worked  ·  the circuit, and the two letters")
+    d.title(s, "Two NOR genes, each repressing the other")
+    _fig(d, s, "s16_sr_circuit", 1.56)
+    d.foot(s, "No clock anywhere. The state is held because each gene keeps the other one off.")
+    d.notes(s, "Build it at the board before showing the table. Gene Q is a "
+               "NOR of R and of the other gene's product; gene ¬Q is a NOR "
+               "of S and of Q. That is the whole circuit.\n"
+               "Then walk one case: S goes to 1, so ¬Q is repressed and "
+               "falls; with ¬Q gone, nothing is repressing Q, so Q rises; "
+               "Q now holds ¬Q down even after S goes away. That last "
+               "clause is the memory, and it is worth saying twice.\n"
+               "S = R = 1 is worth naming as forbidden rather than skipping. "
+               "It is the standard answer to 'what if both?' and the reason "
+               "real designs gate the inputs.\n"
+               "This is session 9's toggle with the inducers renamed. Say so "
+               "only AFTER they have agreed it is a memory, so the renaming "
+               "lands as a recognition rather than a definition.")
+
+    s = d.light()
     d.header(s, "latch-rename", "Worked  ·  a renaming, not a derivation")
     d.title(s, "Session 9's toggle IS an SR latch")
     _fig(d, s, "s16_latch_state_table", 1.52)
@@ -831,6 +902,25 @@ def _dna_memory(d):
     d.foot(s, "Volatile against non-volatile, and in a cell the distinction is not academic.")
     d.notes(s, "Make the energy point: a transcriptional latch is a bit you "
                "pay rent on. DNA orientation is a bit you buy outright.")
+
+    s = d.light()
+    d.header(s, "dna-inversion", "What the machine actually does")
+    d.title(s, "An inversion, and where you put the sites")
+    _fig(d, s, "s16_inversion", 1.58)
+    d.notes(s, "Nobody can follow the state graph on the next slide without "
+               "this one. Three things to say at the board:\n"
+               "One: the two sites of a pair point AT each other. That is "
+               "what makes an inversion rather than an excision, and it is "
+               "why the flipped segment comes back with its sites still "
+               "facing inward, so it can flip again.\n"
+               "Two: what inverts is everything between them, including the "
+               "direction of the gene. A promoter pointing out of the "
+               "segment now points into it. That is the whole mechanism of "
+               "the 'readout by action' idea later.\n"
+               "Three: with two pairs you have a choice. Nested means one "
+               "pair lies entirely inside the other; staggered means they "
+               "interleave. Ask for a prediction about which gives more "
+               "states before the next slides answer it.")
 
     s = d.light()
     d.header(s, "dna-ham", "Worked  ·  the first one")

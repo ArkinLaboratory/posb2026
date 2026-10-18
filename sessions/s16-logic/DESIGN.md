@@ -704,3 +704,95 @@ some are probably real. It is advisory and does not fail a build.
 
 - The review read Ham's Fig. 1D as giving a **maximum of 15** states for three invertases. Fifteen is S(3), the count *excluding* the starting state; including it the figure's maximum is 16. The deck now says "4 more, so five in all" at N = 2 to keep that straight.
 - It also reported `fig_arch_nand`'s corners as 0.500 exactly. They are 0.500 at the marker positions, which is what matters for the badge, but the half-amplitude plateau is not flat across the panel.
+
+---
+
+## 11 · Second slide review, 18 October — six items
+
+**"We need to directly explain the VOIGT NOR and how it works before we use
+it."** Correct, and the omission was hiding a contradiction. The deck derived
+NOR from promoter occupancy, then used the word for the rest of the hour
+without ever drawing the part. New figure `s16_voigt_nor` and a slide after
+the NAND architecture: two input promoters in tandem, a repressor gene behind
+them, an output promoter carrying that repressor's operator. Either input
+fires → repressor made → output shut. NOR.
+
+It also resolves a collision the deck had set up for itself. `fig_arch_nand`
+draws two tandem promoters over one gene and calls it NAND; Cello draws the
+same DNA and calls it NOR. **Both are right.** The difference is which
+quantity you call the input: a repressor concentration in ours, which inverts
+each input, or a promoter activity in theirs, which puts the inversion at the
+output. Said out loud, that is one of the better lessons in the hour. Left
+implicit, it was a trap, and the room would have hit it.
+
+The slide also makes the point the universality figure asserts and never
+showed: the tandem promoters are the aggregator, the repressor on the output
+promoter is the complement, one part carries both. And the gate's input and
+output are the same kind of quantity (promoter activity, in RPU), which is
+the whole reason gates compose without converters.
+
+**"Slide 16 figure clips the circuit."** The ¬A node sat at y = 0.96 with a
+box half-height of 0.065, so its top border was at 1.025 — outside the axes,
+and matplotlib clipped it away. Both panels' outer nodes pulled inside the
+band.
+
+**"To augment slide 40 we have an animated image of the different ways Cello
+optimizes."** Found: PoSB 2025 Lecture 18, slides 19 and 20, Bryan Der's
+animations. Eight media files; the useful ones are `media3` (best circuit
+score against iteration), `media4` (predicted ON and OFF level of all eight
+states) and `media5` (the circuit recolouring as the assignment changes), all
+50 frames at 4 fps and perfectly synchronised.
+
+They cannot be used as they stand: each is one animated panel with no axes,
+and the labels, tick values and truth-table rows under the bars are
+PowerPoint text boxes on the 2025 slide. So the slide is recomposed with
+ffmpeg — page 20 rendered at 150 dpi as the background, the two chart movies
+cropped to their ink and overlaid exactly on their plot areas so the
+PowerPoint labels survive, and the wiring movie overlaid with a white
+colour-key so the static gate outlines show through. Output is one 12.5 s mp4
+at `private/paper-movies/der2016_cello_hillclimb.mp4`, embedded with
+`paper_movie` and posted on its final frame. **Yes, we should use it** — it
+is the only surface in the hour where the room watches a bad assignment
+become a good one.
+
+Slide 19's greedy / depth-first pair composites the same way and is at
+`der2016_cello_greedy_dfs.mp4`, built but **not placed**: its ghosting is
+worse (two curves per gate) and it is a second video in a deck that is
+already long. Say the word and it goes in after the hill-climbing one.
+
+**"Slide 50 has text overlap in the table image."** Four panel titles of the
+form `hold Q=1  (S=0 R=0)` at 21 pt in a quarter-width panel. Two lines each
+now. The figure also carried a suptitle duplicating the slide title (gone),
+and headed a column `Q̄` with a combining macron that the monospace cell font
+silently drops — it renders as a bare `Q`, so the column is now `¬Q`, which
+is how the rest of the deck writes a complement.
+
+**"Show the circuit and explain what SR means."** New figure
+`s16_sr_circuit` and a slide before the state table: the two cross-coupled
+NOR genes, S and R as inputs, Q and ¬Q as outputs, and in words what the
+letters mean — S sets, R resets, both low holds, **both high is forbidden**,
+which the deck never said.
+
+**"The transition between 52 and 53 is abrupt. We don't give them a sense of
+the DNA or inversion or intercalated sites."** The memory half went from "an
+invertase reverses the stretch of DNA between two sites" in prose straight to
+a five-node state graph. New figure `s16_inversion` between them: before and
+after one inversion with the gene arrow reversed, then nested against
+staggered site placement side by side. The site triangles within a pair point
+**at** each other, because a pair in inverted orientation is what makes an
+inversion rather than an excision — drawing them all one way would teach the
+wrong thing on the figure whose whole subject is where the sites go.
+
+### Length
+
+62 slides, of which 52 count after the two derivation runs collapse. It is
+long and you are right that it is. Candidates to cut, in the order I would
+cut them, all of them surfaces that now have a better neighbour:
+
+1. `nor-library` — the free gate library, now mostly said by the Voigt NOR slide.
+2. `delay-ask` — the half-time convention, which folds into `delay-rule`.
+3. `dna-count` — folds back into `dna-theory` now that the counts are the paper's.
+4. `cello-frame` — the four candidates, which the release slide restates.
+5. `reading-why` — the headline numbers, which fit in the Fig. 1A foot.
+
+That is five surfaces and none of them carries a figure.

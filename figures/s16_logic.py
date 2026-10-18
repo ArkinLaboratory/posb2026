@@ -421,21 +421,25 @@ def fig_latch_state_table():
     """Session 9's toggle, renamed: the cross-coupled NOR pair as an SR latch."""
     latch = GateNetwork([NOR("Q", "R", "Qbar"), NOR("Qbar", "S", "Q")],
                         inputs=("S", "R"), output="Q")
-    runs = [("hold Q=1  (S=0 R=0)", {"S": 0, "R": 0},
+    runs = [("hold Q = 1\nS = 0, R = 0", {"S": 0, "R": 0},
              {"Q": True, "Qbar": False}),
-            ("hold Q=0  (S=0 R=0)", {"S": 0, "R": 0},
+            ("hold Q = 0\nS = 0, R = 0", {"S": 0, "R": 0},
              {"Q": False, "Qbar": True}),
-            ("SET  (S=1 R=0)", {"S": 1, "R": 0}, {"Q": False, "Qbar": True}),
-            ("RESET  (S=0 R=1)", {"S": 0, "R": 1}, {"Q": True, "Qbar": False})]
+            ("SET\nS = 1, R = 0", {"S": 1, "R": 0},
+             {"Q": False, "Qbar": True}),
+            ("RESET\nS = 0, R = 1", {"S": 0, "R": 1},
+             {"Q": True, "Qbar": False})]
 
-    fig, axes = plt.subplots(1, 4, figsize=(12.0, 3.80))
-    fig.subplots_adjust(top=0.70, bottom=0.08)
+    # Two lines per title, because one panel is a quarter of the figure and
+    # "hold Q=1  (S=0 R=0)" at 21pt needs about half of one. The combining
+    # macron on Q-bar is dropped by the monospace cell font, so the column is
+    # headed the way the rest of the deck writes a complement.
+    fig, axes = plt.subplots(1, 4, figsize=(12.0, 3.90))
+    fig.subplots_adjust(top=0.88, bottom=0.08)
     for ax, (label, assign, init) in zip(axes, runs):
         tbl = latch.timing_table(assign, initial=init, ticks=4)
         rows = [[r["t"], int(r["Q"]), int(r["Qbar"])] for r in tbl]
-        _table(ax, fig, ["t", "Q", "Q̄"], rows, fontsize=20, title=label)
-    fig.suptitle("session 9's toggle, named: an SR latch", fontsize=24,
-                 color=INK, y=0.97)
+        _table(ax, fig, ["t", "Q", "¬Q"], rows, fontsize=20, title=label)
     _save(fig, "s16_latch_state_table")
 
 # ---------------------------------------------------------------------------
@@ -673,8 +677,10 @@ def fig_xnor_two_ways():
                         wspace=0.09)
     U = 0.024
 
-    L = {"A": (0.050, 0.70, MUTED), "B": (0.050, 0.34, MUTED),
-         NOT_A: (0.240, 0.96, AMBER), NOT_B: (0.240, 0.14, AMBER),
+    # 0.96 put the top of the box at 1.025, outside the axes, and matplotlib
+    # clipped its upper border away. Keep every node inside the band.
+    L = {"A": (0.050, 0.68, MUTED), "B": (0.050, 0.34, MUTED),
+         NOT_A: (0.240, 0.91, AMBER), NOT_B: (0.240, 0.11, AMBER),
          "P": (0.240, 0.58, TEAL), "Q": (0.450, 0.32, TEAL),
          "R": (0.650, 0.52, TEAL), "out": (0.870, 0.52, GREEN)}
     LE = [("A", NOT_A, 0.172, 0.0), ("A", "P", 0.172, +U),
@@ -687,9 +693,9 @@ def fig_xnor_two_ways():
             "R = NOR(P, Q)        out = NOT R",
             _xstats(recipe))
 
-    R = {"A": (0.075, 0.82, MUTED), "B": (0.075, 0.22, MUTED),
+    R = {"A": (0.075, 0.80, MUTED), "B": (0.075, 0.22, MUTED),
          "P": (0.330, 0.52, TEAL),
-         "S": (0.580, 0.90, TEAL), "T": (0.580, 0.14, TEAL),
+         "S": (0.580, 0.88, TEAL), "T": (0.580, 0.13, TEAL),
          "out": (0.860, 0.52, GREEN)}
     RE = [("A", "P", 0.210, +U), ("A", "S", 0.502, +U),
           ("B", "P", 0.172, -U), ("B", "T", 0.395, -U),
@@ -781,7 +787,213 @@ def fig_two_conditions():
     _save(fig, "s16_two_conditions")
 
 
+
+# ---------------------------------------------------------------------------
+# 9. the Cello gate itself, before the room is asked to use it
+#
+# Adam, 18 October: "we need to directly explain the VOIGT NOR and how it
+# works before we use it." The deck derived NOR from promoter occupancy and
+# then used the word for the rest of the hour without ever drawing the part.
+# The part matters because of what its input and output ARE: both are
+# promoter activities, which is the whole reason gates compose.
+#
+# It also resolves a collision the deck had set up for itself. fig_arch_nand
+# draws two tandem promoters over one gene and calls it NAND; Cello draws the
+# same DNA and calls it NOR. Both are right, and the difference is which
+# variable you call the input -- a repressor concentration in ours, a
+# promoter activity in theirs. Said out loud, that is a good lesson. Left
+# implicit, it is a trap.
+# ---------------------------------------------------------------------------
+def fig_voigt_nor():
+    """A Cello gate: two input promoters, one repressor, one output promoter."""
+    fig, (axd, axt) = plt.subplots(1, 2, figsize=(12.2, 4.60),
+                                   gridspec_kw={"width_ratios": [1.75, 1.0]})
+    fig.subplots_adjust(top=0.90, bottom=0.14, wspace=0.12)
+    axd.set_axis_off(); axd.set_xlim(0, 1); axd.set_ylim(0, 1)
+
+    def prom(x, y, label, colour):
+        axd.plot([x, x], [y, y + 0.115], color=colour, lw=3.0)
+        axd.annotate("", xy=(x + 0.085, y + 0.115), xytext=(x, y + 0.115),
+                     arrowprops=dict(arrowstyle="-|>", color=colour, lw=3.0,
+                                     mutation_scale=16))
+        axd.text(x, y + 0.155, label, ha="left", va="bottom", fontsize=20,
+                 color=colour, fontweight="bold")
+
+    y = 0.60
+    axd.plot([0.01, 0.99], [y, y], color=INK, lw=3.0, solid_capstyle="butt")
+    prom(0.04, y, "input 1", TEAL)
+    prom(0.30, y, "input 2", TEAL)
+    axd.add_patch(plt.Rectangle((0.56, y - 0.060), 0.36, 0.120,
+                                facecolor="white", edgecolor=AMBER, lw=2.4,
+                                zorder=3))
+    axd.text(0.74, y, "repressor", ha="center", va="center", fontsize=20,
+             color=INK, zorder=4)
+
+    y2 = 0.16
+    axd.plot([0.01, 0.99], [y2, y2], color=INK, lw=3.0, solid_capstyle="butt")
+    axd.add_patch(plt.Rectangle((0.14, y2 - 0.042), 0.12, 0.084,
+                                facecolor=AMBER, edgecolor=INK, lw=1.8,
+                                zorder=3))
+    prom(0.33, y2, "output", GREEN)
+    axd.text(0.60, y2 + 0.075, "to the next gate", ha="left",
+             va="bottom", fontsize=20, color=MUTED)
+
+    _repress(axd, (0.74, y - 0.075), (0.205, y2 + 0.055), color=AMBER)
+
+    axd.text(0.0, -0.14,
+             "A gate's input and its output are both\n"
+             "PROMOTER ACTIVITIES, in RPU.\n"
+             "That is why gates plug into each other.",
+             fontsize=20, color=INK, ha="left", va="top")
+    axd.set_title("one Cello gate", fontsize=20, color=INK, loc="left",
+                  fontweight="bold")
+
+    tt = TruthTable.from_function(("in1", "in2"),
+                                  lambda a, b: not (a or b), name="output")
+    rows = [[int(a), int(b), int(tt(a, b))] for (a, b) in sorted(tt.rows)]
+    ty, tp = _table(axt, fig, ["in 1", "in 2", "out"], rows, fontsize=20,
+                    title="NOR")
+    axt.text(0.0, ty - tp * 0.9,
+             "Either input firing makes\nthe repressor, which shuts\n"
+             "the output promoter.",
+             fontsize=20, color=MUTED, va="top")
+    _save(fig, "s16_voigt_nor")
+
+
+# ---------------------------------------------------------------------------
+# 10. what an inversion is, and the two ways to place two pairs of sites
+#
+# The memory half went from "an invertase reverses the stretch of DNA between
+# two sites" in words, straight to a five-node state graph. The room had
+# never seen a recombination site, an inversion, or what "staggered" means.
+# ---------------------------------------------------------------------------
+def _site(ax, x, y, right=True, colour=TEAL, label=None):
+    """One recombination site, as a triangle pointing along the strand."""
+    d = 0.016 if right else -0.016
+    ax.add_patch(plt.Polygon([(x - d, y - 0.055), (x - d, y + 0.055),
+                              (x + d, y)], closed=True, facecolor=colour,
+                             edgecolor=INK, lw=1.4, zorder=4))
+    if label:
+        ax.text(x, y + 0.085, label, ha="center", va="bottom", fontsize=20,
+                color=colour, fontweight="bold")
+
+
+def _segment(ax, x0, x1, y, label, colour, forward=True):
+    """A block arrow for the DNA between two sites, pointing with its sense."""
+    tip = 0.030
+    if forward:
+        pts = [(x0, y - 0.045), (x1 - tip, y - 0.045), (x1, y),
+               (x1 - tip, y + 0.045), (x0, y + 0.045)]
+    else:
+        pts = [(x1, y - 0.045), (x0 + tip, y - 0.045), (x0, y),
+               (x0 + tip, y + 0.045), (x1, y + 0.045)]
+    ax.add_patch(plt.Polygon(pts, closed=True, facecolor=colour,
+                             edgecolor=INK, lw=1.4, alpha=0.85, zorder=3))
+    ax.text((x0 + x1) / 2, y, label, ha="center", va="center", fontsize=20,
+            color="white", fontweight="bold", zorder=5)
+
+
+def fig_inversion():
+    """What an invertase does to DNA, and nested against staggered sites."""
+    fig, axs = plt.subplot_mosaic([["top", "top"], ["left", "right"]],
+                                  figsize=(11.6, 4.90),
+                                  height_ratios=[1.0, 1.05])
+    fig.subplots_adjust(top=0.90, bottom=0.02, hspace=0.55, wspace=0.10)
+    ax1, axL, axR = axs["top"], axs["left"], axs["right"]
+    for ax in (ax1, axL, axR):
+        ax.set_axis_off(); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
+
+    ax1.set_title("an invertase flips the DNA between its two sites: "
+                  "sequence, direction and all",
+                  fontsize=20, color=INK, loc="left", fontweight="bold")
+    for y, fwd, tag in ((0.76, True, "before"), (0.16, False, "after")):
+        ax1.plot([0.16, 0.90], [y, y], color=INK, lw=3.0)
+        _site(ax1, 0.28, y, right=True, label="site" if fwd else None)
+        _segment(ax1, 0.32, 0.74, y, "gene", TEAL, forward=fwd)
+        _site(ax1, 0.78, y, right=False, label="site" if fwd else None)
+        ax1.text(0.13, y, tag, ha="right", va="center", fontsize=20,
+                 color=MUTED)
+    ax1.annotate("", xy=(0.53, 0.34), xytext=(0.53, 0.58),
+                 arrowprops=dict(arrowstyle="-|>", color=AMBER, lw=3.0,
+                                 mutation_scale=18))
+    ax1.text(0.56, 0.46, "invertase", ha="left", va="center", fontsize=20,
+             color=AMBER, fontweight="bold")
+
+    # The two layouts sit SIDE BY SIDE rather than stacked: stacked, the
+    # first caption and the second heading had nowhere to go without making
+    # the figure taller than the slide band.
+    #
+    # The site triangles within a pair point AT each other. A pair of sites
+    # in inverted orientation is what makes an inversion rather than an
+    # excision, and drawing them all one way would teach the wrong thing on
+    # the figure whose whole subject is where the sites go.
+    panels = [(axL, "NESTED", "one pair sits inside the other",
+               [(0.10, "a", TEAL, True), (0.33, "b", AMBER, True),
+                (0.62, "b", AMBER, False), (0.86, "a", TEAL, False)],
+               "they commute:\n2\u207f states, a register"),
+              (axR, "STAGGERED", "the pairs interleave",
+               [(0.10, "a", TEAL, True), (0.36, "b", AMBER, True),
+                (0.61, "a", TEAL, False), (0.86, "b", AMBER, False)],
+               "they do not:\nthe ORDER is part of the state")]
+    for ax, head, sub, sites, tail in panels:
+        ax.text(0.0, 0.93, head, ha="left", va="top", fontsize=20,
+                color=INK, fontweight="bold")
+        ax.text(0.0, 0.76, sub, ha="left", va="top", fontsize=20, color=MUTED)
+        ax.plot([0.03, 0.93], [0.36, 0.36], color=INK, lw=3.0)
+        for x, lab, col, right in sites:
+            _site(ax, x, 0.36, right=right, colour=col, label=lab)
+        ax.text(0.0, 0.16, tail, ha="left", va="top", fontsize=20, color=INK)
+    _save(fig, "s16_inversion")
+
+
+# ---------------------------------------------------------------------------
+# 11. the SR latch as a circuit, before the state table
+# ---------------------------------------------------------------------------
+def fig_sr_circuit():
+    """Two cross-coupled NOR genes, and what the two letters mean."""
+    fig, ax = plt.subplots(figsize=(11.6, 3.90))
+    fig.subplots_adjust(top=0.88, bottom=0.04, left=0.015, right=0.985)
+    ax.set_axis_off(); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
+
+    _gene(ax, 0.40, 0.78, "Q", w=0.13, h=0.17)
+    _gene(ax, 0.40, 0.22, "¬Q", w=0.13, h=0.17)
+    ax.text(0.09, 0.78, "R", fontsize=20, color=RED, fontweight="bold",
+            ha="center", va="center")
+    ax.text(0.09, 0.22, "S", fontsize=20, color=RED, fontweight="bold",
+            ha="center", va="center")
+    _repress(ax, (0.125, 0.78), (0.328, 0.78))
+    _repress(ax, (0.125, 0.22), (0.328, 0.22))
+    # the cross-coupling, routed around the boxes rather than through them
+    ax.plot([0.47, 0.56, 0.56, 0.34, 0.34], [0.22, 0.22, 0.62, 0.62, 0.70],
+            color=RED, lw=2.2, zorder=1)
+    ax.plot([0.47, 0.62, 0.62, 0.30, 0.30], [0.78, 0.78, 0.38, 0.38, 0.30],
+            color=RED, lw=2.2, zorder=1)
+    for x, y in ((0.34, 0.700), (0.30, 0.300)):
+        ax.plot([x - 0.022, x + 0.022], [y, y], color=RED, lw=3.2, zorder=2)
+    ax.text(0.655, 0.78, "Q", fontsize=20, color=TEAL, fontweight="bold",
+            va="center")
+    ax.text(0.655, 0.22, "¬Q", fontsize=20, color=TEAL, fontweight="bold",
+            va="center")
+
+    ax.text(0.72, 0.92,
+            "S for SET, R for RESET.\n\n"
+            "S = 1  drives Q to 1.\n"
+            "R = 1  drives Q to 0.\n"
+            "S = R = 0  holds whatever\n"
+            "Q already was. That hold is\n"
+            "the memory.\n\n"
+            "S = R = 1 is forbidden: it\n"
+            "pushes BOTH low, and what\n"
+            "happens next depends on\n"
+            "which input falls first.",
+            fontsize=20, color=MUTED, ha="left", va="top")
+    ax.set_title("each gene is a NOR: an input, and the other gene's product",
+                 fontsize=20, color=INK, loc="left", fontweight="bold")
+    _save(fig, "s16_sr_circuit")
+
+
 FIGURES = [fig_arch_nor, fig_arch_nand, fig_universal,
+           fig_voigt_nor, fig_inversion, fig_sr_circuit,
            fig_xnor_two_ways, fig_two_conditions,
            fig_classifier, fig_timing_steps, fig_cold_start,
            fig_timing_broken, fig_timing_fixed,
