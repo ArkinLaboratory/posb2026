@@ -973,3 +973,39 @@ between the committed images and the current matplotlib, invisible to
 `build_figures.py --verify` because it hashes **sources, not pixels**. The
 regenerated figures are committed. A pixel check in `--verify` would have
 caught this years earlier and is worth adding.
+
+### §13.1 — A reference to a course the room never took (18 October)
+
+Adam, on the built deck: *"On slide 28 you reference last years' lecture which
+makes no sense for this class which has never seen it. Again on 31."*
+
+Three on s16, all mine:
+
+- **slide 28**, a row labelled *"the 2025 lecture's own verdict"*, quoting it.
+  The wrong turn stays — that is the point of the surface — but it is now
+  this room's verdict, in its own voice.
+- **slide 31**, the row label *"the 2025 classifier"* inside
+  `fig_two_conditions`. Now "the classifier we built". This one was invisible
+  to any text search of the .pptx, because it is pixels.
+- **slide 45**, a credit reading *"Bryan Der, Voigt lab; from PoSB 2025
+  Lecture 18"*. Bryan Der is the credit; where the file was recovered from is
+  provenance for this file, not a line on the wall. (It was recomposed from
+  PoSB 2025 Lecture 18 slide 20 — recorded here instead.)
+
+`build_decks.check_prior_year()` now gates this: on-slide text citing an
+earlier year's lecture, deck, slide, class or course fails the build. Shape
+text only, deliberately — provenance belongs in speaker notes, docstrings and
+this file, and all three are untouched by the check. It does **not** see text
+baked into a figure, which is exactly how slide 31 got through, so the message
+says so.
+
+It immediately found the same leak in two decks already taught, and those are
+worse than a stale citation — they are unresolved editing notes on the wall:
+
+    s01 slide 6    "2025 deck, p. 19"
+    s01 slide 12   "2025 deck, p. 26 — panel sources need resolving"
+    s02 slide 7    "2025 deck, p. 11 — panel source needs resolving"
+
+Both decks are in GRANDFATHERED, so they are reported and not counted. They
+are also figure-credit lines with an unfinished attribution behind them, so
+fixing them means resolving the panel sources, not deleting the text.

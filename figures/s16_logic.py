@@ -782,7 +782,7 @@ def fig_two_conditions():
                            inputs=("A", "B"), output="out")
 
     cases = [
-        ("the 2025 classifier", classifier_2025()),
+        ("the classifier we built", classifier_2025()),
         ("Z = NOR(\u00acA, \u00acB)", z),
         ("...with an activator output", z_act),
         ("pad the output stage", padded),

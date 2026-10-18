@@ -36,6 +36,7 @@ teach from the one your current sources would produce? Run it before class. It
 does not build anything -- see tools/manifest.py for why that is the point.
 """
 import importlib
+import re
 import sys
 from pathlib import Path
 
@@ -104,6 +105,45 @@ def to_pdf(pptx):
     return pptx.with_suffix(".pdf")
 
 
+# ---------------------------------------------------------------------------
+# Nothing on a slide may cite a previous year's course.
+#
+# Adam, 18 October, on session 16 slides 28 and 31: "you reference last years'
+# lecture which makes no sense for this class which has never seen it." Two
+# had leaked -- a row label quoting "the 2025 lecture's own verdict", and a
+# table row in a FIGURE reading "the 2025 classifier", which no text search of
+# the .pptx could see because it is pixels.
+#
+# Provenance belongs in speaker notes, DESIGN.md and figure docstrings, which
+# is why only shape text is checked here. A paper published in 2025 is fine;
+# the pattern is deliberately narrow.
+# ---------------------------------------------------------------------------
+PRIOR_YEAR = re.compile(
+    r"\b(20\d\d|last year'?s?|previous year'?s?)\s+"
+    r"(lecture|deck|slide|class|course|version)|"
+    r"\bfrom PoSB 20\d\d\b|\bthe 20\d\d (classifier|circuit|example)\b",
+    re.I)
+
+
+def check_prior_year(prs, name, rep=None):
+    """Report on-slide text citing an earlier year's course. Shape text only."""
+    hits = []
+    for i, s in enumerate(prs.slides, 1):
+        for sh in s.shapes:
+            if not sh.has_text_frame:
+                continue
+            for m in PRIOR_YEAR.finditer(sh.text_frame.text or ""):
+                hits.append((i, m.group(0)))
+    if hits:
+        print(f"  !! {len(hits)} on-slide reference(s) to a previous year's "
+              f"course -- this class has not seen it:")
+        for i, t in hits:
+            print(f"       slide {i}: {t!r}")
+        print("     Figures are NOT covered: a label baked into a PNG is "
+              "invisible here.")
+    return hits
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     strict = "--check" in sys.argv
@@ -168,6 +208,9 @@ def main():
                   f"tools/build_decks.py when it is fixed.")
         else:
             fit_total += bad
+        from pptx import Presentation as _P
+        if check_prior_year(_P(str(path)), name) and name not in GRANDFATHERED:
+            fit_total += 1
         if deck.hidden:
             print(f"  {len(deck.hidden)} slide(s) hidden "
                   f"(in the file, skipped in the room): "

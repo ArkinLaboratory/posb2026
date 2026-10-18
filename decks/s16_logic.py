@@ -468,7 +468,7 @@ def _wrong_then_right(d):
     d.rows(s, [
         ("the repair", "insert an activator between R2 and the output. Now both paths are one longer."),
         ("what happens", "the glitch arrives one tick later and is otherwise identical. Adding a stage to the SHARED tail changes both paths equally, so it changes nothing about their difference — and it does not touch the resting state at all."),
-        ("the 2025 lecture's own verdict", "\"Hazard is simply delayed, we need a hybrid promoter.\""),
+        ("the verdict", "the hazard is simply delayed, and a delayed hazard still fires the actuator. Whatever is wrong is not the length of the path."),
     ])
     d.foot(s, "A repair that treats the symptom you named rather than the cause you found.")
     d.notes(s, "Verified: the delayed circuit's hazard is the same kind, one "
@@ -736,7 +736,7 @@ def _cello(d):
     d.header(s, "cello-search-live", "The same search, running")
     d.title(s, "Watch an assignment get better")
     d.paper_movie(s, "der2016_cello_hillclimb", 1.55, 1.42, 10.20, 4.92,
-                  "Bryan Der, Voigt lab; from PoSB 2025 Lecture 18",
+                  "Bryan Der, Voigt lab",
                   "Hill climbing over assignments for a three-input XOR: "
                   "the repressor database, the circuit, the best score so "
                   "far, and the predicted ON and OFF level of all eight "

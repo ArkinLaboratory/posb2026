@@ -1,10 +1,10 @@
 {
   "artifact": "s16_two_conditions.png",
-  "artifact_sha256": "cc6134643f06f84892a992439c5a1697d3b22781e5a6d76872807acc610e5bbe",
-  "artifact_content": "23fe7660630c7904843b991f86042dbba7478ecbbe345aeef8e1681790735ef3",
-  "artifact_bytes": 181144,
+  "artifact_sha256": "3b8756d210a886dc865e6bcf22f04a745264c2f9032659bae700eaf61b3b47af",
+  "artifact_content": "33b3e56c0fe25337acbc5f756b67e12f2d8ef27b8ed2d75e3dddc1dc588a8819",
+  "artifact_bytes": 181062,
   "deps": {
-    "figures/s16_logic.py": "70212f1b8277b3613120d395a11ab2e662a5c5b1e1d0f57328947d3411bab8f9",
+    "figures/s16_logic.py": "324f7437449629d347ab490151f30dc6bd73eac39e9246246dfe3c0e55534dcc",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s16_logic.fig_two_conditions"
