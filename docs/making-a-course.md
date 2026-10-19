@@ -99,7 +99,7 @@ posb2026/                          <- public, CC BY 4.0
 ├── figures/        figure generators (Python) + build/ (committed PNGs)
 ├── posb/           the course package
 ├── tools/          every build and check script
-├── sessions/  problem-sets/  handouts/  board-notes/  docs/
+├── sessions/  problem-sets/  handouts/  private/board-notes/  docs/
 └── private/                       <- a SECOND repo, gitignored by the first
     ├── sources/psNN.py            masters, with solutions
     ├── paper-figures/  paper-movies/

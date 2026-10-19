@@ -56,8 +56,8 @@ the faded set's item 4).
 | | |
 |---|---|
 | Figures | `s09_fold_p1..p4`, `s09_hysteresis`, plus the retained `s09_separatrix`, `s09_nullclines`, `s09_bifurcation` at legible sizes |
-| Handout | [s09-faded-toggle](../../handouts/s09-faded-toggle.md) + [answers](../../handouts/s09-faded-toggle-answers.md) |
-| Board notes | [s09-board-notes](../../board-notes/s09-board-notes.md) |
+| Handout | [s09-faded-toggle](../../handouts/s09-faded-toggle.md) + [answers](../../private/handouts/s09-faded-toggle-answers.md) |
+| Board notes | [s09-board-notes](../../private/board-notes/s09-board-notes.md) |
 
 ## Forward pointer, added 26 September
 

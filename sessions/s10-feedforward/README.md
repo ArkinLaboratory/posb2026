@@ -90,7 +90,7 @@ rule; discussed Thursday.
 | Figures | `s10_c1_p1..p5` (the delay reveal), `s10_iffl_adaptation`, `s10_pulse_generator` — all from `posb.core` |
 | Deck | `decks/s10_feedforward.py` |
 | Handout | [s10-feedforward](../../handouts/s10-feedforward.md) + answers |
-| Board notes | `board-notes/s10-board-notes.md` |
+| Board notes | `private/board-notes/s10-board-notes.md` |
 
 ## Paper figures (slots; images stay out of the public repo)
 

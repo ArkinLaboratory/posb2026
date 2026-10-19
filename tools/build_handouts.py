@@ -57,6 +57,14 @@ import markdown
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "handouts"
+# Answer sheets and board notes live in private/, which is a SEPARATE GIT
+# REPOSITORY with its own remote and is gitignored by this one. They used to
+# sit beside the student handouts, and because Phase 3 of the release
+# checklist adds handouts/ and board-notes/ wholesale, every answer key from
+# s04 onward was published to a public GitHub repo and was readable there on
+# 18 October. Moving the folders is what keeps that from happening again: a
+# file in private/ cannot be added to the public repo by a careless glob.
+ANSWERS = ROOT / "private" / "handouts"
 # Board notes are the same pipeline pointed at a different folder: markdown
 # with real mathematics in, a printable PDF out. They are for the instructor,
 # not the students -- every line to write on the board, in the order to write
@@ -64,7 +72,7 @@ SRC = ROOT / "handouts"
 # spends forty minutes at a board and has no script for it is a session that
 # gets improvised, which is the failure the pacing check exists to catch and
 # this is the other half of the fix.
-BOARD = ROOT / "board-notes"
+BOARD = ROOT / "private" / "board-notes"
 # The copies actually carried to the printer live OUTSIDE the repository, in
 # 2026/handouts-to-print/, and they are made by hand. That is a staleness trap
 # with the worst possible failure time: 7am, forty copies, and the sheet in your
@@ -206,9 +214,10 @@ def inline_images(html):
         src = m.group(2)
         if src.startswith(("data:", "http:", "https:")):
             return m.group(0)
-        path = (ROOT / "handouts" / src).resolve()
-        if not path.exists():
-            path = (ROOT / "board-notes" / src).resolve()
+        for base in (SRC, ANSWERS, BOARD):
+            path = (base / src).resolve()
+            if path.exists():
+                break
         if not path.exists():
             print(f"  !! image not found, left as-is: {src}")
             return m.group(0)
@@ -275,7 +284,7 @@ def main():
     check = "--check" in sys.argv
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     # README.md documents the folder; it is not a handout.
-    folders = [SRC] + ([BOARD] if BOARD.is_dir() else [])
+    folders = [SRC] + [d for d in (ANSWERS, BOARD) if d.is_dir()]
     available = sorted((p for d in folders for p in d.glob("*.md")
                         if p.stem.lower() != "readme"), key=lambda p: p.name)
     sources = [p for p in available if not args or any(a in p.name for a in args)]

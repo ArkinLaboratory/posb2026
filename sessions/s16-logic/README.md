@@ -157,7 +157,7 @@ and it is labelled as such.
 | Movie | `private/paper-movies/der2016_cello_hillclimb.mp4` — Bryan Der's search animations from PoSB 2025 Lecture 18, recomposed so the axis labels survive. `der2016_cello_greedy_dfs.mp4` is built but not placed. |
 | Deck | `decks/s16_logic.py` → 62 slides, **5 hidden** (`reading-why`, `nor-library`, `delay-ask`, `cello-frame`, `dna-count`): in the file, skipped in the room |
 | Handout + answers | `handouts/s16-logic.md` + `-answers.md`, both built to PDF |
-| Board notes | `board-notes/s16-board-notes.md`, built to PDF. Anchored to segment names rather than minutes, because this deck prints no timings. |
+| Board notes | `private/board-notes/s16-board-notes.md`, built to PDF. Anchored to segment names rather than minutes, because this deck prints no timings. |
 | Problem set | `private/sources/ps06.py` → `problem-sets/ps06-noise-logic/ps06.ipynb`. 48 points, 56 for 247. Covers T17, T31–T41; T42–T44 moved to PS7. |
 
 Every table in those figures is computed by `posb.logic` at render time; none

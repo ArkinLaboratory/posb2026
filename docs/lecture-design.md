@@ -240,7 +240,7 @@ fraction in the course**, and it bought that with board minutes.
 
 PS1 Q3a assesses the QSSA validity condition. Before this change, the derivation
 of that condition existed in exactly two places: a blackboard that was erased,
-and `board-notes/s04-board-notes.md`, which is written in the instructor's stage
+and `private/board-notes/s04-board-notes.md`, which is written in the instructor's stage
 directions — *ASK*, *CHECK*, *CUT if behind*. A student who missed the class, or
 who was present but a step behind, had the result on a slide and the argument
 nowhere they could read.

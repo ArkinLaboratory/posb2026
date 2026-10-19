@@ -119,8 +119,8 @@ imported.
 |---|---|
 | Figures | `s13_gain_p1..p4`, `s13_self_match`, `s13_rbs_window`, `s13_cascade`, `s13_loglin_p1..p2` |
 | Deck | `decks/s13_digital.py`, 30 slides, two derivation runs |
-| Handout | [s13-digital](../../handouts/s13-digital.md) (4 pp) + [answers](../../handouts/s13-digital-answers.md) (2 pp) |
-| Board notes | [s13](../../board-notes/s13-board-notes.md) |
+| Handout | [s13-digital](../../handouts/s13-digital.md) (4 pp) + [answers](../../private/handouts/s13-digital-answers.md) (2 pp) |
+| Board notes | [s13](../../private/board-notes/s13-board-notes.md) |
 
 ## Paper figures
 

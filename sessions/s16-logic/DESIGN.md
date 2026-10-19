@@ -814,7 +814,7 @@ diagnose, the four-stage delay, and — the item the handout tells them is on
 the problem set — build a fail-safe circuit that is not balanced and show it
 still glitches. Every table in the answers is computed by `posb.logic`.
 
-**Board notes.** `board-notes/s16-board-notes.md`. Four board moments, named
+**Board notes.** `private/board-notes/s16-board-notes.md`. Four board moments, named
 by the deck's segment rather than by the clock, because this deck prints no
 timings: the four-state count at **nor-build**, the two XNOR networks at
 **nor-debrief**, the two conditions at **fix-separate**, and $S(n)$ at

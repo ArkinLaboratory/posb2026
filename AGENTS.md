@@ -215,7 +215,7 @@ build never carries them.
   nothing about it looks wrong.
 - **Board work needs a printed script.** A segment labelled "board" is excluded
   from the slide-rate check, so it must earn that by having notes in
-  `board-notes/` — every line to write, in order, with the questions to ask, the
+  `private/board-notes/` — every line to write, in order, with the questions to ask, the
   sanity checks, and what to cut if you are late.
 
 ## Writing for students, in Adam's voice

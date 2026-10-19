@@ -245,7 +245,7 @@ Run one agent **per session**, and give each of them:
 
 - `decks/sNN_*.py`, `figures/sNN_*.py`
 - `handouts/sNN-*.md` and its answer sheet
-- `board-notes/sNN-board-notes.md`
+- `private/board-notes/sNN-board-notes.md`
 - `sessions/sNN-*/README.md`
 - `private/sources/psPP.py`
 - `docs/coverage-matrix.md` — the rows this session claims
@@ -328,7 +328,7 @@ the notebook is on `main` pulls successfully and then says *"Could not find
 path"*, which a student reads as a broken assignment.
 
 ```bash
-git add decks/ figures/ handouts/ board-notes/ sessions/ docs/ tools/ \
+git add decks/ figures/ handouts/ private/board-notes/ sessions/ docs/ tools/ \
         posb/ problem-sets/ readings.yaml
 git commit -m "Week of <date>: sessions NN and MM; PSPP"
 git push

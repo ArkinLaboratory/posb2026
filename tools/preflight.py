@@ -195,8 +195,11 @@ def check_session(n, rep):
 # --------------------------------------------------------------- handouts ---
 def check_handouts(n, rep):
     sid = f"s{n:02d}"
-    srcs = sorted((ROOT / "handouts").glob(f"{sid}-*.md"))
-    boards = sorted((ROOT / "board-notes").glob(f"{sid}-*.md"))
+    # Answers and board notes moved into private/ on 18 October -- they were
+    # being published to a public repo from handouts/ and board-notes/.
+    srcs = sorted((ROOT / "handouts").glob(f"{sid}-*.md")) + \
+        sorted((ROOT / "private" / "handouts").glob(f"{sid}-*.md"))
+    boards = sorted((ROOT / "private" / "board-notes").glob(f"{sid}-*.md"))
     if not srcs:
         rep.add(WARN, "handout", f"no handouts/{sid}-*.md (not every session has one)")
     for s in srcs + boards:
@@ -213,7 +216,7 @@ def check_handouts(n, rep):
                     "odd page count duplexes onto a wasted sheet" if odd and "board" not in s.name else "")
 
     if srcs and not any("-answers" in s.name for s in srcs):
-        rep.add(WARN, "answer sheet", "no handouts/%s-*-answers.md — students get nothing back" % sid)
+        rep.add(WARN, "answer sheet", "no private/handouts/%s-*-answers.md — students get nothing back" % sid)
 
     # the copies that actually go to the printer live outside the repo
     printdir = ROOT.parent / "2026" / "handouts-to-print"

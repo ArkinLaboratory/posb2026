@@ -75,8 +75,16 @@ Push **before** anything is pasted into bCourses. A DataHub link posted before
 the notebook is on `main` pulls successfully and then shows *"Could not find
 path"*, which reads to a student as a broken assignment.
 
+> **This repository is PUBLIC.** github.com/ArkinLaboratory/posb2026 is
+> world-readable. Nothing with an answer in it belongs in the list below.
+> Until 18 October this block read `git add … handouts/ board-notes/ …`,
+> and `handouts/` matched `*-answers.md` and `*-answers.pdf`: every answer
+> key from s04 to s17 was published, and was confirmed readable on
+> github.com. The fix was to move both folders under `private/`, so no glob
+> here can reach them. Never add a path that resolves inside `private/`.
+
 ```bash
-git add decks/ figures/ handouts/ board-notes/ sessions/ docs/ tools/ \
+git add decks/ figures/ handouts/ sessions/ docs/ tools/ \
         posb/ problem-sets/ readings.yaml AGENTS.md
 git commit -m "Session N: ..."
 git push
@@ -88,13 +96,15 @@ Then the **private** repo, which holds the only copy of every solution:
 
 ```bash
 cd private
-git add sources/ paper-figures/ taught/
-git commit -m "PSn master; session N paper figures; taught deck"
+git add sources/ handouts/ board-notes/ paper-figures/ taught/
+git commit -m "PSn master; session N answers, board notes, figures; taught deck"
 git push
 ```
 
 > `private/` is a single point of failure until this is done. `sources/psNN.py`
-> is the only copy of that set's solutions and rubric answers.
+> is the only copy of that set's solutions and rubric answers. Since
+> 18 October, `private/handouts/` and `private/board-notes/` are likewise
+> the only copies of the handout answer sheets and the board scripts.
 
 ---
 

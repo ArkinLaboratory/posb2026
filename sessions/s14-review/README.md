@@ -17,10 +17,10 @@
 | | |
 |---|---|
 | Student handout | `handouts/s14-review-practice.md` — five motions, each worked then handed over |
-| Answers | `handouts/s14-review-practice-answers.md` — all five worked. **Posts after class.** |
+| Answers | `private/handouts/s14-review-practice-answers.md` — all five worked. **Posts after class.** |
 | Figures | `figures/s14_review.py` — nine panels. Every drawn circuit is checked against the exam's by `_assert_not_exam_circuit`, which refuses pure repression rings of three, four and five and two-gene mutual repression |
 | Scope sheet | `handouts/s14-midterm-review.md` — what is on Thursday's paper and what is not |
-| Board notes | `board-notes/s14-board-notes.md` — Boards 1, 1b, 2, 3 and what to cut if short |
+| Board notes | `private/board-notes/s14-board-notes.md` — Boards 1, 1b, 2, 3 and what to cut if short |
 | Deck | `decks/s14_review.py` — five step-run derivations, eight figures |
 
 **Nothing from Thursday's paper appears in this session.** Every example is
@@ -53,7 +53,7 @@ carries nothing that is assessed.* B1.3 currently breaks it.
   not the one the exam uses. **Shipped**: item 4's "now you" is a one-gene
   autoactivator, where the divide is a number, followed by the one line on why the
   two-variable case cannot be answered with a number.
-- Board 1b in `board-notes/s14-board-notes.md` is already written but **does not
+- Board 1b in `private/board-notes/s14-board-notes.md` is already written but **does not
   satisfy this** — board notes are instructor-facing by design, which is the whole
   point of §5b.
 

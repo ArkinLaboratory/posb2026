@@ -86,7 +86,7 @@ ours.**
 |---|---|
 | Figures | `s11_ring_dynamics`, `s11_crit_p1..p5` (the eigenvalue reveal), `s11_sweep`, `s11_alpha_critical` |
 | Deck | `decks/s11_oscillators.py` — 19 slides |
-| Handout | [s11-oscillators](../../handouts/s11-oscillators.md) (4 pp) + [answers](../../handouts/s11-oscillators-answers.md) (2 pp) |
+| Handout | [s11-oscillators](../../handouts/s11-oscillators.md) (4 pp) + [answers](../../private/handouts/s11-oscillators-answers.md) (2 pp) |
 
 ## Paper figures — all present
 

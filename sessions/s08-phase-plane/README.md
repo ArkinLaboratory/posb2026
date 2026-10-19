@@ -114,8 +114,8 @@ cannot do.
 |---|---|
 | Figures | 16 PNGs in `figures/build/s08_*` — the plane in five states, the crossings, the diagonal, the nudge in three states, the tangency, *a*<sub>c</sub>(*n*) in two states, the τ–Δ plane, Gardner Fig. 2c,d recomputed, pTAK117's nullclines |
 | Handout | [s08-asymmetric-toggle](../../handouts/s08-asymmetric-toggle.md) — items 1–2 in the room, 3–4 on PS4; breaks the symmetry on Gardner's γ = 1 |
-| Answer sheet | [items 1–2](../../handouts/s08-asymmetric-toggle-answers.md) |
-| Board notes | [s08-board-notes](../../board-notes/s08-board-notes.md) — the ledger, the axes, two tallies |
+| Answer sheet | [items 1–2](../../private/handouts/s08-asymmetric-toggle-answers.md) |
+| Board notes | [s08-board-notes](../../private/board-notes/s08-board-notes.md) — the ledger, the axes, two tallies |
 
 ## Open
 

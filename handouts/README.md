@@ -62,6 +62,26 @@ Four layout hooks, and deliberately no more:
 | `<span class="blank"></span>` | an inline blank |
 | `<div class="pagebreak"></div>` | force a new page |
 | `<div class="q" markdown="1">…</div>` | keep a question with its answer lines |
+| two spaces at a line's end | a hard break — see below |
+
+## Blockquotes run their lines together
+
+Markdown joins consecutive lines into one paragraph, inside a blockquote as
+much as anywhere else. A board-notes block written as
+
+    > GGTA
+    > reverse:     ATGG
+    > complement:  TACC
+
+prints as a single run-on line, and nothing in the build complains, because
+nothing is wrong with it — it is what markdown means. **End every line that
+must stand alone with two spaces.** The s16 board notes shipped with their
+three hazard kinds run together this way and were taught from.
+
+Do not fix this with a blanket pass over the sources. Most multi-line
+blockquotes are ordinary wrapped prose, and adding breaks to those puts a
+line break in the middle of a sentence — worse than the problem. The two
+cases look identical to a script and have to be told apart by reading.
 
 ## Aim for an even page count
 

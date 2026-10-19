@@ -102,7 +102,7 @@ in *E. coli*, and it is the session's design ledger.
 ## What happens — 34 surfaces, 87 min
 
 Built, not drafted. The room comes in 5–12 minutes early, which is where the
-87th minute lives; the cut order is in `board-notes/s07-board-notes.md` and the
+87th minute lives; the cut order is in `private/board-notes/s07-board-notes.md` and the
 first two cuts are cheap.
 
 | | | |
@@ -174,8 +174,8 @@ revision 2:** the first box cut the x axis off the figure, which made the
 |---|---|
 | deck | `decks/s07_autoregulation.py` → 34 surfaces |
 | handout | `handouts/s07-production-removal.md` (4 pp) |
-| answers | `handouts/s07-production-removal-answers.md` (2 pp) |
-| board notes | `board-notes/s07-board-notes.md` (3 pp) |
+| answers | `private/handouts/s07-production-removal-answers.md` (2 pp) |
+| board notes | `private/board-notes/s07-board-notes.md` (3 pp) |
 
 ## Lessons carried from building it
 

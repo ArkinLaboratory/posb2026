@@ -141,8 +141,8 @@ import ours.
 |---|---|
 | Figures | `s12_ssa_anatomy(_col)`, `s12_birth_death`, `s12_bd_traj`, `s12_bd_hist`, `s12_bursting`, `s12_burst_traj`, `s12_burst_hist`, `s12_nar_noise`, `s12_nar_hist`, `s12_nar_fano`, `s12_two_color`, `s12_scatter_axes`, `s12_noise_vocab`, `s12_squares_ext/int/both`, `s12_becskei_circuits` |
 | Deck | `decks/s12_noise.py`, 57 slides incl. six derivation runs |
-| Handout | [s12-noise](../../handouts/s12-noise.md) + [answers](../../handouts/s12-noise-answers.md) |
-| Board notes | [s12](../../board-notes/s12-board-notes.md), with the live code |
+| Handout | [s12-noise](../../handouts/s12-noise.md) + [answers](../../private/handouts/s12-noise-answers.md) |
+| Board notes | [s12](../../private/board-notes/s12-board-notes.md), with the live code |
 
 ## Paper figures
 
