@@ -61,6 +61,15 @@ def _fig(d, s, name, y, dpi=160):
     from PIL import Image
     w, h = Image.open(ROOT / FIG / f"{name}.png").size
     w, h = w / dpi, h / dpi
+    # The deck's overlap gate compares TEXT SHAPES, so it cannot see a line of
+    # text baked into a PNG landing on the foot. Four figures did exactly that
+    # on the first build of this session. foot() defaults to y=6.75.
+    FOOT_Y = 6.75
+    if y + h > FOOT_Y - 0.10:
+        raise AssertionError(
+            f"{name}: placed at {y:.2f}in, {h:.2f}in tall, so it ends at "
+            f"{y + h:.2f}in and runs into the foot at {FOOT_Y}. Shorten the "
+            f"figure in figures/s17_parts.py -- cut content, not type.")
     d.image(s, FIG + f"{name}.png", (W - w) / 2, y, w, h)
     return y + h
 
@@ -139,7 +148,7 @@ def _frame_context(d):
     d.header(s, "frame", "Cardinale & Arkin 2012")
     d.title(s, "Three kinds of context, named")
     d.rows(s, [
-        ("compositional", "what the neighbours do to you. PHYSICAL: parts on the same DNA, RNA or polypeptide interacting. FUNCTIONAL: two things drawing on one shared output, which you met as retroactivity."),
+        ("compositional", "what the neighbours do to you. PHYSICAL: parts on the same DNA, RNA or polypeptide interacting. FUNCTIONAL: two things competing for one shared output — the name for that is retroactivity, and it gets its own session in November."),
         ("host", "what the cell does to you. Parasitic interactions with its own machinery; competition for ribosomes, tRNAs and proteases; and coupling to growth, replication and partitioning."),
         ("environmental", "what the world does to you — directly, and through the host's response to it."),
     ])
@@ -154,7 +163,7 @@ def _frame_context(d):
     d.title(s, "What each one actually did to someone")
     d.rows(s, [
         ("compositional", "moving the operators on a two-input promoter changed its strength AND its logic. Spacers of 100–1000 bp failed to insulate tandem RNA attenuators; hammerhead ribozymes worked."),
-        ("host", "one LacI-family circuit worked in two of seven E. coli strains and failed in five. Pushing β-galactosidase to about 30% of total cell protein stopped growth outright."),
+        ("host", "a logic circuit using orthogonal Pseudomonas regulators failed in five of seven E. coli strains while its inputs were engineered E. coli promoters; swapping Plac for the exogenous Plux restored it. Separately: β-galactosidase at 30% of total cell protein halts growth."),
         ("environmental", "the lac promoter is repressed by 1% glucose and leaks in rich medium. Lower the temperature and λ PL gets stronger."),
     ])
     d.foot(s, "All six from Cardinale & Arkin 2012 and its references.")
@@ -162,7 +171,15 @@ def _frame_context(d):
                "not insulate. It comes back in segment 4 as the first row of "
                "the manufacturing table, and it is the reason insulators are "
                "DEVICES.\n"
-               "Five of seven strains. Same plasmid, same sequence.")
+               "The five-of-seven story is the best one on the slide and "
+               "it is easy to tell wrong. The REGULATORS were already "
+               "orthogonal — imported from Pseudomonas syringae. What broke "
+               "it was the one native component left: engineered E. coli "
+               "Plac and Pbad as the inputs. Replace Plac with the "
+               "exogenous Plux and the circuit works.\n"
+               "So orthogonality is not a property you get by importing "
+               "most of your parts from elsewhere. One E. coli-derived "
+               "element was enough.")
 
 
 # ---------------------------------------------------------------------------
@@ -192,12 +209,13 @@ def _no_such_thing(d):
     d.header(s, "segment 1", "build  ·  three failures, not one")
     d.title(s, "Why the object has no edges")
     d.rows(s, [
-        ("1 · it is not contained", "the strength depends on the flanking DNA, on the host, on ribosome availability. Those are not in the tube. And we do not have a model for how they move it."),
-        ("2 · joining changes both", "the transcript's 5′UTR is encoded at the junction. The 5′UTR sets RNA stability. So attaching a promoter to a gene changes the mRNA's lifetime — and the RNA level you were about to call 'promoter strength'."),
-        ("3 · nothing settles it", "there is no agreed model and no agreed measurement set that would let two labs disagree productively about a part's value."),
+        ("1 · no boundary", "5′-RACE pins where transcription started. There is no second edge — not operationally, not in the annotation, not in any model."),
+        ("2 · it is not contained", "the strength depends on the flanking DNA, on the host, on ribosome availability. Those are not in the tube. And we do not have a model for how they move it."),
+        ("3 · joining changes both", "the transcript's 5′UTR is encoded at the junction. The 5′UTR sets RNA stability. So attaching a promoter to a gene changes the mRNA's lifetime — and the RNA level you were about to call 'promoter strength'."),
     ])
-    d.foot(s, "Number 2 is the one that breaks something you already rely on.")
-    d.notes(s, "Spend the time on 2. Mass action, QSSA, transfer curves, "
+    d.foot(s, "Number 3 is the one that breaks something you already rely on. A fourth: there is no agreed measurement set that would settle any of it.")
+    d.notes(s, "Same numbering as the handout front page. Spend the time "
+               "on 3. Mass action, QSSA, transfer curves, "
                "truth tables, the compositor -- every abstraction in this "
                "course assumes that composing A and B leaves A and B alone "
                "and combines their behaviours.\n"
@@ -210,9 +228,9 @@ def _no_such_thing(d):
     d.rows(s, [
         ("what you did", "measured output from your promoter on a high-copy plasmid, GFP downstream, in DH5α, in LB, at 37 °C."),
         ("what you are about to do", "put the same promoter on the chromosome, in front of a different gene, in a production strain, in minimal medium."),
-        ("name three things", "that could move the number — and for each, say which of Cardinale's three classes it is."),
+        ("name four things", "that could move the number — and for each, say which of Cardinale's three classes it is. The handout asks for the same four."),
     ])
-    d.foot(s, "Three. Named and classified. Not a list of everything that could go wrong.")
+    d.foot(s, "Four. Named and classified. Not a list of everything that could go wrong.")
     d.notes(s, "The classification is the work, not the list. Anyone can "
                "name five worries; the skill is knowing that 'different "
                "gene downstream' is COMPOSITIONAL and 'minimal medium' is "
@@ -246,13 +264,34 @@ def _how_badly(d):
     d.title(s, "How would you find out if parts compose?")
     d.rows(s, [
         ("the claim to test", "protein out = (what the promoter does) × (what the RBS does). Two numbers, multiplied. That is what a parts list promises."),
-        ("the experiment that tests it", "take every promoter crossed with every RBS and measure them all. 114 × 111."),
+        ("the experiment that tests it", "take every promoter crossed with every RBS and measure them all. 114 × 111 = 12,654, less one that created an incompatible restriction site."),
         ("what you get to compare", "the prediction from the two numbers alone, against the measurement of the pair."),
     ])
     d.foot(s, "Kosuri, Goodman, Cambray, Mutalik, Gao, Arkin, Endy & Church, PNAS 110:14024–14029 (2013). 12,653 constructs.")
     d.notes(s, "Make them state the multiplicative model before they see "
                "the result. It is the model they have been using all term "
                "without writing it down.")
+
+    s = d.light()
+    d.header(s, "segment 2", "the paper  ·  what they built")
+    d.title(s, "12,653 constructs, and how you measure that many")
+    d.paper_figure(s, "kosuri2013_fig1", 0.9, 1.7, 11.53, 2.52,
+                   "Kosuri et al., PNAS 110:14024–14029 (2013), Fig. 1A",
+                   "Design all 114 × 111 combinations; synthesise them as an "
+                   "oligo library; clone into one vector carrying sfGFP and a "
+                   "constitutive mCherry; then DNASeq, RNASeq, and FlowSeq.")
+    d.foot(s, "FlowSeq: sort the population into 12 log-spaced bins by sfGFP/mCherry ratio, sequence each bin, reconstruct each construct's level from where its reads landed.")
+    d.notes(s, "Three things to say before any result.\n"
+               "GOAL: not 'how strong is this promoter' but 'does the pair "
+               "behave like the product of its parts'. You can only ask that "
+               "if you have every pair.\n"
+               "CONSTRUCT: Agilent oligo synthesis, ~50-fold coverage, one "
+               "medium-copy vector, sfGFP as the output and **mCherry on the "
+               "same plasmid as an internal ratio control**. That control is "
+               "there to divide out exactly the context effects we are about "
+               "to discuss — the instrument has the same disease as the "
+               "thing it measures.\n"
+               "MEASUREMENT: FlowSeq. Nobody pipetted 12,653 cultures.")
 
     s = d.light()
     d.header(s, "segment 2", "build")
@@ -281,20 +320,44 @@ def _how_badly(d):
                "tolerance is the engineering claim.")
 
     s = d.light()
+    d.header(s, "segment 2", "the other paper  ·  what they built")
+    d.title(s, "244,000 sequences, designed — not sampled")
+    d.paper_figure(s, "cambray2018_fig1", 2.68, 1.7, 7.98, 4.05,
+                   "Cambray, Guimaraes & Arkin, Nat Biotechnol (2018), Fig. 1A",
+                   "A full factorial over nucleotide, secondary-structure, "
+                   "codon and amino-acid properties — 56 replicates of the "
+                   "design — read out as transcript abundance and decay, "
+                   "polysome profiles, protein, and growth rate.")
+    d.foot(s, "The reporter is standardised to the hilt — fixed flanks, a designed 96-nt N-terminal window, His tag, TEV site, linkers into sfGFP — so the designed variation is the only variation.")
+    d.notes(s, "GOAL: not 'what is this sequence worth' but 'which sequence "
+               "properties cause translation efficiency, disentangled from "
+               "each other'. That is why it is a factorial design and not a "
+               "library screen — screens confound.\n"
+               "CONSTRUCT: again, an instrument built to be insulated. And "
+               "note what they measured: not just protein, but transcript "
+               "DECAY and polysome profiles, because the mechanism they "
+               "expected involves both.\n"
+               "Then the result, and it is humbling.")
+
+    s = d.light()
     d.header(s, "segment 2", "debrief")
     d.title(s, "Twofold holds about two-thirds of the time")
     d.rows(s, [
         ("the bulk", "80% of RNA levels and 64% of protein levels land within twofold of the multiplicative prediction. R² 0.92 on RNA, 0.76 on protein."),
-        ("the tail", "the worst 5% of protein deviations are off by 13-fold, on average. That is the number that kills a ten-gene design."),
+        ("the tail", "the largest 5% of protein deviations are off by an average of 13-fold. That is the number that kills a ten-gene design."),
         ("the reciprocity, measured", "a 10-fold change in TRANSLATION efficiency moves RNA abundance about 3-fold. The downstream element reaches back and changes the transcript level."),
-        ("and the deeper one", "in 244,000 designed sequences, sequence properties and their first-order interactions explain 28% of protein variance. Three sequences built to be the same part differ by 8% of total variance — more than the instrument's error."),
+        ("and the deeper one", "in 244,000 designed sequences, design properties explain 28% of that library's variance. And sequences those properties score as EQUIVALENT — 1 to 4 mutations apart — differ by 8% of total variance, well above experimental error."),
     ])
     d.foot(s, "Secondary structure around the start codon accounts for 83% of what the design properties do explain.")
     d.notes(s, "The 10×→3× line IS point 2 from segment 1, with a number. "
                "Say that explicitly -- it is the same claim, now measured.\n"
-               "The 8% design error is the cleanest statement available: "
-               "sequences designed to be the same part are not the same "
-               "part, by more than the measurement noise.")
+               "Be exact about the 8%. It is NOT three builds of one part. "
+               "It is three sequences within a mutational series, 1-4 "
+               "mutations apart and >95% identical, which the design "
+               "properties score the same. They differ by more than the "
+               "instrument's error. So the scoring, not the building, is "
+               "what fails -- the properties we use to describe a sequence "
+               "do not capture what the cell responds to.")
 
 
 # ---------------------------------------------------------------------------
@@ -310,7 +373,7 @@ def _where_it_works(d):
     d.header(s, "segment 3", "frame")
     d.title(s, "Is any of this predictable from sequence?")
     d.rows(s, [
-        ("the honest answer", "yes, sometimes, and the exception is instructive. Terminators have a biophysical model: a hairpin, a U-tract, and the hairpin displacing the U-tract from the DNA."),
+        ("the honest answer", "yes, sometimes. Cambray fitted a LINEAR model — four sequence features chosen by stepwise selection out of twelve candidates, on 31 curated terminators. The features are biophysically motivated: hairpin stability normalised by length, the U-tail, the closing base pair."),
         ("two groups, same year", "Cambray et al. in NAR and Chen et al. in Nature Methods both published sequence → strength terminator models in 2013, from different data."),
         ("which is itself the third failure", "two models, no agreed measurement set to adjudicate them."),
     ])
@@ -321,22 +384,61 @@ def _where_it_works(d):
                "582 to 39 is a 6.7% yield. Park that; it comes back.")
 
     s = d.light()
+    d.header(s, "segment 3", "the paper  ·  what they built")
+    d.title(s, "How do you measure a terminator at all?")
+    d.paper_figure(s, "cambray2013_device", 0.9, 1.7, 11.53, 4.07,
+                   "Cambray et al., NAR 41:5139–5148 (2013), Fig. 1",
+                   "A measurement device: green and red fluorescent reporters "
+                   "bracketing the terminator test site, with RNase III sites "
+                   "flanking it to standardise the ends of the processed "
+                   "mRNA.")
+    d.foot(s, "Read-through is estimated as the ratio of downstream to upstream fluorescence; termination efficiency is what is left. 100% means every arriving complex was stopped.")
+    d.notes(s, "THIS SLIDE IS THE SESSION IN MINIATURE and it is worth the "
+               "time.\n"
+               "You cannot measure a terminator by measuring one reporter, "
+               "because you would be measuring the promoter too. So you "
+               "bracket it and take a ratio.\n"
+               "But a ratio is still contaminated: mRNA stability differs "
+               "either side of the terminator. So they put **RNase III sites "
+               "around the test site to standardise the processed ends**. "
+               "They tried RNase E too and it was worse -- coefficient of "
+               "variation 0.37 against 0.15 -- so the device they kept is "
+               "the RNase III one. Even the choice of insulator was "
+               "measured.\n"
+               "In other words: before they could measure a part, they had "
+               "to INSULATE THEIR OWN INSTRUMENT. The measuring device has "
+               "the same disease as the thing being measured, and they "
+               "solved it the same way we will solve it in segment 4 — by "
+               "imposing boundaries.\n"
+               "The paper also says, in its introduction, that diverse "
+               "characterisation strategies have hindered comparison of "
+               "measurements. That is point 3, in their words.")
+
+    s = d.light()
     d.header(s, "segment 3", "build")
-    d.title(s, "The model is excellent, inside its own class")
+    d.title(s, "Good on what it was trained on. Wrong, in named ways, outside.")
     _fig(d, s, "s17_terminator_model", 1.95)
-    d.foot(s, "Cambray et al., NAR 41:5139–5148 (2013), Suppl. Table 1. Recomputed from the paper's own data; classes are the paper's.")
-    d.notes(s, "r = 0.97 on the 31 plain terminators, median miss 2.6 "
-               "points on a 0–100 scale. That is a real, usable model.\n"
-               "Then the diamonds: the seven low-efficiency terminators, "
-               "missed by 44 points. The PAPER names these as the classes "
-               "it overestimates -- this is not us catching them out.")
+    d.foot(s, "Residuals recomputed from Suppl. Table 1; classes are the paper's. The paper reports r = 0.9 (cross-validated 0.85) on the 31 curated, and r = 0.67 (CV 0.61) across all 54.")
+    d.notes(s, "SAY THE TRAINING SET OUT LOUD. The 31 teal points are the "
+               "terminators the model was FITTED on, with four features "
+               "chosen by stepwise selection from twelve. A tight fit there "
+               "is partly just that. The paper is straight about it: r = "
+               "0.9, cross-validated 0.85.\n"
+               "The other 23 were held out, and they do not fail randomly "
+               "— they fail DIRECTIONALLY, and the paper names each one. "
+               "Low-efficiency terminators are overestimated by a median "
+               "of 44 points. Low-folding ones are overestimated. Extended "
+               "terminators are UNDERESTIMATED, by about 8.\n"
+               "A model that is wrong unpredictably is useless. A model "
+               "that is wrong in three named directions tells you when not "
+               "to trust it, which is most of what you want.")
 
     s = d.light()
     d.header(s, "segment 3", "debrief  ·  the move to take away")
     d.title(s, "Prediction is a property of the definition")
     d.rows(s, [
-        ("what the model predicts", "not 'terminators'. Things that are terminators in the model's sense — a hairpin of the right kind, a U-tract of the right kind."),
-        ("so the boundary is doing the work", "draw the class tightly and sequence → function works. Let the class sprawl and the same model is off by 44 points."),
+        ("what the model predicts", "not 'terminators'. Things that are terminators in the model's sense — a hairpin of the right kind, a U-tract of the right kind. The curated set defines the class, and it is also the training set."),
+        ("so the boundary is doing the work", "cross-validated inside the curated class, r = 0.85. Outside it, the same model is off by a median of 44 points on the low-efficiency ones — and in a direction the paper can name."),
         ("which answers segment 1", "you cannot find the edges of a part. You can IMPOSE them. The imposition is the engineering."),
     ])
     d.foot(s, "This is the hinge of the hour. Everything after it is imposition.")
@@ -383,18 +485,40 @@ def _manufacture(d):
                "every transcription element encodes the same mRNA start.")
 
     s = d.light()
+    d.header(s, "segment 4", "the paper  ·  what they built")
+    d.title(s, "An expression operating unit")
+    d.paper_figure(s, "mutalik2013_eou", 0.9, 1.7, 11.53, 3.84,
+                   "Mutalik et al., Nat Methods (2013), Fig. 1A",
+                   "Upstream insulator, transcription element, translation "
+                   "initiation element, the gene, 3′UTR, terminator, "
+                   "downstream insulator — every boundary named and fixed, "
+                   "with a standard +1 promoter:5′UTR junction inside it.")
+    d.foot(s, "Their own words: an expression operating unit defined 'to set boundaries and junctions of functional genetic elements'.")
+    d.notes(s, "Read their phrase out loud: SET BOUNDARIES AND JUNCTIONS. "
+               "Segment 1 said the object has no edges. This is a group "
+               "deciding to supply them.\n"
+               "The key move is the common +1: every transcription element "
+               "emits the same mRNA start, so the promoter can no longer "
+               "reach downstream and change the transcript through the "
+               "5'UTR it would otherwise encode. That is point 2, designed "
+               "out of existence.\n"
+               "Then the number.")
+
+    s = d.light()
     d.header(s, "segment 4", "build  ·  what it buys")
-    d.title(s, "The same tolerance, met far more often")
+    d.title(s, "Predict it: 47%.  Build it: 93%.")
     _fig(d, s, "s17_manufacture", 1.95)
-    d.foot(s, "Kosuri et al., PNAS (2013); Mutalik et al., Nat Methods (2013). Two different questions — prediction accuracy against hitting a target window.")
-    d.notes(s, "SAY THE CAVEAT. 64% is how often a prediction was right; "
-               "93% is how often a build landed in a target window. Both "
-               "are 'within twofold' and both are from this group in the "
-               "same year, which is why they are worth putting side by "
-               "side -- but they are not the same measurement and a careful "
-               "student will notice.\n"
-               "The honest claim: the same tolerance, met far more often, "
-               "once the parts are manufactured rather than collected.")
+    d.foot(s, "Both numbers from Mutalik et al., Nat Methods (2013) — the same question, the same twofold tolerance, the predictor's figure quoted in their own introduction.")
+    d.notes(s, "One metric, measured one way, both numbers from the same "
+               "paper: the chance of landing within twofold of a TARGET "
+               "expression level. The best computational predictor gets "
+               "~47%. Their manufactured elements get ~93%.\n"
+               "This is the cleanest statement of the whole session. You "
+               "did not get better at predicting. You changed what you were "
+               "predicting ABOUT.\n"
+               "Do NOT put Kosuri's 64% next to this -- that is prediction "
+               "accuracy over a combinatorial library, a different "
+               "question, and it already has its own slide in segment 2.")
 
     s = d.light()
     d.header(s, "segment 4", "the other road  ·  screening, and its price")
@@ -435,15 +559,53 @@ def _manufacture(d):
 def _composing(d):
     s = d.light()
     d.header(s, "segment 5", "frame  ·  T44")
-    d.title(s, "You still have to join them physically")
+    d.title(s, "Three ways to join two pieces of DNA")
     d.rows(s, [
-        ("Golden Gate, in one line", "a Type IIS enzyme cuts OUTSIDE its recognition site, so the site leaves with the scrap and the junction you are left with is four bases of your choosing."),
-        ("which sounds like freedom", "four bases, so 256 overhangs. Pick a different one for every junction and the parts can only go together one way."),
-        ("the question", "how many parts can you put in one pot before two of those junctions are too alike?"),
+        ("classic restriction cloning", "the junction is wherever a usable site happens to be, and that site STAYS in the product as a scar. One or two parts at a time, and the site has to be absent everywhere else."),
+        ("Gibson assembly", "the junction is a 20–40 bp overlap you design into the ends. Scarless and one pot — but it is long, it is different for every pair, and repeated or similar sequences misassemble."),
+        ("Golden Gate / MoClo", "the junction is FOUR BASES YOU CHOOSE. One pot, many parts, in a defined order, and the enzyme site is gone from the product."),
     ])
-    d.foot(s, "Commit to a number before the next slide.")
-    d.notes(s, "Most rooms guess somewhere between 20 and 256. Let them "
-               "say it out loud and write it on the board.")
+    d.foot(s, "All three work. Only one gives a SHORT, standardisable junction you can fix across a whole library — which is why it is the one that matters today.")
+    d.notes(s, "Do not present this as a techniques slide. The question is "
+               "WHICH METHOD GIVES YOU CONTROL OF THE JUNCTION, because "
+               "this whole session has been about the junction being the "
+               "context.\n"
+               "Restriction cloning: the junction is chosen FOR you by "
+               "which enzyme you could use.\n"
+               "Gibson: the junction is the parts' own ends — fine, but you "
+               "cannot standardise it across a library, and 20–40 bp of "
+               "overlap is a lot of sequence to put somewhere unexamined.\n"
+               "Golden Gate: four bases, chosen. That is why MoClo can fix "
+               "a standard set of junctions for a whole community.")
+
+    s = d.light()
+    d.header(s, "segment 5", "build  ·  how Golden Gate actually works")
+    d.title(s, "The enzyme cuts outside its own site")
+    _fig(d, s, "s17_type2s", 1.95)
+    d.foot(s, "BsaI recognises GGTCTC and cuts one base downstream, leaving a four-base 5′ overhang whose sequence is whatever you put there.")
+    d.notes(s, "This is the mechanism and it takes one minute. A Type IIS "
+               "enzyme recognises one sequence and cuts at a fixed OFFSET "
+               "from it. Put the recognition site on the scrap side and the "
+               "cut lands inside your part's flank — so the site departs "
+               "with the scrap and the product carries no site at all. That "
+               "is what makes one-pot assembly possible: cut and ligate in "
+               "the same tube, and correctly joined products stop being "
+               "substrates.\n"
+               "Then the right-hand column, which is the point for us. The "
+               "freedom and the trap are the same four bases.")
+
+    s = d.light()
+    d.header(s, "segment 5", "release  ·  commit to a number, in writing")
+    d.title(s, "So how many parts fit in one pot?")
+    d.rows(s, [
+        ("what you have", "four bases of free choice per junction. A circular assembly of n parts plus a backbone needs n + 1 junctions, and every one must be distinguishable from every other."),
+        ("write down two numbers", "how many distinct overhangs you think are usable — and how many JUNCTIONS you could choose at random before two of them became too alike."),
+        ("then defend the second one", "to a neighbour, in one sentence. What exactly goes wrong when two junctions are one base apart?"),
+    ])
+    d.foot(s, "Most rooms put the second number somewhere between twenty and two hundred. Keep in mind that four junctions is a three-part build.")
+    d.notes(s, "Make them write both. The gap between the two numbers is "
+               "the whole lesson, and it only lands if they have committed "
+               "to the wrong one first.")
 
     s = d.light()
     d.header(s, "segment 5", "build  ·  T44")
@@ -454,10 +616,12 @@ def _composing(d):
                "palindromic and so self-ligating, and each remaining one "
                "pairs with its reverse complement — 120 distinct junction "
                "identities, not 256.\n"
-               "Then the curve. Pick overhangs at random and you are at "
-               "even odds of a clash by five parts. That is why published "
-               "assembly standards ship a FIXED, designed overhang set "
-               "rather than telling you to choose.\n"
+               "Then the curve, and say JUNCTIONS not parts -- the x-axis "
+               "is junctions, and a circular n-part build needs n+1 of "
+               "them. Choose at random and you are at even odds of a clash "
+               "by about 4.2 junctions, which is a three-part assembly. "
+               "That is why published standards ship a FIXED, designed "
+               "overhang set rather than telling you to choose.\n"
                "Flag the toy explicitly. The real work is measured fidelity "
                "data; this is the shape of the problem, not its solution.")
 
@@ -552,7 +716,7 @@ def _close(d):
               "both. So you impose the edges, and the abstraction becomes "
               "true because you made it true.",
            M, 3.95, 8.8, 1.0, size=18, color=MINT, spacing=1.2)
-    d.text(s, "64% within twofold collected.   93% manufactured.",
+    d.text(s, "Predicted: 47% within twofold.   Manufactured: 93%.",
            M, 5.45, 9.0, 0.45, size=20, color=CYAN, bold=True)
     d.text(s, "M2 is due tonight, 11:59 pm.  ·  Tuesday: protein circuits.",
            M, 6.20, 9.0, 0.4, size=16, color=SILVER)

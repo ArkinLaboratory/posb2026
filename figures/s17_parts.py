@@ -39,8 +39,16 @@ CAMBRAY_CSV = "figures/data/s17_cambray_terminators.csv"
 # places a figure at pixels/dpi, so anything wider than this runs off the
 # slide. Measured after the save, because bbox="tight" decides the real size.
 USABLE_IN = 13.333 - 2 * 0.7
-BODY_IN = 5.6          # what is left of 7.5in under a title and over a foot
+BODY_IN = 4.65         # decks place a figure at y=1.95 and foot() defaults to
+                       # y=6.75, so this is the real budget. It was 5.6 and
+                       # four figures overlapped the foot -- invisibly, because
+                       # the deck's overlap gate compares text shapes and this
+                       # text is baked into a PNG.
 DPI = 160
+# savefig writes a tight bbox, which adds matplotlib's default 0.1in of pad
+# on every side. A figure that computes its own height analytically has to
+# subtract this or it clears its own budget and still fails in _save.
+PAD_SAVE = 0.20
 
 
 def _save(fig, name):
@@ -74,13 +82,26 @@ def _cambray_table():
                              "predicted_te": "Predicted TE"})
 
 
-# The paper's own names for the classes it reports its model overestimating.
+# The five classes the SI actually contains. The paper, p. 5146: "predicted
+# activities of LETs were highly overestimated, LFFTs also tended to be
+# overestimated, whereas ETs were UNDERESTIMATED". An earlier version of this
+# module said the model overestimates all three, dropped the fifth class
+# entirely, and so showed 53 of 54 rows. Direction is now computed and shown,
+# not asserted.
 CLASSES = [
-    ("terminator",        "terminator",        TEAL,  "o"),
-    ("terminator (ET)",   "extended",          CYAN,  "s"),
-    ("terminator (LFFT)", "low folding",       AMBER, "^"),
-    ("terminator (LET)",  "low efficiency",    RED,   "D"),
+    ("terminator",         "curated",      TEAL,  "o"),
+    ("terminator (ET)",    "extended",     CYAN,  "s"),
+    ("terminator (LFFT)",  "low folding",  AMBER, "^"),
+    ("terminator (LET)",   "low efficiency", RED, "D"),
+    ("terminator (LFFT/ET)", "both",       MUTED, "v"),
 ]
+
+# What the PAPER reports for its own model, p. 5146 and Fig. 5B. These are not
+# reproducible from the SI's "Predicted TE" column -- recomputing from it gives
+# r = 0.62 and 0.97 -- so the paper's numbers are quoted and the SI is used
+# only for the per-terminator residuals, which are robust to that discrepancy.
+CAMBRAY_FIT = {"curated_n": 31, "curated_r": 0.9, "curated_cv": 0.85,
+               "full_n": 54, "full_r": 0.67, "full_cv": 0.61}
 
 
 def fig_terminator_model():
@@ -97,9 +118,9 @@ def fig_terminator_model():
     """
     d = _cambray_table()
     FS = TYPE["body"]                      # 20pt, the content floor
-    H = 5.4                                # figure height, inches
+    H = 4.42                               # figure height, inches
     fig = plt.figure(figsize=(11.6, H))
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.0, 1.02], wspace=0.08)
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.0, 1.12], wspace=0.08)
     ax = fig.add_subplot(gs[0, 0])
     tx = fig.add_subplot(gs[0, 1])
     tx.set_axis_off()
@@ -119,11 +140,11 @@ def fig_terminator_model():
             continue
         m = g["Mean TE Cell"].to_numpy()
         pr = g["Predicted TE"].to_numpy()
-        r = np.corrcoef(m, pr)[0, 1] if len(g) > 2 else float("nan")
-        med = float(np.median(np.abs(m - pr)))
+        # SIGNED, predicted minus measured: positive = the model overestimates
+        med = float(np.median(pr - m))
         ax.scatter(pr, m, s=78, facecolor=colour, edgecolor="white",
                    linewidth=0.9, marker=marker, zorder=3)
-        rows.append((label, colour, marker, len(g), r, med))
+        rows.append((label, colour, marker, len(g), med))
 
     ax.set_xlim(-2, 106)
     ax.set_ylim(-2, 106)
@@ -152,23 +173,23 @@ def fig_terminator_model():
     LAB_X = 0.085                            # after the marker swatch
     GAP = _w("  ")
     col_n = LAB_X + max(_w(lbl) for lbl, *_ in rows) + GAP + _w("n")
-    col_m = col_n + GAP + _w("miss, pts")
+    col_m = col_n + GAP + _w("error")
     if col_m > 1.0:                          # measured, so this can be checked
         raise AssertionError(
             f"table columns need {col_m:.2f} of the panel; shorten the labels")
 
     y = 0.96
-    tx.text(0.00, y, "the model, by the paper's classes",
+    tx.text(0.00, y, "median predicted − measured",
             fontsize=FS, color=INK, va="top", weight="bold",
             transform=tx.transAxes)
     y -= step * 1.5
-    for x, h in ((col_n, "n"), (col_m, "miss, pts")):
+    for x, h in ((col_n, "n"), (col_m, "error")):
         tx.text(x, y, h, fontsize=FS, color=MUTED, va="top", ha="right",
                 transform=tx.transAxes)
     y -= step * 1.05                         # clear the descenders
     tx.plot([0, col_m], [y, y], transform=tx.transAxes, color=RULE, lw=1.2)
     y -= step * 0.70
-    for label, colour, marker, n, r, med in rows:
+    for label, colour, marker, n, med in rows:
         tx.plot([0.015], [y - step * 0.30], transform=tx.transAxes,
                 marker=marker, color=colour, markersize=10,
                 markeredgecolor="white", markeredgewidth=0.9, clip_on=False)
@@ -176,24 +197,18 @@ def fig_terminator_model():
                 transform=tx.transAxes)
         tx.text(col_n, y, f"{n}", fontsize=FS, color=INK, va="top", ha="right",
                 transform=tx.transAxes)
-        tx.text(col_m, y, f"{med:.1f}", fontsize=FS,
-                color=RED if med > 20 else INK, va="top", ha="right",
+        tx.text(col_m, y, f"{med:+.0f}", fontsize=FS,
+                color=RED if abs(med) > 20 else INK, va="top", ha="right",
                 transform=tx.transAxes)
         y -= step
     y -= step * 0.35
     tx.plot([0, col_m], [y, y], transform=tx.transAxes, color=RULE, lw=1.2)
-    y -= step * 1.0
-    tx.text(0.00, y,
-            "Near-exact on the class the model\n"
-            "was built over. Useless outside it.",
-            fontsize=FS, color=INK, va="top", linespacing=1.5,
-            transform=tx.transAxes)
 
-    if y - 2 * step < -0.02:
+    if y - 0.5 * step < -0.02:
         raise AssertionError("table overflows its panel: lower FS or raise H")
     fig.subplots_adjust(left=0.085, right=0.985, top=0.97, bottom=0.145)
     _save(fig, "s17_terminator_model")
-    return [(l, n, r, m) for l, _c, _mk, n, r, m in rows]
+    return [(l, n, m) for l, _c, _mk, n, m in rows]
 
 
 # Published summary statistics. These cannot be derived from anything in this
@@ -217,20 +232,28 @@ CAMBRAY18 = {                   # Nat Biotechnol 36 (2018), nbt.4238
 def fig_variance():
     """Where the variance in expression actually lives.
 
-    Two decompositions of the same kind of quantity, and they are NOT the same
-    measurement -- the figure says so. Attributing protein variance to *which
-    part* explains 84% of it. Asking *what about the sequence* explains 28%.
-    That gap is the session's thesis: the part is not in the sequence.
+    Two decompositions, and they are NOT the same measurement. The top two
+    partition variance across 114x111 part IDENTITIES. The bottom is variance
+    explained by continuous sequence PROPERTIES in a different library, where
+    the promoter and RBS were held fixed and a designed 96-nt window varied.
+    An earlier version's docstring claimed "the figure says so" when the
+    figure said nothing of the kind; the footnote now does.
 
     No legend: each bar's key is its own subtitle, with every category word in
     its segment's colour, placed by measuring the word that precedes it. That
     also stops the third bar's teal reading as "promoter" -- it has its own
     colour and says so on the line above.
+
+    Layout note. Every height here is in inches and the axes is set so that
+    one y-unit IS one inch, so type and geometry cannot drift apart. The
+    previous version worked in a `line_in` that set_ylim then silently
+    rescaled; the arithmetic happened to clear at a 16pt key, and the moment
+    the key went to the 20pt content floor every title landed on the bar
+    above it. A pitch that is a magic multiple of the font size is a pitch
+    nobody measured.
     """
     FS = TYPE["body"]
-    SUB = TYPE["caption"]
-    H = 5.3
-    fig, ax = plt.subplots(figsize=(10.9, H))
+    SUB = TYPE["body"]
 
     bars = [
         ("Kosuri 2013 · RNA level",
@@ -239,67 +262,110 @@ def fig_variance():
         ("Kosuri 2013 · protein level",
          [("promoter", 54.0, TEAL), ("RBS", 30.0, CYAN),
           ("unexplained", 16.7, RULE)]),
-        ("Cambray 2018 · protein level",
+        ("Cambray 2018 · protein level  (a different library)",
          [("sequence features", CAMBRAY18["explained"], GREEN),
           ("unexplained", 100.0 - CAMBRAY18["explained"], RULE)]),
     ]
+    FOOTNOTE = ("Top two: variance by part IDENTITY, 114×111 pairs.\n"
+                "Bottom: variance by sequence PROPERTIES, promoter and RBS "
+                "held fixed.")
 
-    line_in = FS / 72.0 * 1.62
-    pitch = line_in * 3.25                      # inches per group, from the type
-    ys = [-(i * pitch) for i in range(len(bars))]
-    ax.set_ylim(ys[-1] - pitch * 1.05, pitch * 0.80)
+    LINE = FS / 72.0 * 1.2              # one line box of the heading type
+    KEY = SUB / 72.0 * 1.2
+    BAR = 0.26
+    PAD = 0.05                          # within a group
+    GAP = 0.14                          # between groups
+    FOOT_L = SUB / 72.0 * 1.4
+    n_foot = FOOTNOTE.count("\n") + 1
+    group_h = LINE + PAD + KEY + PAD + BAR
+    H = (len(bars) * group_h + (len(bars) - 1) * GAP
+         + 0.20 + n_foot * FOOT_L + 0.06)
+    if H + PAD_SAVE > BODY_IN:
+        raise AssertionError(
+            f"fig_variance needs {H + PAD_SAVE:.2f}in on the slide, over the "
+            f"{BODY_IN}in band. Cut a row or a footnote line -- do not "
+            f"shrink the type.")
+
+    fig = plt.figure(figsize=(10.9, H))
+    ax = fig.add_axes([0.0, 0.0, 1.0, 1.0])
     ax.set_xlim(0, 100)
+    ax.set_ylim(0, H)
     ax.set_axis_off()
+    ax.set_autoscale_on(False)
 
-    def _wpts(txt, size):
-        """Width of `txt` in x-data units (the axis spans 0-100)."""
-        t = ax.text(0, ys[0] + pitch, txt, fontsize=size)
+    def _wpts(txt, size, weight=None):
+        """Width of `txt` in x-data units (the axis spans 0-100).
+
+        The probe must carry the SAME weight as the string it is measuring.
+        Measuring bold text with a regular probe under-reports the width,
+        and the error grows with the string: "promoter" lost a point or two
+        and nobody noticed, while "sequence features" swallowed the middot
+        that follows it.
+        """
+        t = ax.text(0, H, txt, fontsize=size, weight=weight)
         fig.canvas.draw()
         w = t.get_window_extent(fig.canvas.get_renderer()).width
         t.remove()
         return 100.0 * w / ax.get_window_extent().width
 
-    for y, (title, parts) in zip(ys, bars):
-        ax.text(0, y + line_in * 1.72, title, fontsize=FS, color=INK,
-                va="bottom", weight="bold")
+    cur = H - 0.04
+    for title, parts in bars:
+        ax.text(0, cur, title, fontsize=FS, color=INK, va="top",
+                weight="bold")
+        cur -= LINE + PAD
         # the key: category words in their own colours, laid out by measurement
         x = 0.0
         sep = "   ·   "
         for i, (name, _v, c) in enumerate(parts):
             if i:
-                ax.text(x, y + line_in * 0.44, sep, fontsize=SUB, color=MUTED,
-                        va="bottom")
+                ax.text(x, cur, sep, fontsize=SUB, color=MUTED, va="top")
                 x += _wpts(sep, SUB)
-            ax.text(x, y + line_in * 0.44, name, fontsize=SUB,
-                    color=MUTED if c is RULE else c, va="bottom", weight="bold")
-            x += _wpts(name, SUB)
+            ax.text(x, cur, name, fontsize=SUB,
+                    color=MUTED if c is RULE else c, va="top", weight="bold")
+            x += _wpts(name, SUB, weight="bold")
+        cur -= KEY + PAD
+        # The paper prints 54 / 30 / 16.7, which sums to 100.7 -- two values
+        # rounded and one not. Draw each segment as its share of the row's
+        # own total so the bars align, and label what the paper says.
+        total = sum(v for _n, v, _c in parts)
         left = 0.0
         for name, v, c in parts:
-            ax.barh(y - line_in * 0.30, v, left=left, height=line_in * 0.86,
+            w = 100.0 * v / total
+            ax.barh(cur - BAR / 2, w, left=left, height=BAR,
                     color=c, edgecolor="white", linewidth=1.2, zorder=3)
-            if v >= 9:
-                ax.text(left + v / 2, y - line_in * 0.30, f"{v:g}%",
+            if w >= 9:
+                ax.text(left + w / 2, cur - BAR / 2, f"{v:g}%",
                         fontsize=FS, color=MUTED if c is RULE else "white",
                         ha="center", va="center", zorder=4)
-            left += v
+            left += w
+        cur -= BAR + GAP
 
-    ax.text(0, ys[-1] - pitch * 0.58,
-            "Not the same measurement. But: which part explains 84%.\n"
-            f"What about the sequence explains {CAMBRAY18['explained']:g}%.",
-            fontsize=FS, color=INK, va="top", linespacing=1.5)
+    cur += GAP - 0.26
+    ax.text(0, cur, FOOTNOTE, fontsize=SUB, color=MUTED, va="top",
+            linespacing=1.4)
 
-    fig.subplots_adjust(left=0.012, right=0.995, top=0.99, bottom=0.015)
     _save(fig, "s17_variance")
     return [(t, [v for _n, v, _c in p]) for t, p in bars]
 
-
 MUTALIK = {                     # Nat Methods (2013), nmeth.2404
-    # "arbitrary genes are reliably expressed to within twofold relative
+    # "We studied all combinations of curated elements, demonstrating that
+    #  arbitrary genes are reliably expressed to within twofold relative
     #  target expression windows with ~93% reliability", over elements
     #  "across a 1,000-fold observed dynamic range"
     "within_twofold": 93.0,
     "dynamic_range": 1000,
+    # The baseline in the SAME paper's own introduction, at the SAME metric
+    # and the SAME tolerance, which is the only reason the two bars may sit
+    # on one axis: "For example, the best available computational tool for
+    # designing context-optimized translation control elements for use in
+    # E. coli gives an ~47% chance to design elements that express proteins
+    # to within twofold of a target expression level[10]." Reference 10 is
+    # Salis, Mirsky & Voigt, Nat Biotechnol 27:946-950 (2009) -- the RBS
+    # Calculator. An earlier draft compared the 93% against Kosuri's 64%,
+    # which is a different measurement entirely.
+    "predicted_within_twofold": 47.0,
 }
+
 KOSURI_WITHIN_2X = {            # PNAS 110(34):14024-14029 (2013)
     # "80% of RNA levels and 64% of protein levels fell within twofold of
     #  prediction"; "the worst 5% of protein deviations were off by 13-fold
@@ -311,63 +377,74 @@ KOSURI_WITHIN_2X = {            # PNAS 110(34):14024-14029 (2013)
 
 
 def fig_manufacture():
-    """What manufacturing the parts buys, in the one metric both papers share.
+    """What manufacturing the parts buys, in ONE metric measured ONE way.
 
-    The caveat is ON the figure, not only in the design doc: these are not the
-    same measurement. Kosuri's 64% is prediction accuracy over 12,653 collected
-    combinations; Mutalik's 93% is hitting a target window with elements built
-    to a common standard. Same tolerance, different question.
+    An earlier version of this figure put Kosuri's 64% beside Mutalik's 93%
+    and carried a caveat saying they are different measurements -- prediction
+    accuracy against hitting a target window. True, and a caveat is a poor
+    substitute for the right comparison. Mutalik's own introduction supplies
+    it: the best available computational tool gives ~47% within twofold of a
+    target, against their ~93%. Same question, same tolerance, same authors,
+    same paper. Kosuri's 64% stays in fig_variance, answering its own.
+
+    Layout in true inches, for the reason given in fig_variance: the row
+    pitch used to be a multiple of the font size that set_ylim then rescaled,
+    so raising the sub-line to the 20pt content floor put it against the next
+    row's title.
     """
     FS = TYPE["body"]
-    H = 5.2
-    fig, ax = plt.subplots(figsize=(10.4, H))
-    line_in = FS / 72.0 * 1.62
-    sub_in = TYPE["caption"] / 72.0 * 1.45
+    SUB = TYPE["body"]
 
     rows = [
-        ("collected parts", "Kosuri 2013 — within 2× of prediction,\n"
-                            "12,653 promoter × RBS combinations",
-         KOSURI_WITHIN_2X["protein"], TEAL),
-        ("manufactured parts", "Mutalik 2013 — within 2× of a target window,\n"
-                               f"elements spanning {MUTALIK['dynamic_range']:,}-fold",
+        ("designed with the best predictor",
+         "the computational tool, as Mutalik et al. report it:\n"
+         "chance of landing within 2× of a target level",
+         MUTALIK["predicted_within_twofold"], TEAL),
+        ("built from manufactured elements",
+         "the same question, the same tolerance, same paper:\n"
+         f"elements spanning {MUTALIK['dynamic_range']:,}-fold",
          MUTALIK["within_twofold"], GREEN),
     ]
-    # Pitch is the tallest row, measured: title + bar + however many lines the
-    # caption actually has. A fixed multiple put the next title on the last
-    # caption.
+
+    LINE = FS / 72.0 * 1.2
+    SUBL = SUB / 72.0 * 1.45
+    BAR = 0.34
+    PAD = 0.07
+    GAP = 0.24
     n_sub = max(sub.count("\n") + 1 for _l, sub, *_ in rows)
-    pitch = line_in * 1.62 + line_in * 0.95 + n_sub * sub_in + line_in * 0.75
-    ys = [-(i * pitch) for i in range(len(rows))]
+    row_h = LINE + PAD + BAR + PAD + n_sub * SUBL
+    H = len(rows) * row_h + (len(rows) - 1) * GAP + 0.08
+    if H + PAD_SAVE > BODY_IN:
+        raise AssertionError(
+            f"fig_manufacture needs {H + PAD_SAVE:.2f}in on the slide, over "
+            f"the {BODY_IN}in band -- do not shrink the type.")
+
+    fig = plt.figure(figsize=(10.4, H))
+    ax = fig.add_axes([0.0, 0.0, 1.0, 1.0])
     ax.set_xlim(0, 100)
-    ax.set_ylim(ys[-1] - pitch * 1.25, pitch * 0.58)
+    ax.set_ylim(0, H)
     ax.set_axis_off()
+    ax.set_autoscale_on(False)
 
-    for y, (label, sub, v, c) in zip(ys, rows):
-        ax.text(0, y + line_in * 1.62, label, fontsize=FS, color=INK,
-                va="bottom", weight="bold")
-        ax.barh(y, 100, left=0, height=line_in * 0.95,
+    cur = H - 0.04
+    for label, sub, v, c in rows:
+        ax.text(0, cur, label, fontsize=FS, color=INK, va="top",
+                weight="bold")
+        cur -= LINE + PAD
+        ax.barh(cur - BAR / 2, 100, left=0, height=BAR,
                 color=RULE, edgecolor="white", linewidth=1.2, zorder=2)
-        ax.barh(y, v, left=0, height=line_in * 0.95,
+        ax.barh(cur - BAR / 2, v, left=0, height=BAR,
                 color=c, edgecolor="white", linewidth=1.2, zorder=3)
-        ax.text(v - 1.2, y, f"{v:g}%", fontsize=FS, color="white",
+        ax.text(v - 1.2, cur - BAR / 2, f"{v:g}%", fontsize=FS, color="white",
                 ha="right", va="center", zorder=4)
-        ax.text(0, y - line_in * 0.92, sub, fontsize=TYPE["caption"],
-                color=MUTED, va="top", linespacing=1.45)
+        cur -= BAR + PAD
+        ax.text(0, cur, sub, fontsize=SUB, color=MUTED, va="top",
+                linespacing=1.45)
+        cur -= n_sub * SUBL + GAP
 
-    gain = MUTALIK["within_twofold"] - KOSURI_WITHIN_2X["protein"]
-    ax.text(0, ys[-1] - pitch * 0.78,
-            f"Same tolerance, met {gain:.0f} points more often — but not the "
-            f"same measurement.\nPrediction accuracy against hitting a target. "
-            f"Say so out loud.",
-            fontsize=FS, color=INK, va="top", linespacing=1.5)
-
-    fig.subplots_adjust(left=0.012, right=0.995, top=0.99, bottom=0.015)
     _save(fig, "s17_manufacture")
     return [(l, v) for l, _s, v, _c in rows]
 
-
-# Sources go in the slide foot, not the table -- the measured layout said the
-# source column cost 44% more width than the slide has.
 INSULATORS = [
     # move, layer, what it removes
     ("spacer, 100–1000 bp", "DNA", "nothing — it failed"),
@@ -386,7 +463,7 @@ def fig_insulators():
     with something that defines it.
     """
     FS = TYPE["body"]
-    H = 5.0
+    H = 4.35
     fig, ax = plt.subplots(figsize=(11.2, H))
     ax.set_axis_off()
     ax.set_xlim(0, 1)
@@ -428,10 +505,10 @@ def fig_insulators():
                 transform=ax.transAxes)
         ax.text(c_what, y, what, fontsize=FS, va="top",
                 color=RED if failed else INK, transform=ax.transAxes)
-        y -= step * 1.18
-    y -= step * 0.25
+        y -= step * 1.02
+    y -= step * 0.20
     ax.plot([0, end], [y, y], transform=ax.transAxes, color=RULE, lw=1.2)
-    y -= step * 1.1
+    y -= step * 0.95
     ax.text(0, y, "Insulation is a device, not a distance.",
             fontsize=FS, color=INK, va="top", weight="bold",
             transform=ax.transAxes)
@@ -504,7 +581,7 @@ def fig_overhangs():
     for misligation, which in practice is measured rather than derived.
     """
     FS = TYPE["body"]
-    H = 5.3
+    H = 4.15          # 3.70 did not leave room for the model note at 20pt
     all_o, pal, classes = _overhang_classes()
     ks = list(range(2, 21))
     ps = [_clash_probability(classes, k) for k in ks]
@@ -522,13 +599,20 @@ def fig_overhangs():
     ax.scatter(ks, [100 * p for p in ps], s=40, color=TEAL, zorder=4,
                edgecolor="white", linewidth=0.8)
     ax.axhline(50, color=RULE, lw=1.4, zorder=1)
-    half = next((k for k, p in zip(ks, ps) if p >= 0.5), None)
+    # Interpolate the actual 50% crossing. Marking the first sampled k with
+    # p >= 0.5 put the line at 5, where the curve is already at 64% -- "even
+    # odds" pointing two-thirds of the way up a chart the room can see.
+    half = None
+    for (k0, p0), (k1, p1) in zip(zip(ks, ps), zip(ks[1:], ps[1:])):
+        if p0 < 0.5 <= p1:
+            half = k0 + (0.5 - p0) / (p1 - p0) * (k1 - k0)
+            break
     if half:
         ax.axvline(half, color=RED, lw=1.6, ls=(0, (4, 3)), zorder=2)
-        ax.text(half + 0.4, 17, f"{half} parts", fontsize=FS, color=RED,
-                va="center")
-    ax.set_xlabel("parts assembled in one pot")
-    ax.set_ylabel("chance two junctions clash  (%)")
+        ax.text(half + 0.35, 17, f"even odds\nat {half:.1f} junctions",
+                fontsize=FS, color=RED, va="center", linespacing=1.4)
+    ax.set_xlabel("junctions chosen at random")
+    ax.set_ylabel("chance of a clash  (%)")
     ax.set_xlim(2, 20)
     ax.set_ylim(0, 100)
     ax.set_xticks([2, 5, 10, 15, 20])
@@ -554,21 +638,37 @@ def fig_overhangs():
         y -= step * 1.12
     y -= step * 0.30
     tx.plot([0, 1], [y, y], transform=tx.transAxes, color=RULE, lw=1.2)
-    y -= step * 1.05
-    tx.text(0.0, y,
-            "120 looks like plenty. What binds\n"
-            "is not how many there are, but\n"
-            "how alike any two may be.",
-            fontsize=FS, color=INK, va="top", linespacing=1.45,
-            transform=tx.transAxes)
-    y -= step * 3.6
-    tx.text(0.0, y, "Clash curve is a toy: one-base proximity,\nnot measured ligation fidelity.",
-            fontsize=TYPE["caption"], color=MUTED, va="top", linespacing=1.4,
-            transform=tx.transAxes)
-    if y - step < -0.02:
-        raise AssertionError("overhang panel overflows; cut a line")
+    y -= step * 1.0
+    # This defines the number students read off the curve, so it sits at the
+    # content floor like everything else -- which means it has to be narrow
+    # enough for the right-hand panel, not merely short enough to fit on two
+    # lines at 16pt. _save bounds the figure on a tight bbox, so an overlong
+    # line here widens the whole figure past the slide column.
+    cap = ("Toy model: clash = within\n"
+           "one base of each other\n"
+           "or of the reverse complement.")
+    tx.text(0.0, y, cap, fontsize=TYPE["body"], color=MUTED, va="top",
+            linespacing=1.4, transform=tx.transAxes)
+    cap_h = (cap.count("\n") + 1) * (TYPE["body"] / 72.0 * 1.4) / H
+    if y - cap_h < -0.02:
+        raise AssertionError(
+            f"overhang panel overflows by {cap_h - y - 0.02:.3f} of its "
+            f"height; cut a line or raise H")
 
     fig.subplots_adjust(left=0.085, right=0.99, top=0.97, bottom=0.145)
+
+    # A rotated y-label longer than its own axis gets its tail cut off, and
+    # nothing else in the build notices: the figure is still the right size,
+    # the words are just not all there. "chance two junctions clash (%)" at
+    # 20pt wanted 3.75in of a 3.42in axis.
+    fig.canvas.draw()
+    r = fig.canvas.get_renderer()
+    lab = ax.yaxis.label.get_window_extent(r).height
+    if lab > ax.get_window_extent().height:
+        raise AssertionError(
+            f"y-label needs {lab / fig.dpi:.2f}in of a "
+            f"{ax.get_window_extent().height / fig.dpi:.2f}in axis; shorten "
+            f"it -- do not shrink the type.")
     _save(fig, "s17_overhangs")
     return {"all": len(all_o), "palindromic": len(pal),
             "usable": len(classes), "half_clash_at": half}
@@ -583,8 +683,8 @@ def fig_compositor():
     reciprocity of segment 1 is even expressible.
     """
     FS = TYPE["body"]
-    SUB = TYPE["caption"]
-    H = 5.2
+    SUB = TYPE["body"]
+    H = 3.95
     fig, axes = plt.subplots(1, 2, figsize=(11.3, H))
     for ax in axes:
         ax.set_xlim(0, 1)
@@ -633,32 +733,195 @@ def fig_compositor():
     arrow(b, 0.17, 0.705, 0.32, 0.705, TEAL)
     arrow(b, 0.17, 0.605, 0.32, 0.605, TEAL)
     # outputs it writes
-    b.text(0.86, 0.705, "transcript", fontsize=SUB, color=MUTED, va="center")
-    b.text(0.86, 0.605, "5′UTR", fontsize=SUB, color=MUTED, va="center")
-    arrow(b, 0.68, 0.705, 0.84, 0.705, GREEN)
-    arrow(b, 0.68, 0.605, 0.84, 0.605, GREEN)
+    # left-anchored at a common x so both arrows are the same length and
+    # neither label butts up against its own arrowhead
+    b.text(0.775, 0.705, "transcript", fontsize=SUB, color=MUTED,
+           ha="left", va="center")
+    b.text(0.775, 0.605, "5′UTR", fontsize=SUB, color=MUTED,
+           ha="left", va="center")
+    arrow(b, 0.68, 0.705, 0.755, 0.705, GREEN)
+    arrow(b, 0.68, 0.605, 0.755, 0.605, GREEN)
     # the loop: the 5'UTR it writes is the 5'UTR it reads. Routed UNDER the
     # box, because an arrow through the box reads as flow, not feedback.
-    b.annotate("", xy=(0.09, 0.545), xytext=(0.91, 0.545),
+    LOOP = dict(x0=0.94, y0=0.515, x1=0.06, y1=0.515, rad=-0.18)
+    b.annotate("", xy=(LOOP["x1"], LOOP["y1"]),
+               xytext=(LOOP["x0"], LOOP["y0"]),
                arrowprops=dict(arrowstyle="-|>", color=RED, lw=2.4,
-                               connectionstyle="arc3,rad=-0.34",
+                               connectionstyle=f"arc3,rad={LOOP['rad']}",
                                shrinkA=2, shrinkB=2))
-    b.text(0.5, 0.28, "the 5′UTR it writes is the 5′UTR it reads",
-           fontsize=SUB, color=RED, ha="center", va="center")
-    b.text(0.5, 0.16, "The only picture in which\n"
+    loop_caption = b.text(0.5, 0.325,
+                          "the 5′UTR it writes is the 5′UTR it reads",
+                          fontsize=SUB, color=RED, ha="center", va="center")
+    b.text(0.5, 0.145, "The only picture in which\n"
                       "“joining changes both” can be said.",
            fontsize=SUB, color=MUTED, ha="center", va="center",
            linespacing=1.45)
 
     fig.subplots_adjust(left=0.015, right=0.985, top=0.98, bottom=0.02,
                         wspace=0.10)
+
+    # How far the feedback arc dips is not something to guess at. matplotlib
+    # builds arc3 as a quadratic Bezier whose control point is the chord's
+    # midpoint displaced perpendicular by rad x |chord|, IN DISPLAY SPACE --
+    # so the dip in axes fractions depends on the panel's aspect, and two
+    # successive hand-nudges still left the arc struck through its own
+    # caption. Sample the curve and compare.
+    fig.canvas.draw()
+    r = fig.canvas.get_renderer()
+    (px0, py0), (px1, py1) = b.transAxes.transform(
+        [(LOOP["x0"], LOOP["y0"]), (LOOP["x1"], LOOP["y1"])])
+    dx, dy = px1 - px0, py1 - py0
+    cx = (px0 + px1) / 2.0 + LOOP["rad"] * dy
+    cy = (py0 + py1) / 2.0 - LOOP["rad"] * dx
+    ts = [i / 200.0 for i in range(201)]
+    arc_low = min((1 - t) ** 2 * py0 + 2 * (1 - t) * t * cy + t ** 2 * py1
+                  for t in ts)
+    cap_top = loop_caption.get_window_extent(r).y1
+    if arc_low < cap_top + 4:
+        raise AssertionError(
+            f"the feedback arc dips to {arc_low:.0f}px and its caption tops "
+            f"out at {cap_top:.0f}px -- the arrow crosses the words. Lower "
+            f"the caption or flatten rad.")
     _save(fig, "s17_compositor")
     return "compositor"
 
 
+def fig_type2s():
+    """What a Type IIS enzyme does, and why it gives you a CHOSEN junction.
+
+    The point students must see before any overhang arithmetic: the enzyme
+    recognises one sequence and cuts at a fixed offset OUTSIDE it, so the
+    recognition site leaves with the scrap and the four bases left behind in
+    the join are bases the designer picked. Freedom and trap in one move.
+
+    BsaI is GGTCTC(1/5): the top strand breaks one base past the site, the
+    bottom strand five bases past it. That is ONE cut, staggered, and the
+    drawing has to show it as one -- an earlier version drew two full-height
+    dashed lines, which reads as two blunt double-strand cuts, and left the
+    scrap blunt so the complementary sticky end was nowhere on the slide.
+    Every string here is argument rather than a source line, so it sits at
+    the module's 20pt content floor, and each one is measured against the
+    column it lives in instead of eyeballed.
+    """
+    FS = TYPE["body"]
+    SUB = TYPE["body"]
+    H = 4.55
+    fig, ax = plt.subplots(figsize=(11.3, H))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_axis_off()
+    ax.set_autoscale_on(False)
+
+    GUTTER = 0.615                      # the rule between the two columns
+    checks = []                         # (artist, lo, hi) in axes fraction
+
+    def T(*args, span=None, **kw):
+        t = ax.text(*args, **kw)
+        if span:
+            checks.append((t, span[0], span[1]))
+        return t
+
+    def strand(y, x0, x1, colour, lw=9):
+        ax.plot([x0, x1], [y, y], color=colour, lw=lw, solid_capstyle="butt",
+                zorder=2)
+
+    # --- before the cut --------------------------------------------------
+    T(0.0, 0.95, "before", fontsize=FS, color=INK, va="top", weight="bold")
+    yT, yB = 0.74, 0.675
+    strand(yT, 0.02, 0.30, MUTED)
+    strand(yB, 0.02, 0.30, MUTED)
+    T(0.16, 0.655, "GGTCTC N", fontsize=SUB, color=INK, ha="center",
+      va="top", span=(0.0, 0.30))
+    strand(yT, 0.30, 0.355, AMBER)
+    strand(yB, 0.30, 0.355, AMBER)
+    strand(yT, 0.355, 0.56, TEAL)
+    strand(yB, 0.355, 0.56, TEAL)
+    T(0.4575, 0.655, "your part", fontsize=SUB, color=TEAL, ha="center",
+      va="top", span=(0.36, GUTTER))
+
+    # ONE staggered cut: top strand severed at 0.30, bottom at 0.355, with
+    # the break stepping between them through the duplex.
+    mid = (yT + yB) / 2.0
+    ax.plot([0.30, 0.30, 0.355, 0.355],
+            [yT + 0.040, mid, mid, yB - 0.040],
+            color=RED, lw=2.4, solid_capstyle="round", zorder=5)
+    T(0.3275, 0.845, "one cut, staggered", fontsize=SUB, color=RED,
+      ha="center", va="bottom", span=(0.0, GUTTER))
+    ax.annotate("", xy=(0.355, 0.545), xytext=(0.30, 0.545),
+                arrowprops=dict(arrowstyle="<|-|>", color=RED, lw=1.8))
+    T(0.3275, 0.515, "four bases offset, outside its own site",
+      fontsize=SUB, color=RED, ha="center", va="top", span=(0.0, GUTTER))
+
+    # --- after the cut ---------------------------------------------------
+    T(0.0, 0.445, "after", fontsize=FS, color=INK, va="top", weight="bold")
+    yT2, yB2 = 0.235, 0.172
+    # scrap: bottom strand runs past the top one, so it ends sticky too
+    strand(yT2, 0.02, 0.205, RULE)
+    strand(yB2, 0.02, 0.205, RULE)
+    strand(yB2, 0.205, 0.26, AMBER)
+    # part: top strand runs past the bottom one -- the 5' overhang
+    strand(yT2, 0.33, 0.385, AMBER)
+    strand(yT2, 0.385, 0.59, TEAL)
+    strand(yB2, 0.385, 0.59, TEAL)
+    T(0.11, 0.305, "scrap", fontsize=SUB, color=MUTED, ha="center",
+      va="bottom", span=(0.0, 0.29))
+    T(0.49, 0.305, "your part", fontsize=SUB, color=TEAL, ha="center",
+      va="bottom", span=(0.30, GUTTER))
+    # the two amber stubs face each other on the drawing, so the fact that
+    # they are complementary does not need saying; where the site WENT does.
+    T(0.02, 0.105, "the recognition site left with the scrap",
+      fontsize=SUB, color=MUTED, va="top", span=(0.0, GUTTER))
+
+    # --- the consequence, right-hand column ------------------------------
+    ax.plot([GUTTER, GUTTER], [0.03, 0.97], color=RULE, lw=1.4)
+    T(0.655, 0.95, "the junction is yours", fontsize=FS, color=INK,
+      va="top", weight="bold", span=(0.65, 1.0))
+    for i, (lab, body) in enumerate([
+            ("the freedom",
+             "four bases you choose,\nso parts fit one way,\nall in one pot"),
+            ("the trap",
+             "the cell still reads\nthose four bases\nas sequence"),
+    ]):
+        y = 0.79 - i * 0.39
+        T(0.655, y, lab, fontsize=SUB, color=AMBER if i else TEAL,
+          va="top", weight="bold", span=(0.65, 1.0))
+        T(0.655, y - 0.085, body, fontsize=SUB, color=INK, va="top",
+          linespacing=1.5, span=(0.65, 1.0))
+
+    fig.subplots_adjust(left=0.012, right=0.99, top=0.98, bottom=0.02)
+
+    # Measure, never choose: every string must sit inside the column it was
+    # placed in, or the build fails here rather than on the wall.
+    fig.canvas.draw()
+    r = fig.canvas.get_renderer()
+    axb = ax.get_window_extent()
+    bad = []
+    boxes = []
+    for t, lo, hi in checks:
+        e = t.get_window_extent(r)
+        x0 = (e.x0 - axb.x0) / axb.width
+        x1 = (e.x1 - axb.x0) / axb.width
+        if x0 < lo - 1e-3 or x1 > hi + 1e-3:
+            bad.append(f"  {t.get_text()[:38]!r} spans "
+                       f"{x0:.3f}..{x1:.3f}, allowed {lo:.3f}..{hi:.3f}")
+        boxes.append((t, e))
+    # ...and no two of them may share space. The first 20pt pass put "after"
+    # on the same baseline as "scrap", and on the wall they read as one
+    # phrase; a column check alone cannot see that.
+    for i in range(len(boxes)):
+        for j in range(i + 1, len(boxes)):
+            (ta, a), (tb, b) = boxes[i], boxes[j]
+            if a.x0 < b.x1 and b.x0 < a.x1 and a.y0 < b.y1 and b.y0 < a.y1:
+                bad.append(f"  {ta.get_text()[:26]!r} overlaps "
+                           f"{tb.get_text()[:26]!r}")
+    if bad:
+        raise AssertionError("s17_type2s layout:\n" + "\n".join(bad))
+    _save(fig, "s17_type2s")
+    return "type2s"
+
 FIGURES = [fig_terminator_model, fig_variance,
-           fig_manufacture, fig_insulators, fig_overhangs,
-           fig_compositor]
+           fig_manufacture, fig_insulators, fig_type2s,
+           fig_overhangs, fig_compositor]
 
 if __name__ == "__main__":
     for f in FIGURES:

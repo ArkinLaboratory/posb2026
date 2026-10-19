@@ -1,10 +1,10 @@
 {
   "artifact": "s17_overhangs.png",
-  "artifact_sha256": "634d7b1961e0e22f885ed2dc718deb20ac0428c3fe0f6d58078c988e3fdadbd2",
-  "artifact_content": "b8707586690e81825c83bb0eecb1938ee41cfa397167caa304a24932607d1e32",
-  "artifact_bytes": 185428,
+  "artifact_sha256": "89ef3afcb1e991898b02b6da70967d82a189b0c1e99307643628d6f56ed4c5a5",
+  "artifact_content": "8340859b96ec1cc3f255e4f5f623aa3049d23591b40eb5566f964b0331077b14",
+  "artifact_bytes": 151876,
   "deps": {
-    "figures/s17_parts.py": "dce4ca3982e7a8bdf02751ac103b0ddc50528992e51550029081a29566a753b5",
+    "figures/s17_parts.py": "ee9eea51c98e6713007a37867f417c0a83698130c6b905f563710bae47ab9f2b",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s17_parts.fig_overhangs"

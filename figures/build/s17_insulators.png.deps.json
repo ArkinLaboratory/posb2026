@@ -1,10 +1,10 @@
 {
   "artifact": "s17_insulators.png",
-  "artifact_sha256": "1a4019c874fd49a9d7489f210f06f1accbd7734b763e8a5fa07aa0b4a90bf00f",
-  "artifact_content": "039b8341e5bd695bae45f9b99d76f77b83c2a9a2ff4617dbe6d896210edbafd0",
-  "artifact_bytes": 131209,
+  "artifact_sha256": "bfd2c97def646e52f0ae576bb47b536d034ea1560cbef09eeca4923bcb549db5",
+  "artifact_content": "8d0cb0c4d6b718a27056745055b045085b8d55d3c32e4b299997de59f1073dfe",
+  "artifact_bytes": 129596,
   "deps": {
-    "figures/s17_parts.py": "dce4ca3982e7a8bdf02751ac103b0ddc50528992e51550029081a29566a753b5",
+    "figures/s17_parts.py": "ee9eea51c98e6713007a37867f417c0a83698130c6b905f563710bae47ab9f2b",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s17_parts.fig_insulators"

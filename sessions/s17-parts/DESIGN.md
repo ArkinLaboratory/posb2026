@@ -78,7 +78,7 @@ forward-pointing slide rather than a block:**
 | **F** | **Frame: what "context" even means.** Cardinale & Arkin's three classes, as vocabulary before any measurement lands. **Compositional** (physical — unintended interactions between parts on the same DNA, RNA or polypeptide; functional — competition for a shared output, i.e. retroactivity and fan-out), **host** (parasitic interaction, resource loading, growth coupling), **environmental** (direct, and host-mediated). Adam: this paper is what lets students *understand* context rather than just meet it. | — | Cardinale & Arkin 2012 |
 | 1 | **There is no promoter.** The three failures of the object: no boundary, no containment, reciprocity. The 5'-RACE point is the honest one — it gives us one edge and nothing else. | — | §1 above |
 | 2 | **Measuring the failure.** Kosuri's 114 promoters × 111 RBSs = 12,653 constructs. RELEASE item: hand them a promoter–RBS pair, ask for the predicted protein level, then show the distribution. | T43 | Kosuri 2013 |
-| 3 | **Manufacture the part.** Insulation as a device, not a distance — Cardinale notes spacers of **100–1000 bp failed** to insulate tandem RNA attenuators where ribozymes worked. Three published moves, three layers: **DNA** (Davis/Sauer insulated promoters), **RNA processing** (Qi–Doudna–Arkin Csy4 — cleave the transcript at a fixed site so the 5'UTR is identical whatever promoter sits upstream, which is **point 2 engineered away**), **ribozyme** (Lou/Voigt RiboJ). Then the payoff, measured: **64% within twofold unstandardized (Kosuri) against ~93% within twofold manufactured (Mutalik BCD)**. | T43 | Davis 2011; Qi 2012; Lou 2012; Mutalik `2404` |
+| 3 | **Manufacture the part.** Insulation as a device, not a distance — Cardinale notes spacers of **100–1000 bp failed** to insulate tandem RNA attenuators where ribozymes worked. Three published moves, three layers: **DNA** (Davis/Sauer insulated promoters), **RNA processing** (Qi–Doudna–Arkin Csy4 — cleave the transcript at a fixed site so the 5'UTR is identical whatever promoter sits upstream, which is **point 2 engineered away**), **ribozyme** (Lou/Voigt RiboJ). Then the payoff on one metric: **predict it ~47%, build it ~93%**, both from `nmeth.2404`. | T43 | Davis 2011; Qi 2012; Lou 2012; Mutalik `2404` |
 | 4 | **When prediction does work, and why.** Cambray's terminator model, on his own SI data: **r = 0.97 on the 31 terminators the model's class is defined over, and r = 0.38 with a median miss of 44 TE points on the seven low-efficiency ones.** Predictability is not a property of the part type — it is a property of the part type *as the definition draws it*. Then Stanton's attrition as the price when you cannot draw it, against **Kosuri's own conclusion** that you should screen rather than predict or standardize. | — | Cambray 2013 SI; Stanton 2014; Kosuri 2013 |
 | 5 | **Composing anyway.** Golden Gate / MoClo overhang design — the physical layer carrying combinatorial constraints the functional design never sees — and the compositor in code: a part as a process with state-variable inputs. Close by naming where the compositor's parameters came from, and that segment 2 showed they do not transfer. | T44, T42 | L08 pp. 35–61; L09 pp. 20–41; L10 pp. 45–51 |
 | — | **Closing slide, not a segment.** ncRNA devices: specificity set by Watson–Crick pairing, so the sequence → function map becomes computable instead of screened. That is the escape from the orthogonality limit, and S18 takes it. | — | Qi & Arkin 2014 |
@@ -172,6 +172,7 @@ Arkin & Endy, *Nat Methods* 2013.
 | the architecture | **transcription elements encode a common mRNA start**; translation elements use an overlapping motif — the bicistronic design |
 | dynamic range | elements selected to span a **1,000-fold** observed range |
 | **the payoff** | arbitrary genes expressed **within twofold of target windows with ~93% reliability** |
+| **the same-metric baseline** | the best computational predictor, from this paper's own introduction: **~47%** within twofold of a target |
 
 **"Transcription elements encode a common mRNA start" is point 2 engineered
 away at the design layer.** If every promoter emits the same transcript 5' end,
@@ -179,19 +180,24 @@ the promoter can no longer reach downstream and change the transcript's
 stability through the 5'UTR it would otherwise encode. Csy4 does the same thing
 post-transcriptionally, by cutting. Same disease, two cures.
 
-**The slide segment 3 is built on — and the caveat it must carry:**
+**The slide segment 3 is built on — one metric, measured one way:**
 
-> Unstandardized elements, Kosuri 2013: **64%** of protein within twofold.
-> Manufactured elements, Mutalik 2013: **~93%** within twofold.
+> The best available computational tool for designing translation control
+> elements: **~47%** chance of landing within twofold of a target expression
+> level. Mutalik's manufactured elements: **~93%** within that same window.
 
-Both are "within twofold" and both come from this group in the same year, which
-is what makes the comparison worth putting up. **They are not the same
-measurement** and the slide must say so: Kosuri's 64% is *prediction accuracy*
-for a compositional model over 12,653 combinations; Mutalik's 93% is *hitting a
-target expression window* with curated elements. The honest claim is "the same
-tolerance, met far more often, once the parts are manufactured rather than
-collected" — not "the error fell from 36% to 7%." Written here so the
-adversarial pass has it in advance.
+Both numbers are in `nmeth.2404` — the 47% is quoted in its own introduction
+as the state of the art it is improving on. Same question, same tolerance,
+same authors.
+
+**An earlier version of this design put Kosuri's 64% beside the 93% and
+carried a careful caveat that they are different measurements.** The caveat
+was true and the comparison was still wrong: a caveat is a poor substitute for
+the right comparator, and the right one was three paragraphs into the paper I
+had already read. Kosuri's 64% belongs in segment 2, answering the question it
+was measured for. Found by rendering the paper's Figure 1 page in order to
+crop the figure — which is the argument for showing paper figures, arriving
+from an unexpected direction.
 
 Nothing from S17's reading set is now missing.
 

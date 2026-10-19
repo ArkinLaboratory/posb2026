@@ -664,3 +664,63 @@ nielsen2016_fig5a:
     it needs. Note the paper's two DIFFERENT definitions of the circuit
     score -- Fig. 2's is the ratio of PREDICTED states, Fig. 5's the ratio
     of measured MEDIANS. Quote whichever matches the context and say which.
+
+# --- Session 17 ------------------------------------------------------------
+# The through-line: every one of these papers had to build an INSULATED
+# MEASURING DEVICE before it could measure anything. Cambray brackets the
+# terminator between two reporters and puts RNase sites around it to
+# standardise the mRNA ends; Kosuri ratios sfGFP against an mCherry on the
+# same plasmid; Mutalik defines an "expression operating unit" with named
+# boundaries. The instrument has the same disease as the thing it measures.
+# Show the devices, not just the results.
+
+# --- Cambray, Guimaraes, Mutalik, Lam, Mai, Thimmaiah, Carothers, Arkin &
+#     Endy, Nucleic Acids Research 41(9):5139-5148 (2013) -------------------
+# "Measurement and modeling of intrinsic transcription terminators"
+# doi:10.1093/nar/gkt163
+cambray2013_device:
+  figure: "Fig. 1A/B"
+  shows: "the terminator measurement device -- green and red fluorescent reporters bracketing the terminator test site, flanked by RNase E and RNase III sites that standardise the processed mRNA ends"
+  used_in: ["s17"]
+  note: "Show this BEFORE any terminator number. TE is estimated from the ratio of downstream to upstream fluorescence, and the RNase sites are there because the measurement would otherwise be contaminated by the very context effects the paper is about. The device embodies the session's thesis."
+
+cambray2013_model:
+  figure: "Fig. 5C"
+  shows: "measured against predicted termination efficiency, with the classes the model overestimates"
+  used_in: ["s17"]
+  note: "Pair with figures/build/s17_terminator_model.png, which recomputes the same comparison from Suppl. Table 1 and splits it by the paper's own classes. Show the paper's first, ours second."
+
+# --- Kosuri, Goodman, Cambray, Mutalik, Gao, Arkin, Endy & Church,
+#     PNAS 110(34):14024-14029 (2013) ---------------------------------------
+# "Composability of regulatory sequences controlling transcription and
+#  translation in Escherichia coli"
+kosuri2013_fig1:
+  figure: "Fig. 1A"
+  shows: "the workflow -- 12,653 promoter x RBS constructs from Agilent oligo synthesis into pGERC, then DNASeq, RNASeq, and FlowSeq sorting on the sfGFP/mCherry ratio into 12 log-spaced bins"
+  used_in: ["s17"]
+  note: "This is what 'they measured 12,653 combinations' actually means. The mCherry is an internal ratio control on the same plasmid -- another insulated instrument. Show before the ANOVA."
+
+kosuri2013_fig1b:
+  figure: "Fig. 1B"
+  shows: "sfGFP across the library spanning about four orders of magnitude while the mCherry control stays flat"
+  used_in: ["s17"]
+  note: "The flat mCherry is the evidence that the dynamic range is real and not a plate effect."
+
+# --- Mutalik, Guimaraes, Cambray, Lam, Christoffersen, Mai, Tran, Paull,
+#     Keasling, Arkin & Endy, Nature Methods (2013) -------------------------
+# "Precise and reliable gene expression via standard transcription and
+#  translation initiation elements"  doi:10.1038/nmeth.2404
+mutalik2013_eou:
+  figure: "Fig. 1A"
+  shows: "the expression operating unit -- a standard +1 promoter:5'UTR junction, a downstream insulator, the translationally coupled BCD:GOI junction, and the terminator"
+  used_in: ["s17"]
+  note: "The paper's own words are 'set boundaries and junctions'. This is 'impose the edges' drawn by the people who did it. Show it when the manufacturing segment starts, before the 93%."
+
+# --- Cambray, Guimaraes & Arkin, Nature Biotechnology (2018) ---------------
+# "Evaluation of 244,000 synthetic sequences reveals design principles to
+#  optimize translation in Escherichia coli"  doi:10.1038/nbt.4238
+cambray2018_fig1:
+  figure: "Fig. 1A"
+  shows: "the design-of-experiments workflow and the standardised reporter -- IPTG induction, SDL/SDR, a designed 96-nt N-terminal region, His tag, TEV site, flexible linkers into sfGFP, with inducible translational coupling"
+  used_in: ["s17"]
+  note: "244,000 sequences is a full factorial, not a screen. The reporter is standardised to the hilt precisely so the designed variation is the only variation -- and the paper still finds 8% design error. Show before the 28%."

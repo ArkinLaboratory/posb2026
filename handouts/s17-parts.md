@@ -54,8 +54,21 @@ not the same for all three.
 
 ## 2 · How much of the answer do the parts own?
 
-Kosuri *et al.* (2013) built all 114 × 111 promoter × RBS combinations —
-12,653 constructs — and decomposed the variance:
+**What they built.** Kosuri *et al.* (2013) designed all 114 × 111 promoter ×
+RBS combinations — 12,654, less one that created an incompatible restriction
+site, so **12,653** — synthesised them as an oligo library,
+and cloned them into a single vector carrying **sfGFP** as the output and a
+constitutive **mCherry on the same plasmid** as an internal control. Protein
+levels came from **FlowSeq**: sort the population into twelve log-spaced bins
+by the sfGFP/mCherry ratio, sequence each bin, and reconstruct every
+construct's level from where its reads landed. RNA came from RNA-seq, reported
+as an RNA/DNA ratio.
+
+Note what the mCherry is for: it divides out the cell-to-cell and
+plasmid-to-plasmid variation that would otherwise be mistaken for part
+behaviour. **The instrument needs insulating before the parts do.**
+
+With that, the variance decomposes as:
 
 | | promoter | RBS | unexplained |
 |---|---|---|---|
@@ -65,13 +78,17 @@ Kosuri *et al.* (2013) built all 114 × 111 promoter × RBS combinations —
 **(a)** The RBS is a *translational* element. Give a mechanism by which it
 takes 30% of the variance in protein but only 4% in RNA.
 
-**(b)** In the same study, a **10-fold** change in translation efficiency moved
-RNA abundance about **3-fold**. Which of the three failures on the front page
-is this, and why does it make the $p \times r$ model not merely inaccurate but
-**ill-posed**?
+**(b)** In the same study, a 10-fold increase in translation efficiency
+**correlates with** about a 3-fold increase in RNA abundance — though it
+saturates: the weakest-to-strongest RBS span of 87-fold corresponds to only
+about 4.3-fold in mRNA.
+
+Which of the three failures on the front page is this? And why does it mean
+the $p \times r$ model is not merely inaccurate but has **no true $p$ to
+estimate** — so that collecting more data cannot fix it?
 
 **(c)** 64% of protein levels land within twofold of the $p\times r$
-prediction; the worst 5% are off by **13-fold**. You are designing a
+prediction; the largest 5% of deviations are off by **an average of 13-fold**. You are designing a
 ten-gene pathway and need every gene within twofold. Assuming independence,
 what fraction of ten-gene builds has every gene inside tolerance? Is
 independence a safe assumption here, and does it make your estimate optimistic
@@ -81,47 +98,84 @@ or pessimistic?
 
 ## 3 · Where prediction works, and what that tells you
 
-Cambray *et al.* (2013) fitted a biophysical model of terminator strength.
-Recomputed from the paper's own supplementary data, 54 terminators:
+**What they built.** You cannot measure a terminator with one reporter — you
+would be measuring the promoter too. So Cambray *et al.* (2013) built a
+measurement device: **green and red fluorescent reporters bracketing the
+terminator test site**, and read-through estimated as the ratio of downstream
+to upstream fluorescence. Termination efficiency is what is left; 100% means
+every arriving polymerase was stopped.
 
-| class | n | $r$ | median miss (TE points, out of 100) |
-|---|---|---|---|
-| `terminator` | 31 | 0.97 | 2.6 |
-| extended (ET) | 6 | 0.89 | 8.3 |
-| low folding frequency (LFFT) | 9 | 0.16 | 11.9 |
-| low efficiency (LET) | 7 | 0.38 | 44.4 |
+A ratio is still contaminated, because mRNA stability differs on either side.
+So the device also carries **RNase sites flanking the test site, to
+standardise the ends of the processed mRNA** — the same move as item 2's
+mCherry, one layer down.
 
-**(a)** Over all 54, $r = 0.62$. Over the 31 in the first row, $r = 0.97$. A
-colleague reports the 0.62 and concludes the model is weak. What has the split
-by class told you that the pooled number hides?
+They then fitted a **linear model**: four sequence features chosen by
+stepwise selection out of twelve candidates, fitted on **31 curated
+terminators**, and then used to predict **23 that were held out**. The
+features are biophysically motivated — hairpin stability normalised by length,
+the U-tail, the closing base pair.
 
-**(b)** The paper itself names ET, LFFT and LET as the classes its model
-overestimates. Why does that make the result **stronger** rather than weaker?
+The paper reports **r = 0.9 (cross-validated 0.85) on the 31 it trained on**,
+and r = 0.67 (CV 0.61) across all 54. Below, recomputed from the supplementary
+table, is the median **signed** error per class — positive means the model
+predicted more termination than was measured:
 
-**(c)** Complete the sentence in your own words, in no more than fifteen:
-*"Prediction from sequence works when ______."*
+| class | n | median predicted − measured (TE points, out of 100) |
+|---|---|---|
+| `terminator` — the curated training set | 31 | +0.7 |
+| extended (ET) | 6 | **−8.3** |
+| low folding frequency (LFFT) | 9 | +5.3 |
+| low efficiency (LET) | 7 | **+44.4** |
+| both (LFFT/ET) | 1 | +26.1 |
+
+**(a)** A colleague reports the pooled correlation over all 54 and concludes
+the model is weak. Two things are wrong with stopping there. Name both: one is
+about the **classes**, and one is about **which terminators the model was
+fitted on**.
+
+**(b)** Look at the sign column. The model does not miss at random: LET and
+LFFT are **over**predicted, ET is **under**predicted, and the paper says
+exactly this. Explain why a model that fails in named, *directional* ways is
+more useful than one with the same average error scattered at random.
+
+**(c)** Complete the sentence in your own words, in **no more than fifteen
+words**: *"Prediction from sequence works when ______."*
 
 ---
 
 ## 4 · Joining them, and the arithmetic of overhangs
 
-Golden Gate uses a Type IIS enzyme that cuts **outside** its recognition site,
-so the site leaves with the scrap and the junction is four bases of your
-choosing.
+**Why this method and not another.** Restriction cloning puts the junction
+wherever a usable site happens to be, and leaves that site in the product.
+Gibson joins on a 20–40 bp overlap built into the ends — scarless, but the
+junction is whatever the parts' ends are, and you cannot standardise it across
+a library. **Golden Gate uses a Type IIS enzyme, which recognises one sequence
+and cuts at a fixed offset *outside* it.** Put the recognition site on the
+scrap side and it departs with the scrap: the product carries no site, and the
+junction left behind is **four bases you chose**. One pot, many parts, in a
+defined order.
+
+Gibson's overlap is designer-specified too, but it is long, different for
+every pair, and cannot be standardised across a library. Golden Gate's junction
+is **short, enzyme-defined and fixable community-wide** — which is why it is
+the method this session cares about.
 
 **(a)** There are $4^4 = 256$ four-base overhangs. A **palindromic** overhang
-equals its own reverse complement and so ligates to itself. How many
+equals its own reverse complement, so it anneals to a copy of itself and the
+fragment can go in either way round — directionality is lost. How many
 palindromic four-base overhangs are there? *Show the counting.*
 
 **(b)** An overhang and its reverse complement are the same junction identity.
 Using your answer to (a), how many **distinct usable** junction identities are
 there?
 
-**(c)** Assembling $n$ parts in one pot needs $n+1$ junctions. Your answer to
-(b) looks like plenty. In class we saw that picking them at random gives even
-odds of two junctions differing by a single base at about **five parts**. Why
-does the *number* of available overhangs turn out not to be the binding
-constraint?
+**(c)** Your answer to (b) looks like plenty. In class we saw that choosing
+junctions at random gives even odds that two of them are one base apart — or
+one base from each other's reverse complement — at about **four junctions**.
+Why does the *number* of available overhangs turn out not to be the binding
+constraint? (A circular assembly of $n$ parts plus a backbone needs $n+1$
+junctions, so four junctions is a three-part build.)
 
 **(d)** The four-base scar you choose for cloning convenience sits inside the
 transcript. Cambray *et al.* (2018) found that secondary structure around the
@@ -132,10 +186,12 @@ start codon accounts for 83% of what designed sequence properties explain.
 
 ## Stretch — the one nobody has answered
 
-Manufacturing works: with transcription elements that encode a **common mRNA
-start** and bicistronic translation elements, Mutalik *et al.* (2013) landed
-arbitrary genes within twofold of a target window about **93%** of the time,
-against 64% for collected parts.
+Manufacturing works. Mutalik *et al.* (2013) report that the best available
+computational tool for designing translation control elements gives about a
+**47%** chance of landing within twofold of a target expression level. With
+transcription elements that encode a **common mRNA start** and bicistronic
+translation elements, they landed arbitrary genes within that same twofold
+window about **93%** of the time. Same question, same tolerance, same paper.
 
 The same group, the same year, also proposed a **measurement standard** for
 part collections — an ANOVA framework reporting a part's *activity* and a

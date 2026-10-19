@@ -1,10 +1,10 @@
 {
   "artifact": "s17_terminator_model.png",
-  "artifact_sha256": "4f8738cb1f7429058c0ca7e24a0bd91a097ffd1b0d13614c0faafb95ecf9aaae",
-  "artifact_content": "b891807502de52d5a6187e8c6acc0b417c6f81a2919c1aa50ca238fa7a991b51",
-  "artifact_bytes": 159303,
+  "artifact_sha256": "98ef8e40f9aef929a19e543400435da7f78d1425377782e7e6285b2abc6349a5",
+  "artifact_content": "2cb78639731e21e6dd76d4fee73e9a0124d7a29fa14a2d7fdd4966baca7eb199",
+  "artifact_bytes": 121986,
   "deps": {
-    "figures/s17_parts.py": "dce4ca3982e7a8bdf02751ac103b0ddc50528992e51550029081a29566a753b5",
+    "figures/s17_parts.py": "ee9eea51c98e6713007a37867f417c0a83698130c6b905f563710bae47ab9f2b",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s17_parts.fig_terminator_model"
