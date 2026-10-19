@@ -146,38 +146,61 @@ better answer than "it ligates to itself".
 distinct reverse complement, so they form $240 / 2 = \mathbf{120}$ junction
 identities.
 
-**(c)** Because the constraint is not *how many* overhangs exist but *how
-different any two of them are allowed to be*. Two junctions one base apart
-misligate, so each one you pick removes a neighbourhood around itself from the
-pool, not just itself. That is a birthday-problem shape: collisions arrive far
-sooner than the raw count suggests — at random, even odds at about **four
-junctions**, which for a circular assembly with a backbone is a three-part
-build. Which is exactly why published assembly standards ship a **fixed,
-designed** overhang set with measured fidelity rather than telling you to
-choose your own.
+**(c) Placing the junctions.** Four junctions, and the honest answer for
+each is what sequence it lands in:
 
-**(d)** The scar is not neutral: a junction chosen for cloning convenience is
-four bases of sequence that may end up inside the transcript.
+| junction | the scar sits in | why it is not free |
+|---|---|---|
+| backbone → promoter | upstream DNA | upstream context moves promoter output; this session's own claim |
+| promoter → 5′UTR | at or near the transcription start | **whether it is transcribed at all depends on where the TSS actually is** |
+| 5′UTR → CDS | immediately 5′ of the start codon | the window where structure dominates |
+| CDS → backbone | 3′ of the stop codon | transcript 3′ end and terminator context |
 
-**Mark generously, and mark the caveats higher than the claim.** The strong
-version — "the scar sits in the window that dominates translation" — is an
-overreach, and a student who spots why deserves more credit than one who
-asserts it:
+Expected answer for the worst one: **5′UTR → CDS**, because Cambray 2018 puts
+83% of what design properties explain in the structure around the start codon.
 
-- Cambray 2018 varied a designed window **inside the coding sequence**; the
-  5′UTR and SD were held fixed. The 83% is 83% *of what the design properties
-  explain*, and those properties explain 28% of that library's variance. It is
-  not 83% of translation.
-- In MoClo and the Common Syntax the CDS-side junction is **fixed at AATG**
-  precisely because it must encode the start codon — so the one junction
-  nearest the start is the one you do *not* choose.
-- Most junctions are nowhere near a start codon, and a promoter:5′UTR junction
-  can sit upstream of the transcription start and so be outside the transcript
-  altogether.
+**Credit the promoter → 5′UTR answer at least as highly** if the student
+argues the ambiguity: you cannot say whether that scar is inside the
+transcript without knowing the transcription start, the part definition does
+not tell you, and 5′-RACE is what would. That is segment 1 of this session
+arriving in a design decision, and it is the better answer.
 
-The defensible claim, and the one to credit: **a four-base choice made for
-assembly reasons is sequence that the functional model has to live with, and
-nothing in the cloning workflow asks whether it should.**
+**Why AATG is safe.** Because the ATG had to be there. The standard put the
+junction on sequence the biology had already fixed, so the four "chosen" bases
+are not a choice and add nothing to the transcript that was not going to be
+in it. The way to make a junction harmless is to place it where there was no
+freedom — which is a manufacturing decision, not a discovery.
+
+**(d) The rule against the standard.**
+
+$\text{revcomp}(\texttt{GGTA}) = \texttt{TACC}$, and `TACT` differs from
+`TACC` at the fourth base only. **One base — the pair fails the rule.**
+
+Note what a student who checks only the direct comparison sees: `TACT` and
+`GGTA` differ at *all four* positions. They pass the pair and never find it.
+Mark the reverse-complement step explicitly.
+
+And the set is assayed at **93%** across all nine junctions. So the rule is a
+proxy, and it errs in the direction that matters — **it rejects the set the
+field actually uses.**
+
+The answer to credit: *how much* similarity a ligase tolerates is a measured
+quantity, not a derivable one. It depends on which bases mismatch and where,
+not how many. Potapov *et al.* (2018, DOI 10.1021/acssynbio.8b00333) profiled
+all 256 overhangs by single-molecule sequencing and found the bulk of
+mismatch ligation comes from a few specific pairs — their conclusion is that
+it is "not necessary to exclude all pairs that have only a single mismatch."
+Pryor *et al.* (2020, DOI 10.1371/journal.pone.0238592) then used that data to
+*design* sets. Do not require the citations.
+
+**Mark down** the answer that concludes the standard is flawed. The standard
+is right; the rule is the approximation. The session's point is that the
+binding constraint on a one-pot assembly is a measurement someone made, not a
+count you can do at the board — the overhang set is a manufactured object in
+the same sense Mutalik's parts are.
+
+*Caution for the board:* the 93% is for the whole nine-junction set, not per
+junction.
 
 ---
 

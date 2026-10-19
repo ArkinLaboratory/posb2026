@@ -146,20 +146,11 @@ words**: *"Prediction from sequence works when ______."*
 
 ## 4 · Joining them, and the arithmetic of overhangs
 
-**Why this method and not another.** Restriction cloning puts the junction
-wherever a usable site happens to be, and leaves that site in the product.
-Gibson joins on a 20–40 bp overlap built into the ends — scarless, but the
-junction is whatever the parts' ends are, and you cannot standardise it across
-a library. **Golden Gate uses a Type IIS enzyme, which recognises one sequence
-and cuts at a fixed offset *outside* it.** Put the recognition site on the
-scrap side and it departs with the scrap: the product carries no site, and the
-junction left behind is **four bases you chose**. One pot, many parts, in a
-defined order.
-
-Gibson's overlap is designer-specified too, but it is long, different for
-every pair, and cannot be standardised across a library. Golden Gate's junction
-is **short, enzyme-defined and fixable community-wide** — which is why it is
-the method this session cares about.
+**Golden Gate uses a Type IIS enzyme, which recognises one sequence and cuts
+at a fixed offset *outside* it**, so the site departs with the scrap and the
+junction left behind is **four bases you chose** — short, enzyme-defined, and
+fixable community-wide, which is what neither restriction cloning nor Gibson
+gives you.
 
 **(a)** There are $4^4 = 256$ four-base overhangs. A **palindromic** overhang
 equals its own reverse complement, so it anneals to a copy of itself and the
@@ -170,17 +161,31 @@ palindromic four-base overhangs are there? *Show the counting.*
 Using your answer to (a), how many **distinct usable** junction identities are
 there?
 
-**(c)** Your answer to (b) looks like plenty. In class we saw that choosing
-junctions at random gives even odds that two of them are one base apart — or
-one base from each other's reverse complement — at about **four junctions**.
-Why does the *number* of available overhangs turn out not to be the binding
-constraint? (A circular assembly of $n$ parts plus a backbone needs $n+1$
-junctions, so four junctions is a three-part build.)
+<div class="q" markdown="1">
 
-**(d)** The four-base scar you choose for cloning convenience sits inside the
-transcript. Cambray *et al.* (2018) found that secondary structure around the
-start codon accounts for 83% of what designed sequence properties explain.
-**Connect those two sentences.** *Two lines.*
+**(c) Place the junctions.** One transcriptional unit from three parts in a
+backbone — **backbone → promoter → 5′UTR/RBS → CDS → backbone** — is four
+junctions, each leaving four chosen bases behind *in the product*.
+
+For each, say in a few words **what sequence the scar sits inside**, and name
+the one you would least like to choose freely. Cambray *et al.* (2018) put
+**83%** of what designed properties explain in the structure around the start
+codon; use that.
+
+The common syntax puts a junction immediately 5′ of the coding sequence
+anyway, with the overhang fixed at **AATG**. **Why is that safe?** *One line.*
+
+</div>
+
+**(d) Check your rule against the field's set.** A reasonable rule: every pair
+of junctions must differ in at least two bases, compared both directly **and**
+against the other's reverse complement. The published MoClo Level 1 set is
+
+> GGAG  TACT  CCAT  AATG  AGGT  TTCG  GCTT  GGTA  CGCT
+
+Apply your rule to **TACT** and **GGTA** — reverse-complement GGTA first. That
+set is assayed at **93%** correct assembly across its nine junctions. **What
+does that tell you about your rule?** *Two lines.*
 
 ---
 
@@ -210,4 +215,7 @@ that is *not* "people are lazy".
 *Sources for every number here: Cardinale & Arkin, Biotechnol J 7:856–866
 (2012); Kosuri et al., PNAS 110:14024–14029 (2013); Cambray et al., NAR
 41:5139–5148 (2013); Mutalik et al., Nat Methods (2013), two papers; Cambray,
-Guimaraes & Arkin, Nat Biotechnol (2018).*
+Guimaraes & Arkin, Nat Biotechnol (2018). MoClo Level 1 set and its 93%: NEB's
+published assembly standards, measured by Potapov et al., ACS Synth Biol
+(2018), DOI 10.1021/acssynbio.8b00333. AATG as the CDS fusion site: the plant
+common syntax (Phytobricks).*

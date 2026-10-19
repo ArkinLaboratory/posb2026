@@ -23,6 +23,10 @@ digital    Session 13. Transfer curves, log gain, unity-gain thresholds,
                        noise margins and the RBS window for signal matching.
 logic      Session 16. Truth tables, NOR networks, synchronous timing
                        tables, hazards, and cascade delay in lifetimes.
+assembly   Session 17. Golden Gate junctions: the 120 usable overhang
+                       identities, distinguishability measured against the
+                       reverse complement, a clash proxy, and the published
+                       standard sets with their MEASURED fidelity.
 
 Coming later in the term
 ------------------------

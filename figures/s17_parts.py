@@ -26,6 +26,7 @@ import os
 
 import numpy as np
 
+from posb.assembly import junction_identities, clash_probability
 from figures.style import (use, TYPE, TEAL, CYAN, AMBER, GREEN, MUTED,
                            INK, RED, RULE)
 
@@ -521,57 +522,9 @@ def fig_insulators():
 
 
 # --- T44: Golden Gate overhangs ------------------------------------------
-# All of this is COMPUTED. A 4-nt overhang anneals to its reverse complement,
-# so an overhang and that complement are one junction identity; a palindromic
-# overhang is its own complement and self-ligates, so it is unusable.
-
-BASES = "ACGT"
-_COMP = {"A": "T", "C": "G", "G": "C", "T": "A"}
-
-
-def _revcomp(o):
-    return "".join(_COMP[b] for b in reversed(o))
-
-
-def _overhang_classes(n=4):
-    """Usable 4-nt overhang identities: non-palindromic, complement-merged."""
-    from itertools import product
-    all_o = ["".join(p) for p in product(BASES, repeat=n)]
-    palindromic = [o for o in all_o if o == _revcomp(o)]
-    seen, classes = set(), []
-    for o in all_o:
-        if o in palindromic or o in seen:
-            continue
-        seen.add(o)
-        seen.add(_revcomp(o))
-        classes.append(o)
-    return all_o, palindromic, classes
-
-
-def _clash_probability(classes, k, trials=4000, seed=17):
-    """P(some pair of k randomly chosen overhangs differs in <= 1 base).
-
-    A deliberately crude proxy for misligation -- real fidelity is measured,
-    not derived from Hamming distance. Labelled as a toy on the figure.
-    """
-    import random
-    rng = random.Random(seed)
-    hits = 0
-    for _ in range(trials):
-        pick = rng.sample(classes, k)
-        bad = False
-        for i in range(k):
-            for j in range(i + 1, k):
-                a, b = pick[i], pick[j]
-                d = min(sum(x != y for x, y in zip(a, b)),
-                        sum(x != y for x, y in zip(a, _revcomp(b))))
-                if d <= 1:
-                    bad = True
-                    break
-            if bad:
-                break
-        hits += bad
-    return hits / trials
+# The counting and the clash proxy live in posb.assembly, not here: they are
+# student-facing science that PS7 calls, and a figure generator is the wrong
+# home for them. This module only draws them.
 
 
 def fig_overhangs():
@@ -582,9 +535,9 @@ def fig_overhangs():
     """
     FS = TYPE["body"]
     H = 4.15          # 3.70 did not leave room for the model note at 20pt
-    all_o, pal, classes = _overhang_classes()
+    all_o, pal, classes = junction_identities()
     ks = list(range(2, 21))
-    ps = [_clash_probability(classes, k) for k in ks]
+    ps = [clash_probability(k) for k in ks]
 
     fig = plt.figure(figsize=(11.4, H))
     gs = fig.add_gridspec(1, 2, width_ratios=[1.0, 0.80], wspace=0.10)
