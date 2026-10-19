@@ -268,8 +268,12 @@ classes explicitly, because a general request gets a general answer:
    the class has not yet defined.
 7. **Questions with no real answer** — an optimum that is always an endpoint, a
    convergence that is not monotone, a bracket that need not bracket.
-8. **Legibility** — type below the 14 pt floor, overlapping boxes, aspect-ratio
-   mismatches.
+8. **Legibility** — type below the content floor, overlapping boxes,
+   aspect-ratio mismatches. The floor is **20 pt** for anything carrying
+   argument; `figures/style.py` `LEGACY_SCALE` lists the modules still
+   rendering at the old 15 pt and `tools/build_figures.py` reports them every
+   build. A caption may sit at 16 pt only when it is a source line, never when
+   it carries the claim.
 9. **Tutorial gaps.** The room spans biology, engineering, chemistry, chemical
    engineering and physics. A result asserted rather than derived, algebra done
    off-screen, notation never defined, or an unlabelled axis is a defect here
@@ -290,6 +294,42 @@ finding and it was right to hold it.
 Rebuild after fixing, then run F6 again. **Saturday should read a corrected
 artifact**, which is the whole point of putting this before it rather than
 after.
+
+### F4.6 · Re-review the corrections — the third pass
+
+**New, 19 October 2026, and it is the lesson of week 9.** F6 is mechanical. It
+checks that the deck builds, the pages are current and the links resolve. It
+cannot tell you that a fix is wrong.
+
+On 18 October a review found that a fidelity number had been labelled as
+measured when its own source calls it predicted. The fix corrected that
+everywhere — and in correcting it asserted that the overhang standard had been
+*derived from* the ligation measurement. The standard is Patron et al. 2015;
+the measurement is Potapov 2018. A 2015 committee cannot design against 2018
+data. The claim was false, it was load-bearing for the session's thesis, it
+went into the deck notes, the board notes and `posb/assembly.py`, and it was
+caught only because a second review ran afterwards.
+
+That is the general shape and it is worth stating plainly: **a correction is an
+unreviewed change.** It feels like cleanup, so it skips the gate that the
+original content passed through, and it is written fast, under the belief that
+the hard thinking is already done. Week 9's two worst claims were both
+introduced while fixing something else.
+
+So the review runs on **the diff, not the session**:
+
+1. Any content written or rewritten *after* F4.5 gets reviewed before release,
+   including the fixes F4.5 itself produced.
+2. Prefer a fresh agent that has not seen the correction being made. Brief it
+   on what is already known so it does not re-find it, and ask it explicitly
+   whether the *new* framing overclaims.
+3. Verify its findings yourself before acting — F4.5's warning applies here
+   too — but check **dates and causal direction**, not only the numbers. A
+   number can be right while the story around it is backwards, and a story
+   that flatters the session's thesis is the one least likely to be doubted.
+
+Budget three passes, not two: build, review, fix, review-the-fix. Week 9 was
+planned as two and ran as three anyway, at eleven at night.
 
 ### F5 · Problem set — release weeks only
 
@@ -327,8 +367,14 @@ because you have not reviewed it. FAILs are not.
 the notebook is on `main` pulls successfully and then says *"Could not find
 path"*, which a student reads as a broken assignment.
 
+> **This repository is PUBLIC**, and `private/` is a separate one that this
+> repo gitignores. Never name a `private/` path here — it will not be added,
+> and a path that merely looks private might be. Answer sheets and board notes
+> moved under `private/` on 18 October after every answer key from s04 to s17
+> was found readable on github.com.
+
 ```bash
-git add decks/ figures/ handouts/ private/board-notes/ sessions/ docs/ tools/ \
+git add decks/ figures/ handouts/ sessions/ docs/ tools/ \
         posb/ problem-sets/ readings.yaml
 git commit -m "Week of <date>: sessions NN and MM; PSPP"
 git push
