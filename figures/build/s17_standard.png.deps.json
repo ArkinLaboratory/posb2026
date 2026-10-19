@@ -1,10 +1,10 @@
 {
   "artifact": "s17_standard.png",
-  "artifact_sha256": "461236c95ca3ca1abf8b19065aad592ed2add2328642e08eebeda6e059fa7873",
-  "artifact_content": "fd4376d20ecee194c156fef312b357193700ebf7ffe02ae46b251fb83133b9a4",
-  "artifact_bytes": 132326,
+  "artifact_sha256": "788bdea14fa5d06e8b27e07bf78384e318a1a318f3cf1b3677b870570ba3b7b1",
+  "artifact_content": "b1fbce046729f67fbb128fc882fd2bcb8d2e00e350b88d4115f562012c7ecee8",
+  "artifact_bytes": 150830,
   "deps": {
-    "figures/s17_parts.py": "4cb287d377e122736263b5ef49ff4bb793e7dce644d16cdb199f9d16f0d70ac0",
+    "figures/s17_parts.py": "8d7b30ebbb6fc22d4c46c24066c3f785fc2570166272fbde4fb3bb2b782febbe",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s17_parts.fig_standard"

@@ -632,8 +632,8 @@ def _composing(d):
     d.rows(s, [
         ("backbone:promoter", "the scar is upstream DNA — and upstream context moves promoter output. That was segment 1."),
         ("promoter:5′UTR", "at or near the transcription start. Whether the scar is transcribed AT ALL depends on where the TSS actually is, and the part definition does not say."),
-        ("5′UTR:CDS", "immediately 5′ of the start codon — the window Cambray put 83% of the explained variance in."),
-        ("CDS:backbone", "3′ of the stop codon. Transcript 3′ end, terminator context."),
+        ("5′UTR:CDS", "straddles the start codon — inside the ±30 nt window Cambray found carries 83% of what design properties explain."),
+        ("CDS:backbone", "3′ of the stop codon, where the backbone's terminator takes over. In the full standard this is a fourth part."),
     ])
     d.foot(s, "Three parts in a backbone is four junctions, and every one leaves four chosen bases behind in the product.")
     d.notes(s, "Make them do this on the handout BEFORE you put it up. Draw "
@@ -641,7 +641,10 @@ def _composing(d):
                "sequence each scar lands in.\n"
                "Then ask which one they would least like to choose freely. "
                "Expect 5'UTR->CDS, and that is a fine answer.\n"
-               "The BETTER answer is promoter->5'UTR, and credit it higher: "
+               "The BETTER answer is promoter->5'UTR. It is worth MORE "
+               "credit than the expected one, unconditionally -- the answer "
+               "key and the board notes say the same thing, so Hetvi is not "
+               "left inventing a policy. Reason: "
                "you cannot say whether that scar is inside the transcript "
                "without knowing the transcription start. The part definition "
                "does not tell you. 5'-RACE would. That is segment 1 arriving "
@@ -655,44 +658,78 @@ def _composing(d):
     d.title(s, "The junction you do not choose")
     d.rows(s, [
         ("the problem", "the junction nearest the start codon is the one you would least like to pick four arbitrary bases for."),
-        ("the standard's answer", "fix it at AATG. The last three bases ARE the start codon — sequence the biology had already determined. The scar adds nothing that was not going to be there."),
-        ("so the move is", "you do not make a junction harmless by choosing well. You make it harmless by putting it where there was no choice."),
+        ("the standard's answer", "fix it at AATG. The last THREE bases are the start codon — sequence the biology had already fixed. The leading A was still a choice, from four."),
+        ("so the move is", "that makes the junction CONSTANT, not harmless. One base of it still sits at −1, inside the window from the last slide. You cannot make a scar vanish; you can stop it varying."),
     ])
     d.foot(s, "Plant common syntax (Phytobricks). The principle is general; this particular set is not universal.")
     d.notes(s, "This is the session's thesis in one design decision, and it "
                "is worth slowing down for.\n"
-               "A part is manufactured, not found -- and so is the standard "
-               "that lets parts be joined. The field did not get a safe "
-               "junction by searching harder for four good bases. It moved "
-               "the junction onto sequence that was already fixed.\n"
-               "Good question for the room: where ELSE in a construct is the "
-               "sequence already determined? The stop codon is the obvious "
-               "second answer. A ribosome binding site is NOT -- which is "
-               "why that junction is the hard one.")
+               "Do NOT say the scar adds nothing. AATG is A + ATG: three "
+               "bases were determined by the biology, the leading A was "
+               "picked from four candidates, and it sits at -1 in the 5'UTR "
+               "-- inside the window you just told them dominates. What the "
+               "standard bought is that every construct now carries the SAME "
+               "-1 context. Constant, not harmless.\n"
+               "If a student stands up and says exactly that, they are right "
+               "and it is the best answer in the room. Say so.\n"
+               "Where else is sequence already determined? The stop codon is "
+               "the obvious guess -- and the standard deliberately did NOT "
+               "put a junction there, because CDS parts end before the stop "
+               "so C-terminal fusions stay possible. What it did instead was "
+               "choose in-frame fusion sites on codons it liked (AGGT codes "
+               "Gly). A MoClo-literate student may say this; it is a richer "
+               "answer than the stop codon.")
 
     s = d.light()
     d.header(s, "segment 5", "build  ·  T44")
-    d.title(s, "Your rule rejects the set the field ships")
+    d.title(s, "Three suspects, and the one that costs you")
     _fig(d, s, "s17_standard", 1.95)
-    d.foot(s, "Potapov et al., ACS Synth Biol (2018), 10.1021/acssynbio.8b00333 — all 256 overhangs profiled by single-molecule sequencing.")
+    d.foot(s, "Pryor et al., PLOS ONE (2020), 10.1371/journal.pone.0238592 — predicted from Potapov et al.'s measurement of all 256 overhangs, 10.1021/acssynbio.8b00333.")
     d.notes(s, "They apply the two-base rule on the handout first. Then this.\n"
                "The trap is worth naming out loud: compare TACT and GGTA "
                "directly and all four bases differ, so the pair passes and "
                "you never find it. The reverse complement is the step "
-               "everybody skips.\n"
-               "Then the assay: 93%. Do NOT let the room conclude the "
-               "standard is flawed. The RULE is the approximation. Potapov "
-               "profiled all 256 overhangs and concluded it is 'not "
-               "necessary to exclude all pairs that have only a single "
-               "mismatch' -- mismatch depends on WHICH bases differ and "
-               "WHERE, not how many.\n"
-               "One guard: the 93% is assemblies that come out correct; the "
-               "curve on the last slide was the chance a randomly chosen SET "
-               "contains a close pair. Different quantities. Do not let "
-               "anyone subtract one from the other.\n"
-               "Land it: the binding constraint on a one-pot assembly is a "
-               "measurement someone made, not a count you can do at the "
-               "board.")
+               "everybody skips -- and complementing WITHOUT reversing gives "
+               "CCAT, which is a legitimate member of the same set, scores "
+               "three, and looks fine. The error is silent.\n"
+               "Now the honest result, and it is better than it first looks. "
+               "The rule flags THREE pairs out of 55. Pryor et al. measured "
+               "and found that one of those three, GGTA/TACT, carries most "
+               "of the expected error: the set is 81% predicted error-free, "
+               "about 92% if you avoid that pair.\n"
+               "GET THE HISTORY RIGHT, it is the opposite of the obvious "
+               "guess. The standard was REASONED, not measured: Patron 2015 "
+               "chose these sites to be unique and non-palindromic, with "
+               "in-CDS sites picked for the amino acids they encode, and "
+               "reported no ligation data. Potapov's measurement is 2018; "
+               "Pryor's predictions are 2020. The set predates its own "
+               "pricing by five years -- and the pricing found a bad pair "
+               "the committee's criteria had missed.\n"
+               "So: careful people reasoned, shipped, and still got one "
+               "wrong. The rule your students just derived adds the "
+               "reverse-complement check their criteria did not have, and it "
+               "catches the pair they missed. The rule BEAT the "
+               "standard-setters here. Say that.\n"
+               "And the rule does more than flag -- GGTA is in TWO of the "
+               "three pairs, which points at GGTA as the hub, and GGTA is "
+               "exactly what Pryor fingers. A student who notices that is "
+               "right; credit it. What the rule cannot do is say what any of "
+               "them COSTS.\n"
+               "Three guards. First, 81% and 92% are PREDICTED from the "
+               "ligation data, not assemblies someone counted on a plate -- "
+               "say 'predicted', never 'measured'. Second, Pryor does not "
+               "say what 'avoiding' the pair means, and the prediction "
+               "assumes BsmBI-v2 while this is a BsaI standard, so it is "
+               "'about 92%', not a price tag. Third, these are a property of "
+               "the SET; the curve earlier was the chance a RANDOMLY CHOSEN "
+               "set contains a close pair. Different quantities. Nobody "
+               "subtracts one from the other.\n"
+               "Land it: careful reasoning built the standard and missed a "
+               "pair. First principles, with one check added, found it. Only "
+               "an exhaustive measurement of all 256 overhangs said what it "
+               "cost. That is a part being manufactured -- and a standard "
+               "being manufactured -- arriving in the most practical place "
+               "this session could put it.")
 
     s = d.light()
     d.header(s, "segment 5", "build  ·  T42")

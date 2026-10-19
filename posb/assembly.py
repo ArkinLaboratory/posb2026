@@ -21,9 +21,12 @@ everything below.
     complement too.
 
 `clash_probability` is a deliberately crude proxy -- a Hamming-distance rule,
-not ligation chemistry. Real fidelity is measured. The published standard sets
-in `STANDARD_SETS` carry the measured numbers, and the gap between them and
-the toy is the point: those sets were designed and assayed, not sampled.
+not ligation chemistry. `STANDARD_SETS` carries the published set and the
+PREDICTED fidelities for it, and the gap between the two is the session's
+point. Mind the chronology, which is easy to get backwards: the standard was
+REASONED first (Patron et al. 2015) and PRICED later (Potapov's exhaustive
+measurement 2018, Pryor's predictions 2020). The measurement then found a bad
+pair the committee's own criteria had missed.
 """
 
 from functools import lru_cache
@@ -33,26 +36,55 @@ import random
 BASES = "ACGT"
 _COMP = {"A": "T", "C": "G", "G": "C", "T": "A"}
 
-# The common-syntax / MoClo fusion sites, with NEB's measured fidelity for the
-# set as a whole. These are the PLANT common syntax (Patron et al. 2015 and
-# the Phytobrick standard); the principle is general, the particular set is
-# not universal. AATG is the fusion site at the 5' end of a coding sequence --
-# its last three bases ARE the start codon, which is how the standard puts a
-# junction where the sequence was already determined and so cannot do harm.
+# The plant common syntax / Phytobrick fusion sites -- ONE set, used throughout
+# session 17. AATG is in it. Its last THREE bases are the start codon; the
+# leading A is a real choice, at the -1 position of the 5'UTR, made from four
+# candidates (AATG/CATG/GATG/TATG). So fixing it makes that junction CONSTANT
+# across every construct, not harmless -- an earlier draft said the scar "adds
+# nothing", which is false by exactly one base, and that base sits inside the
+# +/-30 window around the start codon that Cambray 2018 reports as carrying 83%
+# of the design properties' total effect.
+#
+# The numbers are PREDICTED, not assayed. NEB publishes a "93%" for the nine
+# overhang MoClo Level 1 set and labels it predicted fidelity, with no enzyme or
+# reaction conditions given; an earlier version of this module recorded it as
+# measured and the session called it "the assay", which was wrong twice over --
+# it is a prediction, and it is for a different set than the one the AATG claim
+# comes from. Both numbers below are from a primary source that says what they
+# are:
+#
+#   Pryor JM et al. (2020) "Enabling one-pot Golden Gate assemblies of
+#   unprecedented complexity using data-optimized assembly design." PLOS ONE.
+#   DOI 10.1371/journal.pone.0238592.
+#
+# They report this set as 81% predicted error-free, rising to about 92% if the
+# GGTA/TACT mispair is avoided, and name that mispair as the dominant source of
+# expected assembly error. Pryor does not define the counterfactual (whether an
+# overhang was dropped or replaced), and the prediction assumes BsmBI-v2 with
+# 42C/16C cycling while this is a BsaI standard -- so quote it as "about 92%",
+# not as a price.
+#
+# CHRONOLOGY, and it is the opposite of the obvious guess. The set was REASONED:
+# Patron et al. 2015 chose fusion sites to be unique and non-palindromic, with
+# in-CDS sites picked for the amino acids they encode, and report no ligation
+# measurement. Potapov's exhaustive profiling of all 256 overhangs is 2018
+# (DOI 10.1021/acssynbio.8b00333); Pryor's predictions are 2020. The standard
+# predates its own pricing by three to five years -- and the pricing found a
+# mispair the committee's criteria had missed. That is the session's point: a
+# standard is manufactured by people reasoning carefully, who still ship a bad
+# pair, and only exhaustive measurement says what it cost.
 STANDARD_SETS = {
-    "moclo_L1": {
-        "overhangs": ["GGAG", "TACT", "CCAT", "AATG", "AGGT",
-                      "TTCG", "GCTT", "GGTA", "CGCT"],
-        "fidelity": 0.93,
-        "note": "transcriptional units; AATG is the CDS start fusion site",
-    },
-    "moclo_L2": {
-        "overhangs": ["TGCC", "GCAA", "ACTA", "TTAC", "CAGA",
-                      "TGTG", "GAGC", "GGGA"],
-        "fidelity": 0.95,
-        "note": "multigene constructs",
+    "common_syntax": {
+        "overhangs": ["GGAG", "TGAC", "TCCC", "TACT", "CCAT", "AATG",
+                      "AGCC", "TTCG", "GCTT", "GGTA", "CGCT"],
+        "predicted_fidelity": 0.81,
+        "predicted_without_worst_pair": 0.92,
+        "worst_pair": ("GGTA", "TACT"),
+        "cds_fusion_site": "AATG",
+        "source": "Pryor et al. 2020, 10.1371/journal.pone.0238592",
     },
 }
+
 
 
 def revcomp(seq):
@@ -92,6 +124,8 @@ def distance(a, b):
     other itself. Forgetting the second term is the usual way a hand-picked
     set turns out not to be distinguishable.
     """
+    if len(a) != len(b):
+        raise ValueError(f"overhangs must be the same length: {a!r}, {b!r}")
     return min(sum(x != y for x, y in zip(a, b)),
                sum(x != y for x, y in zip(a, revcomp(b))))
 
@@ -100,8 +134,9 @@ def clash_probability(k, trials=4000, seed=17, min_distance=2):
     """P(some pair among k randomly chosen junctions is too close).
 
     A crude proxy for misligation: a pair clashes when `distance` puts it
-    below `min_distance`. Real fidelity is measured, not derived -- see
-    STANDARD_SETS. Sampling is seeded so the curve is reproducible.
+    below `min_distance`. Real fidelity is measured pair by pair (Potapov
+    2018) and then predicted for a whole set (Pryor 2020); this rule does
+    neither. Sampling is seeded so the curve is reproducible.
     """
     _all, _pal, classes = junction_identities()
     rng = random.Random(seed)

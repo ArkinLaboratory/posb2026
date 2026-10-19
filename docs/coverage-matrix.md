@@ -246,10 +246,17 @@ assessment moved — but read the two halves separately, because on
 
 **T44 — design overhangs — is demonstrated as of 18 October.** S17 gained a
 worked three-part design: slides 30–32 place the four junctions and show
-what each scar lands in, fix the CDS junction at `AATG`, and set the
-two-base rule against the published MoClo Level 1 set, which it rejects and
-which is assayed at 93%. Handout item 4 was rewritten from counting into
-that design. `posb.assembly` carries the arithmetic.
+what each scar lands in, fix the CDS junction at `AATG`, and run the two-base
+rule over the eleven plant common syntax fusion sites, where it flags three
+pairs of 55. Pryor et al. 2020 measured all 256 overhangs and found one of
+those three, GGTA/TACT, carries most of the expected error (81% predicted
+error-free, 92% avoiding it) — so the rule is a screen and the measurement is
+the price list. Handout item 4 was rewritten from counting into that design.
+`posb.assembly` carries the arithmetic and the set.
+
+A first version of this used NEB's "93%" for the nine-overhang MoClo Level 1
+set and called it an assay. It is a PREDICTED fidelity, for a different set
+than the one the AATG claim comes from. Caught on 18 October before release.
 
 **T42 — compose a two-part system in code — is NOT demonstrated.** The
 compositor slide shows the abstraction as a diagram and the foot names the

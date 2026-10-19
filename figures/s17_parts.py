@@ -802,7 +802,12 @@ def fig_type2s():
       ha="center", va="bottom", span=(0.0, GUTTER))
     ax.annotate("", xy=(0.355, 0.545), xytext=(0.30, 0.545),
                 arrowprops=dict(arrowstyle="<|-|>", color=RED, lw=1.8))
-    T(0.3275, 0.515, "four bases offset, outside its own site",
+    # The arrow spans the STAGGER between the two strand breaks, which is
+    # four bases. The OFFSET from the recognition site is one. Labelling the
+    # arrow "four bases offset" reads on the wall as "BsaI cuts four bases
+    # outside its site", which is wrong and contradicts this figure's own
+    # docstring and the slide foot.
+    T(0.3275, 0.515, "four-base stagger, one base outside the site",
       fontsize=SUB, color=RED, ha="center", va="top", span=(0.0, GUTTER))
 
     # --- after the cut ---------------------------------------------------
@@ -873,29 +878,48 @@ def fig_type2s():
     return "type2s"
 
 def fig_standard():
-    """The set the field uses fails the rule we just taught -- and works.
+    """The rule finds the pair. Only the measurement says what it costs.
 
-    The honest comparison here is NOT two numbers on one axis. The clash curve
-    in fig_overhangs is P(some pair in a randomly chosen set is within one
-    base); NEB's 93% is the fraction of nine-fragment assemblies that come out
-    correct. Those are different quantities and plotting them together would
-    be the same apples-to-oranges error the 64%-vs-93% draft made. What can be
-    compared is a RULE'S VERDICT against a MEASURED OUTCOME, so that is what
-    this figure shows: apply the two-base rule to the published set, watch it
-    reject the set, then read the assay.
+    An earlier version of this figure said "your rule says reject this set /
+    the assay says 93% correct". Both halves were wrong. The 93% is NEB's
+    PREDICTED fidelity for a different set (the nine-overhang MoClo Level 1),
+    not an assay, and pairing it against the AATG claim meant the segment was
+    arguing from two different standards at once. Worse, it made the rule look
+    foolish -- when in fact the rule flags the very pair the field measured and
+    found to be the dominant error source.
+
+    One set now: the eleven plant common syntax fusion sites, which is where
+    AATG comes from. The rule flags three of its 55 pairs. Pryor et al. (2020)
+    measured and found GGTA/TACT carries most of the expected error: 81%
+    predicted error-free, 92% if that pair is avoided. So the rule is a screen
+    that narrows the field, and the measurement is the price list.
     """
     from posb.assembly import STANDARD_SETS, distance, revcomp
 
     FS = TYPE["body"]
-    SET = STANDARD_SETS["moclo_L1"]
+    SET = STANDARD_SETS["common_syntax"]
     ohs = SET["overhangs"]
-    bad = [(x, y) for i, x in enumerate(ohs) for y in ohs[i + 1:]
-           if distance(x, y) < 2]
-    if len(bad) != 1:
-        raise AssertionError(
-            f"this figure is drawn around a single offending pair; the set "
-            f"now has {len(bad)}: {bad}")
-    (A, B) = bad[0]
+    # Order the pair so the one we reverse-complement on the slide is the one
+    # whose BARE complement is also a member of the set. That is GGTA, whose
+    # bare complement CCAT is chip five -- which is the trap the board notes
+    # spring: complement without reversing and you land on a legitimate member
+    # of the same set, score three, and never find the collision. The figure
+    # and the board notes must show the same direction or the trap misfires.
+    _COMPL = {"A": "T", "C": "G", "G": "C", "T": "A"}
+    _pair = list(SET["worst_pair"])
+    _pair.sort(key=lambda o: "".join(_COMPL[c] for c in o) in ohs)
+    A, B = _pair                                  # B is the trap-bearing one
+    flagged = [(x, y) for i, x in enumerate(ohs) for y in ohs[i + 1:]
+               if distance(x, y) < 2]
+    n_pairs = len(ohs) * (len(ohs) - 1) // 2
+    if tuple(sorted((A, B))) not in [tuple(sorted(p)) for p in flagged]:
+        raise AssertionError("the measured worst pair is not one the rule flags")
+    # Colour only the pair the measurement fingers. An earlier version also
+    # tinted the other flagged overhangs amber, which implied a grouping the
+    # viewer cannot decode: five coloured chips, three pairs, no way to tell
+    # which goes with which. The pairs are listed in the box instead.
+    hot = {A, B}
+    warm = set()
     RC = revcomp(B)
     direct = sum(p != q for p, q in zip(A, B))
     viarc = sum(p != q for p, q in zip(A, RC))
@@ -915,10 +939,8 @@ def fig_standard():
     ax.set_ylim(0, H)
     ax.set_axis_off()
     ax.set_autoscale_on(False)
-    r = fig.canvas.get_renderer()
 
     def wid(txt, size=FS, weight=None, family=None):
-        """Width of a string in INCHES, measured, never guessed."""
         t = ax.text(0, 0, txt, fontsize=size, weight=weight, family=family)
         fig.canvas.draw()
         w = t.get_window_extent(fig.canvas.get_renderer()).width / fig.dpi
@@ -928,37 +950,32 @@ def fig_standard():
     MONO = "DejaVu Sans Mono"
     cur = H - 0.06
 
-    # --- the published set, as chips ------------------------------------
-    ax.text(0.0, cur, "MoClo Level 1 — the nine junctions the field ships",
-            fontsize=FS, color=MUTED, va="top")
+    ax.text(0.0, cur, "the plant common syntax — the eleven junctions the "
+                      "field ships", fontsize=FS, color=MUTED, va="top")
     cur -= LINE + 0.10
 
-    pad, gap = 0.13, 0.14
+    pad, gap = 0.11, 0.12
     widths = [wid(o, weight="bold", family=MONO) + 2 * pad for o in ohs]
     x = 0.0
     for o, w in zip(ohs, widths):
-        flagged = o in (A, B)
+        col = RED if o in hot else (AMBER if o in warm else None)
         ax.add_patch(plt.Rectangle(
             (x, cur - CHIP_H), w, CHIP_H,
-            facecolor="white" if flagged else "#F2F6F5",
-            edgecolor=RED if flagged else RULE,
-            linewidth=2.4 if flagged else 1.2, zorder=2))
+            facecolor="white" if col else "#F2F6F5",
+            edgecolor=col or RULE, linewidth=2.4 if col else 1.2, zorder=2))
         ax.text(x + w / 2, cur - CHIP_H / 2, o, fontsize=FS, family=MONO,
-                color=RED if flagged else INK, weight="bold",
-                ha="center", va="center", zorder=3)
+                color=col or INK, weight="bold", ha="center", va="center",
+                zorder=3)
         x += w + gap
     if x - gap > W:
         raise AssertionError(f"chips need {x - gap:.2f}in of {W}in")
     cur -= CHIP_H + 0.34
 
-    # --- the arithmetic ---------------------------------------------------
     rows = [
         (f"{A}  vs  {B}", direct, "compared directly", MUTED),
         (f"{A}  vs  {RC}", viarc,
          f"{RC} is the reverse complement of {B}", RED),
     ]
-    # Columns are set by the widest entry in each, so the two rows align and
-    # the one-base row sits directly under the four-base row it overturns.
     c1 = max(wid(t, family=MONO, weight="bold") for t, *_ in rows) + 0.45
     c2 = max(wid(f"{n} difference{'s' if n != 1 else ''}", weight="bold")
              for _t, n, *_ in rows) + 0.38
@@ -968,37 +985,42 @@ def fig_standard():
         ax.text(c1, cur, f"{n} difference{'s' if n != 1 else ''}",
                 fontsize=FS, color=colour, va="top", weight="bold")
         ax.text(c1 + c2, cur, verdict, fontsize=FS, color=colour, va="top")
-        end = c1 + c2 + wid(verdict)
-        if end > W:
-            raise AssertionError(f"arithmetic row needs {end:.2f}in of {W}in")
+        if c1 + c2 + wid(verdict) > W:
+            raise AssertionError("arithmetic row too wide")
         cur -= LINE
     cur -= 0.30
 
-    # --- verdict against measurement -------------------------------------
-    bw = (W - 0.40) / 2.0
-    for i, (head, body, colour) in enumerate((
-            ("your rule says", "reject this set", RED),
-            ("the assay says", f"{SET['fidelity']:.0%} correct, all nine",
-             GREEN))):
-        bx = i * (bw + 0.40)
+    # Asymmetric: the left box lists three pairs, the right holds two numbers.
+    avail = W - 0.40
+    widths_box = [avail * 0.60, avail * 0.40]
+    boxes = [
+        (f"your rule flags {len(flagged)} of {n_pairs}",
+         "   ".join(f"{x}·{y}" for x, y in flagged), AMBER),
+        ("the fidelity data prices one",
+         f"{SET['predicted_fidelity']:.0%} → about "
+         f"{SET['predicted_without_worst_pair']:.0%}", GREEN),
+    ]
+    bx = 0.0
+    for (head, body, colour), bw in zip(boxes, widths_box):
         ax.add_patch(plt.Rectangle((bx, cur - BOX_H), bw, BOX_H,
                                    facecolor="white", edgecolor=colour,
                                    linewidth=2.4, zorder=2))
-        ax.text(bx + 0.22, cur - 0.20, head, fontsize=FS, color=MUTED,
+        ax.text(bx + 0.22, cur - 0.18, head, fontsize=FS, color=MUTED,
                 va="top", zorder=3)
-        ax.text(bx + 0.22, cur - 0.20 - LINE * 0.95, body, fontsize=FS,
+        ax.text(bx + 0.22, cur - 0.18 - LINE * 0.95, body, fontsize=FS,
                 color=colour, weight="bold", va="top", zorder=3)
-        if wid(body, weight="bold") + 0.44 > bw:
-            raise AssertionError(f"box text overflows: {body!r}")
+        if wid(body, weight="bold") + 0.44 > bw or wid(head) + 0.44 > bw:
+            raise AssertionError(f"box text overflows: {head!r} / {body!r}")
+        bx += bw + 0.40
     cur -= BOX_H + 0.26
 
-    ax.text(0.0, cur,
-            "How much similarity a ligase tolerates is measured, not counted.",
-            fontsize=FS, color=INK, weight="bold", va="top")
+    ax.text(0.0, cur, "The rule names the pair. Only the fidelity data says "
+                      "what it costs.", fontsize=FS, color=INK, weight="bold",
+            va="top")
 
     _save(fig, "s17_standard")
-    return {"pair": (A, B), "revcomp": RC, "direct": direct, "via_rc": viarc,
-            "fidelity": SET["fidelity"]}
+    return {"flagged": flagged, "worst": (A, B),
+            "predicted": SET["predicted_fidelity"]}
 
 FIGURES = [fig_terminator_model, fig_variance,
            fig_manufacture, fig_insulators, fig_type2s,

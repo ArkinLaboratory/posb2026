@@ -146,10 +146,9 @@ words**: *"Prediction from sequence works when ______."*
 
 ## 4 · Joining them, and the arithmetic of overhangs
 
-**Golden Gate uses a Type IIS enzyme, which recognises one sequence and cuts
-at a fixed offset *outside* it**, so the site departs with the scrap and the
-junction left behind is **four bases you chose** — short, enzyme-defined, and
-fixable community-wide, which is what neither restriction cloning nor Gibson
+**Golden Gate uses a Type IIS enzyme, which cuts at a fixed offset *outside*
+its own recognition site**, so the site leaves with the scrap and the junction
+is **four bases you chose** — which neither restriction cloning nor Gibson
 gives you.
 
 **(a)** There are $4^4 = 256$ four-base overhangs. A **palindromic** overhang
@@ -168,42 +167,41 @@ backbone — **backbone → promoter → 5′UTR/RBS → CDS → backbone** — 
 junctions, each leaving four chosen bases behind *in the product*.
 
 For each, say in a few words **what sequence the scar sits inside**, and name
-the one you would least like to choose freely. Cambray *et al.* (2018) put
-**83%** of what designed properties explain in the structure around the start
-codon; use that.
+the one you would **most want measured** before trusting the construct.
+Cambray *et al.* (2018) put **83%** of what designed properties explain in the
+structure within 30 nt either side of the start codon; use that. (An *E. coli*
+result; (d)'s standard is a plant one.)
 
-The common syntax puts a junction immediately 5′ of the coding sequence
-anyway, with the overhang fixed at **AATG**. **Why is that safe?** *One line.*
+The common syntax puts a junction at the start codon anyway, with the overhang
+fixed at **AATG**. **What does fixing it buy, and what does it not?**
+*One line.*
 
 </div>
 
 **(d) Check your rule against the field's set.** A reasonable rule: every pair
-of junctions must differ in at least two bases, compared both directly **and**
-against the other's reverse complement. The published MoClo Level 1 set is
+of junctions must differ in at least two bases, compared directly **and**
+against the other's reverse complement. The eleven fusion sites analysed by
+Pryor *et al.* are
 
-> GGAG  TACT  CCAT  AATG  AGGT  TTCG  GCTT  GGTA  CGCT
+> GGAG  TGAC  TCCC  TACT  CCAT  AATG  AGCC  TTCG  GCTT  GGTA  CGCT
 
-Apply your rule to **TACT** and **GGTA** — reverse-complement GGTA first. That
-set is assayed at **93%** correct assembly across its nine junctions. **What
-does that tell you about your rule?** *Two lines.*
+Apply it to **TACT** and **GGTA**, reverse-complementing GGTA first. Over all
+55 pairs the rule flags **three**.
+
+Potapov *et al.* (2018) measured ligation for all 256 possible overhangs;
+Pryor *et al.* (2020) used that data to predict this set at **81%**
+error-free, about **92%** without the GGTA/TACT pair. **Note the dates. So
+what is your rule good for, and what is it not?** *Two lines.*
 
 ---
 
 ## Stretch — the one nobody has answered
 
-Manufacturing works. Mutalik *et al.* (2013) report that the best available
-computational tool for designing translation control elements gives about a
-**47%** chance of landing within twofold of a target expression level. With
-transcription elements that encode a **common mRNA start** and bicistronic
-translation elements, they landed arbitrary genes within that same twofold
-window about **93%** of the time. Same question, same tolerance, same paper.
-
+Manufacturing works — item 3's 47% against 93%, same question, same paper.
 The same group, the same year, also proposed a **measurement standard** for
-part collections — an ANOVA framework reporting a part's *activity* and a
-second statistic, its *quality*, which tracks how much that activity moves
-across contexts.
-
-The standard did not take.
+part collections: an ANOVA framework reporting a part's *activity* and a
+second statistic, its *quality*, tracking how much that activity moves across
+contexts. The standard did not take.
 
 **Write one paragraph.** What would a part-measurement standard have to offer a
 working lab for that lab to pay the cost of adopting it? Be concrete about who
@@ -212,10 +210,8 @@ that is *not* "people are lazy".
 
 ---
 
-*Sources for every number here: Cardinale & Arkin, Biotechnol J 7:856–866
-(2012); Kosuri et al., PNAS 110:14024–14029 (2013); Cambray et al., NAR
-41:5139–5148 (2013); Mutalik et al., Nat Methods (2013), two papers; Cambray,
-Guimaraes & Arkin, Nat Biotechnol (2018). MoClo Level 1 set and its 93%: NEB's
-published assembly standards, measured by Potapov et al., ACS Synth Biol
-(2018), DOI 10.1021/acssynbio.8b00333. AATG as the CDS fusion site: the plant
-common syntax (Phytobricks).*
+*Sources: Cardinale & Arkin, Biotechnol J (2012); Kosuri et al., PNAS (2013);
+Cambray et al., NAR (2013); Mutalik et al., Nat Methods (2013), two papers;
+Cambray, Guimaraes & Arkin, Nat Biotechnol (2018); Pryor et al., PLOS ONE
+(2020); plant common syntax (Phytobricks, 2015). The 81% and 92% are
+predicted, not measured.*
