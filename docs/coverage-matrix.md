@@ -239,10 +239,25 @@ shipped without them, which is the drift this document exists to catch —
 **a matrix row is only true if the released set contains the item.** When a
 set is released, re-read its rows here against what actually shipped.
 
-The syllabus still lists *"compose a two-part system in code; design
-overhangs for a three-part assembly"* as Thursday's learning objectives.
-That is unchanged — S17 still **demonstrates** T42 and T44. Only the
-assessment moved.
+The syllabus lists *"compose a two-part system in code; design overhangs
+for a three-part assembly"* as Thursday's learning objectives. Only the
+assessment moved — but read the two halves separately, because on
+18 October only one of them was true.
+
+**T44 — design overhangs — is demonstrated as of 18 October.** S17 gained a
+worked three-part design: slides 30–32 place the four junctions and show
+what each scar lands in, fix the CDS junction at `AATG`, and set the
+two-base rule against the published MoClo Level 1 set, which it rejects and
+which is assayed at 93%. Handout item 4 was rewritten from counting into
+that design. `posb.assembly` carries the arithmetic.
+
+**T42 — compose a two-part system in code — is NOT demonstrated.** The
+compositor slide shows the abstraction as a diagram and the foot names the
+`posb` form it would take, but no code appears in the session and none is
+written by students. Before claiming this row, S17 needs either a code
+figure on the compositor slide or the session notebook, which is also where
+PS7 will call it from. The syllabus promise is in writing and this row is
+not yet true; it is listed here so it is not quietly assumed.
 
 ---
 

@@ -625,6 +625,75 @@ def _composing(d):
                "Flag the toy explicitly. The real work is measured fidelity "
                "data; this is the shape of the problem, not its solution.")
 
+    # ---- the worked example: design one -----------------------------------
+    s = d.light()
+    d.header(s, "segment 5", "build  ·  T44")
+    d.title(s, "Design one: four junctions, none of them free")
+    d.rows(s, [
+        ("backbone:promoter", "the scar is upstream DNA — and upstream context moves promoter output. That was segment 1."),
+        ("promoter:5′UTR", "at or near the transcription start. Whether the scar is transcribed AT ALL depends on where the TSS actually is, and the part definition does not say."),
+        ("5′UTR:CDS", "immediately 5′ of the start codon — the window Cambray put 83% of the explained variance in."),
+        ("CDS:backbone", "3′ of the stop codon. Transcript 3′ end, terminator context."),
+    ])
+    d.foot(s, "Three parts in a backbone is four junctions, and every one leaves four chosen bases behind in the product.")
+    d.notes(s, "Make them do this on the handout BEFORE you put it up. Draw "
+               "the construct on the board, four junctions, and ask what "
+               "sequence each scar lands in.\n"
+               "Then ask which one they would least like to choose freely. "
+               "Expect 5'UTR->CDS, and that is a fine answer.\n"
+               "The BETTER answer is promoter->5'UTR, and credit it higher: "
+               "you cannot say whether that scar is inside the transcript "
+               "without knowing the transcription start. The part definition "
+               "does not tell you. 5'-RACE would. That is segment 1 arriving "
+               "inside a design decision rather than as a slogan.\n"
+               "Do not let 'there is no free junction' stay abstract. Every "
+               "row here is a different part of the construct that you are "
+               "editing whether you meant to or not.")
+
+    s = d.light()
+    d.header(s, "segment 5", "build  ·  T44")
+    d.title(s, "The junction you do not choose")
+    d.rows(s, [
+        ("the problem", "the junction nearest the start codon is the one you would least like to pick four arbitrary bases for."),
+        ("the standard's answer", "fix it at AATG. The last three bases ARE the start codon — sequence the biology had already determined. The scar adds nothing that was not going to be there."),
+        ("so the move is", "you do not make a junction harmless by choosing well. You make it harmless by putting it where there was no choice."),
+    ])
+    d.foot(s, "Plant common syntax (Phytobricks). The principle is general; this particular set is not universal.")
+    d.notes(s, "This is the session's thesis in one design decision, and it "
+               "is worth slowing down for.\n"
+               "A part is manufactured, not found -- and so is the standard "
+               "that lets parts be joined. The field did not get a safe "
+               "junction by searching harder for four good bases. It moved "
+               "the junction onto sequence that was already fixed.\n"
+               "Good question for the room: where ELSE in a construct is the "
+               "sequence already determined? The stop codon is the obvious "
+               "second answer. A ribosome binding site is NOT -- which is "
+               "why that junction is the hard one.")
+
+    s = d.light()
+    d.header(s, "segment 5", "build  ·  T44")
+    d.title(s, "Your rule rejects the set the field ships")
+    _fig(d, s, "s17_standard", 1.95)
+    d.foot(s, "Potapov et al., ACS Synth Biol (2018), 10.1021/acssynbio.8b00333 — all 256 overhangs profiled by single-molecule sequencing.")
+    d.notes(s, "They apply the two-base rule on the handout first. Then this.\n"
+               "The trap is worth naming out loud: compare TACT and GGTA "
+               "directly and all four bases differ, so the pair passes and "
+               "you never find it. The reverse complement is the step "
+               "everybody skips.\n"
+               "Then the assay: 93%. Do NOT let the room conclude the "
+               "standard is flawed. The RULE is the approximation. Potapov "
+               "profiled all 256 overhangs and concluded it is 'not "
+               "necessary to exclude all pairs that have only a single "
+               "mismatch' -- mismatch depends on WHICH bases differ and "
+               "WHERE, not how many.\n"
+               "One guard: the 93% is assemblies that come out correct; the "
+               "curve on the last slide was the chance a randomly chosen SET "
+               "contains a close pair. Different quantities. Do not let "
+               "anyone subtract one from the other.\n"
+               "Land it: the binding constraint on a one-pot assembly is a "
+               "measurement someone made, not a count you can do at the "
+               "board.")
+
     s = d.light()
     d.header(s, "segment 5", "build  ·  T42")
     d.title(s, "And in code: what a compositor is for")

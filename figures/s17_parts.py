@@ -872,9 +872,137 @@ def fig_type2s():
     _save(fig, "s17_type2s")
     return "type2s"
 
+def fig_standard():
+    """The set the field uses fails the rule we just taught -- and works.
+
+    The honest comparison here is NOT two numbers on one axis. The clash curve
+    in fig_overhangs is P(some pair in a randomly chosen set is within one
+    base); NEB's 93% is the fraction of nine-fragment assemblies that come out
+    correct. Those are different quantities and plotting them together would
+    be the same apples-to-oranges error the 64%-vs-93% draft made. What can be
+    compared is a RULE'S VERDICT against a MEASURED OUTCOME, so that is what
+    this figure shows: apply the two-base rule to the published set, watch it
+    reject the set, then read the assay.
+    """
+    from posb.assembly import STANDARD_SETS, distance, revcomp
+
+    FS = TYPE["body"]
+    SET = STANDARD_SETS["moclo_L1"]
+    ohs = SET["overhangs"]
+    bad = [(x, y) for i, x in enumerate(ohs) for y in ohs[i + 1:]
+           if distance(x, y) < 2]
+    if len(bad) != 1:
+        raise AssertionError(
+            f"this figure is drawn around a single offending pair; the set "
+            f"now has {len(bad)}: {bad}")
+    (A, B) = bad[0]
+    RC = revcomp(B)
+    direct = sum(p != q for p, q in zip(A, B))
+    viarc = sum(p != q for p, q in zip(A, RC))
+
+    LINE = FS / 72.0 * 1.2
+    CHIP_H = 0.42
+    BOX_H = 0.94
+    H = (0.06 + LINE + 0.10 + CHIP_H + 0.34 + 2 * LINE + 0.30
+         + BOX_H + 0.26 + LINE + 0.06)
+    if H + PAD_SAVE > BODY_IN:
+        raise AssertionError(f"fig_standard needs {H + PAD_SAVE:.2f}in")
+
+    W = 11.3
+    fig = plt.figure(figsize=(W, H))
+    ax = fig.add_axes([0.0, 0.0, 1.0, 1.0])
+    ax.set_xlim(0, W)
+    ax.set_ylim(0, H)
+    ax.set_axis_off()
+    ax.set_autoscale_on(False)
+    r = fig.canvas.get_renderer()
+
+    def wid(txt, size=FS, weight=None, family=None):
+        """Width of a string in INCHES, measured, never guessed."""
+        t = ax.text(0, 0, txt, fontsize=size, weight=weight, family=family)
+        fig.canvas.draw()
+        w = t.get_window_extent(fig.canvas.get_renderer()).width / fig.dpi
+        t.remove()
+        return w
+
+    MONO = "DejaVu Sans Mono"
+    cur = H - 0.06
+
+    # --- the published set, as chips ------------------------------------
+    ax.text(0.0, cur, "MoClo Level 1 — the nine junctions the field ships",
+            fontsize=FS, color=MUTED, va="top")
+    cur -= LINE + 0.10
+
+    pad, gap = 0.13, 0.14
+    widths = [wid(o, weight="bold", family=MONO) + 2 * pad for o in ohs]
+    x = 0.0
+    for o, w in zip(ohs, widths):
+        flagged = o in (A, B)
+        ax.add_patch(plt.Rectangle(
+            (x, cur - CHIP_H), w, CHIP_H,
+            facecolor="white" if flagged else "#F2F6F5",
+            edgecolor=RED if flagged else RULE,
+            linewidth=2.4 if flagged else 1.2, zorder=2))
+        ax.text(x + w / 2, cur - CHIP_H / 2, o, fontsize=FS, family=MONO,
+                color=RED if flagged else INK, weight="bold",
+                ha="center", va="center", zorder=3)
+        x += w + gap
+    if x - gap > W:
+        raise AssertionError(f"chips need {x - gap:.2f}in of {W}in")
+    cur -= CHIP_H + 0.34
+
+    # --- the arithmetic ---------------------------------------------------
+    rows = [
+        (f"{A}  vs  {B}", direct, "compared directly", MUTED),
+        (f"{A}  vs  {RC}", viarc,
+         f"{RC} is the reverse complement of {B}", RED),
+    ]
+    # Columns are set by the widest entry in each, so the two rows align and
+    # the one-base row sits directly under the four-base row it overturns.
+    c1 = max(wid(t, family=MONO, weight="bold") for t, *_ in rows) + 0.45
+    c2 = max(wid(f"{n} difference{'s' if n != 1 else ''}", weight="bold")
+             for _t, n, *_ in rows) + 0.38
+    for txt, n, verdict, colour in rows:
+        ax.text(0.0, cur, txt, fontsize=FS, family=MONO, color=colour,
+                va="top", weight="bold")
+        ax.text(c1, cur, f"{n} difference{'s' if n != 1 else ''}",
+                fontsize=FS, color=colour, va="top", weight="bold")
+        ax.text(c1 + c2, cur, verdict, fontsize=FS, color=colour, va="top")
+        end = c1 + c2 + wid(verdict)
+        if end > W:
+            raise AssertionError(f"arithmetic row needs {end:.2f}in of {W}in")
+        cur -= LINE
+    cur -= 0.30
+
+    # --- verdict against measurement -------------------------------------
+    bw = (W - 0.40) / 2.0
+    for i, (head, body, colour) in enumerate((
+            ("your rule says", "reject this set", RED),
+            ("the assay says", f"{SET['fidelity']:.0%} correct, all nine",
+             GREEN))):
+        bx = i * (bw + 0.40)
+        ax.add_patch(plt.Rectangle((bx, cur - BOX_H), bw, BOX_H,
+                                   facecolor="white", edgecolor=colour,
+                                   linewidth=2.4, zorder=2))
+        ax.text(bx + 0.22, cur - 0.20, head, fontsize=FS, color=MUTED,
+                va="top", zorder=3)
+        ax.text(bx + 0.22, cur - 0.20 - LINE * 0.95, body, fontsize=FS,
+                color=colour, weight="bold", va="top", zorder=3)
+        if wid(body, weight="bold") + 0.44 > bw:
+            raise AssertionError(f"box text overflows: {body!r}")
+    cur -= BOX_H + 0.26
+
+    ax.text(0.0, cur,
+            "How much similarity a ligase tolerates is measured, not counted.",
+            fontsize=FS, color=INK, weight="bold", va="top")
+
+    _save(fig, "s17_standard")
+    return {"pair": (A, B), "revcomp": RC, "direct": direct, "via_rc": viarc,
+            "fidelity": SET["fidelity"]}
+
 FIGURES = [fig_terminator_model, fig_variance,
            fig_manufacture, fig_insulators, fig_type2s,
-           fig_overhangs, fig_compositor]
+           fig_overhangs, fig_standard, fig_compositor]
 
 if __name__ == "__main__":
     for f in FIGURES:
