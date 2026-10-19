@@ -1,0 +1,70 @@
+# Termination efficiency, measured and predicted, for 54 terminators.
+#
+# Source: Cambray G, Guimaraes JC, Mutalik VK, Lam C, Mai Q-A, Thimmaiah T,
+# Carothers JM, Arkin AP, Endy D. "Measurement and modeling of intrinsic
+# transcription terminators." Nucleic Acids Research 41(9):5139-5148 (2013),
+# doi:10.1093/nar/gkt163 -- Supplementary Table 1, columns "Type", "Name",
+# "Mean TE Cell" and "Predicted TE". Open access; redistributed here under
+# CC BY 4.0 with Adam Arkin's agreement, 18 October 2026, as an author.
+#
+# `klass` is the paper's own functional classification. The paper names ET,
+# LFFT and LET as the classes its model overestimates; figures/s17_parts.py
+# recomputes the per-class fit at render time rather than quoting it.
+#
+# Regenerate (needs the SI in private/readings/):
+#   python tools/extract_cambray_terminators.py
+klass,name,measured_te,predicted_te
+terminator,amyA,53.0600,53.7912
+terminator,amyA (L1),54.3500,53.7912
+terminator,amyA (L2),50.5600,51.4982
+terminator,amyA (S),37.5800,36.6821
+terminator,BBa_B1002,87.9900,78.6165
+terminator,BBa_B1006,98.2200,92.0082
+terminator,BBa_B1006 (S1),88.0200,91.0421
+terminator,BBa_B1006 U10,99.4200,100.0720
+terminator,BBa_B1006 U4,67.8900,79.7911
+terminator,BBa_B1006 U6,68.1100,75.6898
+terminator,crp,71.3900,69.4228
+terminator,crp [min],73.0400,69.9676
+terminator,his [min],97.2700,93.5019
+terminator,his [min] (S),97.5100,94.7665
+terminator,ilvGEDA,98.9500,99.2837
+terminator,ilvGEDA [min],87.3500,88.3670
+terminator,M13 central,97.0900,100.0000
+terminator,M13 central [min],94.5000,90.8797
+terminator,rpoC,98.9900,96.3540
+terminator,rrnB T1 [min],74.2800,77.3485
+terminator,rrnD T1 [min],85.3300,88.4636
+terminator,T21,83.8700,85.0647
+terminator,T3 early,94.3100,95.2948
+terminator,T7 early,95.8800,85.9519
+terminator,tetAC,49.6600,48.2134
+terminator,trp,95.3000,93.5349
+terminator,trp (L),93.9200,95.3183
+terminator,trp [min],90.0500,93.1688
+terminator,trp 1419,46.3300,48.9032
+terminator,trp L126,96.0900,93.5349
+terminator,trp L126 (L),94.2800,96.2100
+terminator (ET),RNAI,93.0300,83.5265
+terminator (ET),rnpB T1,99.1700,91.7618
+terminator (ET),rrnA T1,96.4300,87.3125
+terminator (ET),rrnB T1,97.2700,87.3125
+terminator (ET),rrnD T1,98.7900,93.9513
+terminator (ET),tonB,79.4700,78.6037
+terminator (LET),attCaadA7,24.6500,94.0485
+terminator (LET),BBa_B1002 (L),22.2800,57.7505
+terminator (LET),BBa_B1002 (LS),17.6800,53.2028
+terminator (LET),BBa_B1006 (L),30.4000,99.3648
+terminator (LET),BBa_B1006 U4 (L),8.0100,80.7943
+terminator (LET),lambda tR2 (L),33.8600,77.3021
+terminator (LET),tonB [min],17.1200,61.5651
+terminator (LFFT),BBa_B1006 (S2),48.1500,86.6579
+terminator (LFFT),BBa_B1006 noH,84.7300,88.6642
+terminator (LFFT),his var,59.9000,88.1369
+terminator (LFFT),his var (L),42.1900,78.0606
+terminator (LFFT),lambda tR2,90.6200,86.7288
+terminator (LFFT),lambda tR2 [min],62.7000,78.7739
+terminator (LFFT),lambda tR2.1,68.5400,63.0348
+terminator (LFFT),rnpB T1 [min],83.7700,71.8201
+terminator (LFFT),rpoC [min],86.7900,92.1042
+terminator (LFFT/ET),his,55.7100,81.8420

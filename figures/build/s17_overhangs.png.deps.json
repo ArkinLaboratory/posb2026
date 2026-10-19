@@ -1,0 +1,11 @@
+{
+  "artifact": "s17_overhangs.png",
+  "artifact_sha256": "634d7b1961e0e22f885ed2dc718deb20ac0428c3fe0f6d58078c988e3fdadbd2",
+  "artifact_content": "b8707586690e81825c83bb0eecb1938ee41cfa397167caa304a24932607d1e32",
+  "artifact_bytes": 185428,
+  "deps": {
+    "figures/s17_parts.py": "dce4ca3982e7a8bdf02751ac103b0ddc50528992e51550029081a29566a753b5",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s17_parts.fig_overhangs"
+}

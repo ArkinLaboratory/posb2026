@@ -94,9 +94,9 @@ fix is a decision, not an edit. **There are none open.**
 | T39 | Truth table → biological circuit mapping | S16 (Oct 20) | PS6 | HAND |
 | T40 | Hazard identification; complete timing table | S16 | PS6, Final | AUTO |
 | T41 | Cascade delay estimation | S16 | PS6 | AUTO |
-| T42 | Compose parts in code (the compositor abstraction) | S17 (Oct 22) | PS6 | AUTO |
-| T43 | Quantify context dependence of a part | S17 | PS6 | HAND |
-| T44 | **Golden Gate overhang and primer design** | S17 | PS6 | MIX |
+| T42 | Compose parts in code (the compositor abstraction) | S17 (Oct 22) | PS7 | AUTO |
+| T43 | Quantify context dependence of a part | S17 | PS7 | HAND |
+| T44 | **Golden Gate overhang and primer design** | S17 | PS7 | MIX |
 | T45 | Compare gate families on orthogonality, speed, and load | S18 (Oct 27) | PS7 | MIX |
 | T46 | CRISPRi repression model | S18 | PS7 | MIX |
 | T47 | Recombinase state model / memory element | S18 | PS7 | HAND |
@@ -227,6 +227,22 @@ These were assessed in prior years with no demonstrating lecture. Each now has o
 | Signal matching with numbers | PS3 Q4–Q5 | **S13** (T38) |
 | Hill function derivation | PS1, PS2 | **S4** (T8) |
 | Golden Gate primer design | PS1 Q13 | **S17** (T44) |
+
+### T42–T44 moved from PS6 to PS7 — settled 18 October
+
+Session 17 is taught **Thursday 22 October** and PS6 was due **Thursday 29
+October**, so routing the compositor, context dependence and Golden Gate
+overhangs to PS6 would have assessed three techniques the week they were
+first seen. They move to PS7. The reason is recorded in
+`private/sources/ps06.py`; this table said PS6 until the evening PS6
+shipped without them, which is the drift this document exists to catch —
+**a matrix row is only true if the released set contains the item.** When a
+set is released, re-read its rows here against what actually shipped.
+
+The syllabus still lists *"compose a two-part system in code; design
+overhangs for a three-part assembly"* as Thursday's learning objectives.
+That is unchanged — S17 still **demonstrates** T42 and T44. Only the
+assessment moved.
 
 ---
 

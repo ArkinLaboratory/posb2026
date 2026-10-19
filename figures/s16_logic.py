@@ -11,13 +11,18 @@ table asks how tall its own text is at the current point size and pitches
 itself from that, and every caption is placed relative to where its table
 actually ended rather than at a y chosen by eye.
 
-SIZE. matplotlib point sizes are ABSOLUTE, so a figure's text scales with the
-figure when the deck places it. A figure authored 12in wide and dropped into a
-12in slot lands at 1:1 -- and 14pt type is then 14pt on the wall, under the
-20pt content floor in `posb-slide-legibility`. Session 14's figures are
-authored 5-9in wide and UPSCALE about 1.7x into the slide, which is what puts
-their 12pt labels over the floor. These follow that: wide figures are authored
-near SLOT/UP, so the deck enlarges them.
+SIZE. matplotlib point sizes are ABSOLUTE. `decks/s16_logic.py::_fig()` places
+every figure at width = pixels/dpi, so the scale is exactly 1.000: **a point
+authored here is a point on the wall**, and the 20pt floor in
+`posb-slide-legibility` has to be met in this file, not recovered by
+enlargement.
+
+This paragraph used to say the opposite -- that these figures are authored
+small and "UPSCALE about 1.7x into the slide" -- carried over from session 14,
+which did work that way before `_fig()` changed. It was already false when it
+was written, and it sat a few lines from the `_fig()` docstring that states
+the correct rule. Corrected 18 October. If you change how figures are placed,
+change this paragraph in the same commit.
 
 Run:  python tools/build_figures.py s16
 """
