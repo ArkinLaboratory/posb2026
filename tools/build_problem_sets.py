@@ -56,7 +56,7 @@ def _load_master(name):
 # named, and `build_problem_sets.py` with no arguments silently skipped
 # it. Same class of defect as figures/s14 missing from build_figures
 # MODULES. Add a set here the moment its master exists.
-PROBLEM_SETS = ["ps01", "ps02", "ps03", "ps04", "ps05", "ps06"]
+PROBLEM_SETS = ["ps01", "ps02", "ps03", "ps04", "ps05", "ps06", "ps07"]
 
 METADATA = {
     "kernelspec": {"display_name": "Python 3", "language": "python",

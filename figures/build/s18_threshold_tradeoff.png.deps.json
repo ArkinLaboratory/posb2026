@@ -1,0 +1,11 @@
+{
+  "artifact": "s18_threshold_tradeoff.png",
+  "artifact_sha256": "48907f92e26988f5625f645af0face91ccc1b46334665f0c4df7605b1b981589",
+  "artifact_content": "ef92d9200c9aa685eafd2dcbe9f455f5511a9facf9706403eecf1f7843f2382e",
+  "artifact_bytes": 117375,
+  "deps": {
+    "figures/s18_protein.py": "f54b072b6d5ad8c0595524e16286618dae3ad814ba3a47956d23aa64415aa721",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s18_protein.fig_threshold_tradeoff"
+}

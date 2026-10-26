@@ -1,0 +1,11 @@
+{
+  "artifact": "s19_bifurcation.png",
+  "artifact_sha256": "3b9abc55076c8cc3268787ad301246b9e45fa44ae6f54b20fe14d55fe4edbb8f",
+  "artifact_content": "96a84fa6243df016f760edc3c1bb15fa3c1d2cf33d407b2bd24a376081aa4a6c",
+  "artifact_bytes": 147540,
+  "deps": {
+    "figures/s19_resources.py": "6e3b29a35acbc39cd8bdd31f65c303c80069399976ed82cf74b82ecf9e4fc73b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s19_resources.fig_bifurcation"
+}

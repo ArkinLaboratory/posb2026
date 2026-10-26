@@ -56,7 +56,18 @@ manufacturing lesson.
 |---|---|---|
 | **S16** | The orthogonal parts set is the bottleneck, not the design method | Cello 45/60; 34 integrases -> 11 orthogonal |
 | **S17** | **A part is not a separable object** — no boundary, not contained in its sequence, and composition changes its operands. So a part is *manufactured*, not discovered | Cardinale & Arkin's context taxonomy; Kosuri's 12,653 promoter×RBS constructs (RBS takes 30% of protein variance, 10×→3× reciprocity); Cambray's terminators as the control; Stanton's attrition as the price of screening |
-| **S18** | So stop using promoters. Protein circuits get ultrasensitivity with no transcription at all, on a timescale of seconds | Mishra's phospho-toggle — the S8/S9 toggle with no promoter in it |
+| **S18** | **A parameter is manufactured too.** Zero-order ultrasensitivity builds effective cooperativity out of saturation, with no cooperative binding anywhere — and the threshold is still set by an expression ratio, so the transcriptional layer does not go away | Goldbeter & Koshland's quadratic (apparent Hill 26 at K/W_T = 0.01); Mishra's phospho-toggle — the S8/S9 toggle with no promoter in it |
+
+> **Corrected 19 October.** This row previously read *"So stop using
+> promoters."* The algebra says the opposite. The half-maximal stimulus is
+> exactly u₅₀ = (k₁ + ½)/(k₂ + ½), a ratio of (k + ½) rather than of k, so as
+> the Michaelis constants shrink — which is what buys the sharpness — the
+> threshold walks to 1 and stops being tunable. At apparent Hill 32 it is
+> confined within 3.3% of the point where the two enzyme capacities are equal.
+> What places a sharp switch is u = v₁/v₂, an expression ratio, which is
+> sessions 5 to 7. **The protein layer buys sharpness the transcriptional layer
+> cannot; the transcriptional layer still sets the threshold.** Derived and
+> verified in `posb/protein.py`; see `sessions/s18-protein/NUMBERS.md` §1.
 
 The bridge is explicit: **S17 names the escape routes from the orthogonality
 limit, and S18 takes one of them.** One escape is programmable specificity

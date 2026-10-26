@@ -183,7 +183,7 @@ Nine sets, roughly weekly, **2–4 problems each**. These are deliberately short
 | PS5 | Sep 27 | Oct 8 | Feedforward loops, oscillation criteria |
 | — | — | — | *Midterm Oct 15 — no set* |
 | PS6 | Oct 20 | Oct 29 | Stochastic simulation, digital abstraction, signal matching, hazards, assembly design |
-| PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden, flux balance analysis |
+| PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden |
 | PS8 | Nov 5 | Nov 19 | Retroactivity, feedback control, evolutionary stability |
 | PS9 | Nov 19 | Dec 3 | Communities, population-scale design, therapeutic and generative design |
 

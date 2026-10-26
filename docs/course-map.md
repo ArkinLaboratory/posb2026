@@ -98,7 +98,7 @@ execute the week's technique, not a weekend-consuming exercise.
 | PS4 | Sep 24 | Oct 1 | Phase plane, stability, bistability, the toggle | [✅](../problem-sets/ps04-phase-plane/) |
 | PS5 | Oct 1 | Oct 8 | Feedforward loops, oscillation criteria | ⬜ |
 | PS6 | Oct 20 | Oct 29 | Stochastic simulation, digital abstraction, hazards, assembly | ⬜ |
-| PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden, FBA | ⬜ |
+| PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden | ⬜ |
 | PS8 | Nov 5 | Nov 19 | Retroactivity, feedback control, evolutionary stability | ⬜ |
 | PS9 | Nov 19 | Dec 3 | Communities, population-scale design, therapeutic design | ⬜ |
 

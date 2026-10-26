@@ -50,7 +50,7 @@ DECKS = ["s01_specification", "s02_substrate", "s03_modeling_i",
          "s06_promoter_occupancy", "s07_autoregulation",
          "s09_bistability", "s10_feedforward",
          "s11_oscillators", "s12_noise", "s13_digital",
-         "s14_review", "s16_logic", "s17_parts"]
+         "s14_review", "s16_logic", "s17_parts", "s18_protein", "s19_resources"]
 OUT = ROOT / "private" / "build" / "decks"
 
 # Inputs every deck depends on regardless of what it happens to draw. The
@@ -350,6 +350,29 @@ def main():
             for key, fill, box, got in deck.loose_slots:
                 print(f"    {key:<24} fills {fill:.0%} of {box[0]}x{box[1]}in "
                       f"-> renders {got[0]}x{got[1]}in")
+        if getattr(deck, 'crowded_runs', []):
+            print(f"  !! {len(deck.crowded_runs)} derivation run(s) too tight "
+                  f"to carry asides on every surface -- only the live step "
+                  f"shows one. Drop the closing box or a step to get them "
+                  f"back (needs pitch >= 0.86):")
+            for title, pitch, nsteps in deck.crowded_runs:
+                print(f"    {title[:46]:<48} pitch {pitch} over {nsteps} steps")
+        if getattr(deck, 'dropped_captions', []):
+            print(f"  {len(deck.dropped_captions)} paper figure caption(s) "
+                  f"written but NOT shown -- pass show_caption=True, or move "
+                  f"the words into a foot and drop the argument:")
+            for key, cap in deck.dropped_captions:
+                print(f"    {key:<26} \"{cap}...\"")
+        if getattr(deck, 'doubled_notes', []):
+            # Deck.notes() used to assign, so a second call on one slide threw
+            # the first away without a sound. It appends now; this is the part
+            # that tells you it happened, because two notes on one slide is
+            # almost always a missing `s = d.light()`.
+            print(f"  !! {len(deck.doubled_notes)} slide(s) had notes() "
+                  f"called more than once -- the notes were APPENDED, but "
+                  f"check for a missing surface:")
+            for idx, head in deck.doubled_notes:
+                print(f"    slide {idx}: already had \"{head}...\"")
 
     # NOTE: long_total is reported above but deliberately NOT part of the
     # strict exit yet. Session 2's handout set is labelled as one twenty-four

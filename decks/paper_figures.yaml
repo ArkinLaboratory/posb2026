@@ -361,7 +361,7 @@ basu2004_fig3:
   note: >-
     Fig. 3b,c is the rate-sensing result and the reason the receivers detect
     distance. Our figures/build/s10_pulse_generator.png recomputes the same
-    qualitative behaviour from posb; show them side by side.
+    qualitative behavior from posb; show them side by side.
 
 # --- Elowitz & Leibler, Nature 403:335-338 (2000) --------------------------
 # "A synthetic oscillatory network of transcriptional regulators"
@@ -724,3 +724,365 @@ cambray2018_fig1:
   shows: "the design-of-experiments workflow and the standardised reporter -- IPTG induction, SDL/SDR, a designed 96-nt N-terminal region, His tag, TEV site, flexible linkers into sfGFP, with inducible translational coupling"
   used_in: ["s17"]
   note: "244,000 sequences is a full factorial, not a screen. The reporter is standardised to the hilt precisely so the designed variation is the only variation -- and the paper still finds 8% design error. Show before the 28%."
+
+# --- Scott, Gunderson, Mateescu, Zhang & Hwa, Science 330:1099-1102 (2010) ---
+# doi:10.1126/science.1192588
+scott2010_fig1:
+  figure: "Fig. 1, A and B"
+  shows: "the RNA/protein ratio r against growth rate: Fig. 1A the nutrient series (positive slope, Eq. 1), Fig. 1B the translation-inhibition series at fixed nutrient (negative slope, Eq. 2)"
+  used_in: ["s19"]
+  note: "The two laws, measured, on one pair of axes. Show BEFORE the algebra -- the point is that the lines are straight and that the second one was a surprise ('Surprisingly, these data revealed another linear correlation'). Note the y axis is the RNA/protein ratio, not phi_R; the conversion phi_R = rho*r is in the SOM."
+
+# SPLIT 25 Oct. B over C in one column is aspect 0.56, so on a slide each
+# panel renders about an inch tall and neither is readable from the back of
+# the room. They also make two different claims. One key each.
+scott2010_fig4b:
+  figure: "Fig. 4B"
+  shows: "growth rate against beta-galactosidase as a percentage of total protein, three media, at a series of IPTG doses, with three straight lines converging on about 48%"
+  used_in: ["s19"]
+  note: |
+    The lines are PREDICTIONS from Eq. 6, not regressions through these
+    points -- legend, p. 1101: "The lines are predictions by Eq. 6, using the
+    growth rate lambda(phi_U = 0) and intercept phi_c = 0.48 computed from
+    the average r_max (table S4)."
+    But do NOT say "nothing was taken from this data". Each line is anchored
+    at that medium's own zero-induction growth rate; what was fixed in
+    advance is the SLOPE, via an r_max fitted to a different experiment.
+    The paper's own phrase is "without any adjustable parameters" (p. 1102),
+    which is about the prediction, not about the anchoring.
+
+scott2010_fig4c:
+  figure: "Fig. 4C"
+  shows: "growth rate against unnecessary protein as a percentage of total, for beta-galactosidase, beta-lactamase and a truncated EF-Tu from different promoters on different plasmids -- scatter only, no lines"
+  used_in: ["s19"]
+  note: |
+    NO LINES AND NO MEDIA SERIES in this panel -- an earlier version of the
+    s19 slide carried a caption that described 4B and claimed it of both.
+    Checked against the rendered figure, 25 Oct.
+    The claim this panel supports is the one about SUBSTITUTABILITY:
+    THREE proteins across FOUR expression systems -- beta-galactosidase
+    appears twice, from different promoters in different papers, and that
+    pair is its own control. Different proteins, different plasmids,
+    different laboratories, and the growth defect does not care which one
+    it is. That is the strongest evidence for charging by proteome fraction
+    alone. (An earlier version of this note and of the slide said "four
+    unrelated proteins". Wrong on both counts.)
+
+# --- Ceroni, Algar, Stan & Ellis, Nat Methods 12:415-418 (2015) --------------
+# doi:10.1038/nmeth.3339   REQUIRED READING for s19
+ceroni2015_fig1a:
+  figure: "Fig. 1a"
+  shows: "capacity (GFP production rate per cell) and culture OD after induction of a plasmid operon at several points in exponential growth"
+  used_in: ["s19"]
+  note: "The argument for the instrument. Capacity drops within 30 min; the OD-derived growth change is smaller and later. The reading's focus line asks students to come able to say what is measured and in what units -- this is the figure that answers it."
+
+ceroni2015_fig2c:
+  figure: "Fig. 2c"
+  shows: "capacity (GFP per hour) against construct output (RFP per hour) for the VioB-mCherry library, with the unattainable region shaded; blue are weak-RBS designs, red are strong-RBS"
+  used_in: ["s19"]
+  note: |
+    Cropped 25 Oct and this is the panel the "same output, different price"
+    claim actually lives in -- H3 and M1 deliver comparable output and leave
+    the host wildly different capacity. It also draws a FRONTIER with an
+    explicit "Unattainable region", which is the isocost picture from
+    segment 5 arriving two segments early and from a cytometer. Point
+    forward to it.
+
+ceroni2015_fig2a:
+  figure: "Fig. 2a"
+  shows: "per-design bar charts of output, capacity and growth rate for the VioB-mCherry library (copy number, core promoter, RBS, codon usage); bold labels are the strong promoter and RBS; coloured bars induced, grey uninduced"
+  used_in: []          # cropped and correct, but 2c is on the slide instead
+  note: |
+    CROPPED AND AVAILABLE, NOT CURRENTLY PLACED. Good for the handout, or as
+    a second surface if the design variables themselves need showing.
+    CORRECTED 25 Oct, twice over.
+    (1) The crop carried a stray bold "d" in the top-left, picked up from a
+    neighbouring panel. Trimmed. The CONTENT is 2a -- checked against the
+    legend, which describes exactly these bars and the bold-text convention.
+    (2) The earlier description here ("output against capacity") is panel
+    2c, not 2a. 2c is the scatter; 2a is the per-design bars. If the lecture
+    wants the spread-at-fixed-output claim as a single picture rather than
+    as a comparison across bars, 2c is the better figure for that claim.
+    CROPPED 25 Oct, declared above as ceroni2015_fig2c, and the slide now
+    uses it; this key is kept for the handout.
+
+# --- Gyorgy, Jimenez, Yazbek, Huang, Chung, Weiss & Del Vecchio, ------------
+# Biophys J 109(3):639-646 (2015)   doi:10.1016/j.bpj.2015.06.034
+# CORRECTED 25 Oct. This key was declared as "Fig. 1, B and C" with B called
+# the chromosomal case and C the plasmid case. The caption says otherwise:
+# "(A) ... the construct used to study the cellular economy of genetic
+# circuits. GFP is constitutively expressed and RFP is under the control of
+# activator LuxR and input AHL" -- that is the PLASMID pair -- and "(B) ... the
+# construct used to study the SEPARATION of the pool of resources used by the
+# plasmid and by the chromosomal genes." C is the MBP-gapA / MBP-dRFP controls.
+# So the pair that carries the argument is A and B, and the old key would have
+# put a control panel on the slide in place of the result.
+# SPLIT 25 Oct. A over B in one image is aspect 1.58, so on a slide the pair
+# is under 7in wide and the construct labels, axis titles and AHL doses all
+# render at about 4-5pt projected -- the review called it the least readable
+# figure in the deck. Each panel alone is aspect 3+, fills the column, and
+# the split also gives the predict-then-reveal structure the content wants.
+gyorgy2015_fig1a:
+  figure: "Fig. 1A"
+  shows: "the MBP-1.0 construct -- RFP and GFP both on the plasmid, RFP under LuxR/AHL -- and the mean RFP and mean GFP bars across the AHL series"
+  used_in: ["s19"]
+  note: "Induce RFP with AHL and the plasmid's GFP falls. Note the GFP axis is INVERTED, 0 at the top, which nobody expects."
+
+gyorgy2015_fig1b:
+  figure: "Fig. 1B"
+  shows: "the MBP-chrom construct -- the same circuit with GFP integrated in the chromosome instead -- and its mean RFP and mean GFP bars across the same AHL series"
+  used_in: ["s19"]
+  note: |
+    A DIFFERENT CONSTRUCT, not the same one re-plotted. Same inducer, same
+    AHL series, one thing changed: where the GFP gene sits. The chromosomal
+    GFP does not move. The GFP axis is inverted here too.
+
+gyorgy2015_fig1ab:
+  figure: "Fig. 1, A and B"
+  shows: "A: GFP and RFP both on the plasmid -- inducing RFP with AHL drops GFP. B: the same induction against CHROMOSOMALLY integrated GFP, which does not drop"
+  used_in: ["s19"]
+  note: "Two GFPs in two places, and the contrast is the whole result. Show A first -- the effect -- then B, the null, because the null is what says the shared pool has a boundary. The null is controlled: they built MBP-tetR with chromosomal GFP to show that a chromosomal reduction WOULD have been detectable. Panel C (MBP-gapA, MBP-dRFP) is the further control that it is not the fluorophore and not that one protein; it is not cropped."
+
+gyorgy2015_fig3b:
+  figure: "Fig. 3B"
+  shows: "GFP against RFP production as the RFP RBS is weakened -- straight lines whose slope steepens"
+  used_in: ["s19"]
+  note: "The isocost line, measured. Our figures/s19_isocost.png is the same object derived from the partition function; put them side by side."
+
+# --- Tan, Marguet & You, Nat Chem Biol 5(11):842-848 (2009) -----------------
+# doi:10.1038/nchembio.218
+# Fig. 1's panels are on PDF p. 12 (a-d) and p. 13 (e); this is an author
+# manuscript, so the figures sit after the references. Split into two keys
+# because the teaching move is to show the circuit, take a prediction, and
+# only then reveal the distribution.
+tan2009_fig1a:
+  figure: "Fig. 1a"
+  shows: "the circuit: T7 RNAP* driving its own promoter P_T7lac, with lacO, cfp as readout, LacI and IPTG"
+  used_in: ["s19"]
+  note: "Put this up and ask the room what the population will look like. Session 9's analysis says ONE state: positive feedback with no cooperativity cannot be bistable. Take the prediction before showing tan2009_fig1c."
+
+tan2009_fig1c:
+  figure: "Fig. 1c"
+  shows: "CFP distributions before dilution and 8 h after, ~31% ON both times -- bimodal, and stable across the dilution"
+  used_in: ["s19"]
+  note: "The prediction fails. Two modes, and the proportions barely move across a dilution, so it is a steady state and not a transient. The missing nonlinearity is in the host, which is the rest of the hour."
+
+tan2009_fig2:
+  figure: "Fig. 2"
+  shows: "circuit activation reduces bacterial growth rates"
+  used_in: ["s19"]
+  note: "The measured half of the mechanism. The modelled half is that slower growth dilutes less, which is figures/build/s19_rate_balance.png."
+
+# ============================================================================
+# SESSION 18 -- Protein circuits
+# ============================================================================
+#
+# Cropping convention, settled 25 Oct 2026 while cutting these: crop the PLOT
+# ONLY and let the deck carry the attribution. A journal caption is set at
+# 7-8 pt; projected at the back of a lecture hall it is unreadable, and the
+# three captions here run 3, 10 and 9 lines. An equation crop is the exception,
+# because there the text is the content.
+
+# --- Goldbeter & Koshland, PNAS 78(11):6840-6844 (1981) ---------------------
+# "An amplified sensitivity arising from covalent modification in biological
+# systems"   doi:10.1073/pnas.78.11.6840
+#
+# The printed Eq. 7 carries a typo: the leading bracket reads (V2/V2 - 1)
+# where (V1/V2 - 1) is required. Confirmed two ways -- by rendering p. 6841 at
+# 200 dpi and reading it, and by deriving the quadratic independently from
+# Eq. 8. Say so when the equation goes up; a published typo found by doing the
+# algebra is a better argument for doing the algebra than anything we can say.
+
+gk1981_eq7:
+  figure: "Eq. 7"
+  shows: "the closed-form steady-state solution for W*, as printed"
+  used_in: ["s18"]
+  note: "Carries the V2/V2 typo. Put it up and let the room find it."
+
+gk1981_eq7_eq8:
+  figure: "Eq. 7 and Eq. 8"
+  shows: "the closed form and its rearrangement to V1/V2 = W*(1 - W* + K1) / [(1 - W*)(W* + K2)]"
+  used_in: ["s18"]
+  note: "Eq. 8 is the form segment 2 derives. Deriving it ourselves and then showing this is the check."
+
+gk1981_fig1:
+  figure: "Fig. 1"
+  shows: "W and W* against V1/V2 on log axes, for K1 = K2 = 1.0 and K1 = K2 = 1e-2; the two pairs cross at 0.5"
+  used_in: ["s18"]
+  note: "The paper's own version of figures/build/s18_response.png. Show theirs, then ours, then have them reproduce it in the notebook. Nothing in the sharp curve is cooperative -- there is one modification site and no binding between sites anywhere in the model."
+
+gk1981_fig2:
+  figure: "Fig. 2"
+  shows: "R_s and R_v on one log axis: R_s against Hill coefficient (dashed), R_v against K2 for K1 = 10 K2, K1 = K2 and K1 = 0.1 K2 (solid)"
+  used_in: ["s18"]
+  note: "The conversion between the two currencies, drawn by the authors. Two anchors to read off with the room: R = 3 at n_H = 4 (81^(1/4) = 3.00), and the paper's own R_s = 4.5 at n_H = 2.9, which it attributes to hemoglobin. Then note the n_H axis stops at 12 -- which is why the prose says a cycle at K = 1e-2 is 'greater than 13' while the paper's own Eq. 10 gives 26.08. The figure ran out of axis. [the reading-off explanation is our inference, not the paper's statement]"
+
+gk1981_fig3:
+  figure: "Fig. 3"
+  shows: "the same response when enzyme is NOT negligible: E_1T = E_2T much less than W_T, = 0.1 W_T, and = W_T, at K1 = K2 = 1e-1"
+  used_in: ["s18"]
+  note: "The assumption, violated, by the authors themselves. At E_T = W_T the swing collapses to roughly 0.12-0.27 and the switch is gone -- substrate sequestered in complex is substrate that cannot move. This is the honest caveat on the notebook model, and it is the same mechanism as s19's competition and s21's retroactivity: a molecule held by something that is not its target."
+
+gk1981_eq10_eq11:
+  figure: "Eq. 10 and Eq. 11"
+  shows: "R_v = 81(K1 + 0.1)(K2 + 0.1) / [(K1 + 0.9)(K2 + 0.9)], and S_0.9/S_0.1 = R_s = 81^(1/n_H)"
+  used_in: ["s18"]
+  note: "These two are what posb.protein.sensitivity_index and apparent_hill implement. Show them beside the code. Fig. 2's caption attributes its curves to Eq. 12, the form with nonproductive binding, which reduces to Eq. 10 at rho = 0 [the paper does not state which rho Fig. 2 uses -- unverified]."
+
+# --- Dueber, Mirsky & Lim, Nat Biotechnol 25(6):660-662 (2007) -------------
+# "Engineering synthetic signaling proteins with ultrasensitive input/output
+# control"   doi:10.1038/nbt1308
+dueber2007_fig1b:
+  figure: "Fig. 1b"
+  shows: "one sigmoid with its four parameters named: basal activity, induced activity, K_act, and ultrasensitivity (n_H)"
+  used_in: ["s18"]
+  note: "Open the session on this. It is the frame for everything that follows -- our u_50 is their K_act and our apparent n is their n_H -- and it comes from a paper rather than from us. It also puts 'kinase, phosphatase' in front of the room in the authors' words, which no deck from s04 to s17 has done."
+
+dueber2007_fig1a:
+  figure: "Fig. 1a"
+  shows: "unregulated node, to primitive node with a linear response, to complex node with multiple autoinhibitory domains and a sigmoidal response"
+  used_in: ["s18"]
+  note: "A second route to the same sharpness, through autoinhibition rather than saturation. Worth one surface so the room does not leave thinking zero-order is the only way."
+
+# --- Bashor, Helman, Yan & Lim, Science 319:1539-1543 (2008) ---------------
+# "Using engineered scaffold interactions to reshape MAP kinase pathway
+# signaling dynamics"   doi:10.1126/science.1151153
+#
+# AUTHOR CHECK: Helman and Yan. An earlier draft of the week-10 plan gave the
+# authors as "Bashor, Horwitz, Peisajovich, Lim" -- two of those names were
+# invented. Corrected against the PDF.
+# ERRATUM, 22 August 2008, printed on the last two pages of the PDF: Science
+# reissued the circuit diagrams of Fig. 4 panels B and D. The versions printed
+# in the article are superseded. So bashor2008_fig4 below -- cropped from the
+# article page -- carries the UNCORRECTED B and D schematics, and the corrected
+# ones are separate keys. Use the full figure for the four-behaviors argument,
+# where the panel that matters is the time course; use the corrected key
+# wherever panel D's wiring is the thing being read.
+bashor2008_fig4:
+  figure: "Fig. 4"
+  shows: "four behaviors from one recruitment toolkit -- pulse generator, accelerator, delay, ultrasensitive switch -- each as a circuit diagram beside its measured time course"
+  used_in: ["s18"]
+  note: "The 'a parameter is manufactured' thesis in its strongest measured form: same parts, four dynamics, chosen by where the modulator is recruited and with what affinity. The B and D SCHEMATICS here are the superseded ones -- see the erratum keys below."
+
+bashor2008_fig4b_corrected:
+  figure: "Fig. 4B, erratum of 22 August 2008"
+  shows: "the corrected accelerator circuit: constitutive positive modulator, then inducible expression of the negative modulator"
+  used_in: ["s18"]
+
+bashor2008_fig4d_corrected:
+  figure: "Fig. 4D, erratum of 22 August 2008"
+  shows: "the corrected ultrasensitive-switch circuit: constitutive negative modulator, then inducible expression of a HIGH-AFFINITY positive modulator that displaces it"
+  used_in: ["s18"]
+  note: "Science states exactly what was wrong, on PDF p. 6 -- the erratum is pp. 6-7, not the last two pages. In 4D the positive modulator's leucine zipper should have been BLACK, because it binds more tightly than the negative modulator's (K_d 6.1 versus 41 nM), and the label should have read high-affinity. In 4B both zippers should have been GRAY, because there both modulators carried identical zippers and the printed label wrongly said high affinity. The erratum also amends two sentences of main text, the Fig. 4 legend, fig. S3 and tables S1-S2. Five months after publication, not four. Teaching value: the uncorrected 4D contradicts the mechanism it illustrates, since displacement requires the affinity difference."
+
+bashor2008_fig4d:
+  figure: "Fig. 4D"
+  shows: "dose-response to alpha-factor for the enhanced ultrasensitive switch against wild type"
+  used_in: ["s18"]
+  note: "The only MEASURED Hill coefficients in this session: WT 1.21 +/- 0.06, simple positive-feedback loop 2.42, full circuit 2.84 +/- 0.19. These are a different KIND of number from our computed 26.08 and must be labelled as such on the slide. The ladder worth drawing: engineered switch 2.84 (measured), hemoglobin 2.9 (measured, via Goldbeter & Koshland), zero-order cycle at k = 0.01 -> 26.1 (derived by us). The mechanism with no cooperative binding in it wins by an order of magnitude, on paper."
+
+# --- Qi, Larson, Gilbert, Doudna, Weissman, Arkin & Lim, ---------------------
+# Cell 152(5):1173-1183 (2013)   doi:10.1016/j.cell.2013.02.022
+qi2013_fig1a:
+  figure: "Fig. 1A"
+  shows: "the sgRNA chimera: 20 nt base-pairing region, 42 nt dCas9 handle, 40 nt S. pyogenes terminator"
+  used_in: ["s18"]
+  note: "Specificity is 20 nt of Watson-Crick pairing you type out, against a repressor's protein-DNA interface that took evolution to make and that s17 showed we cannot reliably recombine. That contrast is the reason this medium is on the list."
+
+qi2013_fig1b:
+  figure: "Fig. 1B"
+  shows: "wt Cas9 binds and cleaves; dCas9 binds and blocks RNA polymerase instead"
+  used_in: ["s18"]
+  note: "Two amino acid substitutions turn a nuclease into a roadblock. Mechanism before model -- the repression model (T46) only makes sense once the room has seen that the block is steric."
+
+# --- Mishra, Bepler, Teague, Berger, Broach & Weiss, -----------------------
+# Science 373(6550):eaav0780 (2021)   doi:10.1126/science.aav0780
+# REQUIRED READING for s18. NOTE: a different Mishra from the s21 load-driver
+# paper (Mishra et al. 2014). Do not merge the two in readings.yaml.
+#
+# AUTHOR CHECK: read off page 1 of the PDF, 25 Oct. The first draft of this
+# block invented eight names. That is the second fabricated author list in
+# this session's material -- see the Bashor note above. Author lists get read
+# off the page, never recalled.
+mishra2021_fig3a:
+  figure: "Fig. 3A"
+  shows: "the engineered toggle's two arms as a wiring diagram"
+  used_in: ["s18"]
+
+mishra2021_fig3b:
+  figure: "Fig. 3B"
+  shows: "the full molecular pathway in membrane, cytosol and nucleus -- SLN1/SHO1 branches, YPD1, SSK1, SSK2, PBS2, HOG1, HOT1, and the chimeric fusions CRE1-HKRR, STAT5-HKRR, GFP-HOG1-PTP, HOT1-JH1, in a quintuple-deletion background"
+  used_in: ["s18"]
+  note: "The object before the model, as a real pathway with real protein names. Spend time here. Every arrow is a phosphotransfer, the deleted genes are listed on the figure, and the two chimeras are the part of it that is engineered rather than found."
+
+mishra2021_fig3c:
+  figure: "Fig. 3C"
+  shows: "the construct's measured steady states"
+  used_in: ["s18"]
+
+mishra2021_fig4a:
+  figure: "Fig. 4A"
+  shows: "mean nuclear intensity after a 30-s sorbitol pulse (up) and a 30-s IP pulse (down), n = 100 cells"
+  used_in: ["s18"]
+  note: "Two numbers to say out loud: the transition completes in about one minute, and the input lasted 30 seconds and the state stayed. Gardner's toggle needed hours and a 6-h induction. Same topology, same phase plane, timescale faster by orders of magnitude -- which is the answer to the question s02 asked the room on 1 September."
+
+mishra2021_fig4c:
+  figure: "Fig. 4C"
+  shows: "single-cell trajectories at five sorbitol doses, for the defective toggle (triple deletion) above and the full toggle network below, after a 2-s pulse"
+  used_in: ["s18"]
+  note: "The control that earns the claim. The defective toggle never latches -- at 1e6 uM it rises and decays back. The full network latches at 100 uM and holds flat for the rest of the trace. Two seconds of input, a permanent state change: the two attractors of s08's phase plane, seen in single cells."
+
+mishra2021_fig4d:
+  figure: "Fig. 4D"
+  shows: "flux and percentage of cells flipped against input concentration, over 1e-2 to 1e6 uM"
+  used_in: ["s18"]
+  note: "The dose-response, for the threshold half of the argument. Pair with the reachable-threshold band from figures/build/."
+
+# Added 25 Oct after rendering the deck and measuring what reached the page.
+# gk1981_eq7_eq8 was a single column crop that landed 2.8in wide on a 13.3in
+# slide; Eq. 7 is set across BOTH columns of the printed page, so cropping it
+# as a column both cut it and shrank it. bashor2008_fig4 is four panels in a
+# journal column and renders 3.0in wide, which is not readable from the back
+# of a lecture hall. Both are kept -- they are correct crops -- but the deck
+# now uses these.
+gk1981_eq7_wide:
+  figure: "Eq. 7"
+  shows: "the full-width closed form for W*, with the [7] tag, as printed"
+  used_in: ["s18"]
+  note: "The typo is in the last term under the square root: 4K_2(V_2/V_2 - 1)(V_1/V_2), where V_1/V_2 is required. Visible at this width; it was not at the column width. Confirmed by rendering p. 6841 at 200 dpi and by deriving the quadratic independently from Eq. 8 -- the leading coefficient is (u - 1), so the bracket cannot be (V_2/V_2 - 1), which is zero."
+
+gk1981_eq8_wide:
+  figure: "Eq. 8"
+  shows: "V_1/V_2 = W*(1 - W* + K_1) / [(1 - W*)(W* + K_2)], alone"
+  used_in: ["s18"]
+  note: "The line segment 2 derives, in the authors' setting. Show it AFTER the derivation, never before."
+
+gk1981_eq9_wide:
+  figure: "Eq. 9"
+  shows: "W* = K_2/(K_1 + K_2), the V_1 = V_2 case"
+  used_in: ["s18"]
+  note: "The crossing point, exact. posb.protein.crossing_fraction is this line. Not currently placed in the deck -- figures/build/s18_response_crossing.png carries the same result with the curves attached."
+
+bashor2008_fig4cd:
+  figure: "Fig. 4, panels C and D"
+  shows: "the delay circuit and the enhanced ultrasensitive switch, each as a circuit diagram beside its measured response"
+  used_in: ["s18"]
+  note: "Cropped so the time courses can be read. Panel D's SCHEMATIC here is the superseded one -- the erratum of 22 August 2008 reissued it; see bashor2008_fig4d_corrected. The measured curve is unaffected."
+
+# --- Dueber, Yeh, Chak & Lim, Science 301:1904-1908 (2003) -----------------
+# "Reprogramming control of an allosteric signaling switch through modular
+# recombination"
+#
+# PROVENANCE, because it is unusual. The PDF is not in private/readings. This
+# crop comes from Adam's own 2025 deck (Lecture 24, "Protein-Circuits-and-
+# more", slide 28), where the image is a 2011 screen capture of the paper
+# opened in a browser; the figure region crops out clean at 2294x438 and the
+# browser chrome is gone. The page footer in that capture reads "1904 | 26
+# SEPTEMBER 2003 | VOL 301 | SCIENCE", and the author list was read off
+# reference 3 of the Dueber 2007 PDF we do hold -- NOT from memory. Replace
+# with a crop from the real PDF if it ever lands in private/readings.
+dueber2003_fig1:
+  figure: "Fig. 1"
+  shows: "A: N-WASP as a modular allosteric switch, OFF autoinhibited against ON activated, with Cdc42 binding GBD and PIP2 binding the B motif. B: the synthetic single-input switch, with a PDZ domain-ligand pair swapped in as a heterologous autoinhibitory module. C: its dose-response, K_act = 50 uM"
+  used_in: ["s18"]
+  note: "Three things at once, which is why it is worth a surface. (1) It is the CYCLE -- an allosteric switch shown as two states with the input displacing the autoinhibition, and 'allosteric' has 0 occurrences in decks s01-s17 while the syllabus promises allosteric switches. (2) Its own caption says the two inputs act synergistically so that 'N-WASP resembles an AND gate' -- a protein that is a logic gate, which reaches back to session 16. (3) It is the PARENT of dueber2007_fig2b: the 2007 switches are built on this same N-WASP output domain, so this is what the SH3 stacking modulates. Measured on the slide, both verified against the PDF 26 Oct and in NUMBERS.md 2b: K_act = 50 uM (p. 1904), and the INPUT PEPTIDE's K_d = 8 uM (p. 1904, GVKESLV). Do not conflate that with the INTERNAL autoinhibitory ligand, which the authors also tighten to 8 uM on p. 1906 -- different ligand, same number."

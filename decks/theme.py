@@ -307,6 +307,9 @@ class Deck:
         self.session = session
         self.missing_figures = []
         self.loose_slots = []
+        self.doubled_notes = []     # slides that got notes() called twice
+        self.dropped_captions = []  # paper_figure captions written, not shown
+        self.crowded_runs = []      # runs too tight to show asides throughout
         self.unclassified = []
         self.assignment_rendered = False
         self.assignment_overflow = None
@@ -675,7 +678,17 @@ class Deck:
             # reads the label from the header CALL rather than the rendering,
             # so nothing downstream notices. Pass label_steps=True to put it
             # back on every surface of a run.
-            self.header(s, badge, "" if not label_steps else label)
+            #
+            # A STEP COUNTER is not that label and is not what he struck. The
+            # objection to the label was that it is identical on every
+            # surface, so it tells the room nothing it did not know one click
+            # ago. "step 3 of 5" changes every click: it says where in the run
+            # you are, which is the one thing five identically-titled slides
+            # cannot otherwise tell anybody. It also restores the grey band,
+            # so a step run stops looking like a different deck. Added
+            # 25 October.
+            self.header(s, badge,
+                        label if label_steps else f"step {i} of {len(steps)}")
             self._in_step_run = False
             self.title(s, title)
             # Geometry adapts to the step count and to whether a closing box
@@ -683,7 +696,21 @@ class Deck:
             # fixed 0.92 pitch ran the last aside underneath the box.
             top, bottom = 1.62, (5.52 if closing else 6.60)
             pitch = (bottom - top) / max(len(steps), 1)
-            asides = pitch >= 0.70      # no room for the italic line below that
+            # An aside is placed at y + max(0.40, eq_h) and is at least 0.44in
+            # tall, so it reaches y + 0.84 at the very least. Admitting asides
+            # at pitch 0.70 therefore guaranteed that any run whose pitch
+            # landed in [0.70, 0.84) overlapped itself -- s19's five-step run
+            # with a closing box sat at 0.78 and the build reported ten
+            # overlapping pairs that the rendered page did not obviously show.
+            # 0.86 is 0.84 plus a hair. Raised 25 October.
+            asides = pitch >= 0.86
+            if not asides and i == 1 and any(a for _l, _r, a in steps):
+                # Suppressing asides stops the overlap but it also holds back
+                # lines that were written to be read. The live step keeps its
+                # aside (see the guard below); the earlier ones do not. Say so,
+                # because silently teaching less is the worse failure of the
+                # two and the fix is usually to drop the closing box.
+                self.crowded_runs.append((title, round(pitch, 2), len(steps)))
             # A step label longer than the 3.9in column wraps to two lines, and
             # on a long run the pitch is smaller than two lines are tall -- so
             # row j runs into row j+1. Found in session 7's eight-step runs on
@@ -1028,7 +1055,26 @@ class Deck:
         return y + 0.6
 
     def notes(self, s, txt):
-        s.notes_slide.notes_text_frame.text = txt
+        """Set the speaker notes for a slide.
+
+        This used to ASSIGN, which meant a second call on the same slide
+        silently destroyed the first. That is not a theoretical hazard:
+        inserting a surface into a deck without giving it its own
+        `s = d.light()` leaves two notes() calls pointing at one slide, and
+        three notes were lost that way in s18 on 25 October -- found only by
+        unzipping the pptx and mapping notesSlides back to slides.
+
+        So it appends, and the build reports it. A slide carrying two notes
+        is nearly always an editing mistake; the author should be told rather
+        than lose a paragraph to a method that looked like it worked.
+        """
+        tf = s.notes_slide.notes_text_frame
+        if tf.text.strip():
+            self.doubled_notes.append(
+                (len(self.prs.slides._sldIdLst), tf.text.strip()[:58]))
+            tf.text = tf.text.rstrip() + "\n\n" + txt
+        else:
+            tf.text = txt
 
     # -- the paper-figure slot ----------------------------------------------
     def unattributed(self, s, x, y, w, note="source not yet identified"):
@@ -1051,7 +1097,8 @@ class Deck:
         self.unattributed_figures.append(note)
         return y + 0.42
 
-    def paper_figure(self, s, key, x, y, w, h, ref, caption):
+    def paper_figure(self, s, key, x, y, w, h, ref, caption,
+                     show_caption=False):
         """Embed a figure from a published paper -- if it is available locally.
 
         Copyrighted figures cannot live in this public CC BY repository. So the
@@ -1073,14 +1120,44 @@ class Deck:
             # placed underneath (session 10 slide 7). Grow it only when the
             # ref will actually wrap: at 16pt a column holds about 9 characters
             # per inch.
-            ref_h = max(0.30, text_height(ref, iw, TYPE["caption"]))
+            # Reserve at the size this will actually RENDER at, not at the
+            # number passed. scale() maps a bare size=14 up onto the 20pt
+            # content floor, so reserving at TYPE["caption"] (16) under-counted
+            # every citation by 25% and a two-line ref in a narrow column ran
+            # into whatever the caller placed beneath it. Fixed 25 October;
+            # s18 and s19 had each worked around it locally.
+            ref_h = max(0.30, text_height(ref, iw, scale(14)))
             self.text(s, ref, ix, iy + ih + 0.04, iw, ref_h, size=14,
                       italic=True, color=MUTED if not s._posb_dark else SILVER,
                       align="c")
+            # THE CAPTION. Until 25 October this argument was accepted,
+            # carried through 62 call sites across the course, and then
+            # silently dropped on every slide where the figure actually
+            # EXISTED -- it was only ever drawn on the amber placeholder that
+            # CI sees. So the public build showed the reading of each figure
+            # and the classroom build showed a bare journal panel and a
+            # citation line, with nothing saying what the room was looking at.
+            #
+            # Rendering it unconditionally is the right end state and it is
+            # not what this change does, because it reflows nine decks --
+            # several already taught -- with new overlaps and off-slide
+            # shapes. So it is opt-in per call site, and every caller that
+            # passes a caption WITHOUT asking for it is counted and reported
+            # at build time. The debt is now visible and finite instead of
+            # silent. Flip the default once the list is empty.
+            if caption and show_caption:
+                cap_h = max(0.30, text_height(caption, iw, scale(14)))
+                self.text(s, caption, ix, iy + ih + 0.04 + ref_h + 0.06,
+                          iw, cap_h, size=14,
+                          color=INK if not s._posb_dark else MINT,
+                          align="c")
             # A slot whose aspect ratio does not match the figure's wastes the
             # space it reserved: the image shrinks to fit and lands small in a
             # big empty box. Cheap to detect, invisible until you look at the
             # rendered slide, so detect it.
+            if caption and not show_caption:
+                self.dropped_captions.append((key, " ".join(
+                    str(caption).split())[:58]))
             fill = (iw * ih) / (w * h)
             if fill < 0.75:
                 self.loose_slots.append(

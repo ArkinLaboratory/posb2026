@@ -35,12 +35,12 @@ means the word appears nowhere in any of the three.
 | Karnaugh maps, two-level minimisation, canonical forms | L17, L18 | 1 (a syllabus aside) | **Deliberate cut.** Triage §2 is right: this is EE 101, not synthetic biology. |
 | Verilog, netlists, circuit scoring, Eugene | L15–L19 | 0 | **Mostly right to cut**, but S16 keeps Cello, and Cello *is* a netlist compiler. Something has to explain what it compiles. |
 | Sequential logic: SR latch, clocked memory, registers | L21 | 0 | **Gap.** S9 builds a toggle, which *is* an SR latch, and never says so. One slide closes this. |
-| Analog computation — log, add, ratiometer | L24 | 0 | **Real loss.** See §3. |
+| Analog computation — log, add, ratiometer | L24 | 0 | ~~**Real loss.** See §3.~~ **CLOSED 20 Sep 2026** — restored as the second half of S13. |
 | Protein circuits in depth: scaffolds, ultrasensitivity, allosteric switches | L24 (83 slides) | 0 for "scaffold", 0 for "ultrasensit" | **Compressed to one clause** of S18. 83 slides into a clause. |
 | Synthetic morphogenesis, organoids, GATA6 symmetry breaking | L24 | 0 | **Real loss.** The only multicellular-development content in the course. |
-| Epidemics, defective interfering particles, TIPs, gene drives | L25 (39 slides) | 0 | **Loss by relabelling.** Triage sends L25 to S28 "biosecurity and governance"; the syllabus text for S28 is about screening and governance, not epidemic dynamics. |
+| Epidemics, defective interfering particles, TIPs, gene drives | L25 (39 slides) | 0 | ~~**Loss by relabelling.**~~ **CLOSED, confirmed 19 Oct 2026** — it went to **S25**, not S28. S25's required reading is Weinberger, Schaffer & Arkin, *J Virol* 2003, and T73 (compute *R*₀ for a therapeutic interfering particle) is assigned there. |
 | DNA strand displacement (Qian & Winfree) | L15, L16 | 0 | Defensible cut — it is molecular computing, not cellular. |
-| miRNA cell classifiers (Xie 2011, Gam 2018) | L13–L16 (3 lectures) | 0 for "miRNA" | **Gap.** S26 says "logic-gated cell therapies, synNotch". The miRNA classifier is the other half and is the one with a model students can build. |
+| miRNA cell classifiers (Xie 2011, Gam 2018) | L13–L16 (3 lectures) | 0 for "miRNA" | ~~**Gap.**~~ **CLOSED, confirmed 19 Oct 2026** — S26's required reading in `readings.yaml` is Xie *et al.*, *Science* 2011, and T69 (design a multi-input classifier to a false-positive budget) is that object. |
 
 Two of these — analog computation and the DIP/TIP material — are not small.
 Together they were about 60 slides of 2025 and they are the two places where the
@@ -94,6 +94,15 @@ last year.
 ---
 
 ## 3. The three judgement calls
+
+> **STATUS, 19 October 2026 — all three of the calls below are now settled.**
+> Analog computation was restored to S13 on 20 September. The miRNA classifier
+> landed in S26 (Xie 2011 is its required reading). The epidemic dynamics
+> landed in **S25**, not S28, with Weinberger, Schaffer & Arkin 2003 as the
+> reading and T73 as the technique. The text below is kept as the record of
+> the reasoning; **do not re-open these as open questions.**
+
+
 
 Everything above is inventory. These three are decisions.
 

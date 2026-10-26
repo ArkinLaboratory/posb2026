@@ -9,7 +9,23 @@
 **Grading column.** `AUTO` = otter-grader can check it (returns a number, array, or function output). `HAND` = requires a human reading a derivation, plot, or argument. `MIX` = a computational part plus an interpretive part.
 
 **⚠ Open gaps.** A row marked ⚠ is one where the audit currently fails and the
-fix is a decision, not an edit. **There are none open.**
+fix is a decision, not an edit. **One is open: T50.**
+
+- **T43 and T44a, 26 October.** T43 used to be assessed by a
+  classify-the-context item that only classified; it is now Q1, which
+  *quantifies* it — the compositor's prediction over what the gene actually
+  reaches, a factor of three. That is what the row's verb asks for and the
+  old item never did. T44a is new: PS7's largest autograded block is the
+  covalent cycle and the sensitivity index, and the audit had no row for it
+  at all, so eight points were being graded against nothing listed here.
+  Found by the F4.6 pass.
+
+- **⚠ T50 — the growth laws are assessed only in the question that is required
+  for BioE 247 and extra credit for BioE 147.** So for the undergraduate
+  cohort the row is not assessed at all. Either the final carries it for 147,
+  or an undergraduate-facing item is added, or the row is honest that it is a
+  247 row. Added to the final's scope on 26 October as the cheapest of the
+  three; revisit when the final is written.
 
 - **T23a — ADDED 11 October 2026, and it is the one row whose demonstration is not
   checkable from the repo.** B1.3 on the midterm asks what decides whether a brief
@@ -94,19 +110,20 @@ fix is a decision, not an edit. **There are none open.**
 | T39 | Truth table → biological circuit mapping | S16 (Oct 20) | PS6 | HAND |
 | T40 | Hazard identification; complete timing table | S16 | PS6, Final | AUTO |
 | T41 | Cascade delay estimation | S16 | PS6 | AUTO |
-| T42 | Compose parts in code (the compositor abstraction) | S17 (Oct 22) | PS7 | AUTO |
-| T43 | Quantify context dependence of a part | S17 | PS7 | HAND |
+| T42 | Compose parts in code, and compute where composition fails | S17 (Oct 22), S19 | PS7 | MIX |
+| T43 | Quantify context dependence of a part | S17, S19 | PS7 | MIX |
+| T44a | Derive the covalent-cycle steady state; compute the sensitivity index and the apparent Hill coefficient | S18 (Oct 27) | PS7, Final | MIX |
 | T44 | **Golden Gate overhang and primer design** | S17 | PS7 | MIX |
-| T45 | Compare gate families on orthogonality, speed, and load | S18 (Oct 27) | PS7 | MIX |
+| T45 | Compare gate families on orthogonality, speed, and load | S18 (Oct 27) | **PS8** | MIX |
 | T46 | CRISPRi repression model | S18 | PS7 | MIX |
 | T47 | Recombinase state model / memory element | S18 | PS7 | HAND |
-| T48 | Build and simulate a shared-resource model | S19 (Oct 29) | PS7, Final | AUTO |
+| T48 | Build and simulate a shared-resource model | S19 (Oct 29) | PS7, Final | MIX |
 | T49 | Couple burden to growth rate | S19 | PS7, Final | MIX |
-| T50 | Apply bacterial growth laws | S19 | PS7 | HAND |
-| T51 | Build **S** for a metabolic network | S20 (Nov 3) | PS7 | MIX |
-| T52 | **Solve FBA as a linear program** (`scipy.optimize.linprog`) | S20 | PS7, Final | AUTO |
-| T53 | Knockout prediction and flux coupling | S20 | PS7, Final | AUTO |
-| T54 | Objective-function choice and its consequences | S20 | PS7 | HAND |
+| T50 | Apply bacterial growth laws | S19 | PS7 (247 only — see note), Final | HAND |
+| T51 | Build **S** for a metabolic network | S20 (Nov 3) | **PS8** | MIX |
+| T52 | **Solve FBA as a linear program** (`scipy.optimize.linprog`) | S20 | **PS8**, Final | AUTO |
+| T53 | Knockout prediction and flux coupling | S20 | **PS8**, Final | AUTO |
+| T54 | Objective-function choice and its consequences | S20 | **PS8** | HAND |
 | T55 | **Derive the retroactivity term** | S21 (Nov 5) | PS8, Final | HAND |
 | T56 | Quantify load effect on an upstream module | S21 | PS8, Final | AUTO |
 | T57 | Insulation via timescale separation (load driver) | S21 | PS8 | MIX |
@@ -258,13 +275,72 @@ A first version of this used NEB's "93%" for the nine-overhang MoClo Level 1
 set and called it an assay. It is a PREDICTED fidelity, for a different set
 than the one the AATG claim comes from. Caught on 18 October before release.
 
-**T42 — compose a two-part system in code — is NOT demonstrated.** The
-compositor slide shows the abstraction as a diagram and the foot names the
-`posb` form it would take, but no code appears in the session and none is
-written by students. Before claiming this row, S17 needs either a code
-figure on the compositor slide or the session notebook, which is also where
-PS7 will call it from. The syllabus promise is in writing and this row is
-not yet true; it is listed here so it is not quietly assumed.
+**T42 — RESOLVED 26 October, by changing what is assessed rather than by
+adding a demonstration.** The compositor slide shows the abstraction as a
+diagram; no code appeared in the session and none was written by students, so
+"compose a two-part system in code" was a promise the week did not keep.
+
+The fix follows the session's own thesis. The compositor is not a programming
+technique worth three points — it is a constructor, and any of these students
+can write one. It earns its place as *the abstraction the hour breaks*: the
+deck's own framing is that every abstraction in this course, the compositor
+included, assumes composing A and B leaves A and B alone, and that this is
+false. So PS7 now has them **write the compositor and then compute how wrong
+it is**, against the shared-pool mechanism from S19 — a factor of three on
+gene 1 at the demands used in class. The row is reworded to match, the
+grading column moves from AUTO to MIX because the interpretation is the
+point, and the demonstration is S17's slide plus S19's derivation rather
+than a notebook that does not exist.
+
+This also discharges what the s17 deck said out loud to the room on
+22 October — that T42 would be assessed on PS7.
+
+
+### A forward promise session 13 did not keep — found 19 October
+
+This is a new failure class for this document: not *assessed without being
+demonstrated*, but **asserted to the room, with a number, against a session
+that did not carry it.**
+
+`decks/s04_modeling_ii.py:551`, in a ConcepTest resolution note taught on
+**8 September**:
+
+> *"Zero-order ultrasensitivity in a phosphorylation cycle gives an apparent n
+> above 20 from ONE site; so does titration by a decoy. **Both are session
+> 13.**"*
+
+`decks/s13_digital.py` contains **zero** occurrences of "ultrasensit",
+"zero-order" and "phosphoryl". Session 13 was taught on 8 October. So the room
+was told a quantitative result exists and pointed at a session that never
+produced it, and nothing in this repository noticed, because every mechanical
+gate here checks *assessment* against *demonstration* and this claim is
+assessed nowhere.
+
+**The claim itself is true.** Goldbeter & Koshland's own Eq. 10 gives an
+apparent Hill coefficient of **26.08** at K₁ = K₂ = 0.01 W_T, verified
+independently against the numerical root of the steady-state condition in
+`posb/protein.py`.
+
+**Resolution.** S18 (27 October) demonstrates it, so the result lands eleven
+days after it was promised rather than never. Two follow-ups:
+
+1. **The forward pointer in `decks/s04_modeling_ii.py` should read session 18,
+   not session 13.** s04 is already taught, so this changes nothing a student
+   heard; it matters because s14 and the final-exam scope document are built
+   from these sources. *Offered to Adam as a named line change — decks are
+   hand-edited and are not edited for him.*
+2. **"Titration by a decoy" is also taught nowhere** — "decoy" and "titrat"
+   appear once each in the whole deck set, both in this same note. It is the
+   same mechanism as S19's resource competition and S21's retroactivity, so
+   S18 gives it a surface and names the three together.
+
+**The general lesson for this document.** A speaker note that promises a future
+session is an unchecked cross-reference. There is no gate for it. Until there
+is, a session being built should grep the taught decks for forward pointers
+naming it — `grep -n -o -i "session NN[^.\"]\{0,70\}" decks/*.py` — and treat
+each one as an obligation. Running that for S18 found **four more**, in
+`decks/s02_substrate.py`, promising content quite different from what the
+syllabus says S18 is.
 
 ---
 

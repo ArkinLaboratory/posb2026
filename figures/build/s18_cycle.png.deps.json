@@ -1,0 +1,11 @@
+{
+  "artifact": "s18_cycle.png",
+  "artifact_sha256": "aca50f5c157d23761375e6d95fe2ac53f980a510a8f202645f1e2ebd23e15ab1",
+  "artifact_content": "e46057abf7a7c1f16b3044e8267bbed7554c7e2e98089914aa0ef77195d5248b",
+  "artifact_bytes": 64650,
+  "deps": {
+    "figures/s18_protein.py": "f54b072b6d5ad8c0595524e16286618dae3ad814ba3a47956d23aa64415aa721",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s18_protein.fig_cycle"
+}

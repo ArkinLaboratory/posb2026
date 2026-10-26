@@ -15,6 +15,7 @@ weekend-consuming exercise. The two lowest scores are dropped.
 | PS4 | Oct 1 | [The phase plane, bistability, and the toggle switch](ps04-phase-plane/) | ✅ |
 | PS5 | Oct 8 | [Feedforward loops and oscillation](ps05-feedforward/) | ✅ |
 | PS6 | Oct 29 | [Noise, gates and logic in time](ps06-noise-logic/) | ✅ |
+| PS7 | Nov 5 | [Implementation layers, resources and burden](ps07-implementation/) | ✅ |
 
 Remaining sets are in preparation — see the
 [Course Map](../docs/course-map.md) for the schedule.

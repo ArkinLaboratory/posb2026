@@ -1,0 +1,11 @@
+{
+  "artifact": "s18_cycle_sweep.mp4",
+  "artifact_sha256": "17625ffdc6d5bca880097d69912ce295a576bfc70ade8ef23764bf9c85c7524b",
+  "artifact_content": "17625ffdc6d5bca880097d69912ce295a576bfc70ade8ef23764bf9c85c7524b",
+  "artifact_bytes": 945135,
+  "deps": {
+    "figures/s18_movie.py": "9c11846a771eb888a597b230554316af366dd44f39e32ba583d399bf4b6f3727",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s18_movie.fig_cycle_movie"
+}

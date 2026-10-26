@@ -1,0 +1,11 @@
+{
+  "artifact": "s19_hidden_edge.png",
+  "artifact_sha256": "98fdaea0cd97a4e611d9879c7830c78d134633b78088bad48ec520b15d74fb80",
+  "artifact_content": "fb893b136f13793c147fb36f7cb9307f3c9184569323a68992cbfa639545b3e1",
+  "artifact_bytes": 164666,
+  "deps": {
+    "figures/s19_resources.py": "6e3b29a35acbc39cd8bdd31f65c303c80069399976ed82cf74b82ecf9e4fc73b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s19_resources.fig_hidden_edge"
+}

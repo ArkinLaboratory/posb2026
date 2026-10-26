@@ -1,0 +1,11 @@
+{
+  "artifact": "s18_apparent_hill.png",
+  "artifact_sha256": "4658fe4a359347ed75cbc2d01a4c40bce8f5c12ddd0bfa5d11a093d2150545fb",
+  "artifact_content": "a5898d072429ef60dc7b89aef3dd05ae7a0cc9483a92039e32caca40b331dc89",
+  "artifact_bytes": 115433,
+  "deps": {
+    "figures/s18_protein.py": "f54b072b6d5ad8c0595524e16286618dae3ad814ba3a47956d23aa64415aa721",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s18_protein.fig_apparent_hill"
+}

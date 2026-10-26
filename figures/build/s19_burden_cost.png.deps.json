@@ -1,0 +1,11 @@
+{
+  "artifact": "s19_burden_cost.png",
+  "artifact_sha256": "abb2b45c0e26e601bb5b9d87f146853c621968539b4f0868c7e7fa9752e9cccb",
+  "artifact_content": "8a31c2098fcf0384fd6942c52ff1aa7a1f0625a5ca200099d433176c100be2e5",
+  "artifact_bytes": 128683,
+  "deps": {
+    "figures/s19_resources.py": "6e3b29a35acbc39cd8bdd31f65c303c80069399976ed82cf74b82ecf9e4fc73b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s19_resources.fig_burden_cost"
+}

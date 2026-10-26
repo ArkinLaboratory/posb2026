@@ -1,0 +1,11 @@
+{
+  "artifact": "s19_rate_balance.png",
+  "artifact_sha256": "867fb96057d5256c2e7a4d8547d58dfc60f322991dda72a66cc736fa90bfc39f",
+  "artifact_content": "8b052c9754690e928f81fe9f30e9748c5e1180e38e8464f4f30d1959998a6e95",
+  "artifact_bytes": 125632,
+  "deps": {
+    "figures/s19_resources.py": "6e3b29a35acbc39cd8bdd31f65c303c80069399976ed82cf74b82ecf9e4fc73b",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s19_resources.fig_rate_balance"
+}

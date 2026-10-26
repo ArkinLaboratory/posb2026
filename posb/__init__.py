@@ -27,6 +27,14 @@ assembly   Session 17. Golden Gate junctions: the 120 usable overhang
                        identities, distinguishability measured against the
                        reverse complement, a clash proxy, and the published
                        standard sets with their MEASURED fidelity.
+protein    Session 18. Covalent modification cycles: the steady state as a
+                       quadratic, the two exact results, and zero-order
+                       ultrasensitivity -- an apparent Hill coefficient with no
+                       cooperative binding anywhere in the model.
+resources  Session 19. Competition for a shared translational pool: the
+                       partition function again, the apparent repression it
+                       manufactures between unconnected genes, and the isocost
+                       line.
 
 Coming later in the term
 ------------------------
@@ -36,7 +44,7 @@ Everything here is plain NumPy and SciPy. There is no hidden solver, no
 symbolic engine, and no simulation framework. Read the source.
 """
 
-from . import data, stochastic, digital, logic
+from . import data, stochastic, digital, logic, protein, resources
 from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,
@@ -45,7 +53,7 @@ from .analysis import (
     sweep, leading_real_part, hopf_boundary,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __all__ = [
     "Reaction", "Model", "Trajectory",
     "nullcline", "fixed_points", "jacobian", "classify", "stability_report",
