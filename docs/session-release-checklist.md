@@ -84,7 +84,7 @@ path"*, which reads to a student as a broken assignment.
 > here can reach them. Never add a path that resolves inside `private/`.
 
 ```bash
-git add decks/ figures/ handouts/ sessions/ docs/ tools/ \
+git add decks/ figures/ handouts/ sessions/ docs/ tools/ tests/ \
         posb/ problem-sets/ readings.yaml AGENTS.md
 git commit -m "Session N: ..."
 git push
@@ -96,7 +96,8 @@ Then the **private** repo, which holds the only copy of every solution:
 
 ```bash
 cd private
-git add sources/ handouts/ board-notes/ paper-figures/ taught/
+git add sources/ handouts/ board-notes/ paper-figures/ taught/ \
+        announcements/ log/
 git commit -m "PSn master; session N answers, board notes, figures; taught deck"
 git push
 ```

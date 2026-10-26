@@ -29,3 +29,10 @@ handouts/build/
 
 # Session scratch: files parked for deletion because the device shell cannot rm.
 _to_delete/
+
+# Working scratch from a build or review session. On 25 October this held 307
+# PNGs, among them crops of published paper figures (scott2010_fig4.png,
+# f4b.png) -- the same material private/paper-figures/ exists to keep out of a
+# public repository. It was untracked rather than ignored, so a single
+# `git add -A` would have published it.
+_scratch/
