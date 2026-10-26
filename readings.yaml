@@ -520,9 +520,14 @@ readings:
       pages: 3
       required: true
       focus: >-
-        Supplementary Table 1 and the predicted-against-observed comparison --
-        39 of 50 right. Come with a guess about what the eleven failures have in
-        common.
+        Figure 1 -- the predicted-against-observed comparison, 39 of 50 right,
+        with arrows marking the strains more than 10% off. Then Supplementary
+        Figure 1, the evolution time course, and Supplementary Table 1, which is
+        where the model's uptake rates came from: notice they were measured and
+        fed in. Come with a guess about what the eleven failures have in common.
+        (Corrected 26 Oct 2026 -- this note used to call Supplementary Table 1
+        the predicted-against-observed comparison. It is not; it is the measured
+        uptake rates used as model inputs. The comparison is Figure 1.)
       why: >-
         Three pages in which a model predicts a growth rate, someone builds the
         strain, evolves it, and checks. The clearest example in the course of a

@@ -35,16 +35,25 @@ resources  Session 19. Competition for a shared translational pool: the
                        partition function again, the apparent repression it
                        manufactures between unconnected genes, and the isocost
                        line.
+retroactivity
+           Session 21. What a downstream load costs the module driving it:
+                       the retroactivity term, the exact steady states of the
+                       conservative and diluted models, and the result that
+                       both costs are set by sites-per-molecule and NOT by the
+                       affinity -- so weakening the operator buys nothing.
 
-Coming later in the term
-------------------------
-fba        Session 20. Flux balance analysis as a linear program.
+fba        Session 20. Flux balance analysis as a linear program: session 3's
+                       stoichiometric matrix with the rate column thrown away.
+                       S @ v = 0 plus bounds plus an imported objective -- and
+                       the two limitations that come with the shape of the
+                       problem, vertex solutions and alternate optima, both
+                       checkable rather than asserted.
 
 Everything here is plain NumPy and SciPy. There is no hidden solver, no
 symbolic engine, and no simulation framework. Read the source.
 """
 
-from . import data, stochastic, digital, logic, protein, resources
+from . import data, stochastic, digital, logic, protein, resources, retroactivity, fba
 from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,

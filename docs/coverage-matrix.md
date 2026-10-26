@@ -130,9 +130,9 @@ fix is a decision, not an edit. **One is open: T50.**
 | T58 | Integral feedback → exact adaptation | S22 (Nov 10) | PS8, Final | HAND |
 | T59 | Simulate an antithetic integral controller | S22 | PS8, Final | AUTO |
 | T60 | Quantify disturbance rejection | S22 | PS8 | AUTO |
-| T61 | Mutation–selection model; **time to circuit failure** | S23 (Nov 12) | PS8, Final | AUTO |
-| T62 | Estimate fitness cost from growth data | S23 | PS8 | MIX |
-| T63 | Retention time and containment requirement | S23 | PS8 | AUTO |
+| T61 | Mutation–selection model; **time to circuit failure** | S23 (Nov 12) | PS9, Final | AUTO |
+| T62 | Estimate fitness cost from growth data | S23 | PS9 | MIX |
+| T63 | Retention time and containment requirement | S23 | PS9 | AUTO |
 | T64 | Sender/receiver model construction | S24 (Nov 17) | PS9, Final | MIX |
 | T65 | Band-detect / patterning analysis | S24 | PS9 | AUTO |
 | T66 | Diffusion length scale in a community (reuses T2) | S24 | PS9 | AUTO |
@@ -213,9 +213,43 @@ PS9 is due **Dec 3**; session 27 is **Dec 1** and session 28 is **Dec 3** itself
 
 This is defensible — closing sessions on frontier material and governance — but it means those four techniques get **zero formative practice**. Either accept that and weight them lightly on the final, or move one earlier. Flagged, not fixed.
 
-### 4. PS8 spans two weeks
+### 4. PS8 and PS9 rebalanced to 11 techniques each — settled 26 October 2026
 
-Out Nov 5, due Nov 19, covering sessions 21–23. This is the longest window and the heaviest conceptual load (retroactivity, control, evolutionary stability — the three sessions with no existing deck). Consider splitting into two shorter sets if authoring allows.
+The 19 October audit (`private/log/WEEK10-PLAN-2026-10-19.md` §1) recommended a
+three-way rebalance of PS7, PS8 and PS9. Only PS7 was applied; T45 was pushed
+onto PS8 and the session-23 block was left there, so PS8 reached **14
+techniques against PS9's 8** — the overload the rebalance existed to prevent,
+relocated onto the set this document itself calls the largest block of net-new
+work in the course.
+
+Settled by Adam on 26 October: **the session-23 block — the mutation–selection
+model and time to circuit failure (T61), fitness cost from growth data (T62),
+and retention time and the containment requirement (T63) — moves from PS8 to
+PS9.**
+
+| set | out → due | sessions assessed | techniques | n | last taught → due |
+|---|---|---|---|---|---|
+| **PS8** | Nov 5 → Nov 19 | S18, S20, S21, S22 | T45, T51–T60 | **11** | S22 Nov 10 → 9 days |
+| **PS9** | Nov 19 → Dec 3 | S23, S24, S25, S26 | T61–T70, T73 | **11** | S26 Nov 24 → 9 days |
+
+Three reasons, the last of which is the decisive one:
+
+- **Milestone collision.** M3 (4–5 pp plus the first runnable package) is due
+  Nov 12, inside PS8's window. The 14-technique version put the heaviest set
+  against the heaviest milestone, and session 23 is taught the same day M3 is
+  due.
+- **Reader load.** PS9 comes out seven-of-eleven autograded against PS8's five,
+  so the lighter set is the one whose grading lands beside the final project and
+  the final exam.
+- **Authoring order.** Under the old split PS8 posted Nov 5 while assessing
+  session 23 — taught Nov 12, built the same week the set went out. Problems
+  would have been written against a session that did not exist. Every technique
+  on PS8 now comes from a session built before PS8 is authored.
+
+Both published syllabus *Covers* columns were wrong under either split and were
+corrected the same day: PS8's omitted flux balance analysis and the gate-family
+comparison, and PS9's promised *generative design*, which is session 27 and is
+assessed on the final only.
 
 ### 5. Grading load, computed
 

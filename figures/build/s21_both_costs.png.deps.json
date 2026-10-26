@@ -1,0 +1,11 @@
+{
+  "artifact": "s21_both_costs.png",
+  "artifact_sha256": "e65694d0c3b6291d2499ff54bd7fdefb38e846ce4eaaf421f4c70b843651775b",
+  "artifact_content": "0275a56f05dc217419580f1ceab1bf69fdada4b1513ecb8d0e545f001aee6dff",
+  "artifact_bytes": 115161,
+  "deps": {
+    "figures/s21_retroactivity.py": "20ed02dd119cba48c5f8742ba174650e4bf55c2a76fb51f84c666137939ea268",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s21_retroactivity.fig_both_costs"
+}

@@ -60,7 +60,8 @@ MODULES = ["figures.s01_specification", "figures.s02_substrate",
            "figures.s12_noise", "figures.s13_digital",
            "figures.s14_review", "figures.s16_logic",
            "figures.s17_parts",
-           "figures.s18_protein", "figures.s19_resources"]
+           "figures.s18_protein", "figures.s19_resources",
+           "figures.s20_metabolic", "figures.s21_retroactivity"]
 
 # Slow to render (video encoding), so not built unless asked for by name.
 SLOW = ["figures.s02_movie", "figures.s14_movie", "figures.s18_movie"]
