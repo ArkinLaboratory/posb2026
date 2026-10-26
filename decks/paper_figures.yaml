@@ -938,6 +938,18 @@ dueber2007_fig1b:
   used_in: ["s18"]
   note: "Open the session on this. It is the frame for everything that follows -- our u_50 is their K_act and our apparent n is their n_H -- and it comes from a paper rather than from us. It also puts 'kinase, phosphatase' in front of the room in the authors' words, which no deck from s04 to s17 has done."
 
+dueber2007_fig2b:
+  figure: "Fig. 2b"
+  shows: "three synthetic switches built on the N-WASP output domain, carrying one, three and five SH3 autoinhibitory modules, with their dose-responses"
+  used_in: ["s18"]
+  note: "DECLARED 26 October. The crop existed in private/paper-figures/ and the slide placed it, so _resolve_paper_figure found it and the build passed -- with the manifest never knowing, which defeats the manifest. Found by the session-README pass. Measured on the slide: n_H = 1.0 at one module, 2.7 at three, 3.9 at five, from actin polymerization assays, Fig. 2a per NUMBERS.md 3. This is the second route to sharpness -- stacked autoinhibition rather than saturation -- and it is the CHILD of dueber2003_fig1, which is the same output domain before any of this was done to it."
+
+dueber2007_fig2a:
+  figure: "Fig. 2a"
+  shows: "the construct series itself: the N-WASP output domain with one, three and five SH3 modules drawn as a ladder"
+  used_in: []
+  note: "Cropped and not placed. Keep it: if the Fig. 2b surface ever needs the construct shown before its result, this is that picture. Declared 26 October so the crop is not orphaned."
+
 dueber2007_fig1a:
   figure: "Fig. 1a"
   shows: "unregulated node, to primitive node with a linear response, to complex node with multiple autoinhibitory domains and a sigmoidal response"
