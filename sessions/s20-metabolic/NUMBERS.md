@@ -1,5 +1,7 @@
 # Session 20 — NUMBERS
 
+
+> **SUPERSEDED IN PART, 26 October 2026.** The two-cause story below — one failure a missing route, the other a wrong objective — is NOT what Fong & Palsson conclude. Their only diagnosis covers BOTH genes and is network incompleteness (p. 1057). Eleven is 8 + 3: eight are ppc or tpi, three are single replicates the authors decline to diagnose. The model was also RIGHT about tpi on malate and succinate. The deck's segment 7 carries the corrected version; prefer it.
 Read off the PDFs on **26 October 2026**: the 3-page article plus all three
 supplementary files, which arrived that morning. **Record the kind, not only the
 value** — for this session the kinds *are* the argument.
@@ -26,7 +28,7 @@ Three qualifications, each read off a page, each load-bearing:
 | qualification | source |
 |---|---|
 | The uptake rates are **measured and fed in**, not predicted. *"For direct comparison with experimental strains, experimentally determined substrate and oxygen uptake rates were used as input parameters for the computational simulations."* The values are **Supplementary Table 1** | SI Methods, p. 1; SI Table 1 |
-| The strains are **evolved**, not naive. Supplementary Fig. 1 is the time course — normalised growth rate against generations for each replicate on each substrate | abstract; SI Fig. 1 |
+| The strains are **evolved**, not naive. Supplementary Fig. 1 is the time course — normalised growth rate against DAYS of evolution (0-50) for each replicate on each substrate | abstract; SI Fig. 1 |
 | **"Right" means within 10%** — Fig. 1's arrows mark the strains that deviate by more than that | Fig. 1 caption |
 
 **So the model is handed its own boundary conditions and asked for one number.**

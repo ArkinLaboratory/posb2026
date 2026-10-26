@@ -11,7 +11,7 @@ What this session has to draw:
     S is just the picture, counted.
   * THE ANSWER. `fig_flux_map` -- the optimum, and the same network with the
     TCA knocked out. The branch point goes all-or-nothing both times, to a
-    different vertex.
+    different corner of the feasible region.
   * THE KNOCKOUTS. `fig_knockouts` -- four lethal, one costly, two free.
   * THE LIMITATION. `fig_alternate_optima` -- add a parallel route and two
     fluxes become undetermined while the objective does not move.
@@ -135,7 +135,7 @@ def fig_flux_map():
     # No floating annotation: the ackA row says it already -- 0 on the left,
     # 6.67 on the right -- and every band wide enough to hold the sentence is
     # occupied by a bar in one panel or the other.
-    fig.suptitle("A linear program answers at a vertex, so the branch is all or nothing",
+    fig.suptitle("One arm pays better, so the optimum takes it outright",
                  fontsize=TYPE["title"], color=INK)
     fig.tight_layout(rect=(0, 0, 1, 0.93))
     fig.savefig(f"{OUT}/s20_flux_map.png")

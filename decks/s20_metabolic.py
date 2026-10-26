@@ -25,8 +25,7 @@ it is the host's economy again at the level of metabolites." Honour that.
 THE NUMBER THIS SESSION TURNS ON, and the three qualifications that make it
 true. Fong & Palsson predicted the growth rate of 39 of 50 strains to within
 10%, GIVEN the measured substrate and oxygen uptake rates as inputs
-(Supplementary Table 1), for strains that had been EVOLVED for hundreds of
-generations. Drop any one of those and the claim is false. A slide saying "the
+(Supplementary Table 1), for strains that had been EVOLVED for 25-50 days. Drop any one of those and the claim is false. A slide saying "the
 model predicts knockout growth rates" is wrong in exactly the way the week-9
 and week-10 retrospectives are about.
 
@@ -123,14 +122,21 @@ def _goals(d):
                     "steady flux states. Which one does the cell pick, and how "
                     "would you know?"),
         ("the test", "Somebody deletes six genes, evolves the strains, and "
-                     "checks the predictions. Eleven are wrong. What do the "
-                     "eleven have in common?"),
+                     "checks the predictions. Eleven are wrong. How many "
+                     "different kinds of wrong is that, and how would you "
+                     "tell?"),
     ], top=2.05)
     d.notes(s,
            "Goals as questions, per lecture-design. The third one is the "
-           "reading's own focus note and the answer is that they have NOTHING "
-           "in common — which is the better lesson and I want them to arrive "
-           "at it having guessed wrong.")
+           "reading's own focus note, and I leave it open here — segment 7 is "
+           "where it gets answered.\n "
+           "The answer is NOT that they have nothing in common, which is what "
+           "I used to say. Eight of the eleven are ppc or tpi strains, the "
+           "other three are single replicates their own authors decline to "
+           "diagnose, and the paper gives exactly one diagnosis for the eight. "
+           "Asking HOW MANY KINDS is the question that makes the segment-7 "
+           "surface land; asking what they have in common pre-loads an answer "
+           "I am about to take away.")
 
 
 # ----------------------------------------------------------------- object ---
@@ -261,24 +267,28 @@ def _nullspace(d):
             ("v in null(S)",
              "intersected with the bounds on each flux",
              None),
-            ("dim = n_rxn − rank(S)",
+            ("dim = r − rank(S)",
              "nine reactions, rank six, so three are left over",
              "more reactions than balances is normal"),
             ("nothing picks v",
              "the stoichiometry has run out of things to say",
              "so an objective has to be imported"),
         ],
-        board="S v = 0,  dim(null) = n_rxn - rank(S)",
+        board="S v = 0,  dim(null) = r - rank(S),  r = reactions",
         note="Five lines, and the last one is where the run lands: the "
              "stoichiometry has said everything it can say and it still has "
              "not picked a flux.\n "
              "Linger on step two. S v = 0 contains no rate constant — that is "
              "why it is exact, and it is also why it is not enough. Exactness "
              "and informativeness are trading against each other here.\n "
-             "Session 3 wrote dim = n - rank(S) for the LEFT null space, "
-             "where n was METABOLITES. This is the right null space and n is "
-             "REACTIONS, so the step and the board both say n_rxn. A student "
-             "who substitutes session 3's n here gets zero.\n "
+             "Session 3 put BOTH null spaces on the board and gave this one "
+             "its own symbol: dim = r - rank S for the right null space, with "
+             "r the reactions, beside dim = n - rank S for the left, with n "
+             "the metabolites. So I use r here, which is theirs, and I say so "
+             "— this is a formula they already own rather than a new one. "
+             "Session 3's own note called FBA the right null space plus "
+             "bounds plus an objective, which is exactly where this hour is "
+             "going.\n "
              "Three degrees of freedom in a nine-reaction toy. A real "
              "reconstruction has hundreds, which is why nobody does this "
              "without an objective.")
@@ -291,7 +301,7 @@ def _program(d):
     d.rows(s, [
         ("the problem", "maximise c·v subject to S·v = 0 and "
                         "lo ≤ v ≤ hi. Linear in v throughout, so it is "
-                        "a linear program — `scipy.optimize.linprog`, four lines."),
+                        "a linear program. scipy.optimize.linprog, four lines."),
         ("the objective", "we are choosing biomass. That is a HYPOTHESIS about "
                           "what selection did to this organism, not something "
                           "the network tells you."),
@@ -318,7 +328,7 @@ def _program(d):
     s = d.light()
     d.header(s, "segment 3", "build  ·  the toy, solved")
     d.title(s, "Ten glucose in, and the answer is an integer")
-    d.image(s, FIG + "s20_flux_map.png", M, 1.62, w=W - 2 * M)
+    d.image(s, FIG + "s20_flux_map.png", M, 1.62, w=W - 2 * M, h=5.05)
     d.foot(s, "Biomass 4 exactly. Knock out the TCA and it is 10/3 — a different corner, not a scaled-down one.")
     d.notes(s,
            "I walk the left panel against the board derivation they just did. "
@@ -340,9 +350,9 @@ def _knockouts(d):
         ("in the model", "bounds[reaction] = (0, 0). That is the entire "
                          "intervention — no new equations, no new "
                          "parameters."),
-        ("which is the point", "you can ask about a strain nobody has built. "
-                               "That is what makes this a design tool rather "
-                               "than a description."),
+        ("so you can ask", "about a strain nobody has built. That is what "
+                           "makes this a design tool rather than a "
+                           "description."),
         ("so let us ask", "seven real reactions in this network. Delete each "
                           "one in turn. What happens?"),
     ], top=2.00)
@@ -384,7 +394,7 @@ def _knockouts(d):
     s = d.light()
     d.header(s, "segment 4", "build  ·  and the solver agrees")
     d.title(s, "Four of these are lethal, and exactly so")
-    d.image(s, FIG + "s20_knockouts.png", M, 1.62, w=W - 2 * M)
+    d.image(s, FIG + "s20_knockouts.png", M, 1.62, w=W - 2 * M, h=5.05)
     d.foot(s, "Zero is not a small number here. It is the network saying there is no other way round.")
     d.notes(s,
            "Check their four against the figure, name by name.\n "
@@ -547,7 +557,7 @@ def _alternates(d):
     s = d.light()
     d.header(s, "segment 5", "build  ·  the ranges, drawn")
     d.title(s, "Two fluxes, completely undetermined")
-    d.image(s, FIG + "s20_alternate_optima.png", M, 1.62, w=W - 2 * M)
+    d.image(s, FIG + "s20_alternate_optima.png", M, 1.62, w=W - 2 * M, h=5.05)
     d.foot(s, "The exact tie is ours; the limitation is general. The solver returns one point and tells you nothing about the rest.")
     d.notes(s,
            "The objective does not move — still four. But two fluxes are now "
@@ -592,14 +602,14 @@ def _fong(d):
     d.title(s, "Evolved")
     d.rows(s, [
         ("what they did", "built the deletion strain, then passaged it "
-                          "daily for fifty days before measuring."),
+                          "daily for 25 to 50 days — until its growth "
+                          "rate stopped changing."),
         ("why it matters", "a freshly built knockout is NOT where the model "
                            "says it should be. The agreement appears after "
                            "selection has had time to act."),
-        ("so the claim is", "not this is how fast the strain grows — it is "
-                            "this is where selection takes the strain. "
-                            "Flux balance predicts a destination, not a "
-                            "starting point."),
+        ("so the claim is", "the strain does not grow this fast. Selection "
+                            "takes it here. Flux balance predicts a "
+                            "destination, not a starting point."),
         ("the prior paper", "Ibarra, Edwards & Palsson, Nature 420:186 "
                             "(2002) — a population starting below the line of "
                             "optimality, moving onto it."),
@@ -616,10 +626,11 @@ def _fong(d):
     d.title(s, "Growth rate, day by day")
     d.paper_figure(s, "fong2004_sfig1", M + 2.02, 1.75, 5.18, 4.0,
                    "Fong & Palsson 2004, Supplementary Fig. 1",
-                   "six genes, thirteen parallel lineages, fifty days",
+                   "six genes, thirteen parallel lineages, up to fifty days",
                    show_caption=True)
     d.notes(s,
-           "Six panels, one per gene, thirteen lineages between them. The "
+           "Twenty-four panels: six COLUMNS, one per gene, four substrates "
+           "down each, and thirteen lineages between them. The "
            "x axis is DAYS of evolution, 0 to 50 — the word 'generation' does "
            "not appear anywhere in this paper, and an earlier version of this "
            "slide put it in their mouths.\n "
@@ -667,15 +678,16 @@ def _failures(d):
          "and on glycerol — are single replicates, and the authors decline to "
          "diagnose them: \"may be a result of experimental and evolutionary "
          "variability.\""),
-        ("second, they do not sort by gene", "both strains miss both ways. "
-         "ppc runs 28% slow on glucose and 11–12% slow on α-ketoglutarate. "
-         "tpi runs 33% slow on glucose — and on lactate it grew above 0.70 h⁻¹ "
-         "when no growth at all was predicted."),
+        ("second, the miss depends on the SUBSTRATE", "ppc runs 28% slow "
+         "on glucose and 11–12% slow on α-ketoglutarate. tpi runs 33% slow on "
+         "glucose — and on lactate it grew above 0.70 h⁻¹ when no growth at "
+         "all was predicted. Same gene, different substrate, different kind "
+         "of wrong."),
         ("and the model was right where it mattered most", "tpi on malate and "
          "on succinate: no growth predicted, and none observed. Two "
          "correct predictions that are easy to score as failures."),
     ], top=1.90)
-    d.foot(s, "Fong & Palsson 2004, p. 1057. Eight of eleven, and the eight do not split by gene.")
+    d.foot(s, "Fong & Palsson 2004, p. 1057. An objective is the same on every substrate. These misses are not.")
     d.notes(s,
            "I take the guesses first and let the wrong ones stand — 'they're "
            "all the same pathway', 'they're all poor carbon sources'. My own "
@@ -755,7 +767,7 @@ def _close(d):
     d.rows(s, [
         ("the paper", "Mishra, Rivera, Lin, Del Vecchio & Weiss, Nat "
                       "Biotechnol 2014 — a load driver. A different Mishra "
-                      "from session 18's: same surname, same senior author, "
+                      "from session 18's — but the same Deepak Mishra, same senior author, "
                       "nine days apart. Cite both with the year."),
         ("come able to say", "where the timescale separation is doing the "
                              "work. The numbers to look at are a response time "

@@ -95,12 +95,12 @@ column per reaction.
 Rows: <span class="blank"></span>  Columns: <span class="blank"></span>
  rank $S$ = <span class="blank"></span>
 
-$$\dim \operatorname{null}(S) \;=\; n_{\text{rxn}} - \operatorname{rank}(S) \;=\; \underline{\qquad\qquad}$$
+$$\dim \operatorname{null}(S) \;=\; r - \operatorname{rank}(S) \;=\; \underline{\qquad\qquad}$$
 
 **▶ Why does that step follow?** You found three directions the stoichiometry
-cannot choose between. Session 3 wrote a null-space dimension too, and got a
-different formula. In one sentence: what was *its* $n$ counting, and why is it
-not this one?
+cannot choose between. Session 3 put **two** null spaces on the board, one for
+what is conserved and one for what can flow. Which of the two is this, and
+what does the *other* one count?
 
 <div class="rule"></div>
 

@@ -153,5 +153,5 @@ built from two molecules that destroy each other. Read the step responses.
 Then ask the question this session has prepared you for: **what does dilution
 do to the guarantee?**
 
-**PS8 goes out at the end of this session** and is due 12 November. It covers
-sessions 20, 21 and 22.
+**PS8 goes out at the end of this session** and is due 19 November. It covers
+sessions 18, 20, 21 and 22.

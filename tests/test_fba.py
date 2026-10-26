@@ -69,7 +69,8 @@ def test_optimum_is_exactly_four(net):
 
 
 def test_branch_point_is_all_or_nothing(net):
-    """A linear program's optimum sits at a vertex, so the split is never graded."""
+    """One arm pays strictly better here, so the optimum takes it outright. (That
+    is about THIS network, not about linear programs: see the isozyme test.)"""
     m, bounds = net
     _, v = solve_fba(m, "v_biomass", bounds)
     assert v["v_ackA"] == pytest.approx(0.0, abs=1e-9)

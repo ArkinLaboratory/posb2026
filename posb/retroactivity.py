@@ -22,10 +22,17 @@ because they are the session's argument and they are easy to get backwards:
 2.  DILUTED pins the TOTAL:  X + C = k/gamma exactly. Free X therefore falls by
     precisely the number of molecules parked on the sites.
 
-3.  Both costs -- the level shift and the slowdown -- are set by the number of
-    sites relative to the number of molecules, `p_tot / X_T`, and are nearly
-    independent of the affinity while the sites are saturated (K_d << X_T).
-    Weakening the operator escapes the load only by emptying the sites, and an
+3.  The SPEED cost is affinity-blind in the CONSERVATIVE model, by a
+    conservation identity: the integral of R over all X is C(inf) - C(0) =
+    p_tot exactly, whatever K_d is, because the target never moves. In the
+    DILUTED model the endpoint itself moves with K_d, so the speed cost is NOT
+    flat -- it falls about 20% over three decades.
+4.  The LEVEL cost exists in the diluted model only, and is (p_tot / X_T) times
+    the site OCCUPANCY. It is therefore affinity-DEPENDENT, and it is never
+    "exactly p_tot / X_T".
+    See sessions/s21-retroactivity/REBUILD.md, which supersedes NUMBERS.md
+    sections 4-6, for both.
+5.  Weakening the operator escapes the load only by emptying the sites, and an
     empty operator regulates nothing. The load is the price of the regulation.
 
 There is no hidden solver here. Everything is NumPy and SciPy. Read the source.
@@ -142,9 +149,23 @@ def response_half_time(k, gamma, K_d, p_tot, complex_decays=True):
 def slowdown(k, gamma, K_d, p_tot, complex_decays=True):
     """Loaded half-time divided by unloaded half-time. 1.0 means no cost.
 
-    In the weak-load limit this is 1 + 1.45 * (p_tot / X_T). The 1.45 is
-    MEASURED, not derived (NUMBERS.md section 4) -- it is constant to four
-    digits over fiftyfold in load, and deriving it is an open exercise.
+    WHICH MODEL YOU ARE IN DECIDES WHAT THIS MEANS, and the default is not the
+    one the closed form below describes. Pass complex_decays=False for the
+    PROTECTED model, where the bound regulator is shielded from removal; the
+    default True is the DILUTED model, where it is not.
+
+    In the PROTECTED model and the weak-load limit this is
+    1 + (p_tot / X_T) / ln 2. The coefficient is 1/ln 2 = 1.442695 and it is
+    DERIVED, not measured: the loaded system must synthesise p_tot extra
+    molecules to fill the sites before it reaches the same half-way point,
+    which costs p_tot/k against an unloaded half-time of ln2/gamma. See
+    sessions/s21-retroactivity/REBUILD.md section 2.1, which supersedes
+    NUMBERS.md section 4 -- that file called the coefficient measured and not
+    derivable, and proposed deriving it as an open exercise. It is three lines.
+
+    In the DILUTED model there is no such clean coefficient: the steady state
+    itself moves with the load, so the ratio of the speed cost to the level
+    cost drifts from 1.44 at p_tot/X_T = 0.002 to 1.71 at 0.3.
     """
     loaded = response_half_time(k, gamma, K_d, p_tot, complex_decays)
     bare = response_half_time(k, gamma, K_d, 0.0, complex_decays)
@@ -157,8 +178,9 @@ def level_shift(k, gamma, K_d, p_tot):
     Equals C_ss / X_T exactly: the shift *is* the parked fraction. In the weak
     load limit it is p_tot / X_T.
 
-    Returns 0.0 for the conservative model by construction, so it is not
-    offered there -- use `steady_state` to see that nothing moves.
+    DILUTED model only, and there is no model switch: in the conservative
+    model this quantity is identically zero, so there is no question to ask.
+    Use `steady_state` to see that nothing moves there.
     """
     X_ss, _ = steady_state(k, gamma, K_d, p_tot, complex_decays=True)
     X_T = k / gamma

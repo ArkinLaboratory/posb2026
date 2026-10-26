@@ -54,9 +54,11 @@ contrast is the payoff, and it replaces a claim that was false.
 ALPHA IS NOT OUR R, and the deck says so rather than asserting an identity.
 Box 1, p. 1270, prints it: "alpha = 1 for the unloaded system and
 alpha = (1 + p/K_d)^-1 for the loaded system". That is our R with the sites
-EMPTY; their Box 1 holds p constant with no site conservation. Our R at the
-operating point gives alpha = 0.9994; theirs gives 0.80. Same shape, different
-regime, and the mismatch is shown, not hidden.
+EMPTY; their Box 1 holds p constant with no site conservation. Inverting their
+Box 1, alpha = 0.80 means p/K_d = 0.25 -- the only thing the paper constrains.
+Our p_tot and K_d are invented teaching numbers, so the deck does NOT compare
+the two: an earlier draft did, and it was comparing our toy's load against
+their measured one, with our side evaluated in the wrong model column.
 
 WHERE THE NUMBERS COME FROM. REBUILD.md, every one with its KIND and its
 verification. TEACH THE MINUTES, not the percentage: 396 -> 699 min. The 76%
@@ -73,8 +75,9 @@ FOUR MOVES, which the previous build of this deck had none of. frame, build,
 release, debrief -- docs/lecture-design.md 5e. Three releases: the steady-state
 signature, the conservation integral, and the n = 3 significance question.
 
-MISHRA 2014 IS NOT MISHRA 2021. Same surname, same senior author, nine days
-apart in this course. Every student-facing surface cites the year.
+MISHRA 2014 IS NOT MISHRA 2021 -- but it IS the same Deepak Mishra, with Ron
+Weiss senior on both, nine days apart in this course. Same author reusing the
+same yeast chassis, which is a better beat than a surname coincidence. Every student-facing surface cites the year.
 
 WHAT SESSION 18 ACTUALLY TAUGHT. It taught decoy sites explicitly (segment 4,
 "held by DECOY SITES that are not its promoter ... Titration") and named
@@ -214,7 +217,7 @@ def _goals(d):
 def _object(d):
     s = d.light()
     d.header(s, "segment 2", "frame  ·  the object, before any model")
-    d.title(s, "What the arrow actually is")
+    d.title(s, "What the arrow is")
     d.rows(s, [
         ("the diagram", "an arrow from module A to module B. Arrows carry "
                         "information and cost nothing."),
@@ -349,10 +352,10 @@ def _two_models(d):
                                       "measurement cannot tell you which one "
                                       "you are in; the endpoint can."),
         ("and hold this", "you will see this exact comparison run, in yeast, "
-                          "in about twenty minutes — and you will see which "
+                          "later this morning — and you will see which "
                           "answer their system gave."),
     ], label_color=CYAN)
-    d.foot(s, "Picking the observable that discriminates is the skill. Both models predict a slowdown; only one predicts a level shift.")
+    d.foot(s, "Both models predict a slowdown. Only one predicts a level shift.")
     d.notes(s,
            "LEDGER: two models, one discriminating observable — the endpoint.\n "
            "I plant the Mishra forward reference deliberately and in those "
@@ -385,7 +388,7 @@ def _thesis(d):
                          "weakly and fewer park. So a higher K_d should buy "
                          "the speed back."),
         ("it is a good instinct", "it is the first thing an engineer reaches "
-                                  "for, and it is the thing you can actually "
+                                  "for, and it is the thing you can "
                                   "change — K_d is 20 nucleotides or a few "
                                   "residues away."),
         ("vote", "yes, no, or depends. Then we will compute it rather than "
@@ -402,7 +405,7 @@ def _thesis(d):
     d.header(s, "segment 5", "release  ·  one integral, ninety seconds")
     d.title(s, "How much extra does the loaded system have to make?")
     d.rows(s, [
-        ("compute", "∫₀^∞ R(X) dX, with R = dC/dX and "
+        ("compute", "the integral of R(X) dX from 0 to ∞, with R = dC/dX and "
                     "C(X) = p_tot·X/(K_{d} + X)."),
         ("you do not need the integrand", "you need what R is the derivative "
                                           "of, and the two endpoints."),
@@ -526,7 +529,7 @@ def _mishra(d):
                         "osmolarity signalling is out of the way."),
         ("the load", "extra copies of the target promoter on high-copy 2µ "
                      "plasmids. Everything else is single-copy chromosomal. "
-                     "The load is literally more binding sites."),
+                     "The load is more binding sites, and nothing else."),
         ("the proteins", "SKN7 and YPD1 carry the signal; SLN1's domains "
                          "appear in the chimera. You met this pathway on "
                          "Tuesday the 27th, in a different Mishra paper doing "
@@ -534,8 +537,9 @@ def _mishra(d):
     ], top=2.00)
     d.notes(s,
            "I flag the two Mishras again, out loud. 2021 was the phospho-toggle "
-           "on Tuesday the 27th; 2014 is the load driver. Same surname, same "
-           "senior author, nine days apart on this syllabus.\n "
+           "on Tuesday the 27th; 2014 is the load driver. Same first author, same "
+           "senior author — the same Deepak Mishra, reusing the same yeast "
+           "chassis, nine days apart on this syllabus.\n "
            "Careful on the third row: HOG1 and HOT1 are DELETED in this "
            "background, so they are not part of the device — an earlier draft "
            "of this slide listed HOG1 among the working proteins, which is "
@@ -658,12 +662,14 @@ def _repair(d):
         ("what that is, in ours", "our 1/(1 + R) with R evaluated at X = 0 "
                                   "— the empty-site limit, where nothing has "
                                   "filled yet."),
-        ("and it does not close", "our R at their operating point gives "
-                                  "α = 0.999. Fig. 4c gives 0.80. The "
-                                  "simple theory gives the shape and not the "
-                                  "number.", AMBER),
+        ("and we cannot close it", "inverting their own Box 1, α = 0.80 "
+                                   "means p/K_{d} = 0.25. Our p_tot and K_{d} "
+                                   "are invented teaching numbers, so there "
+                                   "is nothing here to check that against — "
+                                   "their values are in a Supplement we do "
+                                   "not hold.", AMBER),
     ], top=1.98, label_color=TEAL)
-    d.foot(s, "Their formula and our derivation agree where the sites are empty and part company where they are full. That gap is a real open question, not a typo.")
+    d.foot(s, "Their formula and our derivation agree where the sites are empty and part company where they are full. Which regime their system is in, we cannot say from what we hold.")
     d.notes(s,
            "I am deliberately NOT claiming their α is our R. An earlier draft "
            "of this deck said \"the same R you derived this morning\" and that "
@@ -809,8 +815,8 @@ def _close(d):
     d.title(s, "What to read, and what is due")
     d.rows(s, [
         ("tonight, 11:59", "PS7 is due."),
-        ("today", "PS8 goes out. It covers Tuesday, today, and next Tuesday — "
-                  "flux balance, retroactivity, and the controller."),
+        ("today", "PS8 goes out. Session 18, Tuesday, today and next "
+                  "Tuesday — four sessions, one set."),
         ("the paper", "Aoki et al., Nature 2019. Read the step responses, "
                       "then ask what dilution does to the guarantee."),
     ], top=2.05)

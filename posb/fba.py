@@ -25,7 +25,7 @@ the model says it should be. See `sessions/s20-metabolic/NUMBERS.md`.
 
 Two limitations are built into the shape of the problem and are not defects:
 
-*   A linear program's optimum sits at a **vertex**, so FBA predicts an
+*   A linear program always has an optimum AT a **vertex**, so FBA predicts an
     all-or-nothing split at a branch point, never a graded one.
 *   **Alternate optima are generic**: several different flux distributions can
     hit the same optimal objective, and the solver returns one of them without
@@ -395,8 +395,9 @@ def teaching_network(isozyme=False):
 
     so **biomass = 4 exactly**, with v_pgi = v_tpi = 6, v_zwf = 4,
     v_lower = v_tca = 4 and v_ackA = 0. The branch point goes all-or-nothing to
-    the TCA because it yields 3 ATP against acetate's 1 -- a vertex, as every
-    linear program's optimum is.
+    the TCA because it yields 3 ATP against acetate's 1. That optimum is a
+    vertex -- but note the theorem is that SOME optimum is a vertex, not that
+    it is unique. See `isozyme` below, where it is not.
 
     Knock out the TCA and the same six lines give **b <= 10/3**: the optimum
     moves to a different vertex, acetate now carries all the pyruvate, and the

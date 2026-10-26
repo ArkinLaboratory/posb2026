@@ -1117,7 +1117,7 @@ fong2004_fig1:
 
 fong2004_sfig1:
   figure: "Supplementary Fig. 1"
-  shows: "evolution time courses -- normalised growth rate against generations for every replicate (ack1-2, frd1-2, pck1-3, ppc1-2, tpi1-2, zwf1-2)"
+  shows: "evolution time courses -- absolute growth rate (0-1.0 per h) against DAY of evolution (0-50), in a 6-column x 4-row grid for every replicate (ack1-2, frd1-2, pck1-3, ppc1-2, tpi1-2, zwf1-2)"
   used_in: ["s20"]
   note: "The figure that earns the word EVOLVES. Without it the session's thesis is our sentence; with it, it is theirs."
 
@@ -1127,7 +1127,7 @@ fong2004_sfig1:
 #
 # In S. cerevisiae, hot1-delta hog1-delta sln1-delta. The load driver runs on
 # STAT5-HKRR -> YPD1 -> SKN7 -> PTR-SSRE, i.e. the same osmolarity pathway
-# session 18 names from Mishra 2021 -- a DIFFERENT Mishra. Cite both with years.
+# session 18 names from Mishra 2021 -- the same first author, Deepak Mishra. Cite both with years.
 
 mishra2014_fig1:
   figure: "Fig. 1c-e"

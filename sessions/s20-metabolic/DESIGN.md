@@ -1,5 +1,7 @@
 # Session 20 — Metabolic engineering: the coupling you can write down exactly, and still cannot predict
 
+
+> **SUPERSEDED IN PART, 26 October 2026.** The two-cause story below — one failure a missing route, the other a wrong objective — is NOT what Fong & Palsson conclude. Their only diagnosis covers BOTH genes and is network incompleteness (p. 1057). Eleven is 8 + 3: eight are ppc or tpi, three are single replicates the authors decline to diagnose. The model was also RIGHT about tpi on malate and succinate. The deck's segment 7 carries the corrected version; prefer it.
 **Tuesday 3 November 2026.** Part II, fifth session. Required reading: Fong &
 Palsson, *Nat Genet* 36(10) 1056–1058 (2004) — **held**, assigned at the close
 of session 19. At the close of this session, Mishra 2014 is assigned for S21.
@@ -66,7 +68,7 @@ argument here.
 | Fig. 1 arrows mark strains **>10%** different from prediction | convention | Fig. 1 caption |
 
 **The load-bearing kind, and the one easiest to lose:** 78% is agreement *after
-hundreds of generations of adaptive evolution*. The paper's claim is that the
+fifty days of adaptive evolution*. The paper's claim is that the
 model predicts **where selection goes**, not where a freshly built knockout
 sits. A naive deletion strain is not at the predicted optimum. **Any slide that
 presents 78% as "the model predicts knockout growth rates" is wrong in exactly
