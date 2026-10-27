@@ -1,6 +1,6 @@
 <!--
 title: Session 22 — Robustness and control
-subtitle: A home guide. None of these four is a PS8 question — they are the ones class did not have time for. Item 1 is the controller we did not build and why it is not enough; item 2 is what the annihilation really is once a molecule has to do it; item 3 is their evidence, read sceptically; item 4 is the ladder. Answers come on a separate sheet.
+subtitle: A home guide, worked after class. Item 1 is the controller we did not build and why it is not enough; item 2 is what the annihilation really is once a molecule has to do it; item 3 is their evidence and what the controller does not pin; item 4 is the ladder. Answers come on a separate sheet.
 session: 22
 -->
 
@@ -10,9 +10,8 @@ Work it after class, on paper, before you touch PS8 Q4 and Q5. The answers are
 on a separate sheet — read them **after** you have written something down, not
 instead of writing something down.
 
-Nothing in this guide is a PS8 question. Three of them are the questions class
-did not have time for, and the fourth is the one that makes the hour's claim
-mean something.
+These are the questions class did not have time for. Work them before you
+start PS8 — they set up the same machinery from a different angle.
 
 ---
 
@@ -70,17 +69,19 @@ Aoki et al. 2019, Fig. 3d. They perturb temperature, 37 °C against 30 °C, and
 measure each strain's growth rate normalised to its own 37 °C rate, $n = 3$.
 Closed loop $P = 0.2261$; open loop $P = 7.769 \times 10^{-5}$.
 
-**(a)** State in one sentence each what the two $P$ values license you to say.
-Be careful with the large one.
+**(a)** The closed-loop bars sit at 1.00 and 1.03; the open-loop ones at
+1.00 and 0.33. Before any statistics: which of those two differences would you
+have believed from the picture alone, and what does the picture not tell you?
 
 **(b)** The open-loop strain is the closed-loop circuit with the anti-σ module
 deleted. Say why that is a better control than (i) the same strain with no
 circuit at all, and (ii) a strain with the anti-σ module replaced by an inert
 protein of the same length.
 
-**(c)** Design the experiment that would turn the closed-loop result from
-"we could not detect a change" into "any change is smaller than $X$." You do
-not need to specify $X$ — specify what you would have to do differently.
+**(c)** The controller holds the *mean* growth rate. Aoki report that the
+closed loop showed **increased cell-to-cell variability** compared with the
+open loop. Does that contradict the adaptation claim? Say what integral
+feedback pins and what it does not.
 
 **(d)** They replaced sfGFP with *metE* in a Δ*metE* host, so the regulated
 output is the cell's growth rate. Why is that a harder test of the controller

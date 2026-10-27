@@ -24,9 +24,16 @@ it as a release.
 
 ## 2 · The sentence the hour is built on, in the authors' words
 
-> *"the steady-state value of the output is determined solely by the ratio
-> μ/θ. Notably, it does not depend on the topology and parameters of the
-> controlled network."*
+> *"In this scheme, **as long as the closed dynamics are stable**, the
+> steady-state value of the output is determined solely by the ratio μ/θ.
+> Notably, it does not depend on the topology and parameters of the circuit
+> of interest, which are usually uncertain and noisy, nor on any constant
+> external perturbations that afflict the network."*
+> — Aoki et al., Nature 570:533 (2019), p. 533
+
+The stability clause is part of the sentence and was cut from every file that
+quoted it until 27 October. "The controlled network" was our paraphrase
+presented inside quotation marks.
 
 Everything else is commentary. Two rate constants set the output; the circuit
 being controlled does not get a vote.
@@ -92,13 +99,14 @@ closes the arc on the same quantity it opened on.
 | open loop | **7.769 × 10⁻⁵** |
 
 The controlled strain's growth rate is statistically indistinguishable across a
-seven-degree temperature change; the uncontrolled one is not, by four orders of
+seven-degree temperature change; the uncontrolled one is not, by three and a
+half orders of
 magnitude.
 
 **Teach this as a pair of p-values, and teach what a large P does and does not
 mean.** P = 0.2261 is a failure to detect a difference, not proof of its
 absence — and that is exactly the distinction PS8 Q3d(ii) asks about with
-Mishra's n = 3. The two land eight days apart and should be said in the same
+Mishra's n = 3, on the same set. The two should be said in the same
 words.
 
 ## 5 · The stub's two open questions, answered

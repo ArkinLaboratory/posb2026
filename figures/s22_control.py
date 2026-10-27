@@ -32,7 +32,8 @@ import numpy as np
 from figures.style import (use, TEAL, CYAN, AMBER, MUTED, INK, RED, GREEN,
                            RULE, TYPE)
 from posb.control import (ControlParams, simulate, closed_loop_steady_state,
-                          open_loop_steady_state, setpoint_error)
+                          open_loop_steady_state, setpoint_error,
+                          step_response)
 
 plt = use()
 OUT = "figures/build"
@@ -64,7 +65,7 @@ def fig_motif():
                 fontsize=TYPE["emphasis"], zorder=4)
         if sub:
             ax.text(x + w / 2, y + h / 2 - 0.36, sub, ha="center", va="center",
-                    color=MUTED, fontsize=TYPE["caption"], zorder=4)
+                    color=INK, fontsize=TYPE["caption"], zorder=4)
 
     def arrow(x1, y1, x2, y2, colour, rad=0.0):
         ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
@@ -81,7 +82,7 @@ def fig_motif():
     box(0.4, 0.45, 2.3, 1.1, "$Z_2$", AMBER, "sensor, rate $\\theta X$")
     box(7.1, 2.00, 2.5, 1.1, "the plant", INK)
     ax.text(8.35, 1.72, "any topology, any parameters", ha="center",
-            va="top", color=MUTED, fontsize=TYPE["caption"])
+            va="top", color=INK, fontsize=TYPE["caption"])
 
     # annihilation, between the two Z boxes, with its text in the empty
     # middle band -- left of the plant, right of the arrow
@@ -105,11 +106,16 @@ def fig_motif():
     _save(fig, "s22_motif")
 
 
+HELD = "$\\mu=10,\\ \\theta=2,\\ k=1,\\ \\gamma=0.5,\\ \\eta=50$"
+
+
 def fig_plant_does_not_matter():
     """THE SESSION'S CLAIM. Four different plants, one set point.
 
-    Aoki: "it does not depend on the topology and parameters of the controlled
-    network". So vary the controlled network and show the output landing in
+    Aoki, p. 533: "as long as the closed dynamics are stable, the steady-state
+    value of the output is determined solely by the ratio mu/theta. Notably,
+    it does not depend on the topology and parameters of the circuit of
+    interest." So vary the circuit of interest and show the output landing in
     the same place. The transients differ -- that is the plant -- and the
     destination does not.
     """
@@ -126,67 +132,72 @@ def fig_plant_does_not_matter():
         ax.plot(t, sol.sol(t)[0], color=colour, ls=ls, lw=2.3, label=label)
 
     ax.axhline(P.set_point, color=MUTED, lw=1.4, ls=":")
-    ax.text(118, P.set_point + 0.18, "$\\mu/\\theta = 5$", color=MUTED,
-            fontsize=TYPE["body"], ha="right", va="bottom")
+    ax.text(32, P.set_point + 0.30, "$\\mu/\\theta = 5$", color=INK,
+            fontsize=TYPE["caption"], ha="center", va="bottom")
     ax.set_xlabel("time")
     ax.set_ylabel("output $X$")
     ax.set_xlim(0, 120); ax.set_ylim(0, 11.6)
-    ax.set_title("Four different plants, one set point   "
-                 "(ideal controller, $\\delta = 0$)", pad=14)
+    ax.set_title("Four different plants, one set point\n"
+                 "$\\delta=0$, $d=0$;  " + HELD + " except where the legend says",
+                 pad=12)
+
     # Upper right: past t = 60 every curve is within half a unit of 5, so
     # the whole top-right quadrant is empty.
+    # Upper right, inside the headroom band. Past t = 60 no curve exceeds
+    # 6, so the legend clears them; the annotation keeps the left half.
     ax.legend(loc="upper right", frameon=False, fontsize=TYPE["caption"])
     # Top LEFT band, above every curve's peak, so nothing is written over.
-    ax.text(0.035, 0.97,
-            "the transients differ — that is the plant.\n"
-            "the destination does not.",
-            transform=ax.transAxes, va="top", color=INK,
-            fontsize=TYPE["body"], linespacing=1.3)
+    # The teaching line lives on the slide's foot, not inside the figure --
+    # it collided with the legend in every in-axes position tried, and the
+    # surface says it better anyway.
     _save(fig, "s22_plant_does_not_matter")
 
 
 def fig_step():
-    """Closed and open loop, same plant, same step disturbance."""
-    fig, ax = plt.subplots(figsize=(9.2, 5.2))
-    t = np.linspace(0, 200, 1400)
-    d = 2.0
+    """Closed and open loop, same plant, same step disturbance.
 
-    sol = simulate(P, d=0.0, t_end=400.0)
-    ax.plot(t, sol.sol(t)[0], color=MUTED, lw=1.8, ls=":",
-            label="no disturbance")
-    sol_c = simulate(P, d=d, t_end=400.0)
-    ax.plot(t, sol_c.sol(t)[0], color=TEAL, lw=2.6,
+    Both circuits start AT their undisturbed steady state and the disturbance
+    arrives at t = 40, so what the room sees is the response to d and not the
+    start-up transient. The open loop is integrated, not drawn as a line.
+    """
+    fig, ax = plt.subplots(figsize=(9.2, 5.2))
+    d, t_step, t_end = 1.0, 40.0, 200.0
+    t = np.linspace(0, t_end, 1400)
+
+    sc = step_response(P, d=d, t_step=t_step, t_end=t_end, closed=True)
+    so = step_response(P, d=d, t_step=t_step, t_end=t_end, closed=False)
+    ax.plot(t, so.sol(t)[0], color=RED, lw=2.6, ls="--",
+            label=f"open loop, $d = {d:g}$")
+    ax.plot(t, sc.sol(t)[0], color=TEAL, lw=2.6,
             label=f"closed loop, $d = {d:g}$")
 
-    open_ss = open_loop_steady_state(P, d)
-    base = open_loop_steady_state(P, 0.0)
-    ax.axhline(open_ss, color=RED, lw=2.6, ls="--",
-               label=f"open loop, $d = {d:g}$")
+    ax.axvline(t_step, color=MUTED, lw=1.2, ls=":")
+    ax.text(t_step + 3, 1.0, "$d$ arrives", color=INK,
+            fontsize=TYPE["caption"], ha="left")
+    ax.axhline(P.set_point, color=MUTED, lw=1.2, ls=":")
 
-    ax.annotate("", xy=(118, open_ss), xytext=(118, base),
+    base, top = P.set_point, float(so.sol(t_end)[0])
+    ax.annotate("", xy=(185, top), xytext=(185, base),
                 arrowprops=dict(arrowstyle="<->", color=RED, lw=2.0))
-    ax.text(113, (open_ss + base) / 2, f"+{open_ss - base:.0f}", color=RED,
-            fontsize=TYPE["emphasis"], ha="right", va="center")
+    ax.text(181, (top + base) / 2, f"$+{top - base:.0f} = d/\\gamma$",
+            color=RED, fontsize=TYPE["emphasis"], ha="right", va="center")
 
     ax.set_xlabel("time")
     ax.set_ylabel("output $X$")
-    ax.set_xlim(0, 200)
-    # Headroom above the open-loop line so the sentence has a band of its own.
-    ax.set_ylim(0, 12.6)
-    ax.set_title("The same disturbance, with the loop closed and open   "
-                 "(ideal controller, $\\delta = 0$)", pad=14)
-    # Lower right: past t = 30 the only curve is the closed loop, flat at 5.
+    ax.set_xlim(0, t_end); ax.set_ylim(0, 11.2)
+    ax.set_title("The same disturbance, with the loop closed and open\n"
+                 "$\\delta=0$, step $d=1$ at $t=40$;  " + HELD, pad=12)
     ax.legend(loc="lower right", frameon=False, fontsize=TYPE["caption"])
-    ax.text(0.035, 0.965,
-            "the closed loop lands back on $\\mu/\\theta$\n"
-            "and the open loop does not move back at all",
+    ax.text(0.035, 0.96,
+            "the open loop takes the hit and keeps it.\n"
+            "the closed loop takes the hit and gives it back.",
             transform=ax.transAxes, va="top", color=INK,
             fontsize=TYPE["body"], linespacing=1.3)
     _save(fig, "s22_step")
 
 
 def fig_leak():
-    """THE LIMIT. Adaptation error against the dilution rate, slope one.
+    """Set-point error against the dilution rate, slope one.
 
     The integrator is exact only if Z1 and Z2 are lost ONLY by annihilation.
     Dilute them and mu - theta*X = delta*(Z1 - Z2), so the error is first
@@ -195,7 +206,7 @@ def fig_leak():
     """
     fig, ax = plt.subplots(figsize=(9.2, 5.2))
     deltas = np.logspace(-3.4, -0.7, 18)
-    errs = [abs(setpoint_error(ControlParams(delta=float(dl)), 2.0))
+    errs = [abs(setpoint_error(ControlParams(delta=float(dl)), 1.0))
             for dl in deltas]
 
     ax.loglog(deltas, errs, "o-", color=TEAL, lw=2.4, ms=8)
@@ -203,21 +214,22 @@ def fig_leak():
     ax.loglog(deltas, ref, color=MUTED, lw=1.4, ls=":")
     # Label the reference line partway along it, BELOW the data, so it never
     # reaches the title band.
-    ax.text(deltas[9], ref[9] * 0.45, "slope 1", color=MUTED,
+    ax.text(deltas[9], ref[9] * 0.45, "slope 1", color=INK,
             fontsize=TYPE["body"], ha="center", va="top")
 
     ax.set_xlabel("dilution rate of the controller species,  $\\delta$")
-    ax.set_ylabel("|adaptation error|")
-    ax.set_title("Dilute the controller and the integrator leaks", pad=14)
-    ax.text(0.035, 0.95,
-            "$\\mu - \\theta X = \\delta\\,(Z_1 - Z_2)$\n"
-            "so the error is FIRST ORDER in $\\delta$ —\n"
-            "and $\\delta$ is the growth rate.",
-            transform=ax.transAxes, va="top", color=INK,
+    ax.set_ylabel("|set-point error|,  $|X_{ss} - \\mu/\\theta|$")
+    ax.set_title("Dilute the controller and the integrator leaks\n"
+                 "$\\delta>0$, $d=1$ throughout;  " + HELD, pad=12)
+
+    # Upper-left triangle: the data is a diagonal, so this is the only block
+    # of the axes a multi-line annotation can occupy without crossing it.
+    ax.text(0.03, 0.97,
+            "$X_{ss} - \\mu/\\theta = -\\dfrac{\\delta}{\\theta}(Z_1 - Z_2)$\n"
+            "first order in $\\delta$, and NEGATIVE —\n"
+            "the output undershoots.",
+            transform=ax.transAxes, ha="left", va="top", color=INK,
             fontsize=TYPE["body"], linespacing=1.35)
-    ax.text(0.985, 0.045, "LEAKY controller. at $\\delta = 0$ the error is exactly zero.",
-            transform=ax.transAxes, ha="right", va="bottom",
-            color=MUTED, fontsize=TYPE["caption"])
     _save(fig, "s22_leak")
 
 

@@ -24,7 +24,7 @@ so a steady state forces **X = μ/θ = 5**. k, γ and η do not appear.
 ## 2 · The plant does not get a vote — COMPUTED
 
 The claim being checked is Aoki's: *"it does not depend on the topology and
-parameters of the controlled network."* Integrating from rest:
+parameters of the circuit of interest."* Integrating from rest:
 
 | variation | closed-loop X_ss |
 |---|---|
@@ -66,7 +66,8 @@ k·Z₁ = γX − d ≥ 0, giving
 
 **Past the bound there is no steady state at all** — not a saturated one. Z₁
 falls to zero, the annihilation that was removing Z₂ stops, Z₂ grows without
-bound, and X drifts toward d/γ. The d = 2.6 row is the one to show: it looks
+bound. X SETTLES at d/γ — stably, in the wrong place — and the runaway is
+Z₂ alone, at θX − μ. The d = 2.6 row looks
 converged at 5.2 and is not, which is why `settles` compares two horizons
 instead of trusting one.
 
@@ -78,23 +79,36 @@ the integrator leaking.
 
 At δ > 0 the subtraction leaves μ − θX = δ(Z₁ − Z₂), so
 
-    error = (delta/theta) * (Z1 - Z2)
+    X_ss - mu/theta = -(delta/theta) * (Z1 - Z2)
 
-which is **first order in δ**. At d = 2:
+which is **first order in δ**. **Note the minus.** Written without it the
+formula says the output overshoots while every number below says it
+undershoots; that sign was wrong in six files until 27 October.
+
+**Reference disturbance: d = 1, not 2.** At d = 2 the error changes sign at
+d ≈ 2.06 and |error| is the smallest nonzero value anywhere in the stable
+range — 24× smaller than at d = 0, and 0.06 away from a zero crossing. Any
+nudge to μ, θ, γ or k would have flipped a sign the deck asserts is fixed.
+d = 1 sits 1.06 clear of it and is 14× larger.
 
 | δ | error | error/δ |
 |---|---|---|
 | 0 | 0.00000000 | — |
-| 0.001 | −0.00004999 | −0.04999 |
-| 0.005 | −0.00024969 | −0.04994 |
-| 0.01 | −0.00049876 | −0.04988 |
-| 0.05 | −0.00246938 | −0.04939 |
-| 0.1 | −0.00487992 | −0.04880 |
+| 0.001 | −0.00068316 | −0.683157 |
+| 0.0025 | −0.00170723 | −0.682894 |
+| 0.005 | −0.00341227 | −0.682454 |
+| 0.01 | −0.00681578 | −0.681578 |
+| 0.02 | −0.01359661 | −0.679831 |
+| 0.05 | −0.03373211 | −0.674642 |
+| 0.1 | −0.06661652 | −0.666165 |
 
 Fitted slope of log|error| against log δ over δ ∈ {0.0025 … 0.02}:
-**0.997939**, i.e. exactly first order. This is PS8 Q5.
+**0.997869**, i.e. first order. This is PS8 Q5.
 
-The error is **negative**: the leak makes the output undershoot its set point.
+The error is **negative at every δ here**: the leak makes the output
+undershoot. It is negative *for this d*. Past d ≈ 2.06 it turns positive and
+the output overshoots — inside the actuator bound, and the deck does not
+claim otherwise any more.
 
 ## 6 · Aoki's experiment — MEASURED
 
@@ -119,7 +133,7 @@ All read off the held PDF.
 
 **Teach the pair, and teach what the large P does not mean.** P = 0.2261 is a
 failure to detect a difference at n = 3, not a demonstration that there is
-none. PS8 Q3d(ii) asks exactly this about Mishra's n = 3 eight days earlier,
+none. PS8 Q3d(ii) asks exactly this about Mishra's n = 3 on the same set,
 and the two should be said in the same words.
 
 - The ideal analysis assumed *"negligible degradation of controller proteins Z₁

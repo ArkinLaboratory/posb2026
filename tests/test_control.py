@@ -12,7 +12,7 @@ import pytest
 
 from posb.control import (
     ControlParams, simulate, closed_loop_steady_state, open_loop_steady_state,
-    setpoint_error, settles, max_rejectable_disturbance,
+    setpoint_error, settles, max_rejectable_disturbance, step_response,
     disturbance_rejection, error_scaling_exponent,
 )
 
@@ -37,7 +37,7 @@ def test_output_goes_to_mu_over_theta(P):
 ])
 def test_the_plant_does_not_get_a_vote(label, q):
     """Aoki: "it does not depend on the topology and parameters of the
-    controlled network". Change the plant; the answer may not move."""
+    circuit of interest". Change the plant; the answer may not move."""
     assert closed_loop_steady_state(q) == pytest.approx(5.0, abs=1e-6), label
 
 
@@ -87,7 +87,7 @@ def test_dilution_breaks_adaptation(P):
 
 def test_the_leak_makes_it_undershoot(P):
     """Sign matters: the output falls BELOW the set point."""
-    assert setpoint_error(ControlParams(delta=0.05), 2.0) < 0
+    assert setpoint_error(ControlParams(delta=0.05), 1.0) < 0
 
 
 def test_error_is_first_order_in_the_dilution_rate(P):
@@ -117,3 +117,61 @@ def test_rejection_is_infinite_only_because_the_model_is_ideal(P):
     """NUMBERS.md section 7: the honest statement is the leak, not this."""
     assert disturbance_rejection(P, 1.0) == float("inf")
     assert np.isfinite(disturbance_rejection(ControlParams(delta=0.05), 1.0))
+
+
+# ---- the four facts the 27 October review found wrong, locked down -------
+
+
+def test_the_bound_is_one_sided_negative_d_is_always_rejected():
+    """d < 0 needs MORE Z1, and Z1 has no upper bound. Only d > 0 binds.
+
+    The deck asked the room for the largest |d| with d negative. There is no
+    such d: at d = -100 the loop sits at Z1 = 102.5 and holds the set point.
+    """
+    P = ControlParams()
+    for d in (-2.6, -10.0, -100.0):
+        assert closed_loop_steady_state(P, d) == pytest.approx(P.set_point, abs=1e-6)
+        assert settles(P, d)
+    assert not settles(P, max_rejectable_disturbance(P) + 0.1)
+
+
+def test_the_annihilation_flux_pins_at_mu_rather_than_stopping():
+    """Past the bound, eta*Z1*Z2 -> mu exactly. It does not stop.
+
+    dZ1/dt = 0 on the Z1 plateau forces eta*Z1*Z2 = mu, so Z2 grows at
+    theta*X - mu. Six files said "the annihilation stops" and one board wrote
+    dZ2/dt = theta*X, which is 26x too large at d = 2.6.
+    """
+    P = ControlParams()
+    sol = simulate(P, 5.0, 8000.0)
+    X, Z1, Z2 = sol.y[:, -1]
+    assert P.eta * Z1 * Z2 == pytest.approx(P.mu, rel=1e-6)
+    assert X == pytest.approx(5.0 / P.gamma, rel=1e-5)   # X settles; Z2 runs
+
+
+def test_the_undershoot_claim_is_only_true_below_the_sign_flip():
+    """The error changes sign at d ~ 2.06, inside the actuator bound.
+
+    d = 2 was the reference everywhere and sat 0.06 from this crossing, with
+    |error| 24x smaller than at d = 0. The set now uses d = 1.
+    """
+    leaky = ControlParams(delta=0.05)
+    assert setpoint_error(leaky, 1.0) < 0
+    assert setpoint_error(leaky, 2.4) > 0
+    assert settles(leaky, 2.4)          # still inside the bound
+
+
+def test_step_response_starts_at_the_set_point():
+    """Both loops rest at mu/theta until d arrives, so the figure shows d.
+
+    Integrated from zero instead, the excursion on screen is the start-up
+    transient, which is there with or without a disturbance.
+    """
+    P = ControlParams()
+    closed = step_response(P, d=1.0, t_step=40.0, t_end=200.0, closed=True)
+    opened = step_response(P, d=1.0, t_step=40.0, t_end=200.0, closed=False)
+    for sol in (closed, opened):
+        assert float(sol.sol(35.0)[0]) == pytest.approx(P.set_point, abs=1e-6)
+    assert float(closed.sol(200.0)[0]) == pytest.approx(P.set_point, abs=1e-5)
+    assert float(opened.sol(200.0)[0]) == pytest.approx(
+        P.set_point + 1.0 / P.gamma, rel=1e-5)
