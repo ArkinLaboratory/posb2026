@@ -65,7 +65,7 @@ k·Z₁ = γX − d ≥ 0, giving
 | 5.0 | **no** | 10.0000 |
 
 **Past the bound there is no steady state at all** — not a saturated one. Z₁
-falls to zero, the annihilation that was removing Z₂ stops, Z₂ grows without
+falls to zero, the annihilation flux pins at μ, Z₂ grows without
 bound. X SETTLES at d/γ — stably, in the wrong place — and the runaway is
 Z₂ alone, at θX − μ. The d = 2.6 row looks
 converged at 5.2 and is not, which is why `settles` compares two horizons

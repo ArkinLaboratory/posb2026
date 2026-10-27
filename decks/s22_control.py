@@ -75,9 +75,13 @@ all ten terms to be new. Four were not, and two of those changed this deck:
     also did negative autoregulation against an open loop, which is why the
     home guide's proportional-control item points back at it instead of
     pretending the comparison is new.
-  * NOT YET TRUE, and recorded here rather than asserted away: "plant",
-    "actuator", "set point", "error" and "integral feedback" are used on
-    surfaces without ever being defined on one. That is the next rebuild.
+  * "plant", "actuator", "set point", "error" and the open/closed distinction
+    are now DEFINED on a surface, on the block diagram at the top of
+    segment 2, before any algebra uses them. They were not, in the first
+    build, and the docstring claimed they were -- which is how it went
+    unnoticed. The error is also written down as a derivation step now
+    (e = mu/theta - X), because the hour is about driving it to zero and no
+    surface had ever said what it was.
 
 AND THE NAME COLLISION THE GREP TURNED UP. posb/control.py originally exported
 `adaptation_error` for X_ss - mu/theta, a DIFFERENCE. Session 10 already uses
@@ -103,6 +107,7 @@ def build():
     _retrieval(d)
     _goals(d)
     _frame(d)
+    _vocabulary(d)
     _derivation(d)
     _instantiate(d)
     _motif(d)
@@ -182,8 +187,8 @@ def _goals(d):
         ("the device", "Two molecules that destroy each other. Why is that an "
                        "integrator, and why does the circuit being controlled "
                        "not get a vote?"),
-        ("the limit", "The guarantee is exact. Name the two different ways a "
-                      "real cell breaks it."),
+        ("the limit", "The guarantee is exact on paper. Name the ways a "
+                      "real cell breaks it — there are more than two."),
     ], top=2.05)
     d.notes(s,
            "The third one is the hour's honesty and it has TWO answers, which "
@@ -208,6 +213,10 @@ def _frame(d):
         ("the pattern", "every cure so far needs you to name the disturbance "
                         "first. Miss one and the cure does not cover it.",
          AMBER),
+        ("and note", "f is unknown, so a CHANGE in f is covered too — a "
+                     "different rate constant, a different temperature, a "
+                     "protease you did not plan for. Not only a term added "
+                     "on the end."),
     ], label_color=CYAN)
     d.foot(s, "Three disturbances, three devices. The question is whether there is a device that does not need the list.")
     d.notes(s,
@@ -221,6 +230,32 @@ def _frame(d):
 
 
 # ------------------------------------------------------------- derivation ---
+def _vocabulary(d):
+    s = d.light()
+    d.header(s, "segment 2", "frame  ·  five words, before any algebra")
+    d.title(s, "The words this hour is made of")
+    d.image(s, FIG + "s22_block_diagram.png", M, 1.60, w=W - 2 * M, h=5.05)
+    d.foot(s, "\"Plant\" is the control engineer's word for whatever you are controlling. It is not a metaphor and it has nothing to do with botany.")
+    d.notes(s,
+           "Half this room has never met any of these words and the other "
+           "half has used them for years, so I spend the time and I say why: "
+           "every one of them turns up in the next four surfaces.\n "
+           "PLANT is the one to be explicit about. It is the thing being "
+           "controlled — your circuit, the cell, whatever sits downstream of "
+           "the actuator — and in a synthetic biology course the wrong "
+           "reading is sitting right there. I say the botany line out loud; "
+           "it gets a laugh and it fixes the word.\n "
+           "ERROR is the one that matters most, because the whole derivation "
+           "is about driving it to zero and we have never written it down: "
+           "e = mu/theta − X. Set point minus output. That is all.\n "
+           "ACTUATOR is what the controller pushes with. Today it will be a "
+           "molecule, and the fact that a molecule cannot go below zero is "
+           "the entire second half of the hour.\n "
+           "CLOSED and OPEN: the loop is closed when the sensor reports back. "
+           "Aoki's control strain is this diagram with that one arrow cut, "
+           "which is worth pointing at now so it is familiar later.")
+
+
 def _derivation(d):
     d.derivation(
         None, "segment 2", "build  ·  integral feedback, on no particular plant",
@@ -229,9 +264,12 @@ def _derivation(d):
             ("a plant, any plant",
              "dX/dt = f(X, u) + d",
              "f unknown, d unknown and constant"),
-            ("the controller integrates",
-             "du/dt = mu - theta·X",
-             "and nothing else"),
+            ("the error, written down",
+             "e = mu/theta - X",
+             "set point minus output"),
+            ("the controller integrates it",
+             "du/dt = theta·e = mu - theta·X",
+             "u is the running total of e"),
             ("at steady state du/dt = 0",
              "mu - theta·X = 0",
              "whatever f was doing"),
@@ -239,7 +277,7 @@ def _derivation(d):
              "X = mu / theta",
              "two constants, and no f anywhere"),
         ],
-        board="du/dt = mu - theta X   =>   X_ss = mu/theta",
+        board="e = mu/theta - X;  du/dt = theta·e   =>   X_ss = mu/theta",
         note="AT THE BOX, SAY IT AGAINST SESSION 10. Their feedforward loop "
              "adapted too, and its adaptation error was 0.62 — final over "
              "peak — and it moved whenever any rate constant moved. This one "
@@ -249,15 +287,26 @@ def _derivation(d):
              "Four lines, on a plant I deliberately refuse to specify. The "
              "generality IS the result and specifying the plant would throw it "
              "away.\n "
-             "Linger on step three. du/dt = 0 is forced at ANY steady state — "
+             "Step two is new and it is the one the room has been missing: "
+             "e = mu/theta − X, set point minus output, and du/dt = theta·e "
+             "says u is the RUNNING TOTAL of the error. That is what the word "
+             "integral is doing in the name of this thing.\n "
+             "Step four. du/dt = 0 is forced at ANY steady state — "
              "it is what steady state means — so the error has to be zero. "
              "Not small. Zero.\n "
              "LEDGER, left wing: X_ss = mu/theta, and f is not in it.\n "
              "Aoki's own sentence is worth reading out here: the steady state "
              "is determined solely by the ratio mu/theta, and it does not "
-             "depend on the topology and parameters of the controlled "
-             "network. That is what we just derived, and the next surface "
-             "makes them check it.")
+             "depend on the topology and parameters of the circuit of "
+             "interest — as long as the closed dynamics are stable, which is "
+             "the clause everyone drops and I do not. That is what we just "
+             "derived, and the next surface makes them check it.\n "
+             "AND THE CONSEQUENCE, which is the reason to care: you do not "
+             "have to characterise your plant. Change host, change promoter, "
+             "change chassis — the controller ports without re-tuning, "
+             "because none of those appear in the answer. That is what this "
+             "device buys you and it is worth saying here, not fifteen "
+             "surfaces later on the ledger.")
 
 
 def _instantiate(d):
@@ -281,6 +330,28 @@ def _instantiate(d):
            "The one to push on: 'but k and gamma must do something.' They do. "
            "They set how it gets there and how long it takes. They do not set "
            "where it ends up, and that distinction is the hour.")
+
+    s = d.dark()
+    d.header(s, "segment 3", "debrief  ·  where it settles")
+    d.title(s, "X = μ / θ")
+    d.rows(s, [
+        ("what is in it", "two controller constants. μ, the rate Z₁ is made "
+                          "at. θ, the strength of the sensing.", CYAN),
+        ("what is not", "k. γ. d. Not one of them survives into the answer, "
+                        "and you did not need to know any of them."),
+        ("what k and γ do", "they set the ride — how fast it gets there, how "
+                            "much it rings on the way. They do not set the "
+                            "destination."),
+    ], label_color=CYAN)
+    d.foot(s, "Everything for the rest of the hour is this box, or a reason it fails.")
+    d.notes(s,
+           "The answer goes UP, not just around the room, because the eight "
+           "people who did not speak need it too.\n "
+           "The push-back I want: 'but k and gamma must do something.' They "
+           "do, and the next two surfaces are exactly that — the ride against "
+           "the destination.\n "
+           "A student will ask whether d really drops out. It does, and the "
+           "step figure is next.")
 
     s = d.light()
     d.header(s, "segment 3", "build  ·  send a disturbance in")
@@ -337,13 +408,33 @@ def _motif(d):
            "for it.")
 
     s = d.light()
+    d.header(s, "segment 4", "frame  ·  the arrangement, before the algebra")
+    d.title(s, "Two molecules that destroy each other")
+    d.image(s, FIG + "s22_motif_topology.png", M, 1.62, w=W - 2 * M, h=5.05)
+    d.foot(s, "Z₁ is made at a constant rate and drives the output. Z₂ is made in proportion to the output. They destroy each other.")
+    d.notes(s,
+           "The picture first, and the algebra after. The first build of this "
+           "deck put the two rate equations up cold and the release that "
+           "follows asked the room to subtract them — which works for anyone "
+           "who already thinks in rate equations and leaves everyone else "
+           "trying to work out what Z1 and Z2 ARE.\n "
+           "Three strokes: Z1 at a constant rate mu, Z2 at theta times the "
+           "output, and the two annihilate. The plant is a box marked ANY "
+           "TOPOLOGY, ANY PARAMETERS because that is the whole claim.\n "
+           "Note the arrows on the annihilation converge — both species are "
+           "consumed. That is not the same as reversible binding, and the "
+           "home guide asks them to pin the difference down.\n "
+           "Then the two rate equations on the board, and stop.")
+
+    s = d.light()
     d.header(s, "segment 4", "release  ·  two lines of algebra")
     d.title(s, "Subtract them")
     d.rows(s, [
         ("on the board", "dZ₁/dt = μ − η·Z₁Z₂      dZ₂/dt = θ·X − η·Z₁Z₂"),
-        ("your turn", "subtract the second from the first. Then look at what "
-                      "you have and say which quantity in this circuit is the "
-                      "integral of the error."),
+        ("your turn", "subtract the second from the first."),
+        ("then vote", "which quantity in this circuit is the integral of the "
+                      "error?    Z₁    ·    Z₂    ·    X    ·    Z₁ − Z₂",
+         AMBER),
     ], top=2.05)
     d.foot(s, "You are looking for something you derived twenty minutes ago.")
     d.notes(s,
@@ -368,6 +459,10 @@ def _motif(d):
            "because Z1 ≥ 0 and Z1 − Z2 has no sign restriction at all. If I "
            "leave the plant written in terms of u, the leak segment's bound "
            "is a bound on nothing.\n "
+           "I take the vote before anyone explains, hands up, and I count. "
+           "Z1 and Z2 both draw votes, which is the useful part: either one "
+           "alone still has the annihilation term in it and so is not a clean "
+           "running total of anything. Only the DIFFERENCE cancels it.\n "
            "The eta question will come: eta does not appear in the result at "
            "all. Faster annihilation is a faster ride, not a different "
            "destination — which is the orange curve on the four-plants figure.")
@@ -420,21 +515,51 @@ def _sequestration(d):
 # ------------------------------------------------------------------- Aoki ---
 def _aoki(d):
     s = d.light()
-    d.header(s, "segment 5", "frame  ·  somebody built it")
-    d.title(s, "And controlled the one thing Part II opened on")
+    d.header(s, "segment 5", "frame  ·  somebody built it, out of parts you know")
+    d.title(s, "σ and anti-σ")
     d.rows(s, [
-        ("the controller", "SigW and RsiW — a σ factor and its anti-σ factor "
-                           "from B. subtilis, moved into E. coli. The "
-                           "annihilation is their natural interaction."),
-        ("the output", "not GFP. They replace sfgfp with metE, the last "
-                       "step of cobalamin-independent methionine biosynthesis, in "
-                       "a ΔmetE host in "
-                       "methionine-free medium — so the controlled output is "
-                       "the cell's GROWTH RATE."),
-        ("the control", "the open-loop strain is the same circuit with the "
-                        "anti-σ module deleted. One module out, feedback "
-                        "gone, everything else identical.", CYAN),
+        ("σ factor", "the subunit that tells RNA polymerase which promoters "
+                     "to read. SigW switches on P_sigW — more SigW, harder "
+                     "that promoter fires. Z₁ is the ACTUATOR.", CYAN),
+        ("anti-σ factor", "binds a σ one-to-one and holds it off the "
+                          "polymerase. RsiW comes from P_BAD, which AraC "
+                          "drives, and AraC sits downstream of the output. "
+                          "Z₂ is the SENSOR.", AMBER),
+        ("why that is an annihilation", "a σ held by its anti-σ does nothing, "
+                                        "and the two leave circulation "
+                                        "together — one for one, which is "
+                                        "exactly what made the subtraction "
+                                        "cancel."),
     ], top=1.95, label_color=CYAN)
+    d.foot(s, "Both from B. subtilis, moved into E. coli. The annihilation is not engineered — it is what these two proteins already do.")
+    d.notes(s,
+           "Session 6 is the last time they saw a sigma factor and anti-sigma "
+           "has never come up, so I draw the mechanism rather than naming "
+           "it.\n "
+           "The mapping is the part that is easy to leave implicit and must "
+           "not be: SigW is Z1 because it ACTUATES — it turns the output "
+           "promoter on. RsiW is Z2 because its expression is driven by AraC, "
+           "which is downstream of the output, so its production rate tracks "
+           "the output. That is the theta*X term, built out of a two-step "
+           "chain the paper draws in Fig. 2a.\n "
+           "Then why it is an annihilation and not just inhibition: the "
+           "complex takes both out together, one for one. A pair that binds "
+           "reversibly would not do this, which is the home guide's item 2.")
+
+    s = d.light()
+    d.header(s, "segment 5", "frame  ·  and what they regulate with it")
+    d.title(s, "They control the growth rate")
+    d.rows(s, [
+        ("the output", "not GFP. They replace sfgfp with metE, the last step "
+                       "of cobalamin-independent methionine biosynthesis, in "
+                       "a ΔmetE host in methionine-free medium — so the "
+                       "controlled output is the cell's GROWTH RATE.", CYAN),
+        ("the control", "the open-loop strain is the same circuit with the "
+                        "anti-σ module (P_BAD–rsiW) deleted: the sensor arrow "
+                        "cut, everything else the same. It also carries less "
+                        "protein, which is session 19's confound and worth "
+                        "naming."),
+    ], top=2.05, label_color=CYAN)
     d.foot(s, "Session 19 opened Part II on growth rate as the thing your circuit changes. This closes it on growth rate as the thing a circuit regulates.")
     d.notes(s,
            "The growth-rate choice is worth a beat and it is not decoration — "
@@ -471,6 +596,32 @@ def _evidence(d):
            "the same words. Twice in a fortnight is how it sticks.\n "
            "What would settle it: an equivalence test, or more replicates, or "
            "a stated effect size they can rule out.")
+
+    s = d.dark()
+    d.header(s, "segment 5", "debrief  ·  what each number licenses")
+    d.title(s, "Two P values, and they are not two of a kind")
+    d.rows(s, [
+        ("P = 7.769 × 10⁻⁵", "the open loop's growth rate moved with "
+                             "temperature. Reject the null. Say it plainly.",
+         CYAN),
+        ("P = 0.2261", "we FAILED TO DETECT a difference at n = 3. That is "
+                       "not the same as showing there is none, and with three "
+                       "replicates a modest change would have looked like "
+                       "this too.", AMBER),
+        ("what would settle it", "a bound on the difference rather than a "
+                                 "failure to reject — which needs a stated "
+                                 "effect size, and more replicates than "
+                                 "three."),
+    ], top=2.00, label_color=CYAN)
+    d.foot(s, "A large P is the absence of evidence. It is not evidence of absence, and at n = 3 it is barely even the first one.")
+    d.notes(s,
+           "This is the half of the room with no statistics course, so the "
+           "answer goes on the wall.\n "
+           "They meet the same distinction on PS8 Q3d, with Mishra's 432 "
+           "against 396 at n = 3 and p = 0.10. Same words both times.\n "
+           "What I am NOT saying: that Aoki are wrong. The circuit very "
+           "probably does reject the perturbation. The claim that outruns the "
+           "data is 'perfectly', and nothing at n = 3 could establish it.")
 
     s = d.light()
     d.header(s, "segment 5", "debrief  ·  their figure")
@@ -569,19 +720,24 @@ def _leak(d):
            "LEDGER: d <= gamma·mu/theta — the actuator bound.")
 
     s = d.dark()
-    d.header(s, "segment 6", "debrief  ·  two failures, not one")
-    d.title(s, "Running out of authority is not the same as leaking")
+    d.header(s, "segment 6", "debrief  ·  four ways it breaks, not one")
+    d.title(s, "Running out is not the same as leaking")
     d.rows(s, [
         ("the leak", "dilution. There IS a steady state and it is in the "
                      "wrong place, by an amount first order in the growth "
                      "rate.", CYAN),
         ("saturation", "the bound you just derived. Past d = γ·μ/θ there is "
-                       "no steady state AT ALL — Z₁ hits zero, the annihilation "
-                       "stops, and Z₂ grows without bound.", AMBER),
-        ("why it matters", "they look alike in a simulation that stops too "
-                           "early. One is fixed by diluting less; the other "
-                           "is fixed by a bigger actuator, and nothing else "
-                           "will do."),
+                       "no steady state AT ALL — Z₁ hits zero, the "
+                       "annihilation flux pins at μ, and Z₂ climbs for ever "
+                       "at θX − μ.", AMBER),
+        ("why those two matter", "they look alike in a simulation that stops "
+                                 "too early. One is fixed by diluting less; "
+                                 "the other by a bigger actuator, and nothing "
+                                 "else will do."),
+        ("two more, theirs", "STABILITY — a loop that oscillates has no "
+                             "steady state to be exact about. VARIANCE — they "
+                             "report the closed loop MORE variable cell to "
+                             "cell. The mean is pinned; the spread is not."),
     ], label_color=CYAN)
     d.foot(s, "Integral feedback rejects any disturbance it has the authority to reject. That sentence needs both halves.")
     d.notes(s,
@@ -602,31 +758,36 @@ def _close(d):
     d.header(s, "close", "the design ledger")
     d.title(s, "What you can now do, and what it costs")
     d.rows(s, [
-        ("the knobs", "μ and θ, and that is the whole list. The set point is "
-                      "a ratio of two rate constants you choose.", CYAN),
-        ("the guarantee", "exact adaptation to any constant disturbance, "
-                          "whatever the plant is — provided the controller "
-                          "species are lost only to each other."),
-        ("the limits", "the actuator's range; a stable closed loop, which "
-                       "is Aoki's own proviso; and dilution. The last is not "
-                       "avoidable in a growing cell.", AMBER),
-        ("the pattern", "every cure in Part II has cost something on a "
-                        "different axis from the damage. This one costs you "
-                        "the assumption that your controller does not "
-                        "dilute."),
-    ], label_color=CYAN)
-    d.foot(s, "Four rungs, four couplings, and the last device is made of the first problem.")
+        ("knobs", "μ — Aoki turn it with HSL, onto the sigW promoter. θ — "
+                  "with arabinose, onto rsiW. The set point is the RATIO, so "
+                  "anything hitting both equally is rejected too.", CYAN),
+        ("constraints", "δ is the growth rate and belongs to the host, not "
+                        "to you. k and γ belong to the plant. η belongs to "
+                        "the protein pair you picked. None of them is a dial."),
+        ("guarantee", "exact adaptation to any constant disturbance, whatever "
+                      "the plant — while the loop is stable and the "
+                      "controller is lost only to itself."),
+        ("limits, and the tell", "actuator: Z₁ pins at zero. Dilution: the "
+                                "error tracks the growth rate. Stability: it "
+                                "rings and never settles.", AMBER),
+    ], top=1.88, label_color=CYAN)
+    d.foot(s, "Aoki's own design rule for the leak: pick controller species whose only loss channel IS dilution. σ factors are stable; RNA is not.")
     d.notes(s,
-           "This is the ledger surface and it is the one I want "
-           "photographed.\n "
-           "The limits row is the one that must not be skipped — "
-           "lecture-design says so and this is the session with the most "
-           "seductive guarantee in the course.\n "
-           "The last row is Part II's whole shape: session 17 said a "
-           "parameter is manufactured, 21 said the load is the price of the "
-           "regulation, and today says the guarantee is the price of not "
-           "diluting. Nothing is free and the bill always arrives somewhere "
-           "you were not looking.")
+           "The surface I want photographed, and it is four columns now "
+           "because the constraints row is the one this session can fill "
+           "better than any other in Part II.\n "
+           "KNOBS have to be physical or they are not knobs. HSL and "
+           "arabinose, both in their Fig. 2c, and the set point is mu/theta "
+           "so what matters is the ratio — which is also why a global insult "
+           "that scales both is rejected without anyone designing for it.\n "
+           "The foot line is the engineering answer to the leak, and it is "
+           "the paper's own: the high native stability of these sigma and "
+           "anti-sigma factors is what makes integral action practical in "
+           "fast-growing cells, in contrast to RNA-based controllers where "
+           "instability is a major limitation. So the fix is not 'dilute "
+           "less', which they cannot do. It is a PART CHOICE.\n "
+           "LIMITS each come with the observable, because a limit you cannot "
+           "see from the bench is not a limit you can design around.")
 
     s = d.light()
     d.header(s, "close", "two threads, both ending here")
@@ -650,6 +811,30 @@ def _close(d):
            "Say the last line slowly. Topology, not parameters. That is the "
            "difference between the two devices and it is the sentence Part III "
            "opens on.")
+
+    s = d.light()
+    d.header(s, "close", "notes down — the three from the start")
+    d.title(s, "Can you answer these now?")
+    d.rows(s, [
+        ("the guarantee", "what is the set point allowed to depend on, and "
+                          "what is it not?"),
+        ("the device", "two molecules that destroy each other. Why is that an "
+                       "integrator, and why does the circuit being controlled "
+                       "not get a vote?"),
+        ("the limit", "name the ways a real cell breaks it. There were four."),
+    ], top=2.05)
+    d.foot(s, "If the third one is hard, that is the honest state of this material and not a gap in your notes.")
+    d.notes(s,
+           "Notes closed, and I take these from the room rather than reading "
+           "them out. Three minutes, and it is the only measurement I get of "
+           "whether the hour landed.\n "
+           "One: μ and θ, and nothing else — not k, not γ, not d.\n "
+           "Two: because Z1 − Z2 is the running total of the error and a "
+           "steady state forces that total to stop changing, which forces the "
+           "error to zero. The plant never enters.\n "
+           "Three: actuator range, dilution, stability, variance. If they get "
+           "two I am content; if they get the first two I am content, because "
+           "those are the two PS8 asks about.")
 
     s = d.light()
     d.header(s, "close", "where this goes")

@@ -45,7 +45,8 @@ controller does not?
 ## 2. What the annihilation has to be
 
 The motif's third reaction is $Z_1 + Z_2 \to \varnothing$ at rate $\eta Z_1 Z_2$.
-Class treated $\eta$ as large and showed the steady state does not contain it.
+Class showed the steady state does not contain $\eta$ at all — not for large
+$\eta$, but for every $\eta > 0$.
 
 **(a)** The derivation assumed $Z_1$ and $Z_2$ are lost **only** by
 annihilating each other. List every other way a protein is actually lost in a

@@ -46,8 +46,12 @@ def _save(fig, name):
     plt.close(fig)
 
 
-def fig_motif():
+def fig_motif(banner=True, name="s22_motif"):
     """The antithetic motif, drawn so the subtraction is visible.
+
+    `banner=False` renders the topology ALONE, for the frame surface that has
+    to come before the room is asked to subtract the two rate equations. The
+    banner version is the debrief, after they have done the algebra.
 
     Z1 is made at a constant rate (the set point). Z2 is made in proportion to
     the output (the sensor). They annihilate, and because annihilation removes
@@ -73,10 +77,11 @@ def fig_motif():
                                     connectionstyle=f"arc3,rad={rad}"))
 
     # The equation gets a band of its own at the top; nothing else enters it.
-    ax.text(5.0, 5.85,
-            "$\\dfrac{d(Z_1 - Z_2)}{dt} = \\mu - \\theta X$"
-            "      $\\Rightarrow$      steady state forces  $X = \\mu/\\theta$",
-            ha="center", va="center", color=INK, fontsize=TYPE["emphasis"])
+    if banner:
+        ax.text(5.0, 5.85,
+                "$\\dfrac{d(Z_1 - Z_2)}{dt} = \\mu - \\theta X$"
+                "      $\\Rightarrow$      steady state forces  $X = \\mu/\\theta$",
+                ha="center", va="center", color=INK, fontsize=TYPE["emphasis"])
 
     box(0.4, 3.45, 2.3, 1.1, "$Z_1$", TEAL, "set point, rate $\\mu$")
     box(0.4, 0.45, 2.3, 1.1, "$Z_2$", AMBER, "sensor, rate $\\theta X$")
@@ -86,8 +91,13 @@ def fig_motif():
 
     # annihilation, between the two Z boxes, with its text in the empty
     # middle band -- left of the plant, right of the arrow
-    ax.annotate("", xy=(1.45, 1.55), xytext=(1.45, 3.45),
-                arrowprops=dict(arrowstyle="<|-|>", color=RED, lw=2.4))
+    # Two arrows CONVERGING, not a double head. A double-headed arrow is the
+    # reversible-binding glyph, and distinguishing annihilation from
+    # reversible sequestration is exactly what the home guide asks for.
+    ax.annotate("", xy=(1.45, 2.65), xytext=(1.45, 3.45),
+                arrowprops=dict(arrowstyle="-|>", color=RED, lw=2.4))
+    ax.annotate("", xy=(1.45, 2.35), xytext=(1.45, 1.55),
+                arrowprops=dict(arrowstyle="-|>", color=RED, lw=2.4))
     ax.text(1.85, 2.98, "$Z_1 + Z_2 \\rightarrow \\varnothing$", color=RED,
             fontsize=TYPE["emphasis"], va="center")
     # va="top" from 2.55 puts two caption lines at roughly 2.55 -> 1.85, which
@@ -103,7 +113,68 @@ def fig_motif():
     ax.text(5.1, 0.72, "the output is sensed", color=AMBER,
             fontsize=TYPE["body"], ha="center")
 
-    _save(fig, "s22_motif")
+    _save(fig, name)
+
+
+def fig_block_diagram():
+    """The words, drawn. plant / actuator / sensor / set point / error.
+
+    Session 22 used all five on surfaces without defining any of them. In a
+    deliberately bimodal room "plant" is control-engineering jargon with an
+    obvious wrong reading, and nothing earlier in the course supplies it.
+    """
+    fig, ax = plt.subplots(figsize=(10.6, 5.4))
+    ax.set_xlim(0, 11); ax.set_ylim(0, 5.6); ax.axis("off")
+
+    def box(x, y, w, h, label, colour, sub=None):
+        ax.add_patch(plt.Rectangle((x, y), w, h, fill=False, lw=2.2,
+                                   edgecolor=colour, zorder=3))
+        ax.text(x + w / 2, y + h / 2 + (0.20 if sub else 0), label,
+                ha="center", va="center", color=colour,
+                fontsize=TYPE["emphasis"], zorder=4)
+        if sub:
+            ax.text(x + w / 2, y + h / 2 - 0.32, sub, ha="center",
+                    va="center", color=INK, fontsize=TYPE["caption"], zorder=4)
+
+    def arrow(x1, y1, x2, y2, colour, rad=0.0):
+        ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
+                    arrowprops=dict(arrowstyle="-|>", color=colour, lw=2.2,
+                                    connectionstyle=f"arc3,rad={rad}"))
+
+    box(0.35, 3.05, 2.45, 1.15, "controller", TEAL, "you build this")
+    box(4.70, 3.05, 2.75, 1.15, "plant", INK, "what you control")
+    box(4.70, 1.15, 2.75, 0.95, "sensor", AMBER, "reports the output")
+
+    arrow(2.80, 3.62, 4.70, 3.62, TEAL)
+    ax.text(3.75, 3.80, "actuator", color=TEAL, ha="center", va="bottom",
+            fontsize=TYPE["body"])
+
+    arrow(7.45, 3.62, 9.60, 3.62, INK)
+    ax.text(8.50, 3.80, "output  $X$", color=INK, ha="center", va="bottom",
+            fontsize=TYPE["body"])
+
+    ax.annotate("", xy=(6.07, 4.20), xytext=(6.07, 5.05),
+                arrowprops=dict(arrowstyle="-|>", color=RED, lw=2.4))
+    ax.text(6.32, 4.92, "disturbance  $d$", color=RED, ha="left",
+            va="center", fontsize=TYPE["body"])
+    ax.text(6.32, 4.52, "unknown, and nobody tells you", color=RED, ha="left",
+            va="center", fontsize=TYPE["caption"])
+
+    arrow(8.50, 3.45, 7.45, 1.63, AMBER, rad=0.28)
+    arrow(4.70, 1.63, 1.58, 3.05, AMBER, rad=0.28)
+
+    ax.text(0.35, 2.35, "set point  $\\mu/\\theta$", color=TEAL, ha="left",
+            fontsize=TYPE["body"])
+    ax.text(0.35, 1.95, "where you want $X$", color=INK, ha="left",
+            fontsize=TYPE["caption"])
+    ax.text(0.35, 1.35, "error  $e = \\mu/\\theta - X$", color=TEAL, ha="left",
+            fontsize=TYPE["body"])
+    ax.text(0.35, 0.95, "how far off it is", color=INK, ha="left",
+            fontsize=TYPE["caption"])
+    ax.text(0.35, 0.28, "the loop is CLOSED when the sensor reports back; "
+                        "cut that arrow and it is OPEN.",
+            color=INK, ha="left", va="bottom", fontsize=TYPE["caption"])
+    _save(fig, "s22_block_diagram")
 
 
 HELD = "$\\mu=10,\\ \\theta=2,\\ k=1,\\ \\gamma=0.5,\\ \\eta=50$"
@@ -112,10 +183,8 @@ HELD = "$\\mu=10,\\ \\theta=2,\\ k=1,\\ \\gamma=0.5,\\ \\eta=50$"
 def fig_plant_does_not_matter():
     """THE SESSION'S CLAIM. Four different plants, one set point.
 
-    Aoki, p. 533: "as long as the closed dynamics are stable, the steady-state
-    value of the output is determined solely by the ratio mu/theta. Notably,
-    it does not depend on the topology and parameters of the circuit of
-    interest." So vary the circuit of interest and show the output landing in
+    Aoki: "it does not depend on the topology and parameters of the controlled
+    network". So vary the controlled network and show the output landing in
     the same place. The transients differ -- that is the plant -- and the
     destination does not.
     """
@@ -233,7 +302,9 @@ def fig_leak():
     _save(fig, "s22_leak")
 
 
-FIGURES = [fig_motif, fig_plant_does_not_matter, fig_step, fig_leak]
+FIGURES = [fig_block_diagram, fig_motif,
+           lambda: fig_motif(banner=False, name="s22_motif_topology"),
+           fig_plant_does_not_matter, fig_step, fig_leak]
 
 
 if __name__ == "__main__":
