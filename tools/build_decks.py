@@ -51,7 +51,7 @@ DECKS = ["s01_specification", "s02_substrate", "s03_modeling_i",
          "s09_bistability", "s10_feedforward",
          "s11_oscillators", "s12_noise", "s13_digital",
          "s14_review", "s16_logic", "s17_parts", "s18_protein", "s19_resources",
-         "s20_metabolic", "s21_retroactivity"]
+         "s20_metabolic", "s21_retroactivity", "s22_control"]
 OUT = ROOT / "private" / "build" / "decks"
 
 # Inputs every deck depends on regardless of what it happens to draw. The
