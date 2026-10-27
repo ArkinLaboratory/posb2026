@@ -1,14 +1,13 @@
----
-title: "Session 22 — Robustness and control"
-subtitle: "Home guide"
+<!--
+title: Session 22 — Robustness and control
+subtitle: A home guide. None of these four is a PS8 question — they are the ones class did not have time for. Item 1 is the controller we did not build and why it is not enough; item 2 is what the annihilation really is once a molecule has to do it; item 3 is their evidence, read sceptically; item 4 is the ladder. Answers come on a separate sheet.
 session: 22
-date: "10 November 2026"
----
+-->
 
 # How to use this
 
 Work it after class, on paper, before you touch PS8 Q4 and Q5. The answers are
-attached at the back — read them **after** you have written something down, not
+on a separate sheet — read them **after** you have written something down, not
 instead of writing something down.
 
 Nothing in this guide is a PS8 question. Three of them are the questions class
