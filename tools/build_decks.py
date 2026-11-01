@@ -287,6 +287,18 @@ def main():
                 for (ch, fix), ctx in seen.items():
                     print(f"     U+{ord(ch):04X}  use {fix:<8} in: {ctx}")
 
+            # The other half of the markup problem: not a missing glyph but a
+            # subscript nobody braced, which renders as a literal underscore.
+            loose = sm.get("loose_subscripts") or []
+            if loose:
+                seen = {}
+                for raw, fix, ctx in loose:
+                    seen.setdefault((raw, fix), ctx)
+                print(f"  !! {len(loose)} unbraced subscript(s) in PROJECTED "
+                      f"text -- these print the underscore:")
+                for (raw, fix), ctx in seen.items():
+                    print(f"     {raw:<10} write {fix:<12} in: {ctx}")
+
             sparse = sm.get("sparse") or []
             if sparse:
                 cap = sm.get("max_min_per_step", "?")
@@ -353,7 +365,7 @@ def main():
                       f"-> renders {got[0]}x{got[1]}in")
         if getattr(deck, 'crowded_runs', []):
             print(f"  !! {len(deck.crowded_runs)} derivation run(s) too tight "
-                  f"to carry asides on every surface -- only the live step "
+                  f"to carry asides on every slide -- only the live step "
                   f"shows one. Drop the closing box or a step to get them "
                   f"back (needs pitch >= 0.86):")
             for title, pitch, nsteps in deck.crowded_runs:
@@ -371,7 +383,7 @@ def main():
             # almost always a missing `s = d.light()`.
             print(f"  !! {len(deck.doubled_notes)} slide(s) had notes() "
                   f"called more than once -- the notes were APPENDED, but "
-                  f"check for a missing surface:")
+                  f"check for a missing slide:")
             for idx, head in deck.doubled_notes:
                 print(f"    slide {idx}: already had \"{head}...\"")
 

@@ -188,7 +188,7 @@ TYPE = {
     "badge":    14,   # the time badge -- the run sheet, not the lecture
     "caption":  16,   # figure refs, source lines, the foot, derivation asides
     "body":     20,   # ANYTHING THAT CARRIES CONTENT. The important one.
-    "emphasis": 24,   # the one line per surface that has to land
+    "emphasis": 24,   # the one line per slide that has to land
     "header":   24,   # the segment label
     "title":    32,   # the slide title
     "display":  32,   # title-slide subtitle, the big glyphs
@@ -283,6 +283,12 @@ MISSING_GLYPHS = {
     "\u226a": "<<", "\u226b": ">>",
     # Long arrows: present in some symbol fonts, absent in Calibri.
     "\u27f9": "=>", "\u27f8": "<=", "\u27fa": "<=>",
+    # Equilibrium harpoons. U+21CC went onto a session 21 derivation step and
+    # came out of the PDF as a question mark -- the first glyph to reach a
+    # rendered deck since this table was written, because it was not in it.
+    # matplotlib draws it fine (DejaVu has it), so it is safe inside a FIGURE
+    # and not in deck text.
+    "\u21cc": "<=>", "\u21cb": "<=>", "\u21c4": "<=>", "\u21c6": "<=>",
 }
 
 
@@ -290,6 +296,18 @@ def _check_glyphs(deck, line):
     for ch in line:
         if ch in MISSING_GLYPHS:
             deck.bad_glyphs.append((ch, MISSING_GLYPHS[ch], line[:60]))
+    for m in _UNBRACED.finditer(line):
+        deck.loose_subscripts.append((m.group(0),
+                                      "%s_{%s}" % (m.group(1), m.group(2)),
+                                      line[:60]))
+
+
+# A symbol, an underscore, and a short run of letters or digits, NOT already
+# inside _{...}. This is how p_tot, X_T, X_ss, t_un and K_d reached projected
+# slides as literal underscores -- the markup only fires on braces, and an
+# unbraced subscript fails silently and looks almost right in the source.
+# Notes are not checked: there the bare form is what the lecturer wants to read.
+_UNBRACED = re.compile(r"(?<![\w{])([A-Za-z])_(?!\{)([A-Za-z0-9]{1,4})\b")
 
 
 
@@ -316,9 +334,10 @@ class Deck:
         self.unattributed_figures = []
         self.segments = []
         self.bad_glyphs = []
+        self.loose_subscripts = []
         self.step_slides = 0
         # badges of slides marked hidden; reported by the build so a
-        # hidden surface cannot be forgotten about.
+        # hidden slide cannot be forgotten about.
         self.hidden = []
         self._in_step_run = False
         # badge -> number of steps, for the minutes-per-STEP check
@@ -330,7 +349,7 @@ class Deck:
         # and leaves the record intact. Set False on a deck whose running
         # order is still moving, so nothing on screen claims a schedule the
         # deck cannot keep. Adam, 11 October 2026, on the session 14 rebuild:
-        # two adjacent surfaces were printing 67-73 and 66-71.
+        # two adjacent slides were printing 67-73 and 66-71.
         self.show_badges = True
         # Every file this deck actually read while building. Not a guess from
         # the source: the build records what it touched, so tools/manifest.py
@@ -362,9 +381,21 @@ class Deck:
         return p
 
     # -- slide construction --------------------------------------------------
+    # 31 October 2026. A build tree without these two PNGs produced a whole
+    # deck with no backgrounds -- dark slides came out WHITE, with white and
+    # pale text on them -- and said nothing at all. Every other check in this
+    # file reports; a missing background is the one that silently shipped.
+    _bg_missing_reported = set()
+
     def _slide(self, dark):
         s = self.prs.slides.add_slide(self.prs.slide_layouts[6])   # blank
         bg = ROOT / "decks" / ("bg_dark.png" if dark else "bg_light.png")
+        if not bg.exists() and bg.name not in Deck._bg_missing_reported:
+            Deck._bg_missing_reported.add(bg.name)
+            print(f"  !! {bg.name} is missing, so every "
+                  f"{'dark' if dark else 'light'} slide in this deck has NO "
+                  f"background. Dark slides will render white with white "
+                  f"text. Do not ship this build.")
         if bg.exists():
             self._used(bg)
             pic = s.shapes.add_picture(str(bg), 0, 0,
@@ -386,11 +417,11 @@ class Deck:
         PowerPoint skips a hidden slide in presentation mode and greys it in
         the sorter, but it is still there -- still exported to the PDF, still
         carrying its speaker notes, still one keystroke from coming back.
-        That is what you want for a surface that is good and surplus. Cutting
+        That is what you want for a slide that is good and surplus. Cutting
         one means rewriting it later from memory; a deck that is long on the
         day is better trimmed by hiding.
 
-        Adam, 18 October, on five surfaces of session 16: "Don't cut. Hide
+        Adam, 18 October, on five slides of session 16: "Don't cut. Hide
         for now."
         """
         s._element.set("show", "0")
@@ -416,7 +447,7 @@ class Deck:
         # collision somewhere below it.
         # `spacing` is a line-height multiplier, so it multiplies the need.
         # Leaving it out made every generously-led block under-measure: the
-        # forward-link surface of session 11 was set at 1.4 and came out
+        # forward-link slide of session 11 was set at 1.4 and came out
         # 0.8in taller than the box the check thought it had.
         h = max(h, text_height(txt, w, size) * (spacing or 1.0))
         box = s.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
@@ -465,7 +496,7 @@ class Deck:
         -- a base and a pitch, measured by eye against the sizes of the day and
         then frozen in the source. The day the type scale moved from 13.5pt to
         20, every one of those pitches was wrong by about a line, and session
-        11 came out of the build with 76 overlapping pairs across 23 surfaces.
+        11 came out of the build with 76 overlapping pairs across 23 slides.
         Adam found them by reading the PDF. No pitch written down by hand
         survives a change to the type scale, so this writes none down: it asks
         each row how tall it is, stacks what it is told, and says so when the
@@ -577,6 +608,27 @@ class Deck:
         return (pic.left / 914400, pic.top / 914400,
                 pic.width / 914400, pic.height / 914400)
 
+    def image_centered(self, s, path, top=1.72, band=4.60, max_w=10.2):
+        """Place a figure centred in the content band, sized from its own aspect.
+
+        Callers used to pass a hand-picked x and width for every figure, which
+        is a guess about the PNG's shape made in a different file. When the
+        guess is wrong the figure sits off-centre with a gutter beside it, or
+        comes out smaller than the slide can hold. Both were true of every
+        image slide in session 21 before this existed: six figures, all pushed
+        left, all about an inch narrower than they could be.
+
+        The aspect is a property of the file, so it is read from the file. The
+        figure fills the band's height unless that would take it past `max_w`,
+        and it is centred in the band both ways.
+        """
+        from PIL import Image as _Image
+        iw, ih = _Image.open(self._used(path)).size
+        aspect = iw / ih
+        w = min(max_w, band * aspect)
+        h = w / aspect
+        return self.image(s, path, (W - w) / 2, top + (band - h) / 2, w=w)
+
     # -- repeating layout elements ------------------------------------------
     # Words in a segment label that mean the students are working, not
     # watching. During those minutes the slide is deliberately static, so they
@@ -662,7 +714,7 @@ class Deck:
         nothing to author and one edit to `steps` propagates through all of them.
 
         `steps` is a list of (lhs, rhs, aside) triples. `aside` may be None.
-        The final slide adds `closing`, which is the line the next surface
+        The final slide adds `closing`, which is the line the next slide
         inherits. `note` goes on the LAST step slide only -- speaker notes on
         the intermediate ones would be read out mid-derivation.
         """
@@ -672,16 +724,16 @@ class Deck:
             self._in_step_run = (i != len(steps))
             # Adam struck the segment label from all fifteen step slides of
             # session 6 before teaching it, 12 September. The label is the same
-            # on every surface of a run -- it tells the room nothing it did not
+            # on every slide of a run -- it tells the room nothing it did not
             # know one click ago, and it competes with the title. The time
             # badge still prints, because that is the run sheet, and pacing()
             # reads the label from the header CALL rather than the rendering,
             # so nothing downstream notices. Pass label_steps=True to put it
-            # back on every surface of a run.
+            # back on every slide of a run.
             #
             # A STEP COUNTER is not that label and is not what he struck. The
             # objection to the label was that it is identical on every
-            # surface, so it tells the room nothing it did not know one click
+            # slide, so it tells the room nothing it did not know one click
             # ago. "step 3 of 5" changes every click: it says where in the run
             # you are, which is the one thing five identically-titled slides
             # cannot otherwise tell anybody. It also restores the grey band,
@@ -806,7 +858,7 @@ class Deck:
                 self.notes(s, note)
             made.append(s)
         # Only the last slide of a run counts toward the slide-rate check; the
-        # others are the same surface at an earlier moment. Without this a
+        # others are the same slide at an earlier moment. Without this a
         # six-step derivation reads as six slides in four minutes and the
         # checker calls a carefully paced segment "rushed".
         self.step_slides += len(steps) - 1
@@ -820,13 +872,13 @@ class Deck:
         WHY THIS EXISTS (18 September 2026). Adam: the proofs on the slides are
         not clear enough, so he spends the time at the board explaining -- and
         that is where about ten minutes per class goes. Session 8 was the
-        sharpest case: twenty-five surfaces of symbols about a plane that was
+        sharpest case: twenty-five slides of symbols about a plane that was
         never drawn, in a room where 5 of 21 had seen a phase portrait. He was
         the graphics engine, live, four times a period.
 
         `derivation()` has no room for a picture: its equation column runs to
-        x = 13.1. So this is the same reveal -- one surface per step, each the
-        last plus one line -- on a split surface. LEFT, 5.4in: one figure per
+        x = 13.1. So this is the same reveal -- one slide per step, each the
+        last plus one line -- on a split slide. LEFT, 5.4in: one figure per
         step, so the drawing grows as the algebra does. RIGHT, 6.6in: the step
         stack, with the label ABOVE its equation instead of beside it, which is
         what pays for the picture.
@@ -859,7 +911,7 @@ class Deck:
             for what, txt in (("equation", rhs), ("step label", lhs)):
                 shown = _MARKUP.sub(lambda m: m.group(2), txt)
                 if len(shown) > cap:
-                    print(f"  !! split-surface {what} wraps ({len(shown)} "
+                    print(f"  !! split-slide {what} wraps ({len(shown)} "
                           f"rendered chars, cap {cap} at {TYPE['body']}pt): "
                           f"{txt!r}")
         if closing and text_height(closing, CW - 0.44, TYPE["body"]) > 0.85:
@@ -998,7 +1050,7 @@ class Deck:
                   color=WHITE if s._posb_dark else INK)
 
     def foot(self, s, txt, y=6.75):
-        """The italic line at the bottom of a surface.
+        """The italic line at the bottom of a slide.
 
         SIZE AND PLACE ARE ADAM'S, twice over. 12 September he took it from
         11.5 to 13 by hand; 13 September, from 13 to 16, and moved every one he
@@ -1059,7 +1111,7 @@ class Deck:
 
         This used to ASSIGN, which meant a second call on the same slide
         silently destroyed the first. That is not a theoretical hazard:
-        inserting a surface into a deck without giving it its own
+        inserting a slide into a deck without giving it its own
         `s = d.light()` leaves two notes() calls pointing at one slide, and
         three notes were lost that way in s18 on 25 October -- found only by
         unzipping the pptx and mapping notesSlides back to slides.
@@ -1424,7 +1476,7 @@ class Deck:
         MAX_ACTIVITY = 10
         merged, last = [], None
         for badge, label, is_step in self.segments:
-            # An intermediate slide in a derivation run is the SAME surface at
+            # An intermediate slide in a derivation run is the SAME slide at
             # an earlier moment, not another slide's worth of material. Counting
             # it would make a six-step derivation read as six slides in four
             # minutes and report a carefully paced segment as rushed.
@@ -1437,7 +1489,7 @@ class Deck:
         for row in merged:
             row[2] = max(row[2], 1)
 
-        # A derivation run is one surface revealed a line at a time, so
+        # A derivation run is one slide revealed a line at a time, so
         # slides-per-minute is the wrong measure of it. What matters is whether
         # there are enough STEPS for the time: past this many minutes on one
         # step the reveal has stopped pacing anything and the room is watching
@@ -1484,6 +1536,7 @@ class Deck:
                       "activity_frac": act_min / total if total else 0,
                       "board_min": board_min, "max_activity": MAX_ACTIVITY,
                       "bad_glyphs": self.bad_glyphs,
+                      "loose_subscripts": self.loose_subscripts,
                       "long": [r for r in rows if r["long"]],
                       "sparse": [r for r in rows if r["sparse"]],
                       "max_min_per_step": MAX_MIN_PER_STEP,
