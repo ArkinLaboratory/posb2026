@@ -1,0 +1,11 @@
+{
+  "artifact": "s20_sixlines_2.png",
+  "artifact_sha256": "73b75b4608516856b1b0cfc24673d6685b5c563295748c97dfac9a8fd8a291dc",
+  "artifact_content": "65c6d2a9dc58ac8752b4161558b96573461634db252271e3399bf13e682ff2e4",
+  "artifact_bytes": 38974,
+  "deps": {
+    "figures/s20_metabolic.py": "cf33d7ce71af79b2fd9218f61956ee959c79b598dc0a46f1c2b770beee0df2bf",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s20_metabolic.fig_sixlines_2"
+}

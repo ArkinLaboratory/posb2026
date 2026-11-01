@@ -1,10 +1,10 @@
 {
   "artifact": "s20_knockouts.png",
-  "artifact_sha256": "91cd2634a6cdda93bd2d141c9a9510148a87acba6a8aa4c39cdfd9ac2ee26368",
+  "artifact_sha256": "05c3e3dc2b6f5051269e2317c0aacf61b0d11888d3fc811b7ae74a36e2af64d0",
   "artifact_content": "596fb2530710019550e26bec8b1f48d864c7701167424550edae23484644108e",
-  "artifact_bytes": 104473,
+  "artifact_bytes": 98703,
   "deps": {
-    "figures/s20_metabolic.py": "a89f6e8de4a807160f9ac0628acaac62e66d9a57cc9dbaafcb515b6ac0a0037f",
+    "figures/s20_metabolic.py": "cf33d7ce71af79b2fd9218f61956ee959c79b598dc0a46f1c2b770beee0df2bf",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s20_metabolic.fig_knockouts"

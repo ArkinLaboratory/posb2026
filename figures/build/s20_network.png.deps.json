@@ -1,10 +1,10 @@
 {
   "artifact": "s20_network.png",
-  "artifact_sha256": "c9a5d4722be9d63f5d44da10189255eb185117a7c8adde5e99f7eaf131108d8a",
-  "artifact_content": "d8331b6ad5bf638be53fcd3b68030a7c89b9b5b0b63158e36f1a0a5abf18488a",
-  "artifact_bytes": 173515,
+  "artifact_sha256": "74bd92e8d3bc04ccb67ae7d7214f02ebaa0dbb9e3aa7af769eee76c1b407b785",
+  "artifact_content": "3c1ed739fc8aa4743f67360c97fc2c5f29448dd60770ebd5c78412ed553929c3",
+  "artifact_bytes": 167775,
   "deps": {
-    "figures/s20_metabolic.py": "a89f6e8de4a807160f9ac0628acaac62e66d9a57cc9dbaafcb515b6ac0a0037f",
+    "figures/s20_metabolic.py": "cf33d7ce71af79b2fd9218f61956ee959c79b598dc0a46f1c2b770beee0df2bf",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s20_metabolic.fig_network"

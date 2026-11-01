@@ -6,9 +6,13 @@
 Palsson, *Nat Genet* 36(10) 1056–1058 (2004) — **held**, assigned at the close
 of session 19. At the close of this session, Mishra 2014 is assigned for S21.
 
-**Status: DESIGN. The Fong & Palsson numbers are verified off the PDF (§3). The
-worked network and the `posb.fba` results are specified but NOT yet derived or
-tested — see §7.**
+**Status: SUPERSEDED IN PART. The Fong & Palsson numbers are verified off the
+PDF (§3).** The line that used to stand here — that the worked network and the
+`posb.fba` results were "specified but NOT yet derived or tested" — was true
+when written and is **not true now**: `posb/fba.py` and `tests/test_fba.py` both
+exist, the network was built and verified on 26 October (`NUMBERS.md` §6, 16
+test functions), and the deck calls into it live. §7 below is pre-build text
+that was never retired; read it as history.
 
 ---
 
@@ -68,7 +72,10 @@ argument here.
 | Fig. 1 arrows mark strains **>10%** different from prediction | convention | Fig. 1 caption |
 
 **The load-bearing kind, and the one easiest to lose:** 78% is agreement *after
-fifty days of adaptive evolution*. The paper's claim is that the
+adaptive evolution* — the paper's strains were passaged daily for **25 to 50
+days**, until growth rate stopped changing. (Corrected 31 October: this line
+said "after fifty days", flattening a range into its top value. The deck says
+25–50 in both its docstring and on the slide.) The paper's claim is that the
 model predicts **where selection goes**, not where a freshly built knockout
 sits. A naive deletion strain is not at the predicted optimum. **Any slide that
 presents 78% as "the model predicts knockout growth rates" is wrong in exactly
@@ -96,9 +103,11 @@ the left side to zero and asks what is left.
 3. **Linear objective + linear constraints = a linear program**, hence
    `scipy.optimize.linprog`. Say why it is linear, because the room will assume
    optimisation is hard.
-4. **A linear program's optimum sits at a vertex.** So FBA predicts a *corner* —
-   an all-or-nothing split at a branch point — and **alternate optima are
-   generic**. This is the honest limitation and it must be stated on a slide,
+4. **SOME optimum of a linear program sits at a vertex** — not every one, and
+   not the optimum. So FBA *reports* a corner, which is not the same as the
+   corner being the only answer, and **alternate optima are generic**.
+   (Corrected 31 October; this item used to say FBA "predicts a corner", which
+   the deck's segment 5 counterexample refutes. The deck is right.) This is the honest limitation and it must be stated on a slide,
    not in a note: two different flux distributions can both be optimal, and the
    solver returns one of them without telling you.
 5. **Knockout = a bound set to zero.** One line of code, and the reason this is
@@ -139,8 +148,10 @@ the board, with `linprog` used to confirm and then to scale.
 
 ## 7 · What is still needed
 
-- `posb.fba` does not exist. `posb/__init__.py:41` declares it under *"Coming
-  later in the term"*. Build it on `posb.core`'s existing **S** assembly rather
+- ~~`posb.fba` does not exist.~~ **Built and tested 26 October; this whole
+  section is history, kept for the reasoning rather than the status.** It did
+  not exist when this was written, and `posb/__init__.py:41` declared it under
+  *"Coming later in the term"*. Build it on `posb.core`'s existing **S** assembly rather
   than beside it — the syllabus sells this session as session 3's matrix
   re-asked, and the code should make that literally true.
 - The toy network, chosen against §5's five requirements, solved by hand, then

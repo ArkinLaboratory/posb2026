@@ -1,10 +1,10 @@
 {
   "artifact": "s20_flux_map.png",
-  "artifact_sha256": "1bb4fe0319ec2798b765416dca89b05e557eabc3a80ca2419809018b5840ba20",
-  "artifact_content": "81001dff00735eab2457ada7294badfba28dcd6c6f42963b99109c6ca63b9abb",
-  "artifact_bytes": 155391,
+  "artifact_sha256": "faff58b62e4453b19253c9262667f95b28df65eba897ab9cc734a48877d35f3a",
+  "artifact_content": "5b4ba840040050f9c7f12a5aa8f7483203c0d5562978f65383cd5e691ed2a775",
+  "artifact_bytes": 83745,
   "deps": {
-    "figures/s20_metabolic.py": "a89f6e8de4a807160f9ac0628acaac62e66d9a57cc9dbaafcb515b6ac0a0037f",
+    "figures/s20_metabolic.py": "8f0f9ef8f0a7600bdaf6f3e1f2a4a2772ace83c4f53b0ed54333c0907be456c1",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s20_metabolic.fig_flux_map"

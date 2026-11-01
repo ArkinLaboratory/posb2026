@@ -39,6 +39,8 @@ so $v_{\text{pgi}} = 10 - b$.
 
 **F6P.** One producer, one consumer, so $v_{\text{tpi}} = v_{\text{pgi}} = 10 - b$.
 
+> $v_{\text{tpi}}$ and $v_{\text{zwf}}$ are both lumps. $v_{\text{tpi}}$ is phosphofructokinase, aldolase and triose phosphate isomerase on one line; the isomerase by itself only interconverts the two trioses. Worth holding on to when you read what Fong & Palsson's model predicts for the *tpi* deletion.
+
 **T3P.** Made at $2v_{\text{tpi}}$, used by biomass (2 per unit) and by
 $v_{\text{lower}}$:
 
@@ -65,94 +67,104 @@ split all-or-nothing?
 
 ---
 
-## 2 · Last step blank — knock out the TCA
+## 2 · Last step blank — less glucose, not less network
 
-Set $v_{\text{tca}} = 0$. Every line above still holds down to the ATP balance,
-which is the only one that mentioned the TCA. Now all pyruvate goes to
-acetate, which pays **one** ATP where the TCA paid three — so each T3P is
-worth two ATP rather than four:
+Nothing is deleted. The medium is leaner: glucose now arrives at **5** instead
+of 10, and every reaction is still there.
 
-$$\underline{\qquad\qquad} \cdot (20 - 4b) \;\geq\; 4b$$
+Four of the five lines carry straight over with 10 replaced by 5. The ATP line
+is untouched — one ATP at lower, three round the TCA, four spent per unit of
+biomass:
 
-**▶ $b \leq$** <span class="blank"></span>, which is **$\underline{\qquad}$% of
+$$v_{\text{zwf}} = b \qquad v_{\text{pgi}} = v_{\text{tpi}} = 5 - b \qquad
+2(5-b) = 2b + v_{\text{lower}}$$
+
+$$\underline{\qquad\qquad} \;\geq\; 4b$$
+
+**▶ $b =$** <span class="blank"></span>, which is **$\underline{\qquad}$% of
 the wild type.**
 
-**▶ Why does that step follow?** The flux map is not the wild-type map scaled
-down — $v_{\text{ackA}}$ goes from carrying nothing to carrying everything. Say
-in one sentence why a *linear* objective moves the answer to a different corner
-rather than shrinking it in place.
+**▶ Why does that step follow?** Halving the glucose did one thing to the
+answer; deleting the TCA did something else entirely — in class the knockout
+took $b$ from 4 to 10/3, and $v_{\text{ackA}}$ went from carrying nothing to
+carrying everything. Say in one sentence what is different about the two
+changes, in terms of where the optimum sits.
 
 <div class="rule"></div>
 <div class="rule"></div>
 
 ---
 
-## 3 · More blank — counting what is left over, and what kills it
+## 3 · More blank — counting what is left over, and proving what kills it
 
-**(a) Degrees of freedom.** $S$ has one row per balanced metabolite and one
-column per reaction.
+**(a) Degrees of freedom, after a deletion.** Deleting a reaction removes a
+**column** of $S$. Take the network with $v_{\text{tca}}$ gone.
 
 Rows: <span class="blank"></span>  Columns: <span class="blank"></span>
  rank $S$ = <span class="blank"></span>
 
 $$\dim \operatorname{null}(S) \;=\; r - \operatorname{rank}(S) \;=\; \underline{\qquad\qquad}$$
 
-**▶ Why does that step follow?** You found three directions the stoichiometry
-cannot choose between. Session 3 put **two** null spaces on the board, one for
-what is conserved and one for what can flow. Which of the two is this, and
-what does the *other* one count?
+**▶ Why does that step follow?** The full network had three directions the
+stoichiometry could not choose between. Session 3 put **two** null spaces on
+the board, one for what is conserved and one for what can flow. Which of the
+two is this, and what does the *other* one count?
 
 <div class="rule"></div>
 
-**(b) Lethality by inspection.** Of the seven real reactions, four deletions
-drive $b$ to exactly zero. Name them, and for each name *the one thing biomass
-needs that nothing else can make*.
+**(b) Lethality, proved.** In class you named the four deletions that drive $b$
+to exactly zero. Naming them is not proving them. For each one, write **the row
+of $S$** that forces $b = 0$, and finish the argument in one line.
 
-| deleted | $b =$ | because nothing else makes |
+A row of $S$ is one metabolite's balance: what makes it, minus what uses it,
+equal to zero. Two of the four need a second row to finish — say which, and
+which row.
+
+| deleted | the row that does it | and so |
 |---|---|---|
-| | | |
-| | | |
-| | | |
-| | | |
+| $v_{\text{zwf}}$ | | |
+| $v_{\text{tpi}}$ | | |
+| $v_{\text{pgi}}$ | | |
+| $v_{\text{lower}}$ | | |
 
-**▶ Why does that step follow?** Two of the remaining three cost nothing at all.
-Which two, and what do they have in common at the optimum?
+**▶ Why does that step follow?** Every one of those arguments used
+$\mathbf{v} \geq 0$ somewhere, and would collapse without it. Point at the
+place in one of them where it was used, and say what goes wrong if a flux is
+allowed to run negative.
 
 <div class="rule"></div>
 
 ---
 
-## 4 · Entirely yours — the answer stops being unique
+## 4 · Entirely yours — when does a duplicate change anything?
 
-Add one reaction, $v_{\text{zwf2}}$, with **exactly** the stoichiometry of
-$v_{\text{zwf}}$: G6P $\rightarrow$ P5P + CO₂. Nothing else changes.
+In class we added one reaction, $v_{\text{zwf2}}$, with exactly the
+stoichiometry of $v_{\text{zwf}}$, and two things happened at once: the
+optimum stopped being unique, and the coupling between $v_{\text{zwf}}$ and
+$b$ disappeared. Neither of those is automatic. This section is about when a
+duplicate does that and when it does nothing at all.
 
-**(a)** What is the optimal $b$ now? Justify it in one line, without solving
-anything.
-
-<div class="rule"></div>
-
-**(b)** The solver returns $v_{\text{zwf}} = 4$, $v_{\text{zwf2}} = 0$. Write
-down a *different* flux vector that is just as optimal. Then a third.
-
-<div class="rule"></div>
-
-**(c)** How many optimal flux vectors are there? Describe the set in one
-sentence, and say whether every member of it is a vertex of the feasible
-region.
+**(a)** Add instead $v_{\text{tca2}}$, with exactly the TCA's stoichiometry:
+PYR $\rightarrow$ 3 CO₂ + 3 ATP. Nothing else changes. What is the optimal
+$b$? Which fluxes does flux variability analysis now report as free, and over
+what range?
 
 <div class="rule"></div>
 
-**(d)** Flux variability analysis re-solves for the smallest and largest value
-each flux can take while $b$ stays optimal. What does it return for
-$v_{\text{zwf}}$, and what for $v_{\text{pgi}}$? Why are the two answers
-different in kind?
+**(b)** Which coupled pairs survive in that network? Compare with what
+happened in class when $v_{\text{zwf}}$ was duplicated, and account for the
+difference in one sentence about **rows of S**.
 
 <div class="rule"></div>
 
-**(e)** In §3(b) you found $v_{\text{zwf}}$ and $b$ locked to each other. Is
-that still true here? What broke it, and what does that tell you about where
-coupling comes from?
+**(c)** Now add $v_{\text{ackA2}}$ instead, with exactly ackA's
+stoichiometry. What does flux variability analysis return this time? Say why
+the answer is not the same kind as (a).
+
+<div class="rule"></div>
+
+**(d)** State the rule you have just found. What has to be true of a reaction
+before duplicating it can create alternate optima at all?
 
 <div class="rule"></div>
 <div class="rule"></div>

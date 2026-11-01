@@ -1,10 +1,10 @@
 {
   "artifact": "s20_alternate_optima.png",
-  "artifact_sha256": "d49880c84d99aa8cab82cbe01871bf03059af230c76ac0b2fbd821a679a4577f",
+  "artifact_sha256": "81b6fca5791cc33f4d3be87312ab90bbc0bbd437f01e3d8ee9c17035a909ece3",
   "artifact_content": "90323e5eca17f5e552526b360b9d2bf079599449f515c2cd0446cc5ba90bc980",
-  "artifact_bytes": 135304,
+  "artifact_bytes": 129534,
   "deps": {
-    "figures/s20_metabolic.py": "a89f6e8de4a807160f9ac0628acaac62e66d9a57cc9dbaafcb515b6ac0a0037f",
+    "figures/s20_metabolic.py": "cf33d7ce71af79b2fd9218f61956ee959c79b598dc0a46f1c2b770beee0df2bf",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s20_metabolic.fig_alternate_optima"

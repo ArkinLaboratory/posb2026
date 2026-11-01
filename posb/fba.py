@@ -25,8 +25,10 @@ the model says it should be. See `sessions/s20-metabolic/NUMBERS.md`.
 
 Two limitations are built into the shape of the problem and are not defects:
 
-*   A linear program always has an optimum AT a **vertex**, so FBA predicts an
-    all-or-nothing split at a branch point, never a graded one.
+*   A linear program always has **an** optimum at a **vertex**, so a solver
+    hands back an all-or-nothing split at a branch point. That is a fact
+    about what you are shown, not about what is optimal: when two arms tie,
+    every blend of them is equally optimal too. See `has_alternate_optima`.
 *   **Alternate optima are generic**: several different flux distributions can
     hit the same optimal objective, and the solver returns one of them without
     saying so. `flux_ranges` is the standard way to find out -- it is flux
