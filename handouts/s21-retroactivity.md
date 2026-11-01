@@ -1,6 +1,6 @@
 <!--
 title: Session 21 — The same derivation, four times
-subtitle: A home guide. Sections 1 and 2 re-run Thursday's derivation so you can do it cold. Sections 3 and 4 go past it — the numbers there are on no slide. Answers are released after the session.
+subtitle: A home guide. Sections 1 and 2 re-run Thursday's derivation so you can do it cold. Sections 3 and 4 push it into the diluted model and the cost of the load. Answers are released after the session.
 session: 21
 -->
 

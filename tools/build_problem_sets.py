@@ -24,6 +24,7 @@ Usage:
 import importlib.util
 import copy
 import shutil
+import zipfile
 import shutil as _shutil
 import subprocess
 import sys
@@ -60,6 +61,57 @@ def _load_master(name):
 # MODULES. Add a set here the moment its master exists.
 PROBLEM_SETS = ["ps01", "ps02", "ps03", "ps04", "ps05", "ps06", "ps07",
                 "ps08"]
+
+# A cohort-scoped question with AUTOGRADED points needs its own bundle.
+#
+# Gradescope's outline carries a single "Autograder" question whose point value
+# must equal what the bundle reports, and the only extra-credit mechanism it
+# offers -- a 0-point question with a positive rubric -- cannot be applied to an
+# autograder question. PS5 through PS7 never hit this because their 247-only
+# question was entirely hand-graded, so every autograded point sat inside the
+# base. PS8's Q5 splits into an autograded computation and a hand-graded
+# interpretation, which puts 4 autograded points inside the 247-only block.
+#
+# Left alone, the 147 bundle reports 35 against a published base of 50, so the
+# 147 denominator silently becomes 54 and a student who completed everything
+# required would be shown 50/54. Dropping the 247-only tests for that cohort is
+# what keeps the published number true.
+COHORT_DROPS = {
+    "ps08": {"147": ["tests/q5.py"]},
+}
+
+
+def cohort_bundles(name, zips):
+    """Write a per-cohort copy of each bundle with some tests removed.
+
+    Returns [(cohort, path)]. Fails loudly rather than silently shipping a
+    bundle still carrying a test it was supposed to drop.
+    """
+    drops = COHORT_DROPS.get(name)
+    if not drops:
+        return []
+    made = []
+    for cohort, paths in sorted(drops.items()):
+        for z in zips:
+            out = z.with_name(f"{z.stem}-{cohort}{z.suffix}")
+            with zipfile.ZipFile(z) as src:
+                have = set(src.namelist())
+                missing = [p for p in paths if p not in have]
+                if missing:
+                    sys.exit(f"{name}: cohort {cohort} is told to drop "
+                             f"{missing}, which the bundle does not contain")
+                with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as dst:
+                    for item in src.infolist():
+                        if item.filename in paths:
+                            continue
+                        dst.writestr(item, src.read(item.filename))
+            left = [n for n in zipfile.ZipFile(out).namelist()
+                    if n.startswith("tests/")]
+            print(f"cohort bundle      {out.relative_to(ROOT)}")
+            print(f"     dropped {', '.join(paths)} -- "
+                  f"{len(left)} test file(s) remain")
+            made.append((cohort, out))
+    return made
 
 METADATA = {
     "kernelspec": {"display_name": "Python 3", "language": "python",
@@ -213,6 +265,9 @@ def build_one(name):
 
     for z in zips:
         print(f"gradescope bundle  {z.relative_to(ROOT)}   [upload this]")
+
+    for cohort, cz in cohort_bundles(name, zips):
+        stub_score.report(name, cz, PRIVATE / "sources" / f"{name}_stub.py")
     return True
 
 
