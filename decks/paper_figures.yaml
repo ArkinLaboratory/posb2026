@@ -1105,9 +1105,11 @@ dueber2003_fig1:
 #
 # READ THE SUPPLEMENTARY METHODS BEFORE USING THESE. The model was GIVEN the
 # measured substrate and oxygen uptake rates as inputs (Supplementary Table 1),
-# and the strains were EVOLVED. "39 of 50" is agreement after hundreds of
-# generations, on a model handed its own boundary conditions -- not a blind
-# prediction of knockout growth. See sessions/s20-metabolic/NUMBERS.md section 1.
+# and the strains were EVOLVED. "39 of 50" is agreement after 25 to 50 DAYS of
+# daily passage, on a model handed its own boundary conditions -- not a blind
+# prediction of knockout growth. NOT "generations": the word does not appear
+# anywhere in the paper and the deck note says so explicitly, so do not put it
+# in their mouths here either. Corrected 31 October. See sessions/s20-metabolic/NUMBERS.md section 1.
 
 fong2004_fig1:
   figure: "Fig. 1"
@@ -1115,9 +1117,27 @@ fong2004_fig1:
   used_in: ["s20"]
   note: "This is the predicted-against-observed comparison. Supplementary Table 1 is NOT -- it is the measured uptake rates fed in as model inputs."
 
+fong2004_fig1a:
+  figure: "Fig. 1a"
+  shows: "predicted against measured growth rate for every evolved strain, BEFORE evolution (blue diamonds) and AFTER (pink squares), against the y = x line; the eleven misses are labelled by gene and substrate"
+  used_in: ["s20"]
+  note: "The result the reading assignment sends them to, and the surface that carries the word EVOLVED without anyone having to assert it -- blue sits below the line, pink sits on it. Re-cropped from the PDF at 400 dpi on 31 October; the earlier crop clipped the npg watermark into the frame."
+
+fong2004_fig1b_lac_mal:
+  figure: "Fig. 1b, lactate and malate panels"
+  shows: "evolution time courses on lactate and on malate -- growth rate against DAY of evolution, one curve per deletion strain plus wild type. Two adjacent panels of their own figure, uncropped and unrearranged."
+  used_in: ["s20"]
+  note: "THE evidence for segment 7. No growth was computationally predicted for tpi on lactate, malate OR succinate (Fig. 1 caption). On lactate the tpi curve is ABSENT before day 11 and BEGINS at day 10.9, mu = 0.243, climbing to about 0.77 -- the one real structural miss. It does not rise off zero; the main Fig. 1 caption says 'Deletion strain curves begin on the first day of measurable growth.' SI Fig. 1 is the panel that plots the zeros. (The paper's own sentence is 'growth rates >0.70'; the two Fig. 1a points for that pair are 0.763 and 0.803, so 'past 0.8' is true of one strain in 1a and not of the curve in 1b.) On malate it is flat on the axis at zero, and so is succinate, and those two are predictions the model got RIGHT. The full four-panel row is also cropped as fong2004_fig1b_row2, but at slide width four panels put the axis labels below the legibility floor."
+
+fong2004_fig1b_row2:
+  figure: "Fig. 1b, lower row"
+  shows: "evolution time courses on lactate, malate, ribose and succinate -- growth rate against DAY of evolution, one curve per deletion strain plus wild type"
+  used_in: ["s20"]
+  note: "Three of these four panels are the tpi story and they are the evidence for segment 7. Lac: tpi starts at zero around day eleven and rises to about 0.77, which is the one real structural miss. Mal and Suc: tpi is flat on the axis at zero, and those are the two cases the model got RIGHT. Rib is in the crop because it sits between them in their own figure; cutting it out would be rearranging their data."
+
 fong2004_sfig1:
   figure: "Supplementary Fig. 1"
-  shows: "evolution time courses -- absolute growth rate (0-1.0 per h) against DAY of evolution (0-50), in a 6-column x 4-row grid for every replicate (ack1-2, frd1-2, pck1-3, ppc1-2, tpi1-2, zwf1-2)"
+  shows: "evolution time courses -- absolute growth rate (0-1.0 per h) against DAY of evolution (0-50), in a 6-column x 4-row grid: 24 gene-substrate cases, 50 lineages. The replicate labels (ack1-2, frd1-2, pck1-3, ppc1-2, tpi1-2, zwf1-2) repeat down every column, so the thirteen DISTINCT labels are not the lineage count -- 22 cases are in duplicate and 2 in triplicate."
   used_in: ["s20"]
   note: "The figure that earns the word EVOLVES. Without it the session's thesis is our sentence; with it, it is theirs."
 
@@ -1141,8 +1161,26 @@ mishra2014_fig3:
   used_in: ["s21"]
   note: "Teach the minutes from the Online Methods table (396 -> 699 min), not the 76% -- the percentage carries a denominator convention."
 
+mishra2014_fig3a:
+  figure: "Fig. 3a, step-up panel"
+  shows: "GFP against time for the UNBUFFERED system at 0x, 1x and 2x load, n = 3, s.d. bars"
+  used_in: ["s21"]
+  note: "THE measurement the room designs in segment 4, already run. Three loads, three rise times, and all three land on the same plateau near 2,900 AU -- same level, different time, which is the protected-model signature. Cropped from p. 1271 at 300 dpi."
+
+mishra2014_fig3b:
+  figure: "Fig. 3b, step-up panel"
+  shows: "the same step on the buffered system with LOW SKN7/YPD1 expression; plateaus separate with load"
+  used_in: ["s21"]
+  note: "The counter-example, and the paper says so in words on p. 1272: the low-expression buffered system's final output levels WERE reduced by load. This is the other column of the two-model board, measured."
+
+mishra2014_fig3c:
+  figure: "Fig. 3c, step-up panel"
+  shows: "the same step on the buffered system with MODERATE SKN7/YPD1 expression; all three curves coincide"
+  used_in: ["s21"]
+  note: "The repair working, in the time domain: load changes neither the rate nor the level. This is the circuit every number in segment 6 comes from."
+
 mishra2014_fig4c:
   figure: "Fig. 4c"
   shows: "amplitude against injection frequency, with calculated bandwidths marked"
   used_in: ["s21"]
-  note: "DO NOT CROP THIS AS-IS. Its caption states the two bandwidths in the reverse order from the plot, and its dotted guide lines are coloured opposite to the curves they belong to. figures/build/s21_bandwidth.png is the redraw; use that."
+  note: "NOT a substitute for the redraw. Its caption states the two bandwidths in the reverse order from the plot, and its dotted guide lines are coloured opposite to the curves they belong to -- the horizontals sit at each curve's peak over root two, so the mark at ~138 belongs to the black curve (peak ~195) and is drawn RED, and the mark at ~78 belongs to the red curve (peak ~110) and is drawn BLACK. figures/build/s21_bandwidth.png carries the VALUES. This crop is shown beside it, deliberately, as the figure-reading lesson -- s21 segment 7."

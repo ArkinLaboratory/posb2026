@@ -24,7 +24,12 @@ because they are the session's argument and they are easy to get backwards:
 
 3.  The SPEED cost is affinity-blind in the CONSERVATIVE model, by a
     conservation identity: the integral of R over all X is C(inf) - C(0) =
-    p_tot exactly, whatever K_d is, because the target never moves. In the
+    p_tot exactly, whatever K_d is, because the target never moves. "Over all
+    X" is doing work in that sentence: the system only travels 0 -> X_T, and
+    that partial integral is p_tot * X_T/(K_d + X_T), which is p_tot only as
+    the sites saturate. Hence NEARLY and not exactly flat -- 3.34% over four
+    decades of K_d at p_tot = X_T, non-monotonically, with a shallow maximum
+    near K_d = X_T/60. See `affinity_is_irrelevant`. In the
     DILUTED model the endpoint itself moves with K_d, so the speed cost is NOT
     flat -- it falls about 20% over three decades.
 4.  The LEVEL cost exists in the diluted model only, and is (p_tot / X_T) times
@@ -156,7 +161,7 @@ def slowdown(k, gamma, K_d, p_tot, complex_decays=True):
 
     In the PROTECTED model and the weak-load limit this is
     1 + (p_tot / X_T) / ln 2. The coefficient is 1/ln 2 = 1.442695 and it is
-    DERIVED, not measured: the loaded system must synthesise p_tot extra
+    DERIVED, not measured: the loaded system must synthesize p_tot extra
     molecules to fill the sites before it reaches the same half-way point,
     which costs p_tot/k against an unloaded half-time of ln2/gamma. See
     sessions/s21-retroactivity/REBUILD.md section 2.1, which supersedes
@@ -198,6 +203,15 @@ def affinity_is_irrelevant(k, gamma, p_tot, K_ds, tol=0.05, complex_decays=False
     that are all well below X_T = k/gamma and it is True; include K_d >= X_T and
     it is False, because there the sites empty out and the load disappears along
     with the regulation.
+
+    DO NOT READ "flat" AS "constant", AND MIND THE GRID. The slowdown is not
+    monotone in K_d. It rises about 1% to a shallow maximum near K_d = X_T/60
+    and then falls as the sites stop filling, so a coarse grid that straddles
+    that peak understates the spread: [0.01, 1, 100] at p_tot = X_T gives
+    2.24%, while adding K_d = 16 gives 3.34%. The default tol of 0.05 is
+    deliberately looser than any number quoted in class for this reason. The
+    spread also grows with the load -- 0.67% at p_tot = 0.1 X_T, 3.34% at X_T,
+    4.05% at 2 X_T -- so a tolerance is a statement at a load, not a law.
     """
     vals = np.array([slowdown(k, gamma, K_d, p_tot, complex_decays) for K_d in K_ds])
     spread = float((vals.max() - vals.min()) / vals.min())

@@ -66,7 +66,8 @@ longer being removed.** Two models:
 
 - **Complex not removed:** the steady state of free X is **exactly** k/γ at
   every load — verified to 10⁻¹⁶. Only the dynamics change.
-- **Complex removed at γ — the growing cell, and the physical case:**
+- **Complex removed at γ — the growing cell** (and NOT, as this line used to
+say, "the physical case"; see the flag in `NUMBERS.md` §0, 31 October)**:**
   **X + C = k/γ exactly**, so free X falls by precisely the number of molecules
   parked on the sites. **The level does move.**
 
@@ -79,7 +80,8 @@ are about as informative as dynamics. **The "endpoints miss it" surface is cut.*
 The hypothesis this was written to test — level shift scaling as p_tot/X_T,
 slowdown as p_tot/K_d, so tight binding buys sharpness at the cost of speed —
 **is wrong.** Sweeping affinity over four orders of magnitude at fixed load
-changes the slowdown by **under 3%.** What sets both costs is the **number of
+changes the slowdown by **about 3%** at p_tot = X_T, and by 4% at twice that
+load. What sets both costs is the **number of
 sites relative to the number of molecules**:
 
 | p_tot/X_T | slowdown | relative level shift |
@@ -91,8 +93,10 @@ sites relative to the number of molecules**:
 
 In the weak-load limit the level shift is **exactly p_tot/X_T** and the slowdown
 is **about one and a half times it** — the ratio is constant at 1.450 over
-fiftyfold in load, and **that coefficient is measured, not derived**, so no slide
-presents it as a closed form. Deriving it is a good 247 item.
+fiftyfold in load. ~~that coefficient is measured, not derived~~ **Corrected
+31 October: it IS derived, it is 1/ln 2 = 1.442695, and the derivation is three
+lines (`REBUILD.md` §2.1). The deck puts it on a slide and the answer sheet
+derives it. The deck is right.**
 
 **Affinity re-enters only once K_d ≳ X_T**, where the sites stop being
 saturated — and there the load vanishes because the occupancy does. Which gives
@@ -117,14 +121,19 @@ Full extraction in `NUMBERS.md` §6. The four things that change the session:
 
 1. **It is yeast, and it is session 18's pathway.** The load driver runs on
    **STAT5-HKRR → YPD1 → SKN7 → PTR-SSRE**, in a *hot1Δ hog1Δ sln1Δ*
-   background. SKN7, YPD1, SLN1, HOG1 and HOT1 are the same osmolarity pathway
-   session 18 names from Mishra 2021 — same lab, same chassis. **The room meets
+   background. **YPD1, SLN1, HOG1 and HOT1** are the same osmolarity pathway
+   session 18 names from Mishra 2021 — same lab, same chassis. **SKN7 is NOT
+   in that paper at all** (occurrence counts in `NUMBERS.md` §6.1: YPD1 34,
+   SLN1 46, HOG1 74, HOT1 37, SKN7 zero). Corrected 31 October; the deck
+   already says SKN7 is new today. **The room meets
    these proteins on 27 October and again on 5 November doing a different job.**
 2. **The repair is phosphotransfer** — session 18's covalent cycle used as the
    fast stage. The device that fixes retroactivity is the object session 18
    spent an hour on. That is the arc link, and it is free.
 3. **Box 1's model is ours with f(y) = G·(u − y).** Their bandwidth is **α·G
-   with α < 1**, and **α = 1/(1 + R)**. That identity is the translation table
+   with α < 1**, and α = 1/(1 + R) **only in the empty-site limit — it is NOT
+   an identity** (corrected 31 October; see `NUMBERS.md` §6.2, and note that
+   the deck deliberately declines it). What survives as the translation table
    this deck needs, the way session 18 needed K₁ ↔ k₁ — and it is also the
    proof that the repair is on a different axis: you cannot change α, so you
    raise G until α·G outruns every input frequency that matters. **The load
@@ -146,8 +155,12 @@ is not free, and that is the right note to close the segment on.
 with respect to the plot, and its dotted-line colours do not match their curves,
 so a student reading colour-to-colour gets the result backwards. Both found by
 rendering it at 300 dpi; see `NUMBERS.md` §6.4. Either annotate heavily or
-redraw from `posb.retroactivity` with their points overlaid — the redraw would
-also make α = 1/(1+R) visible in one picture, which is probably worth doing.
+redraw from `posb.retroactivity` — **but NOT with their points overlaid, and
+NOT to show α = 1/(1+R)**. Both of those were decided against on 31 October and
+the built figure follows the decision: their panel b is simulation from a fitted
+parameter set, so scattering its values on a curve fitted through them is
+circular, and α = 1/(1+R) is not an identity to make visible. What was built is
+our own plot of the four values, labelled as ours.
 
 
 ## 5 · Segments

@@ -1,0 +1,11 @@
+{
+  "artifact": "s21_object.png",
+  "artifact_sha256": "7cc1623a6467de1a3ed09ef23c208175e548ea4189a43654a8be1536ad96d74a",
+  "artifact_content": "94bb1230839da540a0230e0280d58ca0eba2955046f2f0b44503783eee7cce59",
+  "artifact_bytes": 143033,
+  "deps": {
+    "figures/s21_retroactivity.py": "31ca6085b15ab241680295ec2add64e5c2e6071ed30908198e95752944debfbf",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s21_retroactivity.fig_object"
+}

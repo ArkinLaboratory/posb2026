@@ -1,10 +1,10 @@
 {
   "artifact": "s21_both_costs.png",
-  "artifact_sha256": "e65694d0c3b6291d2499ff54bd7fdefb38e846ce4eaaf421f4c70b843651775b",
-  "artifact_content": "0275a56f05dc217419580f1ceab1bf69fdada4b1513ecb8d0e545f001aee6dff",
-  "artifact_bytes": 115161,
+  "artifact_sha256": "21e6052c63e88c0afef792c2e034b9688ecf39e9da42c6684b403e4be1a42dc1",
+  "artifact_content": "063033f53d7deb897e72e62a958b27772823f500963036ad2a4bd3b860db0c6a",
+  "artifact_bytes": 133711,
   "deps": {
-    "figures/s21_retroactivity.py": "20ed02dd119cba48c5f8742ba174650e4bf55c2a76fb51f84c666137939ea268",
+    "figures/s21_retroactivity.py": "31ca6085b15ab241680295ec2add64e5c2e6071ed30908198e95752944debfbf",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s21_retroactivity.fig_both_costs"

@@ -1,6 +1,6 @@
 <!--
 title: Session 21 — The same derivation, four times
-subtitle: A home guide. The first is worked for you; by the fourth the scaffolding is gone. Answers are released after the session.
+subtitle: A home guide. Sections 1 and 2 re-run Thursday's derivation so you can do it cold. Sections 3 and 4 go past it — the numbers there are on no slide. Answers are released after the session.
 session: 21
 -->
 
@@ -41,8 +41,7 @@ $$\frac{dX_T^{\text{inst}}}{dt} = \left(1 + \frac{dC}{dX}\right)\frac{dX}{dt}$$
 
 $$R(X) \;=\; \frac{dC}{dX} \;=\; \frac{p_{\text{tot}} K_d}{(K_d + X)^2}$$
 
-**So the dynamics.** With $f(X)$ whatever drives the total — here
-$f(X) = k - \gamma X$ —
+**So the dynamics.** With $f(X)$ the law the **total** obeys,
 
 $$\boxed{\;\frac{dX}{dt} \;=\; \frac{f(X)}{1 + R(X)}\;}$$
 
@@ -51,9 +50,11 @@ that depends on where you are. At $X = 0$ the division is by
 $1 + p_{\text{tot}}/K_d$; once $X \gg K_d$ the sites are full, $R \to 0$, and
 the division goes away.
 
-**▶ Why does that step follow?** $f(X)$ is untouched — the same $k - \gamma X$
-it always was. It is tempting to conclude that the steady state is therefore
-untouched too. State the assumption that conclusion needs, in one sentence.
+**▶ Why does that step follow?** The load never touched $f$, so it is tempting
+to conclude that the steady state is untouched too. But nothing above said
+what $f$ is. Name the one physical fact about the complex that decides it, and
+say in one sentence why the conclusion needs that fact to go one particular
+way.
 
 <div class="rule"></div>
 <div class="rule"></div>
@@ -90,14 +91,24 @@ $$\frac{d(X + C)}{dt} \;=\; k - \gamma X - \gamma C$$
 
 $$X + C(X) \;=\; \underline{\qquad\qquad}$$
 
-**(b)** So free $X$ falls. Take the easy case first: $K_d \ll X$, so the sites
-are essentially full and $C \approx p_{\text{tot}}$. Write the fractional drop
-in free $X$:
+**(b)** **Use $K_d = 500$ for the rest of this section**, not the $K_d = 1$ at
+the top of the sheet. The sites are no longer anywhere near full, so you cannot
+write $C \approx p_{\text{tot}}$ and you have to solve it. Substitute $C(X)$
+into your answer to (a) and clear the denominator. You should get a quadratic:
 
-$$\frac{X_T - X_{ss}}{X_T} \;\approx\; \underline{\qquad\qquad}$$
+$$X^2 + (K_d + p_{\text{tot}} - X_T)\,X - X_T K_d \;=\; 0$$
 
-**(c)** Put the numbers in: $p_{\text{tot}} = 300$, $X_T = 1000$. The drop is
-<span class="blank"></span>%.
+**(c)** Put the numbers in — $p_{\text{tot}} = 300$, $X_T = 1000$, $K_d = 500$
+— and take the positive root.
+
+$$X_{ss} = \underline{\qquad\qquad} \qquad
+\frac{X_T - X_{ss}}{X_T} = \underline{\qquad\qquad}\%$$
+
+**(d)** The saturated shortcut — assume the sites are full, so the drop is just
+$p_{\text{tot}}/X_T$ — would have answered 30%. Your answer is smaller. Compute
+$C(X_{ss})$ and you will find it is exactly the number of molecules free $X$
+lost. Say in one sentence what sets the size of the drop, given that it is not
+the site count.
 
 **▶ Why does that step follow?** You now have two models that disagree about
 whether the level moves, and the algebra cannot choose between them. Design the
@@ -126,19 +137,34 @@ response time, and why? Then say what *does* change, and what it costs them.
 
 <div class="rule"></div>
 
-**(d)** In the protected model, the loaded system must make $p_{\text{tot}}$
-extra molecules before it reaches the same half-way point, at synthesis rate
-$k$. The unloaded half-time is $\ln 2/\gamma$. Put those together to get the
-weak-load slowdown as a multiple of $p_{\text{tot}}/X_T$.
+**(d)** Thursday's board got the protected model's weak-load slowdown as a
+clean multiple of $p_{\text{tot}}/X_T$, by counting the extra molecules the
+loaded system must make before it reaches *the same* half-way point. **That
+argument fails in the diluted model.** Say which step of it breaks, and why.
 
 <div class="rule"></div>
 
-**(e)** Your answer to (d) is a pure number. Which one, to four figures?
+**(e)** Thursday's figure showed the diluted ratio running from about 1.44 at
+the light-load end to about 1.71 at the heavy end. Using your answer to (d),
+say why **no** constant can be right there — not a different constant, none.
 
 <div class="rule"></div>
 
 **(f)** Past $K_d \approx X_T$ the slowdown really does fall away. Explain why,
 using (a) — and say why this is not a way of escaping the load.
+
+<div class="rule"></div>
+
+**(g)** Part (a) integrated over *all* $X$. But the system only ever travels
+from $0$ to $X_T$, so what it actually pays on the way up is
+
+$$\int_0^{X_T} R(X)\,dX \;=\; \underline{\qquad\qquad}$$
+
+Evaluate it at $K_d = 1$ and at $K_d = 100$, with $p_{\text{tot}} = 300$ and
+$X_T = 1000$. Thursday's sweep was *nearly* flat, not exactly flat. Say which
+part of that your two numbers account for — and then name one feature of that
+curve they do **not** account for. (Look at the shape of the sweep on the left
+of the figure, not just its ends.)
 
 <div class="rule"></div>
 <div class="rule"></div>

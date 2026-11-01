@@ -20,8 +20,21 @@ Two models, and the difference is whether the sequestered molecule is still
 being removed:
 
 - **Model A — the complex is not removed.** Conservative binding.
-- **Model B — the complex is removed at γ too.** This is the growing cell, and
-  it is the physical case.
+- **Model B — the complex is removed at γ too.** ~~This is the growing cell,
+  and it is the physical case.~~ **FLAGGED 31 October, NOT resolved — do not
+  build a slide on either side of this.** The deck declines the sentence: its
+  foot reads *"Same algebra, two conclusions. Which one holds is a fact about
+  the molecule, not a modelling preference"*, and the hour builds to Mishra
+  p. 1273, where load did not move the steady state **in exponentially growing
+  culture** — Model A's signature, in a growing cell. So growth alone does not
+  settle which model you are in, and this line claimed it does. The unresolved
+  physics is **dilution versus degradation**: Mishra's protection is of SKN7m
+  *from degradation* while bound to DNA, and growth dilutes a complex whatever
+  it is bound to. Either dilution of the bound fraction is negligible on their
+  timescale, or the protection does more than the phrase implies, or the
+  measurement is less sharp than the sentence. **This needs the paper's own
+  numbers, not a ruling from here.** `posb/retroactivity.py:13` carries the
+  same retired sentence — not a second opinion, the same one.
 
 ---
 
@@ -80,7 +93,13 @@ fixed):
 | 1.00 | 2.4428 | 2.4483 | 2.3892 |
 | 2.00 | 3.8856 | 3.8967 | 3.7785 |
 
-**The slowdown is flat in K_d to within 3% across 10⁴ in affinity.** What sets
+**The slowdown is flat in K_d to within 3.4% across 10⁴ in affinity at
+p_tot = X_T** — and the three-point sampling above understates it. The slowdown
+is NOT monotone in K_d: it rises about 1% to a shallow maximum at K_d ≈ 16
+(2.4691) before the sites begin to empty, so min and max over [0.01, 100] are
+2.3892 and 2.4691, a 3.34% spread. The bound also grows with the load: 0.67% at
+p_tot = 0.1 X_T, 2.26% at 0.5, 3.34% at 1, 4.05% at 2. Recomputed 31 October on
+the figure's own parameters (k = 10, γ = 0.01, X_T = 1000, protected model). What sets
 both costs is the **number of sites relative to the number of molecules**:
 
 | p_tot/X_T | slowdown (A) | relative level shift (B) |
@@ -105,10 +124,22 @@ both costs is the **number of sites relative to the number of molecules**:
 
 The level shift is **exactly** p_tot/X_T to three figures. The slowdown is
 **1.450 × p_tot/X_T**, constant to four digits over fifty-fold in load.
-**The 1.450 is measured and NOT derived** — it is presumably the
-trajectory-average of R(X) weighted by the approach to half-maximum. Deriving it
-is a good 247 item; until someone does, **the slide says "about one and a half
-times" and does not present 1.450 as a closed form.**
+~~**The 1.450 is measured and NOT derived**~~ — **WRONG, and corrected
+31 October. It is 1/ln 2 = 1.442695, and the derivation is three lines**: in the
+protected model the loaded system must synthesise p_tot extra molecules before
+it reaches the same half-way point, which costs p_tot/k against an unloaded
+half-time of ln 2/γ, giving (p_tot/X_T)/ln 2. `REBUILD.md` §2.1 carries it and
+says outright that it belongs on the board. The deck does derive it, on the
+segment 5 slide headed "where 1.44 comes from", and the answer sheet 4(d)–(e)
+derives it too.
+
+**So the instruction that used to sit here — "the slide says about one and a
+half times and does not present 1.450 as a closed form" — would, if followed,
+strip a correct derivation off a slide and out of an answer key. Do not follow
+it. If this file and the deck disagree, the deck is right.** The residual
+between the measured 1.4483 at K_d = 1 and 1.442695 is the finite-K_d
+correction, not a fitting error: the identity is exact only as the sites
+saturate.
 
 ## 5 · The boundary of the claim, and the engineering consequence
 
@@ -125,8 +156,18 @@ heavy load p_tot = X_T:
 | 10⁵ | 100 | 1.0099 | 0.00980 | 0.00980 |
 | 10⁶ | 10³ | 1.0010 | 0.00100 | 0.00100 |
 
-The crossover is at **K_d ≈ X_T**, and the last column is the whole story: the
-level shift *is* the fraction of sites occupied.
+The crossover is at **K_d ≈ X_T**, and the last column is the whole story —
+**but read the identity at the right generality.** In the diluted model
+X + C = X_T exactly, so
+
+    level shift = C_ss/X_T = (p_tot/X_T) × (C_ss/p_tot) = (p_tot/X_T) × occupancy
+
+The level shift *equals* the occupancy **only because this table sits at
+p_tot = X_T**, which makes the prefactor 1. Away from that load it does not:
+at p_tot = 0.1 X_T a fully occupied operator shifts the level by 0.1, not by 1.
+`posb.retroactivity` has the general form in its module docstring, item 4.
+**Earlier wording here dropped the prefactor; it is an artefact of the chosen
+load and not an identity.**
 
 **So the load can be escaped by weakening the operator — and that is useless,
 because an operator with K_d ≫ X_T is an empty operator, and an empty operator
@@ -179,9 +220,12 @@ From the Figure 1 caption, read in full:
   binding sites*, which is p_tot in our model.
 - Strain background: ***hot1Δ hog1Δ sln1Δ***.
 
-**SKN7, YPD1, SLN1, HOG1, HOT1 are the same yeast osmolarity pathway session 18
+**YPD1, SLN1, HOG1 and HOT1 are the same yeast osmolarity pathway session 18
 already names from Mishra 2021** — same lab, same chassis, deletions of the same
-cross-talk. The room meets these proteins on 27 October and meets them again on
+cross-talk. **SKN7 is NOT, and this line used to claim it was.** Counted in the
+Mishra 2021 text on 31 October: YPD1 34 occurrences, SLN1 46, HOG1 74, HOT1 37,
+SKN7 **zero**. The deck already says four and not five; if a future pass finds
+the deck and this file disagreeing, THE DECK IS RIGHT. The room meets these proteins on 27 October and meets them again on
 5 November doing a different job. **Say so**; it is the cheapest continuity in
 the week.
 
@@ -208,10 +252,23 @@ f(X) = k − γX.** The load driver's defining feature is that **G is large**.
 Their result: the cutoff frequency — the ω at which the gain M drops to 1/√2 —
 is **α·G**, with **α < 1** because of retroactivity. So:
 
-> **α = 1/(1 + R)**, with R the retroactivity term of section 2.
+> **α = 1/(1 + R) ONLY IN THE EMPTY-SITE LIMIT, and NOT as an identity.**
 
-That is the translation table between their notation and `posb.retroactivity`,
-and the deck needs it on a surface the way session 18 needed K₁ ↔ k₁. Their
+Box 1 prints α = (1 + p/K_d)⁻¹ with **p held constant**, i.e. free sites never
+depleted. Our R is p_tot·K_d/(K_d + X)², which equals p_tot/K_d **at X = 0 and
+nowhere else** — it falls as X⁻² once X ≫ K_d. So 1/(1 + R) reproduces their α
+only where the sites are empty, which is the start of the approach and not the
+operating point the session spends its hour on. Writing "α = 1/(1 + R)" flat is
+the error this file used to make, and it would also hand the room a tidy
+identity that **does not reproduce the measured bandwidth from the paper's own
+parameters** (see the deck's segment 7 debrief, which inverts Box 1 to α = 0.80,
+gets p/K_d = 0.25, and says plainly that the gap cannot be closed without their
+Supplementary Note 1.2). **The deck deliberately declines this identity. Do not
+"repair" the deck to match an earlier version of this line.**
+
+What survives as the translation table is the shape, not the equality: their α
+is a constant prefactor on bandwidth, our R is a state-dependent divisor on
+rate; both say a load divides a speed, one in frequency and one in time. Their
 sentence *"retroactivity reduces the cutoff frequency since α < 1"* is our
 *"the load divides the rate by 1 + R"*, said once in frequency and once in time.
 
@@ -295,7 +352,11 @@ peak-to-peak amplitude**. The buffered system showed **almost no phase lag** and
 
 ## 6.6 · Still open
 
-Nothing in section 6 is unverified. One thing to decide at build time: whether
-Figure 4c is used at all, given 6.4's two traps. A redrawn version from
-`posb.retroactivity`, with their measured points overlaid, may be the honest
-answer — and it would make the α = 1/(1+R) bridge visible in one picture.
+~~Nothing in section 6 is unverified.~~ **Settled 31 October, and both halves
+of what used to be here were wrong.** Figure 4c is not reproduced; what ships is
+our own plot of the four values, labelled as ours in the slide foot and inside
+the figure. Their points are **not** overlaid on a derived curve — panel b is
+simulation from a fitted parameter set, so that curve was fitted through them by
+construction and drawing it that way would be circular. And α = 1/(1+R) is **not
+an identity** to make visible in one picture; see §6.2 above, which this
+paragraph used to contradict two hundred lines further down.

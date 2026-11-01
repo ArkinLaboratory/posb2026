@@ -78,11 +78,38 @@ def test_qssa_reduction_reproduces_the_full_kinetics(p_tot):
 
 # --------------------- CLAIM 4: both costs scale with p_tot/X_T, not with K_d
 def test_slowdown_is_flat_in_affinity_while_sites_are_saturated():
-    """The session's thesis, as a predicate. K_d spans 10^4, all << X_T."""
+    """The session's thesis, as a predicate. K_d spans 10^4, all << X_T.
+
+    THE GRID MATTERS. This test used to sample [0.01, 1, 100] and assert a
+    spread under 3%, and it passed -- but only because those three points
+    straddle a maximum they do not sample. The slowdown is NOT monotone in
+    K_d: it rises about 1% to a shallow peak near K_d = 16 before the sites
+    start to empty, so the true spread over [0.01, 100] at p_tot = X_T is
+    3.34%, not under 3%. A green test was certifying a false sentence on a
+    slide and on an answer sheet. The grid now includes the peak.
+    """
     ok, spread, vals = affinity_is_irrelevant(
-        K, GAMMA, p_tot=X_T, K_ds=[0.01, 1.0, 100.0], tol=0.05)
+        K, GAMMA, p_tot=X_T, K_ds=[0.01, 1.0, 10.0, 16.0, 100.0], tol=0.05)
     assert ok, f"slowdown varied by {spread:.3f} across affinity: {vals}"
-    assert spread < 0.03
+    assert 0.030 < spread < 0.035, f"spread moved: {spread:.4f}"
+
+
+def test_the_flat_bound_grows_with_the_load_and_is_not_universal():
+    """"Flat in K_d" is a statement at a load, not a law.
+
+    The slide and the answer sheet quote 3% at p_tot = X_T. At twice the load
+    it is 4%. If anyone restates the 3% as a universal bound, this fails.
+    """
+    spreads = {}
+    for ratio in (0.1, 1.0, 2.0):
+        _, spread, _ = affinity_is_irrelevant(
+            K, GAMMA, p_tot=ratio * X_T,
+            K_ds=[0.01, 1.0, 10.0, 16.0, 100.0], tol=1.0)
+        spreads[ratio] = spread
+    assert spreads[0.1] < 0.01, spreads
+    assert 0.030 < spreads[1.0] < 0.035, spreads
+    assert 0.038 < spreads[2.0] < 0.045, spreads
+    assert spreads[0.1] < spreads[1.0] < spreads[2.0], spreads
 
 
 def test_the_claim_has_a_boundary_and_the_predicate_finds_it():
