@@ -441,13 +441,13 @@ def fig_object():
 
     fig, ax = plt.subplots(figsize=(10.4, 5.6))
     ax.set_xlim(0, 10.5)
-    ax.set_ylim(0.30, 6.95)
+    ax.set_ylim(0.05, 6.95)
     ax.axis("off")
 
     # The axes are not equal-aspect, so a Circle in data coordinates comes
     # out as a flattened disc. Stretch the y radius by the ratio of the two
     # scales and the molecules are round.
-    _YX = ((6.95 - 0.30) / 5.6) / (10.5 / 10.4)
+    _YX = ((6.95 - 0.05) / 5.6) / (10.5 / 10.4)
 
     def xmol(x, y, r=0.19):
         ax.add_patch(Ellipse((x, y), 2 * r, 2 * r * _YX, facecolor=TEAL,
@@ -516,14 +516,20 @@ def fig_object():
     ax.text(8.45, 4.26, "$C$ — bound, doing nothing", ha="center",
             va="bottom", color=TEAL, fontsize=TYPE["body"])
 
-    ax.text(0.05, 1.42,
+    # The word, drawn. Retroactivity is named for the direction: the effect
+    # runs back along an arrow that is drawn one-way. Low enough to clear the
+    # gamma arrowhead at y = 2.44 and the ledger text at y = 1.42.
+    ax.annotate("", xy=(2.10, 2.25), xytext=(8.40, 2.25),
+                arrowprops=dict(arrowstyle="->", color=AMBER, lw=2.2,
+                                linestyle="--", shrinkA=0, shrinkB=0))
+    ax.text(5.25, 2.05, "retroactivity: the effect runs backward",
+            ha="center", va="top", color=AMBER, fontsize=TYPE["body"])
+
+    ax.text(0.05, 0.95,
             "$p_{tot}$ = how many sites\n"
             r"$X_T = k/\gamma$ = what $X$ would reach with no sites at all",
             ha="left", va="center", color=INK, fontsize=TYPE["body"],
             linespacing=1.35)
-    ax.text(10.45, 0.52, "and module B never asked for this",
-            ha="right", va="bottom", color=MUTED, fontsize=TYPE["caption"],
-            style="italic")
 
     ax.set_title(r"$X + p \; \rightleftharpoons \; C$", pad=8,
                  fontsize=TYPE["title"])

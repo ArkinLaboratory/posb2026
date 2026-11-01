@@ -91,24 +91,14 @@ $$\frac{d(X + C)}{dt} \;=\; k - \gamma X - \gamma C$$
 
 $$X + C(X) \;=\; \underline{\qquad\qquad}$$
 
-**(b)** **Use $K_d = 500$ for the rest of this section**, not the $K_d = 1$ at
-the top of the sheet. The sites are no longer anywhere near full, so you cannot
-write $C \approx p_{\text{tot}}$ and you have to solve it. Substitute $C(X)$
-into your answer to (a) and clear the denominator. You should get a quadratic:
+**(b)** So free $X$ falls. Take the easy case first: $K_d \ll X$, so the sites
+are essentially full and $C \approx p_{\text{tot}}$. Write the fractional drop
+in free $X$:
 
-$$X^2 + (K_d + p_{\text{tot}} - X_T)\,X - X_T K_d \;=\; 0$$
+$$\frac{X_T - X_{ss}}{X_T} \;\approx\; \underline{\qquad\qquad}$$
 
-**(c)** Put the numbers in — $p_{\text{tot}} = 300$, $X_T = 1000$, $K_d = 500$
-— and take the positive root.
-
-$$X_{ss} = \underline{\qquad\qquad} \qquad
-\frac{X_T - X_{ss}}{X_T} = \underline{\qquad\qquad}\%$$
-
-**(d)** The saturated shortcut — assume the sites are full, so the drop is just
-$p_{\text{tot}}/X_T$ — would have answered 30%. Your answer is smaller. Compute
-$C(X_{ss})$ and you will find it is exactly the number of molecules free $X$
-lost. Say in one sentence what sets the size of the drop, given that it is not
-the site count.
+**(c)** Put the numbers in: $p_{\text{tot}} = 300$, $X_T = 1000$. The drop is
+<span class="blank"></span>%.
 
 **▶ Why does that step follow?** You now have two models that disagree about
 whether the level moves, and the algebra cannot choose between them. Design the

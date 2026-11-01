@@ -219,18 +219,18 @@ def _object(d):
     d.header(s, "segment 2", "frame  ·  the object, before any model")
     d.title(s, "What the arrow is")
     d.image_centered(s, FIG + "s21_object.png")
-    d.foot(s, "Every diagram in this course has been lying about this since session 1. Reading a signal means binding it, and binding it takes it out of circulation.")
+    d.foot(s, "The arrow points forward. The effect travels BACKWARD along it, against the arrow — and that is the word: retroactivity. Every diagram here has been lying about it since session 1.")
     d.notes(s,
            "The top strip is every circuit diagram they have drawn since "
            "session 1. The bottom strip is the same two modules with the "
            "molecules put back in, and the boxes are in the same places so it "
            "reads as one picture told twice.\n "
-           "I point at each thing as I name it. An operator site is a piece "
-           "of DNA — a promoter with operators in it, on a plasmid or on the "
-           "chromosome, and the copy number IS the site count. The molecules "
-           "sitting on it are the same molecules as the ones floating free; "
-           "nothing about them has changed except that they are not "
-           "available.\n "
+           "An operator site is a piece of DNA — a promoter with operators "
+           "in it, on a plasmid or on the chromosome, and the copy number IS "
+           "the site count. The molecules sitting on it are the same "
+           "molecules as the ones floating free; nothing about them has "
+           "changed except that they are not available. I name each one on "
+           "the picture.\n "
            "LEDGER, left wing, stays up all period: p_tot = sites, "
            "X_T = k/gamma = the factor's unloaded abundance. Every number "
            "today is one of those two or a ratio of them, and the fact that "
@@ -266,7 +266,7 @@ def _derivation(d):
              "k/γ is the unloaded abundance, a different number"),
             ("differentiate it",
              "dX_{T}^{inst}/dt = (1 + R)·dX/dt,   R = dC/dX",
-             "chain rule, nothing more"),
+             "R is THE retroactivity, as a number"),
             ("dX/dt = f(X) / (1 + R)",
              "R(X) = p_{tot}·K_{d} / (K_{d} + X)²",
              "f is the law the TOTAL obeys. WHICH law is open"),
@@ -350,7 +350,7 @@ def _two_models(d):
 
     s = d.dark()
     d.header(s, "segment 4", "debrief  ·  what you just built")
-    d.title(s, "One comparison, two models separated")
+    d.title(s, "The endpoint tells you which model you are in")
     d.rows(s, [
         ("the signature", "steady state unchanged by load → the complex is "
                           "protected. Steady state drops → it is not. Nothing "
@@ -490,7 +490,7 @@ def _thesis(d):
 
     s = d.light()
     d.header(s, "segment 5", "build  ·  the bill, drawn")
-    d.title(s, "Same ceiling, different approach")
+    d.title(s, "Every affinity pays the same bill")
     d.image_centered(s, FIG + "s21_conservation.png")
     d.foot(s, "C(X) is the running total of what has been parked. At X_{T} the four curves have paid 299.7, 295.3, 272.7 and 150.0 of a 300-site bill.")
     d.notes(s,
@@ -593,7 +593,7 @@ def _thesis(d):
 
     s = d.dark()
     d.header(s, "segment 5", "build  ·  where 1.44 comes from")
-    d.title(s, "The slowdown, in three lines")
+    d.title(s, "The delay IS the time to fill the sites")
     d.rows(s, [
         ("start from the integral", "the extra time is \u222b R/f dX — the "
                                    "second piece of the time integral, "
@@ -651,16 +651,16 @@ def _mishra(d):
            "doxycycline makes SKN7m, it binds the promoter, GFP comes out. "
            "Panel e inserts the cascade — STAT5-HKRR, phosphorylated, handing "
            "phosphate to YPD1, two YPD1 activating SKN7.\n "
-           "I trace the path with a finger before I say a single number about "
-           "it, and I point at where the LOAD attaches: the plasmid copies of "
-           "P_TR-SSRE. Those are the operator sites from this morning's first "
-           "picture, in a real organism, at a copy number somebody chose.\n "
+           "Where the LOAD attaches is the thing to find on this panel: the "
+           "plasmid copies of P_TR-SSRE. Those are the operator sites from "
+           "this morning's first picture, in a real organism, at a copy "
+           "number somebody chose — and the next slide counts them.\n "
            "The extra stage in panel e is the whole device, and it is made of "
            "the object from session 18.")
 
     s = d.light()
     d.header(s, "segment 6", "build  ·  what it is made of")
-    d.title(s, "The parts, and why they bothered")
+    d.title(s, "A part you can connect things to")
     d.rows(s, [
         ("the chassis", "S. cerevisiae, a hot1Δ hog1Δ sln1Δ background, so "
                         "the native osmolarity signaling is out of the way."),
@@ -702,24 +702,61 @@ def _mishra(d):
            "pairing X with u is the mistake to avoid.")
 
     s = d.light()
+    d.header(s, "segment 6", "build  ·  what the load actually is")
+    d.title(s, "Counting the sites, in a real cell")
+    d.rows(s, [
+        ("the plasmid", "a high-copy 2µ yeast plasmid, 50 to 100 copies per "
+                        "cell. Everything else in the circuit is single-copy "
+                        "and on the chromosome."),
+        ("what 0×, 1× and 2× mean", "how many extra copies of the target "
+                                    "promoter sit on EACH plasmid — none, "
+                                    "one, or two.", CYAN),
+        ("so 2× load is", "very roughly 100 to 200 extra copies of that "
+                          "promoter per cell, each carrying operators the "
+                          "regulator binds.", CYAN),
+        ("and nothing else moved", "same strain, same circuit, same inducer. "
+                                   "The only difference between the three "
+                                   "curves is how many sites are there."),
+    ], top=1.94, label_color=CYAN)
+    d.foot(s, "Mishra et al. 2014, p. 1271 and the Fig. 1 caption. This is p_{tot}, and in this experiment it is a number you can count.")
+    d.notes(s,
+           "What is on the slide: how the load was actually built, which the "
+           "three curves on the next slide depend on entirely.\n "
+           "The multiplier is NOT more plasmids and it is not a stronger "
+           "promoter. The plasmid copy number is fixed at 50 to 100; what "
+           "changes is how many copies of the target promoter are cloned onto "
+           "each one. Zero, one, two. That is the whole experiment.\n "
+           "The takeaway: p_tot has been an abstract symbol all morning and "
+           "here it is a count. Order of a hundred sites in 1x, two hundred "
+           "in 2x, against a regulator present at a few thousand copies. The "
+           "load is a few percent of the pool, and it costs five hours.\n "
+           "Honest limit, if asked: each P_TR-SSRE carries several operators "
+           "and the main text does not say how many, so the true site count "
+           "is some multiple of the promoter count. The order of magnitude is "
+           "what matters.")
+
+    s = d.light()
     d.header(s, "segment 6", "debrief  ·  the measurement you designed, already run")
     d.title(s, "Three loads. Three rise times. One plateau.")
     # Height-limited, so the box width is not what sets the rendered size. The
     # caption went into the foot: drawn as well it collided with it.
-    d.paper_figure(s, "mishra2014_fig3a", (W - 9.2) / 2, 1.68, 9.2, 4.24,
+    d.paper_figure(s, "mishra2014_fig3a", 2.95, 1.68, 7.42, 4.24,
                    "Mishra et al. 2014, Fig. 3a — unbuffered, step up", "",
                    show_caption=False)
-    d.foot(s, "0×, 1× and 2× load plasmids, error bars s.d., n = 3. The curves separate on the way up and land together: the level does not move, so the complex is protected. p. 1273.")
+    d.foot(s, "0×, 1× and 2× load, s.d., n = 3. Neg is an unloaded culture that never received DOX — the floor. The curves separate on the way up and land together. p. 1273.")
     d.notes(s,
-           "This is the payoff of the measurement they designed, and I say so "
-           "in those words: you asked for the final level with load and "
-           "without, and here it is, run in a growing culture, with the "
-           "answer.\n "
-           "I make them read it before I say anything. Three curves, black "
-           "and blue and red, no load and one copy and two. They come apart "
-           "in the middle and they end in the same place, a little under "
-           "three thousand. Same level, different time — which is the left "
-           "column of the board.\n "
+           "What is on the slide: GFP against time for the unbuffered "
+           "circuit at three loads. Black is no load, blue one extra promoter "
+           "copy per plasmid, red two. The dotted Neg trace is an unloaded "
+           "culture that never received DOX — it is the floor, not a fourth "
+           "condition.\n "
+           "The reading: the three curves come apart in the middle and end in "
+           "the same place, a little under three thousand. Same level, "
+           "different time. That is the left column of the two-model board, "
+           "measured.\n "
+           "The takeaway: this is the comparison they designed an hour ago, "
+           "run in a growing culture, and it answers the physical question "
+           "the algebra could not.\n "
            "Their sentence for it: \"neither the inclusion of the load driver "
            "nor the presence of load affected the final steady state ... "
            "consistent with a system in which the interconnecting species "
@@ -731,38 +768,6 @@ def _mishra(d):
            "effects. Both models are real and the literature has both. One "
            "sentence, so nobody files protected as the universal answer.\n "
            "LEDGER: Mishra = protected model = speed cost only.")
-
-    s = d.light()
-    d.header(s, "segment 6", "build  ·  the same step, on the buffered circuits")
-    d.title(s, "One of these is the repair. The other is a warning.")
-    d.paper_figure(s, "mishra2014_fig3b", 0.72, 1.95, 5.60, 3.45,
-                   "Fig. 3b — buffered, LOW expression", "", show_caption=False)
-    d.paper_figure(s, "mishra2014_fig3c", 7.02, 1.95, 5.60, 3.45,
-                   "Fig. 3c — buffered, MODERATE expression", "",
-                   show_caption=False)
-    d.foot(s, "Left: the plateaus separate, so these levels DO drop with load — p. 1272. Right: three curves, one line. That is the circuit every number in this segment comes from.")
-    d.notes(s,
-           "Two panels, and the room should read them before I talk. On the "
-           "left the three curves end at different heights. On the right they "
-           "are indistinguishable.\n "
-           "The left one is the other column of our board, measured: \"the "
-           "final output levels of the buffered system with low SKN7 and YPD1 "
-           "expression were reduced as a result of load\" (p. 1272). So the "
-           "diluted-looking behavior is not hypothetical — it is in this "
-           "paper, two panels away from the protected one.\n "
-           "What separates them is not the model, it is the ABUNDANCE. With "
-           "enough SKN7 and YPD1 around, the sites are a small perturbation "
-           "on a large pool. Their own qualifier: \"provided that the amounts "
-           "of SKN7 were sufficiently high.\"\n "
-           "So there are two different rescues in this paper and I name both: "
-           "the unbuffered circuit is level-flat because the complex is "
-           "protected, and the moderate buffered one is level-flat because "
-           "there is plenty of protein. If somebody spots that both are flat "
-           "and asks whether that undercuts the argument, it does not — the "
-           "protected claim is about the unbuffered circuit, and the quote is "
-           "about that one.\n "
-           "The right-hand panel is also the repair working, three slides "
-           "early. I let them see it and say we will come back to how.")
 
     s = d.light()
     d.header(s, "segment 6", "build  ·  what the load cost them")
@@ -825,55 +830,147 @@ def _repair(d):
            "sub-second. That gap is the entire engineering margin.")
 
     s = d.light()
-    d.header(s, "segment 7", "build  ·  how their alpha relates to our "
-    "R")
-    d.title(s, "The same shape, a different regime")
+    d.header(s, "segment 7", "build  ·  what alpha is")
+    d.title(s, "α is the speed you keep")
     d.rows(s, [
-        ("what Box 1 prints", "α = 1/(1 + p/K_{d}) — p. 1270. Their p is held "
-                              "constant; there is no site conservation in that "
-                              "box."),
-        ("what that is, in ours", "our 1/(1 + R) with R evaluated at X = 0 "
-                                  "— the empty-site limit, where nothing has "
-                                  "filled yet."),
-        ("and we cannot close it", "their own Fig. 4c gives α = "
-                                   "0.0140/0.0175 = 0.80, and inverting "
-                                   "Box 1 makes that p/K_{d} = 0.25. Our "
-                                   "p_{tot} and K_{d} "
-                                   "are invented teaching numbers, so there "
-                                   "is nothing here to check that against — "
-                                   "their values are in a Supplement we do "
-                                   "not hold.", AMBER),
-    ], top=1.98, label_color=TEAL)
-    d.foot(s, "Their formula and our derivation agree where the sites are empty and part company where they are full. Which regime their system is in, we cannot say from what we hold.")
+        ("what it means", "the fraction of your bandwidth the load leaves "
+                          "you. Two numbers divided, loaded over unloaded — "
+                          "and their Fig. 4c gives 0.0140/0.0175 = 0.80.",
+         CYAN),
+        ("you already derived it", "your rate came out as f/(1 + R), so "
+                                   "loaded over unloaded is 1/(1 + R). That "
+                                   "ratio IS α. Nothing new was "
+                                   "introduced.", CYAN),
+        ("but yours is not a constant", "R = p_{tot}·K_{d}/(K_{d} + X)² is "
+                                        "biggest at X = 0 and dies as the "
+                                        "sites fill. Their Box 1 freezes it "
+                                        "at the empty-site value and calls "
+                                        "it α."),
+        ("and their own numbers show it", "a constant α rescales time, so it "
+                                          "predicts the clock slowing by "
+                                          "1/α = 1.25. Their clock slowed by "
+                                          "1.76. The gap is the "
+                                          "retroactivity you only meet on "
+                                          "the way up.", AMBER),
+    ], top=1.90, label_color=CYAN)
+    d.foot(s, "Retroactivity is front-loaded: fierce while the sites are filling, gone once they are full. One constant cannot carry both the transient and the steady state.")
     d.notes(s,
-           "I am deliberately NOT claiming their α is our R, and it would be "
-           "false to: their Box 1 holds the free site concentration constant, "
-           "ours conserves sites, and the two coincide only when X is far below "
-           "K_d — the "
-           "opposite of the saturated regime our whole result lives in.\n "
-           "Saying so costs me nothing and buys something. The room has "
-           "just spent an hour on a conserved-site model, and the "
-           "published simplified one is a different model that happens to "
-           "agree with ours in a corner. Naming the corner is the lesson. "
-           "I do NOT claim their number fails to reproduce ours — we hold "
-           "no parameters of theirs to try it with, which is what the "
-           "third row says.\n "
-           "Their Supplementary Note 1.2 may state α with saturation; I do not "
-           "have it, and I say that rather than guessing. It is on the 247 list "
-           "as a reconciliation problem.\n "
-           "If nobody asks, I move on. If someone does, I say so and take "
-           "question of the hour and I say so.")
+           "What is on the slide: what the paper's α actually is, which is "
+           "our own result under another name, and the one place the two "
+           "models come apart.\n "
+           "The algebra, if they want it. R(X) = p_tot·K_d/(K_d + X)², so at "
+           "X = 0 that is p_tot/K_d and our 1/(1 + R) becomes 1/(1 + "
+           "p_tot/K_d) — Box 1 exactly. The two formulas are the same "
+           "formula; theirs is ours evaluated before anything has bound.\n "
+           "Then the part worth slowing down for. In Box 1 the α multiplies "
+           "the whole right-hand side, which is a pure rescaling of time. So "
+           "under a constant α every time in the system stretches by the "
+           "same 1/α — whatever the order of the system, no assumptions "
+           "about first-order anything. A bandwidth that drops to 0.80 "
+           "obliges a rise time that grows by 1.25.\n "
+           "Theirs grew by 698.9/396.1 = 1.76. Those two numbers cannot both "
+           "come from one constant α, and the direction of the gap is the "
+           "one our model predicts: R is enormous while the sites are "
+           "filling and almost nothing at the operating point, so a "
+           "small-signal bandwidth barely feels it and a full climb feels "
+           "all of it.\n "
+           "That is the strongest argument of the morning for the model they "
+           "built, and it comes out of the paper's own two numbers.\n "
+           "The caveats, said plainly. The bandwidths are CALCULATED from a "
+           "fitted model, as the Fig. 4c caption says, while the rise times "
+           "are measured at n = 3 — so this compares a model-derived number "
+           "with a measured one, and it is a discrepancy worth explaining, "
+           "not a refutation. Their Supplementary Note 1.2 may state α with "
+           "saturation; I do not hold it and I say so. And we still cannot "
+           "compare our invented p_tot and K_d against theirs — we do not "
+           "need to, because the argument is structural.\n "
+           "On the 247 list as a reconciliation problem.")
 
     s = d.light()
-    d.header(s, "segment 7", "build  ·  and it works")
+    d.header(s, "segment 7", "build  ·  what makes the stage fast enough")
+    d.title(s, "Why a fast stage helps a slow signal")
+    d.rows(s, [
+        ("the sites do not go away", "they still bind and they still pull "
+                                     "back. What changes is WHO they pull "
+                                     "on — the fast stage now sits between "
+                                     "them and your module.", CYAN),
+        ("so the fast stage is slowed", "exactly as your module would have "
+                                        "been. Its speed becomes α·G, with "
+                                        "α = 1/(1 + R) and R built from the "
+                                        "same site count as before."),
+        ("but it had speed to spare", "G is phosphotransfer — seconds. "
+                                      "Divide seconds by (1 + R) and you "
+                                      "still have seconds, which is nothing "
+                                      "against transcription's hours.",
+         CYAN),
+        ("and a slow signal is easy to track", "so the stage follows its "
+                                               "input anyway, and your "
+                                               "module never sees the load "
+                                               "at all.", CYAN),
+    ], top=1.94, label_color=CYAN)
+    d.foot(s, "The load is not removed. It is re-aimed at the one stage that could afford to be slowed by it.")
+    d.notes(s,
+           "What is on the slide: why putting a fast stage in front of the "
+           "load takes the load off your module.\n "
+           "The thing to say first, because it is the thing they will get "
+           "wrong: the retroactivity does not go away. The sites are still "
+           "there, they still bind, they still pull back. All that changes "
+           "is what they pull on.\n "
+           "Then the division, which is the same division as this morning. "
+           "The fast stage gets slowed by the load exactly as your module "
+           "would have been — its speed goes from G to α·G. The difference "
+           "is what it is dividing. Transcription has a timescale of hours; "
+           "phosphotransfer has one of seconds. Dividing seconds by two, or "
+           "by ten, still leaves seconds.\n "
+           "And that is why a SLOW input is the easy case, which is worth "
+           "saying out loud because it sounds backwards. Whether a stage can "
+           "follow its input is a comparison between α·G and the frequency "
+           "of the input. A slow input sets a low bar. The fast stage clears "
+           "it by orders of magnitude even after the load has slowed it, so "
+           "it tracks its input faithfully — and your module, which only "
+           "ever talks to the fast stage, sees nothing.\n "
+           "If someone asks whether the device loads the module: yes, a "
+           "little. Its own input stage binds X too. The design job is to "
+           "make that small while making G large, and that is exactly what "
+           "their Box 1 is about.\n "
+           "The condition, which I state here and prove two slides on: there "
+           "has to be enough of the fast stage. SKN7 at 2,572 copies per "
+           "cell and YPD1 at 6,325, and covering more load needs "
+           "proportionally more of both.")
+
+    s = d.light()
+    d.header(s, "segment 7", "build  ·  and it works, on the clock")
+    d.title(s, "Same circuit, three loads, one curve")
+    d.paper_figure(s, "mishra2014_fig3c", 3.24, 1.68, 6.85, 4.24,
+                   "Mishra et al. 2014, Fig. 3c — buffered, moderate expression",
+                   "", show_caption=False)
+    d.foot(s, "The same step input as the unbuffered panel, with the load driver in place. Three loads, and the three curves are one line: neither the rate nor the level moves.")
+    d.notes(s,
+           "What is on the slide: the identical experiment to the unbuffered "
+           "panel — same step, same three loads, same axes — run on the "
+           "circuit with the load driver in it.\n "
+           "The reading: the three curves are indistinguishable. On the "
+           "unbuffered panel they came apart by three hundred minutes; here "
+           "they do not come apart at all.\n "
+           "The takeaway: the repair works in the time domain, and it works "
+           "on the observable the room chose. The next two slides are the "
+           "same claim measured a different way, in frequency.\n "
+           "This is the moderate-expression circuit — the one that meets the "
+           "abundance condition from the previous slide. Every number in this "
+           "segment comes from it.")
+
+    s = d.light()
+    d.header(s, "segment 7", "build  ·  and in the frequency domain")
     d.title(s, "What the fast stage buys")
     d.image_centered(s, FIG + "s21_bandwidth.png")
-    d.foot(s, "Our plot of the four bandwidths in Mishra 2014, Fig. 4c — not their panel. The values are CALCULATED, as their caption says; the measurement is the amplitude response behind them.")
+    d.foot(s, "Our plot of the four CALCULATED bandwidths in Mishra 2014, Fig. 4c. Note where the buffered pair sits: below the unloaded plain circuit. A longer chain has a lower ceiling.")
     d.notes(s,
            "Plain circuit: 0.0175 per minute unloaded, 0.0140 loaded. That is "
            "20% of the bandwidth it had — I give the ratio both ways, because "
            "the paper's 25% divides by the loaded value and the convention is "
            "exactly the kind of thing that gets copied without checking.\n "
+           "The question this figure raises, and it is the right one: why is the buffered circuit SLOWER than the plain one with nothing attached, 0.0142 against 0.0175? Because it has more stages in it. In the plain circuit DOX makes SKN7m and SKN7m binds. In the buffered one DOX makes STAT5-HKRR, which is phosphorylated, dimerizes, hands phosphate to YPD1, then to SKN7, and only then binds. Every stage in a chain filters, so a longer chain has a lower ceiling even when the stages you added are fast.\n "
+           "So the trade, said as a trade: you give up about a fifth of your bandwidth ONCE and unconditionally, so that you stop giving up a fifth of it every time somebody attaches something downstream. The paper does not decompose where the loss comes from and neither do I.\n "
            "With the load driver: 0.0142 and 0.0143. The paper calls that "
            "difference negligible and puts it at 0.5%; the two rounded figures "
            "I just read out divide to 0.7%, and the gap is the rounding, not a "
@@ -886,15 +983,13 @@ def _repair(d):
            "measured points to scatter on a derived curve — that curve was "
            "fitted through them by construction, and drawing it that way "
            "would be circular.\n "
-           "Their published panel also states its two unbuffered bandwidths in "
-           "the reverse order in the caption and colors its guide lines "
-           "opposite to the curves they belong to, so anyone reading it "
-           "color-to-color gets the result backwards. I point at it as a "
-           "figure-reading lesson.")
+           "Why this is our redraw and not their panel: theirs carries two "
+           "reading traps, and the next slide is where we go through them. "
+           "The values are the same values.")
 
     s = d.light()
     d.header(s, "segment 7", "build  ·  the panel those numbers came off")
-    d.title(s, "Their figure, and how to read it")
+    d.title(s, "Two traps in one panel")
     # Slot at the crop's OWN aspect (2134x628 = 3.398). At 6.9x3.9 the
     # panel filled 52% of its box and rendered 2in tall, which is not
     # readable, and this slide exists to be read closely.
@@ -905,9 +1000,11 @@ def _repair(d):
                    show_caption=True)
     d.foot(s, "Two traps in one panel: the caption lists the unbuffered bandwidths in the reverse order from the plot, and the dotted guide lines are colored opposite to the curves they belong to.")
     d.notes(s,
-           "Worth the minute. Anyone reading this panel color to color gets "
-           "the result backwards, and the paper is not a sloppy one — this "
-           "is what a figure error looks like in a good journal.\n "
+           "What is on the slide: the published panel the four bandwidths "
+           "were read off, unbuffered on the left and buffered on the "
+           "right, amplitude against input frequency.\n "
+           "It carries two errors, and the paper is not a sloppy one — this "
+           "is what a figure mistake looks like in a good journal.\n "
            "How to see it from the floor. The dotted horizontals are the "
            "minus-three-decibel marks, each at its own curve's peak over "
            "root two. The black curve peaks near 195, so its mark belongs "
@@ -963,29 +1060,78 @@ def _repair(d):
 
 def _cost(d):
     s = d.light()
-    d.header(s, "segment 8", "frame  ·  the part the abstract leaves out")
-    d.title(s, "Insulation is not free")
-    d.rows(s, [
-        ("the same premium, in minutes", "you just read nineteen percent of "
-                                         "the bandwidth gone, load or no "
-                                         "load. It shows up on the clock "
-                                         "too.", AMBER),
-        ("buffered, with the load", "423 ± 22 minutes — within error of its "
-                                    "own unloaded value. The repair works."),
-        ("buffered, with NO load", "432 ± 9 minutes, against 396 ± 23 for "
-                                   "the plain circuit with no load driver in "
-                                   "it."),
-        ("so the claim would be", "about 9% of response time, paid whether or "
-                                  "not there is a load to drive. You bought "
-                                  "immunity and the premium is always due."),
-    ], top=1.94, label_color=CYAN)
-    d.foot(s, "Read off their own Online Methods, n = 3. Every insulator costs something. Whether THIS number measures it is the next slide.")
+    d.header(s, "segment 8", "build  ·  and it has a requirement")
+    d.title(s, "The same device, built with too little of it")
+    d.paper_figure(s, "mishra2014_fig3b", 3.07, 1.68, 7.20, 4.24,
+                   "Mishra et al. 2014, Fig. 3b — buffered, LOW expression",
+                   "", show_caption=False)
+    d.foot(s, "Same device, same step, SKN7 and YPD1 expressed low. The plateaus separate: the level drops with load. p. 1272.")
     d.notes(s,
-           "This is in their Online Methods and not in the abstract, and the "
-           "honest close to the hour is to interrogate it rather than repeat "
-           "it.\n "
-           "The last row is a CLAIM, not a result, and I pause on the word "
-           "\"would\". The next slide is the room's job.")
+           "What is on the slide: the third panel of the same figure — the "
+           "load driver again, but built with low SKN7 and YPD1 instead of "
+           "moderate.\n "
+           "The reading: the three plateaus are at different heights, around "
+           "2,800, 2,400 and 1,800. The level now depends on the load, which "
+           "is exactly what the unbuffered circuit did NOT do.\n "
+           "The takeaway, and it is the engineering one: the repair has an "
+           "operating condition and this is what violating it looks like. "
+           "Underspend on the fast stage and the timescale separation fails, "
+           "the sites are no longer a small perturbation, and the insulation "
+           "goes.\n "
+           "Their own words for the condition: the moderate system is "
+           "load-independent \"provided that the amounts of SKN7 were "
+           "sufficiently high.\" The paper reports the level drop for the low "
+           "system on p. 1272.\n "
+           "Worth saying plainly: this is not a different model of the "
+           "molecule. Both buffered circuits are the same chemistry. What "
+           "changed is a concentration, and a concentration moved a system "
+           "from insulated to not.")
+
+    s = d.light()
+    d.header(s, "segment 8", "frame  ·  the part the abstract leaves out")
+    d.title(s, "What insulation costs")
+    d.rows(s, [
+        ("bandwidth", "0.0175 down to 0.0142 per minute, paid whether or not "
+                      "anything is attached. You just read it off the "
+                      "figure.", AMBER),
+        ("response time", "432 ± 9 minutes against 396 ± 23 for the plain "
+                          "circuit with nothing attached. About 9%."),
+        ("protein, standing", "SKN7, YPD1 and the JH1 kinase are all "
+                              "expressed constitutively — thousands of "
+                              "copies each, made and maintained whether or "
+                              "not anything is changing. Covering more load "
+                              "needs proportionally more. p. 1274.", CYAN),
+        ("ATP, standing", "the kinase autophosphorylates whether or not "
+                          "there is a signal, and every phosphate that moves "
+                          "came from ATP. Nobody counted this one.", CYAN),
+    ], top=1.88, label_color=CYAN)
+    d.foot(s, "Two of these they measured, one they report the ingredients for, and one is not in the paper at all. The next slide asks whether the second is even real.")
+    d.notes(s,
+           "What is on the slide: everything the repair costs, which is more "
+           "than the abstract counts.\n "
+           "The first two they measured and we have both read. Bandwidth is "
+           "the figure from a moment ago; response time is their Online "
+           "Methods.\n "
+           "The third is the one I most want them to connect. The load "
+           "driver is not a catalyst sitting there for free — SKN7, YPD1 and "
+           "the JH1 kinase are constitutively expressed, thousands of copies "
+           "each, synthesized and diluted and resynthesized for the whole "
+           "life of the culture. That is burden, and burden is session 19. "
+           "The cure for retroactivity is paid for in the currency of the "
+           "rung below it on the ladder.\n "
+           "It also scales the wrong way: p. 1274 says covering more load at "
+           "the same performance needs a roughly linear increase in YPD1 and "
+           "SKN7. So insulation is not a fixed overhead you pay once — it "
+           "grows with how much load you want to be immune to.\n "
+           "The fourth is honest speculation and I label it as such. A "
+           "phosphorelay that is always running is a futile cycle: the "
+           "kinase autophosphorylates whether or not anything is happening, "
+           "and every phosphate that moves came from an ATP. The paper does "
+           "not measure it and I do not put a number on it. Naming an "
+           "unmeasured cost is still worth doing.\n "
+           "Then the pause on the second row, because the next slide is the "
+           "room's job: 9% is a CLAIM read off two numbers with three "
+           "replicates each.")
 
     s = d.light()
     d.header(s, "segment 8", "release  ·  read their numbers")
@@ -1010,7 +1156,7 @@ def _cost(d):
 
     s = d.dark()
     d.header(s, "segment 8", "debrief  ·  what the spread says")
-    d.title(s, "Three reasons to be careful, and one that decides it")
+    d.title(s, "The bars miss. The test still says no.")
     d.rows(s, [
         ("the bars do not overlap", "396.1 ± 23.0 against 432.4 ± 8.9 — they "
                                     "clear each other by four minutes. That "
@@ -1052,7 +1198,7 @@ def _cost(d):
 
     s = d.dark()
     d.header(s, "segment 8", "debrief  ·  the design ledger")
-    d.title(s, "What you can now do, and what it costs")
+    d.title(s, "Four things you can now do")
     d.rows(s, [
         ("the cost of being read", "∫R dX = p_{tot}. The bill is the site count "
                                    "and affinity sets only the schedule.", CYAN),
@@ -1079,7 +1225,7 @@ def _cost(d):
 def _close(d):
     s = d.dark()
     d.header(s, "close", "where this goes")
-    d.title(s, "Three contexts, three cures, and a pattern")
+    d.title(s, "Three cures, each built for its own disease")
     d.rows(s, [
         ("19", "the host's machinery. Measured it, budgeted against it."),
         ("20", "the host's metabolism. Computed it — and had to import an "
@@ -1101,7 +1247,7 @@ def _close(d):
 
     s = d.light()
     d.header(s, "close", "before Tuesday")
-    d.title(s, "What to read, and what is due")
+    d.title(s, "Read Aoki with one question in mind")
     d.rows(s, [
         ("tonight, 11:59", "PS7 is due."),
         ("today", "PS8 goes out. Session 18, Tuesday, today and next "

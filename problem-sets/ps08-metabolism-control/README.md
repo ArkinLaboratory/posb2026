@@ -45,8 +45,9 @@ downstream sites are essentially full. Here they are not, and what you lose is
 the site count times the **occupancy**. If your answer is exactly
 $p_{\text{tot}}/X_T$, you have assumed something the question removed.
 
-**Q1, Q2d, Q3a, Q3d and Q4a are written answers** — 21 of the 50 points. They
-are graded on the argument, not the conclusion. An answer that reaches the
+**Q1, Q2e, Q3a, Q3d and Q4a are written answers** — 19 of the 50 points,
+with Q5b hand-graded on top of them in the Question 5 section. They are graded
+on the argument, not the conclusion. An answer that reaches the
 wrong number for a stated and sensible reason scores better than the right
 number with no reasoning.
 

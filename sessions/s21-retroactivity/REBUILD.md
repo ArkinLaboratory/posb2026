@@ -244,3 +244,44 @@ null-space formula; s3 taught `dim = r − rank S` for this one.
 have caught the s18 error, the null-space collision, and that glycolysis, TCA,
 pyruvate, biomass, knockout, vertex and bandwidth all have **zero** prior
 occurrences in eighteen decks.
+
+## Addendum, 1 November — their two numbers do not fit one constant alpha
+
+Found while rewriting the alpha slide, which until now pointed at Box 1 on
+p. 1270 and ended on "we cannot check it". We can check something, and it
+comes out in favour of the model the session builds.
+
+**The structural identity.** `R(X) = p_tot*K_d/(K_d + X)^2`, so at `X = 0`
+that is `p_tot/K_d` and our `1/(1 + R)` becomes `1/(1 + p_tot/K_d)` — Box 1
+exactly. Their alpha is our alpha evaluated before anything has bound. The
+two formulas are the same formula; the difference is that ours moves as the
+sites fill and theirs does not.
+
+**The test.** In Box 1 alpha multiplies the whole right-hand side, so a
+constant alpha is a pure rescaling of time. Every time in the system then
+stretches by the same `1/alpha`, whatever the order of the system — no
+first-order assumption needed. So:
+
+| quantity | value | implies |
+|---|---|---|
+| alpha, from Fig. 4c | 0.0140/0.0175 = **0.800** | p/K_d = 0.25 |
+| rise time predicted by a constant alpha | 1/0.800 = **1.25x** | |
+| rise time MEASURED, Online Methods | 698.9/396.1 = **1.76x** | |
+
+Those two cannot both come from one constant alpha, and the gap is 40%.
+
+**What our model says about the gap, and the direction is right.** `R` is
+largest at `X = 0` and dies as the sites fill, so a small-signal bandwidth
+measured at the operating point barely feels the load while a full climb
+feels all of it. Our own protected run at `p_tot = X_T = 1000`, `K_d = 1` is
+the extreme version: `R` is 1000 at `X = 0` and 0.000998 at `X_T`, giving a
+bandwidth ratio of 0.999 against a rise-time slowdown of 2.448.
+
+**Caveats, which the slide notes carry.** The bandwidths are CALCULATED from
+a fitted model (Fig. 4c caption) while the rise times are measured at n = 3
+with the 90%-of-unloaded-mean convention, so this compares a model-derived
+number against a measured one. It is a discrepancy worth explaining, not a
+refutation. Their Supplementary Note 1.2 may state alpha with saturation; we
+do not hold it. We still cannot compare our invented `p_tot` and `K_d`
+against theirs and do not need to — the argument is structural. On the 247
+list as a reconciliation problem.

@@ -31,6 +31,8 @@ from pathlib import Path
 
 import nbformat as nbf
 
+import stub_score  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 PRIVATE = ROOT / "private"
 sys.path.insert(0, str(ROOT / "tools"))
@@ -56,7 +58,8 @@ def _load_master(name):
 # named, and `build_problem_sets.py` with no arguments silently skipped
 # it. Same class of defect as figures/s14 missing from build_figures
 # MODULES. Add a set here the moment its master exists.
-PROBLEM_SETS = ["ps01", "ps02", "ps03", "ps04", "ps05", "ps06", "ps07"]
+PROBLEM_SETS = ["ps01", "ps02", "ps03", "ps04", "ps05", "ps06", "ps07",
+                "ps08"]
 
 METADATA = {
     "kernelspec": {"display_name": "Python 3", "language": "python",
@@ -203,6 +206,11 @@ def build_one(name):
                      html_out=workdir / f"{name}-SOLUTIONS.html")
 
     zips = list((dist / "autograder").glob("*.zip"))
+
+    # Does any of this actually grade anything? See tools/stub_score.py.
+    for z in zips:
+        stub_score.report(name, z, PRIVATE / "sources" / f"{name}_stub.py")
+
     for z in zips:
         print(f"gradescope bundle  {z.relative_to(ROOT)}   [upload this]")
     return True

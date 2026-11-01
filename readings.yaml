@@ -543,9 +543,10 @@ readings:
       required: true
       focus: >-
         The delay and bandwidth measurements with and without the load driver --
-        76% of the response time and 25% of the bandwidth lost to a downstream
-        load, and mostly recovered. Come able to say where the timescale
-        separation is doing the work.
+        76% of the response time and about a fifth of the bandwidth lost to a
+        downstream load, and mostly recovered. (The paper says 25%; it divides
+        by the loaded value, and we will do that arithmetic in class.) Come
+        able to say where the timescale separation is doing the work.
       why: >-
         Retroactivity is the most counter-intuitive idea in Part II -- that
         reading a signal changes it -- and this paper puts a number on it. The
