@@ -459,7 +459,7 @@ def _economy(d):
     d.header(s, "segment 1", "build  ·  the two laws")
     d.title(s, "Two straight lines, and they disagree about the sign")
     _fig(d, s, "s19_growth_law", 1.72)
-    d.foot(s, "φ_R^min = 0.07, γ₀ = 5.9 h⁻¹, φ_R^max = ρ·r_max ≈ 0.55 — all FITTED or extrapolated, and all three quoted from the Scott et al. 2014 Fig. 2 legend.")
+    d.foot(s, "φ_R^min = 0.07, γ₀ = 5.9 h⁻¹, φ_R^max = ρ·r_{max} ≈ 0.55 — all FITTED or extrapolated, and all three quoted from the Scott et al. 2014 Fig. 2 legend.")
     d.notes(s,
            "Segment 1 turns here, and it is where I lose people "
            "if I move fast.\n "
@@ -478,7 +478,7 @@ def _economy(d):
            "ribosome.\n "
            "Then the question that always comes, and I want it: why would "
            "a cell build more of something that does not work? The answer "
-           "is the next surface, so I hold it. Short form — the cell is "
+           "is the next slide, so I hold it. Short form — the cell is "
            "not counting its ribosomes. It reads charged tRNA. "
            "Chloramphenicol slows elongation and leaves the amino-acid "
            "supply alone, so tRNA stays charged, ppGpp falls, and rRNA "
@@ -504,7 +504,7 @@ def _economy(d):
     d.notes(s,
            "This is the one place in the hour where the biology explains a "
            "result the mathematics cannot, and it answers the question the "
-           "last surface raised.\n "
+           "last slide raised.\n "
            "Walk the top chain left to right, then the bottom one, and let "
            "the two ppGpp boxes do the work — same box, opposite arrow.\n "
            "The top chain is one passage of Scott 2014, p. 6, including the "
@@ -600,7 +600,7 @@ def _instrument(d):
     d.foot(s, "You read Ceroni et al. for today. The focus line asked you to come able to say what is being measured and in what units.")
     d.notes(s,
            "I take the answer from the room before showing the next "
-           "surface. Somebody will have it from the reading: GFP from a "
+           "slide. Somebody will have it from the reading: GFP from a "
            "constitutive cassette, as a percentage of an untransformed "
            "cell. If nobody does, that tells me something useful about how "
            "the reading landed and I slow down.\n "
@@ -716,7 +716,7 @@ def _derivation(d):
     d.title(s, "What a ribosome is doing, and how hard a gene pulls")
     d.rows(s, [
         ("the binding step",
-         "R + m_{i} ⇌ C_{i}  —  a ribosome binds an mRNA and is released when it finishes. Same shape as an enzyme and a substrate, which is why session 4's move will work on it."),
+         "R + m_{i} <=> C_{i}  —  a ribosome binds an mRNA and is released when it finishes. Same shape as an enzyme and a substrate, which is why session 4's move will work on it."),
         ("the demand of gene i",
          "d_{i} = m_{i} / K_{i}  —  how hard gene i pulls on the pool. More message, or tighter binding, is more demand. One number per gene."),
         ("and K_{i} is a sequence you can order",
@@ -766,7 +766,7 @@ def _derivation(d):
         # that window, and the build reported ten overlapping pairs that the
         # rendered page did not obviously show. Without the box the band is
         # 4.98in, the pitch is 1.00, and the run is clean. The punchline then
-        # gets its own surface, which is where it belongs anyway.
+        # gets its own slide, which is where it belongs anyway.
         # Reported to Adam as a theme.py threshold to fix (0.70 -> 0.86).
         board="the session-6 occupancy, still on the board",
         note="The payoff is step four: the free pool factors out of the "
@@ -794,7 +794,7 @@ def _derivation(d):
     d.foot(s, "Which is what five weeks of deriving things the hard way buys you — the second time, it is five minutes.")
     d.notes(s,
            "This is the transferable thing in the whole session and it is "
-           "worth its own surface.\n "
+           "worth its own slide.\n "
            "I point at the board where the session-6 expression still is. "
            "If it is not still there, I write it again before I start.\n "
            "What they should take: it is not the ribosome model that "
@@ -857,7 +857,7 @@ def _hidden_edge(d):
     d.header(s, "segment 4", "build  ·  the edge, and how to catch it")
     d.title(s, "It looks exactly like repression")
     bot = _fig(d, s, "s19_hidden_edge", 1.70)
-    d.foot(s, "p₁/p₁(d₂=0) = 1/(1 + d₂/(1+d₁)) — a Hill function in d₂, n = 1, K_app = 1 + d₁. Both panels normalised the same way: to the output with the competitor absent.")
+    d.foot(s, "p₁/p₁(d₂=0) = 1/(1 + d₂/(1+d₁)) — a Hill function in d₂, n = 1, K_{app} = 1 + d₁. Both panels normalised the same way: to the output with the competitor absent.")
     d.notes(s,
            "Left panel first, against the numbers they just wrote down.\n "
            "Where the curve comes from, because this is the slide that "
@@ -1067,7 +1067,7 @@ def _burden_loop(d):
         [("what is plotted",
           "growth rate against the percentage of total protein given to β-galactosidase the cell has no use for, in three media."),
          ("the three lines are predictions",
-          "from Eq. 6, with the 48% intercept computed from an r_max fitted to a DIFFERENT experiment. The slope was not fitted to these points."),
+          "from Eq. 6, with the 48% intercept computed from an r_{max} fitted to a DIFFERENT experiment. The slope was not fitted here."),
          ("why that is the stronger claim",
           "a regression would only tell you these points lie on a line. This says the line was known before the points were.", CYAN)])
     d.notes(s,
@@ -1098,7 +1098,7 @@ def _burden_loop(d):
           "the cell charges you for the space — not the amino acids, not the ATP, not the folding. A strong and falsifiable claim, and this is where it survives.", CYAN)])
     d.notes(s,
            "Thirty seconds, and it is the strongest evidence in the paper for "
-           "the modelling choice I flagged two surfaces back.\n "
+           "the modelling choice I flagged two slides back.\n "
            "Three proteins across four expression systems — and two of the "
            "four series are the SAME protein, beta-galactosidase, driven "
            "from different promoters on different plasmids in different "
@@ -1154,9 +1154,9 @@ def _emergent(d):
     ])
     d.foot(s, "Tan, Marguet & You, Nat Chem Biol 5:842 (2009). Hold your prediction until you have seen the circuit.")
     d.notes(s,
-           "This surface sets the contradiction up and deliberately does "
+           "This slide sets the contradiction up and deliberately does "
            "not resolve it. Three rows, then I move — the vote happens on "
-           "the next surface, once they can see the loop.\n "
+           "the next slide, once they can see the loop.\n "
            "The row that matters is the third one. They derived this "
            "themselves in session 9 and PS4 made them find the case where "
            "n = 1 fails, so it is not a fact they are being told. The "
@@ -1180,7 +1180,7 @@ def _emergent(d):
            "Session 9's analysis is unambiguous and the room should say "
            "one — the wedge needs n greater than one on an arm and there "
            "is no n in this loop at all. They are about to be wrong, and "
-           "being wrong out loud first is what makes the next surface "
+           "being wrong out loud first is what makes the next slide "
            "work.\n "
            "The circuit, in case it is asked: a mutant T7 RNA polymerase "
            "driving its own promoter, P_T7 carrying a lac operator so LacI "
@@ -1259,7 +1259,7 @@ def _emergent(d):
            "Where this curve comes from, because without it the S is an "
            "assertion.\n "
            "Fix alpha. Draw the made-against-removed picture from the last "
-           "surface. Mark every crossing. That column of crossings is one "
+           "slide. Mark every crossing. That column of crossings is one "
            "vertical slice of this plot. Now sweep alpha and collect them "
            "all. That is the whole construction, and it is worth saying "
            "slowly because the two figures look unrelated otherwise.\n "
@@ -1334,7 +1334,7 @@ def _close(d):
     d.title(s, "The same mechanism, three times")
     d.rows(s, [
         ("Tuesday just gone — session 18",
-         "a transcription factor held by its decoy sites. You called that ultrasensitivity, and the holding is what made it sharp."),
+         "a transcription factor held by its decoy sites, and substrate held in enzyme complex. You named the mechanism: sequestration."),
         ("TODAY — session 19",
          "a ribosome held by every other mRNA in the cell. The same holding — and this time there is no boundary you can put around it.", CYAN),
         ("Thursday — session 21",
@@ -1344,19 +1344,22 @@ def _close(d):
     ], label_color=CYAN, body_role="body")
     d.foot(s, "One mechanism, three sessions. Leave with burden, retroactivity and decoy titration as three unrelated topics and you have missed what connects them.")
     d.notes(s,
-           "This is the surface the hour exists for, and session 18 ended "
+           "This is the slide the hour exists for, and session 18 ended "
            "on the same one. Same shape, second instance — if they "
            "recognise that, the ladder is built.\n "
            "The middle row is today and it carries the weight. "
            "Sequestration is not an analogy between the three: it is "
            "literally the same move each time — something that should be "
            "free is held by something that binds it, and the holding is "
-           "what produces the behaviour. On Tuesday the holding made a "
+           "what produces the behaviour. On Tuesday the holding made a molecule "
+           "UNAVAILABLE — and where it hit the switch, it SOFTENED it; the "
+           "sharpness came from saturating two enzymes, not from the "
+           "holding. Careful not to merge the two. On Tuesday it made a "
            "response sharp. Today it coupled two genes with no wire "
            "between them. On Thursday it will make a module's output "
            "depend on who is listening.\n "
            "The fourth row is a DIFFERENT axis and I say so, because these "
-           "two were blurred on this surface before. Session 20 is not a "
+           "two were blurred on this slide before. Session 20 is not a "
            "fourth rung of the sequestration ladder — it is the host's "
            "economy again at the level of metabolites, and it opens the "
            "run of contexts that fills the rest of Part II.\n "
@@ -1364,7 +1367,7 @@ def _close(d):
            "as three unrelated topics, the rest of Part II will not cohere "
            "and I will be re-explaining it in session 24.")
 
-    # The assignment gets its own surface. Putting it under the ladder rows
+    # The assignment gets its own slide. Putting it under the ladder rows
     # collided with the foot -- assignment() starts at y=5.55 and the foot
     # sits at 6.75.
     s = d.light()
