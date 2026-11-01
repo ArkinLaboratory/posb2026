@@ -43,7 +43,12 @@ being controlled does not get a vote.
 **1. Integral feedback gives exact adaptation — derived, not asserted.**
 If a controller integrates the error, the only steady state is zero error. Do
 it on a *general* plant, because the generality is the result (see §5.1), then
-instantiate it on session 5's object, dX/dt = k − γX, so it is concrete.
+instantiate it on session 5's object **driven by the controller** —
+dX/dt = k·u − γX + d, not dX/dt = k − γX. **Corrected 31 October**, and this is
+not shorthand: with the input written as a bare constant k there is no actuator,
+nothing for the set point to be independent of, and the segment-6 bound
+d ≤ γμ/θ has nothing to bound. The deck, the handout and the answer sheet all
+use k·u − γX + d. The deck is right.
 
 **2. Two molecules that annihilate each other are an integrator.** Z₁ made at a
 constant reference rate μ, Z₂ made in proportion to the output at rate θ, and
@@ -115,7 +120,8 @@ words.
 universality is the result, not a framing: Box 1 proves that *every* controller
 achieving robust perfect adaptation must embed an antithetic motif. Deriving on
 a specific plant would throw that away. So: derive on an arbitrary plant, land
-μ/θ, and *then* instantiate on dX/dt = k − γX so the room can see it move.
+μ/θ, and *then* instantiate on dX/dt = k·u − γX + d so the room can see it
+move. (Not k − γX; see §2 above, corrected 31 October.)
 PS8 Q4 is written against the general form.
 
 **5.2 — The Aoki student copy.** The held PDF is 22 pages: ETH cover p. 1, the
@@ -130,8 +136,8 @@ them to **Fig. 1c** (the motif), **Fig. 3a–b** (closed and open loop) and
 1. **frame** — three patches, each tailored. What would it take to stop?
 2. **build** — integral feedback on a general plant; zero error is the only
    fixed point. Board.
-3. **release** — instantiate on k − γX: where does the output sit, and which
-   parameters is it allowed to depend on?
+3. **release** — instantiate on k·u − γX + d: where does the output sit, and
+   which parameters is it allowed to depend on?
 4. **debrief** — μ/θ, and nothing else. The plant does not get a vote.
 5. **build** — the antithetic motif; subtract the two equations.
 6. **debrief** — the annihilation is sequestration (§3.3). Collect the ladder.
@@ -153,8 +159,14 @@ them to **Fig. 1c** (the motif), **Fig. 3a–b** (closed and open loop) and
 - `NUMBERS.md` with every value and its KIND, before any slide is built.
 - Handout (home guide + answers), board notes.
 - **Cross-deck vocabulary grep before building.** "integral feedback",
-  "antithetic", "set point", "adaptation", "sigma factor", "anti-sigma" — none
-  of these has been used in sessions 1–21 and the grep must say so explicitly.
+  "antithetic", "set point", "adaptation", "sigma factor", "anti-sigma".
+  **Corrected 31 October: the claim that none of these had been used in
+  sessions 1–21 was FALSE, and asserting it is why nobody looked.** The grep
+  was run on 26 October and the result is in the deck docstring: four of the
+  six were already in play — "sigma factor" in s06, and "adaptation" in s10
+  (where it carries the autograded 0.62) and again in s20. The rule survives;
+  the assertion attached to it did not. **Never state a grep's result in the
+  design before running it.**
 - The PS8 contract: Q4 and Q5 are released on 5 November against §3 and §5.1.
   **This design may not move under them.** Anything learned in the build that
   contradicts §3 has to be reconciled with a set already in students' hands.

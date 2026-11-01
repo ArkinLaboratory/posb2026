@@ -76,12 +76,12 @@ all ten terms to be new. Four were not, and two of those changed this deck:
     home guide's proportional-control item points back at it instead of
     pretending the comparison is new.
   * "plant", "actuator", "set point", "error" and the open/closed distinction
-    are now DEFINED on a surface, on the block diagram at the top of
+    are now DEFINED on a slide, on the block diagram at the top of
     segment 2, before any algebra uses them. They were not, in the first
     build, and the docstring claimed they were -- which is how it went
     unnoticed. The error is also written down as a derivation step now
     (e = mu/theta - X), because the hour is about driving it to zero and no
-    surface had ever said what it was.
+    slide had ever said what it was.
 
 AND THE NAME COLLISION THE GREP TURNED UP. posb/control.py originally exported
 `adaptation_error` for X_ss - mu/theta, a DIFFERENCE. Session 10 already uses
@@ -239,7 +239,7 @@ def _vocabulary(d):
     d.notes(s,
            "Half this room has never met any of these words and the other "
            "half has used them for years, so I spend the time and I say why: "
-           "every one of them turns up in the next four surfaces.\n "
+           "every one of them turns up in the next four slides.\n "
            "PLANT is the one to be explicit about. It is the thing being "
            "controlled — your circuit, the cell, whatever sits downstream of "
            "the actuator — and in a synthetic biology course the wrong "
@@ -277,7 +277,7 @@ def _derivation(d):
              "X = mu / theta",
              "two constants, and no f anywhere"),
         ],
-        board="e = mu/theta - X;  du/dt = theta·e   =>   X_ss = mu/theta",
+        board="e = mu/theta - X;  du/dt = theta·e   =>   X_{ss} = mu/theta",
         note="AT THE BOX, SAY IT AGAINST SESSION 10. Their feedforward loop "
              "adapted too, and its adaptation error was 0.62 — final over "
              "peak — and it moved whenever any rate constant moved. This one "
@@ -300,13 +300,13 @@ def _derivation(d):
              "depend on the topology and parameters of the circuit of "
              "interest — as long as the closed dynamics are stable, which is "
              "the clause everyone drops and I do not. That is what we just "
-             "derived, and the next surface makes them check it.\n "
+             "derived, and the next slide makes them check it.\n "
              "AND THE CONSEQUENCE, which is the reason to care: you do not "
              "have to characterise your plant. Change host, change promoter, "
              "change chassis — the controller ports without re-tuning, "
              "because none of those appear in the answer. That is what this "
              "device buys you and it is worth saying here, not fifteen "
-             "surfaces later on the ledger.")
+             "slides later on the ledger.")
 
 
 def _instantiate(d):
@@ -321,7 +321,7 @@ def _instantiate(d):
                       "k, γ, d and the controller's own constants it is "
                       "allowed to depend on."),
     ])
-    d.foot(s, "Two minutes. You do not need to solve the dynamics — you need the steady state, and you proved it on the last surface.")
+    d.foot(s, "Two minutes. You do not need to solve the dynamics — you need the steady state, and you proved it on the last slide.")
     d.notes(s,
            "Short, and almost everyone gets it, which is the point: the "
            "answer does not require the plant at all.\n "
@@ -348,7 +348,7 @@ def _instantiate(d):
            "The answer goes UP, not just around the room, because the eight "
            "people who did not speak need it too.\n "
            "The push-back I want: 'but k and gamma must do something.' They "
-           "do, and the next two surfaces are exactly that — the ride against "
+           "do, and the next two slides are exactly that — the ride against "
            "the destination.\n "
            "A student will ask whether d really drops out. It does, and the "
            "step figure is next.")
@@ -519,10 +519,10 @@ def _aoki(d):
     d.title(s, "σ and anti-σ")
     d.rows(s, [
         ("σ factor", "the subunit that tells RNA polymerase which promoters "
-                     "to read. SigW switches on P_sigW — more SigW, harder "
+                     "to read. SigW switches on P_{sigW} — more SigW, harder "
                      "that promoter fires. Z₁ is the ACTUATOR.", CYAN),
         ("anti-σ factor", "binds a σ one-to-one and holds it off the "
-                          "polymerase. RsiW comes from P_BAD, which AraC "
+                          "polymerase. RsiW comes from P_{BAD}, which AraC "
                           "drives, and AraC sits downstream of the output. "
                           "Z₂ is the SENSOR.", AMBER),
         ("why that is an annihilation", "a σ held by its anti-σ does nothing, "
@@ -555,7 +555,7 @@ def _aoki(d):
                        "a ΔmetE host in methionine-free medium — so the "
                        "controlled output is the cell's GROWTH RATE.", CYAN),
         ("the control", "the open-loop strain is the same circuit with the "
-                        "anti-σ module (P_BAD–rsiW) deleted: the sensor arrow "
+                        "anti-σ module (P_{BAD}–rsiW) deleted: the sensor arrow "
                         "cut, everything else the same. It also carries less "
                         "protein, which is session 19's confound and worth "
                         "naming."),
@@ -635,7 +635,7 @@ def _evidence(d):
            "Start on the LEFT half, not the bars: the control system wraps "
            "around araC/metE and the arrow coming out of it is cell growth. "
            "The loop closes through the growth rate. That is the picture for "
-           "everything said on the last surface.\n "
+           "everything said on the last slide.\n "
            "Then the two bars and the two p-values. The closed loop's "
            "normalised growth rate is statistically indistinguishable across "
            "the temperature change; the open loop's is not, by three and a half "
@@ -773,7 +773,7 @@ def _close(d):
     ], top=1.88, label_color=CYAN)
     d.foot(s, "Aoki's own design rule for the leak: pick controller species whose only loss channel IS dilution. σ factors are stable; RNA is not.")
     d.notes(s,
-           "The surface I want photographed, and it is four columns now "
+           "The slide I want photographed, and it is four columns now "
            "because the constraints row is the one this session can fill "
            "better than any other in Part II.\n "
            "KNOBS have to be physical or they are not knobs. HSL and "
