@@ -1,0 +1,11 @@
+{
+  "artifact": "s22_plant_does_not_matter_3.png",
+  "artifact_sha256": "04682cfb0833fe1e891198fc14acbdc4099852c6ee711aa0430ed4d4ccd87db2",
+  "artifact_content": "b11d7fa156fc317bb179dd540260e30727c2ad1367f9a5b5017958a9620aacdd",
+  "artifact_bytes": 115702,
+  "deps": {
+    "figures/s22_control.py": "77d1625f9394614d867d92ec7ef3d13c7e3192b538861852fe5f03172c3d5bc5",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s22_control.fig_plant_does_not_matter"
+}

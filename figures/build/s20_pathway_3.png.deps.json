@@ -1,10 +1,10 @@
 {
   "artifact": "s20_pathway_3.png",
-  "artifact_sha256": "31325fcb5f620da10086f74cb0d80fe8b694ee5204dbd8a391b7c411a8d9b4cd",
+  "artifact_sha256": "cf87dc9177d7065d0693e568b19f0f5dca9df1baafd6279e8af25c809965efa2",
   "artifact_content": "9a387fe35f53daf87cc77575a35cb1a705c0c9ffc328eb2f964d6b3b4b48526c",
-  "artifact_bytes": 103059,
+  "artifact_bytes": 108829,
   "deps": {
-    "figures/s20_metabolic.py": "cf33d7ce71af79b2fd9218f61956ee959c79b598dc0a46f1c2b770beee0df2bf",
+    "figures/s20_metabolic.py": "4963cbc7abe380635991e8e5546067836c7ff01ca86dc1c58e2c6a25bc5f2669",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s20_metabolic.fig_pathway_3"

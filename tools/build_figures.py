@@ -61,10 +61,36 @@ MODULES = ["figures.s01_specification", "figures.s02_substrate",
            "figures.s14_review", "figures.s16_logic",
            "figures.s17_parts",
            "figures.s18_protein", "figures.s19_resources",
-           "figures.s20_metabolic", "figures.s21_retroactivity"]
+           "figures.s20_metabolic", "figures.s21_retroactivity",
+           "figures.s22_control", "figures.s23_evolution",
+           "figures.s24_communities", "figures.s25_populations"]
 
 # Slow to render (video encoding), so not built unless asked for by name.
 SLOW = ["figures.s02_movie", "figures.s14_movie", "figures.s18_movie"]
+
+
+def unregistered():
+    """Every figures/sNN_*.py must be named in MODULES or SLOW.
+
+    figures/s22_control.py sat in the tree for five days unlisted. Nothing
+    reported an error: the no-arg build simply never ran it, manifest.write
+    was never called for anything it draws, and all six of its figures then
+    reported NO MANIFEST -- which reads as "nobody has checked this" rather
+    than "this generator is not wired in". The same defect in
+    build_problem_sets.PROBLEM_SETS silently skipped ps07.
+
+    Returns the unregistered generator stems.
+    """
+    known = {m.split(".", 1)[1] for m in MODULES + SLOW}
+    found = {p.stem for p in (ROOT / "figures").glob("s[0-9][0-9]_*.py")}
+    missing = sorted(found - known)
+    if missing:
+        print("UNREGISTERED GENERATORS -- never built, and nothing they draw "
+              "can carry a manifest:")
+        for m in missing:
+            print(f'  figures/{m}.py   add "figures.{m}" to MODULES')
+        print()
+    return missing
 
 
 def verify():
@@ -73,7 +99,7 @@ def verify():
     Builds nothing. Returns the number of figures that cannot be trusted.
     """
     print("Checking committed figures against their generators.\n")
-    bad = 0
+    bad = len(unregistered())
     for f in sorted(BUILD.iterdir()):
         if f.suffix == manifest.SUFFIX or f.name.endswith(".deps.json"):
             continue
@@ -154,6 +180,9 @@ def main():
     if "--verify" in sys.argv:
         sys.exit(1 if verify() else 0)
 
+    if not [a for a in sys.argv[1:] if not a.startswith("--")]:
+        unregistered()      # a full build is where a missing one surfaces
+
     want = [a for a in sys.argv[1:] if not a.startswith("--")]
     mods = [m for m in MODULES if not want or any(w in m for w in want)]
     mods += [m for m in SLOW if want and any(w in m for w in want)]
@@ -203,6 +232,46 @@ def main():
         print("  Their axis labels, ticks and legends sit at 14-16, under the "
               "20pt content floor.\n  Re-author one at a time: drop "
               "legacy=True, rebuild, and look at the pixels.")
+
+    # LEGACY_SCALE governs the rcParam DEFAULTS only. An explicit
+    # fontsize=TYPE["caption"] in a figure bypasses it, and so does a figure
+    # whose saved height exceeds the placement band -- image_centered then
+    # scales the whole thing down and 20pt authored lands under the floor.
+    # Neither is visible to slide_fit, which cannot see inside a PNG.
+    from tools import figure_fit
+    rows = []
+    for m in mods:
+        stem = m.split(".")[-1]
+        if stem in LEGACY_SCALE or stem.endswith("_movie"):
+            continue
+        try:
+            res = figure_fit.audit_module(stem)
+        except Exception as exc:
+            print(f"\n  figure_fit could not audit {stem}: {exc}")
+            continue
+        n_bad = sum(len(pr) for _, _, pr in res)
+        if n_bad:
+            # A SCALE CAN BE None, AND THIS LINE USED TO ASSUME IT COULD NOT.
+            # figure_fit returns scale=None for a figure whose placement it
+            # cannot read out of the deck source, and reports the unreadable
+            # placement as a problem in its own right -- so n_bad is nonzero
+            # and every scale in res is None for exactly the modules that
+            # most need the summary. min() over Nones then raised TypeError
+            # here, AFTER every figure had been written and recorded: the
+            # build died having succeeded, which is the failure mode the
+            # docstring check twenty lines up was written to stop. s17 and
+            # s24 both hit it, and preflight's remedy for a stale figure is
+            # to run this script, so a stale figure could not be cleared.
+            scales = [sc for _, sc, _ in res if sc is not None]
+            rows.append((stem, min(scales) if scales else None, n_bad))
+    if rows:
+        print("\nFIGURE LEGIBILITY (tools/figure_fit.py) -- inside the PNGs, "
+              "where slide_fit cannot look:")
+        for stem, scale, n_bad in rows:
+            where = f"placed at {scale:.3f}" if scale is not None else \
+                    "no placement readable"
+            print(f"  {stem:24s} {where}   {n_bad} problem(s)")
+        print("  Detail:  python tools/figure_fit.py <module>")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,11 @@
+{
+  "artifact": "s22_defenses_traded.png",
+  "artifact_sha256": "cd70e486936d1f4d054c7bbc654de6537952d4a75c479fada4a5f23b211f134b",
+  "artifact_content": "57f63da216b6ecb35a42ecbce748ba94b37664dff66431856d3242ecc0f03c71",
+  "artifact_bytes": 104680,
+  "deps": {
+    "figures/s22_control.py": "77d1625f9394614d867d92ec7ef3d13c7e3192b538861852fe5f03172c3d5bc5",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s22_control.fig_defenses_traded"
+}

@@ -1,14 +1,23 @@
 """Antithetic integral feedback -- session 22's object, and PS8's Q4 and Q5.
 
-THE RESULT, in the authors' words (Aoki et al., Nature 570:533, 2019):
+THE RESULT (Aoki et al., Nature 570:533, 2019). When the loop is closed and
+the closed dynamics are stable, the output's steady state is set by the ratio
+mu/theta alone -- it "does not depend on the topology and parameters of the
+circuit of interest."
 
-    "the steady-state value of the output is determined solely by the ratio
-    mu/theta. Notably, it does not depend on the topology and parameters of
-    the circuit of interest."
+AND THE CONDITIONS, which that sentence is easy to quote without. Aoki state
+it conditioned on the closed dynamics being stable, and their Box 1 stipulates
+the wiring before the result is stated at all: the controller reaches the
+plant through actuation that increases the output's production, and the plant
+reaches the controller through a sensing reaction catalyzed by the output
+species itself. A plant the controller cannot move, or cannot see,
+is not a counterexample to the result -- it is outside it. The ideal case also
+assumes production is unsaturated and that Z1 and Z2 are lost only to each
+other; PS8 Q4 and Q5 are where both of those stop holding.
 
-So the functions here are written to let you CHECK that, not to assume it:
-`closed_loop_steady_state` takes the plant's parameters and you are meant to
-vary them and watch the answer not move.
+So the functions here are written to let you CHECK the result, not to assume
+it: `closed_loop_steady_state` takes the plant's parameters and you are meant
+to vary them and watch the answer not move.
 
 THE MODEL. A plant whose output X is driven by controller species Z1, with a
 constant disturbance d:
@@ -213,7 +222,7 @@ def disturbance_rejection(p=ControlParams(), d=1.0):
     return float("inf") if closed < 1e-12 else opened / closed
 
 
-def error_scaling_exponent(p=ControlParams(), d=2.0,
+def error_scaling_exponent(p=ControlParams(), d=1.0,
                            deltas=(0.0025, 0.005, 0.01, 0.02)):
     """Slope of log|error| against log(delta). The answer is 1."""
     errs = []

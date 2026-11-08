@@ -746,8 +746,24 @@ class Deck:
             # Geometry adapts to the step count and to whether a closing box
             # has to be reserved: with five steps and a closing line the old
             # fixed 0.92 pitch ran the last aside underneath the box.
-            top, bottom = 1.62, (5.52 if closing else 6.60)
-            pitch = (bottom - top) / max(len(steps), 1)
+            # The title block ends at 1.49in, so the old fixed top of 1.62
+            # left 0.13in -- eleven pixels on the wall -- between the
+            # descender of the title and the cap of the first step. Every
+            # other slide type uses rows(top=2.10) and gets 0.61in. Found by
+            # measuring the rendered pages of session 23, where it affected
+            # five consecutive slides; it was never specific to that session.
+            #
+            # But top is not free: it comes out of the pitch, and a pitch
+            # under 0.86 suppresses the asides on every step but the live
+            # one. Three runs in the course sit close enough to that line
+            # that paying 0.48in for the gap would cost them their asides --
+            # silently teaching less, which is the worse of the two defects.
+            # So take the proper gap wherever the run can afford it, and
+            # leave the tight runs exactly as they were.
+            bottom = 5.52 if closing else 6.60
+            n_steps = max(len(steps), 1)
+            top = 2.10 if (bottom - 2.10) / n_steps >= 0.86 else 1.62
+            pitch = (bottom - top) / n_steps
             # An aside is placed at y + max(0.40, eq_h) and is at least 0.44in
             # tall, so it reaches y + 0.84 at the very least. Admitting asides
             # at pitch 0.70 therefore guaranteed that any run whose pitch
@@ -787,8 +803,18 @@ class Deck:
                 # characters and two narrow glyphs, and counting the markup
                 # flagged four session-6 equations that fit on the wall
                 # perfectly well. Checked against the rendered PDF, 13 Sept.
+                # ONLY WHEN THERE IS AN ASIDE TO COLLIDE WITH. The warning
+                # names the failure exactly -- an equation wrapping onto ITS
+                # OWN ASIDE -- but it fired on length alone, so a step with no
+                # aside got flagged for a collision that cannot happen. The
+                # design ledger's four steps carry no asides and tripped it
+                # four times on every build while slide_fit reported the deck
+                # clean. Four standing false alarms is how a gate stops being
+                # read.
                 eqcap = line_cap(7.9, TYPE["body"])
                 for _l, rhs, _a in steps:
+                    if not _a:
+                        continue
                     shown = _MARKUP.sub(lambda m: m.group(2), rhs)
                     if len(shown) > eqcap:
                         print(f"  !! step equation wraps onto its aside "
@@ -1178,8 +1204,23 @@ class Deck:
             # every citation by 25% and a two-line ref in a narrow column ran
             # into whatever the caller placed beneath it. Fixed 25 October;
             # s18 and s19 had each worked around it locally.
-            ref_h = max(0.30, text_height(ref, iw, scale(14)))
-            self.text(s, ref, ix, iy + ih + 0.04, iw, ref_h, size=14,
+            # A portrait panel is only about 3in wide, and a journal
+            # citation set to that column wraps onto three lines and lands
+            # on the foot line. The citation is not part of the figure, so
+            # it need not live inside the figure's width.
+            #
+            # But widen it ONLY when it actually wraps badly. A first cut
+            # gave every panel narrower than 4.6in a 4.6in citation box,
+            # which pushed the citations on s10 slide 6 and s19 slide 37 --
+            # both already taught, both wrapping onto nothing -- into
+            # neighbouring text. The test is the symptom, not the width.
+            one_line = text_height("Xg", 99.0, scale(14))
+            rw, rx = iw, ix
+            if text_height(ref, iw, scale(14)) > 2.2 * one_line:
+                rw = min(max(iw, 4.6), W - 2 * M)
+                rx = min(max(M, ix + iw / 2 - rw / 2), W - M - rw)
+            ref_h = max(0.30, text_height(ref, rw, scale(14)))
+            self.text(s, ref, rx, iy + ih + 0.04, rw, ref_h, size=14,
                       italic=True, color=MUTED if not s._posb_dark else SILVER,
                       align="c")
             # THE CAPTION. Until 25 October this argument was accepted,
@@ -1198,9 +1239,10 @@ class Deck:
             # at build time. The debt is now visible and finite instead of
             # silent. Flip the default once the list is empty.
             if caption and show_caption:
-                cap_h = max(0.30, text_height(caption, iw, scale(14)))
-                self.text(s, caption, ix, iy + ih + 0.04 + ref_h + 0.06,
-                          iw, cap_h, size=14,
+                # Same column as the citation, for the same reason.
+                cap_h = max(0.30, text_height(caption, rw, scale(14)))
+                self.text(s, caption, rx, iy + ih + 0.04 + ref_h + 0.06,
+                          rw, cap_h, size=14,
                           color=INK if not s._posb_dark else MINT,
                           align="c")
             # A slot whose aspect ratio does not match the figure's wastes the
@@ -1310,7 +1352,7 @@ class Deck:
                   italic=True, color=SILVER if s._posb_dark else MUTED)
         return len(rows)
 
-    def assignment(self, s, y=5.55, label="Before next class"):
+    def assignment(self, s, y=5.55, label="Before next class", row_h=None):
         """Render the reading due at the next meeting. Returns the box bottom.
 
         Returning the bottom rather than a count so callers can put the next
@@ -1333,7 +1375,13 @@ class Deck:
 
         # One or two papers get a two-line blurb; three (session 9) would
         # overflow the slide, so they fall back to a single line.
-        row_h = 0.74 if len(rows) <= 2 else 0.56
+        # row_h: pass one when the box has a slide to itself. At the packed
+        # default a wrapped blurb runs into the NEXT row's citation -- the
+        # blurb box ends 0.02 in before it. Session 24 carries two required
+        # papers plus four optional, so session 23's box is six rows and
+        # cannot share a slide at any row height.
+        if row_h is None:
+            row_h = 0.74 if len(rows) <= 2 else 0.56
         h = 0.52 + row_h * len(rows)
         # The box grows with the number of readings, and a deck written when
         # there was one paper will happily run it off the bottom when a second

@@ -1,0 +1,11 @@
+{
+  "artifact": "s22_motif_topology.png",
+  "artifact_sha256": "944b71ce550b263596736f0085558096fbcb386cd26b840e775c93c4668aa296",
+  "artifact_content": "38ab8a176e4f633ee43bec95390bb24c907b9128105061acc50d42005d9c87ab",
+  "artifact_bytes": 156248,
+  "deps": {
+    "figures/s22_control.py": "77d1625f9394614d867d92ec7ef3d13c7e3192b538861852fe5f03172c3d5bc5",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s22_control.fig_motif_topology"
+}

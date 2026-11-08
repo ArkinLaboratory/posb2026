@@ -1,0 +1,11 @@
+{
+  "artifact": "s22_patch_vs_feedback.png",
+  "artifact_sha256": "137d315403574dc005c433af01f7fee4a5fef64f29c29ab17b8a0a116a4411ce",
+  "artifact_content": "635da858448afcf25991315a9338f26169c677f029580c89a88fbc46ac7546c5",
+  "artifact_bytes": 143474,
+  "deps": {
+    "figures/s22_control.py": "77d1625f9394614d867d92ec7ef3d13c7e3192b538861852fe5f03172c3d5bc5",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s22_control.fig_patch_vs_feedback"
+}

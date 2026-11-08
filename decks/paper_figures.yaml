@@ -1179,8 +1179,385 @@ mishra2014_fig3c:
   used_in: ["s21"]
   note: "The repair working, in the time domain: load changes neither the rate nor the level. This is the circuit every number in segment 6 comes from."
 
+aoki2019_edfig1:
+  figure: "Extended Data Fig. 1"
+  shows: "deterministic modelling of the NON-IDEAL antithetic circuit. b, c output steady state and steady-state error with dilution and a negative disturbance (k = 0.037 and 3.85 per min); d the same with actuator saturation added (k = 1 per min). Green, blue and yellow shading is where the relative output steady-state error is under 5% at dilution rates typical of bacteria, yeast and mammalian cells"
+  used_in: ["s22"]
+  note: "The paper's own version of session 22's two failures, and the figure its sentence about limited production capacity and dilution in fast-growing cells points at. The slide argues from b/c against d: dilution alone, then dilution plus saturation. SIGN WARNING for whoever teaches it -- their disturbance is NEGATIVE and ours is positive, so their saturation boundary is not our d <= gamma*mu/theta; the mechanisms match, the convention does not. Whole-figure for now: once private/paper-figures/aoki2019_edfig1.png exists, declare a crop of b-d here rather than hand-cutting one, the way gardner2000_fig5a does."
+
+aoki2019_fig3ab:
+  figure: "Fig. 3a, b"
+  shows: "the growth-rate circuit, closed and open. a, the antithetic controller (beige) wrapped around the circuit of interest (grey): P_LUX-sigW and P_BAD-rsiW in the controller, two tandem P_sigW-araC-metE modules in the plant, and Hcy + CH3 -> Met -> Biomass (blue) downstream of MetE. b, the same circuit with the anti-sigma module P_BAD-rsiW deleted"
+  used_in: ["s22"]
+  note: "THE PANELS THE READING GUIDE POINTS AT -- readings.yaml s22 says 'Fig. 3a-b for the closed and open loop'. Save the two diagrams SIDE BY SIDE as one PNG, cropped to the panels only (no c, no d, no caption). Measured off the held PDF the pair is about 3.4 wide to 1 tall; the slot is 11.93 x 3.55 in, so anything between about 2.5:1 and 4:1 fills it. The open loop is panel a minus the beige top-left module and nothing else -- that is the whole experimental control, and it is why the pair goes up rather than a alone."
+
+aoki2019_fig3d:
+  figure: "Fig. 3d"
+  shows: "left, a four-box block diagram of the growth-control experiment -- Control system -> araC/metE -> Cell growth, with the temperature perturbation entering the control system and a feedback path returning from the output; right, steady-state growth rates of closed- and open-loop circuits at 37 C and 30 C, normalized to each circuit's own 37 C rate, with the two P values printed above the bar pairs"
+  used_in: ["s22"]
+  note: "READ THE LEFT PANEL FIRST, and read it correctly. The black feedback path leaves the araC/metE box and returns to the control system; the blue 'Cell growth' arrow leaves and never comes back. So the loop closes through AraC -- p. 535: 'AraC closes the loop by regulating PBAD promoter-driven rsiW expression' -- and growth rate is the regulated output downstream of MetE, NOT the sensed variable. The paper titles the figure 'Growth-rate control', which is the looser framing; the gap between that title and the mechanism is the figure-reading lesson. Bars read off the rendered panel: open loop 0.333, closed loop 1.04. P = 0.2261 closed, 7.769e-5 open, two-tailed unpaired unequal-variance t-test."
+
 mishra2014_fig4c:
   figure: "Fig. 4c"
   shows: "amplitude against injection frequency, with calculated bandwidths marked"
   used_in: ["s21"]
   note: "NOT a substitute for the redraw. Its caption states the two bandwidths in the reverse order from the plot, and its dotted guide lines are coloured opposite to the curves they belong to -- the horizontals sit at each curve's peak over root two, so the mark at ~138 belongs to the black curve (peak ~195) and is drawn RED, and the mark at ~78 belongs to the red curve (peak ~110) and is drawn BLACK. figures/build/s21_bandwidth.png carries the VALUES. This crop is shown beside it, deliberately, as the figure-reading lesson -- s21 segment 7."
+
+# --- Rottinghaus, Ferreiro, Fishbein, Dantas & Moon, Nat Commun 13:672 (2022)
+# "Genetically stable CRISPR-based kill switches for engineered microbes"
+# doi:10.1038/s41467-022-28163-5
+#
+# Assigned at the close of session 22 and taught in session 23. The authors
+# propose NO mathematical model -- they engineered, measured and iterated.
+# Every model in session 23 is ours, and the hour's turn is that ours fails
+# against their Fig. 2e. Never present the refutation as refuting them.
+
+rottinghaus2022_fig1a:
+  figure: "Fig. 1a"
+  shows: "the single-input CRISPR kill switch -- Ptet-cas9, Ptet-gRNA, constitutive TetR, released by aTc"
+  used_in: ["s23"]
+  note: "The object, before any model. TetR and aTc are the most-used parts in this course; the only new thing is wiring them to Cas9 cutting the genome."
+
+rottinghaus2022_fig1d:
+  figure: "Fig. 1d"
+  shows: "which cassette is mutated among non-functional survivors -- cas9 80 +/- 19%, gRNA 10 +/- 14%, tetR 3 +/- 6%"
+  used_in: ["s23"]
+  note: "Use the ORDERING only. gRNA and tetR error bars both include zero; do not put 10% or 3% on a slide as resolved values."
+
+rottinghaus2022_fig1f:
+  figure: "Fig. 1f"
+  shows: "fraction viable falling as genomic Cas9 integrations go X1 to X4"
+  used_in: ["s23"]
+
+rottinghaus2022_fig1g:
+  figure: "Fig. 1g"
+  shows: "Int X4 survivors -- the bottleneck has moved to the Ptet-gRNA promoter"
+  used_in: ["s23"]
+
+rottinghaus2022_fig2e:
+  figure: "Fig. 2e"
+  shows: "28-day serial-passage stability, fraction viable against day"
+  used_in: ["s23"]
+  note: "THE panel of the hour. Fraction viable is CFU(+aTc)/CFU(-aTc), so their y-axis is approximately the model's broken fraction q. This is the measurement our model is refuted by."
+
+rottinghaus2022_fig2c_map:
+  figure: "Fig. 2c (schematic only)"
+  shows: "the CRISPRks architecture -- four genome-integrated Ptet-cas9 cassettes, three Ptet-gRNA cassettes, constitutive tetR, and the infA complement"
+  used_in: ["s23"]
+  note: "The redundancy segment argues about this object for three slides and the deck had no picture of it. The bar chart under the schematic in the paper is a different claim and is cropped away. Note what the picture settles: the gRNAs are THREE separate Ptet-driven cassettes, not one array, so seven promoters carry the same Ptet sequence -- which is the recombination substrate the mutation slide turns on."
+
+rottinghaus2022_fig2g:
+  figure: "Fig. 2g"
+  shows: "generation time against log fraction viable -- kill switch efficiency depends on growth rate"
+  used_in: ["s23"]
+  note: "Sessions 19 and 20 arriving inside a containment problem."
+
+rottinghaus2022_fig3a:
+  figure: "Fig. 3a"
+  shows: "CRISPRks and CRISPRks drpdu, alone and at 1:1 with a no-gRNA competitor"
+  used_in: ["s23"]
+  note: "The lever that is not a circuit."
+
+rottinghaus2022_fig3c:
+  figure: "Fig. 3c"
+  shows: "fraction of each kill-switch part found mutated in survivors, CRISPRks against CRISPRks drpdu"
+  used_in: ["s23"]
+  note: "Registered as fig3b on 2 November and corrected the same day after rendering the page: panel b is percent non-functional against competitor ratio; panel c is the mutation profile. The key now matches the panel."
+
+
+rottinghaus2022_fig6a:
+  figure: "Fig. 6a"
+  shows: "the authors' own two routes to kill switch inactivation -- slow replication error, and SOS mutagenesis triggered by the device's own double-strand breaks"
+  used_in: ["s23"]
+  note: "Found 2 November and absent from the original session design. This is the panel segment 4 lands on: it names the mechanism our model has no term for."
+
+rottinghaus2022_fig6c:
+  figure: "Fig. 6c"
+  shows: "the commonest inactivating mutation -- a 25 bp deletion removing one of the two identical 19 bp tet operators and most of the -35 site"
+  used_in: ["s23"]
+  note: "Over 50% of observed mutations. The failure is recombination between a repeat the DESIGNER chose, not random point mutation."
+
+# ===========================================================================
+# Week 13 -- sessions 24 (Tue 17 Nov) and 25 (Thu 19 Nov)
+# ===========================================================================
+
+# --- Session 24 ------------------------------------------------------------
+
+# --- Balagadde, Song, Ozaki, Collins, Barnet, Arnold, Quake & You, ----------
+# Molecular Systems Biology 4:187 (2008)
+# "A synthetic Escherichia coli predator-prey ecosystem"
+# doi:10.1038/msb.2008.24
+#
+# Box 1 is a boxed inset on p. 2, NOT a numbered figure; the paper numbers
+# Figures 1-3 separately. Crops are from the 8-page student PDF, which is a
+# 300 dpi page scan with vector text over it.
+
+balagadde2008_box1a:
+  figure: "Box 1A"
+  shows: "the two-strain circuit -- predator (P_LtetO-1 driving luxR and lasI, P_luxI driving ccdA, P_lac/ara-1 driving ccdB) and prey (P_lac/ara-1 driving luxI and lasR, P_luxI driving ccdB), coupled by 3OC6HSL prey-to-predator and 3OC12HSL predator-to-prey"
+  used_in: ["s24"]
+  provenance: "page 2 of private/readings/Session 24 - balagadde-2008-predator-prey-ecosystem.pdf at 450 dpi, box (833, 596)-(2873, 1723) of the 3720 x 4963 page"
+  note: "Box 1, not Fig. 1 -- say Box 1A on the slide. The Box 1 header rule above and panel B below are both outside the crop."
+
+balagadde2008_box1b:
+  figure: "Box 1B, left panel"
+  shows: "bifurcation analysis in rate space -- predator death rate d_c1 (h^-1) against predator growth rate k_c1 (h^-1), the line joining the Hopf points separating prey domination (i), predator-prey oscillation (ii) and predator domination (iii), with the three points marked on d_c = 1.0"
+  used_in: ["s24"]
+  provenance: "page 2 at 450 dpi, box (830, 1751)-(1915, 2656); the gutter to the right panel is x 1888-1961, so nothing of it is included"
+  note: "Box 1B as printed is TWO panels side by side: this rate-space plot (left) and three population time courses for regions i, ii, iii (right). This crop is the left panel only -- the axes the brief asked for. The caption states d_c = d_c1 (predator) = d_c2 (prey) and k_c = k_c1 (predator) = k_c2 (prey), so the axes are labelled with predator symbols but are set equal across both species."
+
+balagadde2008_fig2a:
+  figure: "Fig. 2A"
+  shows: "typical oscillatory dynamics in the microchemostat, cells (x10^3) against hours out to 200 h, predator blue and prey red, period about 180 h at IPTG 5 uM and dilution 0.1125 /h"
+  used_in: ["s24"]
+  provenance: "page 4 at 450 dpi, box (523, 470)-(1838, 1432); gutter to panel B is x 1810-1862"
+
+balagadde2008_fig2b:
+  figure: "Fig. 2B"
+  shows: "twelve reactors as a 4 x 3 grid of time courses at IPTG from 1000 uM down to 0 -- prey washed out without induction, oscillation at 5 uM and above"
+  used_in: ["s24"]
+  provenance: "page 4 at 450 dpi, box (1835, 474)-(3247, 1413)"
+
+balagadde2008_fig2c:
+  figure: "Fig. 2C"
+  shows: "bifurcation diagram of predator density against IPTG with the Hopf point marked, the oscillation-period inset, and the three time courses at IPTG = 0, 5 and 1000 uM below it"
+  used_in: ["s24"]
+  provenance: "page 4 at 450 dpi, box (980, 1421)-(3081, 2495); the Figure 2 caption begins at y 2502"
+  note: "The caption makes the three time courses and the period inset part of panel C, so the crop carries all of them plus the predator/prey colour legend. The overprinted IPTG label at the top left of the first time course is in the source PDF, not an artefact of the crop. Note also that the three time courses render in a single dark-red ink in this PDF, so the predator/prey legend beside them does NOT distinguish the two traces in that row -- do not ask students to read predator from prey by colour there. The main bifurcation panel above it does render predator in blue."
+
+balagadde2008_fig3c:
+  figure: "Fig. 3C"
+  shows: "predator cells against dilution rate D (h^-1) with the oscillation-period inset, and the three time courses at D = 0.1, 0.17 and 0.3 h^-1 below -- sustained oscillation, damped oscillation, washout"
+  used_in: ["s24"]
+  provenance: "page 5 at 450 dpi, box (1117, 1574)-(2591, 2604)"
+  note: "The printed caption says bifurcation diagram of oscillatory period versus D, but the main axes are predator cells versus D and it is the INSET that is period versus D. Describe it from the axes, not the caption."
+
+# --- Basu, Gerchman, Collins, Arnold & Weiss, Nature 434(7037):1130-1134 ----
+# (2005)
+# "A synthetic multicellular system for programmed pattern formation"
+# doi:10.1038/nature03461
+#
+# Fig. 3 is the BULLSEYE (b and c). Fig. 5 is the three OTHER patterns, and
+# Fig. 5a is a simulation, not data -- a, ellipse simulation; b, ellipse from
+# two sender disks; c, heart from three; d, clover from four. An earlier
+# registry draft miscounted this; the keys below follow the printed captions.
+
+basu2005_fig1a:
+  figure: "Fig. 1a"
+  shows: "circuit operation -- the AHL/CI/LacI_M1/LacI/GFP truth table, the AHL gradient against distance from the senders, and four cells (sender, band detector, and receivers at low and at high AHL) with the active and inactive arms drawn in"
+  used_in: ["s24"]
+  provenance: "page 2 at 900 dpi, box (261, 1567)-(1845, 3354) of the 7650 x 9900 page"
+  note: "Fig. 1a names no synthase and draws the sender as constitutive; luxI appears only in Fig. 1b. Show 1b beside it."
+
+basu2005_fig1b:
+  figure: "Fig. 1b"
+  shows: "the sender plasmid pSND -- P_LtetO-1 driving LuxI, with Cam(r), ColE1 and the T0 and T1 terminators"
+  used_in: ["s24"]
+  provenance: "page 2 at 900 dpi, box (536, 6790)-(1404, 7740); gutter to the pHD(x) map of panel c is x 1354-1661"
+  note: "The frame object for the session: this is the only place in the paper where luxI is drawn, so it is what makes the sender a sender rather than a labelled box."
+
+basu2005_fig2b:
+  figure: "Fig. 2b"
+  shows: "experimental liquid-phase dose response of the three high-detect variants -- fluorescence (a.u.) falling monotonically against AHL (uM) over six decades, with HD1 (blue), HD2 (red) and HD3 (black) thresholds about a decade apart"
+  used_in: ["s24"]
+  provenance: "page 2 at 900 dpi, box (3810, 6556)-(5384, 7940); the rectangle (5332, 6540)-(5400, 6760) was filled white to remove the panel-d letter, which the journal set to the left of panel b's axis end and which holds nothing of panel b"
+  note: "Panels b and d interlock horizontally: panel d's letter sits left of where panel b's x-axis ends, so no vertical cut separates them cleanly. See provenance for the one rectangle that was blanked."
+
+basu2005_fig2d:
+  figure: "Fig. 2d"
+  shows: "experimental liquid-phase response of the three band-detect networks -- fluorescence (a.u.) against AHL (uM) peaking in a band, with BD1 (blue), BD2 (red) and BD3 (black) bands at successively higher AHL"
+  used_in: ["s24"]
+  provenance: "page 2 at 900 dpi, box (5324, 6556)-(6930, 7940); the rectangle (5310, 7400)-(5388, 7950) was filled white to remove the tail of panel b's x-axis tick row, which holds nothing of panel d"
+  note: "Axis caution, 7 Nov 2026: neither panel b nor panel d has major ticks -- the x-axis tick comb is uniform in length all the way across, so the decade positions can only be read from the printed labels. In THIS panel the 10^1 label is set about 0.16 of a decade left of its own panel's decade grid (label pitch 247 px for the first four gaps, 202 px for the last, at 900 dpi); panel b's pitch is even throughout. Anyone re-digitizing panel d should key on the labels, not the ticks, and should not assume the last decade is where it looks."
+
+basu2005_fig3b:
+  figure: "Fig. 3b"
+  shows: "the bullseye -- a GFP ring around a central CFP sender disk, in an initially undifferentiated lawn of BD2-Red and BD3 cells after overnight incubation, with the 5 mm scale bar"
+  used_in: ["s24"]
+  provenance: "page 3 at 450 dpi, box (1524, 378)-(2252, 1061) of the 3825 x 4950 page"
+  note: "The bullseye is Fig. 3, NOT Fig. 5. Source is a 220 ppi embedded image, so the crop is about 2x upsampled; do not scale it past about half a slide."
+
+basu2005_fig3c:
+  figure: "Fig. 3c"
+  shows: "a second bullseye, this time from a mixture of BD1 and BD2-Red cells, with the 5 mm scale bar"
+  used_in: ["s24"]
+  provenance: "page 3 at 450 dpi, box (2245, 378)-(2915, 1061)"
+
+basu2005_fig5b:
+  figure: "Fig. 5b"
+  shows: "an ELLIPSE of GFP formed around TWO sender disks"
+  used_in: ["s24"]
+  provenance: "page 4 at 450 dpi, box (1059, 379)-(1837, 1113)"
+  note: "Experimental, not simulated. The ellipse SIMULATION is Fig. 5a and is deliberately not registered here."
+
+basu2005_fig5c:
+  figure: "Fig. 5c"
+  shows: "a HEART of GFP formed around THREE sender disks"
+  used_in: ["s24"]
+  provenance: "page 4 at 450 dpi, box (286, 1115)-(1064, 1862)"
+
+basu2005_fig5d:
+  figure: "Fig. 5d"
+  shows: "a CLOVER of GFP formed around FOUR sender disks"
+  used_in: ["s24"]
+  provenance: "page 4 at 450 dpi, box (1062, 1116)-(1842, 1861)"
+
+# --- Karig, Martini, Lu, DeLateur, Goldenfeld & Weiss, -----------------------
+# PNAS 115(26):6572-6577 (2018)
+# "Stochastic Turing patterns in a synthetic bacterial population"
+# doi:10.1073/pnas.1720770115
+
+karig2018_fig1:
+  figure: "Fig. 1"
+  shows: "the whole design -- (A) activator A_3OC12HSL and inhibitor I_C4HSL as an abstract activator-inhibitor pair, (B) the genetic implementation with LasR/LasI, RhlR/RhlI, CI, LacI, dsRed and GFP and the IPTG input, and (C) the expected spatial profiles of the two signals, of RFP and GFP, and the resulting cellular lawn"
+  used_in: ["s24"]
+  provenance: "page 2 of the WITH-SI instructor PDF at 600 dpi, box (2435, 398)-(4548, 3361) of the 4875 x 6526 page; main-text figure, identical in the student copy"
+
+# --- Tsoi, Wu, Zhang, Bewick, Karig & You, PNAS 115(10):2526-2531 (2018) -----
+# "Metabolic division of labor in microbial systems"
+# doi:10.1073/pnas.1716888115
+
+tsoi2018_fig1c:
+  figure: "Fig. 1C"
+  shows: "the design criterion itself -- v_DOL^2 / (v^2 + eps*v) > theta_I, annotated with gain in biomass through DOL over the numerator and reduced metabolic efficiency from DOL transport under the denominator"
+  used_in: ["s24"]
+  provenance: "page 2 at 900 dpi, box (788, 3006)-(1468, 3853) of the 7312 x 9788 page; the top edge is held just below the Me circle at the bottom of panel A"
+
+tsoi2018_fig2d:
+  figure: "Fig. 2D"
+  shows: "the SC/DOL border in diffusivity against relative burden for three mathematical forms of the burden -- linear 1-B, exponential e^-B and Hill 1/(1+B^n) -- with the growth-rate inset mu(B)"
+  used_in: ["s24"]
+  provenance: "page 4 at 600 dpi, box (1338, 1009)-(2386, 1998) of the 4875 x 6525 page; gutter to panel C is x 1335-1356 at this dpi"
+  note: "Source is a 200 ppi embedded image, so the panel is soft before any upsampling. Do not take it past about half a slide."
+
+# --- Tamsir, Tabor & Voigt, Nature 469(7329):212-215 (2011) -----------------
+# "Robust multicellular computing using genetically encoded NOR gates and
+# chemical wires"
+# doi:10.1038/nature09565
+#
+# OPTIONAL reading. The PDF in private/readings/ is the NIH-PA author
+# manuscript: figures sit at the END, one per page, each with its own caption.
+# The manuscript numbers them Figure 1-4, the same as the published paper.
+
+tamsir2011_fig3:
+  figure: "Figure 3"
+  shows: "the XOR built from four colonies -- (a) three NOR gates and a buffer wired by LasI/RhlI AHL with the XOR truth table, (b) the four colonies on the plate with a 1 cm bar, (c) each cell's fluorescence for the four inducer combinations, (d) cytometry for cell 4"
+  used_in: ["s24"]
+  provenance: "page 8 of the author manuscript at 600 dpi, box (1636, 508)-(4016, 2110) of the 5100 x 6601 page; caption excluded"
+
+tamsir2011_fig4:
+  figure: "Figure 4"
+  shows: "all 16 two-input Boolean functions -- (a) the library of NOT, Buffer, OR and NOR gates with their promoters and outputs, (b) each of the 16 gates as a wiring diagram plus its measured output for None, Ara, aTc and Both"
+  used_in: ["s24"]
+  provenance: "page 9 of the author manuscript at 600 dpi, box (1660, 494)-(3955, 2933); caption excluded"
+
+# --- Zhou, Qiao, Edgar & Stephanopoulos, ------------------------------------
+# Nature Biotechnology 33(4):377-383 (2015)
+# "Distributing a metabolic pathway among a microbial consortium enhances
+# production of natural products"
+# doi:10.1038/nbt.3095
+#
+# OPTIONAL reading. Author manuscript; figures at the end, one per page, with
+# their own captions. Manuscript numbering matches the published paper.
+
+zhou2015_fig1:
+  figure: "Figure 1"
+  shows: "the COMPETITIVE consortium -- (a) both strains on glucose, E. coli making taxadiene, yeast oxygenating it, yeast ethanol inhibiting E. coli; (b) only the co-culture makes oxygenated taxanes; (c) E. coli CFU suppressed by the yeast; (d) total taxanes lower in co-culture; (e) extracellular ethanol to about 48 g/L"
+  used_in: ["s24"]
+  provenance: "page 17 of the author manuscript at 600 dpi, box (655, 471)-(4945, 3330) of the 5100 x 6601 page; includes the shared series legend below panels c-e, excludes the caption"
+
+zhou2015_fig2:
+  figure: "Figure 2"
+  shows: "the MUTUALISTIC consortium, same split -- (a) E. coli on xylose secreting acetate as the yeast's sole carbon source, yeast blocked from xylose; (b) yeast grows only with E. coli; (c) acetate consumed; (d) taxane production not compromised; (e) oxygenated taxanes to about 3.6 mg/L"
+  used_in: ["s24"]
+  provenance: "page 18 of the author manuscript at 600 dpi, box (656, 471)-(4943, 3350); includes the shared three-series legend, excludes the caption"
+  note: "Pair with zhou2015_fig1: the pathway split is identical and only the ecology between the two strains changes."
+
+# --- Session 25 ------------------------------------------------------------
+
+# --- Weinberger, Schaffer & Arkin, J. Virol. 77(18):10028-10036 (2003) ------
+# "Theoretical design of a gene therapy to prevent AIDS but not human
+# immunodeficiency virus type 1 infection"
+# doi:10.1128/JVI.77.18.10028-10036.2003
+#
+# Adam is an author. The paper labels its figures FIG. 1-3 in small caps.
+
+weinberger2003_fig1:
+  figure: "FIG. 1"
+  shows: "the expanded model -- T, I, I_T, I_D, V and V_T as a schematic with the rate symbols on the arrows, and the two boxed equation sets, [1]-[3] for the basic model in red and [4]-[6] for the crHIV-1 additions in blue"
+  used_in: ["s25"]
+  provenance: "page 3 at 450 dpi, box (722, 484)-(3037, 2177) of the 3769 x 5007 page; caption excluded"
+  note: "Equations 1-6 are inside the figure, so this one crop carries both the wiring and the model. Table 1 on page 4 holds the parameter values and is not registered here."
+
+weinberger2003_fig2a:
+  figure: "FIG. 2, panel a"
+  shows: "HIV-1 and crHIV-1 viral load against days for D = 0.8, 0.6, 0.4, 0.2 and 0.01 at fixed P = 30, as two side-by-side log plots"
+  used_in: ["s25"]
+  provenance: "page 5 at 450 dpi, box (500, 474)-(1794, 1127); the left and right edges are the figure's own vertical rules and the bottom edge is the a/b divider rule, so no part of panel b is included"
+  note: "The y-axis title Virions / mL blood plasma is printed in a separate strip to the left of a vertical rule and SPANS panels a and b, so it belongs to neither alone and is outside this crop. State the units in the slide caption. The x-axis title Days (post crHIV-1 infection) is likewise shared by a, b and c and sits below c."
+
+weinberger2003_fig2b:
+  figure: "FIG. 2, panel b"
+  shows: "HIV-1 and crHIV-1 viral load against days for P = 10, 30 and 50 at fixed D = 0.4, with the six-series legend"
+  used_in: ["s25"]
+  provenance: "page 5 at 450 dpi, box (500, 1119)-(1794, 1989); the left and right edges are the figure's own vertical rules and the top and bottom edges are the a/b and b/c divider rules"
+  note: "Same shared y-axis title as panel a -- see the note on weinberger2003_fig2a."
+
+weinberger2003_fig2c:
+  figure: "FIG. 2, panel c"
+  shows: "uninfected and infected cell levels against days at P = 20, D = 0.5 -- I, I_D and I_TOT falling, with the inset showing T, I_T and T_TOT recovering"
+  used_in: ["s25"]
+  provenance: "page 5 at 450 dpi, box (361, 1979)-(1794, 2741); includes the left strip, because Cells / uL blood is panel c's own y-axis title"
+  note: "Unlike a and b, panel c has its own y-axis title, so this crop keeps it along with the vertical rule the journal drew between the title and the plot. The shared x-axis title below c is excluded."
+
+weinberger2003_fig3:
+  figure: "FIG. 3"
+  shows: "reduced HIV-1 set point as a surface over crHIV-1 packaging P and therapeutic downregulation D, with the stability projection on the floor -- (a) P out to 20, (b) P out to 100"
+  used_in: ["s25"]
+  provenance: "page 6 at 450 dpi, box (300, 465)-(1850, 2262); both panels, caption excluded"
+  note: "The grey field is the figure's own background, not a crop artefact."
+
+# --- Noble, Adlam, Church, Esvelt & Nowak, eLife 7:e33423 (2018) ------------
+# "Current CRISPR gene drive systems are likely to be highly invasive in wild
+# populations"
+# doi:10.7554/eLife.33423
+
+noble2018_fig1b:
+  figure: "Figure 1B"
+  shows: "where published drives sit -- DW heterozygote fitness f against homing efficiency P, with the shaded region in which a drive is predicted to invade, and vertical lines at the measured efficiencies for mosquitoes, fruit flies and yeast"
+  used_in: ["s25"]
+  provenance: "page 3 at 900 dpi, box (4488, 803)-(5676, 2110) of the 7650 x 9900 page; gutter to panel A is x 4184-4535"
+
+noble2018_fig1f:
+  figure: "Figure 1F"
+  shows: "median peak drive against number of organisms released, for homing efficiencies P = 0.9, 0.5 and 0.15 -- the P = 0.9 curve saturating near 0.95 from two individuals released"
+  used_in: ["s25"]
+  provenance: "page 3 at 900 dpi, box (4147, 3993)-(6015, 5350); includes the panel's own x-axis title"
+
+noble2018_fig2d:
+  figure: "Figure 2D"
+  shows: "escape probability as a heat map over homing efficiency and migration rate, with the Escape probability colour bar and the four arrows marking the migration rates used in panel B"
+  used_in: ["s25"]
+  provenance: "page 5 at 600 dpi, box (2925, 1429)-(4139, 2439) of the 5100 x 6601 page; the rectangle (2931, 2341)-(3027, 2439) was filled white to remove panel E's letter, which the journal set at the same height as panel D's x-axis title and which holds nothing of panel D"
+  note: "The heat map itself is a 358 x 358 embedded image at 300 ppi; the axes and labels are vector. Do not scale past about half a slide."
+
+# --- Huang & Baltimore, Nature 226:325-327 (1970) --------------------------
+# "Defective viral particles and viral disease processes"
+# doi:10.1038/226325a0
+#
+# OPTIONAL reading. The PDF is a 650 ppi bilevel scan with an OCR text layer;
+# both crops are rendered at the scan's native 650 dpi so nothing is resampled.
+
+huangbaltimore1970_fig1:
+  figure: "Fig. 1"
+  shows: "the three outcomes of infection -- I, standard virus alone giving a full yield of standard virions; II, standard plus DI particles giving a mixed, cycling yield; III, DI particles alone giving no yield -- with the key distinguishing STANDARD VIRUS from DI VIRUS"
+  used_in: ["s25"]
+  provenance: "page 2 at 650 dpi, box (466, 2963)-(2643, 4333) of the 5247 x 7166 page; the right-hand text column starts at x 2479, so the crop stops inside the column gutter. Caption excluded."
+  note: "Result II is the one the session argues from: it is the acute, self-limiting course."
+
+huangbaltimore1970_table1:
+  figure: "Table 1"
+  shows: "plaque forming units per ml of standard VSV after five successive undiluted passages, in Chinese hamster ovary cells (7.55e8 falling to 3.02e6 and 4.40e4 by passage 3, then back to 3.38e7) against Madin-Darby bovine kidney cells (steady at 1-4.7e8) -- interference occurs in one host cell line and barely in the other"
+  used_in: ["s25"]
+  provenance: "page 3 at 650 dpi, box (661, 1554)-(2443, 2164) of the 5247 x 7166 page"
+  note: "The table proper only: title, both column headers and all five passage rows. The six-point footnote beginning A VSV (large plaque, Indiana serotype) preparation sits at y 2005-2560 on the same page and is excluded -- it is caption-like and would be illegible projected. The passage numbers in the left column are faint in the SOURCE scan, not clipped by the crop."

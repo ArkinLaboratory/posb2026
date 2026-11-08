@@ -100,6 +100,24 @@ limits:
         fails. The focus field narrows the real read to the NOR gate response
         functions, the circuit-scoring rule and the validation numbers.
 
+    s23:
+      max_required_per_assignment: 2
+      max_required_pages_per_assignment: 13
+      reason: >-
+        Session 24 carries three topics in its title and one paper cannot serve
+        them. Balagadde is predator-prey and does no patterning at all; Basu
+        2005 is the band detector and has no second population. Neither
+        substitutes for the other, and T65 is autograded on patterning, so a
+        session that assessed it from a paper nobody was asked to read would
+        break the coverage contract in the direction that matters. Same shape
+        as the s09 override, which carries a construct and a taxonomy for
+        session 10. The page cap is raised to exactly 13 rather than rounded
+        up: Balagadde is 8 pages as the students hold it -- pp. 7-8 are methods
+        and references -- and Basu is 5. Thirteen is the real total and a
+        longer pairing here still fails. Division of labour, the third topic,
+        gets an optional paper and a lecture treatment rather than a third
+        required row.
+
 readings:
 
   # ---- Part I ------------------------------------------------------------
@@ -321,9 +339,45 @@ readings:
         equations, one closed-form threshold, and a full parameter table: the
         only analytic R0 in the interfering-particle literature, everything
         after it being fitted numerically. Students should also know it is mine,
-        with Schaffer and Weinberger, from 2003 -- and that Pitchai et al.,
+        with Schaffer and Weinberger, from 2003 -- and that Nagoor Pitchai et al.,
         Science 2024 is what twenty-one years of trying to move P and D
         produced, in macaques.
+
+    - key: noble2018
+      cite: "Noble, C., Adlam, B., Church, G. M., Esvelt, K. M. & Nowak, M. A. Current CRISPR gene drive systems are likely to be highly invasive in wild populations. eLife 7, e33423 (2018)."
+      short: "Noble et al., eLife 2018"
+      doi: "10.7554/eLife.33423"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6014726/"
+      pages: 20
+      required: false
+      focus: >-
+        Figure 1B -- where every published drive construct sits relative to the
+        region that invades -- and Figure 2D for why containment is a property
+        of gene flow rather than of the construct. Come able to say what
+        resistance does and does not prevent, because the answer is not the
+        one the earlier literature expected.
+      why: >-
+        The same arithmetic as the required paper, in an organism that was not
+        asked. Weinberger names transmission between individuals as the whole
+        approach's largest risk, in one sentence and without a model; this is
+        that sentence with the modelling done. Open access.
+
+    - key: huangbaltimore1970
+      cite: "Huang, A. S. & Baltimore, D. Defective viral particles and viral disease processes. Nature 226, 325-327 (1970)."
+      short: "Huang & Baltimore, Nature 1970"
+      doi: "10.1038/226325a0"
+      url: "https://doi.org/10.1038/226325a0"
+      pages: 3
+      required: false
+      focus: >-
+        The definition of a defective interfering particle, and outcome III in
+        Figure 1 -- the case that produces no yield at all.
+      why: >-
+        Where the idea starts. Outcome III -- a cell entered only by defective
+        particles, producing nothing -- is obligate helper-dependence drawn in
+        1970, which is the premise that makes a reproductive ratio well defined
+        at all. Their Table 1 is the measurement of what the required paper
+        rediscovers as an oscillation.
 
   s12:
     - key: elowitz2002
@@ -561,8 +615,10 @@ readings:
       pages: 5
       required: true
       focus: >-
-        The step-response figures and what "perfect" in perfect adaptation is
-        claiming. Then ask what dilution does to it -- that is the session's
+        Fig. 1c for the motif, Fig. 3a-b for the closed and open loop, and
+        Fig. 3d, which is the one we work in class: the controller is
+        regulating a growth rate. Then what "perfect" in perfect adaptation is
+        claiming, and what dilution does to it -- that is the session's
         argument.
       why: >-
         Two molecules that annihilate each other are an integrator. That one
@@ -592,20 +648,138 @@ readings:
     - key: balagadde2008
       cite: "Balagadde, F. K., Song, H., Ozaki, J., Collins, C. H., Barnet, M., Arnold, F. H., Quake, S. R. & You, L. A synthetic Escherichia coli predator-prey ecosystem. Molecular Systems Biology 4, 187 (2008)."
       short: "Balagadde et al., Mol Syst Biol 2008"
+      slide_focus: "The three dynamical regimes, and Box 1A: which strain kills which, and by which signal."
       doi: "10.1038/msb.2008.24"
       url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC2387235/"
-      pages: 7
+      pages: 8
       required: true
       focus: >-
-        The three dynamical regimes and what moves the system between them.
-        The model is in BioModels as BIOMD0000000296, so run it rather than
-        retype it. [unverified: page count -- article-numbered.]
+        The three dynamical regimes and what moves the system between them,
+        and Box 1A for the wiring -- which strain kills which, and through
+        which signal in each direction. The reduced model is deposited in
+        BioModels as BIOMD0000000296, which is BioModels' curation and not
+        the paper's, so run it rather than retype it. The paper prints no
+        model equations -- they are in its supplement -- so Box 1B's axes and
+        the dilution rates are the only rate constants you will find in it.
       why: >-
         Two strains, each holding the other's life in a quorum-sensing molecule.
         Lotka-Volterra that somebody built. Li et al., Methods Ecol Evol 2022 is
         the recent comparator -- programmable competition, mutualism or
         exploitation, with a Zenodo CSV -- and gets a short summary in lecture
         rather than a row here, at 14 pp over the cap. Open access.
+
+    - key: basu2005
+      cite: "Basu, S., Gerchman, Y., Collins, C. H., Arnold, F. H. & Weiss, R. A synthetic multicellular system for programmed pattern formation. Nature 434(7037), 1130-1134 (2005)."
+      short: "Basu et al., Nature 2005 -- the band detector"
+      doi: "10.1038/nature03461"
+      url: "https://doi.org/10.1038/nature03461"
+      pages: 5
+      required: true
+      slide_focus: "Fig. 1a: senders, receivers, and a truth table that is non-monotonic before any kinetics."
+      focus: >-
+        The receiver network, and why it answers in a band instead of switching
+        once. Work the three cases on p. 1130 -- close to the senders, far from
+        them, and in between -- and find where the wild-type LacI comes in,
+        because that is the case that does the work. Then Fig. 2d for three
+        strains with three thresholds, and Fig. 5 for what different sender
+        placements make. Come able to say which component sets which edge of
+        the band. Then look at Fig. 2b and work out what a high-detect strain
+        does on its own, before it is combined with anything.
+      why: >-
+        The patterning half of the session, and the construct the problem set
+        analyses. Session 10 taught the feed-forward loop and read Basu 2004
+        from the same laboratory, so the wiring will be familiar -- but the
+        pulse there came from a slow arm, and the band here comes from two
+        repression thresholds a hundredfold apart. Same shape, different
+        reason. Paywalled with no deposit -- Library proxy.
+
+    - key: tsoi2018
+      cite: "Tsoi, R., Wu, F., Zhang, C., Bewick, S., Karig, D. & You, L. Metabolic division of labor in microbial systems. Proceedings of the National Academy of Sciences 115(10), 2526-2531 (2018)."
+      short: "Tsoi et al., PNAS 2018"
+      slide_focus: "Figure 1C: what splitting a pathway across two populations saves, and what it costs."
+      doi: "10.1073/pnas.1716888115"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5856552/"
+      pages: 6
+      required: false
+      focus: >-
+        Figure 1C and the criterion behind it: what you save by splitting a
+        pathway across two populations, against what it costs to move the
+        intermediate between them. Come with a view on whether the threshold
+        they report is a number or an assumption.
+      why: >-
+        Division of labor, which the session covers and no required paper
+        does. A modelling paper with no experiment, which is why it is optional
+        rather than required -- and the session says so rather than implying
+        the topic rests on more than it does.
+
+    - key: karig2018
+      cite: "Karig, D., Martini, K. M., Lu, T., DeLateur, N. A., Goldenfeld, N. & Weiss, R. Stochastic Turing patterns in a synthetic bacterial population. Proceedings of the National Academy of Sciences 115(26), 6572-6577 (2018)."
+      short: "Karig et al., PNAS 2018"
+      slide_focus: "Why a Turing mechanism needs its two signals to diffuse at different rates."
+      doi: "10.1073/pnas.1720770115"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6042114/"
+      pages: 6
+      required: false
+      focus: >-
+        The two signals, why a Turing mechanism needs them to diffuse at
+        different rates, and the ratio of 21.6 they report against the factor
+        of about 100 their own non-stochastic simulation asks for -- which is
+        a statement about their scheme and not a classical requirement; read
+        their abstract on what the stochastic version asks for instead. The
+        cell-to-cell diffusion coefficient for 3OC12HSL is the number session
+        24 computes with.
+      why: >-
+        The Turing half. The only place in the course where a length scale
+        falls out of a reaction-diffusion argument, and the source of the
+        diffusion coefficient the session uses -- Basu's own parameter cannot
+        be used for this and the session explains why. Adam taught this
+        material in 2018. Open access.
+
+    - key: tamsir2011
+      cite: "Tamsir, A., Tabor, J. J. & Voigt, C. A. Robust multicellular computing using genetically encoded NOR gates and chemical 'wires'. Nature 469(7329), 212-215 (2011)."
+      short: "Tamsir, Tabor & Voigt, Nature 2011"
+      doi: "10.1038/nature09565"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3904220/"
+      pages: 9
+      required: false
+      slide_focus: "Fig. 3: an XOR built by moving four colonies around a plate."
+      focus: >-
+        Figure 3 -- an XOR built from three NOR gates and a buffer gate, one
+        per strain, spotted on a plate, with AHL as the wire. Then Figure 4,
+        where a small library of those strains covers all sixteen two-input
+        functions. Then the sentence in the introduction about building a
+        program from a smaller number of orthogonal parts by re-using them in
+        several cells -- it is in the paragraph before Figure 1, not in the
+        abstract -- and ask yourself what session 17 said about how many
+        orthogonal parts there are.
+      why: >-
+        The engineering reason to use a community at all, and it needs no model.
+        One NOR gate per strain, the same three promoters re-used, and the
+        layout on the plate does the computation. This is also the primary
+        source for material the archive only holds in a file whose molecule
+        names do not extract. Open access through PMC.
+
+    - key: zhou2015
+      cite: "Zhou, K., Qiao, K., Edgar, S. & Stephanopoulos, G. Distributing a metabolic pathway among a microbial consortium enhances production of natural products. Nature Biotechnology 33(4), 377-383 (2015)."
+      short: "Zhou et al., Nat Biotechnol 2015"
+      doi: "10.1038/nbt.3095"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4867547/"
+      pages: 23
+      required: false
+      slide_focus: "Figs. 1 and 2: the same split, built twice -- once competing, once cross-feeding."
+      focus: >-
+        Figures 1 and 2, as a pair. The pathway is split the same way both
+        times; what changes is the ecology between the two strains. In the
+        first the yeast holds the E. coli back. In the second the E. coli grows
+        on xylose and excretes acetate -- which inhibits its own growth, and
+        which the yeast can use as its only carbon source. Each one removes the
+        other's problem. Come able to
+        say what was engineered the second time, because it was not the pathway.
+      why: >-
+        Division of labor with an experiment behind it, which Tsoi does not
+        have. It also makes the session's own point from the other side:
+        splitting the job is the easy part, and what you have to design is the
+        reason the two strains keep each other alive. Open access through PMC.
 
   s26:
     - key: xie2011
@@ -650,6 +824,36 @@ readings:
         access.
 
   s28:
+    - key: gaut2026
+      cite: "Gaut, N. J., Deich, C., Cash, B., Hoog, T., Engelhart, A. E. & Adamala, K. P. A chemically defined synthetic cell capable of growth and replication. bioRxiv 2026.07.01.735724 (2026)."
+      short: "Gaut et al., bioRxiv 2026"
+      doi: "10.64898/2026.07.01.735724"
+      url: "https://doi.org/10.64898/2026.07.01.735724"
+      pages: 26
+      required: false
+      slide_focus: "A 90 kbp genome on seven plasmids, in a liposome that feeds, grows and divides."
+      focus: >-
+        The abstract, then the division sections, and read them against each
+        other. The abstract claims genetically encoded division. In the text,
+        division is first done by pushing the liposomes through a membrane
+        filter, and the genetically encoded version comes later and at lower
+        yield. Both are real; they are not the same claim. Then find the
+        sentence where the authors say what their cell cannot do -- it is in
+        the growth section and it is about ribosomes. Come able to say which
+        parts of this cell are encoded in its genome and which are supplied
+        from outside.
+      why: >-
+        Session 28 asks what limits the field, and this is the most direct
+        answer available: a 90 kbp genome, against a prior estimate that a
+        living cell needs 113 kbp, in something that completes a cell cycle and
+        still is not independent. It is also the course's own recurring lesson
+        arriving in a result three months old -- the qualifications that are
+        present in the paper are gone from the headlines. A preprint, not peer
+        reviewed. The PDF runs to 190 pages; the main text is the first 26 and
+        that is what is assigned. Known discrepancy to check before quoting:
+        the text says the genome is on seven plasmids in one place and eight in
+        another, and a figure caption says seven.
+
     - key: wittmann2025
       cite: "Wittmann, B. J., Alexanian, T., Bartling, C., Beal, J., Clore, A., Diggans, J., Flyangolts, K., Gemler, B. T., Mitchell, T., Murphy, S. T., Wheeler, N. E. & Horvitz, E. Strengthening nucleic acid biosecurity screening against generative protein design tools. Science 390(6768), 82-87 (2025)."
       short: "Wittmann et al., Science 2025"

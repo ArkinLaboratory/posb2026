@@ -1,0 +1,11 @@
+{
+  "artifact": "s22_motif.png",
+  "artifact_sha256": "a4d4de2b3e5677d63041424a57ed101fbe580ba0fc9f418127598ec9d8436770",
+  "artifact_content": "9a50427f6d5c8c0add8e5c10394f0c275555a68dcb60f07e9d0d9d3813576dbb",
+  "artifact_bytes": 171759,
+  "deps": {
+    "figures/s22_control.py": "77d1625f9394614d867d92ec7ef3d13c7e3192b538861852fe5f03172c3d5bc5",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s22_control.fig_motif"
+}

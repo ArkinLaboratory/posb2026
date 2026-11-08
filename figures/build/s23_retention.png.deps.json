@@ -1,0 +1,11 @@
+{
+  "artifact": "s23_retention.png",
+  "artifact_sha256": "2fa26593bb42466e2b2b2b19b243edc5e6bcaef7d444f7252faaac17a645e282",
+  "artifact_content": "1a509f021bcbe3a0310450252d86a17f2ce1382fca95ae5cb2f568f0bb817b2e",
+  "artifact_bytes": 119937,
+  "deps": {
+    "figures/s23_evolution.py": "03f1a152bf8a5b72df06eefe083d9caeab01e16723fea9c814a7e2846d65a6b3",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s23_evolution.fig_retention"
+}

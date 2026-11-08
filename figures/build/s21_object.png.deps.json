@@ -1,8 +1,8 @@
 {
   "artifact": "s21_object.png",
-  "artifact_sha256": "a443aececbc41159db049cdfd5763ddb07ffd2bae03037871033013625081c1c",
+  "artifact_sha256": "9d89918a68f3b4a2f92e0fcf204d5c3f4430922fefde28207f824d715bd316b4",
   "artifact_content": "bdf914e62ae22483e3452ee0d7d33050bed989c371d982f66ebe06c709fde2fa",
-  "artifact_bytes": 148553,
+  "artifact_bytes": 154323,
   "deps": {
     "figures/s21_retroactivity.py": "4f7e323b3b7a3bc0f9d8863455c2ee92d5cc4fd12cdd4a6968849957a0ecefe4",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"

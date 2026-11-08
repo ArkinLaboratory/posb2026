@@ -1,0 +1,11 @@
+{
+  "artifact": "s23_two_asymmetries.png",
+  "artifact_sha256": "bc2983a3759284ad67fbadf93196856e33a1dc35ae0de4db21ea0798bfab661b",
+  "artifact_content": "526231be33c4f3f339e28463b2c46d59840c37871e7eb824a4b4fc3a8c230af9",
+  "artifact_bytes": 98826,
+  "deps": {
+    "figures/s23_evolution.py": "03f1a152bf8a5b72df06eefe083d9caeab01e16723fea9c814a7e2846d65a6b3",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s23_evolution.fig_two_asymmetries"
+}

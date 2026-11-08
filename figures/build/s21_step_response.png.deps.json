@@ -1,10 +1,10 @@
 {
   "artifact": "s21_step_response.png",
-  "artifact_sha256": "b60ca32f87a7e329c67cce2302f83ae4887f74c257abcb37a42191134dec3536",
+  "artifact_sha256": "b69da5898588aea2c2838b643a1344baa641865d9bb7125a24f505d38581977b",
   "artifact_content": "485bcc04b0d47d23feb07e02d87923f8bd44230c78a08f403bbdfff2816b89f1",
-  "artifact_bytes": 132284,
+  "artifact_bytes": 138054,
   "deps": {
-    "figures/s21_retroactivity.py": "31ca6085b15ab241680295ec2add64e5c2e6071ed30908198e95752944debfbf",
+    "figures/s21_retroactivity.py": "4f7e323b3b7a3bc0f9d8863455c2ee92d5cc4fd12cdd4a6968849957a0ecefe4",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s21_retroactivity.fig_step_response"

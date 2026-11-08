@@ -1,10 +1,10 @@
 {
   "artifact": "s21_bandwidth.png",
-  "artifact_sha256": "a78cca1e74a81faad87534b41bc943b185d8acdef58a8d945bd36d15e6c8d5c9",
+  "artifact_sha256": "727b7bb683dc2d6be45eec40a99c522711e2d1ebf890e5ec45486a43c616fec8",
   "artifact_content": "1de787fbd73a852b456db51633333245ddb3e2f0c9c94ceefadd1f2d7d828ce8",
-  "artifact_bytes": 132615,
+  "artifact_bytes": 138385,
   "deps": {
-    "figures/s21_retroactivity.py": "31ca6085b15ab241680295ec2add64e5c2e6071ed30908198e95752944debfbf",
+    "figures/s21_retroactivity.py": "4f7e323b3b7a3bc0f9d8863455c2ee92d5cc4fd12cdd4a6968849957a0ecefe4",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s21_retroactivity.fig_bandwidth"

@@ -71,7 +71,8 @@ def test_past_the_bound_z2_really_is_still_growing(P):
     """The honest version of the previous test: name the mechanism."""
     z2 = [float(simulate(P, 5.0, t_end=t).y[2, -1]) for t in (4000.0, 8000.0)]
     assert z2[1] / z2[0] > 1.8, (
-        "Z1 has hit zero, so the annihilation removing Z2 has stopped and Z2 "
+        "Z1 is driven to ~0, so the annihilation flux PINS at mu rather than "
+        "stopping, and Z2 grows at theta*X - mu -- roughly linearly in time. "
         "grows roughly linearly in time")
 
 
@@ -150,9 +151,9 @@ def test_the_annihilation_flux_pins_at_mu_rather_than_stopping():
 
 
 def test_the_undershoot_claim_is_only_true_below_the_sign_flip():
-    """The error changes sign at d ~ 2.06, inside the actuator bound.
+    """The error changes sign at d* = 2.5 - sqrt(0.2) = 2.0527864, inside the bound.
 
-    d = 2 was the reference everywhere and sat 0.06 from this crossing, with
+    d = 2 was the reference everywhere and sat 0.053 from this crossing, with
     |error| 24x smaller than at d = 0. The set now uses d = 1.
     """
     leaky = ControlParams(delta=0.05)
