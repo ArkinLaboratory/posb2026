@@ -85,11 +85,33 @@ which is **first order in δ**. **Note the minus.** Written without it the
 formula says the output overshoots while every number below says it
 undershoots; that sign was wrong in six files until 27 October.
 
-**Reference disturbance: d = 1, not 2.** At d = 2 the error changes sign at
-d ≈ 2.06 and |error| is the smallest nonzero value anywhere in the stable
-range — 24× smaller than at d = 0, and 0.06 away from a zero crossing. Any
-nudge to μ, θ, γ or k would have flipped a sign the deck asserts is fixed.
-d = 1 sits 1.06 clear of it and is 14× larger.
+**Reference disturbance: d = 1, not 2.** The sign crossing is **exact**:
+
+    d* = γμ/θ − k·√(μ/η) = 2.5 − √0.2 = 2.0527864
+
+The error is −(δ/θ)(Z₁ − Z₂) and vanishes where Z₁ = Z₂. With
+Z₁ = (γμ/θ − d)/k and Z₂ = μ/(ηZ₁), setting Z₁ = Z₂ gives Z₁² = μ/η, so
+Z₁ = √(μ/η) and d* = γμ/θ − k√(μ/η).
+
+> **This formula was wrong until 8 November, and wrong in a way the reference
+> set hid.** It read γμ/θ − (γ/k)·√(θμ/(ηγ)), which agrees with the correct
+> form at these parameters only because γθ = 1 here, and which has the
+> k-dependence **inverted**: at k = 2 the correct crossing is 1.605573 and the
+> old formula gave 2.276393; at k = ½ the two swap. Every tabulated number in
+> this section was always right — only the symbolic form was wrong, which is
+> the worst case, because the numbers reproduce and the algebra does not.
+> Re-derive a DERIVED line at a parameter set where no two constants are equal.
+
+DERIVED, and confirmed by bisection on `closed_loop_steady_state` — 2.052787 at
+δ = 1e-4, drifting to 2.053286 at δ = 0.05. At d = 2 the |error| is 24× smaller
+than at d = 0 and sits **0.053** from that crossing, so any nudge to μ, θ, γ or
+k flips a sign the deck asserts is fixed. d = 1 sits **1.053** clear of it and
+is 14× larger.
+
+The earlier wording here said |error| at d = 2 was "the smallest nonzero value
+anywhere in the stable range". That is false — at d = 2.05 it is 1.60e-4,
+fifteen times smaller again. The true claim is that it is the smallest of the
+values this session quotes.
 
 | δ | error | error/δ |
 |---|---|---|
@@ -105,21 +127,56 @@ d = 1 sits 1.06 clear of it and is 14× larger.
 Fitted slope of log|error| against log δ over δ ∈ {0.0025 … 0.02}:
 **0.997869**, i.e. first order. This is PS8 Q5.
 
-The error is **negative at every δ here**: the leak makes the output
-undershoot. It is negative *for this d*. Past d ≈ 2.06 it turns positive and
-the output overshoots — inside the actuator bound, and the deck does not
-claim otherwise any more.
+The error is **negative at every δ here**, for this d: at d = 1 the leak makes
+the output undershoot. The crossing is at **d = 2.0533**, located by bisection
+on `posb.control.closed_loop_steady_state` at δ = 0.05, and it is **inside** the
+actuator bound of 2.5 — so there is a legal operating region in which the output
+**overshoots**.
+
+PS8 is safe and its author knew: `private/sources/ps08.py` fixes d = 1 and says
+so in terms. **The deck note, the board notes and the figure annotation all
+asserted the undershoot with no condition until 1 November.** The figure
+annotation and the board notes are corrected; the deck note is offered to Adam
+as a named line change, because decks are hand-edited.
 
 ## 6 · Aoki's experiment — MEASURED
+
+Normalised steady-state growth rate, 37 °C against 30 °C (Fig. 3d, right):
+**closed loop 1.00 → 1.03**, **open loop 1.00 → 0.33**. MEASURED. These are the
+effect sizes behind the two P values the deck releases, and until 1 November they
+appeared only in `handouts/s22-control.md` — so the slide asked the room to
+interpret two P values while withholding the differences they were computed on.
 
 All read off the held PDF.
 
 - **The annihilation is SigW / RsiW**, a σ and anti-σ pair from *B. subtilis*.
   The paper's own description of the mechanism: *"In its natural context, RsiW
   stably sequesters and holds SigW inactive."*
-- **The controlled output is growth rate.** `sfgfp` replaced by **metE** — the
-  last step of cobalamin-independent methionine biosynthesis — in a **ΔmetE**
-  host in methionine-free medium.
+- **The actuated output is MetE; growth rate is its consequence.** `sfgfp`
+  replaced by **metE** — the last step of cobalamin-independent methionine
+  biosynthesis — in a **ΔmetE** host in methionine-free medium. The paper's own
+  framing is that the circuits were modified to regulate cell growth rate by
+  exchanging `sfgfp` for `metE`, and that is fair language for what the
+  experiment achieves. But be precise about what closes the loop, because the
+  home guide asks: the controlled genes are `araC` and `metE`, both driven by
+  P_sigW, and **AraC** closes the loop by regulating P_BAD-driven `rsiW`
+  expression. The controller senses AraC, never growth. Growth rate is
+  downstream of MetE and outside the loop, and it is regulated only insofar as
+  it tracks MetE. Saying "the controlled output is growth rate" without that
+  qualification is what made the answer sheet contradict its own question stem.
+
+- **The variability result, which this file omitted until 8 November.** In the
+  sfGFP circuit the paper reports that the closed loop tended to show
+  *increased* cell-to-cell variability compared with the open loop, and
+  *decreased* cell-to-cell variability upon perturbation, consistent with
+  theoretical analyses (Extended Data Fig. 7). MEASURED, and the discussion
+  gives the reason in general terms: the antithetic topology is known to
+  enhance intrinsic noise and cell-to-cell heterogeneity, while still
+  guaranteeing robust perfect adaptation **for the population average, or the
+  single-cell time average**. That last clause is the whole answer to the
+  guide's 3(c) — what integral feedback pins is an average, not a
+  distribution — and the guide was carrying the claim with nothing in this file
+  behind it.
 - **The open-loop control deletes one module**, the anti-σ (P_BAD–rsiW).
   Everything else is identical.
 - **The perturbation is temperature**, 37 °C against 30 °C, growth rates
