@@ -132,7 +132,9 @@ def build():
 
     _weinberger_intro(d)
     _s1_frame_objects(d)
+    _s1_frame_named(d)
     _s1_frame_words(d)
+    _s1_frame_three(d)
     _s1_build_ledger(d)
     _s1_build_1970(d)
     _s1_release(d)
@@ -168,7 +170,6 @@ def build():
     _s3_debrief_ours(d)
 
     _s4_frame_model(d)
-    _s4_frame_dsense(d)
     _s4_build_shared(d)
     _s4_build_fig2a(d)
     _s4_build_setpoint(d)
@@ -181,12 +182,11 @@ def build():
     _s4_build_capped_number(d)
     _s4_build_evidence(d)
     _s4_build_pitchai(d)
-    _s4_build_1970(d)
-    _s4_release(d)
-    _s4_debrief(d)
 
     _s5_change(d)
+    _s5_paper(d)
     _s5_frame(d)
+    _s5_homing(d)
     _s5_build_super_mendelian(d)
     _s5_build_idealisation(d)
     _s5_build_f(d)
@@ -202,6 +202,13 @@ def build():
     _close_limits(d)
     _close_sentence(d)
     _close_reading(d)
+
+    _apx_divider(d)
+    _apx_contents(d)
+    _s4_frame_dsense(d)
+    _s4_build_1970(d)
+    _s4_release(d)
+    _s4_debrief(d)
     return d
 
 
@@ -214,17 +221,23 @@ def _opening(d):
     # slide the room reads first. R0_T > 1 is the hour's result and it
     # arrives in segment 3 where it is derived; a symbol this course has
     # never defined is opaque on a title slide however exact it is.
-    d.text(s, "It has to spread on its own",
+    d.text(s, "Therapies that spread from cell to cell",
            M, 2.72, 8.6, 1.5, size=38, font="head", bold=True, color=WHITE)
-    d.text(s, "You still have only molecular knobs — and what they now set "
-              "is whether it spreads faster than it is removed.",
+    d.text(s, "Three of them: a defective virus, an engineered HIV-1 "
+              "vector, and a gene drive. Each one works only while it "
+              "spreads faster than it is removed. Today you compute "
+              "whether it does.",
            M, 4.30, 8.6, 1.70, size=18, color=MINT, spacing=1.2)
     d.notes(s,
-           "The title is the claim and the subtitle is the whole hour in one "
-           "sentence. I say it before anything else.\n "
-           "The object today is not a circuit inside a host I own. It is an "
-           "infectious agent, and its specification is a number greater than "
-           "one.\n "
+           "Today we design agents that have to spread in order to work. "
+           "Three of them: a defective interfering particle, an engineered "
+           "HIV-1 vector, and a gene drive.\n "
+           "Each one is a deliberate epidemic. You release it, it spreads "
+           "from cell to cell or from organism to organism, and it does its "
+           "job only while it keeps spreading. So the design question "
+           "becomes one number: does each new case produce more than one "
+           "further case? Above one it establishes. Below one it dies "
+           "out.\n "
            "I do not open on HIV biology and I do not open on gene drives. "
            "The room already has every piece of mathematics this needs — a "
            "steady state, a threshold at an eigenvalue crossing, and a "
@@ -313,32 +326,32 @@ def _retrieval_threshold(d):
     """
     s = d.light()
     d.header(s, "open", "retrieval — on your own paper, session 24")
-    d.title(s, "A number that has to beat another number")
+    d.title(s, "Splitting a pathway paid only above a threshold")
     d.rows(s, [
         ("what you did Tuesday",
-         "you decided whether to split a pathway across two strains. The "
-         "rule was not “is the burden high” — it was whether one ratio "
-         "beat another number."),
-        ("the two sides", "biomass you gain by splitting, against the "
-                          "intermediate you lose in transit. Split when the "
-                          "first beats the second."),
+         "you decided whether to split a two-enzyme pathway across two "
+         "strains. The test was not whether the burden was high."),
+        ("the two sides", "the biomass the split gains, against the "
+                          "intermediate it loses crossing between cells. "
+                          "Split when the gain exceeds the loss."),
         ("so, before we start",
-         "name the quantity that had to be exceeded, say in one sentence "
-         "what it was made of, and say what happens at exactly equal.",
+         "name the quantity that had to be exceeded, say what it is built "
+         "from, and say what happens when the two sides are equal.",
          AMBER),
     ], top=2.05, label_w=3.1)
     d.notes(s,
-            "θ_{I}, the inefficiency factor. It was built from the "
-            "intermediate's transport rate and its turnover outside the "
-            "cell — both of them, not their ratio — and from the "
-            "downstream population's biomass.\n "
-            "At exactly equal there is nothing in it: the split and the "
-            "single cell produce the same, and the decision is made on "
+            "The answer is θ_{I}, the inefficiency factor.\n "
+            "It is built from three things: the intermediate's transport "
+            "rate η, its turnover outside the cell δ_{me}, and the "
+            "downstream strain's biomass. Both rates separately, not their "
+            "ratio.\n "
+            "When the two sides are equal there is nothing in it. The split "
+            "and the single cell produce the same amount, and you decide on "
             "something else.\n "
-            "What I want said out loud is the SHAPE, because the hour runs "
-            "on it: a design is worth doing when one number beats another, "
-            "and the whole job is working out what is on each side. Today "
-            "the number on the right is one."
+            "I want the shape said out loud, because the hour runs on it. A "
+            "design is worth doing when one computed quantity exceeds a "
+            "threshold, and the work is finding what sits on each side. "
+            "Today the threshold is one."
             )
 
 
@@ -369,7 +382,7 @@ def _retrieval_threw_away(d):
          "them at the measured ratio.", AMBER),
         ("so, before we start",
          "the model is not wrong. Say what it threw away, and why throwing "
-         "it away removed the very thing being modelled."),
+         "it away removed the thing that makes the pattern."),
     ], top=1.98, label_w=3.1)
     d.notes(s,
             "It threw away the fluctuations. A deterministic treatment is "
@@ -381,10 +394,11 @@ def _retrieval_threw_away(d):
             "So the noise is not sitting on top of the dynamics. It is "
             "part of what makes the pattern, and smoothing it away deleted "
             "the phenomenon.\n "
-            "This is the item the close of today depends on. Every row of "
-            "today's Limits column is this question asked of a different "
-            "assumption: what did this model throw away, and what would "
-            "you see if it mattered?")
+            "Hold on to this question, because the end of today is built "
+            "from it. We finish by listing what our own model leaves out, "
+            "and every line is this same question asked of a different "
+            "assumption: what did we throw away, and what would we see if "
+            "it mattered?")
 
 
 def _retrieval_binomial(d):
@@ -392,14 +406,16 @@ def _retrieval_binomial(d):
     d.header(s, "open", "retrieval — on your own paper, session 2")
     d.title(s, "A calculation this course owes you")
     d.rows(s, [
-        ("you saw this", "a plasmid at five copies splits binomially between "
-                         "two daughters, and P(one daughter gets none) is "
-                         "2·(½)⁵, about six percent"),
-        ("the promise", "that slide said session 25 does the full binomial "
-                        "for a genome. Today is session 25"),
-        ("so, before we start", "in that calculation, what was being drawn, "
-                                "how many draws were there, and what fixed "
-                                "the probability of each draw?"),
+        ("in session 2 you did this", "a plasmid at five copies splits "
+                                      "binomially between two daughters, so "
+                                      "P(one daughter gets none) = 2·(½)⁵, "
+                                      "about six percent"),
+        ("what was fixed then", "five draws, and the probability of each was "
+                                "one half, because the physics fixed it"),
+        ("so, before we start", "today a particle takes exactly TWO draws, "
+                                "and an engineer sets the probability. Say "
+                                "what is being drawn, and name the thing the "
+                                "engineer changes to move it.", AMBER),
     ], top=2.05, label_w=3.1)
     d.notes(s,
            "Five copies, each going to one of two daughters, and the "
@@ -419,9 +435,11 @@ def _goals(d):
     d.header(s, "open", "what you should be able to do by the end")
     d.title(s, "Three questions")
     d.rows(s, [
-        ("the partition", "A cell is making two kinds of genome at once and "
-                          "packaging two strands per particle. What fraction "
-                          "of what it releases can infect anything?"),
+        ("the partition", "A cell infected by both HIV-1 and the vector "
+                          "packages two RNA strands into every particle, "
+                          "drawn from both pools. A particle that gets one "
+                          "of each cannot infect. What fraction of what the "
+                          "cell releases still can?"),
         ("the threshold", "A therapy that has to spread needs a reproductive "
                           "ratio above one. Whose reproduction, counted from "
                           "which cell, and what sets the number?"),
@@ -491,14 +509,14 @@ def _weinberger_intro(d):
                             "crHIV-1 — spreads through the infected-cell "
                             "population on HIV-1’s own machinery, drops the "
                             "set point and holds the CD4 count up", AMBER),
-        ("why this one", "it is the design in the reading where the therapy "
-                         "is itself a population that has to spread, modelled "
-                         "end to end with clinical parameters — so today’s "
-                         "threshold is a number we compute rather than a "
-                         "slogan"),
-        ("what we take", "the packaging partition in segment 2, the "
-                         "reproductive ratio in segment 3, and the valley in "
-                         "D in segment 4"),
+        ("why this one", "it is the one design in the reading where the "
+                         "therapy is itself a population that has to spread, "
+                         "modelled end to end with clinical parameters — so "
+                         "today’s threshold is a number we compute"),
+        ("what it gives us", "how a cell packages two different genomes at "
+                             "once; the number that says whether the "
+                             "therapy spreads; and why a stronger drug can "
+                             "make the therapy fail"),
     ], top=1.86, label_w=2.6)
     d.foot(s, "Figure 1 is the model, Table 1 the parameters, Figure 3 the "
               "surfaces. All three go up today.")
@@ -526,33 +544,77 @@ def _s1_frame_objects(d):
     d.image_centered(s, FIG + "s25_objects.png", top=1.74, band=4.26)
     # P IS DEFINED HERE, on the slide where the ratio first appears, and in
     # words rather than only as a glyph on the figure (deck-bar B1).
-    d.foot(s, "P is the packaging advantage: how many vector transcripts "
-              "there are for each HIV-1 transcript in that cell's cytoplasm.")
+    d.foot(s, "P is an ABUNDANCE ratio: crHIV-1 mRNA to HIV-1 mRNA in that "
+              "cell. It acts as a packaging advantage only because both "
+              "genomes are taken to be packaged equally well per molecule.")
     d.notes(s,
            "Four drawings and no algebra. None of these words has been on a "
            "slide in this course and I am not going to pretend otherwise.\n "
-           "A retrovirus is diploid: it packages TWO single strands of RNA "
-           "into one capsid. So which genotype a particle is was decided by "
-           "a draw, and that is segment two.\n "
+           "A retrovirus is DIPLOID. It packages two separate "
+           "single-stranded RNA genomes into one capsid — two molecules, "
+           "not one double-stranded one. That distinction is the whole of "
+           "the next segment, because if a cell is making two different "
+           "genomes then which pair a particle ends up with was decided by "
+           "a draw.\n "
            "A co-infected cell is making both genomes at once. The ratio in "
            "the cytoplasm is one HIV-1 to P vector, by definition of P — I "
            "have drawn it at one to three so you can count it. P is "
            "intracellular, and the paper says plainly it is not the one you "
            "can measure.\n "
-           "The vector is the short bar. The shaded end is what it kept; "
-           "everything else it deleted, and what it deleted is what "
-           "something else now has to supply.\n "
+           "The vector is the short bar, and the vector is crHIV-1 — the "
+           "therapy. The shaded end is the part of the HIV-1 genome it "
+           "still carries. Everything else has been deleted from it, and "
+           "what was deleted is exactly what HIV-1 now has to supply.\n "
            "The locus is the one most of you have least chance of having "
            "met. Two copies of every gene, one from each parent. That is "
            "two draws again, and it is where the last twenty minutes live.")
+
+
+def _s1_frame_named(d):
+    """The four objects, named in body type.
+
+    They had been named only in the speaker notes, so the room saw four
+    unlabelled drawings. The first attempt put these rows under the plate
+    on the drawing's own slide, which squeezed the figure to scale 0.611 --
+    20 pt type landing at 12.2 pt, under the floor. The panel keeps its
+    band and the words get their own surface.
+    """
+    s = d.light()
+    d.header(s, "segment 1", "frame \u2014 the objects, named")
+    d.title(s, "What each of those four things is")
+    d.rows(s, [
+        ("the particle", "a retrovirus packs TWO separate single-stranded RNA "
+                         "genomes into one capsid \u2014 not one double-stranded "
+                         "molecule. That is what diploid means here, and it "
+                         "is why a particle\u2019s genotype is decided by a draw."),
+        ("the cell", "co-infected: it is making both genomes at once. The "
+                     "drawing is at one HIV-1 transcript to three vector "
+                     "transcripts, so you can count it."),
+        ("the vector", "crHIV-1, the short bar. The shaded end is the part of "
+                       "the HIV-1 genome it still carries; everything else "
+                       "has been deleted, and HIV-1 has to supply it.",
+         AMBER),
+        ("the locus", "two copies of every gene, one from each parent. Two "
+                      "draws again \u2014 and the last twenty minutes live there."),
+    ], top=1.90, label_w=2.4)
+    d.notes(s,
+           "Four drawings, four sentences, and then we move.\n "
+           "The one worth slowing on is the first. Diploid here does not "
+           "mean double-stranded. It means two separate RNA molecules "
+           "travelling in the same capsid, and if the cell is making two "
+           "different genomes then which pair a particle leaves with was "
+           "settled by a draw.\n "
+           "The locus is the one most of you have least chance of having "
+           "met in this course. It is the same two-draw structure in an "
+           "organism rather than a virion.")
 
 
 def _s1_frame_words(d):
     # B3: every term of art defined BEFORE it carries an argument. cis,
     # trans and helper all carry the ledger on the next three slides.
     s = d.light()
-    d.header(s, "segment 1", "frame — two words the ledger runs on")
-    d.title(s, "Why a parasite deletes its proteins first")
+    d.header(s, "segment 1", "frame — the vocabulary this segment needs")
+    d.title(s, "Keep what works in place, delete what can be borrowed")
     d.rows(s, [
         ("in cis", "a sequence that only works where it physically is — a "
                    "packaging signal is read off the very molecule that gets "
@@ -562,12 +624,15 @@ def _s1_frame_words(d):
                      "encoded it."),
         ("a helper", "whatever supplies the trans products the parasite "
                      "deleted. For the vector it is HIV-1 itself.", AMBER),
+        ("HIV-1, concretely", "cis: the two LTRs and the packaging signal "
+                              "Ψ. trans: gag (capsid), pol (reverse "
+                              "transcriptase and integrase), env "
+                              "(envelope)."),
     ], top=2.05, label_w=2.2)
     d.foot(s, "A parasite genome keeps what is read in cis and deletes what "
               "acts in trans, because trans can be borrowed.")
     d.notes(s,
-           "This is the one piece of vocabulary the next three slides cannot "
-           "be read without, so it gets its own slide.\n "
+           "Two words, and everything that follows is read through them.\n "
            "Cis means the sequence has to be on the molecule to do its job. "
            "A packaging signal is the example: it is read off the very RNA "
            "that gets packaged, so it cannot be supplied by anything else.\n "
@@ -576,6 +641,49 @@ def _s1_frame_words(d):
            "including one that contributed nothing to making it.\n "
            "That asymmetry is the whole design. Keep the cis elements, "
            "delete the trans genes, and let somebody else pay for them.")
+
+
+def _s1_frame_three(d):
+    """The three systems, named and distinguished, BEFORE they are compared.
+
+    The build that follows puts crHIV-1, a DI particle and a split CRISPR
+    drive side by side and asks what is common. Two of the three had never
+    been described at that point, so the comparison landed on objects the
+    room could not picture.
+    """
+    s = d.light()
+    d.header(s, "segment 1", "frame — the three systems")
+    d.title(s, "Three things that spread on borrowed machinery")
+    d.rows(s, [
+        ("a defective interfering particle",
+         "a virus that has lost genes it needs, so it reproduces only inside "
+         "a cell a complete virus is already in. It arises on its own in "
+         "culture — nobody designs it."),
+        ("crHIV-1",
+         "the same arrangement, built on purpose: an HIV-1 genome cut down "
+         "to the parts that get it packaged, carrying an anti-HIV cargo. "
+         "HIV-1 supplies everything else.", AMBER),
+        ("a split CRISPR gene drive",
+         "not a virus. A stretch of DNA at one locus that copies itself onto "
+         "the matching chromosome, so it spreads through a population of "
+         "organisms rather than of cells."),
+    ], top=1.96, label_w=3.4)
+    d.foot(s, "Two of the three are natural and one is engineered. The next "
+              "three slides ask what all three gave up.")
+    d.notes(s,
+           "Three systems, and I want them separate in your head before I "
+           "put them side by side.\n "
+           "A defective interfering particle is an accident. Passage a virus "
+           "at high density and you get particles that have deleted part of "
+           "their own genome. They cannot replicate alone, and inside a "
+           "co-infected cell they outcompete the virus they came from.\n "
+           "crHIV-1 is that accident built deliberately, with an anti-HIV "
+           "cargo in place of what was deleted.\n "
+           "The gene drive is a different scale entirely. Nothing is "
+           "infecting anything — the element copies itself from one "
+           "chromosome to its partner inside the germline, so it spreads "
+           "between organisms down generations. It is here because it faces "
+           "the same arithmetic.")
 
 
 def _s1_build_ledger(d):
@@ -623,7 +731,8 @@ def _s1_build_ledger(d):
              "deleted its trans genes can only reproduce where the helper "
              "already is. Its reproductive ratio is not defined in a "
              "healthy person.\n "
-             "That is also the premise of move four. The vector is an "
+             "That is also the premise of the whole middle of the hour: the "
+             "vector is an "
              "obligate parasite of the very thing it was built to suppress.")
 
 
@@ -677,9 +786,9 @@ def _s1_release(d):
            "genome is copied from, and whatever its own coat recognizes — "
            "because those are read off the molecule itself.\n "
            "The point I want out of the room is that coat protein is a trans "
-           "gene it chose to KEEP. So cis-versus-trans tells you what CAN be "
-           "deleted, not what must be. What must be kept is only the cis "
-           "part.")
+           "gene, and the satellite keeps it anyway. So cis-versus-trans tells "
+           "you what CAN be deleted, not what is. Only the cis part must "
+           "be kept.")
 
 
 def _s1_debrief(d):
@@ -692,13 +801,15 @@ def _s1_debrief(d):
         ("it can never delete", "the cis sequences: whatever its replication "
                                 "machinery and its own coat have to read off "
                                 "the molecule itself"),
-        ("and the twist", "the coat is a trans gene it chose to KEEP. So the "
-                          "test bounds what may be deleted; it does not say "
-                          "what will be.", AMBER),
-        ("why that matters today", "every trans gene the vector keeps is one "
-                                   "it does not have to borrow — and one "
-                                   "more thing its helper's presence stops "
-                                   "controlling"),
+        ("so the test is a bound", "the coat protein also acts in trans, and "
+                                   "the satellite keeps it. Being deletable "
+                                   "is not being deleted: selection decides, "
+                                   "and what it keeps is what makes it a "
+                                   "separate particle.", AMBER),
+        ("why that matters today", "every trans product the vector borrows "
+                                   "ties it more tightly to HIV-1. Borrow "
+                                   "more, and it reproduces only where "
+                                   "HIV-1 already is."),
     ], top=1.94, label_w=3.0)
     d.notes(s,
            "I take answers first and then put this up, so the people who did "
@@ -709,7 +820,7 @@ def _s1_debrief(d):
            "trans gene — its coat — and it is still a satellite. So the "
            "cis-trans test is a bound on what you MAY delete, not a "
            "prediction of what any particular parasite did delete.\n "
-           "And that last row is where segment four goes. The more trans "
+           "And that last row is where the trade comes from. The more trans "
            "functions you borrow, the more completely your fate is tied to "
            "the helper's. Today's vector borrows all of them.")
 
@@ -717,7 +828,7 @@ def _s1_debrief(d):
 # ------------------------------------- segment 2 · two draws from an urn ---
 def _s2_frame(d):
     s = d.light()
-    d.header(s, "segment 2", "frame — the promise from session 2")
+    d.header(s, "segment 2", "frame — what changes from session 2")
     d.title(s, "This time the engineer sets the probability")
     d.rows(s, [
         ("what is drawn", "session 2: five plasmid copies, each into one of "
@@ -732,9 +843,9 @@ def _s2_frame(d):
                          "genotype is this particle?"),
     ], top=1.96, label_w=2.7)
     d.notes(s,
-           "Session 2 promised you this calculation and this is it. Two "
-           "binomials over the same distribution, and the differences are "
-           "the lesson.\n "
+           "Both columns are binomials over the same distribution. The "
+           "differences between them are the lesson, so read it across "
+           "rather than down.\n "
            "The row that matters is the third. In session 2 the probability "
            "was one half and nothing you could do changed it. Today the "
            "probability is set by how hard your vector competes for "
@@ -750,16 +861,18 @@ def _s2_build(d):
     # beside the result it produces, because it is the only move in this
     # run a student can get wrong.
     d.derivation_fig(
-        "segment 2", "build  ·  two draws from an urn",
+        "segment 2", "build  ·  two draws from the cell’s pool",
         "Two draws decide what a particle is",
         [
             ("first, what the binomial needs",
              "equal packaging, and two independent draws",
-             "Weinberger asserts equal packaging. Nothing in the reading "
-             "set tests either assumption — this is a Limits row"),
+             "equal per molecule is what lets an abundance ratio be used "
+             "as a draw probability. It need not hold, and no paper in "
+             "the reading set tests it."),
             ("q, the chance one strand is vector",
              "q = P/(1+P),   so   1 − q = 1/(1+P)",
-             "straight off the cell's pool, 1 HIV-1 to P vector"),
+             "P is a RATIO, not a probability — 1 HIV-1 to P vector in "
+             "the cell. q is the probability built from it"),
             ("the capsid takes two",
              "two draws, three outcomes",
              "HIV·HIV, one of each, vector·vector"),
@@ -773,7 +886,8 @@ def _s2_build(d):
             ("in P, and Weinberger prints the ratio",
              "1/(1+P)²,   2P/(1+P)²,   P²/(1+P)²",
              "Weinberger prints 1 : 2P : P², the same thing with the "
-             "(1+P)² dropped. Say which form you are using"),
+             "(1+P)² dropped. A ratio is not a probability until it is "
+             "divided by the total."),
             ("where is the heterozygote worst",
              "d/dP [2P/(1+P)²] = (2 − 2P)/(1+P)³",
              "zero at P = 1, positive below, negative above — so a "
@@ -840,19 +954,20 @@ def _s2_strikeout(d):
     d.notes(s,
            "This is a modeling decision and it is what I want you to take "
            "from this slide, not the conclusion it licenses.\n "
-           "An et al. report a partial block — the particles get in and then "
-           "mostly fail before integrating. Weinberger rounds that to zero "
-           "strikes the heterozygotes out of the infectious output "
+           "An et al. report a partial block — the particles get in and "
+           "then mostly fail before integrating. Weinberger rounds that to "
+           "zero strikes the heterozygotes out of the infectious output "
            "altogether.\n "
            "The rounding is probably fine and it is not free. If "
            "heterozygotes were infectious the ratio would be 1 to P times "
-           "P plus 2 instead of 1 to P squared — a two percent correction at "
-           "P = 100, and a factor of three at P = 1. So it matters most "
-           "exactly where the threshold sits, which is the uncomfortable "
-           "version. It is on the limits slide at the end.\n "
-           "The supporting citation is also thin: one in vitro paper, and a "
-           "two-page committee review cited for mouse results. I have not "
-           "been able to check the second one.")
+           "P plus 2 instead of 1 to P squared — a two percent correction "
+           "at P = 100, and a factor of three at P = 1.\n "
+           "So it matters most exactly where the threshold sits, which is "
+           "the uncomfortable version. It is on the limits slide at the "
+           "end.\n "
+           "The supporting citation is also thin: one in vitro paper, and "
+           "a two-page committee review cited for mouse results. I have "
+           "not been able to check the second one.")
 
 
 def _s2_infectious(d):
@@ -874,7 +989,7 @@ def _s2_infectious(d):
             ("over the one denominator",
              "= [(1+P)² − 2P] / (1+P)²",
              "(1+P)² = 1 + 2P + P², so the 2P goes. At P = 3: 10/16 = "
-             "0.6250, the number under the urn"),
+             "0.6250, the infectious fraction printed on step six"),
         ],
         closing="infectious fraction = (1 + P²)/(1 + P)²",
         note="This is the answer to the first of the three questions I put "
@@ -890,7 +1005,7 @@ def _s2_infectious(d):
              "Check it where we already know the answer. At P equals one "
              "that is two over four, a half — the number the vote lands "
              "on. At P equals three it is ten over sixteen, which is the "
-             "0.6250 printed under the urn in the build.\n "
+             "0.6250 printed on step six of the build.\n "
              "And notice what it does NOT contain. No burst size, no rates, "
              "nothing but the packaging advantage. The partition is a "
              "property of one cell’s packaging and nothing else.")
@@ -936,14 +1051,15 @@ def _s2_debrief(d):
               "made is a heterozygote, and half of what is released can "
               "infect.")
     d.notes(s,
-           "The left panel is the answer. At P = 1 the three curves are at a "
-           "quarter, a half and a quarter — read it off the dot.\n "
-           "The right panel is the thing worth the extra thirty seconds. The "
-           "waste PEAKS at P = 1 and the infectious fraction BOTTOMS there, "
-           "both at exactly one half. Walk away from P = 1 in either "
-           "direction and the cell wastes less — including downward, which "
-           "surprises people, because a cell making mostly virus and almost "
-           "no vector also makes very few of one of each.\n "
+           "The left panel is the answer. At P = 1 the three curves are at "
+           "a quarter, a half and a quarter — read it off the dot.\n "
+           "The right panel is the thing worth the extra thirty seconds. "
+           "The waste PEAKS at P = 1 and the infectious fraction BOTTOMS "
+           "there, both at exactly one half.\n "
+           "Walk away from P = 1 in either direction and the cell wastes "
+           "less — including downward, which surprises people, because a "
+           "cell making mostly virus and almost no vector also makes very "
+           "few of one of each.\n "
            "So the infectious fraction is not monotone in P. It falls to a "
            "half and then rises. If you are checking your own work with a "
            "coarse grid that starts at P = 1 you will miss that.")
@@ -1197,8 +1313,8 @@ def _s3_build_construction(d):
         ("read that again", "the healthy CD4 count divided by the "
                             "set-point CD4 count — and λ and k were CHOSEN "
                             "so those two numbers come out right", AMBER),
-        ("so it is", "a genuinely nice result AND a restatement of two "
-                     "inputs. Both are true and the slide says both."),
+        ("so it is", "a genuinely nice result AND a restatement of the two "
+                     "inputs λ and k. Both are true."),
         ("what it is not", "an independent prediction. The model cannot be "
                            "wrong about the set point, because the set "
                            "point was used to build it."),
@@ -1298,7 +1414,7 @@ def _s3_build_equilibrium(d):
            "where there is no virus, the answer is not a different number — "
            "it is identically zero, for every setting of both knobs. There "
            "is nothing for the vector to borrow.\n "
-           "That is segment one coming back. A parasite that deleted its "
+           "That is the cis/trans test coming back. A parasite that deleted its "
            "trans genes has no reproductive ratio in a healthy person.\n "
            "Notation, said once. T star and V star are the steady-state "
            "values, and at these parameters they ARE T zero and V zero — "
@@ -1363,7 +1479,7 @@ def _s3_build_waiting(d):
         [
             ("an I_{T} cell is waiting",
              "kV*/(d + kV*)",
-             "superinfected before it dies of old age, or never"),
+             "superinfected before it dies at the uninfected rate d, or never"),
             ("two hazards, one winner",
              "the chance kV* fires before d does",
              "competing risks: each hazard's share of kV* + d"),
@@ -1377,8 +1493,8 @@ def _s3_build_waiting(d):
         note="The first factor, and I build it rather than assert it.\n "
              "A cell with the vector in it is sitting there with two clocks "
              "running. One is superinfection, at rate k V star. The other is "
-             "ordinary death, at rate d. Whichever fires first decides what "
-             "that cell was for.\n "
+             "ordinary death, at rate d. Whichever fires first decides "
+             "whether that cell ever makes vector.\n "
              "That is a competing risk, and the chance superinfection wins "
              "is its share of the total rate: k V star over k V star plus d. "
              "A ratio of rates is a probability when the rates are the only "
@@ -1747,11 +1863,11 @@ def _s3_build_band(d):
                             "1.9 to 20 — a sweep of this model's own "
                             "parameters, not a range of patients"),
         ("and the top of it", "comes from Table 1's alternative c = 3, which "
-                              "cannot be used without rescaling k. Every "
-                              "item here pins c = 30."),
+                              "cannot be used without rescaling k. "
+                              "Everything in this hour pins c = 30."),
         ("so the threshold", "P²D between about 1.05 and 2.11 — and 2.0667 "
                              "at this patient's R_{0}, which is what every "
-                             "figure and every item here uses", AMBER),
+                             "figure in this hour uses", AMBER),
         ("it is not", "R_{0}^{T} ≈ P²D. The coefficient is about one half and "
                       "dropping it is not a rounding"),
         ("what it costs you", "take the threshold as P²D > 1 and at D = 0.2 "
@@ -1772,7 +1888,7 @@ def _s3_build_band(d):
            "from 1.9 to 20 inside this model, not a survey of patients. The "
            "top end comes from Table 1's alternative c of 3, which also "
            "drops T star to 80 and contradicts T zero of 800, so it cannot "
-           "be used without rescaling k. Every item we set pins c at 30.\n "
+           "be used without rescaling k. Everything in the hour pins c at 30.\n "
            "What the sweep does show is how little R0 buys: a factor of ten "
            "in R0 moves the threshold by less than a factor of two. The "
            "threshold is a statement about your construct.")
@@ -1787,8 +1903,8 @@ def _s3_release(d):
                           "of 8, in a patient with R_{0} = 1.9375. Remember "
                           "D is the fraction of virus production that "
                           "REMAINS."),
-        ("the question", "What is the smallest D this construct can get "
-                         "away with and still spread?", AMBER),
+        ("the question", "What is the smallest D at which this construct "
+                         "still spreads?", AMBER),
         ("and then", "say in one sentence what a LOWER bound on D means for "
                      "how good the drug is allowed to be"),
     ], top=2.10, label_w=2.2)
@@ -1801,7 +1917,7 @@ def _s3_release(d):
            "is an UPPER bound on how effective the cargo may be. This "
            "construct may suppress HIV-1 production by at most about 96.8 "
            "percent. Any better and the therapy cannot spread.\n "
-           "That sentence is the whole of segment four in one inequality, "
+           "That inequality is the trade the rest of the hour turns on, "
            "and I would rather they wrote it down than heard it from me. I "
            "run it this direction — D given P — because that is the "
            "direction the question gets asked in a lab.")
@@ -2125,7 +2241,7 @@ def _s4_build_fig2a(d):
            "Say the window, because it matters. That is what their panel "
            "shows, and it is not what the model says. At P of thirty, R "
            "nought T is four point three five — the vector cannot die out "
-           "at D = 0.01, it is still arriving. Run it out and the set point "
+           "at D = 0.01, it is still arriving.\n Run it out and the set point "
            "lands at one point three times ten to the four, a sevenfold "
            "reduction. The end where the therapy really does nothing is "
            "D below nought point zero zero two three, where R nought T "
@@ -2181,30 +2297,31 @@ def _s4_build_setpoint(d):
     d.foot(s, "Both ends sit on the pretherapy line. On the right there is no "
               "inhibition; on the left the vector cannot persist.")
     d.notes(s,
-           "Same model, same P of thirty, but now solved rather than watched "
-           "for a year.\n "
-           "The floor is six hundred and fifty-eight virions per millilitre "
-           "at D of nought point three one — a hundred and fifty-two fold "
-           "below pretherapy. Worth one remark: the paper's text picks nought "
-           "point two as the best D and its own Fig. 3b caption picks nought "
-           "point four. The floor is flat enough that both are within "
-           "eighteen percent of the true minimum, so they disagree and it "
-           "does not matter.\n "
+           "Same model, same P of thirty, but now solved rather than "
+           "watched for a year.\n "
+           "The floor is six hundred and fifty-eight virions per "
+           "millilitre at D of nought point three one — a hundred and "
+           "fifty-two fold below pretherapy.\n "
+           "Worth one remark: the paper's text picks nought point two as "
+           "the best D and its own Fig. 3b caption picks nought point "
+           "four. The floor is flat enough that both are within eighteen "
+           "percent of the true minimum, so they disagree and it does not "
+           "matter.\n "
            "The right wall is easy. D of one is no inhibition at all.\n "
            "The left wall is the thing we built in the last segment. R "
            "nought T falls through one at D of nought point zero zero two "
-           "three, the vector cannot persist, and the set point goes back to "
-           "pretherapy. That is the threshold, arriving as a wall on a "
+           "three, the vector cannot persist, and the set point goes back "
+           "to pretherapy. That is the threshold, arriving as a wall on a "
            "picture of clinical outcome.\n "
-           "The dotted stretch has no set point at all — the equilibrium is "
-           "unstable there and the gray band is the limit cycle it settles "
-           "into instead. That window agrees with their own stability map, "
-           "which is a stronger check on our equations than any level "
-           "comparison, because it tests the dynamics.\n "
+           "The dotted stretch has no set point at all — the equilibrium "
+           "is unstable there and the gray band is the limit cycle it "
+           "settles into instead. That window agrees with their own "
+           "stability map, which is a stronger check on our equations than "
+           "any level comparison, because it tests the dynamics.\n "
            "Three of their five points are on here as diamonds. The other "
-           "two are missing on purpose: at D of nought point two and nought "
-           "point zero one their curves had not arrived by day three sixty, "
-           "so there is nothing to compare.")
+           "two are missing on purpose: at D of nought point two and "
+           "nought point zero one their curves had not arrived by day "
+           "three sixty, so there is nothing to compare.")
 
 
 def _s4_build_fig2b(d):
@@ -2295,7 +2412,7 @@ def _s4_build_burst(d):
     d.header(s, "segment 4", "build — what the model asks the cell to do")
     d.title(s, "The binomial does not fix how many")
     d.image_centered(s, FIG + "s25_burst_ledger.png", top=1.76, band=4.20)
-    d.foot(s, "Weinberger does not partition a burst, it MULTIPLIES one: "
+    d.foot(s, "The model does not partition a burst, it MULTIPLIES one: "
               "one I_{D} cell releases D·n virus, P²·D·n vector and "
               "2P·D·n heterozygotes — (1+P)²·D·n in all.")
     d.notes(s,
@@ -2303,17 +2420,18 @@ def _s4_build_burst(d):
            "it with its eyes open.\n "
            "The binomial is the right calculation for WHICH genotype a "
            "particle is. It is not a calculation about how many particles "
-           "there are, and equations three and six quietly swap one for the "
-           "other: output scales as one plus P, squared.\n "
+           "there are, and equations three and six quietly swap one for "
+           "the other: output scales as one plus P, squared.\n "
            "Put the headline design point in — P = 100, D = 0.4 — and one "
            "dually infected cell has to release eight hundred and sixteen "
            "thousand virions. That is the red dot.\n "
-           "Against what? Two hundred in vivo, from Haase, which is the n in "
-           "Table 1. Three to five times that under CD8 depletion in "
-           "macaques. And up to forty thousand for an env-deleted SIV, which "
-           "the paper attributes to unpublished data. So the headline point "
-           "needs about four thousand times the measured burst and twenty "
-           "times the most extreme number the paper can cite anywhere.")
+           "Against what? Two hundred in vivo, from Haase, which is the n "
+           "in Table 1. Three to five times that under CD8 depletion in "
+           "macaques. And up to forty thousand for an env-deleted SIV, "
+           "which the paper attributes to unpublished data.\n "
+           "So the headline point needs about four thousand times the "
+           "measured burst and twenty times the most extreme number the "
+           "paper can cite anywhere.")
 
 
 def _s4_build_assumption(d):
@@ -2321,15 +2439,15 @@ def _s4_build_assumption(d):
     d.header(s, "segment 4", "build — what the paper says about that")
     d.title(s, "The assumption is never bounded")
     d.rows(s, [
-        ("journal 10029", "the introduction: the burst size of "
+        ("in the introduction", "(journal p.10029) the burst size of "
                           "therapy-producing cells must exceed that of "
                           "HIV-1-infected cells, packaging resources are "
                           "taken not to be limiting, and the study "
                           "“highlights the need to determine” the maximum "
                           "viral output and whether Gag-Pol is limiting"),
-        ("journal 10031", "the Theory section — the same paragraph that "
+        ("in the Theory section", "(p.10031) the same paragraph that "
                           "supplies 200, “3 to 5 times more”, and 40,000"),
-        ("journal 10035", "the discussion: “our model assumes that the "
+        ("in the discussion", "(p.10035) “our model assumes that the "
                           "I_{D} cell burst size is greater than n”"),
         ("so the claim is narrow", "the paper never says HOW MUCH greater, "
                                    "and never sets its own ceiling of "
@@ -2363,14 +2481,15 @@ def _s4_build_capped(d):
     d.notes(s,
            "Same cell, same binomial, one different assumption: packaging "
            "resources ARE limited, so the cell makes about n particles "
-           "however hard the cargo pushes.\n "
+           "however strongly the cargo suppresses production.\n "
            "The composition is unchanged — at P = 100 the binomial still "
            "says 196 of the 200 are vector, about four are heterozygotes and "
            "roughly one virus particle per fifty dually infected cells.\n "
            "But look at the teal line. It is flat in D. Under a cap, D does "
            "not appear in the vector's output AT ALL. The shared production "
            "term that makes the payload the vector's own fitness is simply "
-           "gone, and move four's own title is false in this model.\n "
+           "gone, so “the vector parasitises what it suppresses” is false "
+           "in this model.\n "
            "That is why I keep saying 'in this architecture'. This is not a "
            "caveat I am adding for politeness. It is a second model of the "
            "same cell with the opposite conclusion, and it is in the library "
@@ -2561,8 +2680,8 @@ def _s4_release(d):
            "multiplied.\n "
            "Which means this hour's paradox does not apply in the form we "
            "derived it. A better interferer takes a larger share of a fixed "
-           "number of particles. There is no shared production term for it "
-           "to strangle.\n "
+           "number of particles. There is no shared production term, so "
+           "suppressing HIV-1 does not suppress the DI particle.\n "
            "But there is a trade, and it is a different one: a DI segment "
            "spreads only in cells co-infected with a full virus, so "
            "interfering too well locally starves it of co-infections. That "
@@ -2592,7 +2711,7 @@ def _s4_debrief(d):
                                   "you are hurting share a term."),
     ], top=1.84, label_w=3.0)
     d.notes(s,
-           "Take answers first, then this.\n "
+           "I take answers first.\n "
            "The thing to land is the last row. If the room leaves believing "
            "'interfering particles have an optimal potency', they have "
            "learned a fact about one lentiviral vector and mistaken it for a "
@@ -2631,6 +2750,52 @@ def _s5_change(d):
            "If you leave today with only the last segment's lesson you have "
            "a fact about lentiviral vectors. This is the twenty minutes that "
            "turns it into a principle.")
+
+
+def _s5_paper(d):
+    """Noble is introduced BEFORE its figures are argued about.
+
+    Three of its panels carry segment 5 (slides 86, 87, 88) and the paper had
+    never been named with a finding attached -- rule 17's four parts, none of
+    them present.
+    """
+    s = d.light()
+    d.header(s, "segment 5", "frame — the second paper")
+    d.title(s, "One paper did this arithmetic for whole organisms")
+    d.rows(s, [
+        ("the paper", "Noble, Adlam, Church, Esvelt & Nowak, “Current CRISPR "
+                      "gene drive systems are likely to be highly invasive in "
+                      "wild populations”, eLife 7:e33423 (2018)"),
+        ("what they found", "a standard homing drive invades from a tiny "
+                            "release — a couple of organisms into a "
+                            "population — and resistance does not stop it, "
+                            "which is not what the earlier literature "
+                            "expected", AMBER),
+        ("why this one", "Weinberger names the vector spreading between "
+                         "people as the single largest risk of his approach, "
+                         "in one sentence with no arithmetic under it. This "
+                         "is that sentence with the arithmetic done, for a "
+                         "different organism."),
+        ("what it gives us", "when a drive spreads at all, how few organisms "
+                             "it takes, and why resistance is not "
+                             "containment"),
+    ], top=1.90, label_w=2.6)
+    d.foot(s, "Figures 1B, 1F and 2D are the three we work on.")
+    d.notes(s,
+           "Second paper of the hour, and the last one.\n "
+           "Noble and colleagues asked a narrow question: for a standard "
+           "CRISPR homing drive, how much do you have to release before it "
+           "takes over a wild population? The answer turned out to be "
+           "almost nothing.\n "
+           "The reason it belongs beside Weinberger is one sentence in the "
+           "2003 paper. He names vector transmission between people as the "
+           "largest risk of the whole approach and then leaves it there. "
+           "This paper is that risk with numbers on it, in an organism "
+           "where the experiment has actually been done.\n "
+           "Three of their figures do the work from here: where every "
+           "published construct sits relative to the region that invades, "
+           "how small a release suffices, and what containment turns out to "
+           "depend on.")
 
 
 def _s5_frame(d):
@@ -2685,12 +2850,48 @@ def _s5_frame(d):
            "you want from it.\n "
            "And the letters. Noble writes the homing efficiency P, which is "
            "this hour's packaging advantage, so on our slides it is h — the "
-           "rename is in docs/symbols.md and the invasion boundary goes with "
-           "it. His allele names stay his: I say the drive allele and the "
+           "rename goes with the invasion boundary. His allele names stay "
+           "his: I say the drive allele and the "
            "resistant allele, and I write the pairs, WD and DR, so a letter "
-           "never sits where a number should. His own crops still carry his "
+           "never sits where a number should.\n His own crops still carry his "
            "P — this plate says so in its own footer, and the first crop "
            "slide says it again in body type, which is where it counts.")
+
+
+def _s5_homing(d):
+    """The MECHANISM, before the gamete fan that follows from it.
+
+    Segment 5 went straight from the locus to (1+h)/2. The event in between
+    -- the drive cutting the wild-type allele and the cell repairing the
+    break by copying the drive -- was in the notes and on no surface.
+    """
+    s = d.light()
+    d.header(s, "segment 5", "frame \u2014 how a drive copies itself")
+    d.title(s, "A drive copies itself into the chromosome it cuts")
+    d.image_centered(s, FIG + "s25_homing.png", top=1.70, band=2.80)
+    d.rows(s, [
+        ("every cut is repaired", "either by copying the drive across, or by "
+                                  "a join that destroys the site. Either way "
+                                  "the wild-type allele is gone."),
+        ("so a WD parent sends on", "the drive in (1+h)/2 of its gametes, a "
+                                    "resistant allele in (1\u2212h)/2, and "
+                                    "wild type never.", AMBER),
+    ], top=4.78, bottom=6.34, label_w=2.8, gap=0.08)
+    d.notes(s,
+           "This is the step everything in the segment rests on, and it is "
+           "one event.\n "
+           "A WD cell carries the drive on one chromosome and the wild-type "
+           "allele on the other. The drive encodes a nuclease and a guide "
+           "that targets the wild-type allele, so in the germline it cuts "
+           "the other chromosome.\n "
+           "Now the cell has a double-strand break and two ways to mend it. "
+           "If it repairs from the homologous chromosome it copies the "
+           "drive across, and the cell is now drive on both. If it joins "
+           "the ends instead it destroys the target site, and that "
+           "chromosome can never be cut again \u2014 a resistant allele.\n "
+           "Notice what is NOT an outcome. The wild-type allele does not "
+           "survive either repair. That is the whole of super-Mendelian "
+           "inheritance, and the next slide is only its arithmetic.")
 
 
 def _s5_build_super_mendelian(d):
@@ -2759,18 +2960,19 @@ def _s5_build_super_mendelian(d):
            "drive heterozygote sends on no wild type at all, because the "
            "drive cut it — the only question is whether the repair made "
            "another drive copy or a resistant allele.\n "
-           "The halves on the figure come from that cut. The drive gamete is "
-           "one half plus h over two: half of it is the copy the germline "
-           "already had, and half is the cut one when the repair copies the "
-           "drive. The resistant gamete is the other half of the cut, "
-           "(1 − h) over two. Per cut the chance is h; per gamete it is "
-           "(1 + h) over two, and those are not the same number.\n "
-           "That zero in the gamete table IS super-Mendelian inheritance. It "
-           "is not a new mechanism; it is an entry that is missing.\n "
-           "And the zero does not depend on h at all. One plus h over two is "
-           "above one half for every h above zero, so transmission favors "
-           "the drive even when the homing is poor — what h buys is how "
-           "fast. Whether that beats the fitness cost is the invasion "
+           "The halves on the figure come from that cut. The drive gamete "
+           "is one half plus h over two: half of it is the copy the "
+           "germline already had, and half is the cut one when the repair "
+           "copies the drive.\n "
+           "The resistant gamete is the other half of the cut, (1 − h) "
+           "over two. Per cut the chance is h; per gamete it is (1 + h) "
+           "over two, and those are not the same number.\n "
+           "That zero in the gamete table IS super-Mendelian inheritance. "
+           "It is not a new mechanism; it is an entry that is missing.\n "
+           "And the zero does not depend on h at all. One plus h over two "
+           "is above one half for every h above zero, so transmission "
+           "favors the drive even when the homing is poor — what h buys is "
+           "how fast. Whether that beats the fitness cost is the invasion "
            "condition, and that comes later in this segment.")
 
 
@@ -2866,7 +3068,7 @@ def _s5_build_f(d):
              "Noble’s axis calls it DW fitness"),
             ("what a WD parent sends on",
              "the drive is in (1+h)/2 of its gametes",
-             "the gamete fan, earlier in this segment. A wild-type "
+             "a WD parent sends the drive to (1+h)/2 of its gametes; a "
              "allele goes to exactly half"),
             ("bias against cost",
              "f × (1+h)/2   against   1 × 1/2",
@@ -2920,7 +3122,7 @@ def _s5_build_invasion(d):
                                    "so we write it h. The figure is his; the "
                                    "letter is ours."),
         ("the boundary", "f > 1/(1+h). At h = 0.14 that is f > 0.877, and "
-                         "Noble's own f = 0.9 clears it by 2.3 points — the "
+                         "Noble's own f = 0.9 clears it by 0.023 in fitness — the "
                          "window is narrow, not absent.", AMBER),
     ], top=1.80, bottom=6.40, right=7.70, side=False)
     d.foot(s, "All of it assumes the drive cuts every time.")
@@ -2937,7 +3139,7 @@ def _s5_build_invasion(d):
            "own headline range of 0.37 to 0.99 quietly drops it.\n "
            "And it is not the exception it looks like. The condition at "
            "h = 0.14 is f above 0.877, and their f is 0.9 — so it clears by "
-           "2.3 points. The window is narrow, not absent. Worth saying "
+           "0.023 in fitness. The window is narrow, not absent. I say it "
            "because the eye reads that line as a counterexample.")
 
 
@@ -3055,8 +3257,7 @@ def _s5_build_title(d):
                                              "own, which is a reproductive "
                                              "ratio above one"),
         ("and the trade is not", "what trades against what is a property of "
-                                 "the ARCHITECTURE, not of the idea. That is "
-                                 "the sentence to leave with."),
+                                 "the ARCHITECTURE, not of the idea."),
     ], top=1.84, label_w=3.0)
     d.notes(s,
            "This is why segment five is not an appendix.\n "
@@ -3130,7 +3331,7 @@ def _s5_debrief(d):
               "drive, or a synthetic target site — precisely because it does "
               "not depend on the cargo.")
     d.notes(s,
-           "Take answers, then this.\n "
+           "I take answers first.\n "
            "The row I want argued about is the third. Most intuitions say a "
            "beneficial cargo is the safe case — it is helping, after all. It "
            "is the hardest to contain, because the only knob you own stops "
@@ -3146,15 +3347,60 @@ def _s5_debrief(d):
 
 
 # ------------------------------------------------------------------ close ---
+def _apx_divider(d):
+    s = d.dark()
+    d.text(s, "Appendix", M, 2.55, 8.6, 1.10, size=40, font="head",
+           bold=True, color=WHITE)
+    d.text(s, "Four slides that came out of the hour on 15 November. "
+              "Nothing in the hour depends on them.",
+           M, 3.95, 8.6, 1.20, size=20, color=MINT, spacing=1.2)
+    d.notes(s,
+           "I do not teach from here. These are in the deck so the students "
+           "have them when they read it afterwards, and so I can put one up "
+           "if a question lands on it.\n "
+           "Each one was checked for whether anything still in the hour "
+           "cites it. Nothing does.")
+
+
+def _apx_contents(d):
+    s = d.light()
+    d.header(s, "appendix", "what is back here, and why")
+    d.title(s, "Four slides, and where their point is made instead")
+    d.rows(s, [
+        ("the D-sense vote", "a thirty-second hands-up on which way D runs. "
+                             "The answer was already on the slide before it "
+                             "and in its own title, and the sense is "
+                             "established four times in segment 3."),
+        ("the 1970 oscillation", "Huang & Baltimore’s passage series: the "
+                                 "oscillation in defective-particle yield "
+                                 "belongs to the host cell, not to the "
+                                 "particle."),
+        ("the influenza pose", "a defective influenza particle, and what its "
+                               "eight-segment genome does to its burst."),
+        ("the influenza debrief", "influenza caps its particles by "
+                                  "construction — a natural case of the "
+                                  "capped model. The capped model is argued "
+                                  "from the HIV-1 evidence in the hour."),
+    ], top=1.86, label_w=3.0)
+    d.notes(s,
+           "Four slides, and none of them is wrong. They came out because "
+           "the hour was carrying two confirmations of the same point and a "
+           "vote whose answer was already up.\n "
+           "The influenza pair is the one I would put back first if the room "
+           "is quick, because a physical cap on a burst is the cleanest "
+           "version of the argument.")
+
+
 def _close_ledger(d):
     s = d.light()
-    d.header(s, "close", "the design ledger")
+    d.header(s, "close", "what you can set and what you cannot")
     d.title(s, "The two knobs are not symmetric")
     d.rows(s, [
-        ("knobs", "P, the packaging advantage — raised by removing the "
+        ("knobs", "P, the mRNA SUPPLY ratio — raised by removing the "
                   "vector's splice signals, adding a transport element, or "
-                  "a WPRE for mRNA half-life. Improving Ψ will likely fail. "
-                  "P is intracellular and NOT the one you can measure.   ·   "
+                  "a WPRE for mRNA half-life — all SUPPLY, not packaging. "
+                  "W03 expects improving Ψ to fail. P is intracellular "
+                  "and NOT measurable.   ·   "
                   "D, the antiviral effect, set by the cargo gene — and it "
                   "IS measurable: HIV-1 titre in culture supernatant with "
                   "and without the vector. D = 1 is no inhibition."),
@@ -3168,12 +3414,23 @@ def _close_ledger(d):
                    "you have left it — next slide", AMBER),
     ], top=1.80, label_w=2.2)
     d.notes(s,
-           "Written last, as always, and in today's own symbols.\n "
+           "All three routes raise the SUPPLY of packageable genome — more "
+           "full-length transcript, more of it exported, and it lasting "
+           "longer.\n "
+           "None of them changes how well a molecule is packaged once it "
+           "is there, and W03 expects that route to fail because HIV-1’s "
+           "signals are already optimised. So P is a property of the "
+           "construct, rebuilt in every cell it enters, not a dose that is "
+           "used up.\n "
+           "If anyone asks about integration site: yes, position affects "
+           "expression, and Tat transactivation largely flattens it once "
+           "HIV-1 arrives. We take one P for every cell and do not model "
+           "the spread.\n "
            "The two knobs are not symmetric and that is the thing to carry "
            "away. P is the one that works — it enters squared — and it is "
            "intracellular, so you cannot measure it in the system you care "
-           "about. D is measurable with a titre assay and it is the one that "
-           "bites you if you push it.\n "
+           "about. D is measurable with a titre assay and it is the one "
+           "that bites you if you push it.\n "
            "Note what is in constraints that people try to put in knobs. "
            "Diploidy is the chassis. Two strands per capsid is not "
            "negotiable, and the whole binomial follows from it.\n "

@@ -20,9 +20,13 @@ FOUR MODELS, FOUR PROVENANCES, AND A SLIDE MUST NEVER RUN THEM TOGETHER.
 
   * t ~ L^2/2D_A -- session 2's convention, stated before any number, with
     Karig's two ESTIMATED effective cell-to-cell coefficients.
-  * ell_A = sqrt(D_A/gamma_A) -- taught as a FORMULA. This folder cannot
-    source its value for Basu's system and that is T66's lesson. No slide
-    prints 0.32 mm or 0.71 mm: the first is computed from Basu's xi and
+  * ell_A = sqrt(D_A/gamma_A) -- DERIVED on a five-step surface (stop 2,
+    "the length scale, derived"): steady state, trial exponential, the
+    substitution that forces ell, and the units check. It was asserted as a
+    formula until 14 November, which is what deck-bar rule 18 was written
+    about; this note said so and was left stale after the fix. What this
+    folder still cannot do is source a VALUE for Basu's system, and that is
+    T66's lesson. No slide prints 0.32 mm or 0.71 mm: the first is computed from Basu's xi and
     inherits xi's defect, the second combines Karig's 3OC12HSL with Basu's
     gamma_A, a different signal in a different lawn.
   * Basu's printed equations (1)-(4) in the liquid-phase limit the paper

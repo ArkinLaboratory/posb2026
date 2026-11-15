@@ -2075,6 +2075,91 @@ def _locus_plate(ax, gametes=True):
             color=INK, ha="left", va="top", fontsize=LBL, linespacing=1.3)
 
 
+def fig_homing(stem="s25_homing"):
+    """How a homing drive copies itself -- the MECHANISM, which segment 5
+    argued about without ever drawing.
+
+    `s25_locus_*` draw the OUTCOME: the gamete fan, the struck-out W. They
+    never show the event that produces it, so "super-Mendelian" arrived as
+    a ratio rather than as something that happens to a chromosome.
+
+    THE TWO REPAIRS BRANCH, THEY DO NOT CHAIN. A first pass laid the four
+    stages in one row, which drew an arrow from the DD cell to the DR cell
+    and said that homing TURNS INTO resistance. They are alternative
+    repairs of the same cut and the plate has to fork.
+
+    LAYOUT BUDGET. The box is 10.2 x 2.82 and settles to about 0.155 data
+    units per character of 20 pt type. A chip pair at CH = 0.34 is 0.76
+    tall, so two forked rows plus clearance fit the 2.82 where a pair at
+    0.44 would not. Outcome labels sit to the RIGHT of their chips rather
+    than under them, because stacking a two-line label under each fork
+    needs 1.6 units of height that is not there.
+
+    The consequence sentence is NOT on the plate: 50 characters is 7.8
+    units and crosses a column wherever it goes. It belongs in the deck's
+    rows beside the figure.
+
+    NOTATION follows `_locus_plate`: alleles keep Noble's W, D and R and
+    appear only inside genotypes or noun phrases, never as bare letters
+    that could be read as quantities; homing efficiency is h, never P.
+
+    MODEL: Noble 2018's homing step under the every-cut-happens assumption
+    the deck states on its own slide -- every wild-type allele in a
+    heterozygote is cut, and only its REPAIR is in question.
+    """
+    from matplotlib.patches import Rectangle, FancyArrowPatch
+    _W, _D, _R = MUTED, GREEN, CYAN
+    CW, CH, GAP = 1.14, 0.34, 0.08
+    PH = 2 * CH + GAP
+
+    fig, ax = _locus_panel()
+
+    def chip(x, y, col, dashed=False):
+        ax.add_patch(Rectangle((x, y), CW, CH,
+                               facecolor=PAGE if dashed else col,
+                               edgecolor=RED if dashed else "none",
+                               lw=2.0, ls=(0, (3, 2)) if dashed else "-",
+                               zorder=5))
+
+    def pair(x, ybot, top, bot, bot_dashed=False):
+        chip(x, ybot + CH + GAP, top)
+        chip(x, ybot, bot, dashed=bot_dashed)
+
+    def arrow(x0, y0, x1, y1, col=MUTED):
+        ax.add_patch(FancyArrowPatch((x0, y0), (x1, y1), arrowstyle="-|>",
+                                     mutation_scale=15, color=col, lw=2.0,
+                                     zorder=6))
+
+    X0, X1, X2 = 0.30, 2.80, 5.45
+    YM = 1.28                      # the two left stages
+    YU, YL = 2.22, 0.42            # the fork
+    midM, midU, midL = YM + PH / 2, YU + PH / 2, YL + PH / 2
+
+    pair(X0, YM, _D, _W)
+    _txt(ax, X0 + CW / 2, YM + PH + 0.10, "drive / wild type", color=MUTED,
+         va="bottom")
+    _txt(ax, X0 + CW / 2, YM - 0.16, "a WD\ngermline cell", va="top")
+
+    arrow(X0 + CW + 0.12, midM, X1 - 0.12, midM)
+    pair(X1, YM, _D, PAGE, bot_dashed=True)
+    _txt(ax, X1 + CW / 2, YM - 0.16, "the wild-type\nallele is cut",
+         color=RED, va="top")
+
+    arrow(X1 + CW + 0.12, midM + 0.10, X2 - 0.12, midU - 0.06, _D)
+    arrow(X1 + CW + 0.12, midM - 0.10, X2 - 0.12, midL + 0.06, _R)
+    _txt(ax, 4.70, midU + 0.06, "h", color=_D, va="bottom")
+    _txt(ax, 4.92, 0.84, "1 \u2212 h", color=_R, va="top")
+
+    pair(X2, YU, _D, _D)
+    _txt(ax, X2 + CW + 0.22, YU + CH, "repair copies the drive",
+         color=_D, ha="left", va="center")
+    pair(X2, YL, _D, _R)
+    _txt(ax, X2 + CW + 0.22, YL + CH, "repair fails: resistance",
+         color=_R, ha="left", va="center")
+
+    _save(fig, stem)
+
+
 def fig_locus_series(stem="s25_locus"):
     """Segment 5's two stages: the locus, then what it sends on.
 
@@ -3116,7 +3201,7 @@ def fig_setpoint_valley(name="s25_setpoint_valley"):
 FIGURES = [fig_objects, fig_cistrans_series,
            fig_urn_series, fig_chain_series, fig_rtchain_series, fig_genotypes,
            fig_burst_ledger, fig_burst_capped, fig_design_space,
-           fig_locus_series,
+           fig_homing, fig_locus_series,
            fig_recall_chemostat, fig_recall_qssa,
            fig_setpoint_valley]
 

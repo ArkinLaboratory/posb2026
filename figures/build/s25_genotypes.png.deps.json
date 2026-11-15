@@ -4,7 +4,7 @@
   "artifact_content": "a9b2b50d3b110fcdef800aaf3224de0a17b2d2720a6064fba74c59eb61b4db88",
   "artifact_bytes": 129464,
   "deps": {
-    "figures/s25_populations.py": "f0c553912659a255aac7ec4921a073dc88003384b6268ddb448860b2047df0fd",
+    "figures/s25_populations.py": "5eef18b7f0b3eb0269bbe1bd0d24df80b86c9d0eab605396d351cd1205e141ff",
     "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
   },
   "generator": "figures.s25_populations.fig_genotypes"
