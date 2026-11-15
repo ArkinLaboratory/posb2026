@@ -1,0 +1,11 @@
+{
+  "artifact": "s25_recall_chemostat.png",
+  "artifact_sha256": "57a5dbf517cd8392faff9300e18530f653fa5d451862464d7bae23185fca0362",
+  "artifact_content": "a4999385ec521850045b24ba5221095fd83f7dd23b7e5391b44f1d5eca6fce77",
+  "artifact_bytes": 115813,
+  "deps": {
+    "figures/s25_populations.py": "f0c553912659a255aac7ec4921a073dc88003384b6268ddb448860b2047df0fd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s25_populations.fig_recall_chemostat"
+}

@@ -120,7 +120,7 @@ def build():
     d.notes(s, "Same issue of Nature as Gardner's toggle, 20 January 2000 — "
                "worth saying, because it dates the field's founding moment "
                "to a single week.\n"
-               "The foot line is THEIR list of what favours oscillation, from "
+               "The foot line is THEIR list of what favors oscillation, from "
                "the paper's second paragraph: strong promoters and efficient "
                "RBSs is alpha, cooperative repression is n, low leakiness is "
                "the basal term we dropped. The derivation they are about to "

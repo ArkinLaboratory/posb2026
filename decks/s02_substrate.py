@@ -14,7 +14,7 @@ faded worked-example set.
     28–32  nine orders of magnitude, on one axis
     32–35  which pairs can you treat as instantaneous?
     35–37  nothing outruns division
-    37–39  the pause: two minutes, compare notes with a neighbour
+    37–39  the pause: two minutes, compare notes with a neighbor
     39–63  faded worked-example set                              [24 min]
     63–67  what the numbers force: because things are countable
     67–70  ...because things are slow, and the box has a size
@@ -204,7 +204,7 @@ def build():
 
     # 5 CONCEPTEST 1 ----------------------------------------------------------
     s = d.dark()
-    d.header(s, "15 – 18 min", "Vote  ·  argue with your neighbour  ·  vote again")
+    d.header(s, "15 – 18 min", "Vote  ·  argue with your neighbor  ·  vote again")
     d.title(s, "A transcription factor is present at 100 pM.")
     d.text(s, "You have a flask of E. coli. What is actually true of the individual cells in it?",
            M, 1.95, 11.9, 0.45, size=18, color=WHITE)
@@ -225,7 +225,7 @@ def build():
                "copy and the rest have none. "
                "A is the trap and most rooms pick it: it treats a population "
                "average as a property of an individual, which is the single "
-               "most common modelling error in this field. "
+               "most common modeling error in this field. "
                "D is defensible and worth taking seriously out loud -- "
                "concentration is still a perfectly good variable, it has just "
                "stopped being a description of any particular cell. Give credit "
@@ -259,7 +259,7 @@ def build():
                "seconds is enough. The still says the cytoplasm is packed; the "
                "movie is the same packing MOVING, which is the difference "
                "between crowded as an adjective and crowded as a mechanism. "
-               "Magenta is the nucleoid, grey and white are charged crowders, "
+               "Magenta is the nucleoid, gray and white are charged crowders, "
                "yellow are ribosomes and polysomes, the single green one is the "
                "tracked particle -- all at physiological density. "
                "It is a simulation, and say so: it is the model that produces "
@@ -314,7 +314,7 @@ def build():
                "diffusion at every step -- what exponent will it show once I "
                "put a wall on it?' The room says one. It is 0.75, which is what "
                "the paper measures. "
-               "The methodological point is deliberately NOT laboured here -- "
+               "The methodological point is deliberately NOT labored here -- "
                "item 4 of the faded set carries that, and saying it twice in "
                "eighty-nine minutes makes it a slogan. Here the paper's job is "
                "to make the crowding claim visual and quantitative. "
@@ -429,7 +429,7 @@ def build():
            M, 1.72, 11.9, 0.45, size=16, color=BODY)
     d.image(s, "figures/build/s02_dilution.png", M, 2.25, 11.9, 3.55)
     # Removal rates add. Written this way it is the parallel-resistor formula,
-    # which is the form students will recognise and the form session 5 uses.
+    # which is the form students will recognize and the form session 5 uses.
     d.shape(s, S.ROUNDED_RECTANGLE, M, 5.92, 11.9, 0.62, fill=WASH, line=TEAL,
             lw=1)
     # No underscores in the equation: PowerPoint renders "T_d" as literally
@@ -481,7 +481,7 @@ def build():
     d.header(s, "39 – 63 min", "Worked set  ·  handout  ·  start where you like")
     d.title(s, "Four estimates, with less of my working each time")
     for i, (n, k, txt, c) in enumerate([
-            ("1", "Fully worked", "Copy number of a repressor at 10 nM. Every step written out, each one labelled with what it accomplishes.", TEAL),
+            ("1", "Fully worked", "Copy number of a repressor at 10 nM. Every step written out, each one labeled with what it accomplishes.", TEAL),
             ("2", "Last step removed", "How long a protein takes to cross E. coli. The setup is given; you finish it.", TEAL),
             ("3", "Last two removed", "The same protein in a HeLa cell, and the ratio. You are given the convention and nothing else.", CYAN),
             ("4", "Bare problem", "A repressor has to find one operator site in 4.6 Mb of genome. Estimate the search time and compare it to the cell cycle.", AMBER)]):
@@ -738,7 +738,7 @@ def build():
                "a promoter, Wang et al., Nat Struct Mol Biol 2013, concluded "
                "the search is dominated by three-dimensional diffusion and "
                "that facilitated diffusion does not contribute much at "
-               "physiological concentrations. Do not generalise the sliding "
+               "physiological concentrations. Do not generalize the sliding "
                "story to every DNA-binding protein. "
                "In a living cell the two errors largely cancel, which is why "
                "the honest answer here is 'both wrong' rather than 'the 3-D "
@@ -797,7 +797,7 @@ def build():
                "al., Nat Struct Mol Biol 2013, found the E. coli RNAP promoter "
                "search is dominated by THREE-dimensional diffusion, with "
                "facilitated diffusion contributing little at physiological "
-               "concentrations. The sliding story does not generalise to every "
+               "concentrations. The sliding story does not generalize to every "
                "DNA-binding protein, and saying so is worth more than the "
                "mechanism is. "
                "THIS IS THE SLIDE TO CUT if you are behind. The consolidation "
@@ -854,7 +854,7 @@ def build():
     d.text(s, "Bring a laptop. PS1 goes out Thursday and it starts here.",
            M, 6.0, 11.9, 0.35, size=15, bold=True, color=SILVER)
     d.notes(s, "Three minutes. Session 3 is the Python onboarding as well as "
-               "the modelling session, so the laptop line is not optional. "
+               "the modeling session, so the laptop line is not optional. "
                "PS1 assesses T1, T2 and T3 -- everything from today -- plus "
                "session 3 and 4 material. Today is the first test of the "
                "'nothing assessed that was not demonstrated' rule, and it "

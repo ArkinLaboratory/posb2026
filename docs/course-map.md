@@ -75,12 +75,12 @@ comes back.
 | 21 | Thu Nov 5 | Retroactivity, impedance, insulation, load drivers | Retroactivity calculation for a loaded module | ⬜ |
 | 22 | Tue Nov 10 | Robustness and control: integral feedback, antithetic control | Simulate an antithetic controller; quantify what it costs | ⬜ |
 | 23 | Thu Nov 12 | Evolutionary failure: mutation, burden, circuit loss; containment | Time-to-circuit-failure from mutation rate and fitness cost | ⬜ |
-| 24 | Tue Nov 17 | Communities: quorum sensing, patterning, division of labour | Sender/receiver band-detection analysis | ⬜ |
+| 24 | Tue Nov 17 | Communities: quorum sensing, patterning, division of labor | Sender/receiver band-detection analysis | ⬜ |
 | 25 | Thu Nov 19 | **Design at population scale:** defective interfering particles, TIPs, gene drives | Push *R*₀ above 1 for a therapeutic parasite — and find where it stops being one | ⬜ |
 | 26 | Tue Nov 24 | Therapeutic circuits: logic-gated cell therapies, synNotch, delivery | Multi-input classifier to a false-positive budget | ⬜ |
 | — | Thu Nov 26 | *Thanksgiving — no class* | | |
 | 27 | Tue Dec 1 | Machine learning as the specification layer; genome language models | Design–filter–validate arithmetic: what beats directed evolution? | ⬜ |
-| 28 | Thu Dec 3 | Biosecurity and governance as technical problems; what limits the field | Why similarity-based screening fails on generated sequences | ⬜ |
+| 28 | Thu Dec 3 | Biosecurity and governance as technical problems; **minimal cells and what limits the field** | Why similarity-based screening fails on generated sequences · how little a cell needs | ⬜ |
 
 ---
 
@@ -96,11 +96,11 @@ execute the week's technique, not a weekend-consuming exercise.
 | PS2 | Sep 10 | Sep 17 | Expression dynamics, response time, dilution vs degradation | [✅](../problem-sets/ps02-expression/) |
 | PS3 | Sep 17 | Sep 24 | Promoter occupancy, regulation functions, autoregulation | [✅](../problem-sets/ps03-regulation/) |
 | PS4 | Sep 24 | Oct 1 | Phase plane, stability, bistability, the toggle | [✅](../problem-sets/ps04-phase-plane/) |
-| PS5 | Oct 1 | Oct 8 | Feedforward loops, oscillation criteria | ⬜ |
-| PS6 | Oct 20 | Oct 29 | Stochastic simulation, digital abstraction, hazards, assembly | ⬜ |
-| PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden | ⬜ |
-| PS8 | Nov 5 | Nov 19 | Retroactivity, feedback control, evolutionary stability | ⬜ |
-| PS9 | Nov 19 | Dec 3 | Communities, population-scale design, therapeutic design | ⬜ |
+| PS5 | Sep 27 | Oct 8 | Feedforward loops, oscillation criteria | [✅](../problem-sets/ps05-feedforward/) |
+| PS6 | Oct 20 | Oct 29 | Stochastic simulation, digital abstraction, signal matching, hazards, assembly design | [✅](../problem-sets/ps06-noise-logic/) |
+| PS7 | Oct 29 | Nov 5 | Implementation layers, resource competition, burden | [✅](../problem-sets/ps07-implementation/) |
+| PS8 | Nov 5 | Nov 19 | Gate families compared; flux balance analysis; retroactivity and insulation; integral feedback control | [✅](../problem-sets/ps08-metabolism-control/) |
+| PS9 | Nov 19 | Dec 3 | Evolutionary failure and containment; communities and quorum sensing; population-scale design; therapeutic classifiers | ⬜ |
 
 ## Assessment
 
@@ -129,7 +129,7 @@ it.
 **Then pick your interest.** Part II sessions are largely independent of one
 another. Sessions 19–23 (burden, metabolism, retroactivity, control, evolution)
 are the ones least covered by other courses and textbooks, and are where this
-course differs most from its neighbours.
+course differs most from its neighbors.
 
 For the first half, [Biological Circuit
 Design](https://biocircuits.github.io) (Elowitz & Bois) is an excellent

@@ -23,7 +23,7 @@ and this time there is no boundary you can impose.
 
 | | |
 |---|---|
-| **Q1** | A promoter characterised on a plasmid, moved to the chromosome. What moves the number, which class of context each one is, and which you model versus hold fixed. |
+| **Q1** | A promoter characterized on a plasmid, moved to the chromosome. What moves the number, which class of context each one is, and which you model versus hold fixed. |
 | **Q2** | Golden Gate: the overhang count from scratch, the distance rule, and whether a proposed four-junction set will assemble. |
 | **Q3** | The covalent cycle — the sensitivity index, the exchange rate into Hill coefficients, and where the sharpness comes from when nothing binds cooperatively. |
 | **Q4** | CRISPRi, which is session 6's occupancy function with a different thing sitting on the promoter — and the term that is not in the model. |
@@ -56,7 +56,7 @@ handout does not.
 
 ### What the visible tests do
 
-They check shape, sign, structure and limiting behaviour — not your exact
+They check shape, sign, structure and limiting behavior — not your exact
 numbers. A test that passes means your function returns the right *kind* of
 thing and behaves correctly where the answer is forced: at zero demand, at
 saturation, and in the limit where a parameter goes away. **The values are

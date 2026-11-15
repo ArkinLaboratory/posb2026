@@ -349,6 +349,12 @@ def render(course, sessions, spec, rows):
 
 def main():
     check_only = "--check" in sys.argv
+    # --check validates but prints no assignment chain, and the default WRITES
+    # docs/readings.md -- which is tracked. preflight.py called the default on
+    # every run purely to read the chain back out of its output, so running a
+    # read-only verification dirtied the working tree. --report gives the full
+    # output with no write.
+    report_only = "--report" in sys.argv
     course, sessions, spec = load()
     rows, errors = resolve(spec, sessions)
     errors += check_load(rows, spec)
@@ -370,8 +376,13 @@ def main():
         sys.exit("--check: docs/readings.md is stale. "
                  "Run `python tools/build_readings.py`.")
 
-    OUT.write_text(text)
-    print(f"OK: {len(rows)} reading(s) -> {OUT.relative_to(ROOT)}")
+    if report_only:
+        fresh = OUT.exists() and OUT.read_text() == text
+        print(f"OK: {len(rows)} reading(s); docs/readings.md "
+              + ("up to date" if fresh else "STALE -- run without --report"))
+    else:
+        OUT.write_text(text)
+        print(f"OK: {len(rows)} reading(s) -> {OUT.relative_to(ROOT)}")
     for w in warnings:
         print(f"  WARNING  {w}")
     for r in rows:

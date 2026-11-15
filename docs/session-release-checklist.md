@@ -42,16 +42,17 @@ python tools/build_figures.py sNN          # needs scipy — your machine, not t
 python tools/build_decks.py --pdf sNN      # needs LibreOffice
 python tools/build_handouts.py sNN         # needs playwright; builds handout + answers + board notes
 python tools/build_problem_sets.py psNN    # needs otter-grader; only on a set's release day
+#   then WRITE private/reader-briefs/psNN.md and stamp it -- weekly-ritual.md F5b.
+#   preflight fails without it; the reader cannot mark the written half from
+#   psNN-SOLUTIONS.html alone, because answers are not marking decisions.
 python tools/build_canvas_description.py psNN   # the README as pasteable HTML
 ```
 
-Then the copy that actually goes to the printer — it lives outside the repo and
-is made by hand, so it silently drifts:
-
-```bash
-cp posb2026/handouts/sNN-<name>.pdf \
-   2026/handouts-to-print/sNN-<name>-PRINT-THIS.pdf
-```
+> **There is no print step.** Handouts are home guides — read on a screen the
+> evening after class, with the answers posted beside them. The staged
+> `-PRINT-THIS.pdf` copy and the `preflight` checks that guarded it were
+> removed on 7 November 2026; `2026/handouts-to-print/` is a dead folder that
+> stops at s19.
 
 ## Phase 2 — preflight
 
@@ -61,12 +62,12 @@ python tools/preflight.py 5 --ps 2
 
 Exit 0 means every mechanical precondition holds: the deck builds with no
 missing glyphs and no unembedded paper figures, every handout PDF is newer than
-its source, the print copy is newer than the handout, the reading for the *next*
+its source, the reading for the *next*
 session is declared and handed out here, the student notebook contains **no
 solutions**, its README carries both the DataHub and Colab links, the autograder
 zip exists, and every committed notebook resolves on `main`.
 
-**Do not proceed past a FAIL.** WARNs are judgement calls (a session with no
+**Do not proceed past a FAIL.** WARNs are judgment calls (a session with no
 handout, a handout with no answer sheet yet).
 
 ## Phase 3 — commit and push, public first
@@ -480,9 +481,8 @@ this one asks *is the file I am about to open still the one my sources make*.
 Between the two runs sit a night of edits, and the three things that actually
 drift are all hash-checked here: the built `.pptx` and `.pdf` against the deck
 source, theme, and every figure they embed; the copy in `private/taught/`
-against that build; and the `-PRINT-THIS.pdf` against the handout it came from.
-A `FAIL` on any of those means the artifact predates an edit — rebuild and
-re-copy, do not present it.
+and the copy in `private/taught/` against that build. A `FAIL` on either means
+the artifact predates an edit — rebuild and re-copy, do not present it.
 
 What this run still cannot see is everything on the far side of a browser: the
 Gradescope roster, whether the Docker image built, whether the point ceiling
@@ -498,10 +498,14 @@ of this phase, and that is why the split exists.
   ([runbook §5.9](course-site-runbook.md)).
 - **Student View**, from the course home page. It does not exercise the
   Gradescope half — have a reader click that once.
-- **Check the Late Due Date on the Gradescope receipt.** PS1 came back carrying
-  one nobody set, most likely the bCourses *Until* date syncing across. It is a
-  policy, not a bug: submissions are accepted and flagged late rather than
-  refused.
+- **Set the Late Due Date yourself — it does not arrive on its own.** The
+  policy is one day: *Allow late submissions* on, due date +1 day, 11:59 PM
+  ([weekly ritual](weekly-ritual.md) §G1). Submissions are then accepted and
+  flagged late rather than refused. Verified on 2 November 2026: PS5 and PS6
+  carry it, **PS7 and PS8 shipped without it** — PS8 has since been corrected.
+  Do not assume bCourses supplies it. Every assignment checked reports
+  `syncLmsDueDate: false`, so the earlier guess that PS1's late date came from
+  the bCourses *Until* date syncing across was wrong.
 - **Print**: the handout (one per student), and the board notes (one, for you).
   **Not** the answer sheet.
 
@@ -532,7 +536,6 @@ python tools/build_figures.py sNN
 python tools/build_decks.py --pdf sNN
 python tools/build_handouts.py sNN
 python tools/build_problem_sets.py psNN
-cp handouts/sNN-<name>.pdf ../2026/handouts-to-print/sNN-<name>-PRINT-THIS.pdf
 
 python tools/preflight.py N --ps M          # must exit 0
 

@@ -3,7 +3,7 @@
 Eighty minutes: 8:10–9:30. The 8:00–9:29 in the Student Information System is
 not the room -- under Berkeley Time instruction begins ten minutes after the
 official start, and the ':29' is an SIS workaround. Four things compete for the
-time: find out where the room actually is, establish the organising question, be
+time: find out where the room actually is, establish the organizing question, be
 honest about the answer, and buy twenty minutes to explain why the course is
 built the way it is.
 
@@ -12,7 +12,7 @@ students will not usually need a laptop in lecture and moves environment setup
 to the Tuesday 1 September discussion hour in Dwinelle 88; the sent announcement
 says the same. So the last slide points at where the computing lives and stops.
 
-    0–2    the organising question, and the answer "partially"
+    0–2    the organizing question, and the answer "partially"
     2–10   diagnostic, on paper, ungraded
     10–13  lambda phage: nature did it first
     13–33  three given specifications, argued in groups          [20 min]
@@ -160,7 +160,7 @@ def build():
            M, 1.9, 11.6, 0.4, size=17, color=MINT)
     for i, (tag, spec, c) in enumerate([
             ("A", "A bacterium that turns visibly red when the well water it is in exceeds 10 µg/L arsenic.", CYAN),
-            ("B", "A human T cell that kills a tumour cell and spares a healthy cell of the same tissue.", MINT),
+            ("B", "A human T cell that kills a tumor cell and spares a healthy cell of the same tissue.", MINT),
             ("C", "A cereal crop that fixes its own nitrogen and needs no synthetic fertiliser.", AMBER)]):
         y = 2.5 + i * 1.15
         d.shape(s, S.OVAL, M, y + 0.06, 0.5, 0.5, fill=c, line=None)
@@ -199,8 +199,8 @@ def build():
                    "2025 deck, p. 19", "the cell as a designed system")
     for i, (k, txt, c) in enumerate([
             ("SENSE", "With a threshold and a false-positive rate you can state. A said 10 µg/L; what does your strain do at 9?", TEAL),
-            ("COMPUTE", "Almost never one input. B needs at least two markers to separate a tumour cell from a healthy one.", TEAL),
-            ("ACTUATE", "And strongly enough to matter. C's output is not a colour, it is grams of fixed nitrogen per hectare.", TEAL)]):
+            ("COMPUTE", "Almost never one input. B needs at least two markers to separate a tumor cell from a healthy one.", TEAL),
+            ("ACTUATE", "And strongly enough to matter. C's output is not a color, it is grams of fixed nitrogen per hectare.", TEAL)]):
         y = 2.0 + i * 1.45
         d.text(s, k, 8.75, y, 2.0, 0.35, size=17, font=HEAD, bold=True, color=c)
         d.text(s, txt, 8.75, y + 0.36, 3.85, 1.0, size=13, color=BODY)
@@ -246,7 +246,7 @@ def build():
 
     # 6 CONCEPTEST 1 ----------------------------------------------------------
     s = d.dark()
-    d.header(s, "40 – 43 min", "Vote  ·  argue with your neighbour  ·  vote again")
+    d.header(s, "40 – 43 min", "Vote  ·  argue with your neighbor  ·  vote again")
     d.title(s, "Your arsenic sensor works perfectly in the lab.")
     d.text(s, "You deploy ten thousand of them in wells and come back in six months. Most have stopped turning red. What is the most likely reason?",
            M, 1.95, 11.9, 0.75, size=18, color=WHITE)
@@ -306,7 +306,7 @@ def build():
             ("The substrate is alive and has its own agenda",
              "The host grows, competes for the ribosomes your circuit needs, and changes its physiology under your load. You are not building ON a chassis; you are building INSIDE a system that is already running."),
             ("Every part is context-dependent",
-             "A promoter characterised in one construct does not keep its number in the next. Composition is not free, and session 21 measures exactly what it costs."),
+             "A promoter characterized in one construct does not keep its number in the next. Composition is not free, and session 21 measures exactly what it costs."),
             ("The population edits your design",
              "Mutation plus selection is a design process you did not authorise and cannot switch off. A circuit that costs growth gets deleted, on a timescale you can calculate."),
             ("You are always ignorant of most of it",
@@ -345,7 +345,7 @@ def build():
         d.text(s, opt, M + 0.85, y + 0.04, 11.2, 0.45, size=16, color=WHITE)
     d.foot(s, "If B were true, this would be electrical engineering and the course would be shorter.", 6.35)
     d.notes(s, "ANSWER: C. Order-of-magnitude context effects are routine, not "
-               "exceptional: neighbouring sequence, copy number, the load of "
+               "exceptional: neighboring sequence, copy number, the load of "
                "whatever else is on the plasmid, the growth rate. "
                "A is what the parts-registry framing implicitly promises and it "
                "is the single most consequential wrong belief a student can "
@@ -384,7 +384,7 @@ def build():
     d.title(s, "And four things it still cannot do")
     for i, (k, txt) in enumerate([
             ("Integration", "Sc2.0 has been building synthetic yeast chromosomes since 2011. There is still no strain carrying all sixteen."),
-            ("Prediction in a real host", "Behaviour in a lab strain does not transfer to a gut, a soil, or a tumour. Nobody can compute the difference."),
+            ("Prediction in a real host", "behavior in a lab strain does not transfer to a gut, a soil, or a tumor. Nobody can compute the difference."),
             ("Durability", "Almost nothing published keeps working for a month of growth without selection holding it in place."),
             ("Specification itself", "There is no language in which you state what you want and get an implementation. English is the state of the art.")]):
         y = 1.95 + i * 1.12
@@ -403,7 +403,7 @@ def build():
                "That is the whole point, and it is worth saying slowly: every "
                "part was verified in isolation, by people who are extremely "
                "good at this, over fifteen years, in a genome that is small, "
-               "well characterised and haploid. Consolidation is STILL the hard "
+               "well characterized and haploid. Consolidation is STILL the hard "
                "part. If integration is unsolved there, nobody should be "
                "surprised when a four-gene circuit misbehaves in a mouse gut. "
                "Ask: why should assembling verified parts be harder than making "
@@ -416,7 +416,7 @@ def build():
     d.image(s, "figures/build/s01_pipeline.png", M, 1.75, 11.9, 3.7)
     for i, (n, k, txt, c) in enumerate([
             ("SESSIONS 1 – 14", "Design principles",
-             "What can a circuit do, and why is it built that way? By session 14 anyone here can take a circuit diagram, write the equations, and determine its behaviour quantitatively.", TEAL),
+             "What can a circuit do, and why is it built that way? By session 14 anyone here can take a circuit diagram, write the equations, and determine its behavior quantitatively.", TEAL),
             ("SESSIONS 16 – 28", "Engineering design",
              "Now build one that survives in a real host. The three red and amber boxes above are the second half of the semester.", GREEN)]):
         x = M + i * 6.2
@@ -488,9 +488,9 @@ def build():
             ("Effect sizes are averages over designs that vary a lot",
              "'Active learning' covers everything from clicker questions to full studio courses. The meta-analytic average does not tell you which parts did the work."),
             ("Some of what I do here is convention, not evidence",
-             "Putting retrieval at the start of class, showing a course map, the two-minute pause — these are reasonable and unsupported. They are labelled [C] in the design document, and you can read which is which."),
+             "Putting retrieval at the start of class, showing a course map, the two-minute pause — these are reasonable and unsupported. They are labeled [C] in the design document, and you can read which is which."),
             ("One famous result in this area failed to replicate",
-             "The longhand-beats-laptop finding. I am not going to tell you to close your laptop on that basis. Multitasking harming your NEIGHBOUR is a different and better-supported claim.")]):
+             "The longhand-beats-laptop finding. I am not going to tell you to close your laptop on that basis. Multitasking harming your neighbor is a different and better-supported claim.")]):
         y = 1.88 + i * 1.16
         d.shape(s, S.OVAL, M, y + 0.04, 0.4, 0.4, fill=AMBER, line=None)
         d.text(s, str(i + 1), M, y + 0.11, 0.4, 0.28, size=13, bold=True,
@@ -515,7 +515,7 @@ def build():
     for i, (t, k, txt) in enumerate([
             ("0–5", "Retrieval, notes closed", "Two questions from last session, one from three or four back. It will feel like a quiz. It is not graded — retrieving is what makes it stick."),
             ("8–20", "You try it first", "A problem you cannot yet solve, in groups. Getting it wrong is the intended outcome; the attempt is what makes the explanation land."),
-            ("20–48", "The concept, in three pieces", "Each ending in a vote, a two-minute argument with your neighbour, and a second vote — exactly like the two you did today."),
+            ("20–48", "The concept, in three pieces", "Each ending in a vote, a two-minute argument with your neighbor, and a second vote — exactly like the two you did today."),
             ("50–72", "Faded worked examples", "Four versions of one problem, each with less of my working shown. Start wherever the scaffolding stops helping you — nobody announces where that is."),
             ("72–80", "Close the loop", "Back to the opening questions, in writing, notes closed. Then one slide on why the next session exists.")]):
         y = 1.9 + i * 0.95
@@ -525,7 +525,7 @@ def build():
         d.text(s, k, M + 1.2, y, 3.4, 0.4, size=15, font=HEAD, bold=True,
                color=INK)
         d.text(s, txt, M + 4.75, y + 0.02, 7.15, 0.85, size=12.5, color=BODY)
-    d.foot(s, "The full design, with the evidence and its grade, is in docs/lecture-design.md. Read it if you want to argue with it — several choices are convention, and they are labelled as convention.")
+    d.foot(s, "The full design, with the evidence and its grade, is in docs/lecture-design.md. Read it if you want to argue with it — several choices are convention, and they are labeled as convention.")
     d.notes(s, "Publishing the pedagogy is unusual and worth saying out loud "
                "that you are doing it. It converts 'trust me' into 'here is the "
                "argument, and here is where it is weak'.")

@@ -51,8 +51,26 @@ DECKS = ["s01_specification", "s02_substrate", "s03_modeling_i",
          "s09_bistability", "s10_feedforward",
          "s11_oscillators", "s12_noise", "s13_digital",
          "s14_review", "s16_logic", "s17_parts", "s18_protein", "s19_resources",
-         "s20_metabolic", "s21_retroactivity", "s22_control"]
+         "s20_metabolic", "s21_retroactivity", "s22_control",
+         "s23_evolution", "s24_communities", "s25_populations"]
 OUT = ROOT / "private" / "build" / "decks"
+
+def unregistered():
+    """Every decks/sNN_*.py must be named in DECKS.
+
+    build_figures grew this gate after figures/s22_control.py sat unlisted
+    for five days with nothing reporting an error. Decks had the same hole
+    and it bit on 2 November: decks/s23_evolution.py was written in full and
+    `build_decks.py s23_evolution` answered "no deck matches", which reads as
+    a typo in the argument rather than a module nobody wired in.
+    """
+    known = set(DECKS)
+    found = {p.stem for p in (ROOT / "decks").glob("s[0-9][0-9]_*.py")}
+    missing = sorted(found - known)
+    for m in missing:
+        print(f"  decks/{m}.py is not in DECKS -- it will never be built")
+    return missing
+
 
 # Inputs every deck depends on regardless of what it happens to draw. The
 # per-deck figures, movies and poster frames are not listed here: the Deck
@@ -94,16 +112,32 @@ def to_pdf(pptx):
     class, and it is the only way to check what a deck actually looks like
     without opening PowerPoint -- which matters because these decks are
     generated, so "looks right" is a thing you verify rather than assume.
+    Converts into a temporary directory and copies the bytes over the
+    destination rather than converting straight into it. Converting in place
+    succeeds the first time and fails on every rebuild when the repository is
+    reached through the desktop bridge: LibreOffice unlinks an existing target
+    before writing, unlink is refused inside a connected folder, and soffice
+    exits 1 after about a second having left the old PDF untouched. That is
+    how s22-control.pdf came to be five days older than its own source with
+    nothing in the build output saying so. copyfile truncates and writes in
+    place, which needs no unlink.
     """
     import shutil
     import subprocess
+    import tempfile
     soffice = shutil.which("soffice") or shutil.which("libreoffice")
     if not soffice:
         sys.exit("--pdf needs LibreOffice. On macOS: brew install --cask libreoffice")
-    subprocess.run([soffice, "--headless", "--convert-to", "pdf",
-                    "--outdir", str(pptx.parent), str(pptx)],
-                   check=True, capture_output=True)
-    return pptx.with_suffix(".pdf")
+    out = pptx.with_suffix(".pdf")
+    with tempfile.TemporaryDirectory(prefix="posb-pdf-") as tmp:
+        subprocess.run([soffice, "--headless", "--convert-to", "pdf",
+                        "--outdir", tmp, str(pptx)],
+                       check=True, capture_output=True)
+        made = Path(tmp) / out.name
+        if not made.is_file():
+            sys.exit(f"soffice exited 0 but produced no {out.name} in {tmp}")
+        shutil.copyfile(made, out)
+    return out
 
 
 # ---------------------------------------------------------------------------

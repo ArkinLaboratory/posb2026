@@ -1,0 +1,11 @@
+{
+  "artifact": "s25_recall_qssa.png",
+  "artifact_sha256": "bdf45685ab3b02c1696a64990b5a3801a8f10aa60a6adc8c1fa622121099a759",
+  "artifact_content": "ae1dd3dc0bad4081461f6c5863642c5ac20af737f62ce50cc2bf9e714e81c6a9",
+  "artifact_bytes": 149208,
+  "deps": {
+    "figures/s25_populations.py": "f0c553912659a255aac7ec4921a073dc88003384b6268ddb448860b2047df0fd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s25_populations.fig_recall_qssa"
+}

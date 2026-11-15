@@ -36,7 +36,7 @@ FILENAME = "s16-logic"
 
 
 def _fig(d, s, name, y, dpi=160):
-    """Place a figure at its NATURAL size, centred, and return its bottom.
+    """Place a figure at its NATURAL size, centerd, and return its bottom.
 
     figures/style.py saves with bbox="tight", so a PNG is cropped to its ink.
     Placing it at width = pixels/dpi means the deck neither enlarges nor
@@ -284,19 +284,19 @@ def _truth_to_nor(d):
                "sense: the gate's input and output are the same KIND of "
                "quantity, a promoter activity in RPU. That is what lets you "
                "plug one gate into the next without a converter, and it is "
-               "why the library can be characterised once and reused.")
+               "why the library can be characterized once and reused.")
 
     s = d.light()
     d.header(s, "nor-library", "The free gate library")
     d.title(s, "One operator is an inverter, two is a NOR, and that is all you need")
     d.rows(s, [
         ("one operator on a promoter", "out = NOT in. The complement, for the price of cloning an operator site."),
-        ("two operators on a promoter", "out = NOT (in₁ OR in₂). Complement and aggregator in one piece of DNA, which is why NOR alone is universal."),
+        ("two operators on a promoter", "out = NOT (in_{1} OR in_{2}). Complement and aggregator in one piece of DNA, which is why NOR alone is universal."),
         ("compiling any table", "one term per row where the output is 1, then DeMorgan twice: every AND of literals becomes a NOR of their complements."),
         ("what it costs", "depth. Each layer is another gene, and a gene is a delay. Hold that thought."),
     ])
     d.foot(s, "The compilation always succeeds. That is exactly why it is not where the difficulty lives.")
-    d.notes(s, "Keep this brisk. The point is that realisability is free and "
+    d.notes(s, "Keep this brisk. The point is that realizability is free and "
                "everything interesting sits downstream of it. AND you would "
                "have to engineer; NOR you can clone.")
     d.hide(s)      # good surface, surplus on the day
@@ -310,8 +310,8 @@ def _truth_to_nor(d):
         ("then count", "how many genes deep is the longest path from an input to the output? And the shortest?"),
     ])
     d.foot(s, "The two depths are the answer I want. The network is how you get them.")
-    d.notes(s, "Circulate. Common stall: trying to be clever and minimise. "
-               "Tell them not to. Minimisation is cut from this course, and "
+    d.notes(s, "Circulate. Common stall: trying to be clever and minimize. "
+               "Tell them not to. minimization is cut from this course, and "
                "the unminimised network is the one that teaches depth.")
 
     s = d.light()
@@ -589,7 +589,7 @@ def _cascade_delay(d):
     d.title(s, "One stage, one lifetime")
     _fig(d, s, "s16_cascade_delay", 1.62)
     d.foot(s, "Half-times of 0.693, 1.678 and 2.674 lifetimes for one, two and three stages. Each extra gene costs very nearly one τ.")
-    d.notes(s, "The first number is ln2 and they should recognise it from "
+    d.notes(s, "The first number is ln2 and they should recognize it from "
                "session 5. The rest is that result compounded, and the right "
                "panel is the per-stage cost converging on one lifetime.")
 
@@ -672,11 +672,11 @@ def _cello(d):
     d.paper_figure(s, "nielsen2016_fig2a", 1.90, 1.60, 9.54, 4.30,
                    "Nielsen et al. (2016), Fig. 2A",
                    "Three circuits, each as a NOR/NOT diagram with its gates "
-                   "coloured by the repressor assigned to them, and as the "
+                   "colored by the repressor assigned to them, and as the "
                    "DNA that assignment produces.")
     d.foot(s, "Recolour the diagram and the logic is unchanged. The DNA is not, and neither is whether it works.")
     d.notes(s, "One sentence: the shapes on the left are the logic, which "
-               "you can now derive; the colours are the assignment, which "
+               "you can now derive; the colors are the assignment, which "
                "you cannot, because it depends on measured properties of "
                "real repressors.\n"
                "Point at the purple boxes. A gate used twice in one circuit "
@@ -710,7 +710,7 @@ def _cello(d):
                "under a different name. Ask which session 13 quantity it is "
                "before revealing it.\n"
                "The two definitions are a real feature of the paper. A "
-               "predicted score is what the compiler optimises; a measured "
+               "predicted score is what the compiler optimizes; a measured "
                "one is what you grade it on. Say which you mean each time "
                "you say S.")
 
@@ -745,7 +745,7 @@ def _cello(d):
                "bottom right: eight bars, one per input state, and at the "
                "start they are all at much the same height, which is a "
                "circuit that computes nothing.\n"
-               "Second time, watch the circuit. The colours are the "
+               "Second time, watch the circuit. The colors are the "
                "assignment changing, and the database on the left is what "
                "they are being drawn from.\n"
                "Then the score panel: it only ever goes up, because it keeps "
@@ -823,7 +823,7 @@ def _cello(d):
     d.title(s, "The architecture is fine. The parts list is the problem.")
     d.rows(s, [
         ("what Cello proves", "you can compile a specification to DNA and have it work most of the time, at a scale nobody reaches by hand: 60 circuits, 880 kb."),
-        ("what the paper blames", "two misbehaving parts, an aTc sensor and the AmtR gate, for most of the failures. Part characterisation, not compilation."),
+        ("what the paper blames", "two misbehaving parts, an aTc sensor and the AmtR gate, for most of the failures. Part characterization, not compilation."),
         ("what limits the next circuit", "the size of the library. Each new gate must not interfere with any gate already in the circuit, in either position, and that constraint tightens as the set grows."),
         ("Thursday", "where a usable part actually comes from, and how many candidates die on the way."),
     ])
@@ -914,7 +914,7 @@ def _dna_memory(d):
     d.rows(s, [
         ("what the latch costs to HOLD", "continuous expression of two repressors, for as long as you want to remember. Stop, and the memory evaporates."),
         ("the alternative", "store the bit in the DNA sequence itself — flip a segment over. Nothing has to be expressed to hold it, and it survives the cell."),
-        ("the machine", "an invertase: an enzyme that reverses the stretch of DNA between two sites it recognises."),
+        ("the machine", "an invertase: an enzyme that reverses the stretch of DNA between two sites it recognizes."),
     ])
     d.foot(s, "Volatile against non-volatile, and in a cell the distinction is not academic.")
     d.notes(s, "Make the energy point: a transcriptional latch is a bit you "

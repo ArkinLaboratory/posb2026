@@ -19,11 +19,11 @@ that there isn't one. Not physically and not functionally.
 Point 2 is the one that does structural damage, and it is the spine of the
 hour. Every abstraction this course has used -- mass action, QSSA, transfer
 curves, truth tables, the compositor -- assumes composition leaves the
-operands alone and combines their behaviours. It does not. That is not
+operands alone and combines their behaviors. It does not. That is not
 context bending a model; it is composition failing to be composition.
 
 THE CLOSE IS NOT NIHILISM, and this matters. Cello still got 45 of 60. It got
-there by MANUFACTURING parts: insulated gates, one characterisation context,
+there by MANUFACTURING parts: insulated gates, one characterization context,
 fixed junctions. A part is manufactured, not discovered. The session's last
 move is the catalogue of manufacturing moves and what each one costs.
 
@@ -51,7 +51,7 @@ FILENAME = "s17-parts"
 
 
 def _fig(d, s, name, y, dpi=160):
-    """Place a figure at its NATURAL size, centred, and return its bottom.
+    """Place a figure at its NATURAL size, centerd, and return its bottom.
 
     Same contract as session 16: width = pixels/dpi, so the deck neither
     enlarges nor shrinks it and a point authored in the figure is a point on
@@ -148,7 +148,7 @@ def _frame_context(d):
     d.header(s, "frame", "Cardinale & Arkin 2012")
     d.title(s, "Three kinds of context, named")
     d.rows(s, [
-        ("compositional", "what the neighbours do to you. PHYSICAL: parts on the same DNA, RNA or polypeptide interacting. FUNCTIONAL: two things competing for one shared output — the name for that is retroactivity, and it gets its own session in November."),
+        ("compositional", "what the neighbors do to you. PHYSICAL: parts on the same DNA, RNA or polypeptide interacting. FUNCTIONAL: two things competing for one shared output — the name for that is retroactivity, and it gets its own session in November."),
         ("host", "what the cell does to you. Parasitic interactions with its own machinery; competition for ribosomes, tRNAs and proteases; and coupling to growth, replication and partitioning."),
         ("environmental", "what the world does to you — directly, and through the host's response to it."),
     ])
@@ -218,12 +218,12 @@ def _no_such_thing(d):
                "on 3. Mass action, QSSA, transfer curves, "
                "truth tables, the compositor -- every abstraction in this "
                "course assumes that composing A and B leaves A and B alone "
-               "and combines their behaviours.\n"
+               "and combines their behaviors.\n"
                "If joining alters the operands, that is not context bending "
                "a model. It is composition failing to be composition.")
 
     s = d.light()
-    d.header(s, "segment 1", "release  ·  two minutes, with a neighbour")
+    d.header(s, "segment 1", "release  ·  two minutes, with a neighbor")
     d.title(s, "You measured a promoter. Now move it.")
     d.rows(s, [
         ("what you did", "measured output from your promoter on a high-copy plasmid, GFP downstream, in DH5α, in LB, at 37 °C."),
@@ -241,7 +241,7 @@ def _no_such_thing(d):
     d.title(s, "What the room usually says, and which one is special")
     d.rows(s, [
         ("copy number — host", "chromosome versus high-copy. You can model this one: it is a multiplier, and you already have it."),
-        ("medium and strain — environmental and host", "you cannot model these, but you can hold them fixed and report them. That is what a characterisation context IS."),
+        ("medium and strain — environmental and host", "you cannot model these, but you can hold them fixed and report them. That is what a characterization context IS."),
         ("the different gene downstream — compositional", "this one is different in kind. It does not shift the number — it means the number was never a property of the promoter alone."),
     ])
     d.foot(s, "The first two make the measurement harder. The third makes the thing you were measuring not exist.")
@@ -277,7 +277,7 @@ def _how_badly(d):
     d.title(s, "12,653 constructs, and how you measure that many")
     d.paper_figure(s, "kosuri2013_fig1", 0.9, 1.7, 11.53, 2.52,
                    "Kosuri et al., PNAS 110:14024–14029 (2013), Fig. 1A",
-                   "Design all 114 × 111 combinations; synthesise them as an "
+                   "Design all 114 × 111 combinations; synthesize them as an "
                    "oligo library; clone into one vector carrying sfGFP and a "
                    "constitutive mCherry; then DNASeq, RNASeq, and FlowSeq.")
     d.foot(s, "FlowSeq: sort the population into 12 log-spaced bins by sfGFP/mCherry ratio, sequence each bin, reconstruct each construct's level from where its reads landed.")
@@ -311,7 +311,7 @@ def _how_badly(d):
     d.header(s, "segment 2", "release  ·  commit to a number")
     d.title(s, "Predict one, then I'll tell you the tail")
     d.rows(s, [
-        ("you have", "promoter P, measured. RBS R, measured. Both characterised alone, carefully, in the same strain and medium."),
+        ("you have", "promoter P, measured. RBS R, measured. Both characterized alone, carefully, in the same strain and medium."),
         ("predict", "the protein level of P + R. Write down your number and a tolerance you would defend to a collaborator."),
         ("the question", "how often does a twofold tolerance hold? And when it fails, by how much?"),
     ])
@@ -373,7 +373,7 @@ def _where_it_works(d):
     d.header(s, "segment 3", "frame")
     d.title(s, "Is any of this predictable from sequence?")
     d.rows(s, [
-        ("the honest answer", "yes, sometimes. Cambray fitted a LINEAR model — four sequence features chosen by stepwise selection out of twelve candidates, on 31 curated terminators. The features are biophysically motivated: hairpin stability normalised by length, the U-tail, the closing base pair."),
+        ("the honest answer", "yes, sometimes. Cambray fitted a LINEAR model — four sequence features chosen by stepwise selection out of twelve candidates, on 31 curated terminators. The features are biophysically motivated: hairpin stability normalized by length, the U-tail, the closing base pair."),
         ("two groups, same year", "Cambray et al. in NAR and Chen et al. in Nature Methods both published sequence → strength terminator models in 2013, from different data."),
         ("which is itself the third failure", "two models, no agreed measurement set to adjudicate them."),
     ])
@@ -411,7 +411,7 @@ def _where_it_works(d):
                "solved it the same way we will solve it in segment 4 — by "
                "imposing boundaries.\n"
                "The paper also says, in its introduction, that diverse "
-               "characterisation strategies have hindered comparison of "
+               "characterization strategies have hindered comparison of "
                "measurements. That is point 3, in their words.")
 
     s = d.light()
@@ -582,9 +582,9 @@ def _composing(d):
     d.header(s, "segment 5", "build  ·  how Golden Gate actually works")
     d.title(s, "The enzyme cuts outside its own site")
     _fig(d, s, "s17_type2s", 1.95)
-    d.foot(s, "BsaI recognises GGTCTC and cuts one base downstream, leaving a four-base 5′ overhang whose sequence is whatever you put there.")
+    d.foot(s, "BsaI recognizes GGTCTC and cuts one base downstream, leaving a four-base 5′ overhang whose sequence is whatever you put there.")
     d.notes(s, "This is the mechanism and it takes one minute. A Type IIS "
-               "enzyme recognises one sequence and cuts at a fixed OFFSET "
+               "enzyme recognizes one sequence and cuts at a fixed OFFSET "
                "from it. Put the recognition site on the scrap side and the "
                "cut lands inside your part's flank — so the site departs "
                "with the scrap and the product carries no site at all. That "
@@ -600,7 +600,7 @@ def _composing(d):
     d.rows(s, [
         ("what you have", "four bases of free choice per junction. A circular assembly of n parts plus a backbone needs n + 1 junctions, and every one must be distinguishable from every other."),
         ("write down two numbers", "how many distinct overhangs you think are usable — and how many JUNCTIONS you could choose at random before two of them became too alike."),
-        ("then defend the second one", "to a neighbour, in one sentence. What exactly goes wrong when two junctions are one base apart?"),
+        ("then defend the second one", "to a neighbor, in one sentence. What exactly goes wrong when two junctions are one base apart?"),
     ])
     d.foot(s, "Most rooms put the second number somewhere between twenty and two hundred. Keep in mind that four junctions is a three-part build.")
     d.notes(s, "Make them write both. The gap between the two numbers is "
@@ -751,7 +751,7 @@ def _composing(d):
     d.title(s, "Two kinds of composition, two kinds of constraint")
     d.rows(s, [
         ("physical composition", "a combinatorial constraint the functional design never sees. Nothing about your circuit's logic tells you that two junctions are one base apart."),
-        ("functional composition", "a modelling constraint the physical layer never sees. Nothing about your overhang choice tells you the 5′UTR moved."),
+        ("functional composition", "a modeling constraint the physical layer never sees. Nothing about your overhang choice tells you the 5′UTR moved."),
         ("and they are not independent", "the junction you choose on the bench IS part of the 5′UTR the model needs. Golden Gate scars are not neutral."),
     ])
     d.foot(s, "T42 and T44 are assessed on PS7, not PS6 — you meet them today and use them in two weeks.")

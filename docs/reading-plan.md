@@ -41,13 +41,13 @@ which of them you would expect to matter most before you see the data.
 ### S12 · Tue Oct 6 · Noise
 **Elowitz, Levine, Siggia & Swain**, *Science* 297, 1183–1186 (2002). 4 pp. [doi:10.1126/science.1070919](https://doi.org/10.1126/science.1070919)
 
-**Why.** The two-colour decomposition is the session's whole apparatus, and it
+**Why.** The two-color decomposition is the session's whole apparatus, and it
 is four pages. A designed two-reporter strain, built for the purpose — it meets
 the brief even though it predates deposited data. **Flag: no data deposit, no
 PMC.** Free access needs the library or the CaltechAUTHORS copy.
 
 **Focus.** Figure 2 and the algebra that turns the difference between two
-colours in one cell into intrinsic noise. Come able to say what is being held
+colors in one cell into intrinsic noise. Come able to say what is being held
 equal, because that is what the whole decomposition rests on.
 
 ### S13 · Thu Oct 8 · The digital abstraction and its price
@@ -216,14 +216,14 @@ years between the threshold and the animal.
 ### S26 · Tue Nov 24 · Therapeutic circuits
 **Xie, Wroblewska, Prochazka, Weiss & Benenson**, *Science* 333(6047), 1307–1311 (2011). 5 pp. [doi:10.1126/science.1205527](https://doi.org/10.1126/science.1205527)
 
-**Why.** A truth table implemented inside a HeLa cell, from six characterised
+**Why.** A truth table implemented inside a HeLa cell, from six characterized
 miRNA sensors. It is the session's worked example — a multi-input classifier
 held to a false-positive budget — already done, which means the class period can
 argue about the budget rather than explain the construction. **Flag: data is
 "available on request"; no PMC deposit.**
 
 **The alternative** is Tousley et al., *Nature* 615, 507–516 (2023) — the AND
-gate built from native T-cell signalling, with single-cell RNA-seq at GEO. Ten
+gate built from native T-cell signaling, with single-cell RNA-seq at GEO. Ten
 pages, mammalian, current. Choose by which failure mode you want to teach:
 Xie's is selectivity, Tousley's is threshold sharpness.
 
@@ -232,7 +232,7 @@ Xie's is selectivity, Tousley's is threshold sharpness.
 
 **Why this rather than RFdiffusion.** The session's worked example is
 design–filter–validate arithmetic: what hit rate beats directed evolution. This
-paper designs promoters, synthesises them and measures them, in *E. coli* and in
+paper designs promoters, synthesizes them and measures them, in *E. coli* and in
 mammalian cells, with the designed-and-measured set on Zenodo — so the hit rate
 is in the reading. RFdiffusion (Watson et al., *Nature* 620, 1089–1100, 2023) is
 the more famous paper and belongs on the slide, but its subject is protein

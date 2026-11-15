@@ -1,0 +1,11 @@
+{
+  "artifact": "s24_lambda_scaling.png",
+  "artifact_sha256": "a64c39c63f121ca8801530785ac14c1ed9f534f5f3f1f5963b80e763f8e84a69",
+  "artifact_content": "f82bb07d0a6ca06347f9420ad33fb3c25086d2e2556a7f2fbe212d1b58e78738",
+  "artifact_bytes": 137226,
+  "deps": {
+    "figures/s24_communities.py": "553df885bf035b8f1813267d94ee404fb822ca7d7b698f0cbce7699217e0072c",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s24_communities.fig_lambda_scaling"
+}

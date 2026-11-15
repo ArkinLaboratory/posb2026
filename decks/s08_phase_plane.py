@@ -390,7 +390,7 @@ def build():
               "Say 'symmetric' out loud. The handout is Gardner's own device, "
               "which has gamma = 1 on one arm and switches anyway. The "
               "criterion says at least ONE arm needs cooperativity, not both - "
-              "and the room will generalise to both unless stopped.\n"
+              "and the room will generalize to both unless stopped.\n"
               "Say it plainly: you were told this in week 2. You have just "
               "proved it. That is what the phase plane buys you."))
 
@@ -400,7 +400,7 @@ def build():
     d.title(s, "Gardner drew the same region — for two different arms")
     d.paper_figure(s, "gardner2000_fig2cd", M, 1.7, 6.0, 4.6,
                    "Gardner, Cantor & Collins 2000, Fig. 2c,d",
-                   "the bistable region in log α₁ vs log α₂; bifurcation lines for β = γ = 1.1, 2, 3")
+                   "the bistable region in log α_{1} vs log α_{2}; bifurcation lines for β = γ = 1.1, 2, 3")
     d.image(s, FIG + "s08_design_space.png", 7.0, 1.7, 5.6, 4.6)
     d.foot(s, "Inside a wedge, two states. Their axes are our a_{1}, a_{2}; their β, γ are our n, one per arm. The red point is the device they built.")
     d.notes(s, "Left is the paper; right is the same computation from posb, "
@@ -426,13 +426,13 @@ def build():
     d.header(s, "61 – 65 min", "Reference  ·  keep this one")
     d.title(s, "Every 2×2 fixed point, from two numbers")
     d.image(s, FIG + "s08_tau_delta.png", M, 1.62, W - 2 * M, 4.95)
-    d.foot(s, "τ = trace J = λ₁+λ₂,   Δ = det J = λ₁λ₂.   The toggle: τ = −2 always, Δ = 1 − g², and Δ flips sign at g = 1.")
+    d.foot(s, "τ = trace J = λ_{1}+λ_{2},   Δ = det J = λ_{1}λ_{2}.   The toggle: τ = −2 always, Δ = 1 − g², and Δ flips sign at g = 1.")
     d.notes(s, "This is a reference surface, not a derivation. Hand it to "
                "them and use it once.\n"
                "The rows, for the record: Delta < 0 is a saddle; Delta > 0 "
                "with tau < 0 is stable, node below the parabola tau^2 = 4 Delta "
                "and spiral above it; tau > 0 leaves; tau = 0 with Delta > 0 is "
-               "a centre and the linear test does not decide.\n"
+               "a center and the linear test does not decide.\n"
                "The use is the toggle's track: tau = -2 always, Delta = 1 - g^2, "
                "so the sign of Delta is the whole story and it flips exactly at "
                "g = 1. The two criteria agree. They will use the tau-Delta "
@@ -442,7 +442,7 @@ def build():
                "across through tau = 0 with Delta > 0 is the oscillator, "
                "session 11. In our scaling tau is set by removal and Delta by "
                "the coupling - both are engineerable.\n"
-               "The centre row is the honest caveat: at tau = 0 linearisation "
+               "The center row is the honest caveat: at tau = 0 linearisation "
                "does not decide, and that is where a nonlinear term you dropped "
                "comes back. One sentence, no more - session 11 needs it.")
 

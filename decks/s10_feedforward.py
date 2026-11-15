@@ -83,7 +83,7 @@ def build():
                    "pTog dual-reporter toggle · unpublished flow cytometry",
                    "pTog dual-reporter toggle, 2 h / 31 h / 40 h")
     # Attribution unchanged from session 9: unpublished pTog flow cytometry
-    # from the 2025 deck, origin not on record. Delivered labelled, no name.
+    # from the 2025 deck, origin not on record. Delivered labeled, no name.
     for i, (t, txt) in enumerate([("2 h", "clean separation"),
                                   ("31 h", "green is broadening"),
                                   ("40 h", "leaked back to red")]):
@@ -478,7 +478,7 @@ def build():
                "mentioned.\n"
                "WALK THE FIGURE, slowly, because it is the one place a "
                "biologist and a physicist read the same picture and take away "
-               "different things. Grey is one gene driven by X. Teal is the "
+               "different things. gray is one gene driven by X. Teal is the "
                "FFL. The dotted line is the steady state they share BY "
                "CONSTRUCTION — say that twice, because the comparison is "
                "worthless otherwise, and it is the same matching rule that "

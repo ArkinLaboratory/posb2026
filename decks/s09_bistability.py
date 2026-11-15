@@ -200,14 +200,14 @@ def build():
                    "Gardner 2000, Box 1", "the model as the paper states it")
     for i, (k, txt) in enumerate([
             ("Fixed points", "are where the two nullclines cross. Count them on the drawing."),
-            ("A crossing is a saddle", "exactly when the loop gain g₁g₂ > 1 — the cell cannot sit there."),
-            ("Two states exist", "inside a wedge in the (α₂, α₁) plane, and cooperativity opens it.")]):
+            ("A crossing is a saddle", "exactly when the loop gain g_{1}g_{2} > 1 — the cell cannot sit there."),
+            ("Two states exist", "inside a wedge in the (α_{2}, α_{1}) plane, and cooperativity opens it.")]):
         y = 1.85 + i * 1.05
         d.text(s, k, 7.1, y, 5.5, 0.4, size=17, font=HEAD, bold=True, color=INK)
         d.text(s, txt, 7.1, y + 0.42, 5.5, 0.6, size=14, color=BODY)
     d.text(s, "Today we hold everything fixed except one thing the experimenter controls — and watch what the picture does.",
            M, 5.0, W - 2 * M, 0.9, size=18, font=HEAD, bold=True, color=INK)
-    d.foot(s, "u = LacI, v = cI (and GFP), each in units of its threshold; time in protein lifetimes. α₁ = 156, α₂ = 15.6, β = 2.5, γ = 1 from the Fig. 5 legend.")
+    d.foot(s, "u = LacI, v = cI (and GFP), each in units of its threshold; time in protein lifetimes. α_{1} = 156, α_{2} = 15.6, β = 2.5, γ = 1 from the Fig. 5 legend.")
     d.notes(s, "Three lines and move on. Every one of them was derived on "
                "Tuesday; do not re-derive. The point of the surface is that the "
                "next ten minutes use only these.\n"
@@ -264,7 +264,7 @@ def build():
                    "normalized GFP against [IPTG]: two stable branches, the unstable one between")
     d.image(s, FIG + "s09_hysteresis.png", 7.5, 1.7, 5.1, 4.6)
     d.foot(s, "Red circles are the toggle; blue triangles are a plain IPTG-inducible control with no memory. Points 3a and 3b are one culture, split in two — the bimodality near a bifurcation.")
-    d.notes(s, "Theirs is linear and normalised; ours is log in v*. Same curve. "
+    d.notes(s, "Theirs is linear and normalized; ours is log in v*. Same curve. "
                "The bimodal points 3a/3b are the deterministic story meeting "
                "noise: the culture sits close to the fold, so fluctuations "
                "push some cells over and not others. Session 12 has the tool "
@@ -279,7 +279,7 @@ def build():
     d.header(s, "48 – 55 min", "Design  ·  the question that separates this from a math course")
     d.title(s, "Which of these can you change?")
     for i, (p, verd, txt, c) in enumerate([
-            ("α₁, α₂", "EASY", "Promoter libraries, RBS swaps, copy number. Gardner built six variants differing in one RBS; five landed inside the wedge.", GREEN),
+            ("α_{1}, α_{2}", "EASY", "Promoter libraries, RBS swaps, copy number. Gardner built six variants differing in one RBS; five landed inside the wedge.", GREEN),
             ("removal rate", "MODERATE", "ssrA tags shorten a lifetime — and in scaled units that lowers α, so you move the point AND the timescale.", AMBER),
             ("β, γ", "HARD", "Cooperativity is set by the repressor's oligomerisation and the operator architecture. You choose it by choosing a protein.", RED),
             ("symmetry", "EASY, AND FRAGILE", "You can balance the arms — but growth rate, temperature and burden all unbalance them again.", AMBER)]):
@@ -367,7 +367,7 @@ def build():
             ("1", "Fully worked", "n = 4, α = 2: every crossing, classified", TEAL),
             ("2", "Last step blank", "the off-diagonal pair: you classify them", GREEN),
             ("3", "Last two blank", "n = 1, α = 2: crossing, Jacobian, verdict", CYAN),
-            ("4", "Bare problem", "halve α₁ only. Which state dies, and how?", AMBER)]):
+            ("4", "Bare problem", "halve α_{1} only. Which state dies, and how?", AMBER)]):
         x = M + i * 3.05
         d.shape(s, S.ROUNDED_RECTANGLE, x, 2.1, 2.8, 2.5, fill=CARD, line=c, lw=2)
         d.shape(s, S.OVAL, x + 1.15, 2.35, 0.5, 0.5, fill=c, line=None)
@@ -415,7 +415,7 @@ def build():
     d.title(s, "Keep going from wherever you are")
     for i, (num, k, txt, c) in enumerate([
             ("3", "Last two blank", "n = 1, α = 2: crossing, Jacobian, verdict", CYAN),
-            ("4", "Bare problem", "halve α₁ only. Which state dies, and how?", AMBER)]):
+            ("4", "Bare problem", "halve α_{1} only. Which state dies, and how?", AMBER)]):
         x = M + i * 6.35
         d.shape(s, S.ROUNDED_RECTANGLE, x, 2.05, 6.15, 2.0, fill=CARD, line=c,
                 lw=2)
@@ -442,7 +442,7 @@ def build():
                    "pTog dual-reporter toggle · unpublished flow cytometry",
                    "pTog dual-reporter toggle, 2 h / 31 h / 40 h")
     # Attribution: unpublished pTog flow cytometry from the 2025 deck, origin
-    # not on record. Adam's decision, 20 Sep 2026: deliver it labelled as
+    # not on record. Adam's decision, 20 Sep 2026: deliver it labeled as
     # unpublished (the ref line above), no name. See decks/paper_figures.yaml.
     for i, (t, txt) in enumerate([("2 h", "clean separation"),
                                   ("31 h", "green is broadening"),
@@ -453,7 +453,7 @@ def build():
         d.text(s, txt, 8.3, y + 0.08, 4.3, 0.4, size=14, color=MINT)
     d.text(s, "Why would it fail? What would you change?", M, 4.95, 11, 0.5,
            size=26, font=HEAD, bold=True, color=WHITE)
-    d.text(s, "Two minutes with your neighbour. There are at least four distinct mechanisms and they need different fixes.",
+    d.text(s, "Two minutes with your neighbor. There are at least four distinct mechanisms and they need different fixes.",
            M, 5.52, 11, 0.4, size=16, color=MINT)
     d.foot(s, "Mutation in a repressor · promoter mutation · plasmid loss · burden selecting against the expressing state")
     d.notes(s, "PROVENANCE: these panels are NOT from Gardner 2000 (their "
@@ -474,7 +474,7 @@ def build():
 
     # 16 ROBUSTNESS -----------------------------------------------------------
     s = d.light()
-    d.header(s, "80 min", "What this generalises to")
+    d.header(s, "80 min", "What this generalizes to")
     d.title(s, "Bistability lives in a parameter window")
     d.text(s, "Everything here is a preview. Session 23 does it properly.",
            M, 1.85, W - 2 * M, 0.3, size=14, italic=True, color=MUTED)

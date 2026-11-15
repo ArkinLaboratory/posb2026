@@ -1,0 +1,11 @@
+{
+  "artifact": "s25_cistrans_3.png",
+  "artifact_sha256": "7fd36b5683650fdf9d2699f448a19a22eadfd7ca784290ec96ea660863b85f6b",
+  "artifact_content": "a582d28a8b6854fbcb208388267c453c3d71cb3b89961c502853c39207951f73",
+  "artifact_bytes": 65108,
+  "deps": {
+    "figures/s25_populations.py": "f0c553912659a255aac7ec4921a073dc88003384b6268ddb448860b2047df0fd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s25_populations.fig_cistrans_series"
+}

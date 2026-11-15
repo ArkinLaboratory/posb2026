@@ -38,15 +38,15 @@ village.
 
 ---
 
-## B · A tumour-selective cell therapy
+## B · A tumor-selective cell therapy
 
-> *A human T cell that kills a tumour cell and spares a healthy cell of the same
+> *A human T cell that kills a tumor cell and spares a healthy cell of the same
 > tissue.*
 
 Context: engineered T cells work spectacularly in some blood cancers. In solid
-tumours they mostly do not, and the failures include patients killed by the
-therapy attacking healthy tissue that shares a marker with the tumour. The
-tumour is not a different organism; it is the patient's own cells with a
+tumors they mostly do not, and the failures include patients killed by the
+therapy attacking healthy tissue that shares a marker with the tumor. The
+tumor is not a different organism; it is the patient's own cells with a
 different pattern of expression.
 
 **Know:**

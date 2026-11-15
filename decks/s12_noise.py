@@ -21,7 +21,7 @@ opaque for this class. We need to be VERY tutorial here." What changed:
     and WHY the fourth one worked -- a relaxation oscillator whose period is a
     decay time, so the clock waits on the last few molecules. That last surface
     is the paper's actual argument and it was missing.
-  - the two-colour scatter is now SHOWN, with its two directions unlabelled,
+  - the two-color scatter is now SHOWN, with its two directions unlabelled,
     BEFORE the room is asked which direction their answers move a point in.
   - sigma, eta and Fano get a surface of their own before any of them is used.
   - the decomposition is derived (why the cross term dies) rather than asserted.
@@ -108,7 +108,7 @@ def build():
         d.text(s, f"{n}  {lab}", x, 2.13, 2.15, 0.3, size=14, bold=here,
                color=WHITE if here else MUTED, align="c")
     d.rows(s, [
-        ("?", "Two copies of one gene, same promoter, same cell. Why do they disagree, and how would you tell that from the cell disagreeing with its neighbour?", None),
+        ("?", "Two copies of one gene, same promoter, same cell. Why do they disagree, and how would you tell that from the cell disagreeing with its neighbor?", None),
         ("?", "If you can only count molecules, what does the model look like — and what is the least noise an unregulated gene can have?", None),
         ("?", "You need a quieter reporter at the same mean. What do you change?", None)],
         top=2.95, bottom=6.50, label_w=0.50, label_role="emphasis",
@@ -287,7 +287,7 @@ def build():
                "the master equation is the honest version of this sentence.\n"
                "Row 5: they measured S from partitioning errors at cell division "
                "and found derepression happening at an extremely low threshold "
-               "(SI 3.5). The optimum S_opt minimises the CV of the decay time; "
+               "(SI 3.5). The optimum S_opt minimizes the CV of the decay time; "
                "raising N helps only if S is already above it (Extended Data "
                "Fig. 4e). Do not derive this -- name it as a design variable and "
                "say the paper does the calculation.")
@@ -328,7 +328,7 @@ def build():
     d.text(s, "One point per cell: its CFP across, its YFP up. The dashed line is where the two agree.",
            8.05, 5.78, 4.55, 0.56, size=13, italic=True, color=MINT)
     d.rows(s, [
-        ("Name two things that would make BOTH colors brighter in one cell than its neighbour. Then one thing that would make one brighter and not the other.", None),
+        ("Name two things that would make BOTH colors brighter in one cell than its neighbor. Then one thing that would make one brighter and not the other.", None),
         ("Which of your answers moves a point along A, and which along B? Then say what A and B deserve to be called.", None),
         ("Repress both promoters until the cells make 3% as much protein. Which spread grows, and why?", None)],
         top=2.00, bottom=6.40, side=False, numbered=True, right=7.75,
@@ -629,7 +629,7 @@ def build():
               "removed. Proteins arriving one at a time was never stated as an "
               "assumption, which is exactly why it is worth naming now.\n"
               "Step 2: b is the number of proteins per transcript, and the room "
-              "should recognise it as the RBS. Strictly each mRNA emits a "
+              "should recognize it as the RBS. Strictly each mRNA emits a "
               "protein with probability k_p/(k_p + gamma_m) at each step and "
               "dies otherwise, so the burst size is geometric with mean "
               "k_p/gamma_m, not a fixed lump. The mean is what step 2 needs; "
@@ -688,7 +688,7 @@ def build():
               "instant is the same instant after instant. A process that forgets "
               "how long it has already waited can only have an exponential "
               "waiting time -- that is the whole content, and it is why the "
-              "exponential is not a modelling choice here but a consequence. "
+              "exponential is not a modeling choice here but a consequence. "
               "Anyone who has met radioactive decay has met it; a nucleus does "
               "not age.\n"
               "Step 3 at the board: (1 - a0 dt)^(tau/dt) as dt -> 0. Write it "

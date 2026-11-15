@@ -13,7 +13,7 @@ $$\text{protein out} \;=\; p \times r$$
 where $p$ is what the promoter does and $r$ is what the RBS does. Two numbers,
 each belonging to one part, multiplied. Every abstraction in this course so
 far has assumed something of this shape: **composing two things combines their
-behaviours and leaves the things alone.**
+behaviors and leaves the things alone.**
 
 **The three ways a promoter refuses to be a thing.**
 
@@ -28,7 +28,7 @@ they have different fixes.
 
 | | |
 |---|---|
-| **compositional** | what the neighbours do. *Physical*: parts on one DNA, RNA or polypeptide interacting. *Functional*: two consumers drawing on one shared output — retroactivity. |
+| **compositional** | what the neighbors do. *Physical*: parts on one DNA, RNA or polypeptide interacting. *Functional*: two consumers drawing on one shared output — retroactivity. |
 | **host** | parasitic interaction with the cell's own machinery; competition for ribosomes, tRNAs, proteases; coupling to growth and replication. |
 | **environmental** | temperature, pH, medium — directly, and through the host's response. |
 
@@ -36,7 +36,7 @@ they have different fixes.
 
 ## 1 · Move a promoter, and say what kind of trouble you are in
 
-You characterised promoter **P** carefully: high-copy plasmid, GFP downstream,
+You characterized promoter **P** carefully: high-copy plasmid, GFP downstream,
 DH5α, LB, 37 °C. You now want it on the chromosome, in front of a different
 gene, in a production strain, in minimal medium.
 
@@ -56,7 +56,7 @@ not the same for all three.
 
 **What they built.** Kosuri *et al.* (2013) designed all 114 × 111 promoter ×
 RBS combinations — 12,654, less one that created an incompatible restriction
-site, so **12,653** — synthesised them as an oligo library,
+site, so **12,653** — synthesized them as an oligo library,
 and cloned them into a single vector carrying **sfGFP** as the output and a
 constitutive **mCherry on the same plasmid** as an internal control. Protein
 levels came from **FlowSeq**: sort the population into twelve log-spaced bins
@@ -66,7 +66,7 @@ as an RNA/DNA ratio.
 
 Note what the mCherry is for: it divides out the cell-to-cell and
 plasmid-to-plasmid variation that would otherwise be mistaken for part
-behaviour. **The instrument needs insulating before the parts do.**
+behavior. **The instrument needs insulating before the parts do.**
 
 With that, the variance decomposes as:
 
@@ -113,7 +113,7 @@ mCherry, one layer down.
 They then fitted a **linear model**: four sequence features chosen by
 stepwise selection out of twelve candidates, fitted on **31 curated
 terminators**, and then used to predict **23 that were held out**. The
-features are biophysically motivated — hairpin stability normalised by length,
+features are biophysically motivated — hairpin stability normalized by length,
 the U-tail, the closing base pair.
 
 The paper reports **r = 0.9 (cross-validated 0.85) on the 31 it trained on**,

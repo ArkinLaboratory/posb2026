@@ -404,7 +404,7 @@ Instruction begins Wednesday, August 26. Classes end Friday, December 4. RRR wee
 | 26 | Tue 11/24 | W14 | Therapeutic circuits: logic-gated cell therapies, synNotch, in vivo delivery | Design a multi-input classifier to a false-positive budget | |
 | — | Thu 11/26 | W14 | **Thanksgiving — no instruction** | | |
 | 27 | Tue 12/1 | W15 | Machine learning as the specification layer: structure prediction, protein design, genome language models | Design–filter–validate arithmetic: what hit rate beats directed evolution? | **M4 due: background and significance** |
-| 28 | Thu 12/3 | W15 | Biosecurity and governance as technical problems; what actually limits synthetic biology | Why sequence-similarity screening fails on generated sequences | PS9 due |
+| 28 | Thu 12/3 | W15 | Biosecurity and governance as technical problems; **minimal cells**, and what actually limits synthetic biology | Why sequence-similarity screening fails on generated sequences, and how little a cell needs | PS9 due |
 
 **Final project due:** Monday, December 14
 **Final exam:** Wednesday, December 16, 3–6 pm

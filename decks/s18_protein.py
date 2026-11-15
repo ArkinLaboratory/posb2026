@@ -344,7 +344,7 @@ def _object(d):
     d.header(s, "segment 1", "two minutes  ·  with a neighbor")
     d.title(s, "What can you change?")
     d.rows(s, [
-        ("V₁ and V₂", "the two maximal rates. How would you change one? — and what does that cost you?", GREEN),
+        ("V_{1} and V_{2}", "the two maximal rates. How would you change one? — and what does that cost you?", GREEN),
         ("K_m1 and K_m2", "the two Michaelis constants. Same question.", AMBER),
         ("W_T", "the size of the pool itself. Same question — and this one has a sting in it.", AMBER),
     ], label_color=TEAL)
@@ -379,10 +379,10 @@ def _derivation(d):
         # BOTH disappear in there. Those are the two moves the hour turns on,
         # so they get their own surfaces and the run is split in two.
         [("Michaelis–Menten, twice",
-          "forward = V₁W/(K_m1+W)       back = V₂W*/(K_m2+W*)",
+          "forward = V_{1}W/(K_m1+W)       back = V_{2}W*/(K_m2+W*)",
           "Session 4's form, one for each direction."),
          ("Steady state is a standoff",
-          "V₁·W / (K_m1 + W)  =  V₂·W* / (K_m2 + W*)",
+          "V_{1}·W / (K_m1 + W)  =  V_{2}·W* / (K_m2 + W*)",
           "Not zero flux. Equal and opposite flux."),
          ("The total is conserved",
           "W + W*  =  W_T",
@@ -403,16 +403,16 @@ def _derivation(d):
         None, "segment 2", "the model",
         "What the pool size turns out to be",
         [("Substitute",
-          "V₁W_T(1−w)/(K_m1+W_T(1−w))  =  V₂W_T·w/(K_m2+W_T·w)",
+          "V_{1}W_T(1−w)/(K_m1+W_T(1−w))  =  V_{2}W_T·w/(K_m2+W_T·w)",
           "W_T is a factor in every numerator."),
          ("Divide through by W_T",
-          "V₁(1−w)/(k₁+1−w)  =  V₂w/(k₂+w),    k = K_m/W_T",
+          "V_{1}(1−w)/(k_{1}+1−w)  =  V_{2}w/(k_{2}+w),    k = K_m/W_T",
           "W_T is gone — and it left k behind."),
-         ("Divide both sides by V₂",
-          "(V₁/V₂)(1−w) / (k₁ + 1 − w)  =  w / (k₂ + w)",
-          "V₂ is gone. Only the RATIO survives."),
+         ("Divide both sides by V_{2}",
+          "(V_{1}/V_{2})(1−w) / (k_{1} + 1 − w)  =  w / (k_{2} + w)",
+          "V_{2} is gone. Only the RATIO survives."),
          ("Cross-multiply",
-          "(V₁/V₂)(1−w)(w + k₂)  =  w(1 − w + k₁)",
+          "(V_{1}/V_{2})(1−w)(w + k_{2})  =  w(1 − w + k_{1})",
           "A quadratic in w. That is the whole model.")],
         note="Two things disappear in this run and each one is a result.\n"
              "W_T leaves in step two, but it does not leave the problem — it "
@@ -422,7 +422,7 @@ def _derivation(d):
              "SUBSTRATE THERE IS. So a bigger pool means a smaller k, and a "
              "smaller k means a more saturated enzyme. Ask the room which "
              "way that goes before you say it.\n"
-             "V₂ leaves in step three, and what survives is V₁/V₂ — a ratio "
+             "V_{2} leaves in step three, and what survives is V_{1}/V_{2} — a ratio "
              "of two expression levels, which is session 9's easy axis. "
              "Write it as the ratio and keep writing it as the ratio; it is "
              "the whole design argument and a single letter hides it.\n"
@@ -474,10 +474,10 @@ def _derivation(d):
             "W*  (a mole fraction)", "w",
             "the fraction of the pool that is modified, W*/W_T"],
            ["the stimulus",
-            "V₁/V₂", "V₁/V₂",
+            "V_{1}/V_{2}", "V_{1}/V_{2}",
             "the two enzymes' maximal rates, so an expression ratio"],
            ["the saturation",
-            "K₁, K₂  (already divided by W_T)", "k₁, k₂",
+            "K_{1}, K_{2}  (already divided by W_T)", "k_{1}, k_{2}",
             "K_m in units of the pool. Small means saturated."]],
           colw=[2.25, 3.55, 1.65, 4.48], top=2.20, gap=0.20)
     d.foot(s, "Their capital K is already our lowercase k — they divided by W_T on page 6841 and then kept the capital letter. Watch for it when you read the paper.")
@@ -495,11 +495,11 @@ def _derivation(d):
     s = d.light()
     d.header(s, "segment 2", "the first exact result")
     d.title(s, "Where the curves cross never moves")
-    d.text(s, "four runs of the same model, each with k₁ = k₂, sweeping V₁/V₂.",
+    d.text(s, "four runs of the same model, each with k_{1} = k_{2}, sweeping V_{1}/V_{2}.",
            M, 1.58, W - 2 * M, 0.34, size=14, italic=True, color=MUTED,
            align="c")
     _fig(d, s, "s18_response_crossing", 2.02)
-    d.foot(s, "V₁/V₂ = 1 is not chosen for convenience. It is where the w² term drops out, so the answer is exact and the same for every curve.")
+    d.foot(s, "V_{1}/V_{2} = 1 is not chosen for convenience. It is where the w² term drops out, so the answer is exact and the same for every curve.")
     d.notes(s, "Say what is held fixed before anything else, because the "
                "figure does not show it: every curve has k₁ = k₂, the "
                "y-axis is w = W*/W_T from step four of the derivation, and "
@@ -525,7 +525,7 @@ def _derivation(d):
     s = d.light()
     d.header(s, "segment 2", "and look what cancels")
     d.title(s, "The crossing point does not know how big the pool is")
-    d.text(s, "w  =  k₂ / (k₁ + k₂)  =  K_m2 / (K_m1 + K_m2)",
+    d.text(s, "w  =  k_{2} / (k_{1} + k_{2})  =  K_m2 / (K_m1 + K_m2)",
            M, 2.24, W - 2 * M, 0.7, size=32, font="head", bold=True,
            color=TEAL, align="c")
     d.text(s, "every k is a K_m over the same W_T, so it divides out of the top and the bottom",
@@ -553,7 +553,7 @@ def _derivation(d):
     s = d.light()
     d.header(s, "segment 2", "the second exact result")
     d.title(s, "And the half-way point is a ratio of (k + ½)")
-    d.text(s, "(V₁/V₂)₅₀  =  (k₁ + ½) / (k₂ + ½)",
+    d.text(s, "(V_{1}/V_{2})_{50}  =  (k_{1} + ½) / (k_{2} + ½)",
            M, 2.30, W - 2 * M, 0.9, size=34, font="head", bold=True,
            color=TEAL, align="c")
     d.rows(s, [
@@ -574,7 +574,7 @@ def _saturation(d):
     d.header(s, "segment 3", "how do you measure steepness?")
     d.title(s, "You need a ruler before you can say “sharp”")
     d.rows(s, [
-        ("Their definition", "the V₁/V₂ needed to reach 90% modified, divided by the V₁/V₂ needed to reach 10%. Call it R. It is a question you can ask of any dose–response, measured or modeled."),
+        ("Their definition", "the V_{1}/V_{2} needed to reach 90% modified, divided by the V_{1}/V_{2} needed to reach 10%. Call it R. It is a question you can ask of any dose–response, measured or modeled."),
         ("A hyperbola scores 81", "work it out for Michaelis–Menten and you get exactly 81, every time, for every K. So 81 is the number to beat, and it is not an arbitrary one."),
         ("Converting to a Hill coefficient", "a Hill curve with coefficient n scores 81^(1/n). So n = ln 81 / ln R, and now a cycle with no cooperativity in it can be quoted on the same scale as hemoglobin."),
     ], label_color=TEAL)
@@ -592,7 +592,7 @@ def _saturation(d):
     d.title(s, "Same model, two saturations")
     _paper(d, s, "gk1981_fig1", 1.70, 3.30,
                    "Goldbeter & Koshland, PNAS 78:6840 (1981), Fig. 1",
-                   "W and W* against V₁/V₂, at K₁ = K₂ = 1.0 and at K₁ = K₂ = 10⁻².")
+                   "W and W* against V_{1}/V_{2}, at K_{1} = K_{2} = 1.0 and at K_{1} = K_{2} = 10⁻².")
     d.foot(s, "There is one modification site in this model and nothing binds anything cooperatively. The inner pair is a switch anyway.")
     d.notes(s, "Theirs first, ours next, and the notebook has them "
                "reproducing it. Saying 'here is the figure from the paper, "
@@ -608,13 +608,13 @@ def _saturation(d):
     d.header(s, "segment 3", "the same sweep, as motion")
     d.title(s, "Nothing is made. The pool just moves.")
     d.movie(s, "figures/build/s18_cycle_sweep.mp4", 0.87, 1.72, 11.60, 4.10,
-            caption="Two cycles under one sweep of V₁/V₂. Disc AREA is the amount in each form, so the two areas sum to a constant on every frame.")
+            caption="Two cycles under one sweep of V_{1}/V_{2}. Disc AREA is the amount in each form, so the two areas sum to a constant on every frame.")
     d.foot(s, "Watch the right-hand pair do nothing, do nothing, and then flip. Same sweep, same conservation, different saturation.")
     d.notes(s, "Play it twice. The first time, let them watch. The second "
                "time, narrate.\n"
                "What to say on the second pass: the two discs always add up "
                "to the same area, because W + W* = W_T and nothing is "
-               "synthesised or destroyed anywhere in this picture. That is "
+               "synthesized or destroyed anywhere in this picture. That is "
                "the structural thing from segment 1, and it is why the "
                "sharpness is surprising — there is no production term to "
                "make steep, and no cooperative binding anywhere.\n"
@@ -637,7 +637,7 @@ def _saturation(d):
     d.rows(s, [
         ("That is what saturated means", "well above K_m, an enzyme runs at V_max. Add more substrate and the rate does not change. Its rate is ZERO ORDER in substrate — and that is where the name comes from."),
         ("So near the middle, both arms are flat", "the kinase is going flat out and so is the phosphatase. Neither one speeds up or slows down as the pool shifts between the two forms."),
-        ("Which makes the balance brittle", "nothing pushes back. Whichever V_max is larger wins the whole pool: at k = 0.01 it takes under a 20% change in V₁/V₂ to go from 10% modified to 90%."),
+        ("Which makes the balance brittle", "nothing pushes back. Whichever V_max is larger wins the whole pool: at k = 0.01 it takes under a 20% change in V_{1}/V_{2} to go from 10% modified to 90%."),
         ("And far from the middle", "one arm has run out of its substrate and drops below V_max. That ends the sharp region and rounds the curve into the plateaus, which conservation fixes at w = 0 and w = 1."),
     ], label_color=TEAL)
     d.foot(s, "Zero order in substrate. No cooperative binding anywhere — the sharpness comes from two enzymes being unable to go any faster.")
@@ -682,7 +682,7 @@ def _saturation(d):
     d.text(s, "— session 4, 8 September, in a ConcepTest resolution",
            M, 3.32, W - 2 * M, 0.34, size=16, color=SILVER)
     d.rows(s, [
-        ("It is true", "26.08 at k₁ = k₂ = 0.01, from their Eq. 10. One modification site. No cooperative binding anywhere in the model."),
+        ("It is true", "26.08 at k_{1} = k_{2} = 0.01, from their Eq. 10. One modification site. No cooperative binding anywhere in the model."),
         ("It was promised to session 13", "which did not carry it. You are getting it here instead."),
     ], top=4.05, label_color=CYAN, body_role="body")
     d.notes(s, "Say this plainly and briefly. A number was asserted to this "
@@ -735,7 +735,7 @@ def _saturation(d):
            "N-WASP: autoinhibited, then activated when an input displaces the autoinhibition.")
     d.rows(s, [
         ("The natural switch", "its output domain drives actin polymerization on its own. Two of its own domains fold back and hold it off."),
-        ("Which makes it a gate", "Cdc42 and PIP₂ each displace one, and they act synergistically — so the authors call it an AND gate."),
+        ("Which makes it a gate", "Cdc42 and PIP_{2} each displace one, and they act synergistically — so the authors call it an AND gate."),
         ("And it is reprogrammable", "they swapped the natural autoinhibition for a PDZ domain and its ligand. New input, same output. K_act = 50 µM."),
     ], top=4.06, bottom=6.52, label_color=TEAL)
     d.notes(s, "This is the allosteric cycle, and the word 'allosteric' has "
@@ -759,7 +759,7 @@ def _saturation(d):
                "p. 1906. Different ligand, same number.\n"
                "And the hedge I want them to hear, p. 1906: tightening that "
                "internal ligand gave a well-behaved AND gate in one "
-               "architecture (H14) and destroyed the behaviour in another "
+               "architecture (H14) and destroyed the behavior in another "
                "(C11). The same affinity, two contexts, two outcomes — "
                "which is Thursday's thesis arriving a session early, in a "
                "paper from 2003.\n"
@@ -845,7 +845,7 @@ def _saturation(d):
                "been black because it binds more tightly than the negative "
                "modulator's, K_d 6.1 against 41 nM, and the label should "
                "have read high-affinity. In 4B both zippers should have "
-               "been grey, because there both modulators carried identical "
+               "been gray, because there both modulators carried identical "
                "zippers and the printed label wrongly said high affinity.\n"
                "The teaching point is not that the authors erred. It is "
                "that the uncorrected figure CONTRADICTS the mechanism it "
@@ -888,7 +888,7 @@ def _cost(d):
     s = d.light()
     d.header(s, "segment 4", "the bill")
     d.title(s, "Now go back and look at the threshold")
-    d.text(s, "across: how sharp you want it.    up: every half-maximal V₁/V₂ still reachable.",
+    d.text(s, "across: how sharp you want it.    up: every half-maximal V_{1}/V_{2} still reachable.",
            M, 1.56, W - 2 * M, 0.34, size=14, italic=True, color=MUTED,
            align="c")
     _fig(d, s, "s18_threshold_tradeoff", 1.98)
@@ -908,11 +908,11 @@ def _cost(d):
     s = d.light()
     d.header(s, "segment 4", "and it belongs to the pair")
     d.title(s, "Saturate one enzyme and you have almost nothing")
-    d.text(s, "three runs, each pinning one enzyme at k₁ and relaxing the other.",
+    d.text(s, "three runs, each pinning one enzyme at k_{1} and relaxing the other.",
            M, 1.56, W - 2 * M, 0.34, size=14, italic=True, color=MUTED,
            align="c")
     _fig(d, s, "s18_both_saturated", 1.98)
-    d.foot(s, "Follow the top curve: k₁ pinned at 0.005, k₂ relaxed from 0.005 to 0.5, and apparent n falls from 50.8 to 3.2. The property is in neither enzyme.")
+    d.foot(s, "Follow the top curve: k_{1} pinned at 0.005, k_{2} relaxed from 0.005 to 0.5, and apparent n falls from 50.8 to 3.2. The property is in neither enzyme.")
     d.notes(s, "Thursday's orthogonality lesson in a new place. The sharpness "
                "is a property of the PAIR, so characterizing your kinase "
                "alone tells you nothing, and swapping in a better phosphatase "
@@ -924,7 +924,7 @@ def _cost(d):
     s = d.light()
     d.header(s, "segment 4", "the assumption, violated by its own authors")
     d.title(s, "And it needs the enzymes to be scarce")
-    d.text(s, "the same cycle at k₁ = k₂ = 10⁻¹, at three enzyme concentrations.",
+    d.text(s, "the same cycle at k_{1} = k_{2} = 10⁻¹, at three enzyme concentrations.",
            M, 1.54, W - 2 * M, 0.34, size=14, italic=True, color=MUTED,
            align="c")
     _paper(d, s, "gk1981_fig3", 1.94, 3.10,
@@ -966,9 +966,9 @@ def _cost(d):
     d.title(s, "So what do you turn?")
     d.rows(s, [
         ("Where it crosses", "the ratio K_m1 : K_m2. A property of the two proteins, and the pool size cannot move it.", GREEN),
-        ("How sharp", "lower k₁ AND k₂ together. A tighter-binding pair, which is hard — or MORE substrate, since k = K_m/W_T. That one is a promoter.", GREEN),
-        ("Where it fires", "the expression ratio V₁/V₂. Promoters and RBSs again. You cannot get it from the affinities.", GREEN),
-        ("What you cannot have", "sharpness and a free threshold. Driving k down walks V₁/V₂ at half-maximum to 1 and pins it there.", RED),
+        ("How sharp", "lower k_{1} AND k_{2} together. A tighter-binding pair, which is hard — or MORE substrate, since k = K_m/W_T. That one is a promoter.", GREEN),
+        ("Where it fires", "the expression ratio V_{1}/V_{2}. Promoters and RBSs again. You cannot get it from the affinities.", GREEN),
+        ("What you cannot have", "sharpness and a free threshold. Driving k down walks V_{1}/V_{2} at half-maximum to 1 and pins it there.", RED),
         ("What you are paying", "ATP, continuously, even at rest. Both enzymes run whether or not anything is changing.", AMBER),
     ], label_color=TEAL)
     d.foot(s, "Two of the three knobs are promoters. The parameter session 9 said you could only shop for is the one you set by expressing more substrate.")
@@ -1037,7 +1037,7 @@ def _mishra(d):
                "is the wiring diagram from session 9 with different nouns "
                "on it.\n"
                "Get that recognition BEFORE the next surface, because the "
-               "next surface is a real signalling pathway with twenty "
+               "next surface is a real signaling pathway with twenty "
                "protein names on it and the topology disappears into the "
                "biochemistry if they have not seen it first.")
 
@@ -1117,7 +1117,7 @@ def _mishra(d):
                "The OR is worth dwelling on because it is almost free. In "
                "transcription, an OR costs you a promoter with two operators "
                "and a lot of characterization. Here, two kinases that happen "
-               "to share a substrate ARE an OR, and signalling pathways are "
+               "to share a substrate ARE an OR, and signaling pathways are "
                "full of shared substrates. That is an argument that protein "
                "circuits might be CHEAPER to build than transcriptional "
                "ones, which is not the direction people expect.\n"
@@ -1514,7 +1514,7 @@ def _close(d):
     d.title(s, "A parameter is manufactured, not found")
     d.rows(s, [
         ("What you can now do", "produce an apparent Hill coefficient of 26 from one site, with no cooperative binding, by saturating a pair of enzymes. Gardner had to shop for his."),
-        ("What it costs", "the threshold, which walks to V₁ = V₂ as the switch sharpens — so you still need the transcriptional layer to place it. Both layers, always."),
+        ("What it costs", "the threshold, which walks to V_{1} = V_{2} as the switch sharpens — so you still need the transcriptional layer to place it. Both layers, always."),
         ("Thursday — session 19", "the host's economy. Composition fails again, and this time there is no boundary to impose: your circuit and every other gene draw on the same ribosomes."),
     ], label_color=CYAN, body_role="body")
     d.foot(s, "Decoy sites today, ribosomes on Thursday, downstream targets in session 21. One mechanism, three sessions.")

@@ -1,0 +1,11 @@
+{
+  "artifact": "s24_band_variants.png",
+  "artifact_sha256": "46b689a06fe5245c33f7d1cfc92b1da01dabfa6fbf16bfcf3383ef8b45e38229",
+  "artifact_content": "8ea48730ae0b8358b3dc64b60cd57978f9cc545905d5eb00726c1e28f18b8c86",
+  "artifact_bytes": 114187,
+  "deps": {
+    "figures/s24_communities.py": "553df885bf035b8f1813267d94ee404fb822ca7d7b698f0cbce7699217e0072c",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s24_communities.fig_band_variants"
+}

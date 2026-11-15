@@ -375,7 +375,7 @@ def build():
                "Then the budget question. 1% structural error is only "
                "worth having if K_M is known better than 1%, and it is "
                "not. Chasing structural error below parameter uncertainty "
-               "is wasted work, and that judgement is the engineering.\n"
+               "is wasted work, and that judgment is the engineering.\n"
                "Ask: what does a slope of one mean?")
 
     # 10 PAUSE ----------------------------------------------------------------
@@ -449,7 +449,7 @@ def build():
     for i, (n, ans, prompt, c) in enumerate([
             ("1",
              "f = (x/K_{d}) / (1 + x/K_{d}) = x / (K_{d} + x).  A Hill function with n = 1 and K = K_{d}.",
-             "[P] cancelled because it appears in every term of both numerator and denominator — it is the reference state. It would not cancel if the promoter could be in a state that is neither empty nor bound by X, which is exactly what session 6 is about.",
+             "[P] canceled because it appears in every term of both numerator and denominator — it is the reference state. It would not cancel if the promoter could be in a state that is neither empty nor bound by X, which is exactly what session 6 is about.",
              TEAL),
             ("2",
              "f = x^{n} / (K_{d} + x^{n}) = x^{n} / (K^{n} + x^{n})  with  K = K_{d}^{1/n}.",

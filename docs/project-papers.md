@@ -12,7 +12,7 @@ designs — a thing that should exist, with a model showing how it would be
 implemented, how it would behave, and whether it is feasible. A paper is not
 the assignment; it is the ground you stand on so that the design is about
 something real. Every entry below therefore ends with **Build with** — the
-parts, parameters or characterised components that paper hands you to
+parts, parameters or characterized components that paper hands you to
 recombine. That line, not the data line, is usually the one you will use.
 
 **Why a list at all.** The milestone used to ask for a project description in
@@ -130,7 +130,7 @@ go further than the lecture does.
 **Data.** BioProject PRJNA380756; RefSeq NZ_CP016007–009; SRA SAMN06671873 / SAMN06671878.
 **The question in the figure.** Estimate circuit loss rate in vivo from the sequencing data, and connect it to the session 23 mutation-rate calculation. A circuit that works and a circuit that stays working are different engineering problems.
 
-### 11. Tousley et al. 2023 — an AND gate built from native signalling
+### 11. Tousley et al. 2023 — an AND gate built from native signaling
 *Tousley, A. M., Rotiroti, M. C., Labanieh, L. et al.* Co-opting signalling molecules enables logic-gated control of CAR T cells. **Nature** 615, 507–516 (2023). [doi:10.1038/s41586-023-05778-2](https://doi.org/10.1038/s41586-023-05778-2) · 10 pp · *session 26*
 
 **Model.** LINK CAR splits the signal across LAT and SLP-76, so two antigens are required — a two-input threshold, writable as a Hill-type AND.
@@ -147,9 +147,9 @@ go further than the lecture does.
 ### 13. Zhang et al. 2023 — DeepSEED promoter design
 *Zhang, P., Wang, H., Xu, H., Wei, L., Liu, L., Hu, Z. & Wang, X.* Deep flanking sequence engineering for efficient promoter design using DeepSEED. **Nature Communications** 14, 6309 (2023). [doi:10.1038/s41467-023-41899-y](https://doi.org/10.1038/s41467-023-41899-y) · open access · 11 pp · *session 27*
 
-**Model.** A sequence-to-expression model used generatively: design flanking sequence, synthesise, measure. Designed promoters were tested in *E. coli* and in mammalian cells.
+**Model.** A sequence-to-expression model used generatively: design flanking sequence, synthesize, measure. Designed promoters were tested in *E. coli* and in mammalian cells.
 **Data.** Zenodo [doi:10.5281/zenodo.8307150](https://doi.org/10.5281/zenodo.8307150); Supplementary Data 1–3.
-**The question in the figure.** Train something deliberately simple — k-mer regression — on part of the *E. coli* set and test on held-out designs. Then ask what the deep model buys over the simple one, in the units that matter: designs synthesised per success.
+**The question in the figure.** Train something deliberately simple — k-mer regression — on part of the *E. coli* set and test on held-out designs. Then ask what the deep model buys over the simple one, in the units that matter: designs synthesized per success.
 
 ### 14. Jones et al. 2022 — Cello 2.0, and the gate library behind it
 *Jones, T. S., Oliveira, S. M. D., Myers, C. J., Voigt, C. A. & Densmore, D.* Genetic circuit design automation with Cello 2.0. **Nature Protocols** 17, 1097–1113 (2022). [doi:10.1038/s41596-021-00675-2](https://doi.org/10.1038/s41596-021-00675-2) · free copy: MIT DSpace · 17 pp · *sessions 13 and 16*
@@ -219,7 +219,7 @@ project, is the right trade.
 
 **Model.** Termination strength from hairpin thermodynamic stability and its displacement of the U-tract from the DNA/RNA hybrid, fit to the measured set.
 **Data.** Supplementary Tables 2, 3 and 4 as **.xlsx** — 227 natural and 265 synthetic terminators with measured fold-repression. Paywalled main text; library access needed.
-**Build with.** The strongest parts catalogue on this list. Tables 2 and 3 give you a sequence and a measured strength for nearly 500 terminators, 39 of them above 50-fold. If your design needs two genes at a fixed expression ratio, or an operon whose downstream gene must be insulated from its neighbour, you can pick the actual parts and predict the ratio before building anything.
+**Build with.** The strongest parts catalogue on this list. Tables 2 and 3 give you a sequence and a measured strength for nearly 500 terminators, 39 of them above 50-fold. If your design needs two genes at a fixed expression ratio, or an operon whose downstream gene must be insulated from its neighbor, you can pick the actual parts and predict the ratio before building anything.
 
 ### 22. Hooshangi, Thiberge & Weiss 2005 — ultrasensitivity down a cascade
 *Hooshangi, S., Thiberge, S. & Weiss, R.* Ultrasensitivity and noise propagation in a synthetic transcriptional cascade. **PNAS** 102(10), 3581–3586 (2005). [doi:10.1073/pnas.0408507102](https://doi.org/10.1073/pnas.0408507102) · free: PMC552778 · 6 pp · *sessions 12 and 13*
@@ -233,12 +233,12 @@ project, is the right trade.
 
 **Model.** Individually measured miRNA sensor dose-responses, composed as a Boolean expression — miR-21 AND miR-17-30a AND NOT(miR-141) AND NOT(miR-142(3p)) AND NOT(miR-146a) — used to predict classifier selectivity before the circuit was built.
 **Data.** "Available upon request"; Tables S1–S6 are supplementary PDF. [Track B]
-**Build with.** Six characterised sensor modules with measured responses across seven cell lines (Fig. 2D, Tables S1 and S3). This is a classifier construction kit: pick a different target cell, choose the miRNAs that separate it, and compute the false-positive rate your logic would give — the worked example of session 26, on a cell type of your choosing.
+**Build with.** Six characterized sensor modules with measured responses across seven cell lines (Fig. 2D, Tables S1 and S3). This is a classifier construction kit: pick a different target cell, choose the miRNAs that separate it, and compute the false-positive rate your logic would give — the worked example of session 26, on a cell type of your choosing.
 
 ### 24. Mishra et al. 2021 — a toggle with no promoter in it
 *Mishra, D., Bepler, T., Teague, B., Berger, B., Broach, J. & Weiss, R.* An engineered protein-phosphorylation toggle network with implications for endogenous network discovery. **Science** 373(6550), eaav0780 (2021). [doi:10.1126/science.aav0780](https://doi.org/10.1126/science.aav0780) · free: PMC11203391 · *session 18*
 
-**Model.** Bistability from mutual cross-repression between two MAPK phospho-signalling branches, analysed by numerical bifurcation and stochastic simulation — no closed form was tractable.
+**Model.** Bistability from mutual cross-repression between two MAPK phospho-signaling branches, analysed by numerical bifurcation and stochastic simulation — no closed form was tractable.
 **Data.** Main text and supplementary materials; no deposit. [Track B]
 **Build with.** Eleven named phospho-in/phospho-out parts — chimeric fusions plus endogenous high-osmolarity MAPK components — and the bifurcation analysis in supplementary notes 1.5–1.6.7 as a template. Session 9's phase plane transfers to this system unchanged, but the timescale is seconds rather than hours, which makes a different class of design possible. Ask what you would build that needs to switch in seconds.
 
@@ -249,12 +249,12 @@ project, is the right trade.
 **Data.** Supplementary Information is a PDF of 53 figures and 4 tables. Paywalled, no PMC deposit. **[unverified: whether SI Tables 1–4 contain reusable transfer-function parameters. Confirm before choosing this one.]** [Track B]
 **Build with.** The idea more than the parts: the Hill function you derived in session 4 is a logarithm over the right range, so a circuit that computes a ratio needs three transcription factors rather than a gate array. Any design that must report *relative* concentration — a sensor that fires on the ratio of two metabolites rather than a threshold of one — starts here.
 
-### 26. Pitchai et al. 2024 — a conditional parasite, in macaques
-*Pitchai, F. N., Tanner, E. J., Khetan, N., Vasen, G., Levrel, C., Kumar, A. J. et al.* Engineered deletions of HIV replicate conditionally to reduce disease in nonhuman primates. **Science** 385(6709), eadn5866 (2024). [doi:10.1126/science.adn5866](https://doi.org/10.1126/science.adn5866) · free: PMC11545966 · *session 25*
+### 26. Nagoor Pitchai et al. 2024 — a conditional parasite, in macaques
+*Nagoor Pitchai, F. N., Tanner, E. J., Khetan, N., Vasen, G., Levrel, C., Kumar, A. J., … & Weinberger, L. S.* Engineered deletions of HIV replicate conditionally to reduce disease in nonhuman primates. **Science** 385(6709), eadn5866 (2024). [doi:10.1126/science.adn5866](https://doi.org/10.1126/science.adn5866) · free: PMC11545966 · *session 25*
 
 **Model.** A within-host ODE for SHIV, extended so that TIPs are explicit obligate molecular parasites competing for Gag, with conditional replication stated as R₀^TIP > 1. Reported: R₀ ≈ 24 for HIV alone, ≈ 12 with TIPs present. Fit by nonlinear least squares and MCMC.
-**Data.** The best on this list. Code at [github.com/khetanneha/HIV-SIV-TIP-Modeling](https://github.com/khetanneha/HIV-SIV-TIP-Modeling), archived at Zenodo [10.5281/zenodo.11391302](https://doi.org/10.5281/zenodo.11391302) — the archive holds the modelling and visualisation code under GPLv3 plus `Pitchai_et_al_ExperimentalData_File.xlsx`. Sequences at GenBank PP597405–PP597522 and PP646066–PP646153. **The only paper here with a runnable public repository.**
-**Build with.** Table S1 and Fig. 2A give the actual constructs: the original ~2.5 kb *pol–vpr* deletion, TIP-1 with cPPT restored, TIP-2 with *tat/rev/vpu/env* ablated, and the optimised HIV-TIP carrying two smaller deletions. Measured: 94% titre reduction in vitro (Fig. 1C), R₀^TIP by three-colour flow (Fig. 2E–F), 3–4 log₁₀ plasma viral load reduction sustained about thirty weeks (Fig. 3C, 3E). You can design a different deletion and ask what it does to R₀^TIP. The sibling paper for a respiratory virus is Chaturvedi et al., *Cell* 184, 6022–6036.e18 (2021) — SARS-CoV-2 TIPs, GEO GSE184447, Zenodo 5579847, measured R₀ ≈ 1.57 — with a heavier two-compartment model.
+**Data.** The best on this list. Code at [github.com/khetanneha/HIV-SIV-TIP-Modeling](https://github.com/khetanneha/HIV-SIV-TIP-Modeling), archived at Zenodo [10.5281/zenodo.11391302](https://doi.org/10.5281/zenodo.11391302) — the archive holds the modeling and visualization code under GPLv3 plus `Pitchai_et_al_ExperimentalData_File.xlsx`. Sequences at GenBank PP597405–PP597522 and PP646066–PP646153. **The only paper here with a runnable public repository.**
+**Build with.** Table S1 and Fig. 2A give the actual constructs: the original ~2.5 kb *pol–vpr* deletion, TIP-1 with cPPT restored, TIP-2 with *tat/rev/vpu/env* ablated, and the optimized HIV-TIP carrying two smaller deletions. Measured: 94% titre reduction in vitro (Fig. 1C), R₀^TIP by three-color flow (Fig. 2E–F), 3–4 log₁₀ plasma viral load reduction sustained about thirty weeks (Fig. 3C, 3E). You can design a different deletion and ask what it does to R₀^TIP. The sibling paper for a respiratory virus is Chaturvedi et al., *Cell* 184, 6022–6036.e18 (2021) — SARS-CoV-2 TIPs, GEO GSE184447, Zenodo 5579847, measured R₀ ≈ 1.57 — with a heavier two-compartment model.
 
 ### 27. Chaturvedi et al. 2022 — one dose, and it blocks transmission
 *Chaturvedi, S., Beutler, N., Vasen, G., Pablo, M., Chen, X., Calia, G., Buie, L., Rodick, R., Smith, D., Rogers, T. & Weinberger, L. S.* A single-administration therapeutic interfering particle reduces SARS-CoV-2 viral shedding and pathogenesis in hamsters. **PNAS** 119(39), e2204624119 (2022). [doi:10.1073/pnas.2204624119](https://doi.org/10.1073/pnas.2204624119) · free: PMC9522362 · *session 25*
@@ -283,7 +283,7 @@ though they remain assigned:
   why Basu's circuit has the shape it has; it is not itself a built thing.
 - **Alon 2007** — a review, and optional even as a reading.
 - **Andersen et al. 1998** — four measured half-lives, which is a part
-  characterisation rather than a system. Kept as a reading, and Cameron &
+  characterization rather than a system. Kept as a reading, and Cameron &
   Collins (#2) is the project-sized version of the same idea.
 
 Three landmarks are absent for a stated reason. **Elowitz & Leibler 2000** (the

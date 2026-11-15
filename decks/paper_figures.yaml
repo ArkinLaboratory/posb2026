@@ -1325,6 +1325,13 @@ balagadde2008_fig2c:
   provenance: "page 4 at 450 dpi, box (980, 1421)-(3081, 2495); the Figure 2 caption begins at y 2502"
   note: "The caption makes the three time courses and the period inset part of panel C, so the crop carries all of them plus the predator/prey colour legend. The overprinted IPTG label at the top left of the first time course is in the source PDF, not an artefact of the crop. Note also that the three time courses render in a single dark-red ink in this PDF, so the predator/prey legend beside them does NOT distinguish the two traces in that row -- do not ask students to read predator from prey by colour there. The main bifurcation panel above it does render predator in blue."
 
+balagadde2008_fig3c_main:
+  figure: "Fig. 3C (main panel and inset only)"
+  shows: "predator cells against dilution rate D (h^-1), with the oscillation-period inset; the three time courses below the panel are NOT included"
+  used_in: ["s24"]
+  provenance: "page 5 at 450 dpi, box (1117, 1574)-(2591, 2199) -- a strict sub-region of balagadde2008_fig3c's box (1117, 1574)-(2591, 2604), cut 8 November 2026. No ink is altered, added or rearranged; this is the same raster, cropped shorter."
+  note: "Made because slide 69 is the one slide whose instruction needs the small type -- it asks the room to read the panel from its axes and to notice that only the INSET is period. In the full crop the slot is height-bound and the main x-label projects at about 6.1 pt against the deck's 20 pt floor. Dropping the three time courses, which slide 69 never uses, lets the same slot run width-bound instead, magnifying what matters about 1.6x. Resolution is not lost in the sense that matters: the source page is a 300 ppi raster and the glyphs are comfortably resolved, so the same pixels are simply shown larger. The caption may say Fig. 3a only if the panel letter is cropped out; it is not, so cite Fig. 3C. The caption-versus-axes trap recorded on balagadde2008_fig3c applies here unchanged."
+
 balagadde2008_fig3c:
   figure: "Fig. 3C"
   shows: "predator cells against dilution rate D (h^-1) with the oscillation-period inset, and the three time courses at D = 0.1, 0.17 and 0.3 h^-1 below -- sustained oscillation, damped oscillation, washout"
@@ -1412,6 +1419,19 @@ karig2018_fig1:
   shows: "the whole design -- (A) activator A_3OC12HSL and inhibitor I_C4HSL as an abstract activator-inhibitor pair, (B) the genetic implementation with LasR/LasI, RhlR/RhlI, CI, LacI, dsRed and GFP and the IPTG input, and (C) the expected spatial profiles of the two signals, of RFP and GFP, and the resulting cellular lawn"
   used_in: ["s24"]
   provenance: "page 2 of the WITH-SI instructor PDF at 600 dpi, box (2435, 398)-(4548, 3361) of the 4875 x 6526 page; main-text figure, identical in the student copy"
+
+
+karig2018_fig2a:
+  figure: "Fig. 2A"
+  shows: "the experimental result -- representative microscope images of an initially homogeneous isogenic lawn carrying the Turing circuit with no IPTG, with spots in the red channel and voids in the green; scale bar 100 um"
+  used_in: ["s24"]
+  provenance: "page 3 of the OPTIONAL student PDF at 600 dpi, box (352, 400)-(2420, 1180) of the 4875 x 6526 page; cut 14 November 2026"
+
+karig2018_fig3dg:
+  figure: "Fig. 3 D-G"
+  shows: "deterministic against stochastic modelling -- (D) the deterministic reaction-diffusion model patterns when handed a diffusion ratio of 100; (F upper) the same deterministic model at the MEASURED ratio of 21.6 is flat in both channels; (F lower) the stochastic spatiotemporal model at that same 21.6 patterns; (E) and (G) the corresponding pattern statistics over IPTG"
+  used_in: ["s24"]
+  provenance: "page 3 of the OPTIONAL student PDF at 600 dpi, box (2496, 3568)-(4660, 5100) of the 4875 x 6526 page; cut 14 November 2026"
 
 # --- Tsoi, Wu, Zhang, Bewick, Karig & You, PNAS 115(10):2526-2531 (2018) -----
 # "Metabolic division of labor in microbial systems"

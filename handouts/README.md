@@ -16,7 +16,7 @@ Python, no browser automation, no network.
 | | |
 |---|---|
 | [`s01-diagnostic.md`](s01-diagnostic.md) | Session 1, ungraded. Four questions, one from each background the room contains, plus a what-have-you-used grid. Two pages, so it duplexes onto one sheet. |
-| [`s01-launch-problem.md`](s01-launch-problem.md) | Session 1. Three given specifications — arsenic sensor, tumour-selective T cell, nitrogen-fixing cereal — with room to write and a ranking to defend. |
+| [`s01-launch-problem.md`](s01-launch-problem.md) | Session 1. Three given specifications — arsenic sensor, tumor-selective T cell, nitrogen-fixing cereal — with room to write and a ranking to defend. |
 | [`s02-faded-estimates.md`](s02-faded-estimates.md) | Session 2. Four estimates, backward-faded — the first worked in full, the last entirely yours. Start where the scaffolding stops helping you. |
 | [`s03-board-sheet.md`](s03-board-sheet.md) | Session 3. The structure is printed and the algebra is blank, filled in as it goes up on the board. |
 | [`s04-regulation-functions.md`](s04-regulation-functions.md) | Session 4. Where a regulation function comes from. Two items in the room, two on the problem set. |

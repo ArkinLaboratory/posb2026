@@ -1,0 +1,11 @@
+{
+  "artifact": "s25_chain_3.png",
+  "artifact_sha256": "d66bbb59ed6e664e8d5765fb431e1369f92bb94caa7818018dca4921681df208",
+  "artifact_content": "6ae67c12169f0a722e33fee56e0d4108f73373b11ef42bf83d072d9f0ea94ac5",
+  "artifact_bytes": 90669,
+  "deps": {
+    "figures/s25_populations.py": "f0c553912659a255aac7ec4921a073dc88003384b6268ddb448860b2047df0fd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s25_populations.fig_chain_series"
+}

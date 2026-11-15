@@ -24,6 +24,8 @@ Usage:
 """
 import subprocess
 import sys
+import os
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -54,8 +56,24 @@ def run(cmd):
     return subprocess.run(cmd, capture_output=True, text=True)
 
 
+def run_unauthenticated(cmd):
+    """git, with every credential route shut off.
+
+    This file's own docstring says unauthenticated is the only honest test,
+    and until 14 November 2026 it was not doing one: a bare `git ls-remote`
+    uses whatever credential helper is configured, so a PRIVATE repo passes
+    the "is it public" check for the instructor and fails for every student.
+    """
+    env = dict(os.environ,
+               GIT_TERMINAL_PROMPT="0", GIT_ASKPASS="", GCM_INTERACTIVE="never")
+    env.pop("GITHUB_TOKEN", None)
+    env.pop("GH_TOKEN", None)
+    return subprocess.run(["git", "-c", "credential.helper="] + cmd[1:],
+                          capture_output=True, text=True, env=env)
+
+
 def check_repo_public(repo):
-    r = run(["git", "ls-remote", "--heads", "--", repo])
+    r = run_unauthenticated(["git", "ls-remote", "--heads", "--", repo])
     if r.returncode == 0:
         ok(f"repo is reachable without credentials: {repo}")
         return True
@@ -65,7 +83,7 @@ def check_repo_public(repo):
 
 
 def check_branch(repo, branch):
-    r = run(["git", "ls-remote", "--heads", "--", repo])
+    r = run_unauthenticated(["git", "ls-remote", "--heads", "--", repo])
     if r.returncode != 0:
         return False
     if f"refs/heads/{branch}" in r.stdout:
@@ -79,19 +97,47 @@ def check_branch(repo, branch):
 
 
 def check_file(repo, branch, path):
+    """Is the notebook on the branch students will pull?
+
+    THREE OUTCOMES, NOT TWO -- fixed 14 November 2026. This used to catch
+    every exception with a bare `except Exception: pass` and then report the
+    single conclusion "file not found on {branch}". So a local SSL
+    misconfiguration -- a python.org framework build whose CA bundle was
+    never installed -- reported ten notebooks missing that were all present
+    on main, five days before a problem set was due.
+
+    A check that cannot reach the network has not found a missing file. It
+    has failed to look, and that is a different thing with a different fix.
+    Only a 404 is a missing file; everything else is unverified, says so with
+    the real error attached, and does not block a release.
+    """
     owner_repo = repo.removeprefix("https://github.com/").removesuffix(".git")
     raw = f"https://raw.githubusercontent.com/{owner_repo}/{branch}/{path}"
+    req = urllib.request.Request(
+        raw, method="HEAD", headers={"User-Agent": "posb-check-links/1.0"})
     try:
-        req = urllib.request.Request(raw, method="HEAD")
         with urllib.request.urlopen(req, timeout=20) as resp:
             if resp.status == 200:
                 ok(f"file exists on {branch}: {path}")
                 return True
-    except Exception:
-        pass
-    bad(f"file not found on {branch}: {path}",
-        "Pull will SUCCEED, then JupyterLab shows 'Could not find path'")
-    return False
+            warn(f"{path}: unexpected HTTP {resp.status} -- NOT verified")
+            return True
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            bad(f"file not found on {branch}: {path}",
+                "Pull will SUCCEED, then JupyterLab shows "
+                "'Could not find path'")
+            return False
+        warn(f"{path}: HTTP {e.code} {e.reason} -- NOT verified. The file may "
+             f"be fine; this check did not establish it.")
+        return True
+    except Exception as e:
+        warn(f"{path}: {type(e).__name__} -- NOT verified, and NOT a missing "
+             f"file.\n        {e}\n        This check could not reach "
+             f"GitHub. If that is CERTIFICATE_VERIFY_FAILED on a python.org "
+             f"build,\n        run its 'Install Certificates.command' once "
+             f"and try again.")
+        return True
 
 
 def check_urlpath(urlpath, repo, path):

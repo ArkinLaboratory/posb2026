@@ -24,7 +24,16 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SKIP = {".git", "_to_delete", "private", ".ipynb_checkpoints", "node_modules"}
+# Directories this check must not walk. The first five were always here;
+# ".venv" and "_scratch" were added 14 November 2026 after a virtualenv
+# created in the repo root put THREE third-party package READMEs into the
+# BROKEN list -- mdit_py_plugins and playwright, whose own relative links
+# are none of this repository's business -- and blocked a release. Both
+# are already in .gitignore; this walk is a filesystem walk and never
+# learned that. A broken link inside site-packages is not a broken link
+# in the course.
+SKIP = {".git", "_to_delete", "private", ".ipynb_checkpoints",
+        "node_modules", ".venv", "venv", "_scratch"}
 LINK = re.compile(r"\[[^\]]*\]\(([^)\s]+)")
 
 

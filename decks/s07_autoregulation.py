@@ -91,7 +91,7 @@ def build():
     d.title(s, "Three questions, notes closed")
     for i, (n, src, q, c) in enumerate([
             ("1", "From Tuesday",
-             "You measured a fold-change. Name one thing that cancelled out of it and say why that matters for reusing the part.", TEAL),
+             "You measured a fold-change. Name one thing that canceled out of it and say why that matters for reusing the part.", TEAL),
             ("2", "From Tuesday",
              "A helper operator raises the slope and not the ceiling. Which parameter sets the ceiling?", TEAL),
             ("3", "From session 5",
@@ -279,7 +279,7 @@ def build():
         board="LEFT WING, and leave it up:   speed-up λ  ⇒  cost λ, forever   (when λ comes from γ)",
         note=("Build it with them, and resolve the 8-minute vote at step 7 "
               "rather than before.\n"
-              "Step 2 is the one to labour. 'Faster' is not a specification; "
+              "Step 2 is the one to labor. 'Faster' is not a specification; "
               "'faster at the same level' is. Every real brief they are handed "
               "will hold something fixed, and finding out what it is comes "
               "first.\n"
@@ -342,13 +342,13 @@ def build():
           "below p* the gap between the curves is LARGER than it was",
           "the net rate is the vertical distance between them, so it climbs harder"),
          ("Fix the level: put the crossing back",
-          "α  =  α₀ (1 + p*/K)",
-          "α/α₀ is the REPRESSION RATIO: how many-fold the promoter is held down at p*"),
+          "α  =  α_{0} (1 + p*/K)",
+          "α/α_{0} is the REPRESSION RATIO: how many-fold the promoter is held down at p*"),
          ("Pick a design point",
           "K = p*  ⇒  repression ratio 2,  α = 46.2/min",
           "a modest circuit. Rosenfeld's is far more aggressive, and it shows"),
          ("Now the steady-state cost — the vote",
-          "synthesis at p*  =  (γ + μ) p*  =  α₀",
+          "synthesis at p*  =  (γ + μ) p*  =  α_{0}",
           "unchanged. The removal side never moved, so the balance never moved"),
          ("Prove it settles lower, no algebra",
           "at p = 0 both agree;  NAR slope < 0 < open-loop slope",
@@ -393,14 +393,14 @@ def build():
             ("The control is the same cells",
              "aTc binds TetR and stops it binding DNA. Same strain, same growth, same everything — the feedback edge is chemically cut and nothing else changes."),
             ("Read the axes out loud",
-             "time in CELL CYCLES, not minutes, so dilution is normalised out; fluorescence divided by its own final value.")]):
+             "time in CELL CYCLES, not minutes, so dilution is normalized out; fluorescence divided by its own final value.")]):
         y = 1.52 + i * 1.50
         d.shape(s, S.ROUNDED_RECTANGLE, M + 7.4, y, 0.11, 1.30, fill=TEAL,
                 line=None)
         d.text(s, k, M + 7.65, y - 0.02, 4.9, 0.42, size=14.5, font=HEAD,
                bold=True, color=INK)
         d.text(s, txt, M + 7.65, y + 0.38, 4.9, 1.05, size=13, color=BODY)
-    d.foot(s, "Ask first: what is on each axis, and what has been divided out? The normalisation is the experiment.", 6.42)
+    d.foot(s, "Ask first: what is on each axis, and what has been divided out? The normalization is the experiment.", 6.42)
     d.notes(s, "Three minutes on the DESIGN before any interpretation. This is "
                "the habit the course is trying to build — the axes and the "
                "control first, the claim second.\n"
@@ -409,7 +409,7 @@ def build():
                "to one-edge-different as biology gets, and it is why this "
                "paper counts as a measurement of a design principle rather "
                "than a correlation.\n"
-               "ASK: why normalise to the final value? Because otherwise a "
+               "ASK: why normalize to the final value? Because otherwise a "
                "faster rise is indistinguishable from a smaller target — "
                "which is exactly the confound the derivation warned about.")
 
@@ -693,7 +693,7 @@ def build():
     for i, (head, items, c) in enumerate([
             ("KNOBS — what you can change",
              ["the topology — whether the protein regulates its own promoter at all",
-              "the repression ratio α/α₀ — how hard it represses itself",
+              "the repression ratio α/α_{0} — how hard it represses itself",
               "the cooperativity n — oligomerisation, and Tuesday's ω",
               "basal expression — where the low state sits, or whether there is one"],
              TEAL),

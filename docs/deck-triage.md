@@ -4,7 +4,7 @@
 
 A file-by-file verdict on the twenty-one Fall 2025 decks: what survives, what
 merges into what, and what is cut. Produced by extracting all 962 pages,
-normalising the text, and comparing every page against every page of every
+normalizing the text, and comparing every page against every page of every
 earlier deck at a 0.90 similarity threshold.
 
 **Method is reproducible.** Page text via `pdftotext -layout`, lowercased and
@@ -83,7 +83,7 @@ L24 has 7.
 
 ### What this recovers
 
-Cutting the gate-minimisation block (L17, L18 minus Cello) and the six
+Cutting the gate-minimization block (L17, L18 minus Cello) and the six
 recapitulation decks removes roughly **five class periods** of content that
 either duplicates earlier material or teaches Karnaugh maps. That is the budget
 that pays for sessions 20–23.

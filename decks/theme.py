@@ -162,8 +162,18 @@ def first_sentence(txt, limit=105):
 #     "E_{tot} << K_{M} + S_{0}"
 #
 # Braces are required, so a bare underscore in prose is still a bare
-# underscore. Subscript digits (U+2080-2089) are left alone: they are present
-# in both fonts and they read fine.
+# underscore. Subscript DIGITS (U+2080-2089) used to be left alone here, on
+# the grounds that Calibri and Cambria both carry them. They do -- but the
+# teaching machine has NEITHER font installed, so LibreOffice and PowerPoint
+# substitute the metric clones, and Caladea (the Cambria stand-in, which is
+# what titles and row keys are set in) carries no subscript digits at all.
+# R(sub 0) came out as a baseline "o": session 25's defining slide read
+# "Ro is a count". Carlito (for Calibri) does carry them, which is why body
+# text and feet looked fine and the bug hid in the serif face only.
+# So they are in MISSING_GLYPHS below and the markup is used instead, which
+# writes real baseline runs and does not care what fonts exist. Speaker
+# notes are exempt: notes() writes raw text with no markup pass, so the
+# Unicode characters stay there and _check_glyphs never sees them.
 
 _SUB, _SUP = "-25000", "30000"
 
@@ -270,6 +280,12 @@ def _runs(line):
 # nothing at all. So the deck builds clean, the check passes, and the hole is
 # found by the room. Anything added here is caught at build time instead.
 MISSING_GLYPHS = {
+    # Unicode subscript DIGITS, U+2080-2089. Present in Calibri and Cambria,
+    # absent from Caladea, which is what the serif face becomes on a machine
+    # without Cambria -- i.e. the teaching machine. Use _{...} markup.
+    "\u2080": "_{0}", "\u2081": "_{1}", "\u2082": "_{2}", "\u2083": "_{3}",
+    "\u2084": "_{4}", "\u2085": "_{5}", "\u2086": "_{6}", "\u2087": "_{7}",
+    "\u2088": "_{8}", "\u2089": "_{9}",
     # Unicode subscript letters, U+2090-U+209C. Use _{...} markup instead.
     "\u2090": "_{a}", "\u2091": "_{e}", "\u2092": "_{o}", "\u2093": "_{x}",
     "\u2095": "_{h}", "\u2096": "_{k}", "\u2097": "_{l}", "\u2098": "_{m}",
@@ -351,6 +367,24 @@ class Deck:
         # deck cannot keep. Adam, 11 October 2026, on the session 14 rebuild:
         # two adjacent slides were printing 67-73 and 66-71.
         self.show_badges = True
+        # THE ASIDE STANDARD, opt-in. Adam's call, 8 November: adopt it going
+        # forward, leave the taught decks alone -- "They are fine and posted."
+        #
+        # The two derivation methods disagreed about the same element.
+        # `derivation` sets a step aside at 20pt (its `size=` goes through
+        # `scale()`, which maps everything from 12.6 to 17.9 up to body) and
+        # keeps completed asides when the pitch allows. `derivation_fig` set
+        # them at 16pt -- below the floor Adam hand-raised in September -- and
+        # showed only the LIVE one, so the finished page of a run, which is
+        # the page a student who missed the class reads, carried none of the
+        # earlier asides at all. An aside carries the equation its step came
+        # from, which is content.
+        #
+        # Default FALSE on purpose. Flipping the default would change every
+        # step run in twelve decks on the next build, and nine of those are
+        # already posted to bCourses -- the repo would stop matching what
+        # students hold. A deck opts in with `d.aside_standard = True`.
+        self.aside_standard = False
         # Every file this deck actually read while building. Not a guess from
         # the source: the build records what it touched, so tools/manifest.py
         # can later tell whether the .pptx on the teaching machine is older
@@ -851,13 +885,41 @@ class Deck:
                 # punchline. So clamp it into the band above the box instead of
                 # deleting it: one tight line at 13pt, which is what fits.
                 if aside and (asides or live):
-                    ay, ah, asz = (y + max(0.40, eq_h),
-                                   max(0.44, text_height(aside, 7.9,
-                                                         TYPE["caption"])), 14)
+                    # MEASURE AT THE SIZE IT RENDERS AT. `size=` is the legacy
+                    # path through `scale()`, and `scale()` maps EVERYTHING
+                    # from 12.6 to 17.9 onto TYPE["body"] -- so the 14 and the
+                    # 13 below are fictions: both set the aside at 20pt. This
+                    # block measured the box at TYPE["caption"] (16) and then
+                    # filled it at 20, under-measuring every aside by about
+                    # 25%. A one-line aside survived on slack; any aside that
+                    # WRAPPED overflowed its box and no gate said so, because
+                    # nothing in this repo compares a measured box against a
+                    # rendered one. Found 8 November by an agent reading this
+                    # method against its own render.
+                    #
+                    # `derivation_fig` does NOT have this bug: it passes
+                    # role="caption", which resolves straight off TYPE and so
+                    # measures and renders at the same 16. Which leaves a real
+                    # discrepancy, flagged rather than fixed here: the same
+                    # element is 20pt in this method and 16pt in that one.
+                    # Adam has taught with both and the choice is a legibility
+                    # call, not a bug -- see docs/lecture-design.md.
+                    ASIDE_PT = scale(14)            # == TYPE["body"] == 20
+                    ay = y + max(0.40, eq_h)
+                    ah = max(0.44, text_height(aside, 7.9, ASIDE_PT))
+                    asz = 14
                     ceiling = 5.66 if closing else 7.00
                     if ay + ah > ceiling:
-                        ah, asz = 0.22, 13
+                        # Clamp to a line that actually exists at the size
+                        # this will be set in, and SAY SO when the aside
+                        # needed more than one -- the old 0.22 was one line
+                        # at a point size the scale does not have.
+                        ah = text_height("X", 7.9, ASIDE_PT)
                         ay = ceiling - ah - 0.02
+                        if text_height(aside, 7.9, ASIDE_PT) > ah * 1.05:
+                            print(f"  !! aside wraps but only one line fits "
+                                  f"above the closing box "
+                                  f"({len(aside)} chars): {aside!r}")
                     if ay > y + 0.30:          # never on top of the equation
                         self.text(s, aside, M + 4.5, ay, 7.9, ah, size=asz,
                                   italic=True, color=MINT if dark else MUTED)
@@ -892,7 +954,7 @@ class Deck:
         return made[-1]
 
     def derivation_fig(self, badge, label, title, steps, figs, closing=None,
-                       note=None, board=None):
+                       note=None, board=None, label_steps=False):
         """A derivation with a picture that advances alongside the algebra.
 
         WHY THIS EXISTS (18 September 2026). Adam: the proofs on the slides are
@@ -935,7 +997,19 @@ class Deck:
             # narrow glyphs, and counting the markup flagged labels that sit
             # on one line perfectly well.
             for what, txt in (("equation", rhs), ("step label", lhs)):
-                shown = _MARKUP.sub(lambda m: m.group(2), txt)
+                # MEASURE EACH LINE, not the whole string. A step that
+                # deliberately carries two lines -- session 24 puts the
+                # predator's and the prey's equations one above the other --
+                # was measured as a single 63-character line and reported as
+                # wrapping when nothing wrapped. `text_height` already splits
+                # on "\n"; this check did not, so it cried wolf on exactly
+                # the slides where two lines are the point, and a real wrap
+                # would have been lost among its false alarms.
+                longest = max(
+                    (_MARKUP.sub(lambda m: m.group(2), line)
+                     for line in str(txt).split("\n")),
+                    key=len, default="")
+                shown = longest
                 if len(shown) > cap:
                     print(f"  !! split-slide {what} wraps ({len(shown)} "
                           f"rendered chars, cap {cap} at {TYPE['body']}pt): "
@@ -948,7 +1022,30 @@ class Deck:
         for i in range(1, len(steps) + 1):
             s = self.light()
             self._in_step_run = (i != len(steps))
-            self.header(s, badge, "")
+            # THE STEP COUNTER, same as `derivation`. It was added there on
+            # 25 October for the reason spelled out in that method -- five
+            # identically-titled slides cannot otherwise tell the room where in
+            # a run it is, and the counter also restores the grey band so a
+            # step run stops looking like a different deck -- and it was never
+            # carried across to here. So every `derivation_fig` run in the
+            # course shipped with an EMPTY header band: on a deck with
+            # show_badges off, four identically-titled slides with nothing at
+            # all in the eyebrow. Found 8 November by a critic reading
+            # session 25's pages one after another; no gate looks at the
+            # header band.
+            #
+            # ON `label` BEING DISCARDED HERE. It is, and so is `derivation`'s
+            # -- that is the 25 October decision, not a second bug: in a step
+            # run the counter REPLACES the label, because the label is already
+            # the same on every slide of the run and the counter is not. A
+            # critic reading session 24 on 8 November flagged the five dead
+            # labels this deck passes ("build - the length scale, derived",
+            # and four more) as a separate defect. They are dead, but the
+            # repair is for the CALLER to stop passing them or to set
+            # `label_steps`; changing the eyebrow to carry both would restyle
+            # every step run in twelve decks, nine of them already taught.
+            self.header(s, badge,
+                        label if label_steps else f"step {i} of {len(steps)}")
             self._in_step_run = False
             self.title(s, title)
             # The picture. Full height of the body whether or not there is a
@@ -973,18 +1070,25 @@ class Deck:
             # label in a 5.9in column at 20pt is two lines, so the equation
             # under it landed on top of it and the next step landed on both.
             # That was 12 of the 76 overlapping pairs in this session.
-            def _geo(lhs, rhs, aside, live, with_rhs):
+            asz = TYPE["body"] if self.aside_standard else TYPE["caption"]
+
+            def _geo(lhs, rhs, aside, live, with_rhs, keep_asides=True):
                 sz = TYPE["body"] if live else TYPE["caption"]
                 lh = text_height(lhs, TW, sz)
                 rh = text_height(rhs, TW, sz) if (live or with_rhs) else 0.0
-                ah = text_height(aside, TW, TYPE["caption"]) \
-                    if (aside and live) else 0.0
+                show_aside = bool(aside) and (
+                    live or (self.aside_standard and keep_asides))
+                ah = text_height(aside, TW, asz) if show_aside else 0.0
                 return lh + rh + ah, lh, rh, ah
             # Fit the stack; if it will not fit, drop the finished equations
             # and fit again. Completed steps are the RECORD and the live step
             # is the WORK, so the record is what gives way first.
-            for with_rhs in (True, False):
-                geo = [_geo(l, r, a, j == i - 1, with_rhs)
+            # Give way in this order: completed ASIDES first, then completed
+            # EQUATIONS. An aside is the step's provenance and an equation is
+            # the step itself, so the equation is worth more column.
+            for keep_asides, with_rhs in ((True, True), (False, True),
+                                          (False, False)):
+                geo = [_geo(l, r, a, j == i - 1, with_rhs, keep_asides)
                        for j, (l, r, a) in enumerate(steps[:i])]
                 need = sum(g[0] for g in geo)
                 if need + 0.05 * i <= bottom - top:
@@ -1009,8 +1113,14 @@ class Deck:
                     self.text(s, rhs, CX + 0.34, y + lab, TW, eqh, role=role,
                               font=TEXT, bold=True, color=col)
                 if ash:
+                    # Measured with `asz`, so rendered with `asz`. Measuring
+                    # at one size and filling at another is the bug that sat
+                    # in `derivation` until 8 November, where a wrapped aside
+                    # overflowed its box by ~25% with no gate reporting it.
                     self.text(s, aside, CX + 0.34, y + lab + eqh, TW, ash,
-                              role="caption", italic=True, color=MUTED)
+                              role=("body" if self.aside_standard
+                                    else "caption"),
+                              italic=True, color=MUTED)
                 y += block + gap
             if i == len(steps) and closing:
                 self.shape(s, MSO_SHAPE.ROUNDED_RECTANGLE, CX, 5.58, CW, 1.05,

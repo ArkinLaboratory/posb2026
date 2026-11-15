@@ -1,0 +1,11 @@
+{
+  "artifact": "s25_setpoint_valley.png",
+  "artifact_sha256": "efa8f0bbad9536b4ef788edb46ac1b57c57042edb7b953f847880ff7c3aaa42a",
+  "artifact_content": "bba932288b11711844c432e70ef4a8d9b952c64d260d8952488f4119ce459bf2",
+  "artifact_bytes": 129838,
+  "deps": {
+    "figures/s25_populations.py": "f0c553912659a255aac7ec4921a073dc88003384b6268ddb448860b2047df0fd",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s25_populations.fig_setpoint_valley"
+}

@@ -90,7 +90,7 @@ there.
 ## 3. Reading their evidence
 
 Aoki et al. 2019, Fig. 3d. They perturb temperature, 37 °C against 30 °C, and
-measure each strain's growth rate normalised to its own 37 °C rate, $n = 3$.
+measure each strain's growth rate normalized to its own 37 °C rate, $n = 3$.
 They compare each strain's 30 °C values against its 37 °C values with a
 two-tailed unpaired *t*-test that does not assume equal variances. $P$ is the
 probability of seeing a difference at least this large if both sets came from

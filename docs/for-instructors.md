@@ -29,7 +29,7 @@ When it was built for the previous version of this one, it found that a
 20-point problem on retroactivity was supported by exactly two occurrences of
 the phrase "impedance matching" in nineteen lecture decks, both in bullet
 lists. It found that the criterion for oscillation was assessed and never once
-stated. It found that Boolean minimisation was demonstrated eight times and
+stated. It found that Boolean minimization was demonstrated eight times and
 barely assessed.
 
 Then — and this is the part that convinced me it is worth the effort — when the
@@ -223,7 +223,7 @@ These cost several hours to establish empirically, so they are written down.
    A visible test that asserts the answer hands over the answer.
 5. **Question points must equal the sum of that question's test points.**
 6. **Otter randomises student-notebook cell ids on every build.** The builder
-   normalises them so an unchanged rebuild is a no-op; without it, rebuilds
+   normalizes them so an unchanged rebuild is a no-op; without it, rebuilds
    churn ids and manufacture nbgitpuller conflicts.
 
 ### Why we pass `--no-run-tests`
@@ -275,7 +275,7 @@ asserted.
 **Predict before you simulate.** Every worked example computes the expected
 steady state on paper first, then plots the simulation against it. A simulation
 you cannot check independently is not evidence of anything, and this habit is
-the difference between students who catch their own modelling errors and
+the difference between students who catch their own modeling errors and
 students who do not.
 
 **Look for a conservation law and check it.** The cheapest possible test of a

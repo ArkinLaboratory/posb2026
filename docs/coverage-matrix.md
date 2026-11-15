@@ -97,7 +97,7 @@ fix is a decision, not an edit. **One is open: T50.**
 | T31 | Set up a chemical master equation | S12 (Oct 6) | PS6, Final | HAND |
 | T32 | **Write a Gillespie SSA from scratch** | S12 | PS6, Final | AUTO |
 | T33 | Compute CV and Fano factor from trajectories | S12 | PS6, Final | AUTO |
-| T34 | Intrinsic vs. extrinsic noise decomposition (two-colour logic) | S12 | PS6 | HAND |
+| T34 | Intrinsic vs. extrinsic noise decomposition (two-color logic) | S12 | PS6 | HAND |
 | T35 | Bursting: burst size and frequency from parameters | S12 | PS6 | AUTO |
 | T36 | Transfer curve and gain, **d ln out / d ln in** | S13 (Oct 8) | PS6 | AUTO |
 | T37 | Threshold and noise-margin computation | S13 | PS6 | AUTO |
@@ -126,24 +126,53 @@ fix is a decision, not an edit. **One is open: T50.**
 | T54 | Objective-function choice and its consequences | S20 | **PS8** | HAND |
 | T55 | **Derive the retroactivity term** | S21 (Nov 5) | PS8, Final | HAND |
 | T56 | Quantify load effect on an upstream module | S21 | PS8, Final | AUTO |
-| T57 | Insulation via timescale separation (load driver) | S21 | PS8 | MIX |
+| T57 | Insulation via timescale separation (load driver) | S21 | **Final only** | MIX |
 | T58 | Integral feedback → exact adaptation | S22 (Nov 10) | PS8, Final | HAND |
 | T59 | Simulate an antithetic integral controller | S22 | PS8, Final | AUTO |
-| T60 | Quantify disturbance rejection | S22 | PS8 | AUTO |
+| T60 | Show the loop has **no steady state** past d = γμ/θ | S22 | PS8 | AUTO |
+| T60b | Set-point error is **first order in the dilution rate** | S22 | PS8, Final | AUTO |
 | T61 | Mutation–selection model; **time to circuit failure** | S23 (Nov 12) | PS9, Final | AUTO |
 | T62 | Estimate fitness cost from growth data | S23 | PS9 | MIX |
 | T63 | Retention time and containment requirement | S23 | PS9 | AUTO |
 | T64 | Sender/receiver model construction | S24 (Nov 17) | PS9, Final | MIX |
 | T65 | Band-detect / patterning analysis | S24 | PS9 | AUTO |
 | T66 | Diffusion length scale in a community (reuses T2) | S24 | PS9 | AUTO |
+| T76 | Decide whether to split a pathway across strains | S24 | **Guide + Final** | HAND |
 | T67 | **Binomial genome-partitioning calculation** | S25 (Nov 19) | PS9, Final | AUTO |
-| T68 | Minimal gene set reasoning | S25 | PS9 | HAND |
+| T73 | Compute *R*₀ for a therapeutic interfering particle | S25 | PS9, Final | AUTO |
+| T75 | Gene drive: invasion, resistance and containment | S25 | **Guide + Final** | HAND |
 | T69 | **Design a multi-input classifier to a false-positive budget** | S26 (Nov 24) | PS9, Final | AUTO |
 | T70 | Sensitivity/specificity trade-off reasoning | S26 | PS9 | HAND |
 | T71 | Design–filter–validate arithmetic (hit rate) | S27 (Dec 1) | **Final only** | AUTO |
 | T72 | Compare generative design vs. directed evolution yield | S27 | **Final only** | HAND |
-| T73 | Compute *R*₀ for a therapeutic interfering particle | S25 (Nov 19) | PS9, Final | AUTO |
+| T68 | Minimal gene set reasoning | **S28 (Dec 3)** | **Final only** | HAND |
 | T74 | Why similarity-based screening fails on generated sequences | S28 | **Final only** | HAND |
+
+> **Three changes, 7 November 2026.**
+> **T73 moved into session order.** It was appended after T72 when the DIP/TIP
+> material was confirmed into S25 on 19 October, so the table's row order stopped
+> tracking session order — and `private/sources/ps09-PLAN.md` then enumerated
+> "T61–T70" as a contiguous range and silently dropped it. Read this table by
+> filtering the session column, never by reading a range.
+> **T68 moved from S25 to S28.** It was written when S25 was titled "Minimal and
+> synthetic cells"; the DIP/TIP material displaced that, leaving the technique
+> with no source in its own session and no paper here measuring a minimal genome
+> size. S28 already asks what limits the field, which is the question. **It
+> leaves PS9**, which drops from 11 techniques to 10.
+> **T75 is new.** Session 25's gene-drive material was lectured and assessed
+> nowhere, which locked decision 13 makes a gap in the same way an undemonstrated
+> assessment is. It is assessed by the session 25 home guide and on the final,
+> not on PS9 — the pattern locked decision 20 set for sessions 27–28, where a
+> technique reaches the final with the guide as its only practice vehicle.
+> **T76 is new, same reasoning, 7 November 2026.** Session 24's closing move
+> asks when a second strain is worth building — division of labor, on Tsoi
+> 2018 with Tamsir 2011 and Zhou 2015 behind it. It runs five build slides and
+> carried no technique, so decision 13 made it the same kind of gap T75 was.
+> Adam's call was to give it a technique rather than shrink the move. Assessed
+> by the session 24 home guide and on the final; **not on PS9**, which stays at
+> ten techniques, because PS9 posts 19 November and the guide is the practice
+> vehicle. HAND-graded: the item is a design argument with a stated criterion,
+> not an arithmetic result.
 
 ---
 
@@ -209,7 +238,7 @@ With T32 (Gillespie) and T33 (CV and Fano) in hand, PS6 can assess T17 properly:
 
 ### 3. Sessions 27–28 are assessed only on the final
 
-PS9 is due **Dec 3**; session 27 is **Dec 1** and session 28 is **Dec 3** itself. There is no way to assess them on a problem set. So PS9 covers sessions 24–26 only, and T71–T74 are final-exam-only.
+PS9 is due **Dec 3**; session 27 is **Dec 1** and session 28 is **Dec 3** itself. There is no way to assess them on a problem set. So PS9 covers sessions **23–26** — §4 moved the session-23 block onto it on 26 October — and **T68, T71, T72 and T74** are final-exam-only. *(Corrected 14 November 2026. This sentence read “sessions 24–26 only, and T71–T74 are final-exam-only”, which predated §4's rebalance and also miscounted the final-only set: T73 is assessed on PS9 per the technique table above, and T68 is final-only.)*
 
 This is defensible — closing sessions on frontier material and governance — but it means those four techniques get **zero formative practice**. Either accept that and weight them lightly on the final, or move one earlier. Flagged, not fixed.
 
@@ -230,7 +259,7 @@ PS9.**
 | set | out → due | sessions assessed | techniques | n | last taught → due |
 |---|---|---|---|---|---|
 | **PS8** | Nov 5 → Nov 19 | S18, S20, S21, S22 | T45, T51–T60 | **11** | S22 Nov 10 → 9 days |
-| **PS9** | Nov 19 → Dec 3 | S23, S24, S25, S26 | T61–T70, T73 | **11** | S26 Nov 24 → 9 days |
+| **PS9** | Nov 19 → Dec 3 | S23, S24, S25, S26 | T61–T67, T69, T70, T73 | **10** | S26 Nov 24 → 9 days |
 
 Three reasons, the last of which is the decisive one:
 

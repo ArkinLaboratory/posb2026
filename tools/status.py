@@ -135,6 +135,20 @@ def human(d):
         have = [k for k in ASSETS if n[k]]
         a(f"NEXT: session {n['n']}, {n['date']} — {n['title']}")
         a(f"      has: {', '.join(have) if have else 'NOTHING YET'}")
+
+    # NEXT above is the next session BY DATE, which is accurate and, during a
+    # release week, is a session already built and posted -- so it answers a
+    # different question from the one this document is opened to ask. On
+    # 1 November it read "NEXT: session 20" while the week being planned was
+    # 22 and 23. Both lines are true; this is the one a build session needs.
+    CORE = ("plan", "deck", "figures", "handout")
+    todo = [x for x in d["sessions"]
+            if not x["past"] and not all(x[k] for k in CORE)]
+    if todo:
+        u = todo[0]
+        gap = [k for k in CORE if not u[k]]
+        a(f"NEXT UNBUILT: session {u['n']}, {u['date']} — {u['title']}")
+        a(f"      missing: {', '.join(gap)}")
     a("")
     c, tot = d["counts"], d["total_sessions"]
     a(f"plans {c['plan']}/{tot}   decks {c['deck']}   figures {c['figures']}   "

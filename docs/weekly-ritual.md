@@ -165,7 +165,7 @@ simply the wrong picture, so run it at least on the week's two sessions.
 > exactly the cry-wolf failure `tools/manifest.py`'s own docstring says it
 > exists to avoid. `manifest.image_digest()` hashes the decoded pixels plus the
 > size and mode — the same move `content_digest` already made for zips — so a
-> re-encode passes and a resize or a colour-space change still fails.
+> re-encode passes and a resize or a color-space change still fails.
 
 ### F3 · Decks — both sessions
 
@@ -301,7 +301,7 @@ after.
 checks that the deck builds, the pages are current and the links resolve. It
 cannot tell you that a fix is wrong.
 
-On 18 October a review found that a fidelity number had been labelled as
+On 18 October a review found that a fidelity number had been labeled as
 measured when its own source calls it predicted. The fix corrected that
 everywhere — and in correcting it asserted that the overhang standard had been
 *derived from* the ligation measurement. The standard is Patron et al. 2015;
@@ -350,6 +350,40 @@ notebook, the autograder zip, and `psPP-SOLUTIONS.html` for the reader.
 > `preflight.py` compares them and fails. **Treat `posb/` as frozen from here
 > until the set's deadline passes.**
 
+### F5b · The reader brief — release weeks only, and it is not optional
+
+`build_problem_sets` produced `psPP-SOLUTIONS.html`, which is the *answers*.
+The reader needs the *marking decisions*, and they are a different document:
+`private/reader-briefs/psPP.md`. Write it now, from the master, against
+`private/review/brief-bar.md`.
+
+> **Why this step exists.** A2 below has said "send the brief" since week one
+> and the ritual never said to write one. PS6, PS7 and PS8 were built, released
+> and two of them graded with no brief at all — 10, 14 and 19 manual marks
+> respectively — and nothing anywhere went red. `preflight.py` now fails when a
+> set with `manual: true` questions has no brief, so F6 catches this; the
+> remedy is here.
+
+The brief ends with the hash of the master it was checked against:
+
+```bash
+python - <<'EOF'
+import hashlib, pathlib, datetime
+tag = "psPP"
+h = hashlib.sha256(pathlib.Path(f"private/sources/{tag}.py").read_bytes()).hexdigest()
+with open(f"private/reader-briefs/{tag}.md", "a") as f:
+    f.write(f"\n<!-- checked-against: sha256:{h} on "
+            f"{datetime.date.today()} -->\n")
+EOF
+```
+
+**Mtime is not the test and never was.** A brief and its master land seconds
+apart in either order, and a master gets touched afterwards for an out-date
+that cannot invalidate a marking rule — both of which an mtime gate calls a
+failure, and a gate that is always red is a gate nobody reads. The hash fails
+only when the master's *content* moved under the brief, which is the thing that
+makes a marking rule wrong.
+
 ### F6 · Preflight both sessions
 
 ```bash
@@ -357,7 +391,7 @@ python tools/preflight.py NN
 python tools/preflight.py MM --ps PP
 ```
 
-**Both must exit 0** before you go further. WARNs are judgement calls — a
+**Both must exit 0** before you go further. WARNs are judgment calls — a
 session with no handout, a `private/taught/` copy that does not exist yet
 because you have not reviewed it. FAILs are not.
 
@@ -474,15 +508,11 @@ python tools/preflight.py NN
 python tools/preflight.py MM --ps PP
 ```
 
-### S6 · Stage the print copies
+### S6 · (removed) Stage the print copies
 
-```bash
-cp handouts/sNN-<name>.pdf ../2026/handouts-to-print/sNN-<name>-PRINT-THIS.pdf
-cp handouts/sMM-<name>.pdf ../2026/handouts-to-print/sMM-<name>-PRINT-THIS.pdf
-```
-
-`preflight` compares each print copy against the handout it came from. It has
-caught a copy a week stale.
+Handouts are home guides and are not printed. This step, and the `preflight`
+checks that guarded the staged copies, were removed on 7 November 2026. Nothing
+replaces it — go straight from S5 to S7.
 
 ### S7 · Commit the approved decks and any ported edits
 
@@ -567,7 +597,7 @@ not be configured at all until they were rebuilt.
 
 **Configure Autograder** → leave **Zip file upload** selected → upload from
 `private/build/psPP/dist/autograder/` → set **Base Image** (Ubuntu 22.04 Base;
-it greys out after the first successful build) → **Update Autograder**.
+it grays out after the first successful build) → **Update Autograder**.
 
 Watch **Docker Image Status** for *built as of …*. 10–25 minutes.
 
@@ -819,6 +849,13 @@ Send `private/reader-briefs/psPP.md` and
 anywhere public. The brief says what each written question tests, what earns the
 marks, and the mistake that looks like a right answer.
 
+**Do not send a brief that preflight has not passed.** F5b writes it and F6
+checks three things: that it exists, that its `checked-against` hash still
+matches the master, and that every `manual: true` question in the master is
+named in it. A brief can be present and still be missing half the questions —
+that is a PASS on "exists" and a FAIL on coverage, and the reader has no way to
+know which questions she was not given rules for.
+
 ### Sunday gate
 
 ```bash
@@ -850,8 +887,8 @@ python tools/preflight.py NN --ps PP
 
 A different question from Friday's. Friday asked *is it right*; this asks *is
 the file I am about to open still the one my sources make* — the built deck and
-its PDF against the sources, the `private/taught/` copy against that build, the
-print copy against its handout.
+its PDF against the sources, and the `private/taught/` copy against that
+build.
 
 Then the two things no script can see:
 

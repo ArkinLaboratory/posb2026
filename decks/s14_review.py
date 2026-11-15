@@ -496,7 +496,7 @@ def _motion3(d):
 
 
 # ---------------------------------------------------------------------------
-# The log convention — the hardest arithmetic they are asked to recognise
+# The log convention — the hardest arithmetic they are asked to recognize
 # ---------------------------------------------------------------------------
 def _digital(d):
     s = d.light()

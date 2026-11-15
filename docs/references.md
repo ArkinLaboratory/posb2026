@@ -20,7 +20,7 @@ widely available.
 ### Elowitz & Bois, *Biological Circuit Design*
 
 Free and online at **[biocircuits.github.io](https://biocircuits.github.io)**.
-The course materials for Caltech's BE 150, and the closest neighbour to the
+The course materials for Caltech's BE 150, and the closest neighbor to the
 first half of this course. Every narrative chapter is paired with a numbered,
 executable technical appendix that regenerates that chapter's figures from
 scratch, in the same NumPy/SciPy stack used here.
@@ -139,7 +139,7 @@ transcriptional regulators. *Nature* **403**, 335–338 (2000).
 >
 > The **network** is redrawn in our own notation
 > (`figures/s05_expression.py`, `fig_repressilator_ring`) with the tags called
-> out, which the paper's own figure does not emphasise because it was not the
+> out, which the paper's own figure does not emphasize because it was not the
 > paper's point. The **data** panel is reproduced from the paper under
 > `paper_figure("elowitz2000_fig2")` and is cited on the slide.
 

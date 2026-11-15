@@ -29,7 +29,7 @@ the numbers were worse than the impression:
   worked calculation anywhere in the semester.
 - **The criterion for oscillation** was assessed. It was never stated, in words
   or in symbols, at any point in the term.
-- Meanwhile, **Boolean logic minimisation** — Karnaugh maps, gate conversion —
+- Meanwhile, **Boolean logic minimization** — Karnaugh maps, gate conversion —
   was demonstrated eight or more times and assessed lightly.
 
 Separately, roughly a quarter of class time was duplicated content. A
@@ -132,11 +132,11 @@ Presented as decisions, not as settled truths.
 **Digital logic went from roughly seven sessions to two.** The digital
 abstraction is a genuinely useful lens on biological circuits — transfer
 curves, gain, noise margins, and signal matching all transfer directly. Karnaugh
-maps and gate minimisation do not: cells do not have the fan-out or the
+maps and gate minimization do not: cells do not have the fan-out or the
 composability to make automated logic synthesis pay off, which is roughly why
-that research programme plateaued after 2016. The course now teaches the
+that research program plateaued after 2016. The course now teaches the
 abstraction (session 13), then teaches *why the abstraction leaks* (session 16),
-which is more useful than teaching students to minimise Boolean expressions.
+which is more useful than teaching students to minimize Boolean expressions.
 
 **The second half is deliberately unusual.** Resource competition, retroactivity,
 feedback control, evolutionary stability, and containment are underrepresented
@@ -188,7 +188,7 @@ Two harder facts, both visible in `readings.yaml`:
 
 Compare Fall 2025, which reached *Top-Down Design* at lecture 4 and *Logic
 Therapies* at lecture 13. The 2026 rebuild traded early purpose for early rigour.
-That trade is defensible — five sessions of gate minimisation is what it bought
+That trade is defensible — five sessions of gate minimization is what it bought
 back — but it was made silently and it is the reason Part I reads as abstract.
 
 **What was done about it, 7 September 2026.** Not a change to the ramp: the

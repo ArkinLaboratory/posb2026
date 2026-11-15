@@ -52,7 +52,7 @@ $$f_{\text{bound}} = \frac{x/K_d}{1 + x/K_d} = \frac{x}{K_d + x}$$
 > **Worth carrying:** that *is* a Hill function, with $n = 1$ and $K = K_d$.
 > The half-point is at $x = K_d$ — which is what a dissociation constant means.
 
-**▶ Why does that step follow?** $[\mathrm{P}]$ cancelled. Why is that not an
+**▶ Why does that step follow?** $[\mathrm{P}]$ canceled. Why is that not an
 accident of this problem — what would have to be true for it *not* to cancel?
 
 <div class="rule"></div>

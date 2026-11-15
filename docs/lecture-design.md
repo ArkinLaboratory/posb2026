@@ -21,6 +21,10 @@ their transfer to this room.
 
 ---
 
+> **Symbols: [symbols.md](symbols.md)** records which letter means what and
+> which are already taken. Check it before giving a quantity a letter — week 13
+> found λ carrying three meanings across four sessions.
+
 ## The problem this template has to solve
 
 Three things make this course hard to design for, and they pull in different
@@ -71,7 +75,7 @@ Four versions of one derivation, the solution withdrawn a step at a time:
 
 | Item | What students get | Who it serves |
 |---|---|---|
-| 1 | Fully worked, every step labelled | novices — the worked-example effect |
+| 1 | Fully worked, every step labeled | novices — the worked-example effect |
 | 2 | Worked except the **last** step | |
 | 3 | Worked except the **last two** steps | |
 | 4 | Bare problem | experts — the reversal, avoided |
@@ -179,14 +183,14 @@ do not hold up well empirically ([CBE—LSE](https://www.lifescied.org/doi/10.11
 
 ## 5. Slide design
 
-Best-supported rules ([Cromley & Chen 2025](https://experts.illinois.edu/en/publications/a-meta-analysis-of-richard-mayers-multimedia-learning-research-se/) meta-analysis of Mayer's programme; [Adesope & Nesbit 2012](https://www.academia.edu/7820678/Verbal_Redundancy_in_Multimedia_Learning_Environments_A_Meta_Analysis) on redundancy; [Sundararajan & Adesope 2020](https://link.springer.com/article/10.1007/s10648-020-09522-4) on seductive details):
+Best-supported rules ([Cromley & Chen 2025](https://experts.illinois.edu/en/publications/a-meta-analysis-of-richard-mayers-multimedia-learning-research-se/) meta-analysis of Mayer's program; [Adesope & Nesbit 2012](https://www.academia.edu/7820678/Verbal_Redundancy_in_Multimedia_Learning_Environments_A_Meta_Analysis) on redundancy; [Sundararajan & Adesope 2020](https://link.springer.com/article/10.1007/s10648-020-09522-4) on seductive details):
 
 **[A] Do:**
 
 - **Extracted key terms and equations, not sentences.** The contrast is stark:
   *g* ≈ 0.99 for extracted keywords versus *g* ≈ 0.21 for verbatim text
   alongside speech.
-- **Labelled diagrams**, with labels spatially adjacent to what they label.
+- **labeled diagrams**, with labels spatially adjacent to what they label.
 - **Consistent signaling** — the same visual role always looks the same.
 - **Cut decorative content ruthlessly.** The engaging-but-tangential organism
   photograph measurably costs comprehension. This is the "seductive details"
@@ -202,6 +206,28 @@ Best-supported rules ([Cromley & Chen 2025](https://experts.illinois.edu/en/publ
 claim that attention collapses after 10–15 minutes — that last one has been
 looked for and not found ([Wilson & Korn 2007](https://journals.sagepub.com/doi/10.1080/00986280701291291)).
 
+> **Do not confuse this with deck-bar C1, and note that work in this repo has
+> already done so.** On 8 November a brief justified splitting a slide by
+> citing "§5c's one-move-per-click rhythm". There is no such rule: §5c is the
+> *in-class* rhythm — pose, paper, vote, discuss, revote — and the thing the
+> brief wanted is on the Ignore list directly above. Three separate working
+> documents had come to assume a rule that was never written, which is how a
+> heuristic gets laundered into a standard.
+>
+> The real rule is **deck-bar C1: a load-bearing move is BUILT, not stated**,
+> and it is a different claim resting on different grounds. "One idea per
+> slide" is a slide-count heuristic and is ignored here because counting
+> slides measures nothing. C1 is about whether the room can reconstruct a
+> step, and it is satisfied by a step-slide run (§5b) rather than by a slide
+> budget — a four-step build is one idea across four clicks, which the
+> heuristic would call four slides and C1 calls one move done properly.
+>
+> So when a slide has to be split, say which of these is the reason. If the
+> honest answer is "it does not fit", say that instead; on the day this was
+> written the real reason was measured — a 2.97 in figure and four rows
+> needing 4.33 in of a 2.17 in body — and the measurement is a better
+> argument than a rule that does not exist.
+
 **Attach a source to the claim it supports, not to the slide.** A single
 citation in the footer reads as *the source for this slide*, and stops being
 true the moment a second source appears on it. `Deck.sources()` takes
@@ -215,7 +241,7 @@ first one credited.
 **skeletal handout of the same problem four times, with less working each time, during** class **[B]**. The reasoning is that the
 handout is the thing students must construct on, and construction is the point.
 The laptop-versus-longhand finding everyone cites
-([Mueller & Oppenheimer 2014](https://journals.sagepub.com/doi/abs/10.1177/0956797620965541)) **failed to replicate** ([Urry et al. 2021](https://journals.sagepub.com/doi/abs/10.1177/0956797620965541)) **[C]** — do not tell students to close laptops on that basis. Multitasking on a laptop *does* harm neighbours ([Sana et al. 2013](https://www.sciencedirect.com/science/article/pii/S0360131512002254)) **[B]**, which is a different and better argument.
+([Mueller & Oppenheimer 2014](https://journals.sagepub.com/doi/abs/10.1177/0956797620965541)) **failed to replicate** ([Urry et al. 2021](https://journals.sagepub.com/doi/abs/10.1177/0956797620965541)) **[C]** — do not tell students to close laptops on that basis. Multitasking on a laptop *does* harm neighbors ([Sana et al. 2013](https://www.sciencedirect.com/science/article/pii/S0360131512002254)) **[B]**, which is a different and better argument.
 
 ---
 
@@ -264,17 +290,17 @@ the speed at which a person can follow a manipulation they have not seen, and
 the student watches the argument being *made* rather than meeting it finished.
 
 So derivations are built as **step slides**: one slide per step, each identical
-to the last plus one line, the live line in full colour and the earlier ones
+to the last plus one line, the live line in full color and the earlier ones
 dimmed. In the room it advances on the clicker at chalk speed. In the exported
 PDF each page is a step and the final page carries the whole argument, which is
 the artifact a revising student needs. `Deck.derivation()` in `decks/theme.py`
 emits the run from a single list of steps, so the near-duplicate slides cost
 nothing to author and one edit propagates through all of them. **This is only
 affordable because the decks are generated**; a hand-built deck could not carry
-six near-identical surfaces per derivation.
+six near-identical slides per derivation.
 
 `Deck.pacing()` excludes intermediate step slides from the slide-rate check — an
-earlier moment of the same surface is not another slide's worth of material.
+earlier moment of the same slide is not another slide's worth of material.
 
 ### What the board keeps
 
@@ -397,7 +423,7 @@ session's own symbols is not a knob you taught.
 **The Limits column is the one that must not be skipped**, and it is the one
 that is hardest to write, because it requires knowing the derivation's
 assumptions well enough to say what breaks them. It is also what separates a
-course that teaches models from one that teaches modelling.
+course that teaches models from one that teaches modeling.
 
 ### Why the ledger, rather than "applications"
 
@@ -435,19 +461,19 @@ right, and it was a single defect repeated six times rather than six faults.
 Three things follow from that shape, and all three were in the built deck:
 
 - **No segment said what it was about before the algebra started.** One
-  surface read "Two states is not the whole story" above a first equation, to
+  slide read "Two states is not the whole story" above a first equation, to
   a room that had not been shown the circuit, the axes, or the question.
 - **None of the five student releases was followed by the answer.** Students
   worked a problem and then watched an unrelated topic begin. Zero debriefs in
   five opportunities — on a review day, two days before a midterm, where the
-  debrief is the highest-value surface in the segment.
+  debrief is the highest-value slide in the segment.
 - **The outcome went unstated, so vague words filled the gap.** A row headed
   "what that buys" was standing in for *given a wiring diagram and nothing
   else, say what the circuit does — oscillate, latch, or settle — without
   solving anything.* The vagueness was not a writing problem; it was the
   symptom of never having written the outcome down.
 
-Two more symptoms had the same cause. A four-surface run about a Jacobian
+Two more symptoms had the same cause. A four-slide run about a Jacobian
 **never drew a matrix**, in a segment whose exam item asks the student to write
 one. And a panel about drawing a time course had been made abstract — a decaying
 exponential with no gene attached — which drew the question *a trace of what?*
@@ -492,12 +518,12 @@ productive failure, it is unproductive failure with extra steps.
   purpose; a student who got it wrong needs to know *during the hour*, while
   the reasoning is still loaded.
 - Not "take answers from the room" with nothing on screen. Take them from the
-  room first, then **put the answer up**, so the eight people who did not speak
+  room first, then **put the answer up**, so the people who did not speak
   also find out.
 
 ### What this costs
 
-Roughly two extra surfaces per segment. Session 14 went from 37 slides to 51
+Roughly two extra slides per segment. Session 14 went from 37 slides to 51
 for the same content and the same five releases. That is the right trade: the
 added slides are the two that make the other five land.
 
@@ -585,3 +611,31 @@ Stated plainly, because the rest of this page is confident.
 Strongest evidence, clearest mechanism, lowest implementation cost. Add
 generation to a few concept lectures and see whether it earns its twelve
 minutes.
+
+### What a `derivation` run can actually hold (measured 8 November 2026)
+
+Two capacity facts, both learned by building session 25's R0_T derivation and
+both invisible until a run overflows:
+
+**A `derivation` run with a closing box holds at most FOUR steps.** The method
+sets `bottom = 5.52` when a closing box is present and suppresses the asides on
+every step but the live one once the step pitch falls below 0.86in. Four steps
+plus a closing box sits at pitch 0.975 and keeps them; five sits at 0.78 and
+drops them. The asides are where each step records the equation it came from,
+so losing them on the slide that holds the finished argument -- the page a
+student who missed the class reads -- is the worse trade. **Past four steps with
+a closing box, split the run or move it to `derivation_fig`**, which reflows
+instead of suppressing.
+
+**The same element is set at two sizes in the two methods.** A step aside is
+20pt in `derivation` (it goes through the legacy `size=` path, and `scale()`
+maps everything from 12.6 to 17.9 up to `TYPE["body"]`) and 16pt in
+`derivation_fig` (which passes `role="caption"` and so resolves straight off
+the scale). Both have been taught with. It is a real inconsistency and the
+resolution is a legibility call for Adam, not a bug to be fixed quietly: 16pt
+is below the content floor his September pass set, and an aside that carries
+the equation a step came from is content. Flagged, not changed.
+
+*(The under-measurement that sat beside this -- `derivation` measuring its
+aside box at 16 and filling it at 20, so any aside that wrapped overflowed
+silently -- was a genuine bug and is fixed; `theme.py` carries the note.)*

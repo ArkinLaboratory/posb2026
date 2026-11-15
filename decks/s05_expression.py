@@ -103,7 +103,7 @@ def build():
     #
     # The network is drawn in our own notation (figures/s05_expression.py) and
     # the DATA are Elowitz & Leibler's, embedded through paper_figure() so the
-    # public build shows a labelled slot and the classroom build shows the real
+    # public build shows a labeled slot and the classroom build shows the real
     # panel. See private/paper-figures/README.md.
     s = d.light()
     d.header(s, "5 – 8 min", "Why anyone needed this")
@@ -472,7 +472,7 @@ def build():
         d.text(s4, k, M + 0.4, y, 4.4, 0.5, size=15, font=HEAD, bold=True,
                color=WHITE)
         d.text(s4, txt, M + 5.1, y - 0.02, 7.3, 1.1, size=14, color=MINT)
-    d.foot(s4, "Most specifications you will be handed are like this one. Finding out early is the cheapest thing modelling does for you.", 6.3)
+    d.foot(s4, "Most specifications you will be handed are like this one. Finding out early is the cheapest thing modeling does for you.", 6.3)
     d.notes(s4, "B is the majority answer and it is a good one - it is right "
                 "about the tag and wrong about whether it clears the bar.\n"
                 "The point is not that they got it wrong. It is that four "

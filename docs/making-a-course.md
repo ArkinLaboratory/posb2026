@@ -71,7 +71,7 @@ it**. That split is not tidiness; it is what makes the public half publishable:
 - **private** — problem-set masters with solutions, figures scanned from
   papers, supplementary movies, assembled decks, as-taught decks
 
-A deck build embeds a paper figure if it is present and draws a labelled
+A deck build embeds a paper figure if it is present and draws a labeled
 placeholder if it is not, so the public build never carries copyrighted
 material and there is never a public deck and a private deck to keep in sync.
 

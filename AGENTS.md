@@ -67,9 +67,12 @@ handed over. A twenty-file delivery that lands nineteen looks exactly like
 success from this side. See [where-things-live](docs/where-things-live.md),
 which is the tutorial version for Adam.
 
-**3. Never run git in Adam's repositories.** Reads through the file bridge are
-fine. Anything that takes a lock is not: the bridge cannot delete files, so a
-stranded `index.lock` blocks his next commit and only he can clear it.
+**3. Never run git in Adam's repositories.** Not `git status`, not
+`git --version`. Reads through the file bridge are fine. Anything that takes a
+lock is not: the bridge cannot delete files, so a stranded `index.lock` blocks
+his next commit and only he can clear it. Deletion is off generally — `rm`,
+`rmdir` and `unlink` in a connected folder fail with "Operation not permitted",
+so a file that must go moves to a `_to_delete/` subfolder and Adam is told.
 
 **4. Never report a file as written without a tool result proving it.** On
 2 September a runbook section was announced as written, its contents listed in
@@ -77,7 +80,12 @@ prose, and the file was never touched — caught only because a commit showed no
 change to it. Saying it and doing it feel identical from this side. The rule:
 an edit is not reported until a command has read the file back, and a delivery
 is not reported until `handoff.py` or a hash comparison confirms it landed.
-`git status` before claiming completion is not optional.
+
+This rule used to end "`git status` before claiming completion is not
+optional", which contradicted rule 3 one paragraph above it and read as
+permission. At least one agent ran git in the repo on the strength of it. The
+check that rule 4 actually wants takes no lock: read the file back, or compare
+hashes with `handoff.py`.
 
 **5. Verify by rendering, not by reasoning.** These decks and handouts are
 generated, so "it should look right" is not evidence. Convert to PDF, rasterise,
@@ -97,6 +105,15 @@ python tools/build_readings.py [--check]   # docs/readings.md
 python tools/check_schedule.py             # course.yaml vs docs/course-map.md
 python -m pytest tests/ -q
 ```
+
+**The whole toolchain runs on the Mac through `device_bash`.** Python, NumPy,
+SciPy, matplotlib, python-pptx and pytest are all installed there, and
+`pip install --break-system-packages <pkg>` works if something is missing. So
+figures, decks, tests and gates run where the repo lives, and the cloud
+container is needed only for the two things the bridge cannot do: looking at a
+rendered image or PDF page yourself, and sending a file into the chat. Earlier
+practice round-tripped builds through the container and copied artifacts back,
+which is what rule 2's wrong-directory incident grew out of. Don't.
 
 `private/` is a second, private repository mounted inside this one and ignored
 by it. Copyrighted paper figures live in `private/paper-figures/`; the deck

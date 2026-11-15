@@ -1,5 +1,5 @@
 """Session 22 — Robustness and control: rejecting the disturbance instead of
-modelling it.
+modeling it.
 
 Tuesday 10 November 2026. Part II, seventh session. PS8 is out and assesses
 this session; Aoki 2019 was assigned at the close of session 21.
@@ -503,7 +503,7 @@ def _instantiate(d):
     # THE TEXT he could not take in was the figure's own two-line claim block
     # -- which was this slide's foot, repeated word for word INSIDE the axes.
     # Prose on a slide beside the same prose spoken is verbal redundancy;
-    # prose laid over a figure collapses the signalling benefit to g = 0.06
+    # prose laid over a figure collapses the signaling benefit to g = 0.06
     # (docs/lecture-design.md 5). Both copies cannot be right and the one
     # that goes is the one sitting in the data. The figure now carries four
     # direct labels and no key.
@@ -713,7 +713,7 @@ def _motif(d):
     # words on the same surface: mu is a rate, theta is a rate per unit of
     # output, and the difference between those two kinds of number is what
     # makes their ratio a concentration.
-    d.foot(s, "Z₁ is made at the constant rate μ and drives the output. Z₂ is made at rate θ per unit of output. They destroy each other.")
+    d.foot(s, "Z_{1} is made at the constant rate μ and drives the output. Z_{2} is made at rate θ per unit of output. They destroy each other.")
     d.notes(s,
            "Picture first, algebra after. The room has to see what Z1 "
            "and Z2 are before being asked to subtract rate equations."
@@ -736,13 +736,13 @@ def _motif(d):
     d.header(s, "segment 4", "release  ·  two lines of algebra")
     d.title(s, "Subtract them")
     d.rows(s, [
-        ("on the board", "dZ₁/dt = μ − η·Z₁Z₂      dZ₂/dt = θ·X − η·Z₁Z₂"),
-        ("the two rates", "μ is the rate Z₁ is made at. θ is the rate per "
-                          "unit of output that Z₂ is made at. Both belong to "
+        ("on the board", "dZ_{1}/dt = μ − η·Z_{1}Z_{2}      dZ_{2}/dt = θ·X − η·Z_{1}Z_{2}"),
+        ("the two rates", "μ is the rate Z_{1} is made at. θ is the rate per "
+                          "unit of output that Z_{2} is made at. Both belong to "
                           "the controller."),
         ("your turn", "subtract the second from the first."),
         ("then vote", "which quantity in this circuit is the integral of the "
-                      "error?    Z₁    ·    Z₂    ·    X    ·    Z₁ − Z₂",
+                      "error?    Z_{1}    ·    Z_{2}    ·    X    ·    Z_{1} − Z_{2}",
          AMBER),
     ], top=2.05)
     d.foot(s, "You are looking for something you derived twenty minutes ago.")
@@ -798,10 +798,10 @@ def _motif(d):
     d.header(s, "segment 4", "debrief  ·  what the subtraction produced")
     d.title(s, "The set point is the ratio μ / θ")
     d.rows(s, [
-        ("what cancels", "η·Z₁Z₂ is the same term in both lines, so it "
-                           "goes: d(Z₁ − Z₂)/dt = μ − θX. Nothing measured "
+        ("what cancels", "η·Z_{1}Z_{2} is the same term in both lines, so it "
+                           "goes: d(Z_{1} − Z_{2})/dt = μ − θX. Nothing measured "
                            "anything — the chemistry subtracted.", CYAN),
-        ("so u = Z₁ − Z₂", "the difference between the two species is the "
+        ("so u = Z_{1} − Z_{2}", "the difference between the two species is the "
                             "running total of the error. That is the "
                             "integrator the derivation assumed."),
         ("and r = μ / θ", "μ − θX is θ·(μ/θ − X), which is θ·e. So the "
@@ -872,7 +872,7 @@ def _sequestration(d):
         ("19", "a ribosome held by every other mRNA in the cell."),
         ("21", "a regulator held by its own downstream targets — and the "
                "holding was the cost."),
-        ("22", "Z₁ held by Z₂. Aoki built it from a σ factor and its anti-σ "
+        ("22", "Z_{1} held by Z_{2}. Aoki built it from a σ factor and its anti-σ "
                "factor, and the paper's own words are: RsiW stably "
                "SEQUESTERS and holds SigW inactive.", CYAN),
     ], label_color=CYAN)
@@ -900,12 +900,12 @@ def _aoki(d):
     d.rows(s, [
         ("σ factor", "the subunit that tells RNA polymerase which promoters "
                      "to read. SigW switches on P_{sigW} — more SigW, harder "
-                     "that promoter fires. Z₁ is the ACTUATOR.", CYAN),
+                     "that promoter fires. Z_{1} is the ACTUATOR.", CYAN),
         ("anti-σ factor", "binds a σ one-to-one and holds it off the "
                           "polymerase. RsiW comes from P_{BAD}, and AraC "
                           "drives P_{BAD}. AraC IS the controlled output — "
                           "sfGFP is only the reporter that tracks it. "
-                          "Z₂ is the SENSOR.", AMBER),
+                          "Z_{2} is the SENSOR.", AMBER),
         ("why that is an annihilation", "a σ held by its anti-σ does nothing, "
                                         "and the two leave circulation "
                                         "together — one for one, which is "
@@ -974,10 +974,10 @@ def _aoki(d):
            "Their circuit, before anything is claimed about it. This is "
            "the paper they read for today."
            "\n The beige box is the controller they just derived. P_BAD "
-           "makes RsiW, the yellow circle. P_LUX makes SigW, the grey "
+           "makes RsiW, the yellow circle. P_LUX makes SigW, the gray "
            "one. The phi where the two meet is the annihilation — both "
            "of them to nothing."
-           "\n The grey box is the plant — Aoki's own name for it is the "
+           "\n The gray box is the plant — Aoki's own name for it is the "
            "circuit of interest. One promoter, P_sigW, driving araC and "
            "metE together, two tandem copies."
            "\n The blue box is the biology that turns MetE into growth: "
@@ -986,7 +986,7 @@ def _aoki(d):
            "\n Right panel is the control. P_BAD-rsiW is gone. One "
            "module, and everything else identical."
            "\n I make them find the feedback path before I point at it. "
-           "It leaves the grey box and climbs to P_BAD.")
+           "It leaves the gray box and climbs to P_BAD.")
 
     # NOTE 20, VERBATIM: "'Under it'? Poor phrasing. Be exact." The old title
     # was "They put a growth rate under it" and the old rows named the output
@@ -1174,8 +1174,8 @@ def _leak(d):
     d.header(s, "segment 6", "frame  ·  what the derivation assumed")
     d.title(s, "An integrator is not allowed to forget")
     d.rows(s, [
-        ("we assumed", "Z₁ and Z₂ are lost ONLY by annihilating each other. "
-                       "That is what makes Z₁ − Z₂ a perfect running total."),
+        ("we assumed", "Z_{1} and Z_{2} are lost ONLY by annihilating each other. "
+                       "That is what makes Z_{1} − Z_{2} a perfect running total."),
         ("the paper says", "the ideal analysis assumed negligible degradation "
                            "of the controller proteins — and that in living "
                            "cells this fails, in the case of fast-growing "
@@ -1185,7 +1185,7 @@ def _leak(d):
         # axis one surface later, and on the comparison at the close. It had
         # been defined only in the speaker note, and a symbol defined in a
         # note is not defined (bar B1).
-        ("the cell grows", "so Z₁ and Z₂ are diluted along with everything "
+        ("the cell grows", "so Z_{1} and Z_{2} are diluted along with everything "
                            "else in it, at a rate δ. δ is the growth rate, "
                            "and it belongs to the host.", AMBER),
         ("the total leaks", "a running total that is itself being removed is "
@@ -1228,9 +1228,9 @@ def _leak(d):
     d.header(s, "segment 6", "release  ·  find the bound")
     d.title(s, "Where does it run out?")
     d.rows(s, [
-        ("what you have", "dX/dt = k·Z₁ − γX + d, and the set point is "
+        ("what you have", "dX/dt = k·Z_{1} − γX + d, and the set point is "
                           "X = μ/θ."),
-        ("the constraint", "Z₁ is a molecule, so Z₁ ≥ 0. The controller can "
+        ("the constraint", "Z_{1} is a molecule, so Z_{1} ≥ 0. The controller can "
                            "only push the output UP."),
         ("your turn", "the disturbance is positive — something is making X "
                       "on its own. How large can d get before the controller "
@@ -1285,13 +1285,13 @@ def _leak(d):
         "The controller can only push one way",
         [
             ("a steady state holds X still",
-             "0 = k·Z₁ − γX + d",
+             "0 = k·Z_{1} − γX + d",
              "dX/dt = 0. That is all a steady state means."),
             ("put X on the set point",
-             "k·Z₁ = γ·(μ/θ) − d",
+             "k·Z_{1} = γ·(μ/θ) − d",
              "what the plant still needs from the controller"),
-            ("Z₁ is a count of molecules",
-             "Z₁ ≥ 0,  so  γ·(μ/θ) − d ≥ 0",
+            ("Z_{1} is a count of molecules",
+             "Z_{1} ≥ 0,  so  γ·(μ/θ) − d ≥ 0",
              "the controller can ADD X. It has no way to remove any."),
             ("the bound, with numbers in",
              "d ≤ γ·μ/θ = 0.5 × 5 = 2.5",
@@ -1363,7 +1363,7 @@ def _leak(d):
     # row that separates the two failures, whether there is a steady state
     # at all, was the one the prose buried.
     d.image(s, FIG + "s22_two_failures.png", M, 1.52, w=W - 2 * M, h=3.80)
-    # No colour bars on these two. AMBER and TEAL are the figure's two
+    # No color bars on these two. AMBER and TEAL are the figure's two
     # columns, and a bar in either would read as "this limit belongs to that
     # failure", which neither of them does.
     d.rows(s, [
@@ -1421,8 +1421,8 @@ def _leak(d):
                    "dilution, disturbance, saturation at once",
                    show_caption=True)
     d.rows(s, [
-        ("what they assumed away", "unlimited production, and no loss of Z₁ "
-                                   "and Z₂ except to each other."),
+        ("what they assumed away", "unlimited production, and no loss of Z_{1} "
+                                   "and Z_{2} except to each other."),
         ("what they did about it", "simulated it at realistic E. coli "
                                    "numbers, and mapped where the "
                                    "steady-state error stays under 5%."),
@@ -1434,7 +1434,7 @@ def _leak(d):
         ("their conclusion", "at realistic parameters the error is small "
                              "enough, they suggest, to count as perfect "
                              "adaptation in growing cells.", TEAL),
-    # left=7.70, not 7.90: the coloured bar on the last row pushes the body
+    # left=7.70, not 7.90: the colored bar on the last row pushes the body
     # column 0.20in right, which cost a character a line and a line a row.
     ], top=1.86, bottom=6.40, left=7.70, right=W - M, side=False, pad=0.04)
     d.foot(s, "A leak you can put somewhere it does not matter is a design problem, not a dead end.")
@@ -1490,7 +1490,7 @@ def _close(d):
     # counter is the better choice for a fifteen-step derivation, which is
     # what it was added for. Here the header is not a segment label being
     # repeated -- it is the name of a recurring ritual that every session
-    # ends on, and a student should recognise the surface on click one.
+    # ends on, and a student should recognize the surface on click one.
     #
     # THE ONE COST, said out loud rather than discovered: every rhs here is
     # longer than the 56 rendered characters derivation() warns at, so the
@@ -1526,7 +1526,7 @@ def _close(d):
          ("guarantee",
           "exact adaptation to any constant d, in any plant the controller "
           "can move and can see — while the loop is stable, it is lost only "
-          "to itself, and Z₁ has range left.", None),
+          "to itself, and Z_{1} has range left.", None),
          # The note promises that each limit carries its observable. Two of
          # the three did; the actuator's said only that Z1 pins at zero,
          # which is a mechanism and not something you can see from a bench.
@@ -1534,7 +1534,7 @@ def _close(d):
          # NUMBERS.md section 4, and it is what makes the runaway findable
          # from a trace rather than only from the algebra.
          ("limits",
-          "actuator: Z₁ pins at zero and X settles at d/γ. Dilution: the "
+          "actuator: Z_{1} pins at zero and X settles at d/γ. Dilution: the "
           "error tracks the growth rate. Stability: it rings and never "
           "settles.", None)],
         dark=True, label_steps=True)
@@ -1632,7 +1632,7 @@ def _close(d):
         # TWO: "destroy each other" is right at the top of the hour and
         # wrong here. The motif segment spends a slide on the fact that
         # RsiW does not destroy SigW -- it holds it, one for one, and the
-        # cancellation needs only that the two leave together. Asking the
+        # cancelation needs only that the two leave together. Asking the
         # question back in the word the hour retired undoes the correction.
         # "One for one" is fig_motif's own hand-off phrase.
         ("what the set point can depend on",

@@ -1,0 +1,11 @@
+{
+  "artifact": "s24_sender_receiver.png",
+  "artifact_sha256": "2a96c98a0eca5855fe654636482829f1b455b1dce5e7278aa94ed17a715ae183",
+  "artifact_content": "334ae65ce5f9d901d277c5041b32e8e60f67d2200291bbe8d968b930e89121a8",
+  "artifact_bytes": 99987,
+  "deps": {
+    "figures/s24_communities.py": "553df885bf035b8f1813267d94ee404fb822ca7d7b698f0cbce7699217e0072c",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s24_communities.fig_sender_receiver"
+}

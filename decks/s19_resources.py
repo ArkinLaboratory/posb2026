@@ -146,7 +146,7 @@ def _paper(d, s, key, y, h, ref, caption, show_caption=False):
 def _paper_beside(d, s, key, y, h, ref, rows, label_color=TEAL):
     """A TALL paper figure on the left, with the reading of it on the right.
 
-    `_paper` centres a figure at its own aspect, which is right for a wide
+    `_paper` centers a figure at its own aspect, which is right for a wide
     figure and wrong for a tall one: Scott Fig. 4B,C is 0.56 wide for its
     height, so at a full-height 4.6in it is 2.6in across in an 11.9in column
     and the slide reads as empty. Three figures in this deck are like that
@@ -203,7 +203,7 @@ def _paper_beside(d, s, key, y, h, ref, rows, label_color=TEAL):
 
 
 def _fig(d, s, name, y, dpi=160):
-    """Place a figure at its natural size, centred, and return its bottom."""
+    """Place a figure at its natural size, centerd, and return its bottom."""
     from PIL import Image
     w, h = Image.open(ROOT / FIG / f"{name}.png").size
     w, h = w / dpi, h / dpi
@@ -214,7 +214,7 @@ def _fig(d, s, name, y, dpi=160):
             f"{y + h:.2f}in and runs into the foot at {FOOT_Y}. Shorten the "
             f"figure in figures/s19_resources.py -- cut content, not type.")
     # WIDTH GUARD, 26 October. This checked height against the foot and not
-    # width against the slide, so a figure wider than 13.33in was centred at a
+    # width against the slide, so a figure wider than 13.33in was centerd at a
     # NEGATIVE x and hung off both edges. Two were: s19_bifurcation at 14.52in
     # (y-axis label gone, tick labels clipped to "0^-2", the three-line
     # construction argument cut mid-word, "OFF state is destroyed" struck
@@ -335,7 +335,7 @@ def _economy(d):
          "measured cell size and macromolecular composition across media and temperatures, in Salmonella, during balanced growth."),
         ("what they found",
          "mass, RNA, DNA and nuclei per cell are set by THE MEDIUM. Within one medium they barely move — drop the temperature from 37 °C to 25 °C, halve the growth rate, and the cell is the same cell."),
-        ("and the later generalisation",
+        ("and the later generalization",
          "Scott 2014 restates it as composition tracking the GROWTH RATE. Read literally that is not what 1958 found — the temperature result halves λ and moves nothing — but across media it holds, and it is what makes λ a budget you can write an equation about."),
     ])
     d.foot(s, "Scott et al. 2014, restating it fifty-six years later: composition is “correlated simply with the growth rate of the culture, largely independent of the specific nutrients”. Hold both sentences.")
@@ -359,7 +359,7 @@ def _economy(d):
            "A caution about the later literature, because our own foot used "
            "to carry it. Scott 2014 restates this as composition being "
            "\"largely independent of the specific nutrients\" at a given "
-           "growth rate. That is a later and looser generalisation, and read "
+           "growth rate. That is a later and looser generalization, and read "
            "literally it says the opposite of the temperature result. I "
            "quote the 1958 sentence.\n "
            "One more line from their summary that I use two slides on: "
@@ -459,7 +459,7 @@ def _economy(d):
     d.header(s, "segment 1", "build  ·  the two laws")
     d.title(s, "Two straight lines, and they disagree about the sign")
     _fig(d, s, "s19_growth_law", 1.72)
-    d.foot(s, "φ_R^min = 0.07, γ₀ = 5.9 h⁻¹, φ_R^max = ρ·r_{max} ≈ 0.55 — all FITTED or extrapolated, and all three quoted from the Scott et al. 2014 Fig. 2 legend.")
+    d.foot(s, "φ_R^min = 0.07, γ_{0} = 5.9 h⁻¹, φ_R^max = ρ·r_{max} ≈ 0.55 — all FITTED or extrapolated, and all three quoted from the Scott et al. 2014 Fig. 2 legend.")
     d.notes(s,
            "Segment 1 turns here, and it is where I lose people "
            "if I move fast.\n "
@@ -620,7 +620,7 @@ def _instrument(d):
                    show_caption=True)
     d.notes(s,
            "A trace key, because naming them is the job here:\n "
-           "grey dashed — DH10B, no GFP at all. The background.\n "
+           "gray dashed — DH10B, no GFP at all. The background.\n "
            "black — DH10B-GFP, no plasmid. The ceiling.\n "
            "blue — plasmid present, uninduced.\n "
            "orange — Lux induced at time zero, the first arrow.\n "
@@ -692,8 +692,8 @@ def _instrument(d):
            "the other. If burden were a function of output alone, every "
            "point would lie on one curve and there would be no spread to "
            "point at.\n "
-           "Colour carries most of the story: blue is weak-RBS, red is "
-           "strong-RBS, grey is uninduced. The strong-RBS designs are the "
+           "color carries most of the story: blue is weak-RBS, red is "
+           "strong-RBS, gray is uninduced. The strong-RBS designs are the "
            "expensive ones at any given output.\n "
            "The shaded corner is the thing I flag deliberately. They have "
            "drawn a frontier and called the other side unattainable — from "
@@ -815,7 +815,7 @@ def _hidden_edge(d):
     d.title(s, "An edge with no arrow")
     d.rows(s, [
         ("what you just derived",
-         "p₁ depends on d₂. Gene 1's output depends on how hard gene 2 is pulling, for every gene 2 in the cell."),
+         "p_{1} depends on d_{2}. Gene 1's output depends on how hard gene 2 is pulling, for every gene 2 in the cell."),
         ("what a circuit diagram records",
          "nothing. There is no arrow to draw. The two genes are not connected in any sense the schematic knows about."),
     ])
@@ -857,7 +857,7 @@ def _hidden_edge(d):
     d.header(s, "segment 4", "build  ·  the edge, and how to catch it")
     d.title(s, "It looks exactly like repression")
     bot = _fig(d, s, "s19_hidden_edge", 1.70)
-    d.foot(s, "p₁/p₁(d₂=0) = 1/(1 + d₂/(1+d₁)) — a Hill function in d₂, n = 1, K_{app} = 1 + d₁. Both panels normalised the same way: to the output with the competitor absent.")
+    d.foot(s, "p_{1}/p_{1}(d_{2}=0) = 1/(1 + d_{2}/(1+d_{1})) — a Hill function in d_{2}, n = 1, K_{app} = 1 + d_{1}. Both panels normalized the same way: to the output with the competitor absent.")
     d.notes(s,
            "Left panel first, against the numbers they just wrote down.\n "
            "Where the curve comes from, because this is the slide that "
@@ -893,7 +893,7 @@ def _isocost(d):
     d.foot(s, "Until now: who loses when you induce. Now: how much is there to go round at all? Each line is one total demand, spent every possible way — and the sum depends on the total, not the split.")
     d.notes(s,
            "I derive the sum out loud and I keep the qualifier, because "
-           "the identity is false without it. Normalise each output by "
+           "the identity is false without it. normalize each output by "
            "what it would reach alone AT UNLIMITED DEMAND — which is one — "
            "not by what it reaches alone at its own demand. Then p1 + p2 = "
            "(sum of d)/(1 + sum of d), which contains no d1 or d2 "
@@ -1098,7 +1098,7 @@ def _burden_loop(d):
           "the cell charges you for the space — not the amino acids, not the ATP, not the folding. A strong and falsifiable claim, and this is where it survives.", CYAN)])
     d.notes(s,
            "Thirty seconds, and it is the strongest evidence in the paper for "
-           "the modelling choice I flagged two slides back.\n "
+           "the modeling choice I flagged two slides back.\n "
            "Three proteins across four expression systems — and two of the "
            "four series are the SAME protein, beta-galactosidase, driven "
            "from different promoters on different plasmids in different "
@@ -1210,7 +1210,7 @@ def _emergent(d):
            "anyone raises it.\n "
            "They checked it was a steady state rather than a transient: "
            "diluted into fresh medium, grew eight more hours, same "
-           "fraction of ON cells. The panel is labelled 30% ON before and "
+           "fraction of ON cells. The panel is labeled 30% ON before and "
            "32% ON after; the Fig. 1c legend rounds both to about 31%. Say "
            "\"about a third, and it did not move\" — the two-point "
            "difference is a rounding, not a drift, and the room can read "
@@ -1346,12 +1346,12 @@ def _close(d):
     d.notes(s,
            "This is the slide the hour exists for, and session 18 ended "
            "on the same one. Same shape, second instance — if they "
-           "recognise that, the ladder is built.\n "
+           "recognize that, the ladder is built.\n "
            "The middle row is today and it carries the weight. "
            "Sequestration is not an analogy between the three: it is "
            "literally the same move each time — something that should be "
            "free is held by something that binds it, and the holding is "
-           "what produces the behaviour. On Tuesday the holding made a molecule "
+           "what produces the behavior. On Tuesday the holding made a molecule "
            "UNAVAILABLE — and where it hit the switch, it SOFTENED it; the "
            "sharpness came from saturating two enzymes, not from the "
            "holding. Careful not to merge the two. On Tuesday it made a "

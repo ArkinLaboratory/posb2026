@@ -49,11 +49,53 @@ fba        Session 20. Flux balance analysis as a linear program: session 3's
                        problem, vertex solutions and alternate optima, both
                        checkable rather than asserted.
 
+control    Session 22. Antithetic integral feedback: the set point as a ratio
+                       of two controller parameters, the plant's parameters
+                       absent from it, and the two limits where that stops
+                       being true -- actuator saturation and a leaking
+                       integrator.
+
+evolution  Session 23. The first module whose state variable is a fraction of
+                       a POPULATION and whose clock is GENERATIONS. Session
+                       19's burden read a second way, as a selection
+                       coefficient; the exact failure time; and why an onset
+                       in a stability curve counts the lesions escape needs.
+
+communities
+           Session 24. The wire outside the cell. Diffusion time and
+                       penetration depth, Basu's band detector read as a
+                       feed-forward loop in SPACE, and the two-strain
+                       predator-prey chemostat -- including the result that
+                       the signal-free 2-state reduction has tr J < 0 for
+                       EVERY parameter value and so cannot oscillate. The
+                       Hopf is a property of the signals, not of the cells.
+
+populations
+           Session 25. What happens when the construct has to spread on its
+                       own. Diploid packaging as two draws from an urn,
+                       heterozygote waste, the vector's own reproductive
+                       ratio, and the result that making the payload more
+                       potent lowers the ratio that carries it.
+
+classifiers
+           Session 26. The population as the thing being CLASSIFIED. A
+                       classifier as a threshold on a product of continuous
+                       sensor responses rather than a Boolean circuit -- so
+                       the error rates move with the threshold and a budget
+                       for them is possible at all. The marker senses carried
+                       explicitly, because a reversed NOT term is silent; and
+                       a per-cell error rate times a treated population
+                       against a budget of one wrong cell, which is session
+                       23's escapers-per-dose arithmetic with the sign of the
+                       intent reversed.
+
 Everything here is plain NumPy and SciPy. There is no hidden solver, no
 symbolic engine, and no simulation framework. Read the source.
 """
 
-from . import data, stochastic, digital, logic, protein, resources, retroactivity, fba
+from . import (data, stochastic, digital, logic, protein, resources,
+               retroactivity, fba, control, evolution, communities,
+               populations, classifiers)
 from .core import Reaction, Model, Trajectory
 from .analysis import (
     nullcline, fixed_points, jacobian, classify, stability_report,

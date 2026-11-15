@@ -284,12 +284,12 @@ def build():
     s = d.light()
     d.header(s, "21 – 26 min", "At the board  ·  build it term by term")
     d.title(s, "Two fluxes, one matrix")
-    d.text(s, "v₁ = kf[A][B]        v₂ = kr[C]", M, 1.72, 6.0, 0.4,
+    d.text(s, "v_{1} = kf[A][B]        v_{2} = kr[C]", M, 1.72, 6.0, 0.4,
            size=17, font=TEXT, bold=True, color=INK)
     # The matrix, as a table -- built on the board, revealed here.
     d.shape(s, S.ROUNDED_RECTANGLE, M, 2.25, 4.6, 2.0, fill=WASH, line=TEAL,
             lw=1.5)
-    for j, lab in enumerate(["", "v₁  forward", "v₂  reverse"]):
+    for j, lab in enumerate(["", "v_{1}  forward", "v_{2}  reverse"]):
         d.text(s, lab, M + 0.25 + j * 1.5, 2.35, 1.5, 0.3, size=12, bold=True,
                color=MUTED, align="c" if j else "l")
     for i, (sp, row) in enumerate([("A", ("−1", "+1")), ("B", ("−1", "+1")),
@@ -352,7 +352,7 @@ def build():
     d.text(s, "A + B ⇌ C:  S is 3×2 with rank 1, so two conservation laws and one flux mode.        The cascade:  2×4, rank 2 — no conservation laws at all, and two flux modes.",
            M, 3.15, 12.5, 0.35, size=12.5, color=MUTED)
     d.image(s, "figures/build/s03_conservation.png", M, 3.55, 12.5, 2.55)
-    d.foot(s, "Two extra lines of code. It has caught more of my modelling errors than every other check combined.", 6.2)
+    d.foot(s, "Two extra lines of code. It has caught more of my modeling errors than every other check combined.", 6.2)
     d.notes(s, "Eight minutes and it is the linear algebra of the session, so "
                "do it on the board. LEFT first: it is three symbols. For "
                "A + B <-> C, w = (1,0,1) and (0,1,1) both kill S, giving "
@@ -413,8 +413,8 @@ def build():
                "A is the majority answer on the first vote and it comes from a "
                "real intuition: translation does consume something. It "
                "consumes amino acids and GTP, which are not in this model. "
-               "That is worth saying, because it makes B a modelling choice "
-               "rather than a fact, and modelling choices are what this course "
+               "That is worth saying, because it makes B a modeling choice "
+               "rather than a fact, and modeling choices are what this course "
                "is about. "
                "D is the interesting wrong answer -- if the ribosome DID "
                "destroy the message, the stoichiometry would be -1, and there "
@@ -478,7 +478,7 @@ def build():
                "CIRCULATE -- do not work the notebook at the front. They have "
                "it open; reading it aloud is the one way to waste the period. "
                "Expected trouble, in the order it arrives: (1) people who "
-               "cannot get the environment up -- pair them with a neighbour "
+               "cannot get the environment up -- pair them with a neighbor "
                "immediately, do not debug at the front; (2) row order of S not "
                "matching the species order, which is why the notebook passes "
                "species= explicitly; (3) the catalyst zero, again, even after "
@@ -727,12 +727,12 @@ def build():
            M, 5.28, 12.5, 0.45, size=17, font=HEAD, bold=True, color=AMBER)
     d.text(s, "So for our cascade, deleting the mRNA equation costs you 8% of p* at worst, and only during the first few minutes. Whether that is acceptable is a question about what you are using the model for — which is the only kind of answer this question has.",
            M, 5.78, 12.5, 0.55, size=13, color=BODY)
-    d.foot(s, "Tuesday: why it is ε and not ε², what happens near ε = 1, and the systems where this approximation quietly destroys the behaviour you cared about.", 6.5)
+    d.foot(s, "Tuesday: why it is ε and not ε², what happens near ε = 1, and the systems where this approximation quietly destroys the behavior you cared about.", 6.5)
     d.notes(s, "Three minutes. This slide is the reason session 4 is a "
                "derivation rather than a recipe, so do not rush it. "
                "LEFT PANEL: all four parameters gone. Every cascade in the "
                "universe is one of these curves. The dashed line is the "
-               "approximation and the coloured lines are the truth at three "
+               "approximation and the colored lines are the truth at three "
                "separations. "
                "RIGHT PANEL: the max error against eps, on log-log, computed "
                "rather than argued -- and it lies on the line error = eps. Ask "
@@ -743,7 +743,7 @@ def build():
                "The one honest caveat: this is the error in the TRAJECTORY of "
                "a linear cascade. For a nonlinear system, or when the "
                "approximation is inside a feedback loop, small trajectory "
-               "error does not imply small error in the behaviour -- a QSSA "
+               "error does not imply small error in the behavior -- a QSSA "
                "that is 5% wrong can move a bifurcation and delete an "
                "oscillation entirely. Session 11. Do not oversell this slide.")
 

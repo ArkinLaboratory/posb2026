@@ -321,6 +321,7 @@ readings:
   # ---- Part II -----------------------------------------------------------
   s25:
     - key: weinberger2003
+      slide_focus: "Figure 1's model, Table 1's parameters, and Figure 3's threshold surfaces. His D is an inhibition knob."
       cite: "Weinberger, L. S., Schaffer, D. V. & Arkin, A. P. Theoretical design of a gene therapy to prevent AIDS but not human immunodeficiency virus type 1 infection. J. Virol. 77(18), 10028-10036 (2003)."
       short: "Weinberger, Schaffer & Arkin, J Virol 2003"
       doi: "10.1128/JVI.77.18.10028-10036.2003"
@@ -344,6 +345,8 @@ readings:
         produced, in macaques.
 
     - key: noble2018
+
+      slide_focus: "Figure 1B: where every published drive sits relative to the region that invades."
       cite: "Noble, C., Adlam, B., Church, G. M., Esvelt, K. M. & Nowak, M. A. Current CRISPR gene drive systems are likely to be highly invasive in wild populations. eLife 7, e33423 (2018)."
       short: "Noble et al., eLife 2018"
       doi: "10.7554/eLife.33423"
@@ -363,6 +366,8 @@ readings:
         that sentence with the modelling done. Open access.
 
     - key: huangbaltimore1970
+
+      slide_focus: "What a defective interfering particle is, and outcome III in Figure 1: the case that yields nothing."
       cite: "Huang, A. S. & Baltimore, D. Defective viral particles and viral disease processes. Nature 226, 325-327 (1970)."
       short: "Huang & Baltimore, Nature 1970"
       doi: "10.1038/226325a0"
@@ -783,6 +788,7 @@ readings:
 
   s26:
     - key: xie2011
+      slide_focus: "The Boolean expression on p.1308, and Figure 2A's false positive: 20% of the HeLa output."
       cite: "Xie, Z., Wroblewska, L., Prochazka, L., Weiss, R. & Benenson, Y. Multi-input RNAi-based logic circuit for identification of specific cancer cells. Science 333(6047), 1307-1311 (2011)."
       short: "Xie et al., Science 2011"
       doi: "10.1126/science.1205527"
@@ -790,10 +796,12 @@ readings:
       pages: 5
       required: true
       focus: >-
-        The truth table and the six sensor modules behind it, with their
-        measured responses across seven cell lines (Fig. 2D, Tables S1 and S3).
-        Come able to say which miRNA does which job, and what a false positive
-        costs here.
+        The Boolean expression printed on p.1308 and the five sensor modules
+        that implement it -- six miRNA markers, because miR-17 and miR-30a
+        share one -- with their responses across seven named cell lines
+        (Fig. 2D, Fig. 2E). Come able to say which miRNA does which job, and
+        what a false positive costs here: Fig. 2A's caption defines one, at
+        20% of the HeLa output.
       why: >-
         A truth table implemented inside a HeLa cell. The session's worked
         example -- a multi-input classifier held to a false-positive budget --

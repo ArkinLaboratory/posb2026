@@ -2,9 +2,14 @@
 
 [← back to README](../README.md)
 
-Living document. What exists, what does not, and what to do next.
-**Last updated: 24 August 2026 — two days before instruction begins, three before the first lecture.**
-*(Session 3 built since; the block below still stands.)*
+**HISTORICAL, as of 8 November 2026.** This file was written on 24 August, two
+days before instruction began, and it has not tracked the term. Read it for how
+the repository and the deck pipeline are put together — sections 1 and 2 are
+still accurate and still useful — and ignore its dates, counts and priorities.
+
+For **what exists right now**, run `python tools/status.py`, which derives
+everything from the repository and cannot drift. For **what is being built next
+and why**, see the forward plan in `private/log/build-plan-to-final.md`.
 
 ---
 
@@ -51,7 +56,7 @@ Figures resolve at build time:
 | Figure kind | Where it comes from | In the built deck |
 |---|---|---|
 | Generated from `posb` | `figures/build/*.png`, public | always embedded |
-| From a published paper | `private/paper-figures/<key>.png` | embedded **if present**, otherwise a labelled slot naming the exact figure |
+| From a published paper | `private/paper-figures/<key>.png` | embedded **if present**, otherwise a labeled slot naming the exact figure |
 
 So the same command produces your classroom deck on your machine and a
 slot-marked deck in CI or on a fork. `decks/paper_figures.yaml` records every

@@ -67,7 +67,7 @@ They engineered, measured and iterated. The model that fails is the one this
 room just built, which is the honest and more useful version of rule 6.
 
 Numbers: sessions/s23-evolution/NUMBERS.md, every one tagged with its kind.
-Every s in this deck is MODELLED from session 19; the paper reports no
+Every s in this deck is modelED from session 19; the paper reports no
 fitness cost, and the slides say so.
 
 Build:  python tools/build_decks.py s23_evolution
@@ -339,7 +339,7 @@ def _fitness(d):
     ], top=2.00, label_w=3.4)
     # "wild-type GFP levels" was incoherent: wild-type E. coli has no GFP,
     # and a reporter level is not a burden readout in any case. And
-    # "MODELLED, from session 19" claimed a provenance the number does not
+    # "modelED, from session 19" claimed a provenance the number does not
     # have -- session 19's circuit took a tenth of the proteome and cost
     # about 20%, which is the number the room computed on the retrieval
     # slide six slides ago. 0.05 is a stipulated reference, and saying so
@@ -465,7 +465,7 @@ def _limits(d):
         ("s = 0, no burden at all", "q = 1 − exp(−μ t),  and the half-life "
                                     "is ln2 / μ. Pure accumulation; nothing "
                                     "is amplifying anything."),
-        ("μ much less than s", "t₅₀ ≈ ln(s / μ) / s. The mutation rate is "
+        ("μ much less than s", "t_{50} ≈ ln(s / μ) / s. The mutation rate is "
                                 "inside a logarithm. The selection "
                                 "coefficient is not."),
         ("which is the whole design consequence", "failure time is "
@@ -727,7 +727,7 @@ def _measure(d):
                    "")
     # The paper puts no label on this panel's y-axis, so this line is the
     # only place the quantity is named. It has to stay.
-    d.foot(s, "y-axis is log₁₀ fraction viable ≈ the model's broken "
+    d.foot(s, "y-axis is log_{10} fraction viable ≈ the model's broken "
               "fraction q. Day 1 is at detection; day 28 is 10⁻⁶·³.")
     d.notes(s,
            "Before anything is fitted, look at what they measured. Their "
@@ -1229,7 +1229,7 @@ def _competition(d):
         ("the assay", "anaerobic, static, minimal glucose at 37 °C — their "
                       "in vivo-like condition. Add aTc, plate survivors "
                       "for three days."),
-        ("what you are looking at", "log₁₀ fraction viable: survivors with "
+        ("what you are looking at", "log_{10} fraction viable: survivors with "
                                     "aTc over survivors without. Down is "
                                     "killing; the −8 floor means no "
                                     "colonies.", TEAL),

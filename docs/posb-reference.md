@@ -55,7 +55,7 @@ Reaction({}, {"X": 1},                                   # repression
 > **The catalytic pattern is the one to get right.** A species appearing on
 > both sides has **zero** net stoichiometry. Translation does not consume the
 > mRNA. Writing `Reaction({"m": 1}, {"p": 1}, ...)` instead is the single most
-> common modelling error in the first two weeks of the course.
+> common modeling error in the first two weeks of the course.
 
 ### Methods
 
@@ -129,7 +129,7 @@ directly to any integrator you like.
 #### `.summary()`
 
 Human-readable description of the network and its **S** matrix. Print this
-whenever a model is not doing what you expect — most modelling bugs are
+whenever a model is not doing what you expect — most modeling bugs are
 stoichiometry bugs and they are visible here.
 
 ```

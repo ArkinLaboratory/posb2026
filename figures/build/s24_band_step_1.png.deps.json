@@ -1,0 +1,11 @@
+{
+  "artifact": "s24_band_step_1.png",
+  "artifact_sha256": "879f87a0935c224fc1381d00126b114c6aa5d3cbedefbe850e9accfe8bf841e6",
+  "artifact_content": "c6964567a63482502cc5435b9a64911875289cc7def16790d7220c56734b99cc",
+  "artifact_bytes": 41469,
+  "deps": {
+    "figures/s24_communities.py": "553df885bf035b8f1813267d94ee404fb822ca7d7b698f0cbce7699217e0072c",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s24_communities.fig_band_step_1"
+}

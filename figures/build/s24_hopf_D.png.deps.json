@@ -1,0 +1,11 @@
+{
+  "artifact": "s24_hopf_D.png",
+  "artifact_sha256": "a2a17d8158c5988691d6bd463de5c9d57bcc90a2b1f94f3da06373ca4a9cbda0",
+  "artifact_content": "77867cf92a2b12112d5a0ddf2981317ed74f170017839ce48c15bb0b30b39e3d",
+  "artifact_bytes": 136738,
+  "deps": {
+    "figures/s24_communities.py": "553df885bf035b8f1813267d94ee404fb822ca7d7b698f0cbce7699217e0072c",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s24_communities.fig_hopf_D"
+}

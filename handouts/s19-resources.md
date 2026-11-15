@@ -57,7 +57,7 @@ $$\rule{11cm}{0.4pt}$$
 
 ## 2 · The budget
 
-**(a)** Normalise each gene's output by what it would reach **alone at
+**(a)** normalize each gene's output by what it would reach **alone at
 unlimited demand**. Show that
 
 $$p_1 + p_2 = \frac{\sum d}{1 + \sum d}$$
@@ -155,7 +155,7 @@ You cannot insulate. So what *can* you do?
 | lower the demand | |
 | spend it better | |
 | close a loop on burden itself | |
-| characterise in place | |
+| characterize in place | |
 | **what you cannot do** | |
 
 <div class="rule"></div>

@@ -20,7 +20,7 @@ Rung 2 of the ladder (sessions/s20-metabolic/DESIGN.md section 1):
 
 NOT A FOURTH RUNG OF THE SEQUESTRATION LADDER. Session 19's close slide says
 so explicitly, four days before this one: "session 20 is not a fourth rung --
-it is the host's economy again at the level of metabolites." Honour that.
+it is the host's economy again at the level of metabolites." honor that.
 
 THE NUMBER THIS SESSION TURNS ON, and the three qualifications that make it
 true. Fong & Palsson predicted the growth rate of 39 of 50 strains to within
@@ -223,7 +223,7 @@ def _object(d):
     d.header(s, "segment 1", "build  ·  the object, before any model")
     d.title(s, "One branch to burn, one to build")
     d.image(s, FIG + "s20_pathway_2.png", M, 1.95, w=W - 2 * M)
-    d.foot(s, "pgi carries on down glycolysis. zwf commits G6P to the pentose phosphate pathway, which pays a carbon as CO₂ to do it. What does the cell want out of each?")
+    d.foot(s, "pgi carries on down glycolysis. zwf commits G6P to the pentose phosphate pathway, which pays a carbon as CO_{2} to do it. What does the cell want out of each?")
     d.notes(s,
            "zwf by name, because it is one of the six genes they read about "
            "and it gets deleted later in the hour.\n "
@@ -352,8 +352,8 @@ def _matrix(d):
            "the hour would.\n "
            "The answer: −1 on F6P, +2 on T3P, zero on the other four.\n "
            "The picture is up because without it this is a memory test. The "
-           "route to the 2 is on it: G6P is labelled six carbons, T3P is "
-           "labelled triose phosphate, so one F6P makes two of them. Six "
+           "route to the 2 is on it: G6P is labeled six carbons, T3P is "
+           "labeled triose phosphate, so one F6P makes two of them. Six "
            "carbons in, six carbons out. Nothing on the drawing gives them "
            "the coefficient.\n "
            "The two is what I am after. A student who writes +1 has written a "
@@ -704,7 +704,7 @@ def _knockouts(d):
     d.foot(s, "Seven real reactions in this network. Which ones could you get away with deleting?")
     d.notes(s,
            "This is the slide that says why a synthetic biologist is in "
-           "the room. Everything up to here has been a modelling method; "
+           "the room. Everything up to here has been a modeling method; "
            "this is the thing the method is for.\n "
            "Acetate is not a hypothetical. Overflow is the single biggest "
            "carbon leak in an industrial E. coli fermentation, and "

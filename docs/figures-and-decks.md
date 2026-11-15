@@ -54,7 +54,7 @@ repository under a licence that grants everyone the right to redistribute and
 adapt it is not something you have the right to do. The licence would be making
 a promise about someone else's copyright.
 
-So the deck sources here carry **labelled slots** — dashed amber boxes naming
+So the deck sources here carry **labeled slots** — dashed amber boxes naming
 the exact figure — and you drop the images in locally:
 
 ```

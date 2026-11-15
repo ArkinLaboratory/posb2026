@@ -32,7 +32,7 @@ means the word appears nowhere in any of the three.
 
 | Topic in 2025 | Where it lived | Hits in 2026 | Verdict |
 |---|---|---|---|
-| Karnaugh maps, two-level minimisation, canonical forms | L17, L18 | 1 (a syllabus aside) | **Deliberate cut.** Triage §2 is right: this is EE 101, not synthetic biology. |
+| Karnaugh maps, two-level minimization, canonical forms | L17, L18 | 1 (a syllabus aside) | **Deliberate cut.** Triage §2 is right: this is EE 101, not synthetic biology. |
 | Verilog, netlists, circuit scoring, Eugene | L15–L19 | 0 | **Mostly right to cut**, but S16 keeps Cello, and Cello *is* a netlist compiler. Something has to explain what it compiles. |
 | Sequential logic: SR latch, clocked memory, registers | L21 | 0 | **Gap.** S9 builds a toggle, which *is* an SR latch, and never says so. One slide closes this. |
 | Analog computation — log, add, ratiometer | L24 | 0 | ~~**Real loss.** See §3.~~ **CLOSED 20 Sep 2026** — restored as the second half of S13. |
@@ -77,7 +77,7 @@ last year.
 |---|---|---|---|
 | **Hooshangi et al., PNAS 2005** | L03, L04, L13 | Noise propagation through a 3-stage transcriptional cascade — measured, with an ultrasensitivity model | **S12 or S13.** The single best fit for the noise gap. |
 | **Xie et al., Science 2011** | L04, L13–L16 | The HeLa miRNA classifier: a truth table implemented in a cell | **S26**, and the strongest project source in the set |
-| **Gam et al., Nat Comm 2018** | L13–L15 | Antagonistic/synergistic miRNA repression model; classifier optimisation over a design space | S26 |
+| **Gam et al., Nat Comm 2018** | L13–L15 | Antagonistic/synergistic miRNA repression model; classifier optimization over a design space | S26 |
 | **Daniel, Rubens, Sarpeshkar & Lu, Nature 2013** | L24 | Analog log, addition and ratiometer circuits — wide dynamic range from few parts | nowhere; see §3 |
 | **Mishra et al., Science 2021** | L24 | A toggle built from protein phosphorylation, not transcription | **S18**, and it is the natural bookend to S9 |
 | **Bashor et al., Science 2008**; Dueber 2003/2007; O'Shaughnessy, Cell 2011 | L24 | Scaffold-tuned feedback: same network, gain set by recruitment | S18 |
@@ -86,14 +86,14 @@ last year.
 | **Tanner, Kirkegaard & Weinberger, PLoS Genet 2016**; Frensing & Heldt, PLoS One 2013 | L25 | Therapeutic interfering particles; R₀ engineered above 1 | S28, if S28 keeps epidemic dynamics |
 | **Fung et al., Nature 2005** (metabolator) | L21 | A metabolic oscillator — oscillation from flux, not repression | S11 or S20 |
 | **Atkinson et al., Cell 2003**; Danino 2010; Prindle 2012; Chen, Science 2015 | L21 | Relaxation oscillator; synchronised quorum oscillators; two-strain consortium oscillator | S11, S24 |
-| **Chen et al., Nat Methods 2013** (terminators) | L15–L17 | 582 characterised terminators | S17, beside Cambray |
+| **Chen et al., Nat Methods 2013** (terminators) | L15–L17 | 582 characterized terminators | S17, beside Cambray |
 | **Lou et al., Nat Biotech 2012**; Stanton, Nat Chem Biol 2014; Nielsen & Voigt, MSB 2014; Fernandez-Rodriguez, ACS SB 2015 | L15–L17 | Insulation; repressor libraries; CRISPRi circuits; invertase memory | S16, S17, S18 |
 | **Qian & Winfree, Science 2011** | L15, L16 | DNA strand-displacement cascades | nowhere — defensible |
 | **Miller et al., PLoS Comp Biol 2012** (GRO); Jang, ACS SynBio 2012 | L04, L05 | A cell-programming language and simulator | nowhere |
 
 ---
 
-## 3. The three judgement calls
+## 3. The three judgment calls
 
 > **STATUS, 19 October 2026 — all three of the calls below are now settled.**
 > Analog computation was restored to S13 on 20 September. The miRNA classifier

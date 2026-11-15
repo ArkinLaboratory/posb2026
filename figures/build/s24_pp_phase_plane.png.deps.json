@@ -1,0 +1,11 @@
+{
+  "artifact": "s24_pp_phase_plane.png",
+  "artifact_sha256": "1490d305138b849dd1b1d139bd0fe3d50e888fbdfc4efe26ec32f8f926e834eb",
+  "artifact_content": "d9a244139ccd35879dde134a53c3ba9bc1f8c2d1962f3e2ff740386d5aeeecd1",
+  "artifact_bytes": 152222,
+  "deps": {
+    "figures/s24_communities.py": "553df885bf035b8f1813267d94ee404fb822ca7d7b698f0cbce7699217e0072c",
+    "figures/style.py": "15402f3871795dbb67af1ef0d87e229426415a0bdf055aac99293d7a1c2ea651"
+  },
+  "generator": "figures.s24_communities.fig_pp_phase_plane"
+}

@@ -38,7 +38,7 @@ RESTRUCTURED 13 SEPTEMBER — the table, and why
     times a Boltzmann factor, and nothing had said that N_NS e^{+de/kT} is an
     effective dissociation constant.
 
-    The counting IS a two-row table, so the cancellation is a COLUMN: the
+    The counting IS a two-row table, so the cancelation is a COLUMN: the
     factorials, the genome and the absolute energies live in "ways x
     Boltzmann" and die when you divide by the empty row. Derivation 1 now ends
     by naming p = [RNAP]/K_RNAP; the table is built at 29; every architecture after
@@ -313,7 +313,7 @@ def build():
     # because the p they built is a count ratio times a Boltzmann factor.
     #
     # The fix is not to bolt a table on after the algebra. The counting IS a
-    # two-row table, and the cancellation is a COLUMN: everything unmeasurable
+    # two-row table, and the cancelation is a COLUMN: everything unmeasurable
     # lives in "ways x Boltzmann" and dies when you divide by the empty row.
     # This run now stops at p and names it [RNAP]/K_RNAP, which is what makes the
     # activation table's weights the same kind of object.
@@ -343,7 +343,7 @@ def build():
         note=("Build it with them. Ask for the state list before you write "
               "it.\n"
               "Step 2 is where a biologist will stall, so do the count out "
-              "loud: how many ways to put 3 balls in 5 boxes, then generalise. "
+              "loud: how many ways to put 3 balls in 5 boxes, then generalize. "
               "The approximation is worth ten seconds — N_NS is 5e6 and N_P is a "
               "few thousand, so (N_NS − P) is still 5e6.\n"
               "Step 3: say why all those arrangements share one Boltzmann "
@@ -390,7 +390,7 @@ def build():
                "first two. You measure the ratio, and that is the next "
                "surface.\n"
                "This is the format of the handout at 59 minutes and of PS3. "
-               "Say so — they should recognise the columns when the paper "
+               "Say so — they should recognize the columns when the paper "
                "lands in their hands.")
 
     # 5c ADD A REGULATOR -------------------------------------------------------
@@ -420,7 +420,7 @@ def build():
             ("Measure the ratio, not the occupancy",
              "fold-change ≡ p_{bound}(regulator present) / p_{bound}(absent) = F_{reg} (1 + p) / (1 + p F_{reg}). For a WEAK promoter, p << 1, that is F_{reg}.", CYAN),
             ("Now ask what you never needed",
-             "the polymerase count, the size of the genome, and both binding energies. All of them live in p, and p cancelled — but only in the limit above.", AMBER)]):
+             "the polymerase count, the size of the genome, and both binding energies. All of them live in p, and p canceled — but only in the limit above.", AMBER)]):
         y = 1.72 + i * 1.36
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 1.18, fill=c, line=None)
         d.text(s, k, M + 0.45, y, 12.1, 0.42, size=17, font=HEAD, bold=True,
@@ -475,14 +475,14 @@ def build():
                "A is wrong but honest. D is true and irrelevant — the ratio is "
                "what p contains, and it still cancels.\n"
                "THE ENGINEERING POINT, and do not leave it out: p is the core "
-               "promoter. It cancelled. So the fold-change of a regulatory "
+               "promoter. It canceled. So the fold-change of a regulatory "
                "part is the SAME whichever weak promoter you bolt it onto — "
-               "characterise it once, reuse it anywhere. That is why parts "
+               "characterize it once, reuse it anywhere. That is why parts "
                "registries quote fold-change, and it is the first orthogonality "
                "result in this course.\n"
                "And C is the failure condition for exactly that reuse. On a "
                "strong promoter the two knobs stop being independent and your "
-               "characterisation stops transferring. Modularity is not a "
+               "characterization stops transferring. Modularity is not a "
                "property of the part; it is a property of the regime.\n"
                "Record the distribution. Say out loud: every limit in this "
                "course is a condition you have to know you are standing in.")
@@ -499,25 +499,25 @@ def build():
             ("The algebra, in one line",
              "p_{bound}(reg)/p_{bound}(none) = [pF/(1+pF)] · [(1+p)/p] = F_{reg}(1+p)/(1+pF_{reg}). For p << 1 that is F_{reg}."),
             ("p is the core promoter",
-             "and it cancelled. So the same regulatory part, bolted onto any WEAK promoter, gives the same fold-change. Characterise it once, reuse it anywhere."),
+             "and it canceled. So the same regulatory part, bolted onto any WEAK promoter, gives the same fold-change. characterize it once, reuse it anywhere."),
             ("Which is why datasheets quote fold-change",
              "not molecules. The number transfers between hosts and constructs; an absolute occupancy does not."),
             ("And C is that reuse breaking",
-             "on a strong promoter the two knobs stop being independent and your characterisation stops transferring. Modularity is a property of the REGIME, not of the part.")]):
+             "on a strong promoter the two knobs stop being independent and your characterization stops transferring. Modularity is a property of the REGIME, not of the part.")]):
         y = 1.85 + i * 1.12
         d.shape(s, S.ROUNDED_RECTANGLE, M, y, 0.12, 0.94, fill=CYAN, line=None)
         d.text(s, k, M + 0.4, y, 4.6, 0.45, size=16, font=HEAD, bold=True,
                color=WHITE)
         d.text(s, txt, M + 5.3, y - 0.02, 7.1, 0.95, size=16, color=MINT)
     d.foot(s, "Session 17 calls this composability and spends a whole period on when it fails. You have just derived the condition.", 6.4)
-    d.notes(s, "B is the majority answer and it is right about the cancelling "
+    d.notes(s, "B is the majority answer and it is right about the canceling "
                "and wrong about the condition.\n"
                "Do not rush the third box. Every part registry in synthetic "
                "biology quotes fold-change, and most students have never asked "
                "why. It is because that is the number that survives being "
                "moved.\n"
                "The fourth box is the one that will matter to them in the "
-               "project: a characterisation taken on a weak promoter does not "
+               "project: a characterization taken on a weak promoter does not "
                "transfer to a strong one, and nothing about the part changed.")
 
     # 7 ACTIVATION — the same table, two more rows ------------------------------
@@ -589,7 +589,7 @@ def build():
         d.text(s, opt, M + 0.85, y + 0.09, 11.6, 0.4, size=20, color=BODY)
     d.foot(s, "You need one number before you can answer: the log–log slope the specification is asking for. Three minutes.", 6.3)
     d.notes(s, "The slope required is log10/log4 = 1.66.\n"
-               "A does nothing: the core promoter is in p, and p cancelled.\n"
+               "A does nothing: the core promoter is in p, and p canceled.\n"
                "B cannot work. s = (sqrt(f)-1)/(sqrt(f)+1) is below 1 for "
                "every finite f, so no contact energy gets a single site past "
                "1, let alone 1.66.\n"
@@ -616,9 +616,9 @@ def build():
                    "Bintu et al., Curr Opin Genet Dev 2005, Fig. 2",
                    "λ P_{RM} — the same result, their axes")
     for i, (k, txt) in enumerate([
-            ("cI₂ at O_{R}2 activates",
+            ("cI_{2} at O_{R}2 activates",
              "that is the site with the contact. Its enhancement factor is f ≈ 11."),
-            ("cI₂ at O_{R}1 only helps",
+            ("cI_{2} at O_{R}1 only helps",
              "it does not touch polymerase. It recruits the OTHER dimer, through ω."),
             ("So full activation is unchanged",
              "both curves saturate at f. The helper cannot raise the ceiling because it is not what fires the promoter.")]):
@@ -666,11 +666,11 @@ def build():
     d.title(s, "The same calculation, four times")
     for i, (n, k, txt, c) in enumerate([
             ("1", "Fully worked — simple repression",
-             "lacUV5 truncated to one operator, LacI₄ at O_{m}. Every step labelled. Read it; do not copy it.", TEAL),
+             "lacUV5 truncated to one operator, LacI_{4} at O_{m}. Every step labeled. Read it; do not copy it.", TEAL),
             ("2", "The last step is yours — λ P_{RM}",
-             "cI₂ at O_{R}2 and O_{R}1, with ω. Four states, then the sum. Check that ω → 1 gives you two independent sites.", CYAN),
+             "cI_{2} at O_{R}2 and O_{R}1, with ω. Four states, then the sum. Check that ω → 1 gives you two independent sites.", CYAN),
             ("3", "On PS3 — two different proteins",
-             "melAB: MelR₂* activates at O2, CRP₂* helps at O1 and does not itself activate. Whose f appears in the answer?", MUTED),
+             "melAB: MelR_{2}* activates at O2, CRP_{2}* helps at O1 and does not itself activate. Whose f appears in the answer?", MUTED),
             ("4", "On PS3 · the design item",
              "Build a promoter whose fold-change is AND-like. Give the truth table, and say which knob you turned to get it.", MUTED)]):
         y = 1.85 + i * 1.15
@@ -702,7 +702,7 @@ def build():
     for i, (n, ans, prompt, c) in enumerate([
             ("1",
              "three states, not four:  F_{reg} = 1/(1 + [R]/K_{m})",
-             "LacI on O_{m} and RNAP on the promoter overlap, so the doubly-occupied state does not exist and is simply absent from the sum. Repression has no f in it — there is no contact to charge for. This is session 4's answer, reached by counting instead of by cancelling the polymerase weight.",
+             "LacI on O_{m} and RNAP on the promoter overlap, so the doubly-occupied state does not exist and is simply absent from the sum. Repression has no f in it — there is no contact to charge for. This is session 4's answer, reached by counting instead of by canceling the polymerase weight.",
              TEAL),
             ("2",
              "four states:  F_{reg} = (1 + fa + h + fωah)/(1 + a + h + ωah)",
@@ -748,7 +748,7 @@ def build():
             ("The knobs they had",
              "three site affinities and two cooperativities. Nothing else — and every one of them is on your board from minute 12."),
             ("The parameters are measured, not fitted to the answer",
-             "ΔG₁ = −11.69, ΔG₂ = −10.10, ΔG₃ = −10.09, ΔG₁₂ = −1.99 kcal/mol. DNase protection, 37 °C, 0.2 M KCl. Then the model predicts both curves with no further adjustment."),
+             "ΔG_{1} = −11.69, ΔG_{2} = −10.10, ΔG_{3} = −10.09, ΔG_{12} = −1.99 kcal/mol. DNase protection, 37 °C, 0.2 M KCl. Then the model predicts both curves with no further adjustment."),
             ("Which is the job you will be given",
              "a specification with more outputs than inputs, and a parts list. Evolution solved this one; Gardner solves it deliberately in session 9.")]):
         y = 1.55 + i * 1.15
