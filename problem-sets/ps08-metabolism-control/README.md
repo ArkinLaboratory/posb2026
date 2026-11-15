@@ -19,7 +19,7 @@ Session 20 writes a coupling down *exactly*, with no rate constants in it, and
 finds that exactness is not the same as enough. Session 21 takes a coupling
 your diagram *mis-draws* — an arrow that is really a binding site — and prices
 it. Session 22 builds a controller that rejects a disturbance without
-modelling it, and then watches dilution, which is session 19's problem, eat
+modeling it, and then watches dilution, which is session 19's problem, eat
 the guarantee.
 
 | | |
@@ -56,7 +56,7 @@ the error bars and the sample size before you decide what the number supports.
 
 ### What the visible tests do
 
-They check shape, sign, structure and limiting behaviour — not your exact
+They check shape, sign, structure and limiting behavior — not your exact
 numbers. A test that passes means your function returns the right *kind* of
 thing and behaves correctly where the answer is forced: at zero load, at
 saturation, in the limit where a parameter goes away. **The values are checked
